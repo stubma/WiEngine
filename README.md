@@ -41,8 +41,8 @@ Tools Supported
  * Animation Tool: SpriteX 3.9.4, download: [http://wiengine.wiyun.com/tools/spx3.rar][2]
  * Animation Tool: SpriteX 2011, trail download: [http://wiengine.wiyun.com/tools/SpriteX_2011_free_version.rar][3], full version is not free
  * Animation Tool: Arctic, download: [http://wiengine.wiyun.com/tools/Arctic_0.2.5.zip][4]
- * Animation Tool: AuroraGT 0.7.3, download: [http://wiengine.wiyun.com/tools/AuroraGT 0.7.3.zip][5]
- * Particle Tool: Particle Designer, please download it from [http://particledesigner.71squared.com/][6]. This tool only support Mac OS X but somebody has ported it to Windows, you can download ported version here: [http://code.google.com/p/cocos2d-windows-particle-editor/">http://code.google.com/p/cocos2d-windows-particle-editor/
+ * Animation Tool: AuroraGT 0.7.3, download: [http://wiengine.wiyun.com/tools/AuroraGT_0.7.3.zip][5]
+ * Particle Tool: Particle Designer, please download it from [http://particledesigner.71squared.com/][6]. This tool only support Mac OS X but somebody has ported it to Windows, you can download ported version here: [http://code.google.com/p/cocos2d-windows-particle-editor/][17]
  * Particle Tool: HGE Particle Ed, please download it from [http://hge.relishgames.com/][7]
  * Bitmap Font Tool: HGE Font Ed, download from [http://wiengine.wiyun.com/tools/HGE_Bitmap_Font_Editor.zip][8]. WiEngine makes some modification for it, the difference with original version can be learned from README.txt
  * Bitmap Font Tool: Glyph Designer, please download it from [http://zwoptexapp.com/][9]
@@ -58,7 +58,7 @@ Tools Supported
 [2]: http://wiengine.wiyun.com/tools/spx3.rar
 [3]: http://wiengine.wiyun.com/tools/SpriteX_2011_free_version.rar
 [4]: http://wiengine.wiyun.com/tools/Arctic_0.2.5.zip
-[5]: http://wiengine.wiyun.com/tools/AuroraGT 0.7.3.zip
+[5]: http://wiengine.wiyun.com/tools/AuroraGT_0.7.3.zip
 [6]: http://particledesigner.71squared.com/
 [7]: http://hge.relishgames.com/
 [8]: http://wiengine.wiyun.com/tools/HGE_Bitmap_Font_Editor.zip
@@ -70,3 +70,4 @@ Tools Supported
 [14]: http://texturepacker.com/
 [15]: http://www.physicseditor.de/features/
 [16]: http://www.mapeditor.org/
+[17]: http://code.google.com/p/cocos2d-windows-particle-editor/
