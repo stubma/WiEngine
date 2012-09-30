@@ -1,0 +1,3125 @@
+$#include "WiEngine.h"
+
+enum wyTexture2D::TextAlignment {
+	wyTexture2D::LEFT,
+	wyTexture2D::CENTER,
+	wyTexture2D::RIGHT
+};
+
+enum wyFontStyle {
+	/// 正常字体
+    NORMAL = 0,
+
+    /// 粗体类型
+    BOLD   = 0x01,
+
+    /// 斜体类型
+    ITALIC = 0x02,
+
+    /// 粗斜体类型
+    BOLD_ITALIC = 0x03
+};
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAssetOutputStream_h__
+
+/**
+ * @class wyAssetOutputStream
+ *
+ * \if English
+ * A cross platform output stream implementation for writing resources
+ * \else
+ * 封装写文件操作
+ * \endif
+ */
+class wyAssetOutputStream : public wyObject {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param path write file path
+	 * @param append append file
+	 * @return \link wyAssetOutputStream wyAssetOutputStream\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param path 写入文件完整路径
+	 * @param append true为追加模式,默认false
+	 * @return \link wyAssetOutputStream wyAssetOutputStream\endlink
+	 * \endif
+	 */
+	static wyAssetOutputStream* make(const char* path, bool append = false);
+
+    virtual ~wyAssetOutputStream();
+
+	/**
+	 * \if English
+	 * open asset
+	 *
+	 * @return true means successful
+	 * \else
+	 * 打开相关的Asset资源
+	 *
+	 * @return true表示打开成功
+	 * \endif
+	 */
+	virtual bool open();
+
+	/**
+	 * \if English
+	 * close asset
+	 * \else
+	 * 关闭Asset
+	 * \endif
+	 */
+	virtual void close() = 0;
+
+	/**
+	 * \if English
+	 * write char data
+	 *
+	 * @param data char data
+	 * @param len character count in \c data
+	 * @return byte write actually, -1 means error
+	 * \else
+	 * 写入内容
+	 *
+	 * @param data 写入内容
+	 * @param len \c data中字节个数
+	 * @return 实际写入的字节块数, -1表示出错
+	 * \endif
+	 */
+	virtual int write(const char* data, size_t len) = 0;
+
+	/**
+	 * \if English
+	 * write int data
+	 *
+	 * @param data int data
+	 * @param len count of integer in \c data
+	 * @return byte write actually, -1 means error
+	 * \else
+	 * 写入int内容
+	 *
+	 * @param data 写入int内容
+	 * @param len \c data中整数的个数
+	 * @return 实际写入的字节块数, -1表示出错
+	 * \endif
+	 */
+	virtual int write(const int* data, size_t len) = 0;
+    
+    /**
+	 * \if English
+	 * get offset from start to current position
+	 *
+	 * @return offset from start to current position
+	 * \else
+	 * 得到当前读取位置相对于头部的偏移
+	 *
+	 * @return 当前读取位置相对于头部的偏移
+	 * \endif
+	 */
+	virtual int getPosition() = 0;
+
+	/**
+	 * \if English
+	 * change pointer position
+	 *
+	 * @param offset offset
+	 * @param mode seek mode
+	 * @return new offset after changed
+	 * \else
+	 * 改变指针位置
+	 *
+	 * @param offset 偏移
+	 * @param mode SEEK_CUR表示从当前位置计算, SEEK_SET表示从开头计算, SEEK_END表示从结尾处计算
+	 * @return 修改后的实际位置
+	 * \endif
+	 */
+	virtual int seek(int offset, int mode) = 0;
+};
+
+#endif // __wyAssetOutputStream_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAssetInputStream_h__
+
+
+/**
+ * @class wyAssetInputStream
+ *
+ * 封装一个Asset资源, 将其包装成一个输入流, 可以在其上执行read, seek等
+ * 通用IO方法. 在iOS平台, asset会通过WYResMap映射到相关文件.
+ */
+class wyAssetInputStream : public wyObject {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param resId resource id
+	 * @return \link wyAssetInputStream wyAssetInputStream\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param resId 资源文件id
+	 * @return \link wyAssetInputStream wyAssetInputStream\endlink
+	 * \endif
+	 */
+	static wyAssetInputStream* make(int resId);
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param path file path
+	 * @param isFile true means \c path is an absolute path in file system, false
+	 * 		means path is relative path in assets
+	 * @return \link wyAssetInputStream wyAssetInputStream\endlink
+	 * \else
+	 * 静态 构造函数
+	 *
+	 * @param path 文件路径
+	 * @param isFile true表示path是一个文件系统路径, false表示path是一个asset下的路径
+	 * @return \link wyAssetInputStream wyAssetInputStream\endlink
+	 * \endif
+	 */
+	static wyAssetInputStream* make(const char* path, bool isFile = false);
+	
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyAssetInputStream();
+
+	/**
+	 * \if English
+	 * get buffer of resource, it contains all data
+	 *
+	 * @return buffer contains data of resource
+	 * \else
+	 * 载入文件所有内容, 返回一个缓冲区, 返回的缓冲区需要调用者负责释放
+	 *
+	 * @return 包含文件所有内容的缓冲区
+	 * \endif
+	 */
+	virtual char* getBuffer() = 0;
+
+	/**
+	 * \if English
+	 * get offset from start to current position
+	 *
+	 * @return offset from start to current position
+	 * \else
+	 * 得到当前读取位置相对于头部的偏移
+	 *
+	 * @return 当前读取位置相对于头部的偏移
+	 * \endif
+	 */
+	virtual int getPosition() = 0;
+
+	/**
+	 * \if English
+	 * get length of all data
+	 *
+	 * @return length of all data
+	 * \else
+	 * 得到所有可读的数据字节长度
+	 *
+	 * @return 所有数据长度
+	 * \endif
+	 */
+	virtual int getLength() = 0;
+
+	/**
+	 * \if English
+	 * get length of available data
+	 *
+	 * @return length of available data
+	 * \else
+	 * 返回还能读取的字节数
+	 *
+	 * @return 还能读取的字节数
+	 * \endif
+	 */
+	virtual int available() = 0;
+
+	/**
+	 * \if English
+	 * open asset
+	 *
+	 * @return true means successful
+	 * \else
+	 * 打开相关的Asset资源
+	 *
+	 * @return true表示打开成功
+	 * \endif
+	 */
+	virtual bool open();
+
+	/**
+	 * \if English
+	 * close asset
+	 * \else
+	 * 关闭Asset
+	 * \endif
+	 */
+	virtual void close() = 0;
+
+	/**
+	 * \if English
+	 * read data into a buffer
+	 *
+	 * @param buffer buffer pointer
+	 * @param length byte to read at most
+	 * @return byte read actually, 0 means no more data, -1 means error
+	 * \else
+	 * 读取指定长度的数据
+	 *
+	 * @param buffer 缓冲区, 必须具有足够的空间
+	 * @param length 要速度的字节数
+	 * @return 实际读取的字节数, 为0表示已无数据可读, -1表示出错
+	 * \endif
+	 */
+	virtual int read(char* buffer, size_t length) = 0;
+
+	/**
+	 * \if English
+	 * read a byte
+	 *
+	 * @param ret return the byte read
+	 * @return byte read in fact, 0 means no more data, -1 means error
+	 * \else
+	 * 读取一个字节
+	 *
+	 * @param ret 用于返回读取的字节
+	 * @return 实际读取的字节数, 如果已无更多数据, 返回0, -1表示出错
+	 * \endif
+	 */
+	virtual int readByte(char* ret);
+	
+	/**
+	 * \if English
+	 * read a short int
+	 *
+	 * @param ret return the byte read
+	 * @return byte read in fact, 0 means no more data, -1 means error
+	 * \else
+	 * 读取一个字节
+	 *
+	 * @param ret 用于返回读取的字节
+	 * @return 实际读取的字节数, 如果已无更多数据, 返回0, -1表示出错
+	 * \endif
+	 */
+	virtual int readShort(short* ret);
+
+	/**
+	 * \if English
+	 * read a int and the read value will reflect current byte order setting
+	 *
+	 * @param ret return the int read
+	 * @return byte read in fact, 0 means no more data, -1 means error
+	 * \else
+	 * 读取一个整数, 读到的整数值会受到当前字节序的影响. 缺省的字节序是little endian.
+	 *
+	 * @param ret 用于返回读取的整数
+	 * @return 实际读取的字节数, 如果已无更多数据, 返回0, -1表示出错
+	 * \endif
+	 */
+	virtual int readInt(int* ret);
+	
+	/**
+	 * \if English
+	 * read a int 64 and the read value will reflect current byte order setting
+	 *
+	 * @param ret return the int read
+	 * @return byte read in fact, 0 means no more data, -1 means error
+	 * \else
+	 * 读取一个64位整数, 读到的整数值会受到当前字节序的影响. 缺省的字节序是little endian.
+	 *
+	 * @param ret 用于返回读取的整数
+	 * @return 实际读取的字节数, 如果已无更多数据, 返回0, -1表示出错
+	 * \endif
+	 */
+	virtual int64_t readInt64(int64_t* ret);
+
+	/**
+	 * \if English
+	 * change pointer position
+	 *
+	 * @param offset offset
+	 * @param mode seek mode
+	 * @return new offset after changed
+	 * \else
+	 * 改变指针位置
+	 *
+	 * @param offset 偏移
+	 * @param mode SEEK_CUR表示从当前位置计算, SEEK_SET表示从开头计算, SEEK_END表示从结尾处计算
+	 * @return 修改后的实际位置
+	 * \endif
+	 */
+	virtual int seek(int offset, int mode) = 0;
+
+	/**
+	 * \if English
+	 * set use big endian or not, default is little endian
+	 *
+	 * @param big true means use big endian
+	 * \else
+	 * 设置是否采用big endian字节序, 缺省是little endian
+	 *
+	 * @param big true表示使用big endian字节序
+	 * \endif
+	 */
+	virtual void setBigEndian(bool big);
+
+	/**
+	 * \if English
+	 * is big endian or not?
+	 *
+	 * @return true means current byte order is big endian
+	 * \else
+	 * 当前是否是big endian
+	 *
+	 * @return true表示当前的字节序是big endian
+	 * \endif
+	 */
+	virtual bool isBigEndian();
+};
+
+#endif // __wyAssetInputStream_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLayoutUtil_h__
+
+public:
+
+#endif // __wyLayoutUtil_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLog_h__
+
+
+
+#endif // __wyLog_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+#ifndef __wyMD5_h__
+
+
+class wyMD5 {
+public:
+	/**
+	 * 对一个字符串做md5, 返回md5的字符串形式
+	 *
+	 * @param s 要做md5的字符串
+	 * @return md5的字符串形式
+	 */
+	static const char* md5(const char* s);
+
+	/**
+	 * 对一段数据做md5, 返回md5的字符串形式
+	 *
+	 * @param data 数据
+	 * @param len 数据长度
+	 * @return md5的字符串形式
+	 */
+	static const char* md5(const void* data, size_t len);
+};
+
+
+#endif // __wyMD5_h__
+#ifndef __wyPerformance_h__
+
+
+/**
+ * 开始记录时间
+ *
+ * @param name 输出时间时显示的字符串，用来标识是什么时间
+ */
+void wyRecordTime(const char* name);
+
+/**
+ * 输出时间
+ */
+void wyOutputTime();
+
+
+#endif // __wyPerformance_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRunnable_h__
+
+
+/**
+ * @class wyRunnable
+ *
+ * 类似于java中的Runnable类, \link wyRunnable wyRunnable\endlink 封装了一段逻辑, 这段
+ * 逻辑可以交给其它任何类执行, 只要调用run方法即可. 该类是虚类, 子类必须实现run方法.
+ */
+class wyRunnable : public wyObject {
+public:
+	wyRunnable();
+	virtual ~wyRunnable();
+
+	/**
+	 * 执行runnable
+	 */
+	virtual void run() = 0;
+};
+
+#endif // __wyRunnable_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyScroller_h__
+
+
+/**
+ * @class wyScroller
+ *
+ * 负责计算滚动和惯性移动的位置，并不涉及任何界面上的操作。需要提供滚动和惯性移动
+ * 支持的时候，可以使用该类进行位置计算，在刷新时从该类得到当前位置，进行界面更新。
+ */
+class wyScroller : public wyObject {
+public:
+    static wyScroller* make();
+
+	wyScroller();
+	virtual ~wyScroller();
+
+    /**
+     * \if English
+     * is scroll or fling finished
+     *
+     * @return true means scroll or fling finished
+     * \else
+     * 检查是否已经完成了滚动
+     *
+     * @return true表示已经完成了滚动
+     * \endif
+     */
+    bool isFinished() const { return m_finished; }
+
+    /**
+     * \if English
+     * force scrolling or flinging finish
+     *
+     * @param finished true means finish scrolling or flinging, or false if not
+     * \else
+     * 强制结束滚动或强制不结束
+     *
+     * @param finished true表示结束滚动，false表示不结束
+     * \endif
+     */
+    void forceFinished(bool finished) { m_finished = finished; }
+
+    /**
+     * \if English
+     * return the duration time of scrolling
+     *
+     * @return scroll duration, in millisceond
+     * \else
+     * 返回滚动持续的时间，单位毫秒
+     *
+     * @return 滚动持续的时间，单位毫秒
+     * \endif
+     */
+    int getDuration() const { return m_duration; }
+
+    /**
+     * \if English
+     * return current x position
+     *
+     * @return current x position
+     * \else
+     * 返回当前的x位置
+     *
+     * @return 当前x位置
+     * \endif
+     */
+    int getCurrX() const { return m_currX; }
+
+    /**
+     * \if English
+     * return current y position
+     *
+     * @return current y position
+     * \else
+     * 返回当前的y位置
+     *
+     * @return 当前y位置
+     * \endif
+     */
+    int getCurrY() const { return m_currY; }
+
+    /**
+     * \if English
+     * get current velocity
+     *
+     * @return current velocity, maybe negative
+     * \else
+     * 得到当前速度
+     *
+     * @return 当前速度，可能为负
+     * \endif
+     */
+    float getCurrVelocity() const { return m_velocity - m_deceleration * timePassed() / 2000.0f; }
+
+    /**
+     * \if English
+     * get current velocity
+     *
+     * @return current velocity, maybe negative
+     * \else
+     * 得到起始x位置
+     *
+     * @return 起始x位置
+     * \endif
+     */
+    float getStartX() const { return m_startX; }
+
+    /**
+     * \if English
+     * get start y position
+     *
+     * @return start y position
+     * \else
+     * 得到起始y位置
+     *
+     * @return 起始y位置
+     * \endif
+     */
+    float getStartY() const { return m_startY; }
+
+    /**
+     * \if English
+     * get final x position, only used for flinging
+     *
+     * @return final x position of flinging
+     * \else
+     * 得到结束x位置，这个只用于fling
+     *
+     * @return fling的结束x位置
+     * \endif
+     */
+    float getFinalX() const { return m_finalX; }
+
+    /**
+     * \if English
+     * get final y position of flinging
+     *
+     * @return final y position of flinging
+     * \else
+     * 得到结束y位置，这个只用于fling
+     *
+     * @return fling的结束y位置
+     * \endif
+     */
+    float getFinalY() const { return m_finalY; }
+
+    /**
+     * \if English
+     * get current scrolling position
+     *
+     * @return true means scrolling is not over, false means finished
+     * \else
+     * 得到当前的滚动位置，用于想更新界面时。
+     *
+     * @return true表示滚动还未结束，false表示已经结束
+     * \endif
+     */
+    bool computeScrollOffset();
+
+    /**
+     * \if English
+     * start scrolling, duration time is 0.25 second
+     *
+     * @param startX start x position
+     * @param startY start y position
+     * @param dx x offset to scroll
+     * @param dy y offset to scroll
+     * \else
+     * 开始滚动，持续250毫秒
+     *
+     * @param startX 起始x位置
+     * @param startY 起始y位置
+     * @param dx x方向滚动量
+     * @param dy y方向滚动量
+     * \endif
+     */
+    void startScroll(float startX, float startY, float dx, float dy);
+
+    /**
+     * \if English
+     * start scrolling
+     *
+     * @param startX start x position
+     * @param startY start y position
+     * @param dx x offset to scroll
+     * @param dy y offset to scroll
+     * @param duration duration time of scroll
+     * \else
+     * 开始滚动
+     *
+     * @param startX 起始x位置
+     * @param startY 起始y位置
+     * @param dx x方向滚动量
+     * @param dy y方向滚动量
+     * @param duration 期望的滚动持续时间, 单位是毫秒
+     * \endif
+     */
+    void startScroll(float startX, float startY, float dx, float dy, int duration);
+
+    /**
+     * \if English
+     * start fling. duration time of fling is computed.
+     *
+     * @param startX start x position
+     * @param startY start y position
+     * @param velocityX initial x velocity
+     * @param velocityY initial y velocity
+     * @param minX minimum x position
+     * @param maxX maximum x position
+     * @param minY minimum y position
+     * @param maxY maximum y position
+     * \else
+     * 开始fling。Fling的持续持续时间是计算出来的，不像滚动的持续时间是指定的。
+     *
+     * @param startX 起始x位置
+     * @param startY 起始y位置
+     * @param velocityX 初始x速度，单位是像素/秒
+     * @param velocityY 初始y速度，单位是像素/秒
+     * @param minX 最小x位置
+     * @param maxX 最大x位置
+     * @param minY 最小y位置
+     * @param maxY 最大y位置
+     * \endif
+     */
+    void fling(float startX, float startY, float velocityX, float velocityY,
+    		float minX, float maxX, float minY, float maxY);
+
+    /**
+     * \if English
+     * stop fling
+     * \else
+     * 停止滚动
+     * \endif
+     */
+    void abortAnimation();
+
+    /**
+     * \if English
+     * extend duration time of scrolling
+     *
+     * @param extend time to be extended
+     * \else
+     * 扩展滚动持续时间，一般结合setFinalX或setFinalY使用
+     *
+     * @param extend 需要扩展的时间，单位毫秒
+     * \endif
+     */
+    void extendDuration(int extend);
+
+    /**
+     * \if English
+     * get time passed from scrolling start to now, in millisecond
+     *
+     * @return time passed from scrolling start to now, in millisecond
+     * \else
+     * 得到从开始滚动到现在已经过去的时间，单位毫秒
+     *
+     * @return 从开始滚动到现在已经过去的时间，单位毫秒
+     * \endif
+     */
+    int timePassed() const;
+
+    /**
+     * \if English
+     * set final x position
+     *
+     * @param newX final x position
+     * \else
+     * 设置滚动结束x位置
+     *
+     * @param newX 结束x位置
+     * \endif
+     */
+    void setFinalX(float newX);
+
+    /**
+     * \if English
+     * set final y position
+     *
+     * @param newY final y position
+     * \else
+     * 设置滚动结束y位置
+     *
+     * @param newY 滚动结束y位置
+     * \endif
+     */
+    void setFinalY(float newY);
+
+    /**
+     * \if English
+     * friction coefficient, default is 0.0.15
+     *
+     * @param friction friction coefficient
+     * \else
+     * 设置滚动摩擦系数，如果不设置，缺省值是0.015
+     *
+     * @param friction 摩擦系数
+     * \endif
+     */
+    void setScrollFriction(float friction) { m_scrollFriction = friction; }
+};
+
+#endif // __wyScroller_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTargetSelector_h__
+
+
+class wyTargetSelector;
+
+
+bool wyTargetSelectorEquals(wyTargetSelector* ts1, wyTargetSelector* ts2);
+
+/**
+ * @class wyTargetSelector
+ *
+ *  定时器回调的封装
+ */
+class wyTargetSelector : public wyObject {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * \note
+	 * This method still can be used but not recommended, actually it is only designed
+	 * for Lua script. Because it is difficult to use function pointer in Lua, so invoking
+	 * target selector by an id is still needed
+	 *
+	 * @param callback callback target, must be a wyObject subclass
+	 * @param id id of this target selector
+	 * @return \link wyTargetSelector wyTargetSelector\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * \note
+	 * 这个方法虽然可以使用但是不再推荐. 实际上这个方法是为了Lua脚本而继续存在的, 由于Lua脚本中
+	 * 传递函数指针比较麻烦, 所以通过id调用一个选择子仍然有存在的必要.
+	 *
+	 * @param callback native层回调的\link wyObject wyObject对象指针\endlink
+	 * @param id 标识id
+	 * @return \link wyTargetSelector wyTargetSelector\endlink
+	 * \endif
+	 */
+	static wyTargetSelector* makeId @ make_v(wyObject* callback, int id);
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * \note
+	 * This method still can be used but not recommended, actually it is only designed
+	 * for Lua script. Because it is difficult to use function pointer in Lua, so invoking
+	 * target selector by an id is still needed
+	 *
+	 * @param callback callback target, must be a wyObject subclass
+	 * @param id id of this target selector
+	 * @param data integer custom data
+	 * @return \link wyTargetSelector wyTargetSelector\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * \note
+	 * 这个方法虽然可以使用但是不再推荐. 实际上这个方法是为了Lua脚本而继续存在的, 由于Lua脚本中
+	 * 传递函数指针比较麻烦, 所以通过id调用一个选择子仍然有存在的必要.
+	 *
+	 * @param callback native层回调的\link wyObject wyObject对象指针\endlink
+	 * @param id 标识id
+	 * @param data 整数类型的参数
+	 * @return \link wyTargetSelector wyTargetSelector\endlink
+	 * \endif
+	 */
+	static wyTargetSelector* makeId @ make_i(wyObject* callback, int id, int data);
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * \note
+	 * This method still can be used but not recommended, actually it is only designed
+	 * for Lua script. Because it is difficult to use function pointer in Lua, so invoking
+	 * target selector by an id is still needed
+	 *
+	 * @param callback callback target, must be a wyObject subclass
+	 * @param id id of this target selector
+	 * @param data float custom data
+	 * @return \link wyTargetSelector wyTargetSelector\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * \note
+	 * 这个方法虽然可以使用但是不再推荐. 实际上这个方法是为了Lua脚本而继续存在的, 由于Lua脚本中
+	 * 传递函数指针比较麻烦, 所以通过id调用一个选择子仍然有存在的必要.
+	 *
+	 * @param callback native层回调的\link wyObject wyObject对象指针\endlink
+	 * @param id 标识id
+	 * @param data 浮点类型的参数
+	 * @return \link wyTargetSelector wyTargetSelector\endlink
+	 * \endif
+	 */
+	static wyTargetSelector* makeId @ make_f(wyObject* callback, int id, float data);
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * \note
+	 * This method still can be used but not recommended, actually it is only designed
+	 * for Lua script. Because it is difficult to use function pointer in Lua, so invoking
+	 * target selector by an id is still needed
+	 *
+	 * @param callback callback target, must be a wyObject subclass
+	 * @param id id of this target selector
+	 * @param data pointer custom data
+	 * @return \link wyTargetSelector wyTargetSelector\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * \note
+	 * 这个方法虽然可以使用但是不再推荐. 实际上这个方法是为了Lua脚本而继续存在的, 由于Lua脚本中
+	 * 传递函数指针比较麻烦, 所以通过id调用一个选择子仍然有存在的必要.
+	 *
+	 * @param callback native层回调的\link wyObject wyObject对象指针\endlink
+	 * @param id 标识id
+	 * @param data 指针类型的参数
+	 * @return \link wyTargetSelector wyTargetSelector\endlink
+	 * \endif
+	 */
+	static wyTargetSelector* makeId @ make_p(wyObject* callback, int id, void* data);
+	
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTargetSelector();
+
+	/**
+	 * 设置距离上次触发所持续的时间，例如如果按三帧刷新一次，则累计三帧消耗的时间
+	 *
+	 * @param delta 时间
+	 */
+	void setDelta(float delta);
+
+	/**
+	 * 触发回调
+	 */
+	void invoke();
+
+	/**
+	 * 获得native层回调的\link wyObject wyObject对象指针\endlink
+	 *
+	 * @return native层回调的\link wyObject wyObject对象指针\endlink
+	 */
+	wyObject* getTarget();
+
+
+	/**
+	 * 获得标识id
+	 *
+	 * @return 标识id
+	 */
+	int getId() { return m_id; }
+
+	/**
+	 * 获得标识id
+	 *
+	 * @param id 标识id
+	 */
+	void setId(int id) { m_id = id; }
+
+	/**
+	 * 获得距离上次触发所持续的时间，例如如果按三帧刷新一次，则累计三帧消耗的时间
+	 *
+	 * @return 时间
+	 */
+	float getDelta() { return m_delta; }
+};
+
+#endif // __wyTargetSelector_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTGALoader_h__
+
+
+
+/**
+ * @typedef wyTGAError
+ *
+ * 解析TGA文件时可能出现的错误码
+ */
+typedef enum {
+	TGA_OK,
+	TGA_ERROR_FILE_OPEN,
+	TGA_ERROR_READING_FILE,
+	TGA_ERROR_INDEXED_COLOR,
+	TGA_ERROR_MEMORY,
+	TGA_ERROR_COMPRESSED_FILE,
+} wyTGAError;
+
+typedef struct wyTGA {
+	// status of file parsing
+    wyTGAError status;
+
+    // TAGLoader data type, see TAGLoader file format spec for more info
+    char type;
+
+    // how many bits a pixel has
+    int pixelDepth;
+
+    /**
+     * bytes of a pixel
+     */
+    int bytesPerPixel;
+
+    /**
+     * map width
+     */
+    int width;
+
+    /**
+     * map height
+     */
+    int height;
+
+    /**
+     * raw data
+     */
+    char* imageData;
+
+    // flag indicating the image should be flipped
+    bool flipped;
+} wyTGA;
+
+
+/**
+ * @class wyTGALoader
+ *
+ * TGA文件的解析类, 提供load方法从资源或者文件中载入TGA文件, 返回wyTGA结构
+ */
+class wyTGALoader {
+public:
+	/**
+	 * 从tga资源文件中载入
+	 *
+	 * @param resId tga文件的资源id
+	 * @return \link wyTGA wyTGA结构\endlink
+	 */
+	static wyTGA* load(int resId);
+
+	/**
+	 * 从assets或者文件系统中载入TGA
+	 *
+	 * @param path tga文件路径, 可以是assets下的路径或者文件系统路径
+	 * @param isFile 可选参数, true表示path是一个文件系统路径, false表示path是一个assets相对路径
+	 * @return \link wyTGA wyTGA结构\endlink
+	 */
+	static wyTGA* load(const char* path, bool isFile = false);
+
+	/**
+	 * 销毁wyTGA结构
+	 *
+	 * @param tga \link wyTGA wyTGA结构\endlink
+	 */
+	static void destroyTGA(wyTGA* tga);
+};
+
+#endif // __wyTGALoader_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyUtils_h__
+
+
+struct wyBezierConfig;
+struct wyQuad2D;
+struct wyQuad3D;
+struct wyColor4B;
+struct wyRect;
+struct wyAffineTransform;
+struct wyPoint;
+struct wyKeyEvent;
+struct wyMotionEvent;
+
+/**
+ * @class wyUtils
+ *
+ * 工具类, 都是静态方法
+ */
+class wyUtils {
+public:
+	
+	
+	/*
+	 * resource related operations
+	 */
+
+	/**
+	 * 通过资源名称和资源类型名得到资源id
+	 *
+	 * @param name 资源名称
+	 * @param type 资源类型名
+	 * @param type2 资源的其他类型名, 如果在type指定的资源中没有找到，会再尝试在type2中寻找
+	 * @return 资源id
+	 */
+	static int getResId(const char* name, const char* type, const char* type2);
+
+	/**
+	 * 通过资源全名获得资源id. 全名指的是"R.drawable.abc"这样的名称.
+	 *
+	 * @param fullName 资源全名
+	 * @return 资源id
+	 */
+	static int getResId(const char* fullName);
+
+	/**
+	 * 通过资源全名获得字符串，全名指的是"R.string.abc"这样的名称
+	 *
+	 * @param fullName 资源全名
+	 * @return 字符串，调用者需要负责释放这个字符串
+	 */
+	static const char* getString(const char* fullName);
+
+	/**
+	 * 通过资源id获得字符串
+	 *
+	 * @param resId 字符串资源id
+	 * @return 字符串，调用者需要负责释放这个字符串
+	 */
+	static const char* getString(int resId);
+
+	/**
+	 * 通过资源全名获得UNICODE格式字符串，全名指的是"R.string.abc"这样的名称
+	 *
+	 * @param fullName 资源全名
+	 * @return 字符串，调用者需要负责释放这个字符串
+	 */
+	static const char16_t* getString16(const char* fullName);
+
+	/**
+	 * 通过资源id获得UNICODE格式字符串
+	 *
+	 * @param resId 字符串资源id
+	 * @return 字符串，调用者需要负责释放这个字符串
+	 */
+	static const char16_t* getString16(int resId);
+	
+	
+	/**
+	 * 从资源文件中载入png图片
+	 *
+	 * @param resId png图片资源id
+	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
+	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
+	 * @return 经过解析后的png图片数据, RGBA8888格式, 调用者需要负责释放返回的数据
+	 */
+	static char* loadPNG(int resId, size_t* w, size_t* h, bool sizeOnly);
+
+	/**
+	 * 从内存的数组中载入png图片
+	 *
+	 * @param data png文件的字节数组, 这必须是png文件的原始文件数据，即未经任何解码的png文件数据
+	 * @param length data的长度
+	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
+	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
+	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return 经过解析后的png图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
+	 */
+	static char* loadPNG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * 从一个标准FILE指针中读取png图片，这个方法会负责关闭文件
+	 *
+	 * @param f FILE指针
+	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
+	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
+	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
+	 */
+	static char* loadPNG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * 从文件系统或者asset中载入png图片
+	 *
+	 * @param path png图片的路径
+	 * @param isFile true表示这是一个文件系统上的文件, false表示这是一个asset中的文件
+	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
+	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
+	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
+	 */
+	static char* loadPNG(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * 从一个标准FILE指针中读取jpg图片，这个方法会负责关闭文件
+	 *
+	 * @param f FILE指针
+	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
+	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
+	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
+	 */
+	static char* loadJPG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * 从文件系统或者asset中载入jpg图片
+	 *
+	 * @param path jpg图片的路径
+	 * @param isFile true表示这是一个文件系统上的文件, false表示这是一个asset中的文件
+	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
+	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
+	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
+	 */
+	static char* loadJPG(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * 从内存的数组中载入jpg图片
+	 *
+	 * @param data jpg文件的字节数组, 这必须是jpg文件的原始文件数据，即未经任何解码的jpg文件数据
+	 * @param length data的长度
+	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
+	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
+	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
+	 */
+	static char* loadJPG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * 从资源文件中载入jpg图片
+	 *
+	 * @param resId jpg图片资源id
+	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
+	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
+	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
+	 */
+	static char* loadJPG(int resId, size_t* w, size_t* h, bool sizeOnly);
+	
+	/**
+	 * 从某个FILE指针中读取所有内容
+	 *
+	 * @param f 文件的FILE指针
+	 * @param length 要载入的数据长度，缺省为0，表示一直读到文件尾
+	 * @return 文件数据, 调用者需要负责释放返回的数据
+	 */
+	static char* loadRaw(FILE* f, size_t* outLen);
+
+	/**
+	 * 载入文件系统或者asset中某个文件的内容
+	 *
+	 * @param path 文件在文件系统中的路径
+	 * @param isFile true表示path是一个文件系统路径
+	 * @param outLen 可选参数, 如果不为NULL, 将返回文件总长度
+	 * @return 文件数据, 调用者需要负责释放返回的数据
+	 */
+	static char* loadRaw(const char* path, bool isFile, size_t* outLen = NULL);
+
+	/**
+	 * 载入资源文件的raw数据
+	 *
+	 * @param resId 资源id
+	 * @param outLen 可选参数, 如果不为NULL, 将返回文件总长度
+	 * @param outScale 可选参数，如果不为NULL，将返回这个资源的scale。例如：如果资源存放在有hdpi后缀的文件夹里，
+	 * 		则outScale会返回1.5
+	 * @return 文件数据, 调用者需要负责释放返回的数据
+	 */
+	static char* loadRaw(int resId, size_t* outLen = NULL, float* outScale = NULL);
+
+	/**
+	 * 从资源文件中读取一个0结尾字符串, 0是由方法自动
+	 * 追加的. 这个资源文件必须是一个纯文本文件
+	 *
+	 * @param resId 资源id
+	 * @return 未经处理的原始数据, 结尾跟一个0字节, 调用者需要负责释放返回的数据
+	 */
+	static char* loadCString(int resId);
+
+	/**
+	 * 从文件系统或者asset中载入一个c字符串.
+	 *
+	 * @param path 文件路径, 必须是一个纯文本文件
+	 * @param isFile true表示path是一个文件系统路径, false表示是一个asset下的路径
+	 * @return 未经处理的原始数据, 结尾跟一个0字节, 调用者需要负责释放返回的数据
+	 */
+	static char* loadCString(const char* path, bool isFile);
+
+	/**
+	 * 得到PVR图片的大小
+	 *
+	 * @param data PVR数据数组
+	 * @param length PVR数据数组长度
+	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
+	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return true表示获得大小成功, false表示失败
+	 */
+	static bool getPVRSize(const char* data, size_t length, size_t* w, size_t* h, float scale);
+
+	/**
+	 * 得到PVR图片的大小
+	 *
+	 * @param resId pvr图片资源id
+	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
+	 * @param outScale 用于返回缩放比例，这个比例从资源的density中获得，如果资源的density
+	 * 		是160, 而当前屏幕是hdpi(即240)，则scale会等于1.5. 这个参数一般只对图片有用，
+	 * 		如果不需要，可以传NULL
+	 * @return true表示获得大小成功, false表示失败
+	 */
+	static bool getPVRSize(int resId, size_t* w, size_t* h, float* outScale);
+
+	/**
+	 * 得到PVR图片的大小
+	 *
+	 * @param f pvr文件的FILE指针
+	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
+	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return true表示获得大小成功, false表示失败
+	 */
+	static bool getPVRSize(FILE* f, size_t* w, size_t* h, float scale);
+
+	/**
+	 * 得到PVR图片的大小
+	 *
+	 * @param path pvr文件在文件系统或者asset中的路径
+	 * @param isFile true表示path是一个文件系统路径
+	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
+	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
+	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
+	 * @return true表示获得大小成功, false表示失败
+	 */
+	static bool getPVRSize(const char* path, bool isFile, size_t* w, size_t* h, float scale);
+	
+	/**
+	 * PVR头部的字段是little endian的, 这个方法把它们转换为host endian
+	 *
+	 * @param header \link wyPVRHeader wyPVRHeader\endlink
+	 */
+	static void convertPVRHeaderEndian(wyPVRHeader* header);
+
+	/**
+	 * 缩放PVR图片
+	 *
+	 * @param format PVR文件格式
+	 * @param originData PVR原始数据
+	 * @param originWidth PVR原始宽度
+	 * @param originHeight PVR与原始高度
+	 * @param scale 缩放比例
+	 */
+	static char* scalePVR(wyPVRFormat format, char* originData, int originWidth, int originHeight, float scale);
+
+	/**
+	 * 检查PVR格式是否可以被自动拉伸
+	 *
+	 * @param format PVR格式常量
+	 * @return true表示PVR可以根据屏幕分辨率自动拉伸
+	 */
+	static bool canScalePVR(wyPVRFormat format);
+	
+	/**
+	 * \if English
+	 * Scale an image
+	 *
+	 * @param originData original RGBA8888 data of image
+	 * @param originWidth original width of image
+	 * @param originHeight original height of image
+	 * @param scaleX x scale, 1 for no x scale
+	 * @param scaleY y scale, 1 for no y scale
+	 * @return scaled data, may be same as \c originData if no scale, if not same, then caller should release originData
+	 * \else
+	 * 缩放一个图片
+	 *
+	 * @param originData 图像的原始RGBA8888数据
+	 * @param originWidth 图像原始宽度
+	 * @param originHeight 图像原始告诉
+	 * @param scaleX x方向的缩放比例
+	 * @param scaleY y方向的缩放比例
+	 * @return 缩放后的图像RGBA8888数据, 如果不需要缩放则和\c originData一样, 如果不一样, 则调用者要负责释放originData
+	 * \endif
+	 */
+	static char* scaleImage(char* originData, int originWidth, int originHeight, float scaleX, float scaleY);
+
+	/*
+	 * Event related operations
+	 */
+	
+	/**
+	 * 把坐标从Android坐标系转换到OpenGL坐标系
+	 *
+	 * @param p \link wyPoint wyPoint结构\endlink 指针
+	 */
+	static void convertToGL(wyPoint* p);
+	
+	/**
+	 * 把坐标从Android坐标系转换到OpenGL坐标系
+	 *
+	 * @param x 坐标x值指针
+	 * @param y 坐标y值指针
+	 */
+	static void convertToGL(float* x, float* y);
+
+	/*
+	 * time helper
+	 */
+
+	/**
+	 * 得到当前时间距离1970年1月1日的毫秒数
+	 *
+	 * @return 当前时间距离1970年1月1日的毫秒数
+	 */
+	static int64_t currentTimeMillis();
+
+	/*
+	 * Array helper
+	 */
+
+	/**
+	 * 交换浮点数组中的两个元素
+	 *
+	 * @param f 浮点数组指针
+	 * @param index1 元素1位置
+	 * @param index2 元素2位置
+	 */
+	static void swap(float* f, int index1, int index2);
+
+	/**
+	 * 在整数数组中进行二分查找
+	 *
+	 * @param a 整数数组指针
+	 * @param len 数组长度
+	 * @param key 要查找的整数
+	 * @return 如果找到了，返回索引位置，如果没有找到，将返回值取绝对值再减1就是插入位置
+	 */
+	static int binarySearch(int* a, size_t len, int key);
+
+	/*
+	 * encode/decode support
+	 */
+	/**
+	 * 编码base64
+	 *
+	 * @param src 原文内容
+	 * @param len 数组长度
+	 * @param out_len 用来返回编码后的长度
+	 * @return base64解码的数组
+	 */
+	static char* encodeBase64(const char* src, size_t len, size_t* out_len);
+
+	/**
+	 * 解码base64
+	 *
+	 * @param enc base64编码的数组
+	 * @param length 数组长度
+	 * @param retLen 用来返回解码后的长度
+	 * @return 解码后的数组指针
+	 */
+	static char* decodeBase64(const char* enc, size_t length, size_t* retLen);
+
+	/**
+	 * 解压
+	 *
+	 * @param in 保存压缩数据的数组
+	 * @param inLength 数组长度
+	 * @param out 用来返回解压数据的缓冲区指针
+	 * @return 解压后的数组长度
+	 */
+	static int gunzip(char* in, int inLength, char** out);
+
+	/*
+	 * string helper
+	 */
+
+	/**
+	 * 替换一个字符串中的字符为其它字符
+	 *
+	 * @param s 字符串
+	 * @param c 需要替换的字符
+	 * @param sub 替换成的字符, 如果只是需要删掉字符, 可以传入0
+	 * @return 替换后的字符串, 调用者要负责释放指针. 如果s本身是NULL, 则返回NULL
+	 */
+	static const char* replaceChar(const char* s, char c, char sub);
+
+	/**
+	 * 从指定数据中读取一行, 即直到碰到回车或者换行字符为止. 读取完毕后
+	 * *data会指向下一行的起始位置.
+	 *
+	 * @param data 原始数据的二级指针, 数据需要是utf-8编码
+	 * @param buf 缓冲区, 必须要足够大能够包含一行的内容以及结尾的0字符, 返回的内容包括回车换行符.
+	 * @return 返回读取的长度, 这个长度包含了回车换行符
+	 */
+	static int readLine(char** data, char* buf);
+
+	/**
+	 * 检查某个字符串是否是以某个字符串开头的
+	 *
+	 * @param s 要检查的字符串
+	 * @param sub 子串
+	 * @return true表示s是以sub开头的
+	 */
+	static bool startsWith(const char* s, const char* sub);
+
+	/**
+	 * 检查某个字符串是否是以某个字符串结束的
+	 *
+	 * @param s 要检查的字符串
+	 * @param sub 子串
+	 * @return true表示s是以sub开头的
+	 */
+	static bool endsWith(const char* s, const char* sub);
+
+	/**
+	 * 把unicode字符串转换为utf-8字符串
+	 *
+	 * @param s16 unicode字符串, 可以为NULL，如果是NULL，返回长度为0的字符串
+	 * @return utf-8编码的字符串, 该字符串需要调用者进行释放.
+	 */
+	static const char* utf16toutf8(const char16_t* s16);
+
+	/**
+	 * 把一个utf-16编码的字符转换为utf-8字符
+	 *
+	 * @param c utf-16编码字符的整数形式
+	 * @return utf-8编码字符的整数形式
+	 */
+	static int utf32toutf8(char32_t c);
+
+	/**
+	 * 把utf-8字符串转换为unicode字符串
+	 *
+	 * @param s8 utf-8编码的字符串
+	 * @return unicode字符串，该字符串需要调用者进行释放
+	 */
+	static const char16_t* toUTF16(const char* s8);
+
+	/**
+	 * 判断unicode字符串的长度
+	 *
+	 * @param str unicode编码的字符串
+	 * @return unicode字符数
+	 */
+	static int strlen16(const char16_t* str);
+
+	/**
+	 * 在一个unicode字符串中搜索一个子串
+	 *
+	 * @param str unicode编码的字符串
+	 * @param search utf-8编码的子串
+	 * @return 如果搜索到, 返回起始指针, 否则返回NULL
+	 */
+	static const char16_t* str16str(const char16_t* str, const char* search);
+
+	/**
+	 * 计算一个utf-8编码的字符串中的字符个数，比如"我hello"则返回6
+	 *
+	 * @param s utf-8编码的字符串，因此可以包含非英文字符
+	 * @return 字符个数
+	 */
+	static int strlen8(const char* s);
+
+	/**
+	 * 计算utf8编码块的字节数
+	 *
+	 * @param c utf-8编码字符的首字节
+	 * @return utf-8编码字符的字节长度
+	 */
+	static int getUTF8Bytes(unsigned char c);
+
+	/**
+	 * 去掉字符串头尾的空格字符
+	 *
+	 * @param s 输入字符串
+	 * @return 去掉空格后字符串的长度
+	 */
+	static int trim(char* s);
+
+	/**
+	 * 判断字符串是否为空
+	 *
+	 * @param s 字符串指针，可以为NULL
+	 * @return true表示字符串为NULL或者没有内容
+	 */
+	static bool isEmpty(char* s);
+
+	/**
+	 * 拷贝一个字符串
+	 *
+	 * @param src 源字符串
+	 * @return 拷贝后的字符串, 调用者要负责释放该字符串
+	 */
+	static const char* copy(const char* src);
+
+	/**
+	 * 拷贝一个字符串
+	 *
+	 * @param src 源字符串
+	 * @param start 拷贝的起始位置
+	 * @param len 拷贝的长度
+	 * @return 拷贝后的字符串，调用者要负责释放该字符串
+	 */
+	static const char* copy(const char* src, int start, size_t len);
+
+	/**
+	 * 计算字符串的哈希值，算法是BKDR. 不能保证一定没有冲突，但是可以接受
+	 *
+	 * @param str 字符串
+	 * @return 哈希值
+	 */
+	static unsigned int strHash(const char* str);
+
+
+	/*
+	 * resolution helper
+	 */
+
+	/**
+	 * 把一个DP值转换为像素值
+	 *
+	 * @param dp dp值
+	 * @return 对应到当前设备上的像素值
+	 */
+	static float resolveDp(float dp);
+
+	/**
+	 * 把一个SP值转换为像素值
+	 *
+	 * @param sp sp值
+	 * @return 对应到当前设备上的像素值
+	 */
+	static float resolveSp(float sp);
+
+	/**
+	 * 把一个像素值转换为DP值
+	 *
+	 * @param px 像素值
+	 * @return 对应到当前设备上的DP值
+	 */
+	static float resolvePx(float px);
+
+	/**
+	 * 把一个矩形里的值作为dp值转换为像素值
+	 *
+	 * @param rect 原始的dp值矩形
+	 * @return 像素值矩形
+	 */
+	static wyRect resolveRect(wyRect rect);
+
+	/**
+	 * 把一个点的值作为dp值转换为像素值
+	 *
+	 * @param point 原始的dp值点
+	 * @return 像素值点
+	 */
+	static wyPoint resolvePoint(wyPoint point);
+
+	// for font related functions
+
+	/**
+	 * \if English
+	 * Calculate bounding size of a string
+	 *
+	 * @param text string to be examined
+	 * @param fontSize font size in pixel
+	 * @param fontPath font file path in assets, or NULL if use system font
+	 * @param isFile true means \c fontPath is an absolute path in file system, false means
+	 * 		\c fontPath is a relative path under assets
+	 * @param width line width or zero means single line
+	 * @return \link wySize wySize\endlink
+	 * \else
+	 * 计算字符串的渲染大小
+	 *
+	 * @param text 字符串
+	 * @param fontSize 字体大小
+	 * @param fontPath 自定义字体在assets目录下的路径, 为NULL表示使用系统缺省字体
+	 * @param isFile true表示\c fontPath是一个文件系统的绝对路径, false表示\c fontPath是一个相对于assets的相对路径
+	 * @param width 最大行宽，如果为0，表示不折行
+	 * @return \link wySize wySize\endlink
+	 * \endif
+	 */
+	static wySize calculateTextSize(const char* text, float fontSize, const char* fontPath, bool isFile = false, float width = 0);
+
+	/**
+	 * \if English
+	 * Calculate bounding size of a string
+	 *
+	 * @param text string to be examined
+	 * @param fontSize font size in pixel
+	 * @param style font style
+	 * @param fontName font name, or NULL if use system font
+	 * @param width line width or zero means single line
+	 * @return \link wySize wySize\endlink
+	 * \else
+	 * 计算字符串的渲染大小
+	 *
+	 * @param text 字符串
+	 * @param fontSize 字体大小
+	 * @param style 字体样式
+	 * @param fontName 字体名称, 为NULL表示使用系统缺省字体
+	 * @param width 最大行宽，如果为0，表示不折行
+	 * @return \link wySize wySize\endlink
+	 * \endif
+	 */
+	static wySize calculateTextSize(const char* text, float fontSize, wyFontStyle style, const char* fontName, float width = 0);
+
+	/**
+	 * \if English
+	 * Create a bitmap for a string, in RGBA8888 format
+	 *
+	 * @param text string
+	 * @param fontSize font size in pixel
+	 * @param fontPath font file path in assets, or NULL if use system font
+	 * @param isFile true means \c fontPath is an absolute path in file system, false means
+	 * 		\c fontPath is a relative path under assets
+	 * @param width the width of the label, in pixels
+	 * @param alignment text alignment, default is left
+	 * @return generated bitmap data, in RGBA8888 format, caller should release it
+	 * \else
+	 * 把字符串转变为内存中的图片，生成的内存数据可以直接通过OpenGL调用转换为OpenGL贴图
+	 *
+	 * @param text 字符串
+	 * @param fontSize 字体大小
+	 * @param fontPath 自定义字体在assets目录下的路径, 为NULL表示使用系统缺省字体
+	 * @param isFile true表示\c fontPath是一个文件系统的绝对路径, false表示\c fontPath是一个相对于assets的相对路径
+	 * @param width 最大行宽，如果为0，表示不折行
+	 * @param alignment 文字对齐方式, 缺省是左对齐
+	 * @return 生成的图片RGBA8888数据, 调用者要负责释放内存
+	 * \endif
+	 */
+	static const char* createLabelBitmap(const char* text, float fontSize, const char* fontPath, bool isFile = false, float width = 0, wyTexture2D::TextAlignment alignment = wyTexture2D::LEFT);
+
+	/**
+	 * \if English
+	 * Create a bitmap for a string, in RGBA8888 format
+	 *
+	 * @param text string
+	 * @param fontSize font size in pixel
+	 * @param style font style
+	 * @param fontName font name, or NULL if use system font
+	 * @param width line width or zero means single line
+	 * @param alignment text alignment, default is left
+	 * @return generated bitmap data, in RGBA8888 format, caller should release it
+	 * \else
+	 * 把字符串转变为内存中的图片，生成的内存数据可以直接通过OpenGL调用转换为OpenGL贴图
+	 *
+	 * @param text 字符串
+	 * @param fontSize 字体大小
+	 * @param style 字体样式
+	 * @param fontName 字体名称, 为NULL表示使用系统缺省字体
+	 * @param width 最大行宽，如果为0，表示不折行
+	 * @param alignment 文字对齐方式, 缺省是左对齐
+	 * @return 生成的图片RGBA8888数据, 调用者要负责释放内存
+	 * \endif
+	 */
+	static const char* createLabelBitmap(const char* text, float fontSize, wyFontStyle style = NORMAL, const char* fontName = NULL, float width = 0, wyTexture2D::TextAlignment alignment = wyTexture2D::LEFT);
+	
+	/*
+	 * memory file system
+	 */
+
+	// get file data
+	static bool getFile(const char* filename, const char** buffer, size_t* size);
+	
+	/*
+	 * opengl screenshot
+	 */
+
+	/**
+	 * 抓取当前帧, 保存为png或jpg图片. 这个方法会将图片保存到指定路径，由于牵涉到文件
+	 * 写操作, 因此速度较慢, 另外使用的OpenGL接口可能在低版本Android系统上没有
+	 * 实现. 如果保存的路径在sd卡上, 则应用需要有写sd卡的权限.
+	 *
+	 * @param path 截图保存的目标路径, 如果指定的路径不存在, 则会自动创建目录. 如果为NULL, 则不做任何事.
+	 * 		这个路径一定要是一个在当前平台上合法的路径, 方法本身不会针对平台做路径映射. 目前支持jpg,png两种格式.
+	 *      根据传递的文件名称后缀判断是png还是jpg, jpg保存可以用jpg,jpeg两种后缀
+	 */
+	static void makeScreenshot(const char* path);
+
+	/**
+	 * \if English
+	 * Grab current OpenGL frame, and save it as png or jpg image. This method save image to specified path and
+	 * may be slow because file I/O involved. It uses glReadPixels API so lower version Android may not support
+	 * it. It requires permission of writing external storage.
+	 *
+	 * @param path destination path of screenshot image, it will be created if it doesn't exist. If NULL, do nothing.
+	 * 		This path must be a legal path and this method won't do cross-platform path mapping. The extension of path
+	 * 		determinate format of image generated. The extension can be png, jpg, jpeg.
+	 * @param rect screen rect to be shot
+	 * \else
+	 * 抓取当前帧, 保存为png或jpg图片. 这个方法会将图片保存到指定路径，由于牵涉到文件
+	 * 写操作, 因此速度较慢, 另外使用的OpenGL接口可能在低版本Android系统上没有
+	 * 实现. 如果保存的路径在sd卡上, 则应用需要有写sd卡的权限.
+	 *
+	 * @param path 截图保存的目标路径, 如果指定的路径不存在, 则会自动创建目录. 如果为NULL, 则不做任何事.
+	 * 		这个路径一定要是一个在当前平台上合法的路径, 方法本身不会针对平台做路径映射. 目前支持jpg,png两种格式.
+	 *      根据传递的文件名称后缀判断是png还是jpg, jpg保存可以用jpg,jpeg两种后缀
+	 * @param rect 需要截取的屏幕矩形范围
+	 * \endif
+	 */
+	static void makeScreenshot(const char* path, wyRect rect);
+	
+	/**
+	 * file helper
+	 */
+
+	/**
+	 * 得到文件的大小
+	 *
+	 * @param f FILE指针
+	 * @return 文件字节大小
+	 */
+	static int getFileSize(FILE* f);
+
+	/**
+	 * 得到某个路径的父路径
+	 *
+	 * @param path 路径字符串
+	 * @return 如果\c path为NULL, 则返回NULL. 如果path不为NULL, 返回path的父目录路径. 如果path已经是顶层路径, 则返回
+	 * 		NULL. 返回的字符串需要被调用者释放
+	 */
+	static const char* getParentPath(const char* path);
+
+	/**
+	 * 检查某个路径是否存在
+	 *
+	 * @param path 路径字符串
+	 * @return true如果路径存在, false则不存在. 如果path是NULL, 返回的是true
+	 */
+	static bool isPathExistent(const char* path);
+
+	/**
+	 * 删除某个文件, 如果传入的路径实际上是个目录，则不做任何操作
+	 *
+	 * @param path 文件路径，如果路径指向的位置是一个目录，则不做任何操作
+	 * @return true表示删除文件成功
+	 */
+	static bool deleteFile(const char* path);
+
+	/**
+	 * 对给定的一个路径, 创建它的所有父目录
+	 *
+	 * @param path 路径字符串
+	 */
+	static bool createIntermediateFolders(const char* path);
+
+	/**
+	 * 删除路径中最后一节的内容, 该方法的效果如下所示:<br>
+	 * 输入                      输出<br>
+	 * "/tmp/scratch.tiff"      "/tmp"<br>
+	 * "/tmp/scratch"           "/tmp"<br>
+	 * "/tmp/"                  "/"<br>
+	 * "scratch"                ""<br>
+	 * "/" 						"/"<br>
+	 *
+	 * @param path 原始路径
+	 * @return 删除掉最后一节的路径, 调用者要负责释放这个字符串
+	 */
+	static const char* deleteLastPathComponent(const char* path);
+
+	/**
+	 * 在某个路径后追加一节, 该方法的效果如下所示:<br>
+	 * 输入                      输出<br>
+	 * "/tmp", "/scratch.tiff"  "/tmp/scratch.tiff"<br>
+	 * "/tmp//", "/scratch"     "/tmp/scratch"<br>
+	 * "/tmp", "/"              "/tmp"<br>
+	 * "/", "tmp/" 				"/tmp/"<br>
+	 *
+	 * @param path 原始路径
+	 * @param component 需要追加的内容
+	 * @return 新的路径, 调用者要负责释放这个字符串
+	 */
+	static const char* appendPathComponent(const char* path, const char* component);
+
+	/**
+	 * 返回路径的最后一节, 对应关系是:<br>
+	 * 输入                      输出<br>
+	 * "/tmp/scratch.tiff"      "scratch.tiff"<br>
+	 * "/tmp/scratch"           "scratch"<br>
+	 * "/tmp/"                  "tmp"<br>
+	 * "scratch"                "scratch"<br>
+	 * "/" 						"/"<br>
+	 *
+	 * @param path 输入的路径
+	 * @return 路径的最后一节, 调用者要负责释放内存
+	 */
+	static const char* lastPathComponent(const char* path);
+
+	/**
+	 * 对某个文件系统路径做映射，在Android平台上，这个方法不做任何事，只是直接
+	 * 返回path的拷贝。在iOS平台，会将path映射到iOS的路径.
+	 *
+	 * @param path 文件路径
+	 * @return 映射后的路径, 调用者要负责释放返回的这个路径
+	 */
+	static const char* mapLocalPath(const char* path);
+	
+	/**
+	 * 对某个assets下的相对路径做映射，在Android平台上，这个方法不做任何事，只是直接
+	 * 返回path的拷贝。在iOS平台，会将path映射到iOS的路径.
+	 *
+	 * @param path assets下的文件相对路径
+	 * @return 映射后的路径, 调用者要负责释放返回的这个路径
+	 */
+	static const char* mapAssetsPath(const char* path);
+
+	/*
+	 * thread helper
+	 */
+
+	/**
+	 * 在GL线程中执行一个\link wyRunnable wyRunnable\endlink 对象
+	 *
+	 * @param runnable \link wyRunnable wyRunnable\endlink
+	 */
+	static void runOnGLThread(wyRunnable* runnable);
+
+	/**
+	 * 播放一段视频
+	 *
+	 * @param resId 视频文件的资源id
+	 */
+	static void playVideo(int resId);
+
+	/**
+	 * 播放一段视频
+	 *
+	 * @param path 视频文件在assets下的路径
+	 * @param isRemote true表示path是一个在线视频的url地址, false表示这是一个asset中的文件
+	 */
+	static void playVideo(const char* path, bool isRemote = false);
+
+	/*
+	 * jni helper
+	 */
+
+	/**
+	 * \if English
+	 * Open an url, generally it will open a browser
+	 *
+	 * @param url url string
+	 * \else
+	 * 打开一个url地址, 一般这会打开一个浏览器
+	 *
+	 * @param url url地址
+	 * \endif
+	 */
+	static void openUrl(const char* url);
+};
+
+#endif // __wyUtils_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyVerletPoint_h__
+
+
+/**
+ * @class wyVerletPoint
+ *
+ * 封装绳子中的一点，这个点跟踪其之前的某个位置状态, 从而可以计算变化幅度
+ */
+class wyVerletPoint : public wyObject {
+
+public:
+	wyVerletPoint();
+	virtual ~wyVerletPoint();
+
+	/**
+	 * 设置位置
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 */
+	void setPosition(float x, float y);
+
+	/**
+	 * 让原始值变成当前值，当前值加上和原来原始值的差值
+	 */
+	void update();
+
+	/**
+	 * 应用重力
+	 *
+	 * @param dt delta时间
+	 */
+	void applyGravity(float dt);
+
+	/**
+	 * 设置x位置
+	 *
+	 * @param x x位置
+	 */
+	void setX(float x) { m_x = x; }
+
+	/**
+	 * 设置y位置
+	 *
+	 * @param y y位置
+	 */
+	void setY(float y) { m_y = y; }
+
+	/**
+	 * 得到x值
+	 *
+	 * @return x值
+	 */
+	float getX() { return m_x; }
+
+	/**
+	 * 得到y值
+	 *
+	 * @return y值
+	 */
+	float getY() { return m_y; }
+
+	/**
+	 * 衰减，用于控制振荡幅度
+	 *
+	 * @param percent 衰减幅度
+	 */
+	void attenuate(float percent);
+
+	/**
+	 * 复制一份verlet point对象，返回的对象已经被autorelease
+	 *
+	 * @return \link wyVerletPoint wyVerletPoint\endlink
+	 */
+	wyVerletPoint* copy();
+};
+
+#endif // __wyVerletPoint_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyVerletRope_h__
+
+
+/**
+ * @class wyVerletRope
+ *
+ * 使用Verlet积分模拟一条绳子, 可以传入一个贴图对象，以这个贴图渲染绳子。这个类需要一般需要
+ * 结合物理引擎使用。
+ */
+class wyVerletRope : public wyObject {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param a 绳子起始点a
+	 * @param b 绳子起始点b
+	 * @param tex \link wyTexture2D wyTexture2D\endlink
+	 * @param length 绳子长度，缺省为0，也就是以a和b之间的距离为长度
+	 */
+	wyVerletRope(wyPoint a, wyPoint b, wyTexture2D* tex, int length = 0);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyVerletRope();
+
+	/**
+	 * 重置这条绳子
+	 *
+	 * @param a 新的起点
+	 * @param b 新的终点
+	 */
+	void reset(wyPoint a, wyPoint b);
+
+	/**
+	 * 更新绳子的形态
+	 *
+	 * @param a 新的起点
+	 * @param b 新的终点
+	 * @param dt 过去的时间
+	 */
+	void update(wyPoint a, wyPoint b, float dt);
+
+	/**
+	 * 绘制绳子
+	 */
+	void draw();
+
+	/**
+	 * 获得所有的\link wyVerletStick wyVerletStick\endlink对象
+	 *
+	 * @return 包含所有\link wyVerletStick wyVerletStick对象\endlink 的\link wyArray wyArray对象\endlink
+	 */
+	wyArray* getSticks() { return m_sticks; }
+
+	/**
+	 * 得到指定位置处的\link wyVerletStick wyVerletStick\endlink 对象
+	 *
+	 * @return \link wyVerletStick wyVerletStick\endlink 对象, 如果index超出范围, 返回NULL
+	 */
+	wyVerletStick* getStickAt(int index) { return (wyVerletStick*)wyArrayGet(m_sticks, index); }
+
+	/**
+	 * 得到\link wyVerletStick wyVerletStick\endlink 的个数
+	 *
+	 * @return \link wyVerletStick wyVerletStick\endlink 的个数
+	 */
+	int getStickCount() { return m_sticks->num; }
+
+	/**
+	 * 获得所有的点, 没两个相邻的点就构成了一个\link wyVerletStick wyVerletStick\endlink
+	 *
+	 * @return 包含所有\link wyVerletPoint wyVerletPoint对象\endlink 的\link wyArray wyArray对象\endlink
+	 */
+	wyArray* getPoints() { return m_points; }
+
+	/**
+	 * 得到指定位置处的\link wyVerletPoint wyVerletPoint\endlink 对象
+	 *
+	 * @return \link wyVerletPoint wyVerletPoint\endlink 对象, 如果index超出范围, 返回NULL
+	 */
+	wyVerletPoint* getPointAt(int index) { return (wyVerletPoint*)wyArrayGet(m_points, index); }
+
+	/**
+	 * 获得点数
+	 *
+	 * @return 点数
+	 */
+	int getPointCount() { return m_points->num; }
+
+	/**
+	 * 得到绳子的当前长度，有可能比实际长度稍大
+	 *
+	 * @return 当前长度
+	 */
+	float getCurrentLength();
+
+	/**
+	 * 光线测试
+	 *
+	 * @param s 光线的起始点
+	 * @param e 光线的结束点
+	 * @return 如果光线和某个\link wyVerletStick wyVerletStick\endlink 相交,
+	 * 		则返回这个\link wyVerletStick wyVerletStick\endlink 的索引, 如果没有
+	 * 		相交, 返回-1. 如果有两个相交, 则只会返回第一个\link wyVerletStick wyVerletStick\endlink
+	 * 		的索引.
+	 */
+	int rayCast(wyPoint s, wyPoint e);
+
+	/**
+	 * 得到当前颜色
+	 *
+	 * @return \link wyColor3B wyColor3B\endlink 结构
+	 */
+	wyColor3B getColor();
+
+	/**
+	 * 设置渲染颜色
+	 *
+	 * @param color \link wyColor3B wyColor3B\endlink 结构
+	 */
+	void setColor(wyColor3B color);
+	
+	/**
+	 * 设置渲染颜色
+	 *
+	 * @param color \link wyColor4B wyColor4B\endlink 结构
+	 */
+	void setColor(wyColor4B color);
+
+	/**
+	 * 得到当前alpha值
+	 *
+	 * @return alpha值
+	 */
+	int getAlpha() { return m_color.a; }
+
+	/**
+	 * 设置alpha值
+	 *
+	 * @param alpha alpha值
+	 */
+	void setAlpha(int alpha) { m_color.a = MAX(MIN(255, alpha), 0); }
+
+	/**
+	 * 获得绳子的原始长度，原始长度是绳子创建时的长度，但是绳子可能会有一定的形变导致当前
+	 * 长度不等于原始长度
+	 *
+	 * @return 原始长度
+	 */
+	float getLength() { return m_length; }
+
+	/**
+	 * 获得附加数据指针
+	 */
+	void* getUserData() { return m_data; }
+
+	/**
+	 * 设置附加数据指针
+	 *
+	 * @param data 附加数据指针
+	 */
+	void setUserData(void* data) { m_data = data; }
+
+	/**
+	 * 以指定的点索引范围，获得一条绳子的部分，这个部分生成一个新的绳子实例.
+	 * 如果指定的索引范围不合法，则返回NULL
+	 *
+	 * @param startPoint 新绳子的起始点索引
+	 * @param endPoint 新绳子的结束点索引, 新绳子包含结束点. 结束点必须比startPoint要大
+	 * @return \link wyVerletRope wyVerletRope\endlink 对象，已经被autoRelease
+	 */
+	wyVerletRope* subRope(int startPoint, int endPoint);
+
+	/**
+	 * 检查绳子的当前长度是否已经超过了最大长度
+	 *
+	 * @return true表示绳子的当前长度已经超过了最大长度, 绳子处于被拉伸状态
+	 */
+	bool isStretched();
+
+	/**
+	 * 动态修改绳子长度
+	 *
+	 * @param delta 修改值，正值表示加长绳子，负值表示缩短绳子
+	 */
+	void changeLength(float delta);
+};
+
+#endif // __wyVerletRope_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyVerletStick_h__
+
+
+class wyVerletRope;
+
+/**
+ * @class wyVerletStick
+ *
+ * 封装两个\link wyVerletPoint wyVerletPoint\endlink, 代表了链接这两个点
+ * 的一个线段
+ */
+class wyVerletStick : public wyObject {
+
+public:
+	wyVerletStick(wyVerletPoint* a, wyVerletPoint* b);
+	virtual ~wyVerletStick();
+
+	/**
+	 * 收缩线段，使得两点距离逐渐回复到原始距离。这个收缩过程不是一下子
+	 * 完成的，这使得绳子看起来有一定的弹性。
+	 *
+	 * @param reverse true表示把a点当成b点, b点当成a点
+	 */
+	void contract(bool reverse);
+
+	/**
+	 * 得到点A
+	 *
+	 * @return \link wyVerletPoint wyVerletPoint对象指针\endlink
+	 */
+	wyVerletPoint* getPointA() { return m_pointA; }
+
+	/**
+	 * 得到点B
+	 *
+	 * @return \link wyVerletPoint wyVerletPoint对象指针\endlink
+	 */
+	wyVerletPoint* getPointB() { return m_pointB; }
+
+	/**
+	 * 得到原始长度
+	 *
+	 * @return 原始长度
+	 */
+	float getLength() { return m_length; }
+
+	/**
+	 * 得到当前长度
+	 *
+	 * @return 当前长度
+	 */
+	float getCurrentLength() { return m_currentLength; }
+};
+
+#endif // __wyVerletStick_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyZwoptexLoader_h__
+
+
+typedef unsigned char xmlChar;
+
+/**
+ * @class wyZwoptexFrame
+ *
+ * 表示Zwoptex图片集中的一帧
+ */
+class wyZwoptexFrame : public wyObject {
+public:
+	/// 帧名称
+	const char* key;
+
+	/// 图片在图片集中的矩形
+	wyRect rect;
+
+	/// 图片不透明区域的最小矩形
+	wyRect sourceColorRect;
+
+	/**
+	 * 原始图片的中心和图片在图片集中的矩形的中心偏移。如果偏移的x是正值，则表示
+	 * sourceColorRect的中心在原始图片中心的右边。如果偏移的y是正值，则表示sourceColorRect
+	 * 的中心在原始图片中心的上边。
+	 */
+	wyPoint offset;
+
+	/// 图片的原始大小
+	wySize sourceSize;
+
+	/**
+	 * 图片在图片集中是否顺时针旋转了90度, 一个图片如果旋转了，它在
+	 * Zwoptex中的矩形还是没有旋转的矩形，所以需要转换矩形坐标
+	 */
+	bool rotated;
+
+	wyZwoptexFrame();
+	virtual ~wyZwoptexFrame();
+};
+
+class wyZwoptex : public wyObject {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param resId zwoptex描述文件的资源id. WiEngine会根据描述文件存放的位置对其中的坐标进行适当的
+	 * 		适配。例如：假如描述文件存放在raw-hdpi目录下，但是当前机器是mdpi屏幕，则描述文件中的坐标会
+	 * 		被除以1.5, 如果当前机器是hdpi屏幕，则描述文件中的坐标不会有变化。
+	 */
+	wyZwoptex(int resId);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param path zwoptex描述文件的路径
+	 * @param isFile true表示path是一个文件系统路径, false表示path是一个assets下的相对路径
+	 */
+	wyZwoptex(const char* path, bool isFile = false);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyZwoptex();
+
+	/**
+	 * 得到zwoptex描述文件格式
+	 *
+	 * @return 描述文件格式
+	 */
+	int getFormat() { return m_format; }
+
+	/**
+	 * 得到zwoptex图片的大小
+	 *
+	 * @return zwoptex图片的大小
+	 */
+	wySize getSize() { return m_size; }
+
+	/**
+	 * 手动加入一个帧
+	 *
+	 * @param frame \link wyZwoptexFrame wyZwoptexFrame\endlink
+	 */
+	void addFrame(wyZwoptexFrame* frame);
+
+	/**
+	 * 根据名称查找一个zwoptex帧
+	 *
+	 * @param key 帧名称
+	 * @return \link wyZwoptexFrame wyZwoptexFrame\endlink, 如果没有找到, 返回NULL
+	 */
+	wyZwoptexFrame* getFrame(const char* key);
+
+	/**
+	 * 根据名称查找一个帧, 并转换它为\link wySpriteFrame wySpriteFrame\endlink 对象. 转换得到
+	 * 的\link wySpriteFrame wySpriteFrame\endlink 对象的持续时间是0, 贴图是NULL, 因为
+	 * \link wyZwoptexFrame wyZwoptexFrame\endlink 没有这些信息
+	 *
+	 * @param key 帧名称
+	 * @return \link wySpriteFrame wySpriteFrame\endlink 对象, 如果没有找到, 返回NULL
+	 */
+	wySpriteFrame* getSpriteFrame(const char* key);
+
+	/**
+	 * 根据名称得到某个帧的矩形
+	 *
+	 * @param key 帧名称
+	 * @return \link wyRect wyRect\endlink
+	 */
+	wyRect getFrameRect(const char* key);
+
+	/**
+	 * 得到所有frame名称的列表
+	 *
+	 * @param count 返回frame个数
+	 * @return 所有frame名称的指针数组
+	 */
+	const char** getFrameNames(size_t* count);
+
+	/**
+	 * 得到zwoptex关联的贴图对象
+	 *
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	wyTexture2D* getTexture() { return m_tex; }
+
+	/**
+	 * 设置与zwoptex关联的贴图对象
+	 *
+	 * @param tex \link wyTexture2D wyTexture2D\endlink
+	 */
+	void setTexture(wyTexture2D* tex);
+};
+
+#endif // __wyZwoptexLoader_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyZwoptexManager_h__
+
+
+class wyZwoptexManager : public wyObject {
+public:
+	static wyZwoptexManager* getInstance();
+	virtual ~wyZwoptexManager();
+
+	/**
+	 * 通过某个名称缓存一个Zwoptex
+	 *
+	 * @param name Zwoptex名称
+	 * @param resId Zwoptex的plist文件资源id
+	 * @param tex zwoptex相关联的\link wyTexture2D wyTexture2D\endlink 对象，可选参数，缺省为NULL，
+	 * 		如果为NULL，应该在之后通过其它api设置
+	 */
+	void addZwoptex(const char* name, int resId, wyTexture2D* tex = NULL);
+
+	/**
+	 * 通过某个名称缓存一个Zwoptex
+	 *
+	 * @param name Zwoptex名称
+	 * @param path Zwoptex的plist文件路径
+	 * @param isFile true表示path是一个文件系统路径，false表示是一个assets下的相对路径
+	 * @param tex zwoptex相关联的\link wyTexture2D wyTexture2D\endlink 对象，可选参数，缺省为NULL，
+	 * 		如果为NULL，应该在之后通过其它api设置
+	 */
+	void addZwoptex(const char* name, const char* path, bool isFile = false, wyTexture2D* tex = NULL, float inDensity = 1.0f);
+
+	/**
+	 * 得到一个缓存的\link wyZwoptex wyZwoptex\endlink 对象
+	 *
+	 * @param name zwoptex名称
+	 * @return \link wyZwoptex wyZwoptex\endlink
+	 */
+	wyZwoptex* getZwoptex(const char* name);
+
+	/**
+	 * 删除一个Zwoptex对象
+	 *
+	 * @param name zwoptex名称
+	 */
+	void removeZwoptex(const char* name);
+
+	/**
+	 * 检查某个名称的Zwoptex是否存在
+	 *
+	 * @param name Zwoptex名称
+	 * @return true表示这个Zwoptex已经载入了
+	 */
+	bool hasZwoptex(const char* name);
+
+	/**
+	 * 得到某个Zwoptex里面的所有frame名称
+	 *
+	 * @param name Zwoptex名称
+	 * @param count 返回frame的个数
+	 * @return frame名称的指针数组, 如果name代表的Zwoptex不存在, 则返回NULL. 调用者要负责释放返回的指针数组.
+	 */
+	const char** getFrameNames(const char* name, size_t* count);
+
+	/**
+	 * 通过名称得到一个矩形, 这个矩形是帧的有效区域矩形, 如果某个图片本身具有透明区域, 那么
+	 * 在生成Zwoptex时一般都是可以选择是否裁剪透明区域的, 如果被裁剪了, 得到的这个矩形和图片
+	 * 的原始大小是不相符的.
+	 *
+	 * @param zwoptexName zwoptex的名称
+	 * @param frameName 帧名称
+	 * @return \link wyRect wyRect\endlink
+	 */
+	wyRect getFrameRect(const char* zwoptexName, const char* frameName);
+
+	/**
+	 * 通过名称得到一个矩形, 该方法不需要指定zwoptex名称，因此将搜索所有的zwoptex,
+	 * 如果找到则返回，找不到则返回零大小矩形。如果预先知道没有重名帧，则可以用这个
+	 * 方法进行查找，代码上会更好维护。
+	 *
+	 * @param frameName 帧名称
+	 * @return \link wyRect wyRect\endlink
+	 */
+	wyRect getFrameRect(const char* frameName);
+
+	/**
+	 * 根据名称查找一个zwoptex帧
+	 *
+	 * @param frameName 帧名称
+	 * @return \link wyZwoptexFrame wyZwoptexFrame\endlink, 如果没有找到, 返回NULL
+	 */
+	wyZwoptexFrame* getZwoptexFrame(const char* frameName);
+
+	/**
+	 * 通过名称得到一个zwoptex帧
+	 *
+	 * @param zwoptexName zwoptex的名称
+	 * @param frameName 帧名称
+	 * @return \link wyZwoptexFrame wyZwoptexFrame\endlink
+	 */
+	wyZwoptexFrame* getZwoptexFrame(const char* zwoptexName, const char* frameName);
+
+	/**
+	 * 根据名称查找一个\link wySpriteFrame wySpriteFrame\endlink 对象
+	 *
+	 * @param frameName 帧名称
+	 * @return \link wySpriteFrame wySpriteFrame\endlink, 如果没有找到, 返回NULL
+	 */
+	wySpriteFrame* getSpriteFrame(const char* frameName);
+
+	/**
+	 * 通过名称得到一个\link wySpriteFrame wySpriteFrame\endlink 对象
+	 *
+	 * @param zwoptexName zwoptex的名称
+	 * @param frameName 帧名称
+	 * @return \link wySpriteFrame wySpriteFrame\endlink
+	 */
+	wySpriteFrame* getSpriteFrame(const char* zwoptexName, const char* frameName);
+
+	/**
+	 * 通过Zwoptex创建一个\link wySprite wySprite\endlink 对象
+	 *
+	 * @param zwoptexName zwoptex的名称
+	 * @param frameName 帧名称
+	 * @param tex \link wyTexture2D wyTexture2D\endlink, 可以为NULL，如果为NULL，表示将使用zwoptex本身绑定的贴图,
+	 * 		但是如果zwoptex本身没有绑定贴图，则会返回NULL
+	 * @return \link wySprite wySprite\endlink 对象，如果没有找到相应名称的zwoptex帧，或者没有贴图对象，则返回NULL
+	 */
+	wySprite* makeSprite(const char* zwoptexName, const char* frameName, wyTexture2D* tex = NULL);
+
+	/**
+	 * 通过Zwoptex创建一个\link wySprite wySprite\endlink 对象, 这个方法不指定zwoptex名称，因此会在
+	 * 所有的zwoptex中搜索，直到找到一个匹配的为止。如果确定不存在重复名称的帧，可以用这个方法来生成sprite，
+	 * 因为代码可以有更好的维护性。
+	 *
+	 * @param frameName 帧名称
+	 */
+	wySprite* makeSprite(const char* frameName);
+
+	/**
+	 * 通过Zwoptex创建一个\link wySpriteEx wySpriteEx\endlink 对象
+	 *
+	 * @param zwoptexName zwoptex的名称
+	 * @param frameName 帧名称
+	 * @param tex \link wyTexture2D wyTexture2D\endlink, 可以为NULL，如果为NULL，表示将使用zwoptex本身绑定的贴图,
+	 * 		但是如果zwoptex本身没有绑定贴图，则会返回NULL
+	 * @return \link wySpriteEx wySpriteEx\endlink 对象，如果没有找到相应名称的zwoptex帧，或者没有贴图对象，则返回NULL
+	 */
+	wySpriteEx* makeSpriteEx(const char* zwoptexName, const char* frameName, wyTexture2D* tex = NULL);
+
+	/**
+	 * 通过Zwoptex创建一个\link wySpriteEx wySpriteEx\endlink 对象, 这个方法不指定zwoptex名称，因此会在
+	 * 所有的zwoptex中搜索，直到找到一个匹配的为止。如果确定不存在重复名称的帧，可以用这个方法来生成sprite，
+	 * 因为代码可以有更好的维护性。
+	 *
+	 * @param frameName 帧名称
+	 */
+	wySpriteEx* makeSpriteEx(const char* frameName);
+};
+
+#endif // __wyZwoptexManager_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyImagePicker_h__
+
+// callback of image picker
+typedef struct wyImagePickerCallback {
+} wyImagePickerCallback;
+
+/**
+ * @class wyImagePicker
+ *
+ * 工具类，用来封装跨平台的选择图片接口。图片可以从摄像头或相册中选取，返回
+ * RGBA8888的图片数据，\link wyTexture2D wyTexture2D\enlink有makeRaw方法
+ * 可以直接从RGBA8888数据中生成贴图
+ */
+class wyImagePicker {
+public:
+	/**
+	 * 设备是否有摄像头
+	 *
+	 * @return true表示设备至少有一个摄像头
+	 */
+	static bool hasCamera();
+
+	/**
+	 * 设备是否有前置摄像头
+	 *
+	 * @return true表示设备有前置摄像头
+	 */
+	static bool hasFrontCamera();
+
+	/**
+	 * 从摄像头拍摄一个照片并返回, 照片将以RGBA8888格式的数据返回. 可以指定一个期望的大小，
+	 * 如果照片的实际大小不合，则会在返回时进行缩放. 如果设备没有摄像头，则不做任何事.
+	 *
+	 * @param callback 事件回调
+	 * @param data 额外数据指针，会在回调中传回，可以为NULL
+	 * @param w 期望返回的照片宽度
+	 * @param h 期望返回的照片高度
+	 * @param keepRatio true表示在缩放时保持图片宽高比例，false表示不保持
+	 */
+	static void pickFromCamera(wyImagePickerCallback* callback, void* data, int w, int h, bool keepRatio = true);
+
+	/**
+	 * 从前置摄像头拍摄一个照片并返回, 照片将以RGBA8888格式的数据返回. 可以指定一个期望的大小，
+	 * 如果照片的实际大小不合，则会在返回时进行缩放. 如果设备没有前置摄像头，则不做任何事.
+	 *
+	 * @param callback 事件回调
+	 * @param data 额外数据指针，会在回调中传回，可以为NULL
+	 * @param w 期望返回的照片宽度
+	 * @param h 期望返回的照片高度
+	 * @param keepRatio true表示在缩放时保持图片宽高比例，false表示不保持
+	 */
+	static void pickFromFrontCamera(wyImagePickerCallback* callback, void* data, int w, int h, bool keepRatio = true);
+
+	/**
+	 * 从相册中选择一个照片并返回, 照片将以RGBA8888格式的数据返回. 可以指定一个期望的大小，
+	 * 如果照片的实际大小不合，则会在返回时进行缩放.
+	 *
+	 * @param callback 事件回调
+	 * @param data 额外数据指针，会在回调中传回，可以为NULL
+	 * @param w 期望返回的照片宽度
+	 * @param h 期望返回的照片高度
+	 * @param keepRatio true表示在缩放时保持图片宽高比例，false表示不保持
+	 */
+	static void pickFromAlbum(wyImagePickerCallback* callback, void* data, int w, int h, bool keepRatio = true);
+};
+
+#endif // __wyImagePicker_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyMath_h__
+
+/**
+ * @class wyMath
+ *
+ * \if English
+ * Mathematical methods definition
+ * \else
+ * 数学相关工具方法
+ * \endif
+ */
+class wyMath {
+public:
+	/**
+	 * \if English
+	 * Return a number which is power of two and closest to given \c x
+	 *
+	 * @param x reference number
+	 * @return a number which is power of two and closest to given \c x
+	 * \else
+	 * 返回一个大于x的数，要求最接近x，且是2的整数次方。比如如果x是5，则返回8
+	 *
+	 * @param x 参考值
+	 * @return 最接近x的2的整数次方值
+	 * \endif
+	 */
+	static int getNextPOT(int x);
+
+	/**
+	 * \if English
+	 * Convert degree to radian
+	 *
+	 * @param degree value in degree
+	 * @return value in radian
+	 * \else
+	 * 把角度转换为弧度
+	 *
+	 * @param degree 角度值
+	 * @return 弧度值
+	 * \endif
+	 */
+	static float d2r(float degree);
+
+	/**
+	 * \if English
+	 * Convert radian to degree
+	 *
+	 * @param radian value in radian
+	 * @return value in degree
+	 * \else
+	 * 把弧度转换为角度
+	 *
+	 * @param radian 弧度
+	 * @return 角度
+	 * \endif
+	 */
+	static float r2d(float radian);
+
+	/**
+	 * \if English
+	 * Generate a random number between -1 and 1
+	 *
+	 * @return random number
+	 * \else
+	 * 产生一个在[-1, 1]范围内的随机数
+	 *
+	 * @return 随机数
+	 * \endif
+	 */
+	static float randMinusOneToOne();
+
+	/**
+	 * \if English
+	 * Generate a random number between 0 and \c max
+	 *
+	 * @param max max value
+	 * @return random number
+	 * \else
+	 * 尝试一个[0, max]之间的随机数
+	 *
+	 * @param max 随机数最大值
+	 * @return 随机数
+	 * \endif
+	 */
+	static int randMax(int max);
+
+	/**
+	 * \if English
+	 * Check two segments are intersected or not
+	 *
+	 * @param p1 start point of segment 1
+	 * @param p2 end point of segment 1
+	 * @param q1 start point of segment 2
+	 * @paarm q2 end point of segment 2
+	 * @return true means two segments are intersected, or false if not
+	 * \else
+	 * 检查是否两个线段相交
+	 *
+	 * @param p1 线段1的起点和终点
+	 * @param p2 线段1的终点
+	 * @param q1 线段2的起点和终点
+	 * @param q2 线段2的终点
+	 * @return true表示两个线段相交, false表示不相交
+	 * \endif
+	 */
+	static bool isIntersected(wyPoint p1, wyPoint p2, wyPoint q1, wyPoint q2);
+
+	/**
+	 * \if English
+	 * Returns the positive modulo remainder of value divided by period.
+	 *
+	 * \par
+	 * This function is similar to fmod() (and uses fmod()), but converts a negative result
+	 * into a positive value that is the same distance away from the end of the cycle as the
+	 * result was below zero. In this sense, this function behaves like the numbers on a clock,
+	 * and cyclic(-2.0, 12.0) will return 10.0 rather than -2.0.
+	 *
+	 * @param value value
+	 * @param period modulo
+	 * @return remainder which is always positive
+	 * \else
+	 * 浮点的取模运算, 类似于fmod, 实际上它也调用fmod. 但是它保证返回的结果永远为正值. 比如cyclic(-2.0, 12.0)会
+	 * 返回10.0, 而fmod(-2.0, 12.0)会返回-2.0
+	 *
+	 * @param value 值
+	 * @param period 模数
+	 * @return 余数, 必为正值
+	 * \endif
+	 */
+	static float cyclic(float value, float period);
+	
+	/**
+	 * \if English
+	 * Returns the difference between the specified minuend and subtrahend, in terms of the
+	 * minimum difference within the specified periodic cycle. Therefore, the result may be
+	 * positive or negative, but will always be between (+period/2) and (-period/2).
+	 *
+	 * \par
+	 * For example, for the numbers on a compass, the period is 360, and
+	 * CyclicDifference(350, 10, 360) will yield -20 (ie- the smallest change from 10 degrees
+	 * to 350 degrees is -20 degrees) rather than +340 (from simple subtraction). Similarly,
+	 * CyclicDifference(10, 350, 360) will yield +20 (ie- the smallest change from 350 degrees
+	 * to 10 degrees is +20 degrees) rather than -340 (from simple subtraction).
+	 *
+	 * @param minuend minuend
+	 * @param subtrahend subtrahend
+	 * @param period modulo
+	 * @return minimum difference
+	 * \else
+	 * 计算一个减数和被减数在某个周期模数下的最小差值, 返回值可能为正也可能为负, 但是肯定在
+	 * (+period/2)到(-period/2)的范围内
+	 *
+	 * \par
+	 * 例如: 对于罗盘来说, 角度范围360度, cyclicDifference(350, 10, 360)将得到-20, 因为从10度到
+	 * 350度的最小移动范围是反向移动20度.
+	 *
+	 * @param minuend 被减数
+	 * @param subtrahend 减数
+	 * @param period 模数
+	 * @return 最小差值
+	 * \endif
+	 */
+	static float cyclicDifference(float minuend, float subtrahend, float period);
+};
+
+#endif // __wyMath_h__

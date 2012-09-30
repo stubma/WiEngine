@@ -1,0 +1,3982 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAFCAnimation_h__
+
+/**
+ * @struct wyAFCAnimation
+ *
+ * \if English
+ * This class represents an animation in AFC architecture
+ * \else
+ * 这个类只代表一个动画，包含了这个动画的所有帧信息.
+ * \endif
+ */
+class wyAFCAnimation : public wyObject {
+public:
+	virtual ~wyAFCAnimation();
+	static wyAFCAnimation* make();
+
+	/**
+	 * \if English
+	 * Get frame count in this animation
+	 *
+	 * @return frame count
+	 * \else
+	 * 得到动画中的帧数
+	 *
+	 * @return 帧数
+	 * \endif
+	 */
+	int getFrameCount() { return m_frameList->num; }
+
+	/**
+	 * \if English
+	 * Add a frame to animation
+	 *
+	 * @param f \link wyAFCFrame wyAFCFrame\endlink
+	 * \else
+	 * 添加一个帧到动画中
+	 *
+	 * @param f \link wyAFCFrame wyAFCFrame\endlink
+	 * \endif
+	 */
+	void addFrame(wyAFCFrame* f);
+
+	/**
+	 * \if English
+	 * Get frame at specified index
+	 *
+	 * @param index index, starts from 0
+	 * @return \link wyAFCFrame wyAFCFrame\endlink object, or NULL if index is invalid
+	 * \else
+	 * 得到某个位置处的帧
+	 *
+	 * @param index 帧索引
+	 * @return \link wyAFCFrame wyAFCFrame\endlink对象, 如果索引非法, 返回NULL
+	 * \endif
+	 */
+	wyAFCFrame* getFrameAt(int index) { return (wyAFCFrame*)wyArrayGet(m_frameList, index); }
+};
+
+#endif // __wyAFCAnimation_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAFCClip_h__
+
+/**
+ * @class wyAFCClip
+ *
+ * \if English
+ * A clip in a frame
+ * \else
+ * 代表了一个帧中的分片
+ * \endif
+ */
+class wyAFCClip : public wyObject {
+public:
+	virtual ~wyAFCClip();
+	static wyAFCClip* make();
+
+	/**
+	 * \if English
+	 * Get type of clip
+	 *
+	 * @return type of clip
+	 * \else
+	 * 得到分片类型
+	 *
+	 * @return 分片类型
+	 * \endif
+	 * \see wyAFCClipType
+	 */
+	wyAFCClipType getType() { return m_type; }
+
+	/**
+	 * \if English
+	 * Set type of clip
+	 *
+	 * @param type type of clip
+	 * \else
+	 * 设置分片类型
+	 *
+	 * @param type 分片类型
+	 * \endif
+	 * \see wyAFCClipType
+	 */
+	void setType(wyAFCClipType type) { m_type = type; }
+};
+
+#endif // __wyAFCClip_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAFCConstants_h__
+
+/**
+ * @typedef wyAFCClipType
+ *
+ * \if English
+ * Type of clip
+ * \else
+ * 分片的类型
+ * \endif
+ */
+typedef enum {
+	/**
+	 * \if English
+	 * clip is a image
+	 * \else
+	 * 分片是一个图片
+	 * \endif
+	 */
+	AFC_CLIP_IMAGE,
+
+	/**
+	 * \if English
+	 * clip is a ellipse
+	 * \else
+	 * 分片是一个椭圆
+	 * \endif
+	 */
+	AFC_CLIP_ELLIPSE,
+
+	/**
+	 * \if English
+	 * clip is a line
+	 * \else
+	 * 分片是一条线
+	 * \endif
+	 */
+	AFC_CLIP_LINE,
+
+	/**
+	 * \if English
+	 * clip is a rectangle
+	 * \else
+	 * 分片是一个矩形
+	 * \endif
+	 */
+	AFC_CLIP_RECT,
+
+	/**
+	 * \if English
+	 * clip is a round corner rectangle
+	 * \else
+	 * 分片是一个圆角矩形
+	 * \endif
+	 */
+	AFC_CLIP_ROUNDRECT,
+
+	/**
+	 * \if English
+	 * clip is a collision rect. Collision rectangle only has size property, it
+	 * can't have a fill color, etc.
+	 * \else
+	 * 分片是一个碰撞矩形, 碰撞矩形和矩形的区别是: 碰撞矩形只是一个大小, 没有填充色等信息
+	 * \endif
+	 */
+	AFC_CLIP_COLLISION_RECT,
+
+	/**
+	 * \if English
+	 * clip is a reference point
+	 * \else
+	 * 分片是一个点
+	 * \endif
+	 */
+	AFC_CLIP_POINT,
+
+	/**
+	 * \if English
+	 * clip is a triangle
+	 * \else
+	 * 分片是一个三角形
+	 * \endif
+	 */
+	AFC_CLIP_TRIANGLE
+} wyAFCClipType;
+
+#endif // __wyAFCConstants_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAFCFrame_h__
+
+/**
+ * @class wyAFCFrame
+ *
+ * \if English
+ * A frame in an animation
+ * \else
+ * 帧数据对象, 它代表了一个动画里的一帧. 一帧由多个Clip(分片)组成,
+ * 分片可以是图片, 也可以是某个区域.
+ * \endif
+ */
+class wyAFCFrame : public wyObject {
+public:
+	virtual ~wyAFCFrame();
+	static wyAFCFrame* make();
+
+	/**
+	 * \if English
+	 * Get clip count in this animation
+	 *
+	 * @return clip count
+	 * \else
+	 * 得到帧中的分片数
+	 *
+	 * @return 分片数
+	 * \endif
+	 */
+	int getClipCount() { return m_clipList->num; }
+
+	/**
+	 * \if English
+	 * Get clip count of specific type
+	 *
+	 * @param type clip type
+	 * @return clip count of that type
+	 * \else
+	 * 得到某种类型分片的个数
+	 *
+	 * @param type 分片类型
+	 * @return 某种类型分片的个数
+	 */
+	int getClipCount(wyAFCClipType type);
+
+	/**
+	 * \if English
+	 * Add a clip to frame
+	 *
+	 * @param clip \link wyAFCClip wyAFCClip\endlink
+	 * \else
+	 * 添加一个分片到帧中
+	 *
+	 * @param clip \link wyAFCClip wyAFCClip\endlink
+	 * \endif
+	 */
+	void addClip(wyAFCClip* clip);
+
+	/**
+	 * \if English
+	 * Get clip at specified index
+	 *
+	 * @param index index, starts from 0
+	 * @return \link wyAFCClip wyAFCClip\endlink object, or NULL if index is invalid
+	 * \else
+	 * 得到某个位置处的分片
+	 *
+	 * @param index 分片索引
+	 * @return \link wyAFCClip wyAFCClip\endlink对象, 如果索引非法, 返回NULL
+	 * \endif
+	 */
+	wyAFCClip* getClipAt(int index) { return (wyAFCClip*)wyArrayGet(m_clipList, index); }
+
+	/**
+	 * \if English
+	 * Get clip by index and the clip must be given type
+	 *
+	 * @param type clip type
+	 * @para index index of clip with same types, so it may not reflect actuall position
+	 * 		in clip array
+	 * @return \link wyAFCClip wyAFCClip\endlink, or NULL if not found
+	 * \else
+	 * 得到某个类型的第几个分片
+	 *
+	 * @param type 分片类型
+	 * @param index 分片索引, 这个索引只计算同样类型的分片, 因此它不一定反映分片在
+	 * 		数组中的实际位置
+	 * @return \link wyAFCClip wyAFCClip\endlink, 如果没有找到, 则返回NULL
+	 * \endif
+	 */
+	wyAFCClip* getClipAt(wyAFCClipType type, int index);
+	
+	/**
+	 * \if English
+	 * Set frame duration time
+	 *
+	 * @param delay frame duration time in second
+	 * \else
+	 * 设置帧持续时间
+	 *
+	 * @param delay 帧持续时间
+	 * \endif
+	 */
+	void setDelay(float delay) { m_delay = delay; }
+
+	/**
+	 * \if English
+	 * Get frame duration time
+	 *
+	 * @return frame duration time in second
+	 * \else
+	 * 得到帧持续时间
+	 *
+	 * @return 帧持续时间
+	 * \endif
+	 */
+	float getDelay() { return m_delay; }
+
+	/**
+	 * \if English
+	 * Get offset relative to previous frame
+	 *
+	 * @return offset relative to previous frame
+	 * \else
+	 * 得到相对于上一帧的偏移
+	 *
+	 * @return 相对于上一帧的偏移
+	 * \endif
+	 */
+	wyPoint getIncrementation() { return m_inc; }
+
+	/**
+	 * \if English
+	 * Set offset relative to previous frame
+	 *
+	 * @param inc offset relative to previous frame
+	 * \else
+	 * 设置相对于上一帧的偏移
+	 *
+	 * @param inc 相对于上一帧的偏移
+	 * \endif
+	 */
+	void setIncrementation(wyPoint inc) { m_inc = inc; }
+	
+    /**
+     * \if English
+     * Get x flip flag
+     * 
+     * @return true means frame is flipped in x axis
+     * \else
+     * 获得x翻转标志
+     * 
+     * @return true表示帧在x轴上翻转
+     */
+    bool isFlipX() { return m_flipX; }
+    
+    /**
+     * \if English
+     * Set x flip flag
+     * 
+     * @param flag true means frame is flipped in x axis
+     * \else
+     * 设置x翻转标志
+     * 
+     * @param flag true表示帧在x轴上翻转
+     */
+    void setFlipX(bool flag) { m_flipX = flag; }
+    
+    /**
+     * \if English
+     * Get y flip flag
+     * 
+     * @return true means frame is flipped in y axis
+     * \else
+     * 获得y翻转标志
+     * 
+     * @return true表示帧在y轴上翻转
+     */
+    bool isFlipY() { return m_flipY; }
+    
+    /**
+     * \if English
+     * Set y flip flag
+     * 
+     * @param flag true means frame is flipped in y axis
+     * \else
+     * 设置y翻转标志
+     * 
+     * @param flag true表示帧在y轴上翻转
+     */
+    void setFlipY(bool flag) { m_flipY = flag; }
+};
+
+#endif // __wyAFCFrame_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyMWSprite_h__
+
+/**
+ * @class wyMWSprite
+ *
+ * \if English
+ * Motion welder sprite, most logic is encapsulated in parent class and
+ * it just provides some methods proprietary to motion welder
+ * \else
+ * 这个类并不负责解析Motion Welder文件, 但是它封装了存取Motion Welder中动画
+ * 数据的逻辑, 可以通过这个类播放Motion Welder中的某个动画.
+ * \endif
+ */
+class wyMWSprite : public wyAFCSprite {
+public:
+	/**
+	 * \if English
+	 * Create motion welder sprite from resource id
+	 *
+	 * @param mwResId resource id of anu file
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个anu资源文件中创建\link wyMWSprite wyMWSprite\endlink
+	 *
+	 * @param mwResId anu文件的资源id
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾.
+	 * 		\link wyMWSprite wyMWSprite\endlink 会将贴图包装为\link wySpriteBatchNode wySpriteBatchNode\endlink
+	 * \endif
+	 */
+	static wyMWSprite* make(int mwResId, int animIndex, wyTexture2D* tex, ...);
+
+	/**
+	 * \if English
+	 * Create motion welder sprite from resource id
+	 *
+	 * @param mwResId resource id of anu file
+	 * @param animIndex animation index
+	 * @param tex texture array
+	 * @param count count of \c tex array
+	 * \else
+	 * 从一个anu资源文件中创建\link wyMWSprite wyMWSprite\endlink
+	 *
+	 * @param mwResId anu文件的资源id
+	 * @param animIndex 动画索引
+	 * @param tex 包含所有相关贴图的二维指针
+	 * @param count 贴图个数
+	 * \endif
+	 */
+	static wyMWSprite* make(int mwResId, int animIndex, wyTexture2D** tex, int count);
+
+	/**
+	 * \if English
+	 * Create motion welder sprite from path
+	 *
+	 * @param path path of anu file
+	 * @param isFile true means \c path is an absolute path in file system, false means \c path
+	 * 		is relative path under assets
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个asset文件或者文件系统中的文件创建\link wyMWSprite wyMWSprite\endlink
+	 *
+	 * @param path anu文件的路径
+	 * @param isFile true表示path是一个文件系统路径, 而false表示path是一个assets下的路径
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾.
+	 * 		\link wyMWSprite wyMWSprite\endlink 会将贴图包装为\link wySpriteBatchNode wySpriteBatchNode\endlink
+	 * \endif
+	 */
+	static wyMWSprite* make(const char* path, bool isFile, int animIndex, wyTexture2D* tex, ...);
+
+	/**
+	 * \if English
+	 * Create motion welder sprite from path
+	 *
+	 * @param path path of anu file
+	 * @param isFile true means \c path is an absolute path in file system, false means \c path
+	 * 		is relative path under assets
+	 * @param animIndex animation index
+	 * @param tex texture array
+	 * @param count count of \c tex array
+	 * \else
+	 * 从一个asset文件或者文件系统中的文件创建\link wyMWSprite wyMWSprite\endlink
+	 *
+	 * @param path anu文件的路径
+	 * @param isFile true表示path是一个文件系统路径, 而false表示path是一个assets下的路径
+	 * @param animIndex 动画索引
+	 * @param tex 包含所有相关贴图的二维指针
+	 * @param count 贴图个数
+	 * \endif
+	 */
+	static wyMWSprite* make(const char* path, bool isFile, int animIndex, wyTexture2D** tex, int count);
+
+	/**
+	 * \if English
+	 * Create motion welder sprite from memory file
+	 *
+	 * @param mfsName name of anu memory file
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个anu内存文件创建\link wyMWSprite wyMWSprite\endlink
+	 *
+	 * @param mfsName anu内存文件名称
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾.
+	 * 		\link wyMWSprite wyMWSprite\endlink 会将贴图包装为\link wySpriteBatchNode wySpriteBatchNode\endlink
+	 * \endif
+	 */
+	static wyMWSprite* make(const char* mfsName, int animIndex, wyTexture2D* tex, ...);
+
+	virtual ~wyMWSprite();
+
+	/// @see wyAFCSprite::getAnimationAt
+	virtual wyAFCAnimation* getAnimationAt(int index);
+
+	/// @see wyAFCSprite::getAnimationCount
+	virtual int getAnimationCount();
+
+	/// @see wyAFCSprite::getImageCount
+	virtual int getImageCount();
+};
+
+#endif // __wyMWSprite_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPXAction_h__
+
+/**
+ * @typedef wySPXActionFrame
+ *
+ * \if English
+ * frame info in animation
+ * \else
+ * 动画中帧的信息
+ * \endif
+ */
+typedef struct wySPXActionFrame {
+	/**
+	 * \if English
+	 * frame index
+	 * \else
+	 * 帧索引
+	 * \endif
+	 */
+	int index;
+
+	/**
+	 * \if English
+	 * duration of frame
+	 * \else
+	 * 持续时间, 单位秒
+	 * \endif
+	 */
+	float duration;
+} wySPXActionFrame;
+
+/**
+ * @class wySPXAction
+ *
+ * \if English
+ * Info bean for one SpriteX animation
+ * \else
+ * 封装一个SpriteX动画的信息
+ * \endif
+ */
+class wySPXAction : public wyObject {
+public:
+	/**
+	 * \if English
+	 * transform of anmation
+	 * \else
+	 * 动画的转换常量
+	 * \endif
+	 */
+	wySPXTransform m_transform;
+
+	/**
+	 * \if English
+	 * frame count in this animation
+	 * \else
+	 * 动画中帧个数
+	 * \endif
+	 */
+	int m_frameCount;
+
+	/**
+	 * \if English
+	 * max tile count of frame
+	 * \else
+	 * 所有的帧中, tile数目最多是多少
+	 * \endif
+	 */
+	int m_maxFrameTile;
+
+	/**
+	 * \if English
+	 * frame info
+	 * \else
+	 * 帧信息
+	 * \endif
+	 */
+	wySPXActionFrame* m_frames;
+
+public:
+	virtual ~wySPXAction();
+};
+
+#endif // __wySPXAction_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPXConstants_h__
+
+/**
+ * @typedef wySPXTransform
+ *
+ * \if English
+ * SpriteX transform constants
+ * \else
+ * SpriteX文件中的转换方式常量定义. SpriteX中的tile的旋转角度， 正值是逆时针，
+ * 负值是顺时针. 但是对于action的旋转角度, 正值是顺时针, 负值是逆时针。
+ * \endif
+ */
+typedef enum {
+	SPX_TRANS_NONE,
+	SPX_TRANS_MIRROR_ROT180,
+	SPX_TRANS_MIRROR,
+	SPX_TRANS_ROT180,
+	SPX_TRANS_MIRROR_ROT270,
+	SPX_TRANS_ROT90,
+	SPX_TRANS_ROT270,
+	SPX_TRANS_MIRROR_ROT90
+} wySPXTransform;
+
+#endif // __wySPXConstants_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPXFileData_h__
+
+/**
+ * @typedef wySPXTile
+ *
+ * \if English
+ * tile size info in SpriteX
+ * \else
+ * 一个SpriteX中的tile
+ * \endif
+ */
+typedef struct wySPXTile {
+	/**
+	 * \if English
+	 * tile image x position in atlas
+	 * \else
+	 * 分片图片在图片集中的左上角x位置
+	 * \endif
+	 */
+	short x;
+
+	/**
+	 * \if English
+	 * tile image y position in atlas
+	 * \else
+	 * 分片图片在图片集中的左上角y位置
+	 * \endif
+	 */
+	short y;
+
+	/**
+	 * \if English
+	 * tile image width in atlas
+	 * \else
+	 * 分片图片的宽度
+	 * \endif
+	 */
+	short w;
+
+	/**
+	 * \if English
+	 * tile image height in atlas
+	 * \else
+	 * 分片图片的高度
+	 * \endif
+	 */
+	short h;
+} wySPXTile;
+
+/**
+ * @class wySPXFileData
+ *
+ * \if English
+ * A bean for SpriteX file data. In SpriteX, positive position of x axis is right,
+ * position of y is down and original point is top left corner
+ * \else
+ * 代表了一个SpriteX文件中的所有数据. SpriteX文件中的坐标系是x往右增加, y往下增加, 原点在左上角.
+ * 所以转到WiEngine中时需要注意转换
+ * \endif
+ */
+class wySPXFileData : public wyObject {
+
+public:
+	/**
+	 * \if English
+	 * tile count
+	 * \else
+	 * tile个数
+	 * \endif
+	 */
+	int m_tileCount;
+
+	/**
+	 * \if English
+	 * frame count
+	 * \else
+	 * 帧个数
+	 * \endif
+	 */
+	int m_frameCount;
+
+	/**
+	 * \if English
+	 * animation count
+	 * \else
+	 * 动画个数
+	 * \endif
+	 */
+	int m_actionCount;
+
+	/**
+	 * \if English
+	 * data of all tiles
+	 * \else
+	 * tile的数据
+	 * \endif
+	 */
+	wySPXTile* m_tiles;
+
+public:
+	virtual ~wySPXFileData();
+	static wySPXFileData* make();
+
+	/**
+	 * \if English
+	 * Get frame at an index
+	 *
+	 * @param index frame index
+	 * @return \link wySPXFrame wySPXFrame\endlink, or NULL if index is not valid
+	 * \else
+	 * 根据索引得到帧
+	 *
+	 * @param index 帧索引
+	 * @return \link wySPXFrame wySPXFrame\endlink对象, 如果索引范围不合法, 返回NULL
+	 * \endif
+	 */
+	wySPXFrame* getFrameAt(int index) { return (wySPXFrame*)wyArrayGet(m_frames, index); }
+
+	/**
+	 * \if English
+	 * Get animation at an index
+	 *
+	 * @param index animation index
+	 * @return \link wySPXAction wySPXAction\endlink, or NULL if index is not valid
+	 * \else
+	 * 根据索引得到动画
+	 *
+	 * @param index 动画索引
+	 * @return \link wySPXAction wySPXAction\endlink对象, 如果索引范围不合法, 返回NULL
+	 * \endif
+	 */
+	wySPXAction* getActionAt(int index) { return (wySPXAction*)wyArrayGet(m_actions, index); }
+};
+
+#endif // __wySPXFileData_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPXFrame_h__
+
+/**
+ * @typedef wySPXFrameTile
+ *
+ * \if English
+ * tile info in a frame
+ * \else
+ * 一帧中的tile信息
+ * \endif
+ */
+typedef struct wySPXFrameTile {
+	/**
+	 * \if English
+	 * index of tile
+	 * \else
+	 * tile的索引
+	 * \endif
+	 */
+	int index;
+
+	/**
+	 * \if English
+	 * tile x position in frame
+	 * \else
+	 * tile在帧中的x位置
+	 * \endif
+	 */
+	int x;
+
+	/**
+	 * \if English
+	 * tile y position in frame
+	 * \else
+	 * tile在帧中的y位置
+	 * \endif
+	 */
+	int y;
+
+	/**
+	 * \if English
+	 * transform of this tile
+	 * \else
+	 * tile的转换标志
+	 * \endif
+	 */
+	wySPXTransform transform;
+} wySPXFrameTile;
+
+/**
+ * @typedef wySPXCollision
+ *
+ * \if English
+ * collision region
+ * \else
+ * 碰撞区域定义
+ * \endif
+ */
+typedef struct wySPXCollision {
+	/**
+	 * \if English
+	 * x position of collision region
+	 * \else
+	 * 碰撞区域的x位置
+	 * \endif
+	 */
+	int x;
+
+	/**
+	 * \if English
+	 * y position of collision region
+	 * \else
+	 * 碰撞区域的y位置
+	 * \endif
+	 */
+	int y;
+
+	/**
+	 * \if English
+	 * width of collision region
+	 * \else
+	 * 碰撞区域的宽度
+	 * \endif
+	 */
+	int width;
+
+	/**
+	 * \if English
+	 * height of collision region
+	 * \else
+	 * 碰撞区域的高度
+	 * \endif
+	 */
+	int height;
+} wySPXCollision;
+
+/**
+ * @typedef wySPXReferencePoint
+ *
+ * \if English
+ * reference point
+ * \else
+ * 参考点
+ * \endif
+ */
+typedef struct wySPXReferencePoint {
+	/**
+	 * \if English
+	 * x location of reference point
+	 * \else
+	 * 参考点的x坐标
+	 * \endif
+	 */
+	int x;
+
+	/**
+	 * \if English
+	 * y location of reference point
+	 * \else
+	 * 参考点的y坐标
+	 * \endif
+	 */
+	int y;
+} wySPXReferencePoint;
+
+/**
+ * \if English
+ * frame of SpriteX animation
+ * \else
+ * SpriteX动画中的帧
+ * \endif
+ */
+class wySPXFrame : public wyObject {
+public:
+	/**
+	 * \if English
+	 * width of frame
+	 * \else
+	 * 帧的像素宽度
+	 * \endif
+	 */
+	int m_width;
+
+	/**
+	 * \if English
+	 * height of frame
+	 * \else
+	 * 帧的像素高度
+	 * \endif
+	 */
+	int m_height;
+
+	/**
+	 * \if English
+	 * tile count in frame
+	 * \else
+	 * 帧内tile个数
+	 * \endif
+	 */
+	int m_frameTileCount;
+
+	/**
+	 * \if English
+	 * collision rect count in frame
+	 * \else
+	 * 碰撞区域个数
+	 * \endif
+	 */
+	int m_collisionCount;
+
+	/**
+	 * \if English
+	 * reference point count in frame
+	 * \else
+	 * 参考点个数
+	 * \endif
+	 */
+	int m_referencePointCount;
+
+	/**
+	 * \if English
+	 * tile count in frame
+	 * \else
+	 * 帧内的tile信息
+	 * \endif
+	 */
+	wySPXFrameTile* m_tiles;
+
+	/**
+	 * \if English
+	 * collision rect info in frame
+	 * \else
+	 * 帧内的碰撞区域
+	 * \endif
+	 */
+	wySPXCollision* m_collisions;
+
+	/**
+	 * \if English
+	 * reference point in frame
+	 * \else
+	 * 帧内的参考点
+	 * \endif
+	 */
+	wySPXReferencePoint* m_refPoints;
+
+public:
+	virtual ~wySPXFrame();
+};
+
+#endif // __wySPXFrame_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPXLoader_h__
+
+/**
+ * @class wySPXLoader
+ *
+ * \if English
+ * Loader of SpriteX file
+ * \else
+ * 负责解析， 载入SpriteX的导出文件
+ * \endif
+ */
+class wySPXLoader {
+public:
+	/**
+	 * \if English
+	 * Load a SpriteX file and return file data object
+	 *
+	 * @param spxResId resource id of SpriteX file
+	 * @return \link wySPXFileData wySPXFileData\endlink
+	 * \else
+	 * 解析一个SpriteX文件，返回文件数据对象
+	 *
+	 * @param spxResId SpriteX文件的资源id
+	 * @return \link wySPXFileData wySPXFileData\endlink
+	 * \endif
+	 */
+	static wySPXFileData* load(int spxResId);
+
+	/**
+	 * \if English
+	 * Load a SpriteX file and return file data object
+	 *
+	 * @param spxPath path of SpriteX file
+	 * @param isFile true if \c spxPath is an absolute path in file system, false if \c spxPath
+	 * 		is relative path under assets
+	 * @return \link wySPXFileData wySPXFileData\endlink
+	 * \else
+	 * 解析一个SpriteX文件，返回文件数据对象
+	 *
+	 * @param spxPath SpriteX文件的路径
+	 * @param isFile true表示\c spxPath是一个文件系统的绝对路径， false表示\c spxPath是一个assets
+	 * 		下的相对路径
+	 * @return \link wySPXFileData wySPXFileData\endlink
+	 * \endif
+	 */
+	static wySPXFileData* load(const char* spxPath, bool isFile = false);
+
+	/**
+	 * \if English
+	 * Load a SpriteX file and return file data object
+	 *
+	 * @param mfsName name of memory file
+	 * @return \link wySPXFileData wySPXFileData\endlink
+	 * \else
+	 * 解析一个SpriteX内存文件，返回文件数据对象
+	 *
+	 * @param mfsName 内存文件名称
+	 * @return \link wySPXFileData wySPXFileData\endlink
+	 * \endif
+	 */
+	static wySPXFileData* loadMemory(const char* mfsName);
+};
+
+#endif // __wySPXLoader_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPXSprite_h__
+
+/**
+ * @class wySPXSprite
+ *
+ * \if English
+ * \par
+ * SpriteX is a tool of animation, exported file has *.sprite name. The structure of sprite
+ * file is similar with anu file but different terms used.
+ * \else
+ * \par
+ * SpriteX是一个和Motion Welder类似的
+ * 动画编辑软件。 其动画的组织结构很像Motion Welder, 其导出的文件一般是*.sprite文件, 可以认为其对应于Motion Welder
+ * 的*.anu文件. 但是SpriteX对一些术语的叫法和Motion Welder不同，不过基本只是名字不同， 其概念是类似的。比如：
+ * 1. 动画， 在Motion Welder称为Animation, SpriteX中叫做Action
+ * 2. 帧都是叫Frame
+ * 3. Motion Welder中的Clip在SpriteX中叫做Tile
+ * 4. 图片集在Motion Welder中就是Image, WiEngine一般称之为Atlas, SpriteX称之为Patch
+ * \endif
+ */
+class wySPXSprite : public wyAFCSprite {
+public:
+	virtual ~wySPXSprite();
+
+	/**
+	 * \if English
+	 * Create a \link wySPXSprite wySPXSprite\endlink from a SpriteX resource file
+	 *
+	 * @param spxResId resource id of sprite file
+	 * @param tex related texture object
+	 * @param actionIndex animation index
+	 * @return \link wySPXSprite wySPXSprite\endlink
+	 * \else
+	 * 通过一个SPX文件的资源id创建一个\link wySPXSprite wySPXSprite\endlink对象
+	 *
+	 * @param spxResId sprite文件的资源id
+	 * @param tex 相关贴图对象
+	 * @param actionIndex 动画索引
+	 * @return \link wySPXSprite wySPXSprite\endlink
+	 * \endif
+	 */
+	static wySPXSprite* make(int spxResId, wyTexture2D* tex, int actionIndex);
+
+	/**
+	 * \if English
+	 * Create a \link wySPXSprite wySPXSprite\endlink from a SpriteX file path
+	 *
+	 * @param spxPath path of sprite file
+	 *
+	 * @param spxPath path of sprite file
+	 * @param isFile true means \c spxPath is an absolute path in file system, false if
+	 * 		\c spxPath is relative path under assets
+	 * @param tex related texture
+	 * @param actionIndex animation index
+	 * @return \link wySPXSprite wySPXSprite\endlink
+	 * \else
+	 * 通过一个SPX文件路径创建一个\link wySPXSprite wySPXSprite\endlink对象
+	 *
+	 * @param spxPath sprite文件的路径
+	 * @param isFile true表示\c spxPath是一个文件系统的绝对路径， false表示\c spxPath是一个assets
+	 * 		下的相对路径
+	 * @param tex 相关贴图对象
+	 * @param actionIndex 动画索引
+	 * @return \link wySPXSprite wySPXSprite\endlink
+	 * \endif
+	 */
+	static wySPXSprite* make(const char* spxPath, bool isFile, wyTexture2D* tex, int actionIndex);
+
+	/// @see wyAFCSprite::getAnimationAt
+	virtual wyAFCAnimation* getAnimationAt(int index);
+
+	/// @see wyAFCSprite::getAnimationCount
+	virtual int getAnimationCount();
+
+	/// @see wyAFCSprite::getImageCount
+	virtual int getImageCount();
+};
+
+#endif // __wySPXSprite_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyArcticConstants_h__
+
+/**
+ * @typedef wyArcticFlags
+ *
+ * \if English
+ * flags used in ASprite file
+ * \else
+ * ASprite格式文件中可能用到的标志位常量
+ * \endif
+ */
+typedef enum {
+	/// export encoded images for each module
+	AS_IMAGE_MODULES = (1 << 0),
+
+	/// export PNG additional info (CRCs) for each module
+	AS_PNG_CRC = (1 << 1),
+
+	// keep original palette (do not optimize colors)
+	AS_KEEP_PAL = (1 << 2),
+
+	// move transparency as the first color(s)
+	AS_TRANSP_FIRST = (1 << 4),
+
+	// move transparency as the last color(s)
+	AS_TRANSP_LAST = (1 << 5),
+
+	// export alpha data for each module
+	AS_IMAGE_ALPHA = (1 << 6),
+
+	// export modules (w and h)
+	AS_MODULES = (1 << 8),
+
+	// export w, h for each module as short
+	AS_MODULES_WH_SHORT = (1 << 9),
+
+	// export image index for each module
+	AS_MODULES_IMG = (1 << 10),
+
+	// export x, y for each module
+	AS_MODULES_XY = (1 << 11),
+
+	// export x, y for each module as short
+	AS_MODULES_XY_SHORT = (1 << 12),
+
+	// export frames
+	AS_FRAMES = (1 << 16),
+
+	// export fm offsets as short (default is byte)
+	AS_FM_OFF_SHORT = (1 << 17),
+
+	// export fm number as short (default is byte)
+	AS_FM_NUM_SHORT = (1 << 18),
+
+	// export frame rect
+	AS_FRAME_RC = (1 << 19),
+
+	// export collision rect
+	AS_FRAME_COL_RC = (1 << 20),
+
+	// export anims
+	AS_ANIMS = (1 << 24),
+
+	// export af offsets as short (default is byte)
+	AS_AF_OFF_SHORT = (1 << 25),
+
+	// export af number as short (default is byte)
+	AS_AF_NUM_SHORT = (1 << 26)
+} wyArcticFlags;
+
+#endif // __wyArcticConstants_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyArcticFileData_h__
+
+/**
+ * @struct wyArcticModule
+ *
+ * \if English
+ * module info of arctic sprite
+ * \else
+ * ASprite中的module信息
+ * \endif
+ */
+typedef struct wyArcticModule {
+	/**
+	 * \if English
+	 * tile image x position in atlas
+	 * \else
+	 * 分片图片在图片集中的左上角x位置
+	 * \endif
+	 */
+	short x;
+
+	/**
+	 * \if English
+	 * tile image y position in atlas
+	 * \else
+	 * 分片图片在图片集中的左上角y位置
+	 * \endif
+	 */
+	short y;
+
+	/**
+	 * \if English
+	 * tile image width in atlas
+	 * \else
+	 * 分片图片的宽度
+	 * \endif
+	 */
+	short w;
+
+	/**
+	 * \if English
+	 * tile image height in atlas
+	 * \else
+	 * 分片图片的高度
+	 * \endif
+	 */
+	short h;
+} wyArcticModule;
+
+/**
+ * @struct wyArcticFrameModule
+ *
+ * \if English
+ * frame module info
+ * \else
+ * 分片在帧中的信息
+ * \endif
+ */
+typedef struct wyArcticFrameModule {
+	/**
+	 * \if English
+	 * index of module
+	 * \else
+	 * 分片的索引
+	 * \endif
+	 */
+	short index;
+
+	/**
+	 * \if English
+	 * module x position in frame
+	 * \else
+	 * 分片在帧中的x位置
+	 * \endif
+	 */
+	short x;
+
+	/**
+	 * \if English
+	 * module y position in frame
+	 * \else
+	 * 分片在帧中的y位置
+	 * \endif
+	 */
+	short y;
+
+	/**
+	 * \if English
+	 * module flag, bits 4, 5, 6, 7 are extension for module index
+	 * \else
+	 * 分片标志位, 高4位用于分片索引的扩展
+	 * \endif
+	 */
+	unsigned char flags;
+} wyArcticFrameModule;
+
+/**
+ * @struct wyArcticFrame
+ *
+ * \if English
+ * frame info in arctic file
+ * \else
+ * ASprite中的帧信息
+ * \endif
+ */
+typedef struct wyArcticFrame {
+	/**
+	 * \if English
+	 * module count in frame
+	 * \else
+	 * 帧内的分片数
+	 * \endif
+	 */
+	short moduleCount;
+
+	/**
+	 * \if English
+	 * index of first module. The index indicates data position in \c m_frameModules
+	 * of \link wyArcticFileData wyArcticFileData\endlink
+	 * \else
+	 * 第一个分片的索引, 之后的分片依次排列在之后. 这个索引指的是\link wyArcticFileData wyArcticFileData\endlink
+	 * 中\c m_frameModules的索引位置
+	 * \endif
+	 */
+	short firstModuleIndex;
+} wyArcticFrame;
+
+/**
+ * @typedef wyArcticAnimationFrame
+ *
+ * \if Enlgish
+ * info of frame in an animation
+ * \else
+ * 动画内一帧的描述信息
+ * \endif
+ */
+typedef struct wyArcticAnimationFrame {
+	/**
+	 * \if English
+	 * index of frame
+	 * \else
+	 * 帧索引
+	 * \endif
+	 */
+	short index;
+
+	/**
+	 * \if English
+	 * delay time of this frame, it is not a normal time value and it is
+	 * very similar with motion welder. So actually we need set an unit
+	 * interval to evaluate final time
+	 * \else
+	 * 帧的持续时间, 这个值和motion welder类似, 并不是一个实际的时间, 而是一个无单位
+	 * 的数字, 因此需要设置一个单位时间才能计算出最终时间
+	 * \endif
+	 */
+	short delay;
+
+	/**
+	 * \if English
+	 * x offset of frame
+	 * \else
+	 * 帧的x偏移
+	 * \endif
+	 */
+	short offsetX;
+
+	/**
+	 * \if English
+	 * y offset of frame
+	 * \else
+	 * 帧的y偏移
+	 * \endif
+	 */
+	short offsetY;
+
+	/**
+	 * \if English
+	 * flags of frame, bits 4, 5, 6, 7 are extension for frame index
+	 * \else
+	 * 帧标志, 高4位用于帧索引扩展
+	 * \endif
+	 */
+	unsigned char flags;
+} wyArcticAnimationFrame;
+
+/**
+ * \if English
+ * info of arctic animation
+ * \else
+ * ASprite动画信息
+ * \endif
+ */
+typedef struct wyArcticAnimation {
+	/**
+	 * \if English
+	 * frame count in this animation
+	 * \else
+	 * 动画内的帧数
+	 * \endif
+	 */
+	short frameCount;
+
+	/**
+	 * \if English
+	 * index of first frame in animation frames list. The index indicates data position in
+	 * \c m_animationFrames of \link wyArcticFileData wyArcticFileData\endlink
+	 * \else
+	 * 第一个动画帧索引, 以后的帧按顺序在之后排列, 这个索引是指
+	 * \link wyArcticFileData wyArcticFileData\endlink中的\c m_animationFrames
+	 * 的索引位置
+	 * \endif
+	 */
+	short firstFrameIndex;
+} wyArcticAnimation;
+
+/**
+ * @class wyArcticFileData
+ * \if English
+ * File data object for Arctic editor. It uses little endian byte order. In ASprite,
+ * positive direction of x axis is right, positive of y is down and original point is
+ * top left corner
+ * \else
+ * 北极编辑器的导出文件数据对象, 文件内的数据使用little endian字节序. ASprite文件中的坐标系是
+ * x往右增加, y往下增加, 原点在左上角. 所以转到WiEngine中时需要注意转换
+ * \endif
+ */
+class wyArcticFileData : public wyObject {
+public:
+	/**
+	 * \if English
+	 * version of arctic file format
+	 * \else
+	 * ASprite文件格式版本
+	 * \endif
+	 */
+	int m_version;
+
+	/**
+	 * \if English
+	 * flags of arctic sprite file
+	 * \else
+	 * 动画文件的头部标志位
+	 * \endif
+	 */
+	int m_flags;
+
+	/**
+	 * \if English
+	 * total number of modules
+	 * \else
+	 * 分片总数
+	 * \endif
+	 */
+	int m_moduleCount;
+
+	/**
+	 * \if English
+	 * data of all modules
+	 * \else
+	 * 所有的分片数据
+	 * \endif
+	 */
+	wyArcticModule* m_modules;
+
+	/**
+	 * \if English
+	 * frame module count of all frames
+	 * \else
+	 * 所有的帧内分片加起来之和
+	 * \endif
+	 */
+	int m_frameModuleCount;
+
+	/**
+	 * \if English
+	 * data of all frame modules
+	 * \else
+	 * 所有的帧内分片信息
+	 * \endif
+	 */
+	wyArcticFrameModule* m_frameModules;
+
+	/**
+	 * \if English
+	 * frame count
+	 * \else
+	 * 所有的帧数
+	 * \endif
+	 */
+	int m_frameCount;
+
+	/**
+	 * \if English
+	 * data of all frames
+	 * \else
+	 * 所有的帧数据
+	 * \endif
+	 */
+	wyArcticFrame* m_frames;
+
+	/**
+	 * \if English
+	 * frame count in all animations
+	 * \else
+	 * 所有动画中的帧总和
+	 * \endif
+	 */
+	int m_animationFrameCount;
+
+	/**
+	 * \if English
+	 * data of all animation frames
+	 * \else
+	 * 所有动画帧的数据
+	 * \endif
+	 */
+	wyArcticAnimationFrame* m_animationFrames;
+
+	/**
+	 * \if English
+	 * count of animations
+	 * \else
+	 * 动画总数
+	 * \endif
+	 */
+	int m_animationCount;
+
+	/**
+	 * \if English
+	 * data of all animations
+	 * \else
+	 * 所有动画的数据
+	 */
+	wyArcticAnimation* m_animations;
+
+public:
+	virtual ~wyArcticFileData();
+	static wyArcticFileData* make();
+};
+
+#endif // __wyArcticFileData_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyArcticLoader_h__
+
+/**
+ * @class wyArcticLoader
+ *
+ * \if English
+ * Loader of ASprite file
+ * \else
+ * 负责解析, 载入Arctic的导出文件
+ * \endif
+ */
+class wyArcticLoader {
+
+public:
+	/**
+	 * \if English
+	 * Load a ASprite file and return file data object
+	 *
+	 * @param asResId resource id of ASprite file
+	 * @return \link wyArcticFileData wyArcticFileData\endlink
+	 * \else
+	 * 解析一个ASprite文件，返回文件数据对象
+	 *
+	 * @param asResId ASprite文件的资源id
+	 * @return \link wyArcticFileData wyArcticFileData\endlink
+	 * \endif
+	 */
+	static wyArcticFileData* load(int asResId);
+
+	/**
+	 * \if English
+	 * Load a ASprite file and return file data object
+	 *
+	 * @param asPath path of ASprite file
+	 * @param isFile true if \c asPath is an absolute path in file system, false if \c asPath
+	 * 		is relative path under assets
+	 * @return \link wyArcticFileData wyArcticFileData\endlink
+	 * \else
+	 * 解析一个ASprite文件，返回文件数据对象
+	 *
+	 * @param asPath ASprite文件的路径
+	 * @param isFile true表示\c asPath是一个文件系统的绝对路径， false表示\c asPath是一个assets
+	 * 		下的相对路径
+	 * @return \link wyArcticFileData wyArcticFileData\endlink
+	 * \endif
+	 */
+	static wyArcticFileData* load(const char* asPath, bool isFile = false);
+
+	/**
+	 * \if English
+	 * Load a ASprite file and return file data object
+	 *
+	 * @param mfsName name of memory file
+	 * @return \link wyArcticFileData wyArcticFileData\endlink
+	 * \else
+	 * 解析一个ASprite内存文件，返回文件数据对象
+	 *
+	 * @param mfsName 内存文件名称
+	 * @return \link wyArcticFileData wyArcticFileData\endlink
+	 * \endif
+	 */
+	static wyArcticFileData* loadMemory(const char* mfsName);
+};
+
+#endif // __wyArcticLoader_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyArcticSprite_h__
+
+/**
+ * @class wyArcticSprite
+ *
+ * \if English
+ * \par
+ * Arctic editor derives from AuroraGT editor. It uses a simplified format
+ * called ASprite which is different with BSprite, the original format of AuroraGT
+ *
+ * \par
+ * So terms of Arctic and AuroraGT are same: Animation, Frame, Module.
+ * \else
+ * \par
+ * Arctic编辑器衍生自AuroraGT编辑器, 其使用的导出文件格式叫做ASprite, 区别于AuroraGT的
+ * 原始导出格式: BSprite
+ *
+ * \par
+ * 所以Arctic和AuroraGT编辑器的术语是相同的, 叫做AFM: Animation, Frame, Module
+ * \endif
+ */
+class wyArcticSprite : public wyAFCSprite {
+public:
+	virtual ~wyArcticSprite();
+
+	/**
+	 * \if English
+	 * Create arctic sprite from resource id
+	 *
+	 * @param asResId resource id of ASprite file
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个ASprite资源文件中创建\link wyArcticSprite wyArcticSprite\endlink
+	 *
+	 * @param asResId ASprite文件的资源id
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾
+	 * \endif
+	 */
+	static wyArcticSprite* make(int asResId, int animIndex, wyTexture2D* tex, ...);
+
+	/**
+	 * \if English
+	 * Create arctic sprite from resource id
+	 *
+	 * @param asResId resource id of ASprite file
+	 * @param animIndex animation index
+	 * @param tex texture array
+	 * @param count count of \c tex array
+	 * \else
+	 * 从一个ASprite资源文件中创建\link wyArcticSprite wyArcticSprite\endlink
+	 *
+	 * @param asResId ASprite文件的资源id
+	 * @param animIndex 动画索引
+	 * @param tex 包含所有相关贴图的二维指针
+	 * @param count 贴图个数
+	 * \endif
+	 */
+	static wyArcticSprite* make(int asResId, int animIndex, wyTexture2D** tex, int count);
+
+	/**
+	 * \if English
+	 * Create arctic sprite from path
+	 *
+	 * @param path path of ASprite file
+	 * @param isFile true means \c path is an absolute path in file system, false means \c path
+	 * 		is relative path under assets
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个asset文件或者文件系统中的文件创建\link wyArcticSprite wyArcticSprite\endlink
+	 *
+	 * @param path ASprite文件的路径
+	 * @param isFile true表示path是一个文件系统路径, 而false表示path是一个assets下的路径
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾
+	 * \endif
+	 */
+	static wyArcticSprite* make(const char* path, bool isFile, int animIndex, wyTexture2D* tex, ...);
+
+	/**
+	 * \if English
+	 * Create arctic sprite from path
+	 *
+	 * @param path path of ASprite file
+	 * @param isFile true means \c path is an absolute path in file system, false means \c path
+	 * 		is relative path under assets
+	 * @param animIndex animation index
+	 * @param tex texture array
+	 * @param count count of \c tex array
+	 * \else
+	 * 从一个asset文件或者文件系统中的文件创建\link wyArcticSprite wyArcticSprite\endlink
+	 *
+	 * @param path ASprite文件的路径
+	 * @param isFile true表示path是一个文件系统路径, 而false表示path是一个assets下的路径
+	 * @param animIndex 动画索引
+	 * @param tex 包含所有相关贴图的二维指针
+	 * @param count 贴图个数
+	 * \endif
+	 */
+	static wyArcticSprite* make(const char* path, bool isFile, int animIndex, wyTexture2D** tex, int count);
+
+	/**
+	 * \if English
+	 * Create arctic sprite from memory file
+	 *
+	 * @param mfsName name of ASprite memory file
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个ASprite内存文件创建\link wyArcticSprite wyArcticSprite\endlink
+	 *
+	 * @param mfsName ASprite内存文件名称
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾
+	 * \endif
+	 */
+	static wyArcticSprite* make(const char* mfsName, int animIndex, wyTexture2D* tex, ...);
+
+	/// @see wyAFCSprite::getAnimationAt
+	virtual wyAFCAnimation* getAnimationAt(int index);
+
+	/// @see wyAFCSprite::getAnimationCount
+	virtual int getAnimationCount();
+
+	/// @see wyAFCSprite::getImageCount
+	virtual int getImageCount();
+};
+
+#endif // __wyArcticSprite_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPX3Action_h__
+
+/**
+ * @class wySPX3Action
+ *
+ * \if English
+ * animation of SpriteX 2011
+ * \else
+ * SpriteX 2011的动画信息
+ * \endif
+ */
+class wySPX3Action : public wyObject {
+
+};
+
+#endif // __wySPX3Action_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPX3Constants_h__
+
+/**
+ * @typedef wySPX3ActionMode
+ *
+ * \if English
+ * Mode of action
+ * \else
+ * SPX3动画中的模式字节
+ * \endif
+ */
+typedef enum {
+	/**
+	 * \if English
+	 * animation uses time to define frame duration
+	 * \else
+	 * 动画使用时间来定义帧持续时间
+	 * \endif
+	 */
+	SPX_DELAY = 1,
+
+	/**
+	 * \if English
+	 * all frames in animation are displayed for one frame time
+	 * \else
+	 * 动画内的所有帧都只显示一帧的时间, 这个模式下， 动画信息中不包含每帧的
+	 * 持续时间
+	 * \endif
+	 */
+	SPX_NODELAY
+} wySPX3ActionMode;
+
+/**
+ * \if English
+ * mode of tile sets
+ * \else
+ * SPX3中的分片集中的数据模式
+ * \endif
+ */
+typedef enum {
+	/**
+	 * \if English
+	 * every tile has same size, so it only saves tile size and rows/columns in atlas.
+	 * That means the file size can be smaller
+	 * \else
+	 * 每个分片的大小都是相同的， 而且是规律的网格状分布， 这样就只需要保存分片的大小和行列数即可，
+	 * 相对于索引模式可以减少文件尺寸
+	 * \endif
+	 */
+	SPX_TILE_INDEX = 1,
+
+	/**
+	 * \if English
+	 * every tile is defined by position and size
+	 * \else
+	 * 每个分片都由一个位置和大小来进行定义
+	 * \endif
+	 */
+	SPX_TILE_CLIP
+} wySPX3TileSetMode;
+
+/**
+ * @typedef wySPX3PatchType
+ *
+ * \if English
+ * Type of patch, patch here is just equal with tile
+ *
+ * \note
+ * Collision rectangle is not a tile in SpriteX 2011 and SpriteX 2011 processes
+ * collision rectangle alone
+ * \else
+ * 分片的类型。SpriteX 2011把分片做了两级分类， 第一级只有tile和shape两种， 它这里用的
+ * patch， 其意思其实相当于tile. 可以认为Patch和Tile是两个可以在SpriteX中等同的术语。
+ *
+ * \note
+ * 碰撞矩形在SpriteX 2011中不被当成一种分片， 因此没有分片类型， 是单独处理的一种元素
+ * \endif
+ */
+typedef enum {
+	/**
+	 * \if English
+	 * patch is a tile, i.e., at image in atlas
+	 * \else
+	 * 分片是一个图片集中的图片
+	 * \endif
+	 */
+	SPX_PATCH_TILE = 1,
+
+	/**
+	 * \if English
+	 * patch is a shape
+	 * \else
+	 * 分片是一个形状.
+	 * \endif
+	 */
+	SPX_PATCH_SHAPE
+} wySPX3PatchType;
+
+/**
+ * @typedef wySPX3ShapeType
+ *
+ * \if English
+ * type of shape
+ * \else
+ * 分片如果是个形状， 这些常量定义了矩形是什么形状
+ * \endif
+ */
+typedef enum {
+	SPX_POINT = 0x01,
+	SPX_LINE = 0x02,
+	SPX_RECT = 0x03,
+	SPX_TRIANGLE = 0x04,
+	SPX_POLYGON = 0x05,
+	SPX_ELLIPSE = 0x06,
+	SPX_ROUNDRECT = 0x08,
+	SPX_ARC = 0x09,
+	SPX_PIE = 0x0A
+} wySPX3ShapeType;
+
+#endif // __wySPX3Constants_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPX3FileData_h__
+
+
+/**
+ * @class wySPX3FileData
+ *
+ * \if English
+ * A bean for SpriteX 2011 exported file. In SpriteX 2011, every atlas is represented by
+ * a tile set, and tile info is resolved by tile set index and tile index. But anyway,
+ * SpriteX 2011 is still an AFC architecture editor.
+ * \else
+ * 封装SpriteX 2011导出文件中的数据. SpriteX 2011中， 每个图片集被组织成一个分片集，帧中的
+ * 分片通过分片集索引和分片索引来确定分片的具体信息。不管具体怎么组织，SpriteX 2011仍然是AFC
+ * 架构。
+ * \endif
+ */
+class wySPX3FileData : public wyObject {
+public:
+	/**
+	 * \if English
+	 * version of file format
+	 * \else
+	 * 文件格式版本
+	 * \endif
+	 */
+	int m_version;
+
+	/**
+	 * \if English
+	 * count of tile set, every tile set responses to an atlas
+	 * \else
+	 * 分片集数， 每个分片集对应于一个图片集
+	 * \endif
+	 */
+	int m_tileSetCount;
+
+	/**
+	 * \if English
+	 * frame count
+	 * \else
+	 * 帧总数
+	 * \endif
+	 */
+	int m_frameCount;
+
+	/**
+	 * \if English
+	 * animation count
+	 * \else
+	 * 动画总数
+	 * \endif
+	 */
+	int m_actionCount;
+
+public:
+    virtual ~wySPX3FileData();
+    static wySPX3FileData* make();
+
+    /**
+	 * \if English
+	 * Get tile set at given index
+	 *
+	 * @param index tile set index
+	 * @return \link wySPX3TileSet wySPX3TileSet\endlink
+	 * \else
+	 * 得到指定位置的分片集
+	 *
+	 * @param index 分片集索引
+	 * @return \link wySPX3TileSet wySPX3TileSet\endlink
+	 * \endif
+	 */
+	wySPX3TileSet* getTileSetAt(int index) { return (wySPX3TileSet*)wyArrayGet(m_tileSets, index); }
+
+	/**
+	 * \if English
+	 * Get frame at given index
+	 *
+	 * @param index frame index
+	 * @return \link wySPX3Frame wySPX3Frame\endlink
+	 * \else
+	 * 得到指定位置的帧
+	 *
+	 * @param index 帧索引
+	 * @return \link wySPX3Frame wySPX3Frame\endlink
+	 * \endif
+	 */
+	wySPX3Frame* getFrameAt(int index) { return (wySPX3Frame*)wyArrayGet(m_frames, index); }
+
+	/**
+	 * \if English
+	 * Get animation at an index
+	 *
+	 * @param index animation index
+	 * @return \link wySPX3Action wySPX3Action\endlink, or NULL if index is not valid
+	 * \else
+	 * 根据索引得到动画
+	 *
+	 * @param index 动画索引
+	 * @return \link wySPX3Action wySPX3Action\endlink对象, 如果索引范围不合法, 返回NULL
+	 * \endif
+	 */
+	wySPX3Action* getActionAt(int index) { return (wySPX3Action*)wyArrayGet(m_actions, index); }
+};
+
+#endif // __wySPX3FileData_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPX3Frame_h__
+
+/**
+ * @struct wySPX3Patch
+ *
+ * \if English
+ * Clip in SpriteX 2011, it calls them patch. There is two types of patch:
+ * image or shape.
+ * \else
+ * 分片信息, SpriteX 2011管这个叫Patch. Patch分为图片和形状两种
+ * \endif
+ */
+typedef struct wySPX3Patch {
+	/**
+	 * \if English
+	 * patch type
+	 * \else
+	 * 分片类型
+	 * \endif
+	 */
+	wySPX3PatchType type;
+} wySPX3Patch;
+
+/**
+ * @class wySPX3Frame
+ *
+ * \if English
+ * frame in SpriteX 2011
+ * \else
+ * SpriteX 2011中的帧数据
+ * \endif
+ */
+class wySPX3Frame : public wyObject {
+public:
+	/**
+	 * \if English
+	 * flag of frame
+	 * \else
+	 * 帧的标志位信息
+	 * \endif
+	 */
+	int m_flags;
+
+	/**
+	 * \if English
+	 * frame rect in animation
+	 * \else
+	 * 帧在动画中的位置
+	 * \endif
+	 */
+	wySPX3Tile m_rect;
+
+	/**
+	 * \if English
+	 * count of patch
+	 * \else
+	 * 帧内分片数
+	 * \endif
+	 */
+	int m_patchCount;
+
+	/**
+	 * \if English
+	 * data of all patch
+	 * \else
+	 * 所有分片的数据
+	 * \endif
+	 */
+	wySPX3Patch* m_patches;
+
+	/**
+	 * \if English
+	 * count of collision rectangle
+	 * \else
+	 * 帧内的碰撞矩形数
+	 * \endif
+	 */
+	int m_collisionCount;
+
+	/**
+	 * \if English
+	 * data of all collision rectangles
+	 * \else
+	 * 所有碰撞矩形的数据
+	 * \endif
+	 */
+	wySPX3Tile* m_collisionRects;
+
+public:
+    virtual ~wySPX3Frame();
+    static wySPX3Frame* make();
+};
+
+#endif // __wySPX3Frame_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPX3Loader_h__
+
+/**
+ * @class wySPX3Loader
+ *
+ * \if English
+ * Loader of SpriteX 2011 file
+ * \else
+ * 负责解析， 载入SpriteX 2011的导出文件
+ * \endif
+ */
+class wySPX3Loader {
+public:
+	/**
+	 * \if English
+	 * Load a SpriteX 2011 file and return file data object
+	 *
+	 * @param spxResId resource id of SpriteX 2011 file
+	 * @return \link wySPX3FileData wySPX3FileData\endlink
+	 * \else
+	 * 解析一个SpriteX 2011文件，返回文件数据对象
+	 *
+	 * @param spxResId SpriteX 2011文件的资源id
+	 * @return \link wySPX3FileData wySPX3FileData\endlink
+	 * \endif
+	 */
+	static wySPX3FileData* load(int spxResId);
+
+	/**
+	 * \if English
+	 * Load a SpriteX 2011 file and return file data object
+	 *
+	 * @param spxPath path of SpriteX 2011 file
+	 * @param isFile true if \c spxPath is an absolute path in file system, false if \c spxPath
+	 * 		is relative path under assets
+	 * @return \link wySPX3FileData wySPX3FileData\endlink
+	 * \else
+	 * 解析一个SpriteX 2011文件，返回文件数据对象
+	 *
+	 * @param spxPath SpriteX 2011文件的路径
+	 * @param isFile true表示\c spxPath是一个文件系统的绝对路径， false表示\c spxPath是一个assets
+	 * 		下的相对路径
+	 * @return \link wySPX3FileData wySPX3FileData\endlink
+	 * \endif
+	 */
+	static wySPX3FileData* load(const char* spxPath, bool isFile = false);
+
+	/**
+	 * \if English
+	 * Load a SpriteX 2011 file and return file data object
+	 *
+	 * @param mfsName name of memory file
+	 * @return \link wySPX3FileData wySPX3FileData\endlink
+	 * \else
+	 * 解析一个SpriteX 2011内存文件，返回文件数据对象
+	 *
+	 * @param mfsName 内存文件名称
+	 * @return \link wySPX3FileData wySPX3FileData\endlink
+	 * \endif
+	 */
+	static wySPX3FileData* loadMemory(const char* mfsName);
+};
+
+#endif // __wySPX3Loader_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPX3Sprite_h__
+
+/**
+ * @class wySPX3Sprite
+ *
+ * \if English
+ * \par
+ * SpriteX 2011 is a tool of animation, exported file has *.sprite name. The structure of sprite
+ * file is similar with anu file but different terms used.
+ *
+ * \par
+ * This class supports exported file of SpriteX 2011 2011. SpriteX 2011 uses an incompatible file format with
+ * 3.9.4, so WiEngine creates \link wySPX3Sprite wySPX3Sprite\endlink.
+ * \else
+ * \par
+ * SpriteX 2011是一个和Motion Welder类似的
+ * 动画编辑软件。 其动画的组织结构很像Motion Welder, 其导出的文件一般是*.sprite文件, 可以认为其对应于Motion Welder
+ * 的*.anu文件. 但是SpriteX 2011对一些术语的叫法和Motion Welder不同，不过基本只是名字不同， 其概念是类似的。比如：
+ * 1. 动画， 在Motion Welder称为Animation, SpriteX 2011中叫做Action
+ * 2. 帧都是叫Frame
+ * 3. Motion Welder中的Clip在SpriteX 2011中叫做Tile
+ * 4. 图片集在Motion Welder中就是Image, WiEngine一般称之为Atlas, SpriteX 2011称之为Patch
+ *
+ * \par
+ * 这个类用于支持SpriteX 2011版本的导出文件. SpriteX 2011的导出文件格式和3.9.4是不兼容的, 因此WiEngine新增了
+ * \link wySPX3Sprite wySPX3Sprite\endlink来处理2011的动画. 但是2011仍然是一个AFC架构编辑器, 因此仍然是
+ * \link wyAFCSprite wyAFCSprite\endlink的子类
+ * \endif
+ */
+class wySPX3Sprite : public wyAFCSprite {
+public:
+	virtual ~wySPX3Sprite();
+
+	/**
+	 * \if English
+	 * Create a \link wySPX3Sprite wySPX3Sprite\endlink from a SpriteX 2011 resource file
+	 *
+	 * @param spxResId resource id of sprite file
+	 * @param actionIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * @return \link wySPX3Sprite wySPX3Sprite\endlink
+	 * \else
+	 * 通过一个SpriteX 2011文件的资源id创建一个\link wySPX3Sprite wySPX3Sprite\endlink对象
+	 *
+	 * @param spxResId sprite文件的资源id
+	 * @param actionIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾.
+	 * @return \link wySPX3Sprite wySPX3Sprite\endlink
+	 * \endif
+	 */
+	static wySPX3Sprite* make(int spxResId, int actionIndex, wyTexture2D* tex, ...);
+
+	/**
+	 * \if English
+	 * Create SpriteX 2011 sprite from resource id
+	 *
+	 * @param spxResId resource id of sprite file
+	 * @param actionIndex animation index
+	 * @param tex texture array
+	 * @param count count of \c tex array
+	 * \else
+	 * 从一个SpriteX 2011资源文件中创建\link wySPX3Sprite wySPX3Sprite\endlink
+	 *
+	 * @param spxResId SpriteX 2011文件的资源id
+	 * @param actionIndex 动画索引
+	 * @param tex 包含所有相关贴图的二维指针
+	 * @param count 贴图个数
+	 * \endif
+	 */
+	static wySPX3Sprite* make(int spxResId, int actionIndex, wyTexture2D** tex, int count);
+
+	/**
+	 * \if English
+	 * Create a \link wySPX3Sprite wySPX3Sprite\endlink from a SpriteX 2011 file path
+	 *
+	 * @param spxPath path of sprite file
+	 * @param isFile true means \c spxPath is an absolute path in file system, false if
+	 * 		\c spxPath is relative path under assets
+	 * @param actionIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * @return \link wySPX3Sprite wySPX3Sprite\endlink
+	 * \else
+	 * 通过一个SpriteX 2011文件路径创建一个\link wySPX3Sprite wySPX3Sprite\endlink对象
+	 *
+	 * @param spxPath sprite文件的路径
+	 * @param isFile true表示\c spxPath是一个文件系统的绝对路径， false表示\c spxPath是一个assets
+	 * 		下的相对路径
+	 * @param actionIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾.
+	 * @return \link wySPX3Sprite wySPX3Sprite\endlink
+	 * \endif
+	 */
+	static wySPX3Sprite* make(const char* spxPath, bool isFile, int actionIndex, wyTexture2D* tex, ...);
+
+	/**
+	 * \if English
+	 * Create SpriteX 2011 sprite from path
+	 *
+	 * @param spxPath path of sprite file
+	 * @param isFile true means \c spxPath is an absolute path in file system, false means \c spxPath
+	 * 		is relative path under assets
+	 * @param actionIndex animation index
+	 * @param tex texture array
+	 * @param count count of \c tex array
+	 * \else
+	 * 从一个asset文件或者文件系统中的文件创建\link wySPX3Sprite wySPX3Sprite\endlink
+	 *
+	 * @param spxPath SpriteX 2011文件的路径
+	 * @param isFile true表示\c spxPath是一个文件系统路径, 而false表示\c spxPath是一个assets下的路径
+	 * @param actionIndex 动画索引
+	 * @param tex 包含所有相关贴图的二维指针
+	 * @param count 贴图个数
+	 * \endif
+	 */
+	static wySPX3Sprite* make(const char* spxPath, bool isFile, int actionIndex, wyTexture2D** tex, int count);
+
+	/// @see wyAFCSprite::getAnimationAt
+	virtual wyAFCAnimation* getAnimationAt(int index);
+
+	/// @see wyAFCSprite::getAnimationCount
+	virtual int getAnimationCount();
+
+	/// @see wyAFCSprite::getImageCount
+	virtual int getImageCount();
+};
+
+#endif // __wySPX3Sprite_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySPX3TileSet_h__
+
+/**
+ * @typedef wySPX3Tile
+ *
+ * \if English
+ * tile size info in SpriteX 2011
+ * \else
+ * 一个SpriteX 2011中的tile
+ * \endif
+ */
+typedef struct wySPX3Tile {
+	/**
+	 * \if English
+	 * x position of first corner
+	 * \else
+	 * 分片图片在图片集中的矩形的第一个角的x坐标
+	 * \endif
+	 */
+	short x1;
+
+	/**
+	 * \if English
+	 * y position of first corner
+	 * \else
+	 * 分片图片在图片集中的矩形的第一个角的y坐标
+	 * \endif
+	 */
+	short y1;
+
+	/**
+	 * \if English
+	 * x position of another corner
+	 * \else
+	 * 分片图片在图片集中的矩形的对角的x坐标
+	 * \endif
+	 */
+	short x2;
+
+	/**
+	 * \if English
+	 * y position of another corner
+	 * \else
+	 * 分片图片在图片集中的矩形的对角的y坐标
+	 * \endif
+	 */
+	short y2;
+
+	short left() {
+		return MIN(x1, x2);
+	}
+
+	short bottom() {
+		// positive of y axis in SpriteX is down direction
+		return MAX(y1, y2);
+	}
+
+	short right() {
+		return MAX(x1, x2);
+	}
+
+	short top() {
+		// positive of y axis in SpriteX is down direction
+		return MIN(y1, y2);
+	}
+
+	short width() {
+		return abs(x1 - x2);
+	}
+
+	short height() {
+		return abs(y1 - y2);
+	}
+} wySPX3Tile;
+
+/**
+ * @class wySPX3TileSet
+ *
+ * \if English
+ * tile set info
+ * \else
+ * 分片集信息
+ * \endif
+ */
+class wySPX3TileSet : public wyObject {
+public:
+	/**
+	 * \if English
+	 * mode of this tileset
+	 * \else
+	 * 分片集数据模式
+	 * \endif
+	 */
+	wySPX3TileSetMode m_mode;
+
+	/**
+	 * \if English
+	 * image index
+	 * \else
+	 * 图片集索引
+	 * \endif
+	 */
+	int m_imageIndex;
+
+	/**
+	 * \if English
+	 * width of a tile, only used in index mode
+	 * \else
+	 * 分片宽度， 用于索引数据模式
+	 * \endif
+	 */
+    int m_tileWidth;
+
+	/**
+	 * \if English
+	 * height of a tile, only used in index mode
+	 * \else
+	 * 分片高度， 用于索引数据模式
+	 * \endif
+	 */
+    int m_tileHeight;
+
+	/**
+	 * \if English
+	 * tile columns, only used in index mode
+	 * \else
+	 * 图片集中包含多少列分片， 用于索引数据模式
+	 * \endif
+	 */
+    int m_tileColumns;
+
+	/**
+	 * \if English
+	 * tile rows, only used in index mode
+	 * \else
+	 * 图片集中包含多少行分片， 用于索引数据模式
+	 * \endif
+	 */
+    int m_tileRows;
+
+    /**
+     * \if English
+     * total number of tiles, only used in clip mode
+     * \else
+     * 分片数, 只用于分片模式
+     * \endif
+     */
+    int m_tileCount;
+
+    /**
+     * \if English
+     * data of all tile, only used in clip mode
+     * \else
+     * 所有分片的数据， 只用于分片模式
+     * \endif
+     */
+    wySPX3Tile* m_tiles;
+
+public:
+    virtual ~wySPX3TileSet();
+    static wySPX3TileSet* make();
+};
+
+#endif // __wySPX3TileSet_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAuroraSprite_h__
+
+/**
+ * @class wyAuroraSprite
+ *
+ * \if English
+ * AuroraGT is designed by gameloft and it names exported file as BSprite format. Actually
+ * AuroraGT is not only an animation designer, but also a map designer and game element manager.
+ * \else
+ * AuroraGT编辑器是gameloft设计的游戏编辑器， 其实它不仅限于动画编辑， 还能支持编辑地图和管理游戏元素.
+ * 其使用的导出文件格式叫做BSprite
+ * \endif
+ */
+class wyAuroraSprite : public wyAFCSprite {
+public:
+	virtual ~wyAuroraSprite();
+
+	/**
+	 * \if English
+	 * Create aurora sprite from resource id
+	 *
+	 * @param bsResId resource id of BSprite file
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个BSprite资源文件中创建\link wyAuroraSprite wyAuroraSprite\endlink
+	 *
+	 * @param bsResId BSprite文件的资源id
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾
+	 * \endif
+	 */
+	static wyAuroraSprite* make(int bsResId, int animIndex, wyTexture2D* tex, ...);
+
+	/**
+	 * \if English
+	 * Create aurora sprite from resource id
+	 *
+	 * @param bsResId resource id of BSprite file
+	 * @param animIndex animation index
+	 * @param tex texture array
+	 * @param count count of \c tex array
+	 * \else
+	 * 从一个BSprite资源文件中创建\link wyAuroraSprite wyAuroraSprite\endlink
+	 *
+	 * @param bsResId BSprite文件的资源id
+	 * @param animIndex 动画索引
+	 * @param tex 包含所有相关贴图的二维指针
+	 * @param count 贴图个数
+	 * \endif
+	 */
+	static wyAuroraSprite* make(int bsResId, int animIndex, wyTexture2D** tex, int count);
+
+	/**
+	 * \if English
+	 * Create aurora sprite from path
+	 *
+	 * @param path path of BSprite file
+	 * @param isFile true means \c path is an absolute path in file system, false means \c path
+	 * 		is relative path under assets
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个asset文件或者文件系统中的文件创建\link wyAuroraSprite wyAuroraSprite\endlink
+	 *
+	 * @param path BSprite文件的路径
+	 * @param isFile true表示path是一个文件系统路径, 而false表示path是一个assets下的路径
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾
+	 * \endif
+	 */
+	static wyAuroraSprite* make(const char* path, bool isFile, int animIndex, wyTexture2D* tex, ...);
+
+	/**
+	 * \if English
+	 * Create aurora sprite from path
+	 *
+	 * @param path path of BSprite file
+	 * @param isFile true means \c path is an absolute path in file system, false means \c path
+	 * 		is relative path under assets
+	 * @param animIndex animation index
+	 * @param tex texture array
+	 * @param count count of \c tex array
+	 * \else
+	 * 从一个asset文件或者文件系统中的文件创建\link wyAuroraSprite wyAuroraSprite\endlink
+	 *
+	 * @param path BSprite文件的路径
+	 * @param isFile true表示path是一个文件系统路径, 而false表示path是一个assets下的路径
+	 * @param animIndex 动画索引
+	 * @param tex 包含所有相关贴图的二维指针
+	 * @param count 贴图个数
+	 * \endif
+	 */
+	static wyAuroraSprite* make(const char* path, bool isFile, int animIndex, wyTexture2D** tex, int count);
+
+	/**
+	 * \if English
+	 * Create aurora sprite from memory file
+	 *
+	 * @param mfsName name of BSprite memory file
+	 * @param animIndex animation index
+	 * @param tex related textures, if more than one, can follow this argument. Must ends
+	 * 		with NULL.
+	 * \else
+	 * 从一个BSprite内存文件创建\link wyAuroraSprite wyAuroraSprite\endlink
+	 *
+	 * @param mfsName BSprite内存文件名称
+	 * @param animIndex 动画索引
+	 * @param tex 相关联的\link wyTexture2D wyTexture2D\endlink, 后面可以跟可变参数, 方便指定
+	 * 		更多关联的\link wyTexture2D wyTexture2D\endlink. 如果没有更多, 用NULL结尾
+	 * \endif
+	 */
+	static wyAuroraSprite* make(const char* mfsName, int animIndex, wyTexture2D* tex, ...);
+
+	/// @see wyAFCSprite::getAnimationAt
+	virtual wyAFCAnimation* getAnimationAt(int index);
+
+	/// @see wyAFCSprite::getAnimationCount
+	virtual int getAnimationCount();
+
+	/// @see wyAFCSprite::getImageCount
+	virtual int getImageCount();
+};
+
+#endif // __wyAuroraSprite_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAFCClipMapping_h__
+
+/**
+ * @typedef wyAFCClipMappingRuleType
+ *
+ * \if English
+ * Definition of all clip mapping rule supported by WiEngine AFC feature
+ * \else
+ * AFC动画支持的分片映射类型
+ * \endif
+ */
+typedef enum {
+	/**
+	 * \if English
+	 * map a clip to another clip which is in same file data
+	 * \else
+	 * 映射一个分片到相同文件数据中的另外一个分片
+	 * \endif
+	 */
+	AFC_CMR_INTERNAL_CLIP,
+
+	/**
+	 * \if English
+	 * map a clip to another clip which is not in same file data
+	 * \else
+	 * 映射一个分片到一个保存在其它文件数据中的分片
+	 * \endif
+	 */
+	AFC_CMR_EXTERNAL_CLIP,
+
+	/**
+	 * \if English
+	 * map a clip to an atlas sprite
+	 * \else
+	 * 映射一个分片到某个图片集贴图上
+	 * \endif
+	 */
+	AFC_CMR_EXTERNAL_ATLAS
+} wyAFCClipMappingRuleType;
+
+/**
+ * @struct wyAFCClipMappingRule
+ *
+ * \if English
+ * mapping rule info structure
+ * \else
+ * 保存一条分片映射规则, 规则的映射方式分为多种类型:
+ * \li 内部映射: 表示映射到同一个文件数据中的分片
+ * \li 外部映射: 表示映射到外部文件数据中的分片
+ * \li 图片集映射: 表示映射到外部的一个图片集贴图上
+ * \endif
+ */
+typedef struct wyAFCClipMappingRule {
+} wyAFCClipMappingRule;
+
+/**
+ * @class wyAFCClipMapping
+ *
+ * \if English
+ * Clip mapping defines a set of rules of replacing a clip to another clip. Then
+ * you can use clip mapping to change animation easily and dynamically.
+ * \else
+ * 分片映射的含义是把一个分片替换成其它分片, 这样可以实现所谓的换装功能.
+ * \endif
+ */
+class wyAFCClipMapping : public wyObject {
+public:
+	virtual ~wyAFCClipMapping();
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param tag tag of this mapping rules
+	 * @return \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param tag 该应该规则对象的tag
+	 * @return \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \endif
+	 */
+	static wyAFCClipMapping* make(int tag);
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param tag tag of this mapping rules
+	 * @param ammId resource id of aurora module mapping file
+	 * @return \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param tag 该应该规则对象的tag
+	 * @param ammId AuroraGT导出的module mapping文件的资源id
+	 * @return \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \endif
+	 */
+	static wyAFCClipMapping* makeAurora(int tag, int ammId);
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param tag tag of this mapping rules
+	 * @param ammPath path of aurora module mapping file
+	 * @param isFile true means \c ammPath is an absolute path in file system, or false means
+	 * 		\c ammPath is a relative path under assets
+	 * @return \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param tag 该应该规则对象的tag
+	 * @param ammPath AuroraGT导出的module mapping文件的路径
+	 * @param isFile true表示\c ammPath是一个文件系统上的绝对路径, false表示\c ammPath是相对于assets的相对路径
+	 * @return \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \endif
+	 */
+	static wyAFCClipMapping* makeAurora(int tag, const char* ammPath, bool isFile = false);
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param tag tag of this mapping rules
+	 * @param mfsName memory file name of aurora module mapping file
+	 * @return \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param tag 该应该规则对象的tag
+	 * @param mfsName AuroraGT导出的module mapping的内存文件名
+	 * @return \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \endif
+	 */
+	static wyAFCClipMapping* makeMemoryAurora(int tag, const char* mfsName);
+
+	/**
+	 * \if English
+	 * Map a clip to another clip. Source and dest clip are all in same sheet
+	 *
+	 * @param fromClipIndex source clip index
+	 * @param toClipIndex dest clip index
+	 * \else
+	 * 映射分片到另一个分片, 两个分片必须是属于同一个图片集的
+	 *
+	 * @param fromClipIndex 被映射的分片索引
+	 * @param toClipIndex 映射到的分片索引
+	 * \endif
+	 */
+	void mapClip(int fromClipIndex, int toClipIndex);
+
+	/**
+	 * \if English
+	 * Map a clip to another clip. Source and dest clip are all in different file data
+	 *
+	 * @param fromClipIndex source clip index
+	 * @param externalFileDataId data id of dest clip file data
+	 * @param toClipIndex dest clip index
+	 * \else
+	 * 映射分片到另一个分片, 两个分片不属于同一个文件数据
+	 *
+	 * @param fromClipIndex 被映射的分片索引
+	 * @param externalFileDataId 包含目标分片的文件数据id
+	 * @param toClipIndex 映射到的分片索引
+	 * \endif
+	 */
+	void mapClip(int fromClipIndex, int externalFileDataId, int toClipIndex);
+
+	/**
+	 * \if English
+	 * Map a clip to external atlas texture
+	 *
+	 * @param fromClipIndex source clip index
+	 * @param tex external texture
+	 * @param pos clip pos, default is zero
+	 * @param texRect texture rect in atlas, default is zero which means use whole texture
+	 * @param flipX flip clip in x axis or not
+	 * @param flipY flip clip in y axis or not
+	 * \else
+	 * 映射一个分片到外部的图片集上
+	 *
+	 * @param fromClipIndex 被映射的分片索引
+	 * @param tex 图片集的贴图对象
+	 * @param pos 分片位置, 缺省是0
+	 * @param texRect 图片集中的贴图矩形, 缺省是全0, 表示映射到整个贴图范围内
+	 * @param flipX 是否让分片在x轴翻转
+	 * @param flipY 是否让分别在y轴翻转
+	 * \endif
+	 */
+	void mapClip(int fromClipIndex, wyTexture2D* tex, wyPoint pos = wypZero, wyRect texRect = wyrZero, bool flipX = false, bool flipY = false);
+
+	/**
+	 * \if English
+	 * Get tag
+	 *
+	 * @return tag
+	 * \else
+	 * 得到tag
+	 *
+	 * @return 标签
+	 * \endif
+	 */
+	int getTag() { return m_tag; }
+
+	/**
+	 * \if English
+	 * Search mapping rule set, and return a matched rule if found
+	 *
+	 * @param sourceClipIndex index of clip
+	 * @return \link wyAFCClipMappingRule wyAFCClipMappingRule\endlink, or NULL if not found
+	 * \else
+	 * 根据源分片索引搜索是否存在匹配的映射规则
+	 *
+	 * @param sourceClipIndex 源分片索引
+	 * @return \link wyAFCClipMappingRule wyAFCClipMappingRule\endlink, 如果没有找到, 返回NULL
+	 * \endif
+	 */
+	wyAFCClipMappingRule* findRule(int sourceClipIndex);
+};
+
+#endif // __wyAFCClipMapping_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAFCSprite_h__
+
+/**
+ * @struct wyAFCSpriteCallback
+ *
+ * \if English
+ * Callback interface of \link wyAFCSprite wyAFCSprite\endlink
+ * \else
+ * \link wyAFCSprite wyAFCSprite\endlink 的回调定义
+ * \endif
+ */
+typedef struct wyAFCSpriteCallback {
+} wyAFCSpriteCallback;
+
+/**
+ * @class wyAFCSprite
+ *
+ * \if English
+ * \par
+ * AFC means Animation, Frame, Clip and it is an architecture of frame animation. That is
+ * to say, animation consists of frame and frame consists of fragment. This architecture
+ * is common and many animation editors support it. Purpose of \link wyAFCSprite wyAFCSprite\endlink
+ * is encapsulating the common logic for all AFC editors.
+ *
+ * \par
+ * For other editors, terms may differ but meaning is similar. For example:
+ * \li Motion Welder: it calls AFC
+ * \li SpriteX: it calls AFT: Action, Frame, Tile
+ * \li Arctic & AuroraGT: it calls AFM: Animation, Frame, Module
+ * Motion Welder is first animation editor supported by WiEngine, so we use AFC as a souvenir.
+ *
+ * \note
+ * Some complex transformation is not supported, such as clip rotation and animation rotation.
+ * Those features are not important.
+ * \else
+ * \par
+ * AFC的含义是Animation, Frame, Clip, 它代表了一种常见的动画架构, 即动画由帧组成, 而帧由分片组成
+ * 的动画数据结构. 这种动画数据结构在逐帧动画中应用的比较普遍, 相关的编辑器也很多. 而\link wyAFCSprite wyAFCSprite\endlink的
+ * 目的就是封装此类动画逻辑, 做到用一套代码适应不同编辑器的目的.
+ *
+ * \par
+ * 对于不同的编辑器, 其相关术语可能叫法不同, 但是含义基本类似. 这里的Animation, Frame和Clip是动画编辑
+ * 器Motion Welder的叫法, 对于其它的编辑器, 如:
+ * \li SpriteX: 按照AFC的排列顺序, 它的叫法是Action, Frame, Tile
+ * \li Arctic & AuroraGT: 按照AFC的排列顺序, 它的叫法是Animation, Frame, Module
+ * 只所以采用Motion Welder的叫法, 是因为Motion Welder是WiEngine支持的第一款动画编辑器, 作为纪念所以命名此类动画为AFC动画
+ *
+ * \note
+ * 对于某些复杂的功能(比如分片图片本身是旋转的或者动画本身有旋转属性), 目前并不支持. 这些旋转功能并非必要的特性, 由于AFC是一个
+ * 通用架构, 且需要遵守节点本身的架构, 为避免过于复杂的转换, 目前并不支持这些特性.
+ * \endif
+ */
+class wyAFCSprite : public wyNode {
+public:
+	virtual ~wyAFCSprite();
+
+	/// @see wyNode::getAlpha
+	virtual int getAlpha() { return m_color.a; }
+
+	/// @see wyNode::setAlpha
+	virtual void setAlpha(int alpha);
+
+	/// @see wyNode::getColor
+	virtual wyColor3B getColor();
+
+	/// @see wyNode::setColor
+	virtual void setColor(wyColor3B color);
+
+	/// @see wyNode::setColor
+	virtual void setColor(wyColor4B color);
+
+	/// @see wyNode::visit()
+	virtual void visit();
+
+	/// @see wyNode::draw()
+	virtual void draw();
+
+	/// @see wyNode::addChild(wyNode*, int, int)
+	virtual void addChild(wyNode* child, int z, int tag);
+
+	/**
+	 * \if English
+	 * Get animation at specified index
+	 *
+	 * @param index animation index
+	 * \else
+	 * 得到指定索引位置的动画数据
+	 *
+	 * @param index 动画索引
+	 * \endif
+	 */
+	virtual wyAFCAnimation* getAnimationAt(int index) = 0;
+
+	/**
+	 * \if English
+	 * Get animation count
+	 *
+	 * @return animation count
+	 * \else
+	 * 得到动画总数
+	 *
+	 * @return 动画总数
+	 * \endif
+	 */
+	virtual int getAnimationCount() = 0;
+
+	/**
+	 * \if English
+	 * Get image count
+	 *
+	 * @return image count
+	 * \else
+	 * 得到图片集的个数
+	 *
+	 * @return 图片集个数
+	 * \endif
+	 */
+	virtual int getImageCount() = 0;
+
+	/**
+	 * \if English
+	 * Play an animation, it will immediately end current animation (if has)
+	 *
+	 * @param index index of animation
+	 * @param mapping clip mapping, default is NULL
+	 * \else
+	 * 开始播放动画
+	 *
+	 * @param index 动画索引
+	 * @param mapping 分片映射规则对象, 缺省为NULL表示没有
+	 * \endif
+	 */
+	void playAnimation(int index, wyAFCClipMapping* mapping = NULL);
+
+	/**
+	 * \if English
+	 * Play an animation and apply a clip mapping to it
+	 *
+	 * @param index index of animation
+	 * @param mappingTag tag of clip mapping
+	 * \else
+	 * 播放动画, 同时对这套动画应用一套分片映射规则
+	 *
+	 * @param index 动画索引
+	 * @param mappingTag 分片映射规则的标签
+	 * \endif
+	 */
+	void playAnimation(int index, int mappingTag);
+
+	/**
+	 * \if English
+	 * Set current frame index
+	 *
+	 * @param index frame index
+	 * \else
+	 * 设置当前帧
+	 *
+	 * @param index 帧索引
+	 * \endif
+	 */
+	void setFrameIndex(int index);
+
+	/**
+	 * \if English
+	 * Update animation by a delta time. Must be called continuously and usually you
+	 * can schedule a timer to invoke it.
+	 *
+	 * @param delta time from last update
+	 * \else
+	 * 更新一次动画，这个方法应该要被连续调用，可以调度一个定时器用来
+	 * 不停的调用tick方法，这样就可以形成动画效果了。
+	 *
+	 * @param delta 上一次调用到本次调用的时间
+	 * \endif
+	 */
+	void tick(float delta);
+
+	/**
+	 * \if English
+	 * Set ignore frame offset when rendering or not
+	 *
+	 * @param flag true means ignore frame offset
+	 * \else
+	 * 设置是否忽略帧偏移，帧偏移可以造成动画前进的效果，如果忽略掉就会变成原地动画.
+	 * 这个标志只影响渲染时是否考虑帧偏移, 对于帧偏移的计算仍然进行, 因此不影响获得帧偏移
+	 *
+	 * @param flag true表示忽略帧偏移
+	 * \endif
+	 */
+	void setIgnoreFrameOffset(bool flag) { m_ignoreFrameOffset = flag; }
+
+	/**
+	 * \if English
+	 * is frame offset ignored?
+	 *
+	 * @return true means frame offset is ignored
+	 * \else
+	 * 是否忽略帧偏移. 这个标志只影响渲染时是否考虑帧偏移, 对于帧偏移的计算仍然
+	 * 进行, 因此不影响获得帧偏移
+	 *
+	 * @return true表示忽略帧偏移
+	 * \endif
+	 */
+	bool isIgnoreFrameOffset() { return m_ignoreFrameOffset; }
+
+	/**
+	 * \if English
+	 * Get current frame offset
+	 *
+	 * @param current frame offset
+	 * \else
+	 * 得到当前帧偏移，这个偏移值是当前帧和第一帧的总偏移. 即使设置了在动画播放时忽略
+	 * 帧偏移, 仍然可以获得当前帧偏移数据
+	 *
+	 * @return \link wyPoint wyPoint\endlink
+	 * \endif
+	 */
+	wyPoint getFrameOffset() { return m_frameOffset; }
+
+	/**
+	 * \if English
+	 * Set animation event callback
+	 *
+	 * @param callback \link wyAFCSpriteCallback wyAFCSpriteCallback\endlink, if NULL, means clear callback
+	 * @param data extra data pointer
+	 * \else
+	 * 设置动画事件的回调
+	 *
+	 * @param callback \link wyAFCSpriteCallback wyAFCSpriteCallback\endlink 结构，如果为NULL, 表示清除之前设置的callback
+	 * @param data 附加数据指针，可选参数，缺省为NULL
+	 * \endif
+	 */
+	void setAFCSpriteCallback(wyAFCSpriteCallback* callback, void* data = NULL);
+
+	/**
+	 * \if English
+	 * Get current animation index
+	 *
+	 * @return current animation index
+	 * \else
+	 * 得到当前的动画索引
+	 *
+	 * @return 当前的动画索引, 假如anu文件里有3个动画, 当然正在播放第2个, 那么索引是1
+	 * \endif
+	 */
+	int getCurrentAnimationIndex() { return m_curAnimationIndex; }
+
+	/**
+	 * \if English
+	 * Get current frame index
+	 *
+	 * @return current frame index
+	 * \else
+	 * 得到正在播放的帧在当前动画中的索引
+	 *
+	 * @return 正在播放的帧在当前动画中的索引, 比如动画包含5帧, 正在播放第3帧, 则应该返回2
+	 * \endif
+	 */
+	int getCurrentFrame() { return m_curFrame; }
+
+	/**
+	 * \if English
+	 * Get frame count of current animation
+	 *
+	 * @return frame count of current animation
+	 * \else
+	 * 得到当前动画的帧数
+	 *
+	 * @return 当前动画的帧数
+	 * \endif
+	 */
+	int getFrameCount() { return m_numOfFrame; }
+
+	/**
+	 * \if English
+	 * is reverse playing?
+	 *
+	 * @return true means reverse playing
+	 * \else
+	 * 是否倒序播放
+	 *
+	 * @return true表示倒序播放动画
+	 * \endif
+	 */
+	bool isReverse() { return m_isReverse; }
+
+	/**
+	 * \if English
+	 * Set reverse playing or not
+	 *
+	 * @param flag true means reverse playing
+	 * \else
+	 * 设置是否倒序播放
+	 *
+	 * @param flag true表示倒序播放动画
+	 * \endif
+	 */
+	void setReverse(bool flag) { m_isReverse = flag; }
+
+	/**
+	 * \if English
+	 * Get loop count
+	 *
+	 * @return -1 means loop forever, 0 means no loop, larger than 0 means loop times
+	 * \else
+	 * 得到循环次数
+	 *
+	 * @return -1表示无限循环, 0表示不循环, 大于0表示循环次数
+	 * \endif
+	 */
+	int getLoopCount() { return m_loop; }
+
+	/**
+	 * \if English
+	 * Set loop count
+	 *
+	 * @param loop loop count, -1 means loop forever, 0 means no loop, larger than 0 means loop times
+	 * \else
+	 * 设置循环次数
+	 *
+	 * @param loop 循环次数, -1表示无限循环, 0表示不循环, 大于0表示循环次数
+	 * \endif
+	 */
+	void setLoopCount(int loop) { m_loop = loop; }
+
+	/**
+	 * \if English
+	 * is animation ended
+	 *
+	 * @return true means animation is ended
+	 * \else
+	 * 当前动画是否已经结束, 如果设置了循环播放, 则该标志永不为true
+	 *
+	 * @return 当前动画是否已经结束
+	 * \endif
+	 */
+	bool isAnimationEnded() { return m_isAnimationEnded; }
+
+	/**
+	 * \if English
+	 * is animation flipped in x axis?
+	 *
+	 * @return true means animation is flipped in x axis
+	 * \else
+	 * 动画播放时是否翻转x轴
+	 *
+	 * @return true表示动画播放时翻转x轴
+	 * \endif
+	 */
+	bool isFlipX() { return m_flipX; }
+
+	/**
+	 * \if English
+	 * Make animation flipped in x axis or not
+	 *
+	 * @param flipX true means animation should be flipped in x axis
+	 * \else
+	 * 设置动画播放时是否翻转x轴
+	 *
+	 * @param flipX true表示动画播放时翻转x轴
+	 * \endif
+	 */
+	void setFlipX(bool flipX) { m_flipX = flipX; }
+
+	/**
+	 * \if English
+	 * is animation flipped in y axis?
+	 *
+	 * @return true means animation is flipped in y axis
+	 * \else
+	 * 动画播放时是否翻转y轴
+	 *
+	 * @return true表示动画播放时翻转y轴
+	 * \endif
+	 */
+	bool isFlipY() { return m_flipY; }
+
+	/**
+	 * \if English
+	 * Make animation flipped in y axis or not
+	 *
+	 * @param flipY true means animation should be flipped in y axis
+	 * \else
+	 * 设置动画播放时是否翻转y轴
+	 *
+	 * @param flipY true表示动画播放时翻转y轴
+	 * \endif
+	 */
+	void setFlipY(bool flipY) { m_flipY = flipY; }
+
+	/**
+	 * \if English
+	 * Pause animation or not
+	 *
+	 * @param flag true means pause animation
+	 * \else
+	 * 设置是否暂停动画播放
+	 *
+	 * @param flag true表示暂停
+	 * \endif
+	 */
+	void setPaused(bool flag) { m_paused = flag; }
+
+	/**
+	 * \if English
+	 * is animation paused
+	 *
+	 * @return true means paused
+	 * \else
+	 * 动画是否已经暂停
+	 *
+	 * @return true表示动画已暂停
+	 * \endif
+	 */
+	bool isPaused() { return m_paused; }
+
+	/**
+	 * \if English
+	 * Get unit interval time
+	 *
+	 * @return unit interval time
+	 * \else
+	 * 得到帧间间隔单位时间
+	 *
+	 * @return 帧间间隔单位时间
+	 * \endif
+	 */
+	float getUnitInterval() { return m_unitInterval; }
+
+	/**
+	 * \if English
+	 * Set unit interval time. If value is not zero and animation editor uses tick value, then
+	 * final duration time is result of multiply unit interval and tick value
+	 *
+	 * @param interval unit interval time
+	 * \else
+	 * 设置帧间间隔单位时间. 如果这个值不是0, 且编辑器使用帧来表示帧持续时间, 则最终的持续时间将是单位间隔
+	 * 时间和帧的乘积.
+	 *
+	 * @param interval 帧间间隔单位时间
+	 * \endif
+	 */
+	void setUnitInterval(float interval) { m_unitInterval = interval; }
+	
+	/**
+	 * \if English
+	 * Is animation played in tick mode? That means frame duration is measured by drawing frame and
+	 * its speed can be controlled by unit interval
+	 *
+	 * @return true means animation is played in tick mode
+	 * \else
+	 * 是否动画按照帧模式进行播放, 帧模式表示动画帧的持续时间由渲染帧率决定, 意味着其播放速度可
+	 * 通过单位间隔时间控制速度
+	 *
+	 * @return true表示动画播放采用帧模式
+	 * \endif
+	 */
+	bool isForceTickMode() { return m_forceTickMode; }
+
+	/**
+	 * \if English
+	 * Set use tick mode or time mode to play animation
+	 *
+	 * @param flag true means use tick mode
+	 * \else
+	 * 设置使用帧模式还是时间模式来播放动画
+	 *
+	 * @param flag true表示使用帧模式
+	 * \endif
+	 */
+	void setForceTickMode(bool flag) { m_forceTickMode = flag; }
+	
+	/**
+	 * \if English
+	 * Get data of current animation
+	 *
+	 * \node
+	 * Returned info is auto scaled by WiEngine on the basis of density
+	 *
+	 * @return \link wyAFCAnimation wyAFCAnimation\endlink
+	 * \else
+	 * 得到当前正在播放的动画数据结构, 即\link wyAFCAnimation wyAFCAnimation\endlink结构,
+	 * 从这个结构可以得到一个动画的所有信息
+	 *
+	 * \note
+	 * 返回的结构中的信息都是经过了WiEngine自动缩放的, 即考虑了anu文件的密度和屏幕密度进行了
+	 * 自动的转换
+	 *
+	 * @return \link wyAFCAnimation wyAFCAnimation\endlink
+	 * \endif
+	 */
+	wyAFCAnimation* getCurrentAnimationData() { return m_animationData; }
+	
+	/**
+	 * \if English
+	 * Get collision rect of current frame, in node coordinates
+	 *
+	 * @param index index of collision rect
+	 * @return \link wyRect wyRect\endlink, if no collision rect in current frame or
+	 * 		\c index is invalid, return a zero rect
+	 * \else
+	 * 得到当前帧的碰撞矩形, 返回的矩形坐标是相对于节点本身的
+	 *
+	 * @return index 碰撞矩形的索引, 0表示第一个, 1表示第二个
+	 * @return \link wyRect wyRect\endlink, 如果当前帧没有碰撞矩形或者\c index值无效, 返回一个零大小的矩形
+	 * \endif
+	 */
+	wyRect getCollisionRect(int index);
+
+	/**
+	 * \if English
+	 * Get collision rect of current frame, in parent node coordinates. If node has rotation, then
+	 * returned rectangle may be a circumscribed rectangle
+	 *
+	 * @param index index of collision rect
+	 * @return \link wyRect wyRect\endlink, if no collision rect in current frame or
+	 * 		\c index is invalid, return a zero rect
+	 * \else
+	 * 得到当前帧的碰撞矩形, 返回的矩形坐标是相对于父节点坐标系的. 如果节点自身有旋转, 则返回的可能是一个
+	 * 外接矩形
+	 *
+	 * @return index 碰撞矩形的索引, 0表示第一个, 1表示第二个
+	 * @return \link wyRect wyRect\endlink, 如果当前帧没有碰撞矩形或者\c index值无效, 返回一个零大小的矩形
+	 * \endif
+	 */
+	wyRect getCollisionRectRelativeToParent(int index);
+
+	/**
+	 * \if English
+	 * Get collision rect of current frame, in global coordinates. If node has rotation, then
+	 * returned rectangle may be a circumscribed rectangle
+	 *
+	 * @param index index of collision rect
+	 * @return \link wyRect wyRect\endlink, if no collision rect in current frame or
+	 * 		\c index is invalid, return a zero rect
+	 * \else
+	 * 得到当前帧的碰撞矩形, 返回的矩形坐标是相对于全局坐标系的. 如果节点自身有旋转, 则返回的可能是一个
+	 * 外接矩形
+	 *
+	 * @return index 碰撞矩形的索引, 0表示第一个, 1表示第二个
+	 * @return \link wyRect wyRect\endlink, 如果当前帧没有碰撞矩形或者\c index值无效, 返回一个零大小的矩形
+	 * \endif
+	 */
+	wyRect getCollisionRectRelativeToWorld(int index);
+	
+	/**
+	 * \if English
+	 * Get current frame bound relative to sprite node. It returns a minimum rectangle which
+	 * contains all clips
+	 *
+	 * @return minimum rectangle which contains all clips, relative to node coordinates
+	 * \else
+	 * 得到当前帧的矩形范围
+	 *
+	 * @return 包含当前帧分片的最小矩形, 其坐标是相对于节点本身坐标系的
+	 * \endif
+	 */
+	wyRect getFrameRect();
+
+	/**
+	 * \if English
+	 * Get current frame bound relative to parent node. It returns a minimum rectangle
+	 * which contains all clips
+	 *
+	 * @return minimum rectangle which contains all clips, relative to parent node
+	 * 		coordinates
+	 * \else
+	 * 得到当前帧的矩形范围
+	 *
+	 * @return 包含当前帧分片的最小矩形, 其坐标是相对于父节点坐标系的
+	 * \endif
+	 */
+	wyRect getFrameRectRelativeToParent();
+
+	/**
+	 * \if English
+	 * Get current frame bound relative to world. It returns a minimum rectangle
+	 * which contains all clips
+	 *
+	 * @return minimum rectangle which contains all clips, relative to global coordinates
+	 * \else
+	 * 得到当前帧的矩形范围
+	 *
+	 * @return 包含当前帧分片的最小矩形, 其坐标是相对于全局坐标系的
+	 * \endif
+	 */
+	wyRect getFrameRectRelativeToWorld();
+	
+	/**
+	 * \if English
+	 * Set debug draw flag of drawing frame rect
+	 *
+	 * @param flag true means frame rect will be drawn, for debug purpose
+	 * \else
+	 * 设置是否渲染出当前帧的矩形, 用于调试目的
+	 *
+	 * @param flag true表示渲染出当前帧矩形
+	 * \endif
+	 */
+	void setDebugDrawFrameRect(bool flag) { m_debugDrawFrameRect = flag; }
+
+	/**
+	 * \if English
+	 * Set debug draw flag of drawing collision rect
+	 *
+	 * @param flag true means collision rect will be drawn, for debug purpose
+	 * \else
+	 * 设置是否渲染出当前帧的碰撞矩形, 用于调试目的
+	 *
+	 * @param flag true表示渲染出当前帧的碰撞矩形
+	 * \endif
+	 */
+	void setDebugDrawCollisionRect(bool flag) { m_debugDrawCollisionRect = flag; }
+	
+	/**
+	 * \if English
+	 * Add a clip mapping to this sprite, which can be used later in \c playAnimation
+	 *
+	 * @param mapping \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \else
+	 * 为当前精灵添加一组分片映射规则, 添加了之后可以通过\c playAnimation使用
+	 *
+	 * @param mapping \link wyAFCClipMapping wyAFCClipMapping\endlink
+	 * \endif
+	 */
+	void addClipMapping(wyAFCClipMapping* mapping);
+
+	/**
+	 * \if English
+	 * Remove a clip mapping by its tag
+	 *
+	 * @param tag tag of clip mapping
+	 * \else
+	 * 根据tag删除一套分片映射规则
+	 *
+	 * @param tag 分片映射规则的tag
+	 * \endif
+	 */
+	void removeClipMappingByTag(int tag);
+
+	/**
+	 * \if English
+	 * Get a clip mapping by tag
+	 *
+	 * @param tag tag of clip mapping
+	 * @return clip mapping or NULL if not found
+	 * \else
+	 * 根据tag得到分片映射规则对象
+	 *
+	 * @param tag 分片映射规则tag
+	 * @return 分片映射规则对象, 如果没找到返回NULL
+	 * \endif
+	 */
+	wyAFCClipMapping* getClipMappingByTag(int tag);
+};
+
+#endif // __wyAFCSprite_h__

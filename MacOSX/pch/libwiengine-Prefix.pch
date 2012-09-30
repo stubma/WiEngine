@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'libwiengine' target in the 'libwiengine' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import <Foundation/Foundation.h>
+	#import "WiEngine.h"
+#endif

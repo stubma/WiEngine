@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\libmpg123\compat.c" />
+    <ClCompile Include="..\..\jni\libmpg123\dct64.c" />
+    <ClCompile Include="..\..\jni\libmpg123\dct64_i386.c" />
+    <ClCompile Include="..\..\jni\libmpg123\equalizer.c" />
+    <ClCompile Include="..\..\jni\libmpg123\format.c" />
+    <ClCompile Include="..\..\jni\libmpg123\frame.c" />
+    <ClCompile Include="..\..\jni\libmpg123\icy.c" />
+    <ClCompile Include="..\..\jni\libmpg123\icy2utf8.c" />
+    <ClCompile Include="..\..\jni\libmpg123\id3.c" />
+    <ClCompile Include="..\..\jni\libmpg123\index.c" />
+    <ClCompile Include="..\..\jni\libmpg123\layer1.c" />
+    <ClCompile Include="..\..\jni\libmpg123\layer2.c" />
+    <ClCompile Include="..\..\jni\libmpg123\layer3.c" />
+    <ClCompile Include="..\..\jni\libmpg123\libmpg123.c" />
+    <ClCompile Include="..\..\jni\libmpg123\ntom.c" />
+    <ClCompile Include="..\..\jni\libmpg123\optimize.c" />
+    <ClCompile Include="..\..\jni\libmpg123\parse.c" />
+    <ClCompile Include="..\..\jni\libmpg123\readers.c" />
+    <ClCompile Include="..\..\jni\libmpg123\stringbuf.c" />
+    <ClCompile Include="..\..\jni\libmpg123\synth.c" />
+    <ClCompile Include="..\..\jni\libmpg123\synth_8bit.c" />
+    <ClCompile Include="..\..\jni\libmpg123\tabinit.c" />
+    <ClCompile Include="..\..\jni\libmpg123\synth_real.c" />
+    <ClCompile Include="..\..\jni\libmpg123\synth_s32.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\libmpg123\compat.h" />
+    <ClInclude Include="..\..\jni\libmpg123\config.h" />
+    <ClInclude Include="..\..\jni\libmpg123\frame.h" />
+    <ClInclude Include="..\..\jni\libmpg123\icy.h" />
+    <ClInclude Include="..\..\jni\libmpg123\icy2utf8.h" />
+    <ClInclude Include="..\..\jni\libmpg123\id3.h" />
+    <ClInclude Include="..\..\jni\libmpg123\index.h" />
+    <ClInclude Include="..\..\jni\libmpg123\intsym.h" />
+    <ClInclude Include="..\..\jni\libmpg123\l2tables.h" />
+    <ClInclude Include="..\..\jni\libmpg123\l3_integer_tables.h" />
+    <ClInclude Include="..\..\jni\libmpg123\l12_integer_tables.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mangle.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mpg123.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mpg123lib_intern.h" />
+    <ClInclude Include="..\..\jni\libmpg123\optimize.h" />
+    <ClInclude Include="..\..\jni\libmpg123\parse.h" />
+    <ClInclude Include="..\..\jni\libmpg123\reader.h" />
+    <ClInclude Include="..\..\jni\libmpg123\sample.h" />
+    <ClInclude Include="..\..\jni\libmpg123\synth.h" />
+    <ClInclude Include="..\..\jni\libmpg123\synth_8bit.h" />
+    <ClInclude Include="..\..\jni\libmpg123\config_win.h" />
+    <ClInclude Include="..\..\jni\libmpg123\config_default.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mpg123_default.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mpg123_win.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\jni\libmpg123\synth_arm.S" />
+  </ItemGroup>
+</Project>

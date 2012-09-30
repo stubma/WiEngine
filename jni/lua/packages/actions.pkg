@@ -1,0 +1,3631 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAnimate_h__
+
+
+/**
+ * @class wyAnimate
+ *
+ * \if English
+ * Encapsulate animation action, it requires a \link wyAnimation wyAnimation\endlink object which
+ * provides frame info
+ * \else
+ * 动画播放动作的封装
+ * \endif
+ */
+class wyAnimate : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * Static factory method
+	 *
+	 * @param anim \link wyAnimation wyAnimation\endlink pointer
+	 * @param fillAfter false indicating restore to original frame when animation ends, or true
+	 * 		indicating keep last frame, default is false
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param anim 动画\link wyAnimation wyAnimation\endlink 对象指针
+	 * @param fillAfter 动作停止后是否回到sprite的原始图片，true为不回到，false表示回到原来的图片. 缺省是false
+	 * \endif
+	 */
+	static wyAnimate* make(wyAnimation* anim, bool fillAfter = false);
+
+	virtual ~wyAnimate();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::stop
+	virtual void stop();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyAnimate_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyBezier_h__
+
+
+/**
+ * @class wyBezier
+ *
+ * \if English
+ * Move a \link wyNode wyNode\endlink in track of bezier curve
+ * \else
+ * 节点按照贝塞尔曲线轨迹运动的动作封装
+ * \endif
+ */
+class wyBezier : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * Static factory method
+	 *
+	 * @param duration duration time in second
+	 * @param config \link wyBezierConfig wyBezierConfig\endlink structure to describe beizer curve
+	 * \else
+	 * 静态构造方法
+	 *
+	 * @param duration 动作持续的时间
+	 * @param config 贝塞尔曲线关键点的结构\link wyBezierConfig wyBezierConfig结构\endlink
+	 * \endif
+	 */
+	static wyBezier* make(float duration, wyBezierConfig config);
+
+	virtual ~wyBezier();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+
+	void setAutoRotate(bool flag, float angleDelta);
+
+	/**
+	 * \if English
+	 * set pin point, only available when auto rotate flag is false
+	 *
+	 * @param p global coordinate of pin point
+	 * \else
+	 * 设置pin point, pin point仅当auto rotate为false时才有效
+	 *
+	 * @param p pin point的全局坐标
+	 * \endif
+	 */
+	void setPinPoint(wyPoint p) { m_pinPoint = p; }
+
+	/**
+	 * \if English
+	 * set pin point, only available when auto rotate flag is false
+	 *
+	 * @param x global x location of pin point
+	 * @param y global y location of pin point
+	 * \else
+	 * 设置pin point, pin point仅当auto rotate为false时才有效
+	 *
+	 * @param x pin point的全局x位置
+	 * @param y pin point的全局y位置
+	 * \endif
+	 */
+	void setPinPoint(float x, float y) { m_pinPoint = wyp(x, y); }
+
+	/**
+	 * \if English
+	 * get pin point
+	 *
+	 * @return global coordinate of pin point
+	 * \else
+	 * 得到pin point
+	 *
+	 * @return pin point的全局坐标
+	 * \endif
+	 */
+	wyPoint getPinPoint() { return m_pinPoint; }
+
+	/**
+	 * \if English
+	 * clear pin point
+	 * \else
+	 * 清除掉pin point, 这样节点移动时将不再自动对准pin point
+	 * \endif
+	 */
+	void clearPinPoint() { m_pinPoint = wyp(INT_MAX, INT_MAX); }
+
+	/**
+	 * \if English
+	 * set angle delta of pin point rotation
+	 *
+	 * @param angle to be added to node rotation
+	 * \else
+	 * 设置附加角度, 仅当pin point被设置时有效
+	 *
+	 * @param delta 附加角度
+	 * \endif
+	 */
+	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
+
+	/**
+	 * \if English
+	 * get angle delta
+	 *
+	 * @return angle delta
+	 * \else
+	 * 得到附加角度
+	 *
+	 * @return 附加角度
+	 * \endif
+	 */
+	float getPinAngleDelta() { return m_pinDelta; }
+};
+
+#endif // __wyBezier_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyBlink_h__
+
+
+/**
+ * @class wyBlink
+ *
+ * \if English
+ * Blink a node
+ * \else
+ * 控制节点闪烁动作的封装
+ * \endif
+ */
+class wyBlink : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * @param duration duration time in second
+	 * @param times times of blink
+	 * \else
+	 * @param duration 动作持续的时间
+	 * @param times 节点闪烁的次数
+	 * \endif
+	 */
+	static wyBlink* make(float duration, float times);
+
+	virtual ~wyBlink();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+
+	/// @see wyAction::stop
+	virtual void stop();
+};
+
+#endif // __wyBlink_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyCallFunc_h__
+
+
+/**
+ * @class wyCallFunc
+ *
+ * \if English
+ * Call a function specified by \link wyTargetSelector wyTargetSelector\endlink, this
+ * action is an instant action so it is done immediately.
+ * \else
+ * 节点调用\link wyTargetSelector wyTargetSelector\endlink的动作封装
+ * \endif
+ */
+class wyCallFunc : public wyInstantAction {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param ts \link wyTargetSelector wyTargetSelector\endlink
+	 * \else
+	 * 静态构造方法
+	 *
+	 * @param ts 动作要执行的\link wyTargetSelector wyTargetSelector\endlink对象指针
+	 * \endif
+	 */
+	static wyCallFunc* make(wyTargetSelector* ts);
+
+	virtual ~wyCallFunc();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/**
+	 * \if English
+	 * This action doesn't have reverse action, so \c reverse method returns NULL
+	 *
+	 * @return NULL
+	 * \else
+	 * 此动作不支持反转，返回为NULL
+	 *
+	 * @return NULL
+	 * \endif
+	 */
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyCallFunc_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyCameraAction_h__
+
+
+/**
+ * @class wyCameraAction
+ *
+ * \if English
+ * Base class for camera action
+ * \else
+ * 相机类动作的基类。相机类动作通过移动视点来产生特殊效果
+ * \endif
+ */
+class wyCameraAction : public wyIntervalAction {
+public:
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyCameraAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyCoverFlowAction_h__
+
+
+/**
+ * @class wyCoverFlowAction
+ *
+ * \if English
+ * Action to move a cover in \link wyCoverFlow wyCoverFlow\endlink, it brings target cover
+ * to front with an animation
+ * \else
+ * 节点\link wyCoverFlow wyCoverFlow\endlink的action, 执行把m_targetCover移动到当前cover
+ * \endif
+ */
+class wyCoverFlowAction : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * @param[in] duration action duration in seconds
+	 * @param[in] targetCover target \link wyCover wyCover\endlink object which should be moved to front
+	 * \else
+	 * @param[in] duration 动画执行时间   
+	 * @param[in] targetCover 指定下一个当前cover
+	 * \endif
+	 */	
+	static wyCoverFlowAction* make(float duration, wyCover* targetCover);
+
+	virtual ~wyCoverFlowAction(){}
+
+	/// @see wyIntervalAction::start(wyNode*)
+	virtual void start(wyNode* target);
+	
+	/// @see wyIntervalAction::update(float)
+	virtual void update(float t);
+
+	/// @see wyIntervalAction::stop()	
+    virtual void stop();
+};
+
+#endif
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyDelayTime_h__
+
+
+/**
+ * @class wyDelayTime
+ *
+ * \if English
+ * Just wait for a while and do nothing
+ * \else
+ * 节点上延迟时间的动作封装
+ * \endif
+ */
+class wyDelayTime : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param duration waiting time
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * \endif
+	 */
+	static wyDelayTime* make(float duration);
+
+	virtual ~wyDelayTime();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+};
+
+#endif // __wyDelayTime_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyFadeIn_h__
+
+
+/**
+ * @class wyFadeIn
+ *
+ * \if English
+ * Fade in a node, it changes alpha of node from 0 to 1
+ * \else
+ * 节点淡入效果的动作封装
+ * \endif
+ */
+class wyFadeIn : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param duration duration time of this action
+	 * @param includeChildren true indicating modify alpha value of child nodes recursively
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param includeChildren true表示同时修改所有子节点的alpha值, 缺省是false
+	 * \endif
+	 */
+	static wyFadeIn* make(float duration, bool includeChildren = false);
+
+	virtual ~wyFadeIn();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyFadeIn_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyFadeOut_h__
+
+
+/**
+ * @class wyFadeOut
+ *
+ * \if English
+ * Fade out a node, it changes alpha of node from 1 to 0
+ * \else
+ * 节点淡出效果的动作封装
+ * \endif
+ */
+class wyFadeOut : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param duration duration time of action
+	 * @param includeChildren true indicating modify alpha value of child nodes recursively
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param includeChildren true表示同时修改所有子节点的alpha值, 缺省是false
+	 * \endif
+	 */
+	static wyFadeOut* make(float duration, bool includeChildren = false);
+
+	virtual ~wyFadeOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyFadeOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyFadeTo_h__
+
+
+/**
+ * @class wyFadeTo
+ *
+ * \if English
+ * Change alpha of node from one value to another value
+ * \else
+ * 节点透明度变化效果的动作封装
+ * \endif
+ */
+class wyFadeTo : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param duration duration time of action
+	 * @param fromAlpha start alpha, range from 0 to 255
+	 * @param toAlpha end alpha, range from 0 to 255
+	 * @param includeChildren true indicating modify alpha value of child nodes recursively
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param fromAlpha 起始透明度，取值0到255，255为不透明，0为透明
+	 * @param toAlpha 目标透明度，取值0到255，255为不透明，0为透明
+	 * @param includeChildren true表示同时修改所有子节点的alpha值, 缺省是false
+	 * \endif
+	 */
+	static wyFadeTo* make(float duration, int fromAlpha, int toAlpha, bool includeChildren = false);
+
+	virtual ~wyFadeTo();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyFadeTo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyFiniteTimeAction_h__
+
+
+/**
+ * @class wyFiniteTimeAction
+ *
+ * \if English
+ * Base class for actions whose time is definite
+ * \else
+ * 执行动作的封装, 是大部分动作基类
+ * \endif
+ */
+class wyFiniteTimeAction : public wyAction {
+
+public:
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/**
+	 * \if English
+	 * Get duration time of action
+	 *
+	 * @return duration time of action
+	 * \else
+	 * 获得动作持续时间长度
+	 *
+	 * @return 动作持续时间长度
+	 * \endif
+	 */
+	float getDuration();
+
+	/**
+	 * \if English
+	 * Set duration time of action, no effect if action is started
+	 *
+	 * @param duration duration time of action
+	 * \else
+	 * 设置动作持续时间长度, 如果动作已经开始执行, 设置不会有效果
+	 *
+	 * @param duration 动作持续时间长度
+	 * \endif
+	 */
+	void setDuration(float duration);
+
+	/**
+	 * \if English
+	 * Get elapsed time of this action
+	 *
+	 * @return elapsed time in second
+	 * \else
+	 * 获得动作已经持续的时间
+	 *
+	 * @return 动作已经持续的时间
+	 * \endif
+	 */
+	float getElapsed() { return m_elapsed; }
+
+	/**
+	 * \if English
+	 * Set elapsed time of action, don't call it if you do not know what will happen. Mainly used by internal logic.
+	 *
+	 * @param e elapsed time
+	 * \else
+	 * 设置动作已经持续的时间，只应在一些特殊情况下调用该方法
+	 *
+	 * @param e 已经过去的时间
+	 * \endif
+	 */
+	void setElapsed(float e) { m_elapsed = e; }
+};
+
+#endif // __wyFiniteTimeAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyHide_h__
+
+
+/**
+ * @class wyHide
+ *
+ * \if English
+ * Hide a node by calling setVisible method. A node which is hidden will not draw and respond to events
+ * \else
+ * 节点隐藏的动作封装，对节点执行隐藏操作
+ * \endif
+ */
+class wyHide : public wyInstantAction {
+public:
+	static wyHide* make();
+
+	virtual ~wyHide();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/**
+	 * \if English
+	 * Return the reversed action of \link wyHide wyHide\endlink, actually it is a \link wyShow wyShow\endlink object
+	 *
+	 * @return \link wyAction wyAction \endlink
+	 * \else
+	 * 返回hide的反转操作，实际是\link wyShow wyShow \endlink对象指针
+	 *
+	 * @return \link wyAction wyAction \endlink对象指针
+	 * \endif
+	 */
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyHide_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyInstantAction_h__
+
+
+/**
+ * @class wyInstantAction
+ *
+ * \if English
+ * Base class for actions who ends immediately. However, its duration is not zero, but very very small.
+ * setDuration has no effect for instant actions.
+ * \else
+ * 瞬间动作的封装, 是所有瞬间动作的基类
+ * \endif
+ */
+class wyInstantAction : public wyFiniteTimeAction {
+};
+
+#endif // __wyInstantAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyIntervalAction_h__
+
+
+/**
+ * @class wyIntervalAction
+ *
+ * \if English
+ * Opposite to instant action, it is the base class of actions who will last for some while.
+ * \else
+ * 非瞬间动作的封装, 是所有非瞬间动作的基类
+ * \endif
+ */
+class wyIntervalAction : public wyFiniteTimeAction {
+public:
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::step
+	virtual void step(float t);
+
+	/// @see wyAction::isDone
+	virtual bool isDone();
+};
+
+#endif // __wyIntervalAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyJumpBy_h__
+
+
+/**S
+ * @class wyJumpBy
+ *
+ * \if English
+ * A node jumps from current position to elsewhere, the jumping can be adjusted by offset, height and times
+ * \else
+ * 节点跳跃的动作封装,根据设置偏移量，高度，跳跃次数进行移动
+ * \endif
+ */
+class wyJumpBy : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param duration duration time of action
+	 * @param x jump offset in x axis
+	 * @param y jump offset in y axis
+	 * @param height height of jumping
+	 * @param jumps times of jumping
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param x 节点偏移x轴距离
+	 * @param y 节点偏移y轴距离
+	 * @param height 节点跳跃的高度
+	 * @param jumps 节点跳跃的次数
+	 * \endif
+	 */
+	static wyJumpBy* make(float duration, float x, float y, float height, int jumps);
+
+	virtual ~wyJumpBy();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyJumpBy_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyJumpTo_h__
+
+
+/**
+ * @class wyJumpTo
+ *
+ * \if English
+ * A node jumps from a position to elsewhere, the jumping can be adjusted by offset, height and times
+ * \else
+ * 节点跳跃的动作封装,根据设置起始点，结束点，高度，跳跃次数进行移动
+ * \endif
+ */
+class wyJumpTo : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param duration duration time of jumping
+	 * @param startX start x position of jumping
+	 * @param startY start y position of jumping
+	 * @param endX end x position of jumping
+	 * @param endY end y position of jumping
+	 * @param height height of jumping
+	 * @param jumps times of jumping
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param startX 起始点x轴坐标
+	 * @param startY 起始点y轴坐标
+	 * @param endX 结束点y轴坐标
+	 * @param endY 结束点y轴坐标
+	 * @param height 节点跳跃的高度
+	 * @param jumps 节点跳跃的次数
+	 * \endif
+	 */
+	static wyJumpTo* make(float duration, float startX, float startY, float endX, float endY, float height, int jumps);
+
+	virtual ~wyJumpTo();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyJumpTo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyMoveBy_h__
+
+
+/**
+ * @class wyMoveBy
+ *
+ * \if English
+ * Move a node
+ * \else
+ * 节点移动的动作封装,根据设置偏移量进行移动
+ * \endif
+ */
+class wyMoveBy : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param duration duration time of action
+	 * @param x offset in x axis
+	 * @param y offset in y axis
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param x 节点偏移x轴距离
+	 * @param y 节点偏移y轴距离
+	 * \endif
+	 */
+	static wyMoveBy* make(float duration, float x, float y);
+
+	virtual ~wyMoveBy();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+	
+	/**
+	 * \if English
+	 * set pin point
+	 *
+	 * @param p global coordinate of pin point
+	 * \else
+	 * 设置pin point
+	 *
+	 * @param p pin point的全局坐标
+	 * \endif
+	 */
+	void setPinPoint(wyPoint p) { m_pinPoint = p; }
+
+	/**
+	 * \if English
+	 * set pin point
+	 *
+	 * @param x global x location of pin point
+	 * @param y global y location of pin point
+	 * \else
+	 * 设置pin point
+	 *
+	 * @param x pin point的全局x位置
+	 * @param y pin point的全局y位置
+	 * \endif
+	 */
+	void setPinPoint(float x, float y) { m_pinPoint = wyp(x, y); }
+
+	/**
+	 * \if English
+	 * get pin point
+	 *
+	 * @return global coordinate of pin point
+	 * \else
+	 * 得到pin point
+	 *
+	 * @return pin point的全局坐标
+	 * \endif
+	 */
+	wyPoint getPinPoint() { return m_pinPoint; }
+
+	/**
+	 * \if English
+	 * clear pin point
+	 * \else
+	 * 清除掉pin point, 这样节点移动时将不再自动对准pin point
+	 * \endif
+	 */
+	void clearPinPoint() { m_pinPoint = wyp(INT_MAX, INT_MAX); }
+
+	/**
+	 * \if English
+	 * set angle delta of pin point rotation
+	 *
+	 * @param angle to be added to node rotation
+	 * \else
+	 * 设置附加角度, 仅当pin point被设置时有效
+	 *
+	 * @param delta 附加角度
+	 * \endif
+	 */
+	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
+
+	/**
+	 * \if English
+	 * get angle delta
+	 *
+	 * @return angle delta
+	 * \else
+	 * 得到附加角度
+	 *
+	 * @return 附加角度
+	 * \endif
+	 */
+	float getPinAngleDelta() { return m_pinDelta; }
+};
+
+#endif // __wyMoveBy_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyMoveByAngle_h__
+
+
+/**
+ * @class wyMoveByAngle
+ *
+ * \if English
+ * Move a node by set a direction in angle and a velocity
+ * \else
+ * 根据角度和速度移动的动作封装
+ * \endif
+ */
+class wyMoveByAngle : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param duration duration time of action
+	 * @param degree move direction in angle
+	 * @param velocity move velocity
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param degree 节点移动的角度
+	 * @param velocity 节点移动的速度
+	 * \endif
+	 */
+	static wyMoveByAngle* make(float duration, int degree, int velocity);
+
+	virtual ~wyMoveByAngle();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+	
+	/**
+	 * \if English
+	 * set pin point
+	 *
+	 * @param p global coordinate of pin point
+	 * \else
+	 * 设置pin point
+	 *
+	 * @param p pin point的全局坐标
+	 * \endif
+	 */
+	void setPinPoint(wyPoint p) { m_pinPoint = p; }
+
+	/**
+	 * \if English
+	 * set pin point
+	 *
+	 * @param x global x location of pin point
+	 * @param y global y location of pin point
+	 * \else
+	 * 设置pin point
+	 *
+	 * @param x pin point的全局x位置
+	 * @param y pin point的全局y位置
+	 * \endif
+	 */
+	void setPinPoint(float x, float y) { m_pinPoint = wyp(x, y); }
+
+	/**
+	 * \if English
+	 * get pin point
+	 *
+	 * @return global coordinate of pin point
+	 * \else
+	 * 得到pin point
+	 *
+	 * @return pin point的全局坐标
+	 * \endif
+	 */
+	wyPoint getPinPoint() { return m_pinPoint; }
+
+	/**
+	 * \if English
+	 * clear pin point
+	 * \else
+	 * 清除掉pin point, 这样节点移动时将不再自动对准pin point
+	 * \endif
+	 */
+	void clearPinPoint() { m_pinPoint = wyp(INT_MAX, INT_MAX); }
+
+	/**
+	 * \if English
+	 * set angle delta of pin point rotation
+	 *
+	 * @param angle to be added to node rotation
+	 * \else
+	 * 设置附加角度, 仅当pin point被设置时有效
+	 *
+	 * @param delta 附加角度
+	 * \endif
+	 */
+	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
+
+	/**
+	 * \if English
+	 * get angle delta
+	 *
+	 * @return angle delta
+	 * \else
+	 * 得到附加角度
+	 *
+	 * @return 附加角度
+	 * \endif
+	 */
+	float getPinAngleDelta() { return m_pinDelta; }
+};
+
+#endif // __wyMoveByAngle_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyMoveTo_h__
+
+
+/**
+ * @class wyMoveTo
+ *
+ * \if English
+ * Move a node from a place to other place. You should set start and end position
+ * for node.
+ * \else
+ * 节点移动的动作封装,根据设置起始点，结束点进行移动
+ * \endif
+ */
+class wyMoveTo : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * static factory method
+	 *
+	 * @param duration duration time of this action, in second
+	 * @param startX start x position
+	 * @param startY start y position
+	 * @param endX end x position
+	 * @param endY end y position
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param startX 起始点x轴坐标
+	 * @param startY 起始点y轴坐标
+	 * @param endX 结束点y轴坐标
+	 * @param endY 结束点y轴坐标
+	 * \endif
+	 */
+	static wyMoveTo* make(float duration, float startX, float startY, float endX, float endY);
+
+	virtual ~wyMoveTo();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+	
+	/**
+	 * \if English
+	 * set pin point
+	 *
+	 * @param p global coordinate of pin point
+	 * \else
+	 * 设置pin point
+	 *
+	 * @param p pin point的全局坐标
+	 * \endif
+	 */
+	void setPinPoint(wyPoint p) { m_pinPoint = p; }
+
+	/**
+	 * \if English
+	 * set pin point
+	 *
+	 * @param x global x location of pin point
+	 * @param y global y location of pin point
+	 * \else
+	 * 设置pin point
+	 *
+	 * @param x pin point的全局x位置
+	 * @param y pin point的全局y位置
+	 * \endif
+	 */
+	void setPinPoint(float x, float y) { m_pinPoint = wyp(x, y); }
+
+	/**
+	 * \if English
+	 * get pin point
+	 *
+	 * @return global coordinate of pin point
+	 * \else
+	 * 得到pin point
+	 *
+	 * @return pin point的全局坐标
+	 * \endif
+	 */
+	wyPoint getPinPoint() { return m_pinPoint; }
+
+	/**
+	 * \if English
+	 * clear pin point
+	 * \else
+	 * 清除掉pin point, 这样节点移动时将不再自动对准pin point
+	 * \endif
+	 */
+	void clearPinPoint() { m_pinPoint = wyp(INT_MAX, INT_MAX); }
+
+	/**
+	 * \if English
+	 * set angle delta of pin point rotation
+	 *
+	 * @param angle to be added to node rotation
+	 * \else
+	 * 设置附加角度, 仅当pin point被设置时有效
+	 *
+	 * @param delta 附加角度
+	 * \endif
+	 */
+	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
+
+	/**
+	 * \if English
+	 * get angle delta
+	 *
+	 * @return angle delta
+	 * \else
+	 * 得到附加角度
+	 *
+	 * @return 附加角度
+	 * \endif
+	 */
+	float getPinAngleDelta() { return m_pinDelta; }
+};
+
+#endif // __wyMoveTo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyOrbitCamera_h__
+
+
+/**
+ * @class wyOrbitCamera
+ *
+ * \if English
+ * Camera action, it does animation by changing camera position.
+ * \else
+ * 轨道镜头动作。可以让视点沿着某条轨迹移动
+ * \endif
+ */
+class wyOrbitCamera : public wyCameraAction {
+public:
+	/**
+	 * \if English
+	 * static factory method
+	 *
+	 * @param duration action duration time in second
+	 * @param r the initial distance between camera and screen center
+	 * @param dr the delta of \c r
+	 * @param z the initial angle between z axis and screen normal
+	 * @param dz the delta of \c z
+	 * @param x the initial angle of x axis
+	 * @param dx the delta of \c x
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param r 镜头距离图象中心的距离，称为半径
+	 * @param dr 半径在持续时间内变化总量
+	 * @param z 动作开始时，镜头到图象中心的连线与z轴的夹角
+	 * @param dz z角度的变化总量
+	 * @param x x轴的初始倾斜角度
+	 * @param dx x轴的总变化角度
+	 * \endif
+	 */
+	static wyOrbitCamera* make(float duration, float r, float dr, float z, float dz, float x, float dx);
+
+	virtual ~wyOrbitCamera();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyOrbitCamera_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyPlace_h__
+
+
+/**
+ * @class wyPlace
+ *
+ * \if English
+ * Move a node to specfied place. This action doesn't have reverse action and
+ * execute instantly.
+ * \else
+ * 节点位置变化的动作封装,根据设置点进行移动
+ * \endif
+ */
+class wyPlace : public wyInstantAction {
+public:
+	/**
+	 * \if English
+	 * static factory method
+	 *
+	 * @param x x offset to be added
+	 * @param y y offset to be added
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param x 目标位置x轴偏移量
+	 * @param y 目标位置y轴偏移量
+	 * \endif
+	 */
+	static wyPlace* make(float x, float y);
+
+	virtual ~wyPlace();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/**
+	 * \if English
+	 * This action doesn't have reverse action, so returns NULL always
+	 *
+	 * @return NULL
+	 * \else
+	 * 此动作不支持反转，返回为NULL
+	 *
+	 * @return NULL
+	 * \endif
+	 */
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyPlace_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyProgressBy_h__
+
+
+/**
+ * @class wyProgressBy
+ *
+ * \if English
+ * Progress action which depends on a \link wyProgressTimer wyProgressTimer\endlink
+ * node
+ * \else
+ * 使节点称为进度条显示的动作封装，根据指定变化的百分比执行动作
+ * \endif
+ */
+class wyProgressBy : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * static factory method
+	 *
+	 * @param duration duration time
+	 * @param deltaPercents delta percentage
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param deltaPercents 节点变化的百分比，取值0到100
+	 * \endif
+	 */
+	static wyProgressBy* make(float duration, float deltaPercents);
+
+	virtual ~wyProgressBy();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyProgressBy_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyProgressTo_h__
+
+
+/**
+ * @class wyProgressTo
+ *
+ * 使节点称为进度条显示的动作封装，根据指定变化到的百分比执行动作
+ */
+class wyProgressTo : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param from 节点起始显示百分比，取值0到100
+	 * @param to 节点结束显示百分比，取值0到100
+	 */
+	static wyProgressTo* make(float duration, float from, float to);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyProgressTo();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyProgressTo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRepeat_h__
+
+
+/**
+ * @class wyRepeat
+ *
+ * 根据设置重复次数，重复执行动作的封装
+ */
+class wyRepeat : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param other 具体要执行的\link wyFiniteTimeAction wyFiniteTimeAction\endlink指针
+	 * @param times 动作重复的次数
+	 */
+	static wyRepeat* make(wyFiniteTimeAction* other, int times);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRepeat();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::stop
+	virtual void stop();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+
+	/// @see wyAction::isDone
+	virtual bool isDone();
+};
+
+#endif // __wyRepeat_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRepeatForever_h__
+
+
+/**
+ * @class wyRepeatForever
+ *
+ * 不断重复执行某个动作的封装
+ */
+class wyRepeatForever : public wyAction {
+public:
+	/**
+	 * 静态构造方法
+	 *
+	 * @param other 具体执行的 \link wyIntervalAction wyIntervalAction对象 \endlink指针
+	 */
+	static wyRepeatForever* make(wyIntervalAction* other);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRepeatForever();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::stop
+	virtual void stop();
+
+	/// @see wyAction::step
+	virtual void step(float t);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+
+	/// @see wyAction::isDone
+	virtual bool isDone();
+};
+
+#endif // __wyRepeatForever_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyReverseTime_h__
+
+
+/**
+ * @class wyReverseTime
+ *
+ * 反向执行动作的封装
+ */
+class wyReverseTime : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param other 要反转执行的动作 \link wyFiniteTimeAction wyFiniteTimeAction \endlink指针
+	 */
+	static wyReverseTime* make(wyFiniteTimeAction* other);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyReverseTime();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::stop
+	virtual void stop();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyReverseTime_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRotateBy_h__
+
+
+/**
+ * @class wyRotateBy
+ *
+ * 节点旋转的动作封装,根据设置旋转度数进行节点旋转
+ */
+class wyRotateBy : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param angle 旋转度数
+	 */
+	static wyRotateBy* make(float duration, float angle);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRotateBy();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyRotateBy_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRotateTo_h__
+
+
+/**
+ * @class wyRotateTo
+ *
+ * 节点旋转的动作封装,根据设置旋转起始度数进行节点旋转
+ */
+class wyRotateTo : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param startAngle 节点初始的角度
+	 * @param endAngle 节点目标的角度
+	 */
+	static wyRotateTo* make(float duration, float startAngle, float endAngle);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRotateTo();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyRotateTo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyScaleBy_h__
+
+
+/**
+ * @class wyScaleBy
+ *
+ * 节点缩放的动作封装,根据设置缩放比例进行节点缩放
+ */
+class wyScaleBy : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param scaleX 缩放变化的x轴缩放比
+	 * @param scaleY 缩放变化的y轴缩放比
+	 */
+	static wyScaleBy* make(float duration, float scaleX, float scaleY);
+
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param scale 缩放变化的缩放比
+	 */
+	static wyScaleBy* make(float duration, float scale);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyScaleBy();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyScaleBy_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyScaleTo_h__
+
+
+/**
+ * @class wyScaleBy
+ *
+ * 节点缩放的动作封装,根据设置起始缩放比进行缩放操作
+ */
+class wyScaleTo : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param startScaleX 初始x轴缩放比，取值大于0
+	 * @param startScaleY 初始y轴缩放比，取值大于0
+	 * @param endScaleX 目标x轴缩放比，取值大于0
+	 * @param endScaleY 目标y轴缩放比，取值大于0
+	 */
+	static wyScaleTo* make(float duration, float startScaleX, float startScaleY, float endScaleX, float endScaleY);
+
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param startScale 初始缩放比
+	 * @param endScale 目标缩放比
+	 */
+	static wyScaleTo* make(float duration, float startScale, float endScale);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyScaleTo();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyScaleTo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySequence_h__
+
+
+/**
+ * @class wySequence
+ *
+ * 按顺序执行一组动作的封装
+ */
+class wySequence : public wyIntervalAction {
+public:
+	/**
+	 * 构造\link wySequence wySequence \endlink对象指针
+	 *
+	 * @param action1 要执行的动作\link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针
+	 * @param action2 要执行的动作\link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针，
+	 * 后面还可以添加多个\link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针，参数以NULL结束
+	 * @return \link wySequence wySequence \endlink对象指针
+	 */
+	static wySequence* make(wyFiniteTimeAction* action1, wyFiniteTimeAction* action2, ...);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wySequence();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::stop
+	virtual void stop();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wySequence_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyShake_h__
+
+
+/**
+ * @class wyShake
+ *
+ * 节点在一个圆形区域范围内随机移动, 造成抖动的效果
+ */
+class wyShake : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param radius 抖动半径, 节点在不超过这个半径的圆内抖动
+	 */
+	static wyShake* make(float duration, float radius);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyShake();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyShake_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyShow_h__
+
+
+/**
+ * @class wyShow
+ *
+ * 节点可见的动作封装，对节点执行可见操作
+ */
+class wyShow : public wyInstantAction {
+public:
+	/**
+	 * 静态构造函数
+	 */
+	static wyShow* make();
+	
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyShow();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/**
+	 * 返回show的反转操作，实际是\link wyHide wyHide \endlink对象指针
+	 *
+	 * @return \link wyAction wyAction \endlink对象指针
+	 */
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyShow_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySpawn_h__
+
+
+/**
+ * @class wySpawn
+ *
+ * 同时执行两个动作的封装
+ */
+class wySpawn : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param one 要执行的动作 \link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针
+	 * @param two 要执行的动作 \link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针
+	 */
+	static wySpawn* make(wyFiniteTimeAction* one, wyFiniteTimeAction* two);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wySpawn();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::stop
+	virtual void stop();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wySpawn_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySpeed_h__
+
+
+/**
+ * @class wySpeed
+ *
+ * 加速或减速的动作的封装
+ */
+class wySpeed : public wyAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param other 具体执行的 \link wyAction wyAction \endlink对象指针
+	 * @param speed 加速或减速的速率，大于1为加速，取值必须大于0
+	 */
+	static wySpeed* make(wyAction* other, float speed);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wySpeed();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::stop
+	virtual void stop();
+
+	/// @see wyAction::step
+	virtual void step(float t);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+
+	/// @see wyAction::isDone
+	virtual bool isDone();
+
+	/**
+	 * 获得加速或减速的速率
+	 *
+	 * @return 加速或减速的速率
+	 */
+	float getSpeed() { return m_speed; }
+
+	/**
+	 * 设置加速或减速的速率
+	 *
+	 * @param speed 加速或减速的速率，大于1为加速
+	 */
+	void setSpeed(float speed) { m_speed = speed; }
+};
+
+#endif // __wySpeed_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTintBy_h__
+
+
+/**
+ * @class wyTintBy
+ *
+ * 节点染色的动作封装,根据设置染色量进行移动
+ */
+class wyTintBy : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param r 红色值变化值
+	 * @param g 绿色值变化值
+	 * @param b 蓝色值变化值
+	 */
+	static wyTintBy* make(float duration, int r, int g, int b);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTintBy();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyTintBy_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTintTo_h__
+
+
+/**
+ * @class wyTintTo
+ *
+ * 节点染色的动作封装,根据设置起始染色量进行移动
+ */
+class wyTintTo : public wyIntervalAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param fromR 初始红色值, 0到255
+	 * @param fromG 初始绿色值, 0到255
+	 * @param fromB 初始蓝色值, 0到255
+	 * @param toR 目标红色值, 0到255
+	 * @param toG 目标绿色值, 0到255
+	 * @param toB 目标蓝色值, 0到255
+	 */
+	static wyTintTo* make(float duration, int fromR, int fromG, int fromB, int toR, int toG, int toB);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTintTo();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyTintTo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyToggleVisibility_h__
+
+
+/**
+ * @class wyToggleVisibility
+ *
+ * 节点可见与不可见切换的动作封装
+ */
+class wyToggleVisibility : public wyInstantAction {
+public:
+	/**
+	 * 静态构造函数
+	 */
+	static wyToggleVisibility* make();
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyToggleVisibility();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyToggleVisibility_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLagrange_h__
+
+/**
+ * @class wyLagrange
+ *
+ * \if English
+ * Move a \link wyNode wyNode\endlink in track of Lagrange curve
+ * \else
+ * 节点按照拉格朗日曲线轨迹运动的动作封装
+ * \endif
+ */
+class wyLagrange : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * Static factory method
+	 *
+	 * @param duration duration time in second
+	 * @param config \link wyLagrangeConfig wyLagrangeConfig\endlink structure to describe lagrange curve
+	 * \else
+	 * 静态构造方法
+	 *
+	 * @param duration 动作持续的时间
+	 * @param config 拉格朗日曲线的描述结构, \link wyLagrangeConfig wyLagrangeConfig\endlink
+	 * \endif
+	 */
+	static wyLagrange* make(float duration, wyLagrangeConfig config);
+
+	virtual ~wyLagrange();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+	
+	void setAutoRotate(bool flag, float angleDelta);
+	
+	/**
+	 * \if English
+	 * set pin point, only available when auto rotate flag is false
+	 *
+	 * @param p global coordinate of pin point
+	 * \else
+	 * 设置pin point, pin point仅当auto rotate为false时才有效
+	 *
+	 * @param p pin point的全局坐标
+	 * \endif
+	 */
+	void setPinPoint(wyPoint p) { m_pinPoint = p; }
+
+	/**
+	 * \if English
+	 * set pin point, only available when auto rotate flag is false
+	 *
+	 * @param x global x location of pin point
+	 * @param y global y location of pin point
+	 * \else
+	 * 设置pin point, pin point仅当auto rotate为false时才有效
+	 *
+	 * @param x pin point的全局x位置
+	 * @param y pin point的全局y位置
+	 * \endif
+	 */
+	void setPinPoint(float x, float y) { m_pinPoint = wyp(x, y); }
+
+	/**
+	 * \if English
+	 * get pin point
+	 *
+	 * @return global coordinate of pin point
+	 * \else
+	 * 得到pin point
+	 *
+	 * @return pin point的全局坐标
+	 * \endif
+	 */
+	wyPoint getPinPoint() { return m_pinPoint; }
+
+	/**
+	 * \if English
+	 * clear pin point
+	 * \else
+	 * 清除掉pin point, 这样节点移动时将不再自动对准pin point
+	 * \endif
+	 */
+	void clearPinPoint() { m_pinPoint = wyp(INT_MAX, INT_MAX); }
+
+	/**
+	 * \if English
+	 * set angle delta of pin point rotation
+	 *
+	 * @param angle to be added to node rotation
+	 * \else
+	 * 设置附加角度, 仅当pin point被设置时有效
+	 *
+	 * @param delta 附加角度
+	 * \endif
+	 */
+	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
+
+	/**
+	 * \if English
+	 * get angle delta
+	 *
+	 * @return angle delta
+	 * \else
+	 * 得到附加角度
+	 *
+	 * @return 附加角度
+	 * \endif
+	 */
+	float getPinAngleDelta() { return m_pinDelta; }
+};
+
+#endif // __wyLagrange_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyMoveByPath_h__
+
+/**
+ * @class wyMoveByPath
+ *
+ * \if English
+ * Move a node in a specified path
+ * \else
+ * 在一个指定的路径上移动节点，路径由若干个点构成
+ * \endif
+ */
+class wyMoveByPath : public wyIntervalAction {
+public:
+	static wyMoveByPath* make();
+
+	virtual ~wyMoveByPath();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+
+	/**
+	 * \if English
+	 * add a point to path
+	 *
+	 * @param x x position
+	 * @param y y position
+	 * @param duration move time between this point and previous point, it will be neglected if it is first point
+	 * \else
+	 * 添加一个路径点
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 * @param duration 这个点和上一个点之间，移动的持续时间。如果这是第一个点，这个参数将被忽略
+	 * \endif
+	 */
+	void addPoint(float x, float y, float duration);
+
+	int getPointCount() { return m_pointCount; }
+
+	float* getPoints() { return m_points; }
+	
+	void setAutoRotate(bool flag, float angleDelta);
+	
+	/**
+	 * \if English
+	 * set pin point, only available when auto rotate flag is false
+	 *
+	 * @param p global coordinate of pin point
+	 * \else
+	 * 设置pin point, pin point仅当auto rotate为false时才有效
+	 *
+	 * @param p pin point的全局坐标
+	 * \endif
+	 */
+	void setPinPoint(wyPoint p) { m_pinPoint = p; }
+
+	/**
+	 * \if English
+	 * set pin point, only available when auto rotate flag is false
+	 *
+	 * @param x global x location of pin point
+	 * @param y global y location of pin point
+	 * \else
+	 * 设置pin point, pin point仅当auto rotate为false时才有效
+	 *
+	 * @param x pin point的全局x位置
+	 * @param y pin point的全局y位置
+	 * \endif
+	 */
+	void setPinPoint(float x, float y) { m_pinPoint = wyp(x, y); }
+
+	/**
+	 * \if English
+	 * get pin point
+	 *
+	 * @return global coordinate of pin point
+	 * \else
+	 * 得到pin point
+	 *
+	 * @return pin point的全局坐标
+	 * \endif
+	 */
+	wyPoint getPinPoint() { return m_pinPoint; }
+
+	/**
+	 * \if English
+	 * clear pin point
+	 * \else
+	 * 清除掉pin point, 这样节点移动时将不再自动对准pin point
+	 * \endif
+	 */
+	void clearPinPoint() { m_pinPoint = wyp(INT_MAX, INT_MAX); }
+
+	/**
+	 * \if English
+	 * set angle delta of pin point rotation
+	 *
+	 * @param angle to be added to node rotation
+	 * \else
+	 * 设置附加角度, 仅当pin point被设置时有效
+	 *
+	 * @param delta 附加角度
+	 * \endif
+	 */
+	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
+
+	/**
+	 * \if English
+	 * get angle delta
+	 *
+	 * @return angle delta
+	 * \else
+	 * 得到附加角度
+	 *
+	 * @return 附加角度
+	 * \endif
+	 */
+	float getPinAngleDelta() { return m_pinDelta; }
+};
+
+#endif // __wyMoveByPath_h__
+
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyFollow_h__
+
+/**
+ * @class wyFollow
+ *
+ * \if English
+ * CCFollow is an action that "follows" a node
+ * \else
+ * 跟踪一个节点的动作
+ * \endif
+ */
+class wyFollow : public wyAction {
+public:
+    /**
+     * \if English
+     * Static Constructor
+     *
+     * @param fNode node to follow
+     * @param worldBoundary rectangle of world
+     * \else
+     * 静态构造函数
+     *
+     * @param fNode 要跟踪的\link wyNode wyNode\endlink节点
+     * @param worldBoundary 最大移动空间的矩形范围,如不设置表示fNode永远为中心点
+     * \endif
+     */
+    static wyFollow* make(wyNode* fNode, wyRect worldBoundary = wyrZero);
+
+    virtual ~wyFollow();
+
+    /// @see wyAction::step
+    virtual void step(float t);
+
+    /// @see wyAction::isDone
+    virtual bool isDone();
+};
+
+#endif // __wyFollow_h__
+
+
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyHypotrochoid_h__
+
+/**
+ * @class wyHypotrochoid
+ *
+ * \if English
+ * a Hypotrochoid move action, http://en.wikipedia.org/wiki/Hypotrochoid
+ * \else
+ * Hypotrochoid 运动, http://en.wikipedia.org/wiki/Hypotrochoid
+ * \endif
+ */
+class wyHypotrochoid : public wyIntervalAction {
+public:
+    /**
+     * \if English
+     * Static constructor
+     *
+     * @param duration duration time of action
+     * @param c \link wyHypotrochoidConfig wyHypotrochoidConfig\endlink
+     * \else
+     * 静态构造函数
+     *
+     * @param duration 动作持续的时间
+     * @param c \link wyHypotrochoidConfig wyHypotrochoidConfig\endlink
+     * \endif
+     */
+    static wyHypotrochoid* make(float duration, wyHypotrochoidConfig c);
+
+    virtual ~wyHypotrochoid();
+
+    /// @see wyAction::copy
+    virtual wyAction* copy();
+
+    /// @see wyAction::update
+    virtual void update(float t);
+    
+	/**
+	 * \if English
+	 * Enable auto rotate, it means the node move by hypotrochoid path will be aligned
+	 * with path direction.
+	 *
+	 * @param flag true means enable auto rotate
+	 * @param angleDelta the delta to be added to path direction. Position value means
+	 * 		clockwise, negative value means counter-clockwise
+	 * \else
+	 * 是否打开自动旋转，打开自动旋转表示移动的节点会自动保持和路径方向一致.
+	 *
+	 * @param flag true表示打开自动旋转
+	 * @param angleDelta 预设的角度，假如是-90，而当前路径的朝向是180度，那么最终节点将被设置为90度.
+	 * 		这里正值表示顺时针旋转，负值表示逆时针旋转
+	 * \endif
+	 */
+	void setAutoRotate(bool flag, float angleDelta);
+	
+	/**
+	 * \if English
+	 * set pin point, only available when auto rotate flag is false
+	 *
+	 * @param p global coordinate of pin point
+	 * \else
+	 * 设置pin point, pin point仅当auto rotate为false时才有效
+	 *
+	 * @param p pin point的全局坐标
+	 * \endif
+	 */
+	void setPinPoint(wyPoint p) { m_pinPoint = p; }
+
+	/**
+	 * \if English
+	 * set pin point, only available when auto rotate flag is false
+	 *
+	 * @param x global x location of pin point
+	 * @param y global y location of pin point
+	 * \else
+	 * 设置pin point, pin point仅当auto rotate为false时才有效
+	 *
+	 * @param x pin point的全局x位置
+	 * @param y pin point的全局y位置
+	 * \endif
+	 */
+	void setPinPoint(float x, float y) { m_pinPoint = wyp(x, y); }
+
+	/**
+	 * \if English
+	 * get pin point
+	 *
+	 * @return global coordinate of pin point
+	 * \else
+	 * 得到pin point
+	 *
+	 * @return pin point的全局坐标
+	 * \endif
+	 */
+	wyPoint getPinPoint() { return m_pinPoint; }
+
+	/**
+	 * \if English
+	 * clear pin point
+	 * \else
+	 * 清除掉pin point, 这样节点移动时将不再自动对准pin point
+	 * \endif
+	 */
+	void clearPinPoint() { m_pinPoint = wyp(INT_MAX, INT_MAX); }
+
+	/**
+	 * \if English
+	 * set angle delta of pin point rotation
+	 *
+	 * @param angle to be added to node rotation
+	 * \else
+	 * 设置附加角度, 仅当pin point被设置时有效
+	 *
+	 * @param delta 附加角度
+	 * \endif
+	 */
+	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
+
+	/**
+	 * \if English
+	 * get angle delta
+	 *
+	 * @return angle delta
+	 * \else
+	 * 得到附加角度
+	 *
+	 * @return 附加角度
+	 * \endif
+	 */
+	float getPinAngleDelta() { return m_pinDelta; }
+};
+
+#endif // __wyHypotrochoid_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAction_h__
+
+
+#define WY_ACTION_INVALID_TAG -1
+
+class wyAction;
+
+/**
+ * @struct wyActionCallback
+ *
+ * \if English
+ * \link wyAction wyAction \endlink callback definition.
+ * \else
+ * \link wyAction wyAction \endlink 的回调函数结构定义. 通过设置回调, 可以在
+ * \link wyAction wyAction \endlink 的执行过程中通过回调了解动作的执行进度, 以及
+ * 何时开始, 何时停止.
+ * \endif
+ */
+typedef struct wyActionCallback {
+} wyActionCallback;
+
+class wyNode;
+
+/**
+ * @class wyAction
+ *
+ * \if English
+ * Base class for other actions
+ * \else
+ * 动作的封装, 是所有动作的基类
+ * \endif
+ */
+class wyAction : public wyObject {
+public:
+	/**
+	 * \if English
+	 * Make a copy of current action object, the retain count of returned
+	 * object will be 1, so the caller should release it.
+	 *
+	 * @return \link wyAction wyAction \endlink pointer
+	 * \else
+	 * 获得当前动作的复制
+	 *
+	 * @return \link wyAction wyAction \endlink对象指针
+	 * \endif
+	 */
+	virtual wyAction* copy();
+
+	/**
+	 * \if English
+	 * Make a reverse copy of this action object, the retain count of
+	 * returned object will be 1, so the caller should release it
+	 *
+	 * @return \link wyAction wyAction \endlink pointer
+	 * \else
+	 * 获得动作反转后的指针
+	 *
+	 * @return \link wyAction wyAction \endlink对象指针
+	 * \endif
+	 */
+	virtual wyAction* reverse();
+
+	/**
+	 * \if English
+	 * Start action. If callback is set, notify callback
+	 *
+	 * @param target the \link wyNode wyNode \endlink object on which this action is running
+	 * \else
+	 * 开始执行动作，如果动作有回调，会触发onStart回调函数
+	 *
+	 * @param target \link wyNode wyNode \endlink对象指针
+	 * \endif
+	 */
+	virtual void start(wyNode* target);
+
+	/**
+	 * \if English
+	 * Stop action. If callback is set, notify callback
+	 * \else
+	 * 停止动作，如果动作有回调，会触发onStop回调函数
+	 * \endif
+	 */
+	virtual void stop();
+
+	/**
+	 * \if English
+	 * Update action with a single step
+	 *
+	 * @param t time from last step
+	 * \else
+	 * 步进动作
+	 *
+	 * @param t 上一次调用step到现在过去的时间
+	 * \endif
+	 */
+	virtual void step(float t);
+
+	/**
+	 * \if English
+	 * Update action. If callback is set, notify callback.
+	 *
+	 * @param t current time, from 0 to 1. If action's duration is 2 seconds, then 0.5 means 1 second
+	 * \else
+	 * 更新动作执行的百分比，如果动作有回调，会触发onUpdate回调函数
+	 *
+	 * @param t 动作执行的相对时间，取值从0到1
+	 * \endif
+	 */
+	virtual void update(float t);
+
+	/**
+	 * \if English
+	 * Check action state
+	 *
+	 * @return true indicating action is done
+	 * \else
+	 * 判断动作是否结束
+	 *
+	 * @return 动作是否结束
+	 * \endif
+	 */
+	virtual bool isDone();
+
+	/**
+	 * \if English
+	 * Set callback
+	 *
+	 * @param callback \link wyActionCallback wyActionCallback \endlink structure. NULL means clear current callback.
+	 * @param data User data pointer, who allocate it should be responsible for release it
+	 * \else
+	 * 设置动作执行的回调函数native引用
+	 *
+	 * @param callback 回调函数\link wyActionCallback wyActionCallback \endlink结构, 如果
+	 * 		为NULL, 则表示清除现有的callback
+	 * @param data 附加数据指针，wyAction不会负责释放该指针
+	 * \endif
+	 */
+	void setCallback(wyActionCallback* callback, void* data);
+
+
+	/**
+	 * \if English
+	 * Set tag for action. A tag can be used as an unique id of action and later
+	 * you can retrieve it by wyNode::getAction method
+	 *
+	 * @param tag integer for action
+	 * \else
+	 * 设置动作标签
+	 *
+	 * @param tag 动作标签
+	 * \endif
+	 */
+	void setTag(int tag);
+
+	/**
+	 * \if English
+	 * Get action tag
+	 *
+	 * @return action tag
+	 * \else
+	 * 获得动作标签
+	 *
+	 * @return 动作标签
+	 * \endif
+	 */
+	int getTag();
+
+	/**
+	 * \if English
+	 * Get action target.
+	 *
+	 * @return \link wyNode wyNode \endlink object on which this action is running
+	 * \else
+	 * 获得执行动作节点\link wyNode wyNode \endlink对象指针
+	 *
+	 * @return 执行动作的\link wyNode wyNode \endlink对象指针
+	 * \endif
+	 */
+	wyNode* getTarget();
+    
+    /**
+     * \if English
+     * is action running or not
+     *
+     * @return true means it is running
+     * \else
+     * 检查动作是否正在执行
+     *
+     * @return true表示正在执行
+     * \endif
+     */
+    bool isRunning() { return m_running; }
+
+	/**
+	 * \if English
+	 * Get parent action, if an action is packed in composite action, such as
+	 * \link wyRepeat wyRepeat\endlink, then its parent action will be set as
+	 * \link wyRepeat wyRepeat\endlink. Usually developer doesn't need care about
+	 * this.
+	 *
+	 * @return parent action, or NULL if not set
+	 * \else
+	 * 得到父动作
+	 *
+	 * @return 父动作, 如果没有则返回NULL
+	 * \endif
+	 */
+	wyAction* getParent() { return m_parent; }
+
+	/**
+	 * \if English
+	 * Set parent action, it doesn't increase retain count of parent action. This method
+	 * is usually called internal and developer should not care about this.
+	 *
+	 * @param parent parent action
+	 * \else
+	 * 设置父动作, 该方法不会增加父动作的引用计数
+	 *
+	 * @param parent 父动作
+	 * \endif
+	 */
+	void setParent(wyAction* parent) { m_parent = parent; }
+	
+	/**
+	 * \if English
+	 * is action paused? There is not method called setPaused because you can't pause action
+	 * directly. \link wyNode wyNode\endlink has pauseAction method and you can use that
+	 *
+	 * @return true means action is paused
+	 * \else
+	 * 动作是否已停止. 没有setPaused方法可以让你直接暂停动作, 比如通过\link wyNode wyNode\endlink的方法
+	 * pauseAction暂停动作.
+	 *
+	 * @return true表示动作已经暂停
+	 * \endif
+	 */
+	bool isPaused() { return m_paused; }
+};
+
+#endif // __wyAction_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySkewBy_h__
+
+/**
+ * @class wySkewBy
+ *
+ * \if English
+ * Skew x/y axis
+ * \else
+ * 改变x/y轴倾斜度的动作
+ * \endif
+ */
+class wySkewBy : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * Static creator
+	 *
+	 * @param duration action duration time in seconds
+	 * @param skewX the angle between y axis and node left border, positive value means
+	 * 		clockwise
+	 * @param skewY the angle between x axis and node bottom border, positive value means
+	 * 		clockwise
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间, 秒
+	 * @param skewX x方向变化的倾斜度, 表示y轴和节点左边界的夹角, 正值表示顺时针
+	 * @param skewY y方向变化的倾斜度, 表示x轴和节点下边界的夹角, 正式表示顺时针
+	 * \endif
+	 */
+	static wySkewBy* make(float duration, float skewX, float skewY);
+
+	virtual ~wySkewBy();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wySkewBy_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySkewTo_h__
+
+/**
+ * @class wySkewTo
+ *
+ * \if English
+ * Skew x/y axis
+ * \else
+ * 改变x/y轴倾斜度的动作
+ * \endif
+ */
+class wySkewTo : public wyIntervalAction {
+public:
+	/**
+	 * \if English
+	 * static factory method
+	 *
+	 * @param duration duration time in seconds
+	 * @param startSkewX start x skew degree
+	 * @param endSkewX end x skew degree
+	 * @param startSkewY start y skew degree
+	 * @param endSkewY end y skew degree
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续的时间
+	 * @param startSkewX 起始x倾斜角度
+	 * @param endSkewX 结束x倾斜角度
+	 * @param startSkewY 起始y倾斜角度
+	 * @param endSkewY 结束y倾斜角度
+	 * \endif
+	 */
+	static wySkewTo* make(float duration, float startSkewX, float endSkewX, float startSkewY, float endSkewY);
+
+	virtual ~wySkewTo();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wySkewTo_h__

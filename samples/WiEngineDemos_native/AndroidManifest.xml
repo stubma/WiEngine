@@ -1,0 +1,2055 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+	<!--
+		Copyright (C) 2010 WiYun Inc. Licensed under the Apache License,
+		Version 2.0 (the "License"); you may not use this file except in
+		compliance with the License. You may obtain a copy of the License at
+
+		http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+		applicable law or agreed to in writing, software distributed under the
+		License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+		CONDITIONS OF ANY KIND, either express or implied. See the License for
+		the specific language governing permissions and limitations under the
+		License.
+	-->
+
+<manifest 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.wiyun.engine" android:versionCode="65" android:versionName="3.10.1" android:installLocation="internalOnly">
+	<uses-sdk android:minSdkVersion="5"></uses-sdk>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+	<uses-feature android:name="android.hardware.camera" android:required="false"/>
+	<uses-permission android:name="com.android.vending.BILLING"/>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	
+	<application android:label="@string/app_name" android:icon="@drawable/icon" android:enabled="true">
+		<meta-data android:name="Node_desc" android:resource="@string/node_desc"></meta-data>
+		<meta-data android:name="Action_desc" android:resource="@string/action_desc"></meta-data>
+		<meta-data android:name="Box2D_desc" android:resource="@string/box2d_desc"></meta-data>
+		<meta-data android:name="Chipmunk_desc" android:resource="@string/chipmunk_desc"></meta-data>
+		<meta-data android:name="Ease_Action_desc" android:resource="@string/ease_action_desc"></meta-data>
+		<meta-data android:name="Grid_Action_desc" android:resource="@string/grid_action_desc"></meta-data>
+		<meta-data android:name="Events_desc" android:resource="@string/events_desc"></meta-data>
+		<meta-data android:name="Other_desc" android:resource="@string/other_desc"></meta-data>
+		<meta-data android:name="Particle_desc" android:resource="@string/particle_desc"></meta-data>
+		<meta-data android:name="Transition_desc" android:resource="@string/transition_desc"></meta-data>
+		<meta-data android:name="Lua_desc" android:resource="@string/lua_desc"></meta-data>
+		<meta-data android:name="Sound_desc" android:resource="@string/sound_desc"></meta-data>
+		<meta-data android:name="Network_desc" android:resource="@string/network_desc"></meta-data>
+		<meta-data android:name="Persistence_desc" android:resource="@string/persistence_desc"></meta-data>
+		<meta-data android:name="IAP_desc" android:resource="@string/iap_desc"></meta-data>
+		<meta-data android:name="Performance_desc" android:resource="@string/performance_desc"></meta-data>
+		
+		<activity android:label="@string/app_name" android:name="WiEngineDemos">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+
+		</activity>
+
+		<activity android:name=".tests.node.MenuTest" android:label="Node/Menu">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/MenuTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.event.ClickAndMoveTest"
+			android:label="Events/Click and Move">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ClickAndMoveTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.event.CustomBackTest"
+			android:label="Events/Process Back Key">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/CustomBackTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.node.LabelTest" android:label="Node/Label">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/LabelTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.other.TextureAtlasTest"
+			android:label="Other/Texture Atlas">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TextureAtlasTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.ScreenshotTest"
+			android:label="Other/Screenshot">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ScreenshotTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.NodePhysicsTest"
+			android:label="Other/Node Physics">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/NodePhysicsTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.PauseResumeGameTest"
+			android:label="Other/Pause &amp; Resume Game">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PauseResumeGameTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.PickFromCameraTest"
+			android:label="Other/Pick From Camera">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PickFromCameraTest_desc"></meta-data>
+		</activity>
+		
+		<activity android:name=".tests.other.PickFromAlbumTest"
+			android:label="Other/Pick From Album">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PickFromAlbumTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.PixelOperationTest"
+			android:label="Other/Pixel Operation">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PixelOperationTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.ResourceDecoderTest"
+			android:label="Other/Resource Decoder">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ResourceDecoderTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.TextureLoadUnloadTest"
+			android:label="Other/Texture Load &amp; Unload">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TextureLoadUnloadTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.AtlasLabelTest"
+			android:label="Node/Atlas Label">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/AtlasLabelTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.TGATileMapAtlasTest"
+			android:label="Node/TGA Tile Map">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TGATileMapAtlasTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.ArcticTest"
+			android:label="Node/Arctic">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc"
+				android:resource="@string/ArcticTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.AuroraGTTest"
+			android:label="Node/AuroraGT">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc"
+				android:resource="@string/AuroraGTTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.ClipMappingAuroraGTTest"
+			android:label="Node/Clip Mapping (AuroraGT)">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc"
+				android:resource="@string/ClipMappingAuroraGTTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.ArrayTileMapAtlasTest"
+			android:label="Node/Array Tile Map">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc"
+				android:resource="@string/ArrayTileMapAtlasTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.node.AtlasSpriteTest"
+			android:label="Node/Atlas Sprite">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/AtlasSpriteTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.ImageSpriteTest"
+			android:label="Node/Image Sprite">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ImageSpriteTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.MotionWelderTest" android:label="Node/Motion Welder">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/MotionWelderTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.SpriteXTest" android:label="Node/SpriteX 3.9.4">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SpriteXTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.SpriteX2011Test" android:label="Node/SpriteX 2011">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SpriteX2011Test_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.SceneTest" android:label="Node/Scene">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SceneTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.SliderTest" android:label="Node/Slider">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SliderTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.ToastTest" android:label="Node/Toast">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ToastTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.VirtualJoystickTest" android:label="Node/Virtual Joystick">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/VirtualJoystickTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Other/Drawing Primitives"
+			android:name=".tests.other.DrawPrimitivesTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/DrawPrimitivesTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Other/JSON Parsing"
+			android:name=".tests.other.JsonParseTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/JsonParseTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Other/Verlet Rope"
+			android:name=".tests.other.VerletRopeTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/VerletRopeTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Clip In &amp; Out"
+			android:name=".tests.transition.ClipInOutTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ClipInOutTransitionTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Left &amp; Right Push"
+			android:name=".tests.transition.LeftRightPushTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/LeftRightPushTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Top &amp; Bottom Push"
+			android:name=".tests.transition.TopBottomPushTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TopBottomPushTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Left &amp; Right Slide"
+			android:name=".tests.transition.LeftRightSlideTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/LeftRightSlideTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.TopBottomSlideTest"
+			android:label="Transition/Top &amp; Bottom Slide">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TopBottomSlideTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.TopBottomSlideBounceTest"
+			android:label="Transition/Top &amp; Bottom Slide (Bounce)">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TopBottomSlideBounceTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Jump Zoom" android:name=".tests.transition.JumpZoomTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/JumpZoomTest_desc"></meta-data>
+		</activity>
+
+		<activity android:label="Transition/Color Fade" android:name=".tests.transition.ColorFadeTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ColorFadeTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Node/Multiplex Layer" android:name=".tests.node.MultiplexLayerTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/MultiplexLayerTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Node/Page Control" android:name=".tests.node.PageControlTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PageControlTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Node/Gradient Color Layer" android:name=".tests.node.GradientColorLayerTest">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter>
+            <meta-data android:name="desc" android:resource="@string/GradientColorLayerTest_desc"></meta-data>
+        </activity>
+		<activity android:label="Node/Scrollable Layer" android:name=".tests.node.ScrollableLayerTest">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter>
+            <meta-data android:name="desc" android:resource="@string/ScrollableLayerTest_desc"></meta-data>
+        </activity>
+		<activity android:name=".tests.action.MoveByTest"
+			android:label="Action/MoveBy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/MoveByTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.MoveByAngleTest"
+            android:label="Action/MoveBy Angle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter>
+            <meta-data android:name="desc" android:resource="@string/MoveByAngleTest_desc"></meta-data>
+        </activity>
+		<activity android:name=".tests.action.MoveByPathTest"
+            android:label="Action/MoveBy Path">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter>
+            <meta-data android:name="desc" android:resource="@string/MoveByPathTest_desc"></meta-data>
+        </activity>
+		<activity android:name=".tests.action.MoveToTest"
+			android:label="Action/MoveTo">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/MoveToTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.ScaleByTest"
+			android:label="Action/ScaleBy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ScaleByTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.ScaleToTest"
+			android:label="Action/ScaleTo">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ScaleToTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.ShakeTest"
+			android:label="Action/Shake">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ShakeTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.FadeToTest"
+			android:label="Action/FadeTo">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/FadeToTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.FollowTest"
+            android:label="Action/Follow">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter>
+            <meta-data android:name="desc" android:resource="@string/FollowTest_desc"></meta-data>
+        </activity>
+        <activity android:name=".tests.action.HypotrochoidTest"
+            android:label="Action/Hypotrochoid">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter>
+            <meta-data android:name="desc" android:resource="@string/HypotrochoidTest_desc"></meta-data>
+        </activity>
+		<activity android:name=".tests.action.FadeInOutTest"
+			android:label="Action/Fade In &amp; Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/FadeInOutTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.BlinkTest"
+			android:label="Action/Blink">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BlinkTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.JumpByTest"
+			android:label="Action/JumpBy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/JumpByTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.JumpToTest"
+			android:label="Action/JumpTo">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/JumpToTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.RotateByTest"
+			android:label="Action/RotateBy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/RotateByTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.RotateToTest"
+			android:label="Action/RotateTo">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/RotateToTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.SkewByTest"
+			android:label="Action/SkewBy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/SkewByTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.SkewToTest"
+			android:label="Action/SkewTo">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/SkewToTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.TintByTest"
+			android:label="Action/TintBy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TintByTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.TintToTest"
+			android:label="Action/TintTo">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TintToTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.BezierTest"
+			android:label="Action/Bezier">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/BezierTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.LagrangeTest"
+			android:label="Action/Lagrange">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/LagrangeTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.DelayShowHideTest"
+			android:label="Action/Delayed Show &amp; Hide">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/DelayShowHideTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.FlipXTest"
+			android:label="Transition/Flip X">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/FlipXTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Action/Orbit Camera Flip X"
+			android:name=".tests.action.OrbitCameraFlipXTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/OrbitCameraFlipXTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.FlipYTest"
+			android:label="Transition/Flip Y">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/FlipYTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.ZoomFlipXTest"
+			android:label="Transition/Zoom Flip X">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/ZoomFlipXTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.ZoomFlipYTest"
+			android:label="Transition/Zoom Flip Y">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/ZoomFlipYTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.RadialCWCCWTest"
+			android:label="Transition/Radial CW &amp; CCW">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/RadialCWCCWTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.FlipAngularTest"
+			android:label="Transition/Flip Angular">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/FlipAngularTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.ZoomFlipAngularTest"
+			android:label="Transition/Zoom Flip Angular">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/ZoomFlipAngularTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.gridaction.GridFlipXTest"
+			android:label="Grid Action/Grid Flip X">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/GridFlipXTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.gridaction.GridFlipYTest"
+			android:label="Grid Action/Grid Flip Y">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/GridFlipYTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.gridaction.Lens3DTest"
+			android:label="Grid Action/Lens 3D">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/Lens3DTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.gridaction.LiquidTest"
+			android:label="Grid Action/Liquid">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/LiquidTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.gridaction.Ripple3DTest"
+			android:label="Grid Action/Ripple 3D">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/Ripple3DTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.gridaction.Shaky3DTest"
+			android:label="Grid Action/Shaky 3D">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/Shaky3DTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.gridaction.TwirlTest"
+			android:label="Grid Action/Twirl">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TwirlTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Suck" android:name=".tests.gridaction.SuckTest">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter>
+            <meta-data android:name="desc" android:resource="@string/SuckTest_desc"></meta-data>
+        </activity>
+		<activity android:label="Grid Action/Waves" android:name=".tests.gridaction.WavesTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/WavesTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Waves 3D" android:name=".tests.gridaction.Waves3DTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/Waves3DTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.gridaction.TilesShrinkOutTest"
+			android:label="Grid Action/Tiles Shrink Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TilesShrinkOutTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.gridaction.LineShrinkOutTest"
+			android:label="Grid Action/Line Shrink Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/LineShrinkOutTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.gridaction.ShakyTiles3DTest"
+			android:label="Grid Action/Shaky Tiles 3D">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ShakyTiles3DTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Shatter Tiles 3D"
+			android:name=".tests.gridaction.ShatterTiles3DTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ShatterTiles3DTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Shuffle Tiles"
+			android:name=".tests.gridaction.ShuffleTilesTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ShuffleTilesTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Turn Off Tiles"
+			android:name=".tests.gridaction.TurnOffTilesTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TurnOffTilesTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Waves Tiles 3D"
+			android:name=".tests.gridaction.WavesTiles3DTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/WavesTiles3DTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Jump Tiles 3D"
+			android:name=".tests.gridaction.JumpTiles3DTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/JumpTiles3DTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Split Rows &amp; Cols"
+			android:name=".tests.gridaction.SplitRowsColsTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SplitRowsColsTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.transition.ShrinkOutTilesTest"
+			android:label="Transition/Shrink Out Tiles">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ShrinkOutTilesTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Grid Action/Page Turn 3D"
+			android:name=".tests.gridaction.PageTurn3DTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PageTurn3DTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Page Turn 3D"
+			android:name=".tests.transition.PageTurn3DTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc"
+				android:resource="@string/PageTurn3DTransitionTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Rotate Zoom"
+			android:name=".tests.transition.RotateZoomTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/RotateZoomTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Shrink Grow"
+			android:name=".tests.transition.ShrinkGrowTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ShrinkGrowTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Split Rows &amp; Cols"
+			android:name=".tests.transition.SplitRowsColsTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SplitRowsColsTransitionTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Suck"
+			android:name=".tests.transition.SuckTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SuckTransitionTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Turn Off Tiles"
+			android:name=".tests.transition.TurnOffTilesTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TurnOffTilesTransitionTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Action/Atlas Animation"
+			android:name=".tests.action.AtlasAnimationTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/AtlasAnimationTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Node/Parallax" android:name=".tests.node.ParallaxTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ParallaxTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Node/Motion Streak" android:name=".tests.node.MotionStreakTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/MotionStreakTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.PauseResumeActionTest"
+			android:label="Action/Pause &amp; Resume Action">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PauseResumeActionTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.action.ProgressToTest"
+			android:label="Action/ProgressTo">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ProgressToTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Events/Accelerometer" android:name=".tests.event.AccelerometerTest" no_macosx="true">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/AccelerometerTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.action.ProgressByTest"
+			android:label="Action/ProgressBy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ProgressByTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Ease Action/Ease In" android:name=".tests.ease.EaseInTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:label="Ease Action/Ease Out" android:name=".tests.ease.EaseOutTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:label="Ease Action/Ease In Out"
+			android:name=".tests.ease.EaseInOutTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:label="Ease Action/Ease Back In"
+			android:name=".tests.ease.EaseBackInTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:label="Ease Action/Ease Back Out"
+			android:name=".tests.ease.EaseBackOutTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:label="Ease Action/Ease Back In Out"
+			android:name=".tests.ease.EaseBackInOutTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:label="Ease Action/Ease Bounce In"
+			android:name=".tests.ease.EaseBounceInTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:label="Ease Action/Ease Bounce Out"
+			android:name=".tests.ease.EaseBounceOutTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:label="Ease Action/Ease Bounce In Out"
+			android:name=".tests.ease.EaseBounceInOutTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseElasticInTest"
+			android:label="Ease Action/Ease Elastic In">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseElasticOutTest"
+			android:label="Ease Action/Ease Elastic Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseElasticInOutTest"
+			android:label="Ease Action/Ease Elastic In Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseExponentialInOutTest"
+			android:label="Ease Action/Ease Exponential In Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseExponentialInTest"
+			android:label="Ease Action/Ease Exponential In">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseExponentialOutTest"
+			android:label="Ease Action/Ease Exponential Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseSineInTest"
+			android:label="Ease Action/Ease Sine In">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseSineOutTest"
+			android:label="Ease Action/Ease Sine Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.ease.EaseSineInOutTest"
+			android:label="Ease Action/Ease Sine In Out">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".tests.event.KeyTest" android:label="Events/Key Event" no_ios="true">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/KeyTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.ModernArtTest"
+			android:label="Particle/Modern Art">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ModernArtTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.FireworkTest"
+			android:label="Particle/Fireworks">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/FireworkTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.FireTest"
+			android:label="Particle/Fire">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/FireTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.SunTest"
+			android:label="Particle/Sun">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SunTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.GalaxyTest"
+			android:label="Particle/Galaxy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/GalaxyTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.FlowerTest"
+			android:label="Particle/Flower">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/FlowerTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.particle.BigFlowerTest"
+			android:label="Particle/Big Flower">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BigFlowerTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.RotateFlowerTest"
+			android:label="Particle/Rotate Flower">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/RotateFlowerTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.MeteorTest"
+			android:label="Particle/Meteor">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/MeteorTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.SpiralTest"
+			android:label="Particle/Spiral">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SpiralTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.particle.ExplosionTest"
+			android:label="Particle/Explosion">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/ExplosionTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.particle.SmokeTest"
+			android:label="Particle/Smoke">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/SmokeTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Particle/Snow" android:name=".tests.particle.SnowTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/SnowTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Particle/Rain" android:name=".tests.particle.RainTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/RainTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Particle/Ring" android:name=".tests.particle.RingTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/RingTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Transition/Cross Fade" android:name=".tests.transition.CrossFadeTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/CrossFadeTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Action/Animation" android:name=".tests.action.AnimationTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/AnimationTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Bounce" android:name=".tests.chipmunk.BounceTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/BounceTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.chipmunk.OneWayTest"
+			android:label="Chipmunk/One Way">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/OneWayTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Planet" android:name=".tests.chipmunk.PlanetTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/PlanetTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Player" android:name=".tests.chipmunk.PlayerTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/PlayerTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Pyramid Stack"
+			android:name=".tests.chipmunk.PyramidStackTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/PyramidStackTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Pyramid Topple"
+			android:name=".tests.chipmunk.PyramidToppleTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/PyramidToppleTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Plink" android:name=".tests.chipmunk.PlinkTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/PlinkTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Pump" android:name=".tests.chipmunk.PumpTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/PumpTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Joints" android:name=".tests.chipmunk.JointsTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/JointsTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Logo Smash" android:name=".tests.chipmunk.LogoSmashTest" no_ios="true">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/LogoSmashTest_desc"
+				android:name="desc"></meta-data>
+			<meta-data android:value="true" android:name="no_android"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Query" android:name=".tests.chipmunk.QueryTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/QueryTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.chipmunk.SensorTest"
+			android:label="Chipmunk/Sensor">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SensorTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.chipmunk.SimpleTest"
+			android:label="Chipmunk/Simple">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SimpleTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Spring" android:name=".tests.chipmunk.SpringTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/SpringTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Tank" android:name=".tests.chipmunk.TankTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TankTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Theo Jansen" android:name=".tests.chipmunk.TheoJansenTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TheoJansenTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Tumble" android:name=".tests.chipmunk.TumbleTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TumbleTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Chipmunk/Unsafe Ops" android:name=".tests.chipmunk.UnsafeOpsTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/UnsafeOpsTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.ButtonTest"
+			android:label="Node/Button">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/ButtonTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.NinePatchButtonTest"
+			android:label="Node/Nine Patch Button">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/NinePatchButtonTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.AtlasButtonTest"
+			android:label="Node/Atlas Button">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/AtlasButtonTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.chipmunk.TexturedBounceTest"
+			android:label="Chipmunk/Textured Bounce">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TexturedBounceTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.chipmunk.TexturedOneWayTest"
+			android:label="Chipmunk/Textured One Way">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TexturedOneWayTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.ZwoptexTest" android:label="Other/Zwoptex">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/ZwoptexTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.other.TransparentDrawPrimitivesTest"
+            android:label="Other/Transparent Draw Primitives"
+            no_ios="true" no_macosx="true"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter>
+            <meta-data android:resource="@string/TransparentDrawPrimitivesTest_desc"
+                android:name="desc"></meta-data>
+        </activity>
+		<activity android:name=".tests.chipmunk.BodyDraggingTest"
+			android:label="Chipmunk/Body Dragging">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/BodyDraggingTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.TMXOrthogonalTest"
+			android:label="Node/TMX Tile Map (Orthogonal)">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TMXOrthogonalTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Node/TMX Tile Map (Isometric)"
+			android:name=".tests.node.TMXIsometricTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TMXIsometricTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+
+		<activity android:label="Node/TMX Tile Map (Hexagonal)"
+			android:name=".tests.node.TMXHexagonalTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TMXHexagonalTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+	<activity android:name=".tests.chipmunk.ShapeAnimationTest" android:label="Chipmunk/Shape Animation"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/ShapeAnimationTest_desc" android:name="desc"></meta-data>
+</activity>
+	<activity android:name=".tests.box2d.FixtureAnimationTest" android:label="Box2D/Fixture Animation"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/FixtureAnimationTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:label="Action/Call Function" android:name=".tests.action.CallFuncTest"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/CallFuncTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:label="Action/Clip In &amp; Out" android:name=".tests.action.ClipInOutTest"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/ClipInOutTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:label="Other/Scheduler" android:name=".tests.other.SchedulerTest"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/SchedulerTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:label="Other/Video Playing" android:name=".tests.other.VideoPlayingTest"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:name="desc" android:resource="@string/VideoPlayingTest_desc"></meta-data>
+</activity>
+<activity android:name=".utils.VideoPlayingActivity"></activity>
+<activity android:label="Events/Character Moving" android:name=".tests.event.CharacterMoveTest"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:name="desc" android:resource="@string/CharacterMoveTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.lua.CreateLabelTest" android:label="Lua/Create Label"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/CreateLabelTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:name=".tests.lua.SplitWordsTest" android:label="Lua/Split Words"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/SplitWordsTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:name=".tests.lua.CreateButtonTest" android:label="Lua/Create Button"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/CreateButtonTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:name=".tests.lua.CreateAnimationTest" android:label="Lua/Create Animation"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/CreateAnimationTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:name=".tests.event.MultiTouchTest" android:label="Events/Multi Touch" no_macosx="true"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:name="desc" android:resource="@string/MultiTouchTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.node.PVRSpriteTest" android:label="Node/PVR Sprite"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:name="desc" android:resource="@string/PVRSpriteTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.node.RenderTextureTest" android:label="Node/RenderTexture"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:name="desc" android:resource="@string/RenderTextureTest_desc"></meta-data>
+</activity>
+<activity android:label="Node/Progress Timer" android:name=".tests.node.ProgressTimerTest"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/ProgressTimerTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:label="Events/Double Tap" android:name=".tests.event.DoubleTapTest"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/DoubleTapTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:label="Events/Gesture" android:name=".tests.event.GestureTest"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/GestureTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:name=".tests.particle.ParticleDesignerTest" android:label="Particle/Partile Designer"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:name="desc" android:resource="@string/ParticleDesignerTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.particle.HGETest" android:label="Particle/HGE ParticleEd"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:name="desc" android:resource="@string/HGETest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.other.AlphaTestTest" android:label="Other/Alpha Test"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter><meta-data android:name="desc" android:resource="@string/AlphaTestTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.other.AStarTest" android:label="Other/AStar Find Path"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter><meta-data android:name="desc" android:resource="@string/AStarTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.other.ColorFilterTest" android:label="Other/Color Filter"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter><meta-data android:name="desc" android:resource="@string/ColorFilterTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.other.MemoryFileSystemTest" android:label="Other/Memory File System"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:name="desc" android:resource="@string/MemoryFileSystemTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.chipmunk.MagnetsElectricTest" android:label="Chipmunk/Magnets Electric"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/MagnetsElectricTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:name=".tests.chipmunk.PhysicsEditorTest" android:label="Chipmunk/Physics Editor"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/PhysicsEditorTest_desc" android:name="desc"></meta-data>
+</activity>
+<activity android:name=".tests.sound.MP3Test" android:label="Sound/Play MP3"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/MP3Test_desc" android:name="desc"></meta-data>
+</activity>
+
+<activity android:name=".tests.sound.OGGTest" android:label="Sound/Play OGG"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/OGGTest_desc" android:name="desc"></meta-data>
+</activity>
+
+<activity android:name=".tests.sound.WAVTest" android:label="Sound/Play WAV"><intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter><meta-data android:resource="@string/WAVTest_desc" android:name="desc"></meta-data>
+</activity>
+		<activity android:name=".tests.box2d.SimpleTest"
+			android:label="Box2D/Simple">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SimpleTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.BreakableTest"
+			android:label="Box2D/Breakable">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BreakableTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.BridgeTest"
+			android:label="Box2D/Bridge">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BridgeTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.ApplyForceTest"
+			android:label="Box2D/Apply Force">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ApplyForceTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.BodyTypesTest"
+			android:label="Box2D/Body Types">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BodyTypesTest_desc"></meta-data>
+		</activity>
+		<activity android:label="Box2D/Bounce" android:name=".tests.box2d.BounceTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/BounceTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Box2D/Chain Shape" android:name=".tests.box2d.ChainShapeTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/ChainShapeTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:label="Box2D/Textured Chain Shape" android:name=".tests.box2d.TexturedChainShapeTest">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TexturedChainShapeTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.TexturedBounceTest"
+			android:label="Box2D/Textured Bounce">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TexturedBounceTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.TexturedEdgeShapesTest"
+			android:label="Box2D/Textured Edge Shapes">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TexturedEdgeShapesTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.TexturedOneWayTest"
+			android:label="Box2D/Textured One Way">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:resource="@string/TexturedOneWayTest_desc"
+				android:name="desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.BulletTest"
+			android:label="Box2D/Bullet">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BulletTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.CantileverTest"
+			android:label="Box2D/Cantilever">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/CantileverTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.ChainTest"
+			android:label="Box2D/Chain">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ChainTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.CollisionDetectionTest"
+			android:label="Box2D/Collision Detection">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/Box2DCollisionDetectionTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.CollisionFilteringTest"
+			android:label="Box2D/Collision Filtering">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/CollisionFilteringTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.CompoundShapesTest"
+			android:label="Box2D/Compound Shapes">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/CompoundShapesTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.ConfinedTest"
+			android:label="Box2D/Confined">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ConfinedTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.DominosTest"
+			android:label="Box2D/Dominos">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/DominosTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.EdgeShapesTest"
+			android:label="Box2D/Edge Shapes">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/EdgeShapesTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.GearsTest"
+			android:label="Box2D/Gears">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/GearsTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.CarTest"
+			android:label="Box2D/Car">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/CarTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.BuoyancyTest"
+			android:label="Box2D/Buoyancy">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BuoyancyTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.TensorDampingTest"
+			android:label="Box2D/Tensor Damping">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TensorDampingTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.OneWayTest"
+			android:label="Box2D/One Way">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/OneWayTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.PulleysTest"
+			android:label="Box2D/Pulleys">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PulleysTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.PyramidTest"
+			android:label="Box2D/Pyramid">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PyramidTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.RopeTest"
+			android:label="Box2D/Rope">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/RopeTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.SensorTest"
+			android:label="Box2D/Sensor">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SensorTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.ShapeEditingTest"
+			android:label="Box2D/Shape Editing">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/ShapeEditingTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.SliderCrankTest"
+			android:label="Box2D/Slider Crank">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SliderCrankTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.SphereStackTest"
+			android:label="Box2D/Sphere Stack">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SphereStackTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.VaryingFrictionTest"
+			android:label="Box2D/Varying Friction">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/VaryingFrictionTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.VaryingRestitutionTest"
+			android:label="Box2D/Varying Restitution">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/VaryingRestitutionTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.WebTest"
+			android:label="Box2D/Web">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/WebTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.box2d.PhysicsEditorTest" android:label="Box2D/Physics Editor">
+			<intent-filter>
+					<action android:name="android.intent.action.MAIN" />
+					<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PhysicsEditorTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.node.TiledSpriteTest"
+			android:label="Node/Tiled Sprite">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TiledSpriteTest_desc"></meta-data>
+		</activity>
+
+		<activity android:name=".tests.node.SpriteExBatchNodeTest"
+			android:label="Node/SpriteEx BatchNode">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SpriteExBatchNodeTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.node.SpriteExSelfRenderTest"
+			android:label="Node/SpriteEx SelfRender">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SpriteExSelfRenderTest_desc"></meta-data>
+		</activity>	
+		<activity android:name=".tests.node.CoverFlowTest"
+			android:label="Node/Cover Flow">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/CoverFlowTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.DialogTest"
+			android:label="Node/Dialog">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/DialogTest_desc"></meta-data>
+		</activity>
+				<activity android:name=".tests.node.TextBoxTest"
+			android:label="Node/Text Box">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TextBoxTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.node.BitmapFontHGETest"
+			android:label="Node/Bitmap Font (HGE)">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BitmapFontHGETest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.node.BitmapFontAngelCodeTest"
+			android:label="Node/Bitmap Font (AngelCode)">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BitmapFontAngelCodeTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.network.DownloadImageTest"
+			android:label="Network/Download Image">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/DownloadImageTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.network.IPQueryTest"
+			android:label="Network/IP Query">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/IPQueryTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.network.HttpPostTest"
+			android:label="Network/HTTP POST">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/HttpPostTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.persistence.PreferenceTest"
+			android:label="Persistence/Preference">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/PreferenceTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.persistence.CreateDatabaseTest"
+			android:label="Persistence/Create Database">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/CreateDatabaseTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.persistence.TransactionTest"
+			android:label="Persistence/Transaction">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/TransactionTest_desc"></meta-data>
+		</activity>		
+		<activity android:name=".tests.persistence.SQLFileTest"
+			android:label="Persistence/SQL File">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SQLFileTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".utils.ImagePickerActivity"></activity>
+		<activity android:name=".tests.iap.IAPTest" android:label="IAP/In-App Purchase">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/IAPTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.performance.BatchRenderSpriteTest" android:label="Performance/Batch Render Sprite">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BatchRenderSpriteTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.performance.BigTMXTest" android:label="Performance/Big TMX">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/BigTMXTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.performance.RenderSpriteTest" android:label="Performance/Render Sprite">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/RenderSpriteTest_desc"></meta-data>
+		</activity>
+		<activity android:name=".tests.performance.RunActionTest" android:label="Performance/Run Action">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/RunActionTest_desc"></meta-data>
+		</activity>
+		
+        <receiver android:name="com.wiyun.engine.iap.androidmarket.BillingReceiver">
+            <intent-filter>
+                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
+                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
+                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+</application>
+
+</manifest>

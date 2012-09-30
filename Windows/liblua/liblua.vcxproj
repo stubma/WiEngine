@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\lua\lapi.c" />
+    <ClCompile Include="..\..\jni\lua\lauxlib.c" />
+    <ClCompile Include="..\..\jni\lua\lbaselib.c" />
+    <ClCompile Include="..\..\jni\lua\lcode.c" />
+    <ClCompile Include="..\..\jni\lua\ldblib.c" />
+    <ClCompile Include="..\..\jni\lua\ldebug.c" />
+    <ClCompile Include="..\..\jni\lua\ldo.c" />
+    <ClCompile Include="..\..\jni\lua\ldump.c" />
+    <ClCompile Include="..\..\jni\lua\lfunc.c" />
+    <ClCompile Include="..\..\jni\lua\lgc.c" />
+    <ClCompile Include="..\..\jni\lua\linit.c" />
+    <ClCompile Include="..\..\jni\lua\liolib.c" />
+    <ClCompile Include="..\..\jni\lua\llex.c" />
+    <ClCompile Include="..\..\jni\lua\lmathlib.c" />
+    <ClCompile Include="..\..\jni\lua\lmem.c" />
+    <ClCompile Include="..\..\jni\lua\loadlib.c" />
+    <ClCompile Include="..\..\jni\lua\lobject.c" />
+    <ClCompile Include="..\..\jni\lua\lopcodes.c" />
+    <ClCompile Include="..\..\jni\lua\loslib.c" />
+    <ClCompile Include="..\..\jni\lua\lparser.c" />
+    <ClCompile Include="..\..\jni\lua\lstate.c" />
+    <ClCompile Include="..\..\jni\lua\lstring.c" />
+    <ClCompile Include="..\..\jni\lua\lstrlib.c" />
+    <ClCompile Include="..\..\jni\lua\ltable.c" />
+    <ClCompile Include="..\..\jni\lua\ltablib.c" />
+    <ClCompile Include="..\..\jni\lua\ltm.c" />
+    <ClCompile Include="..\..\jni\lua\lua.c" />
+    <ClCompile Include="..\..\jni\lua\lundump.c" />
+    <ClCompile Include="..\..\jni\lua\lvm.c" />
+    <ClCompile Include="..\..\jni\lua\lzio.c" />
+    <ClCompile Include="..\..\jni\lua\packages\actions.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\afcanim.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\astar.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\bitmapfont.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\common.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\dialog.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\easeactions.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\events.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\filters.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\grid.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\gridactions.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\nodes.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\opengl.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\particle.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\persistence.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\tmx.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\transitions.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\types.cpp" />
+    <ClCompile Include="..\..\jni\lua\packages\utils.cpp" />
+    <ClCompile Include="..\..\jni\lua\print.c" />
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_event.c" />
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_is.c" />
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_map.c" />
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_push.c" />
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_to.c" />
+    <ClCompile Include="..\..\jni\lua\wyLua.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\lua\lapi.h" />
+    <ClInclude Include="..\..\jni\lua\lauxlib.h" />
+    <ClInclude Include="..\..\jni\lua\lcode.h" />
+    <ClInclude Include="..\..\jni\lua\ldebug.h" />
+    <ClInclude Include="..\..\jni\lua\ldo.h" />
+    <ClInclude Include="..\..\jni\lua\lfunc.h" />
+    <ClInclude Include="..\..\jni\lua\lgc.h" />
+    <ClInclude Include="..\..\jni\lua\llex.h" />
+    <ClInclude Include="..\..\jni\lua\llimits.h" />
+    <ClInclude Include="..\..\jni\lua\lmem.h" />
+    <ClInclude Include="..\..\jni\lua\lobject.h" />
+    <ClInclude Include="..\..\jni\lua\lopcodes.h" />
+    <ClInclude Include="..\..\jni\lua\lparser.h" />
+    <ClInclude Include="..\..\jni\lua\lstate.h" />
+    <ClInclude Include="..\..\jni\lua\lstring.h" />
+    <ClInclude Include="..\..\jni\lua\ltable.h" />
+    <ClInclude Include="..\..\jni\lua\ltm.h" />
+    <ClInclude Include="..\..\jni\lua\lua.h" />
+    <ClInclude Include="..\..\jni\lua\luaconf.h" />
+    <ClInclude Include="..\..\jni\lua\lualib.h" />
+    <ClInclude Include="..\..\jni\lua\lundump.h" />
+    <ClInclude Include="..\..\jni\lua\lvm.h" />
+    <ClInclude Include="..\..\jni\lua\lzio.h" />
+    <ClInclude Include="..\..\jni\lua\tolua++\tolua++.h" />
+    <ClInclude Include="..\..\jni\lua\tolua++\tolua_event.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\lua\wyLua.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libpthread\libpthread.vcxproj">
+      <Project>{d5d948cb-0ded-40c7-94d9-191c89b3988b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libwiengine\libwiengine.vcxproj">
+      <Project>{b0ae0601-02ca-43ef-8f61-c3b31fadbda2}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9AAFD680-72B3-490D-8B81-263A20F2CCE8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>liblua</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBLUA_EXPORTS;LUA_BUILD_AS_DLL;TOLUA_RELEASE;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\WiEngine\include\lua;..\..\jni\lua\tolua++;..\..\jni\lua;..\libpthread;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\platform\windows;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBLUA_EXPORTS;LUA_BUILD_AS_DLL;TOLUA_RELEASE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\WiEngine\include\lua;..\..\jni\lua\tolua++;..\..\jni\lua;..\libpthread;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\platform\windows;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

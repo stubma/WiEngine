@@ -1,0 +1,5 @@
+LIBRARY
+; libpng data compression library
+
+EXPORTS
+    

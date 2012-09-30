@@ -1,0 +1,1722 @@
+$#include "WiEngine.h"
+
+enum wyTexture2D::TextAlignment {
+	wyTexture2D::LEFT,
+	wyTexture2D::CENTER,
+	wyTexture2D::RIGHT
+};
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyCamera_h__
+
+
+/**
+ * @class wyCamera
+ *
+ * 相机逻辑封装。通过修改镜头位置，可以产生不同的试图。
+ */
+class wyCamera : public wyObject {
+public:
+	/**
+	 * 得到视点的z位置
+	 *
+	 * @return 视点的z位置
+	 */
+	static float getZEye();
+
+	static wyCamera* make();
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyCamera();
+
+	/**
+	 * 回复到缺省的镜头设置
+	 */
+	void restore();
+
+	/**
+	 * 根据当前设置的各种参数放置镜头
+	 */
+	void locate();
+
+	/**
+	 * 设置当前镜头位置
+	 *
+	 * @param x 当前镜头x位置
+	 * @param y 当前镜头y位置
+	 * @param z 当前镜头z位置
+	 */
+	void setEye(float x, float y, float z);
+
+	/**
+	 * 设置当前视线中心位置
+	 *
+	 * @param x 当前视线中心x位置
+	 * @param y 当前视线中心y位置
+	 * @param z 当前视线中心z位置
+	 */
+	void setCenter(float x, float y, float z);
+
+	/**
+	 * 设置当前正方向位置
+	 *
+	 * @param x 正方向位置的x值
+	 * @param y 正方向位置的y值
+	 * @param z 正方向位置的z值
+	 */
+	void setUp(float x, float y, float z);
+
+	/**
+	 * 获得当前镜头位置
+	 *
+	 * @param eye 必须是一个长度为3的浮点数组
+	 */
+	void getEye(float* eye);
+
+	/**
+	 * 获得当前视线中心位置
+	 *
+	 * @param center 必须是一个长度为3的浮点数组
+	 */
+	void getCenter(float* center);
+
+	/**
+	 * 获得当前正方向位置
+	 *
+	 * @param up 必须是一个长度为3的浮点数组
+	 */
+	void getUp(float* up);
+
+	/**
+	 * 得到脏标志
+	 *
+	 * @return 得到当前的脏标志
+	 */
+	bool isDirty() { return m_dirty; }
+
+	/**
+	 * 设置脏标志
+	 *
+	 * @param dirty true表示镜头需要重新放置
+	 */
+	void setDirty(bool dirty) { m_dirty = dirty; }
+};
+
+#endif // __wyCamera_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyGLTexture2D_h__
+
+
+class wyTexture2D;
+class wyEventDispatcher;
+
+/**
+ * @typedef wyTextureSource
+ *
+ * 贴图来源
+ */
+typedef enum {
+	/// 无效的来源
+	SOURCE_INVALID,
+
+	/// JPG图片
+	SOURCE_JPG,
+
+	/// PNG图片
+	SOURCE_PNG,
+
+	/// PVR图片
+	SOURCE_PVR,
+
+	/// 字符串
+	SOURCE_LABEL,
+
+	/// 来自OpenGL的贴图对象
+	SOURCE_OPENGL
+} wyTextureSource;
+
+/**
+ * @typedef wyTexturePixelFormat
+ *
+ * 贴图格式
+ */
+typedef enum {
+	WY_TEXTURE_PIXEL_FORMAT_RGBA8888,
+	WY_TEXTURE_PIXEL_FORMAT_RGB565,
+	WY_TEXTURE_PIXEL_FORMAT_RGBA4444,
+	WY_TEXTURE_PIXEL_FORMAT_RGBA5551,
+	WY_TEXTURE_PIXEL_FORMAT_A8
+} wyTexturePixelFormat;
+
+/**
+ * @class wyGLTexture2D
+ *
+ * 2D贴图对象。封装了从某个图象资源生成贴图以及贴图渲染的逻辑。
+ * 当\link wyGLTexture2D wyGLTexture2D\endlink创建后, \link wyTextureManager wyTextureManager\endlink会
+ * 自动将它注册, 并赋予它一个句柄.<br>
+ *
+ * 应用程序永远不能主动创建\link wyGLTexture2D wyGLTexture2D\endlink对象, 而
+ * 只能通过\link wyTexture2D wyTexture2D\endlink来引用实际的贴图, 这样做的
+ * 好处是隔离了上层和贴图载入销毁的逻辑, 方便实现贴图资源的管理.
+ */
+class wyGLTexture2D : public wyObject {
+
+public:
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyGLTexture2D();
+};
+
+#endif // __wyGLTexture2D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyPrimitives_h__
+
+
+
+/**
+ * 画点
+ *
+ * @param x 点的x位置
+ * @param y 点的y位置
+ */
+void wyDrawPoint(float x, float y);
+
+/**
+ * 画点,可以画多个点，报存在p指针中，length是p浮点的长度
+ *
+ * @param p 点坐标
+ * @param length p的长度
+ */
+void wyDrawPoints(float* p, size_t length);
+
+/**
+ * 画线
+ *
+ * @param x1 起始点x位置
+ * @param y1 起始点y位置
+ * @param x2 结束点x位置
+ * @param y2 结束点y位置
+ */
+void wyDrawLine(float x1, float y1, float x2, float y2);
+
+/**
+ * 画一条路径
+ *
+ * @param points 路径上的点，偶数位置是x坐标，奇数位置是y坐标
+ * @param length points长度，是点数乘以2，注意不是点数
+ */
+void wyDrawPath(float* points, size_t length);
+
+/**
+ * 画一条虚线路径
+ *
+ * @param points 路径上的点，偶数位置是x坐标，奇数位置是y坐标
+ * @param length points长度，是点数乘以2，注意不是点数
+ * @param dashLength 虚线间隔
+ */
+void wyDrawDashPath(float* points, size_t length, float dashLength);
+
+/**
+ * 画虚线
+ *
+ * @param x1 起始点x位置
+ * @param y1 起始点y位置
+ * @param x2 结束点x位置
+ * @param y2 结束点y位置
+ * @param dashLength 虚线间隔
+ */
+void wyDrawDashLine(float x1, float y1, float x2, float y2, float dashLength);
+
+/**
+ * 画多边形
+ *
+ * @param p 多边形的端点
+ * @param length 长度
+ * @param close 是否闭合多边形
+ */
+void wyDrawPoly(float* p, size_t length, bool close);
+
+/**
+ * 画矩形
+ *
+ * @param p 矩形顶点
+ */
+void wyDrawRect(float* p);
+
+/**
+ * \if English
+ * Draw a rect
+ * 
+ * @param r \link wyRect wyRect\endlink
+ * \else
+ * 画矩形
+ * 
+ * @param r \link wyRect wyRect\endlink
+ * \endif
+ */
+void wyDrawRect2(wyRect& r);
+
+/**
+ * 画圆形，这里画的是一个近似原型
+ *
+ * @param centerX 圆心x位置
+ * @param centerY 圆心y位置
+ * @param r 半径
+ * @param radiusLineAngle 半径线与x轴成的角度，正值表示逆时针，负值表示顺时针
+ * @param segments 圆周分段数，分段越多越近似圆形
+ * @param drawLineToCenter 是否绘制半径线
+ */
+void wyDrawCircle(float centerX, float centerY, float r, float radiusLineAngle, int segments, bool drawLineToCenter);
+
+/**
+ * 画贝塞尔曲线
+ *
+ * @param c \link wyBezierConfig wyBezierConfig\endlink
+ * @param segments 分段数，分段数越多，曲线越平滑
+ */
+void wyDrawBezier(wyBezierConfig& c, int segments);
+
+/**
+ * 画拉格朗日曲线
+ *
+ * @param c \link wyLagrangeConfig wyLagrangeConfig\endlink
+ * @param segments 线段数，越多画的越精细，当然速度也越慢
+ */
+void wyDrawLagrange(wyLagrangeConfig& c, int segments);
+
+/**
+ * 画贴图
+ *
+ * @param texture
+ * @param w 贴图的宽度
+ * @param h 贴图的高度
+ * @param x x坐标
+ * @param y y坐标
+ * @param flipX 标识是否以Y轴为转动轴翻转图片
+ * @param flipY 标识是否以X轴为转动轴翻转图片
+ */
+void wyDrawTexture(int texture, float texW, float texH, float x, float y, float w, float h, bool flipX, bool flipY);
+
+/**
+ * 画贴图
+ *
+ * @param texture
+ * @param texRect 使用的贴图区域，x，y为左下点
+ * @param texW 贴图的有效宽度
+ * @param texH 贴图的有效高度
+ * @param x 贴图绘制目标区域的x坐标
+ * @param y 贴图绘制目标区域的y坐标
+ * @param w 贴图绘制目标区域的宽度
+ * @param h 贴图绘制目标区域的高度
+ * @param flipX 标识是否以Y轴为转动轴翻转图片
+ * @param flipY 标识是否以X轴为转动轴翻转图片
+ */
+void wyDrawTexture2(int texture, wyRect texRect, float texW, float texH, float x, float y, float w, float h, bool flipX, bool flipY);
+
+/**
+ * 画填充多边形, 顶点采用逆时针或顺时针
+ *
+ * @param p 矩形顶点
+ * @param length 长度
+ * @param color 填充颜色
+ */
+void wyDrawSolidPoly(float* p, size_t length, wyColor4B color);
+
+/**
+ * 画填充矩形, 顶点采用逆时针或顺时针
+ *
+ * @param p 矩形顶点
+ * @param color 填充颜色
+ */
+void wyDrawSolidRect(float* p, wyColor4B color);
+
+#endif // __wyPrimitives_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTexture2D_h__
+
+
+class wyTextureManager;
+
+/**
+ * @class wyTexture2D
+ *
+ * 2D贴图对象的代理, 可以认为这是一个贴图的句柄, 它的作用是引用一个真正的贴图.<br>
+ *
+ * 贴图的管理是由WiEngine自动维护的, 每当上层调用wyTexture2D::makeXXX时, WiEngine会
+ * 首先检查这个贴图是否存在, 如果存在, 则不会创建新的贴图, 而是返回同样的句柄. 句柄其实
+ * 是一个整数, 它被包装在\link wyTexture2D wyTexture2D\endlink类中. 所以\link wyTexture2D wyTexture2D\endlink
+ * 的实例可能不同, 但是它们都可能拥有同样的句柄, 也就指向同样的贴图. 而当\link wyTexture2D wyTexture2D\endlink
+ * 被销毁时, 通常情况下并不意味着真实的贴图也被销毁了, 因为可能还有其它\link wyTexture2D wyTexture2D\endlink
+ * 实例指向了真实的贴图.<br>
+ *
+ * 当然您也可以通过\link wyTextureManager wyTextureManager\endlink的方法删除贴图, 但是如果
+ * 删除贴图后, 这个贴图又在某个地方被访问了, 则这个贴图会被重新载入. 这是WiEngine的自动管理
+ * 机制, 它一方面可以让你手动控制贴图的释放以便及时释放内存, 同时又可以按需载入贴图以保证程序正常
+ * 运行.<br>
+ */
+class wyTexture2D : public wyObject {
+public:
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过资源id指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param resId 资源id
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeBMP(int resId);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过资源id指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param resId 资源id
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeBMP(int resId, int transparentColor);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过资源id指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param resId 资源id
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeBMP(int resId, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath BMP文件在assets下的路径
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeBMP(const char* assetPath);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath BMP文件在assets下的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeBMP(const char* assetPath, int transparentColor);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath BMP文件在assets下的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath BMP文件在assets下的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从BMP文件创建贴图，BMP数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data BMP数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是bmp文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawBMP(const char* data, size_t length);
+
+	/**
+	 * 从BMP文件创建贴图，BMP数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data BMP数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是bmp文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawBMP(const char* data, size_t length, int transparentColor);
+
+	/**
+	 * 从BMP文件创建贴图，BMP数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data BMP数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是bmp文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从BMP文件创建贴图，BMP数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data BMP数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是bmp文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName BMP文件在内存文件系统中的映射名称
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryBMP(const char* mfsName);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName BMP文件在内存文件系统中的映射名称
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryBMP(const char* mfsName, int transparentColor);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName BMP文件在内存文件系统中的映射名称
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName BMP文件在内存文件系统中的映射名称
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param fsPath BMP文件在文件系统中的路径
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFileBMP(const char* fsPath);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param fsPath BMP文件在文件系统中的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFileBMP(const char* fsPath, int transparentColor);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param fsPath BMP文件在文件系统中的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param fsPath BMP文件在文件系统中的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
+	 *
+	 * @param resId 资源id
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeJPG(int resId);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
+	 *
+	 * @param resId 资源id
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeJPG(int resId, int transparentColor);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
+	 *
+	 * @param resId 资源id
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeJPG(int resId, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath JPG文件在assets下的路径
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeJPG(const char* assetPath);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath JPG文件在assets下的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeJPG(const char* assetPath, int transparentColor);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath JPG文件在assets下的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath JPG文件在assets下的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从JPG文件创建贴图，JPG数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data JPG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawJPG(const char* data, size_t length);
+
+	/**
+	 * 从JPG文件创建贴图，JPG数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data JPG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawJPG(const char* data, size_t length, int transparentColor);
+
+	/**
+	 * 从JPG文件创建贴图，JPG数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data JPG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从JPG文件创建贴图，JPG数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data JPG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName JPG文件在内存文件系统中的映射名称
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryJPG(const char* mfsName);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName JPG文件在内存文件系统中的映射名称
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryJPG(const char* mfsName, int transparentColor);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName JPG文件在内存文件系统中的映射名称
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName JPG文件在内存文件系统中的映射名称
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由当前缺省贴图格式确定
+	 *
+	 * @param fsPath JPG文件在文件系统中的路径
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFileJPG(const char* fsPath);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由当前缺省贴图格式确定
+	 *
+	 * @param fsPath JPG文件在文件系统中的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFileJPG(const char* fsPath, int transparentColor);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由当前缺省贴图格式确定
+	 *
+	 * @param fsPath JPG文件在文件系统中的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat format);
+
+	/**
+	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param fsPath JPG文件在文件系统中的路径
+	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
+	 * 		匹配rgb值的地方都会被设置为透明
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
+	 *
+	 * @param resId 资源id
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makePNG(int resId);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过资源id指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param resId 资源id
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makePNG(int resId, wyTexturePixelFormat format);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath PNG文件在assets下的路径
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makePNG(const char* assetPath);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath PNG文件在assets下的路径
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makePNG(const char* assetPath, wyTexturePixelFormat format);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param assetPath PNG文件在assets下的路径
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makePNG(const char* assetPath, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从PNG文件创建贴图，PNG数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data PNG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawPNG(const char* data, size_t length);
+
+	/**
+	 * 从PNG文件创建贴图，PNG数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data PNG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawPNG(const char* data, size_t length, wyTexturePixelFormat format);
+
+	/**
+	 * 从PNG文件创建贴图，PNG数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 *
+	 * @param data PNG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawPNG(const char* data, size_t length, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName PNG文件在内存文件系统中的映射名称
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryPNG(const char* mfsName);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName PNG文件在内存文件系统中的映射名称
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryPNG(const char* mfsName, wyTexturePixelFormat format);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param mfsName PNG文件在内存文件系统中的映射名称
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryPNG(const char* mfsName, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param fsPath PNG文件在文件系统中的路径
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFilePNG(const char* fsPath);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param fsPath PNG文件在文件系统中的路径
+	 * @param format 贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFilePNG(const char* fsPath, wyTexturePixelFormat format);
+
+	/**
+	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 *
+	 * @param fsPath PNG文件在文件系统中的路径
+	 * @param format 贴图格式
+	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFilePNG(const char* fsPath, wyTexturePixelFormat format, float inDensity);
+
+	/**
+	 * 从PVR文件创建贴图，PVR文件通过资源id指定
+	 *
+	 * @param resId 资源id
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makePVR(int resId);
+
+	/**
+	 * 从PVR文件创建贴图，PVR文件通过assets路径指定
+	 *
+	 * @param assetPath PVR文件在assets下的路径
+	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makePVR(const char* assetPath, float inDensity = 0);
+
+	/**
+	 * 从PVR文件创建贴图，PVR数据已经被载入内存中
+	 *
+	 * @param data PVR数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
+	 * @param length 数据字节长度
+	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRawPVR(const char* data, size_t length, float inDensity = 0);
+
+	/**
+	 * 从PVR文件创建贴图，PVR文件通过内存文件系统名称指定
+	 *
+	 * @param mfsName PVR文件在内存文件系统中的映射名称
+	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeMemoryPVR(const char* mfsName, float inDensity = 0);
+
+	/**
+	 * 从PVR文件创建贴图，PVR文件通过文件系统路径指定
+	 *
+	 * @param fsPath PVR文件在文件系统中的路径
+	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeFilePVR(const char* fsPath, float inDensity = 0);
+
+	/**
+	 * 通过一个字符串生成一个贴图
+	 *
+	 * @param text C字符串
+	 * @param fontSize 字体大小，单位是px, 在传入时应该用resolveSp进行转换
+	 * @param fontPath 自定义字体文件在assets中的路径，如果为NULL，则使用系统缺省字体
+	 * @param isFile true表示\c fontPath是一个文件系统的绝对路径, false表示\c fontPath是一个相对于assets的相对路径
+	 * @param width 最大行宽，为0表示不折行, 但是如果文字中包含换行或回车符, 则会自动成为多行
+	 * @param alignment 文字对齐方式, 缺省为左对齐
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeLabel(const char* text, float fontSize, const char* fontPath = NULL, bool isFile = false, float width = 0, TextAlignment alignment = LEFT);
+
+	/**
+	 * 通过一个字符串生成一个贴图
+	 *
+	 * @param text C字符串
+	 * @param fontSize 字体大小，单位是px, 在传入时应该用resolveSp进行转换
+	 * @param style 字体样式
+	 * @param fontName 字体名称，为NULL则使用系统缺省字体
+	 * @param width 最大行宽，为0表示不折行, 但是如果文字中包含换行或回车符, 则会自动成为多行
+	 * @param alignment 文字对齐方式, 缺省为左对齐
+	 */
+	static wyTexture2D* makeLabel(const char* text, float fontSize, wyFontStyle style, const char* fontName = NULL, float width = 0, TextAlignment alignment = LEFT);
+
+	/**
+	 * 把一个已有的OpenGL贴图id包装成\link wyTexture2D wyTexture2D对象\endlink
+	 *
+	 * @param texture OpenGL贴图id
+	 * @param w 贴图宽度
+	 * @param h 贴图高度
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeGL(int texture, int w, int h);
+
+	/**
+	 * 根据已经展开的像素数据创建一个贴图。这里说的数据已经是RGBA8888格式。对于这种方式创建
+	 * 的贴图，WiEngine不会再进行缩放.
+	 *
+	 * @param data 已经展开的像素数据, 这些数据会被底层复制，因此调用者可以在方法返回后立刻释放内存. 这些数据必须是RGBA8888格式, 数据的长度
+	 * 			应该是宽乘以高乘以4. 调用者必须保证数据的完整性.
+	 * @param width 数据所代表的图片的宽度
+	 * @param height 数据所代表的图片的高度
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRaw(const char* data, int width, int height);
+
+	/**
+	 * 根据已经展开的像素数据创建一个贴图。这里说的数据已经是RGBA8888格式。对于这种方式创建
+	 * 的贴图，WiEngine不会再进行缩放.
+	 *
+	 * @param data 已经展开的像素数据, 这些数据会被底层复制，因此调用者可以在方法返回后立刻释放内存. 这些数据必须是RGBA8888格式, 数据的长度
+	 * 			应该是宽乘以高乘以4. 调用者必须保证数据的完整性.
+	 * @param width 数据所代表的图片的宽度
+	 * @param height 数据所代表的图片的高度
+	 * @param format 期望生成的贴图格式
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	static wyTexture2D* makeRaw(const char* data, int width, int height, wyTexturePixelFormat format);
+	
+	/**
+	 * 构造函数
+	 */
+	wyTexture2D();
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTexture2D();
+
+	/**
+	 * 确保贴图对象已经被载入，这个方法将把贴图对应的图象资源转换成OpenGL中的贴图对象
+	 */
+	void load();
+
+	/**
+	 * 设置显示的字符串内容
+	 *
+	 * @param text 显示内容的文字字符串
+	 */
+	void updateLabel(const char* text);
+
+	/**
+	 * 设置显示的字符串内容
+	 *
+	 * @param text 显示内容的文字字符串
+	 * @param fontSize 文字大小
+	 * @param fontPath 字体
+	 * @param isFile true表示\c fontPath是一个文件系统的绝对路径, false表示\c fontPath是一个相对于assets的相对路径
+	 * @param lineWidth 行宽
+	 * @param alignment 文字对齐方式, 缺省是左对齐
+	 */
+	void updateLabel(const char* text, float fontSize, const char* fontPath = NULL, bool isFile = false, float lineWidth = 0, TextAlignment alignment = LEFT);
+
+	/**
+	 * 设置显示的字符串内容
+	 *
+	 * @param text 显示内容的文字字符串
+	 * @param fontSize 文字大小
+	 * @param style 字体样式
+	 * @param fontName 字体
+	 * @param lineWidth 行宽
+	 * @param alignment 文字对齐方式, 缺省是左对齐
+	 */
+	void updateLabel(const char* text, float fontSize, wyFontStyle style, const char* fontName = NULL, float lineWidth = 0, TextAlignment alignment = LEFT);
+
+	/**
+	 * 设置贴图的反锯齿效果
+	 *
+	 * @param on true表示反锯齿，false表示不反锯齿
+	 */
+	void setAntiAlias(bool on);
+
+	/**
+	 * 设置贴图渲染时是否平铺。只能设置都平铺或者都不平铺，如果想要针对不同的方向做不同的设置，
+	 * 请使用setParameters方法。缺省情况下是true。
+	 *
+	 * @param on true表示在水平和垂直方向都平铺，false表示都不平铺
+	 */
+	void setRepeat(bool on);
+
+	/**
+	 * 设置贴图参数，这是更为高级的设置方法，对于比较熟悉OpenGL贴图原理的开发者，可以直接使用
+	 * 这个方法。对于不太熟悉的开发者，建议使用setAntiAlias和setRepeat这样的方法。
+	 *
+	 * @param min 缩小操作参数
+	 * @param mag 放大操作参数
+	 * @param wrapS 水平翻卷参数
+	 * @param wrapT 垂直翻卷参数
+	 */
+	void setParameters(int min, int mag, int wrapS, int wrapT);
+
+	/**
+	 * 在OpenGL中设置贴图参数
+	 */
+	void applyParameters();
+
+	/**
+	 * 贴图是否是pre-multiplied alpha的。 注意：目前生成的贴图都不是pre-multiplied
+	 * alpha的，因此总是返回false
+	 *
+	 * @return true表示是，false表示不是
+	 */
+	bool hasPremultipliedAlpha();
+
+	/**
+	 * 在指定位置绘制贴图，贴图区域为整个贴图大小，图片大小为原始大小
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 */
+	void draw(float x, float y);
+
+	/**
+	 * 在指定位置绘制贴图，贴图区域为整个贴图大小，图片大小为原始大小
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 * @param flipX true表示渲染时要在x方向翻转图片
+	 * @param flipY true表示渲染时要在y方向翻转图片
+	 */
+	void draw(float x, float y, bool flipX, bool flipY);
+
+	/**
+	 * 在指定位置绘制贴图，贴图区域为整个贴图大小，图片大小由参数width，height指定
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 * @param width 宽度，单位像素
+	 * @param height 高度，单位像素
+	 */
+	void draw(float x, float y, float width, float height);
+
+	/**
+	 * 在指定位置绘制贴图，贴图区域为整个贴图大小，图片大小由参数width，height指定
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 * @param width 宽度，单位像素
+	 * @param height 高度，单位像素
+	 * @param flipX true表示渲染时要在x方向翻转图片
+	 * @param flipY true表示渲染时要在y方向翻转图片
+	 */
+	void draw(float x, float y, float width, float height, bool flipX, bool flipY);
+
+	/**
+	 * 在指定位置绘制贴图，贴图区域由参数texRect指定，图片大小由参数width，height指定
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 * @param width 宽度，单位像素
+	 * @param height 高度，单位像素
+	 * @param flipX true表示渲染时要在x方向翻转图片
+	 * @param flipY true表示渲染时要在y方向翻转图片
+	 * @param texRect 贴图区域
+	 */
+	void draw(float x, float y, float width, float height, bool flipX, bool flipY, wyRect texRect);
+
+	/**
+	 * 在指定位置绘制贴图，贴图区域由参数texRect指定，图片大小由参数width，height指定
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 * @param width 宽度，单位像素
+	 * @param height 高度，单位像素
+	 * @param flipX true表示渲染时要在x方向翻转图片
+	 * @param flipY true表示渲染时要在y方向翻转图片
+	 * @param texRect 贴图区域
+	 * @param rotatedZwoptex true表示绘制的是一个Zwoptex帧，且该帧在图片集中被顺时针旋转了90度
+	 */
+	void draw(float x, float y, float width, float height, bool flipX, bool flipY, wyRect texRect, bool rotatedZwoptex);
+
+	/**
+	 * 在指定位置绘制贴图，贴图区域由参数texRect指定，图片大小由参数width，height指定
+	 *
+	 * @param x x位置
+	 * @param y y位置
+	 * @param width 宽度，单位像素
+	 * @param height 高度，单位像素
+	 * @param sourceWidth 图片的原始宽度
+	 * @param sourceHeight 图片的原始高度
+	 * @param flipX true表示渲染时要在x方向翻转图片
+	 * @param flipY true表示渲染时要在y方向翻转图片
+	 * @param texRect 贴图区域
+	 * @param rotatedZwoptex true表示绘制的是一个Zwoptex帧，且该帧在图片集中被顺时针旋转了90度
+	 */
+	void draw(float x, float y, float width, float height, float sourceWidth, float sourceHeight, bool flipX, bool flipY, wyRect texRect, bool rotatedZwoptex);
+
+	/**
+	 * 得到原始图片的宽度
+	 *
+	 * @return 原始图片的宽度
+	 */
+	float getWidth();
+
+	/**
+	 * 得到原始图片的高度
+	 *
+	 * @return 原始图片的高度
+	 */
+	float getHeight();
+
+	/**
+	 * 得到贴图实际宽度
+	 *
+	 * @return 贴图实际宽度
+	 */
+	int getPixelWidth();
+
+	/**
+	 * 得到贴图实际高度
+	 *
+	 * @return 贴图实际高度
+	 */
+	int getPixelHeight();
+
+	/**
+	 * 得到原始图片和贴图实际大小的宽度比例
+	 *
+	 * @return 宽度比例
+	 */
+	float getWidthScale();
+
+	/**
+	 * 得到原始图片和贴图实际大小的高度比例
+	 *
+	 * @return 高度比例
+	 */
+	float getHeightScale();
+
+	/**
+	 * 得到OpenGL层的贴图标识, 属于OpenGL内部使用的标识
+	 *
+	 * @return OpenGL层的贴图标识, 属于OpenGL内部使用的标识
+	 */
+	int getTexture();
+
+	/**
+	 * 得到标签类型贴图显示的字符串内容
+	 *
+	 * @return 标签类型贴图显示的字符串内容
+	 */
+	const char* getText();
+
+	/**
+	 * 得到贴图类型
+	 *
+	 * @return 贴图类型
+	 */
+	wyTextureSource getSource();
+
+	/**
+	 * 得到是否以X轴为转动轴翻转图片
+	 *
+	 * @return 是否以X轴为转动轴翻转图片
+	 */
+	bool isFlipY();
+
+	/**
+	 * 得到是否以Y轴为转动轴翻转图片
+	 *
+	 * @return 是否以Y轴为转动轴翻转图片
+	 */
+	bool isFlipX();
+
+	/**
+	 * 设置是否以y轴为转动轴翻转图片
+	 *
+	 * @param flipX 是否以y轴为转动轴翻转图片,true为翻转
+	 */
+	void setFlipX(bool flipX);
+
+	/**
+	 * 设置是否以x轴为转动轴翻转图片
+	 *
+	 * @param flipY 是否以x轴为转动轴翻转图片,true为翻转
+	 */
+	void setFlipY(bool flipY);
+	
+	/**
+	 * 通过原始像素数据更新贴图内容
+	 *
+	 * @param raw 像素数据，这些数据的格式必须是RGBA8888格式，其长度必须符合当前贴图有效大小.
+	 * 		调用者要负责释放该数据.
+	 */
+	void updateRaw(const char* raw);
+	
+	/**
+	 * \if English
+	 * set color filter. texture has many sources and it doesn't support label or opengl or pvr source. color filter
+	 * won't be called when set until you call \c applyFilter. However, \c applyFilter will be automatically
+	 * called when texture is loading.
+	 *
+	 * @param filter subclass of \link wyColorFilter wyColorFilter\endlink, or NULL if you want to
+	 * 		remove filter
+	 * \else
+	 * 设置颜色过滤器, 贴图本身有一个来源标示其类型, 对于标签或opengl或pvr来源的贴图暂时不支持颜色过滤器. 在调用\c setColorFilter
+	 * 的时候, 过滤器并不会立刻起作用. 想要过滤器发生效果需要调用\c applyFilter. 但是如果贴图正在被载入, 则\c applyFilter
+	 * 会被自动调用.
+	 *
+	 * @param filter \link wyColorFilter wyColorFilter\endlink的子类, 或者NULL表示删除当前的过滤器
+	 * \endif
+	 */
+	void setColorFilter(wyColorFilter* filter);
+
+	/**
+	 * \if English
+	 * if current color filter is not NULL, apply this filter to texture. that will cause
+	 * texture changed immediately.
+	 * \else
+	 * 如果当前的颜色过滤器不为空, 则应用这个过滤器, 这会导致OpenGL贴图立刻发生变化
+	 * \endif
+	 */
+	void applyFilter();
+};
+
+#endif // __wyTexture2D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTextureAtlas_h__
+
+
+#define ATLAS_DEFAULT_CAPACITY 29
+
+class wyTextureAtlas;
+
+/**
+ * @class wyTextureAtlas
+ *
+ * 图片集的封装
+ */
+class wyTextureAtlas : public wyObject {
+
+public:
+	/**
+	 * 获得图片集\link wyTextureAtlas wyTextureAtlas对象\endlink 指针，
+	 * 这个方法始终创建新的\link wyTextureAtlas wyTextureAtlas对象\endlink
+	 *
+	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
+	 * @return 图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
+	 */
+	static wyTextureAtlas* make(wyTexture2D* tex);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
+	 * @param capacity 缓存尺寸,默认ATLAS_DEFAULT_CAPACITY
+	 */
+	wyTextureAtlas(wyTexture2D* tex, int capacity = ATLAS_DEFAULT_CAPACITY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTextureAtlas();
+
+	/**
+	 * 设置图片资源\link wyTexture2D wyTexture2D对象指针\endlink
+	 *
+	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
+	 */
+	void setTexture(wyTexture2D* tex);
+
+	/**
+	 * 获得图片资源\link wyTexture2D wyTexture2D对象指针\endlink
+	 *
+	 * @return 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
+	 */
+	wyTexture2D* getTexture() { return m_tex; }
+
+	/**
+	 * 重新计算缓存,如果小于当前数则返回
+	 *
+	 * @param newCapacity 缓存数
+	 */
+	void resizeCapacity(int newCapacity);
+
+	/**
+	 * 删除所有矩形
+	 */
+	void removeAllQuads() { m_totalQuads = 0; }
+
+	/**
+	 * 获得下一个可用的矩形索引
+	 *
+	 * @return 下一个可用的矩形索引
+	 */
+	int getNextAvailableIndex();
+
+	/**
+	 * 更新缓存中的顶点和纹理
+	 *
+	 * @param quadT 纹理\link wyQuad2D wyQuad2D结构\endlink
+	 * @param quadV 顶点\link wyQuad3D wyQuad3D结构\endlink
+	 * @param index 缓存中的索引
+	 */
+	void updateQuad(wyQuad2D& quadT, wyQuad3D& quadV, int index);
+
+	/**
+	 * 更新缓存中的颜色
+	 *
+	 * @param color 颜色\link wyColor4B wyColor4B结构\endlink
+	 * @param index 缓存中的索引
+	 */
+	void updateColor(wyColor4B color, int index);
+
+	/**
+	 * 在缓存中添加顶点和纹理,放到队列中最后
+	 *
+	 * @param quadT 纹理\link wyQuad2D wyQuad2D结构\endlink
+	 * @param quadV 顶点\link wyQuad3D wyQuad3D结构\endlink
+	 * @return 新添加的四边形在atlas中的索引
+	 */
+	int appendQuad(wyQuad2D& quadT, wyQuad3D& quadV);
+
+	/**
+	 * 在缓存指定索引中添加顶点和纹理, 如果插入在最后，则不需要额外操作，
+	 * 如果插入在中间，则会把插入位置处的Quad移动到最后一个
+	 *
+	 * @param quadT 纹理\link wyQuad2D wyQuad2D结构\endlink
+	 * @param quadV 顶点\link wyQuad3D wyQuad3D结构\endlink
+	 * @param index 缓存索引
+	 */
+	void insertQuad(wyQuad2D& quadT, wyQuad3D& quadV, int index);
+
+	/**
+	 * 删除指定位置的Quad, 如果删除的是最后一个，则不需要额外操作，
+	 * 如果删除的是中间的，则最后一个Quad会被移动到被删除的位置
+	 *
+	 * @param index 缓存索引
+	 */
+	void removeQuad(int index);
+
+	/**
+	 * 删除一定范围内的四边形
+	 *
+	 * @param start 删除的起始索引
+	 * @param count 删除的四边形个数
+	 */
+	void removeQuads(int start, int count);
+
+	/**
+	 * 把自己的一个四边形拷贝到另外一个\link wyTextureAtlas wyTextureAtlas\endlink 节点中
+	 *
+	 * @param from 要拷贝的四边形索引位置，如果范围不合法，则什么也不做
+	 * @param destAtlas 目标\link wyTextureAtlas wyTextureAtlas\endlink
+	 */
+	void copyTo(int from, wyTextureAtlas* destAtlas);
+
+	/**
+	 * 把自己的一个四边形拷贝到传入的指针中
+	 *
+	 * @param from 要拷贝的四边形索引位置，如果范围不合法，则什么也不做
+	 * @param quadT 保存贴图坐标，一个\link wyQuad2D wyQuad2D\endlink 结构指针
+	 * @param quadV 保存顶点坐标，一个\link wyQuad3D wyQuad3D\endlink 结构指针
+	 */
+	void copyTo(int from, wyQuad2D* quadT, wyQuad3D* quadV);
+
+	/**
+	 * 画缓存中的某一索引图像
+	 *
+	 * @param index 缓存索引
+	 */
+	void drawOne(int index);
+
+	/**
+	 * 画缓存中指定数值的图像
+	 *
+	 * @param numOfQuads 缓存索引
+	 */
+	void draw(int numOfQuads);
+
+	/**
+	 * 画缓存指定位置开始，指定数量的图像
+	 *
+	 * @param start 缓存Quad起始位置
+	 * @param numOfQuads 画多少个Quad
+	 */
+	void drawRange(int start, int numOfQuads);
+
+	/**
+	 * 画缓存中所有使用的图像
+	 */
+	void drawAll();
+
+	/**
+	 * 获得缓存中使用的总数
+	 *
+	 * @return 缓存中使用的总数
+	 */
+	int getTotalQuads() { return m_totalQuads; }
+
+	/**
+	 * 获得是否启动自定义的颜色缓存
+	 *
+	 * @return 是否启动自定义的颜色缓存
+	 */
+	bool isWithColorArray() { return m_withColorArray; }
+
+	/**
+	 * 获得缓存空间大小
+	 *
+	 * @return 缓存空间大小
+	 */
+	int getCapacity() { return m_capacity; }
+
+	/**
+	 * 获得图片集像素高度
+	 *
+	 * @return 图片集像素高度
+	 */
+	int getPixelHeight() { return m_tex->getPixelHeight(); }
+
+	/**
+	 * 获得图片集像素宽度
+	 *
+	 * @return 图片集像素宽度
+	 */
+	int getPixelWidth() { return m_tex->getPixelWidth(); }
+
+	/**
+	 * 获得图片集宽度
+	 *
+	 * @return 图片集宽度
+	 */
+	float getWidth() { return m_tex->getWidth(); }
+
+	/**
+	 * 获得图片集高度
+	 *
+	 * @return 图片集高度
+	 */
+	float getHeight() { return m_tex->getHeight(); }
+
+	/**
+	 * 获得图片集宽度缩放比
+	 *
+	 * @return 图片集宽度缩放比
+	 */
+	float getWidthScale() { return m_tex->getWidthScale(); }
+
+	/**
+	 * 获得图片集高度缩放比
+	 *
+	 * @return 图片集高度缩放比
+	 */
+	float getHeightScale() { return m_tex->getHeightScale(); }
+
+	/**
+	 * 设置atlas的缺省颜色, 调用这个方法将会打开atlas的颜色数组
+	 *
+	 * @param color \link wyColor4B wyColor4B\endlink
+	 */
+	void setColor(wyColor4B color);
+
+	/**
+	 * 所有顶点的alpha都减去一个指定值, 该方法仅当颜色数组启用时有效. alpha
+	 * 小于等于0的四边形将被删除
+	 *
+	 * @param delta 需要减去的alpha值
+	 */
+	void reduceAlpha(float delta);
+};
+
+#endif // __wyTextureAtlas_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTextureManager_h__
+
+
+/**
+ * @class wyTextureManager
+ *
+ * 贴图管理器，负责管理WiEngine中所有贴图的缓冲，以及释放，重新载入等逻辑.
+ */
+class wyTextureManager : public wyObject {
+
+public:
+	static wyTextureManager* getInstance();
+	virtual ~wyTextureManager();
+
+	/**
+	 * 清除所有贴图对象。这会导致所有的OpenGL贴图立刻全部被释放. 但是如果某个贴图在之后又被
+	 * 访问了, 则贴图会被重新载入.
+	 */
+	void removeAllTextures();
+
+	/**
+	 * 根据资源id删除一个关联的OpenGL贴图, 这个方法调用后, OpenGL的贴图被立刻释放.
+	 * 如果在删除之后这个贴图又被某处访问, 则这个贴图将被重新载入.
+	 *
+	 * @param resId 图片的资源id
+	 */
+	void removeTexture(int resId);
+
+	/**
+	 * 根据名称删除一个关联的OpenGL贴图, 这个方法调用后, OpenGL的贴图被立刻释放.
+	 * 如果在删除之后这个贴图又被某处访问, 则这个贴图将被重新载入.
+	 *
+	 * @param name 图片的名称, 这个名称可以是路径名或者内存文件系统名
+	 */
+	void removeTexture(const char* name);
+
+	/**
+	 * 删除贴图代理管理的OpenGL贴图, 同时可以指定是否删除相关的贴图句柄信息. 句柄信息可以认为是
+	 * 贴图的元数据，一旦被删除，则其它还在引用这个贴图的\link wyTexture2D wyTexture2D\endlink都将
+	 * 无法显示贴图。所以删除句柄要谨慎，确认确实无其它\link wyTexture2D wyTexture2D\endlink引用该
+	 * 句柄才是一个安全的删除。如果不删除句柄，则其它还在引用这个贴图的\link wyTexture2D wyTexture2D\endlink
+	 * 对象尝试再次访问该贴图时，贴图会被重新载入。
+	 *
+	 * @param tex \link wyTexture2D wyTexture2D\endlink
+	 * @param removeHandle true表示释放句柄, 相关的句柄可以在下次被重用
+	 */
+	void removeTexture(wyTexture2D* tex, bool removeHandle = false);
+
+	/**
+	 * 设置缺省贴图格式, 后续创建的贴图将使用这个贴图格式, 除非创建贴图时指定了一个另外的贴图格式.
+	 * 缺省的贴图格式是RGBA8888. 适当的使用贴图格式可以提高渲染的效率, 比如RGBA4444的贴图就比
+	 * RGBA8888的贴图渲染速度快很多, 当然这是通过损失颜色精度达到的.
+	 *
+	 * @param pixelFormat 贴图格式
+	 */
+	void setTexturePixelFormat(wyTexturePixelFormat pixelFormat) { m_texturePixelFormat = pixelFormat; }
+
+	/**
+	 * 获得当前缺省贴图格式
+	 *
+	 * @return 贴图格式
+	 */
+	wyTexturePixelFormat getTexturePixelFormat() { return m_texturePixelFormat; }
+};
+
+#endif // __wyTextureManager_h__

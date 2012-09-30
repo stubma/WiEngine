@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libxml2.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\libxml2\c14n.c" />
+    <ClCompile Include="..\..\jni\libxml2\catalog.c" />
+    <ClCompile Include="..\..\jni\libxml2\chvalid.c" />
+    <ClCompile Include="..\..\jni\libxml2\debugXML.c" />
+    <ClCompile Include="..\..\jni\libxml2\dict.c" />
+    <ClCompile Include="..\..\jni\libxml2\DOCBparser.c" />
+    <ClCompile Include="..\..\jni\libxml2\encoding.c" />
+    <ClCompile Include="..\..\jni\libxml2\entities.c" />
+    <ClCompile Include="..\..\jni\libxml2\error.c" />
+    <ClCompile Include="..\..\jni\libxml2\globals.c" />
+    <ClCompile Include="..\..\jni\libxml2\hash.c" />
+    <ClCompile Include="..\..\jni\libxml2\HTMLparser.c" />
+    <ClCompile Include="..\..\jni\libxml2\HTMLtree.c" />
+    <ClCompile Include="..\..\jni\libxml2\legacy.c" />
+    <ClCompile Include="..\..\jni\libxml2\list.c" />
+    <ClCompile Include="..\..\jni\libxml2\nanoftp.c" />
+    <ClCompile Include="..\..\jni\libxml2\nanohttp.c" />
+    <ClCompile Include="..\..\jni\libxml2\parser.c" />
+    <ClCompile Include="..\..\jni\libxml2\parserInternals.c" />
+    <ClCompile Include="..\..\jni\libxml2\pattern.c" />
+    <ClCompile Include="..\..\jni\libxml2\relaxng.c" />
+    <ClCompile Include="..\..\jni\libxml2\SAX.c" />
+    <ClCompile Include="..\..\jni\libxml2\SAX2.c" />
+    <ClCompile Include="..\..\jni\libxml2\schematron.c" />
+    <ClCompile Include="..\..\jni\libxml2\threads.c" />
+    <ClCompile Include="..\..\jni\libxml2\tree.c" />
+    <ClCompile Include="..\..\jni\libxml2\uri.c" />
+    <ClCompile Include="..\..\jni\libxml2\valid.c" />
+    <ClCompile Include="..\..\jni\libxml2\xinclude.c" />
+    <ClCompile Include="..\..\jni\libxml2\xlink.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlIO.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlmemory.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlmodule.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlreader.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlregexp.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlsave.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlschemas.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlschemastypes.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlstring.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlunicode.c" />
+    <ClCompile Include="..\..\jni\libxml2\xmlwriter.c" />
+    <ClCompile Include="..\..\jni\libxml2\xpath.c" />
+    <ClCompile Include="..\..\jni\libxml2\xpointer.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\libxml2\config.h" />
+    <ClInclude Include="..\..\jni\libxml2\elfgcchack.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\c14n.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\catalog.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\chvalid.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\debugXML.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\dict.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\DOCBparser.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\encoding.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\entities.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\globals.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\hash.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\HTMLparser.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\HTMLtree.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\list.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\nanoftp.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\nanohttp.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\parser.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\parserInternals.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\pattern.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\relaxng.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\SAX.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\SAX2.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\schemasInternals.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\schematron.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\threads.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\tree.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\uri.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\valid.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xinclude.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xlink.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlautomata.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlerror.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlexports.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlIO.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlmemory.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlmodule.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlreader.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlregexp.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlsave.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlschemas.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlschemastypes.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlstring.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlunicode.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlversion.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xmlwriter.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xpath.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xpathInternals.h" />
+    <ClInclude Include="..\..\jni\libxml2\include\libxml\xpointer.h" />
+    <ClInclude Include="..\..\jni\libxml2\libxml.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{478EE92C-BF93-4E4E-850C-50D6A863199D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libxml2</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBXML2_EXPORTS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\libxml2\include;..\..\jni\WiEngine\include\platform\windows</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBXML2_EXPORTS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\libxml2\include;..\..\jni\WiEngine\include\platform\windows</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

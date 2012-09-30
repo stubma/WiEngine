@@ -1,0 +1,61 @@
+/*
+ * Copyright (c) 2010 WiYun Inc.
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#if WINDOWS
+
+#include "wyHttpResponse_win.h"
+#include "wyTypes.h"
+#include "wyUtils.h"
+
+wyHttpResponse_win::wyHttpResponse_win(HTTPResponse* pocoResp) :
+		m_pocoResp(pocoResp) {
+}
+
+wyHttpResponse_win::~wyHttpResponse_win() {
+	delete m_pocoResp;
+}
+
+wyHttpResponse_win* wyHttpResponse_win::make(HTTPResponse* pocoResp) {
+	wyHttpResponse_win* r = WYNEW wyHttpResponse_win(pocoResp);
+	return (wyHttpResponse_win*)r->autoRelease();
+}
+
+const char* wyHttpResponse_win::getHeader(const char* name) {
+	const string& value = m_pocoResp->get(name, "");
+	if(value.compare("") == 0) {
+		return NULL;
+	} else {
+		return wyUtils::copy(value.c_str());
+	}
+}
+
+int wyHttpResponse_win::getStatusCode() {
+	return m_pocoResp == NULL ? 500 : m_pocoResp->getStatus();
+}
+
+#endif // #if WINDOWS

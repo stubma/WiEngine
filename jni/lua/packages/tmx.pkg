@@ -1,0 +1,1120 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLayerInfo_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTMXObject_h__
+
+/**
+ * @class wyTMXObject
+ *
+ * \if English
+ * Object in TMX object group
+ * \else
+ * TMX地图中定义的对象
+ * \endif
+ */
+class wyTMXObject : public wyObject {
+public:
+	/**
+	 * \if English
+	 * Object type
+	 * \else
+	 * 对象类型
+	 * \endif
+	 */
+	enum Type {
+		/**
+		 * \if English
+		 * Normal object, just a collection of key-value pairs
+		 * \else
+		 * 普通对象, 只有一些键值对属性
+		 * \endif
+		 */
+		NORMAL,
+
+		/**
+		 * \if English
+		 * Polygon object, can get vertex points
+		 * \else
+		 * 多边形对象, 由一系列点描述
+		 * \endif
+		 */
+		POLYGON,
+
+		/**
+		 * \if English
+		 * Polyline object, first and last point is not connected
+		 * \else
+		 * 非闭合多边形, 由一系列点描述
+		 * \endif
+		 */
+		POLYLINE
+	};
+
+public:
+	virtual ~wyTMXObject();
+	static wyTMXObject* make();
+
+	/**
+	 * \if English
+	 * Get a property value by a key
+	 *
+	 * @param key key string
+	 * @return value string, or NULL if not found. caller should NOT release it
+	 * \else
+	 * 根据键查询对象属性
+	 *
+	 * @param key 键
+	 * @return 属性字符串, NULL表示没找到. 调用者不需要负责释放指针
+	 * \endif
+	 */
+	const char* getProperty(const char* key);
+
+	/**
+	 * \if English
+	 * Add a property
+	 *
+	 * @param key key string, it will be copied so you can release it after returns
+	 * @param value value string, it will be copied so you can release it after returns
+	 * \else
+	 * 添加一个属性
+	 *
+	 * @param key 键, 内容会被拷贝, 所以方法返回后可以释放
+	 * @param value 值, 内容会被拷贝, 所以方法返回后可以释放
+	 * \endif
+	 */
+	void addProperty(const char* key, const char* value);
+
+	/**
+	 * \if English
+	 * Get object type
+	 * \else
+	 * 得到对象类型
+	 * \endif
+	 */
+	Type getType() { return m_type; }
+
+	/**
+	 * \if English
+	 * Get point list, only used for POLYGON or POLYLINE object
+	 *
+	 * @return \link wyPointList wyPointList\endlink
+	 * \else
+	 * 得到点列表, 如果对象不是POLYGON或POLYLINE则无意义
+	 *
+	 * @return \link wyPointList wyPointList\endlink
+	 * \endif
+	 */
+	wyPointList& getPoints() { return m_points; }
+};
+
+#endif // __wyTMXObject_h__
+
+typedef struct wyLayerInfo {
+	/**
+	 * 层的名字
+	 */
+	char* name;
+
+	/**
+	 * 层的瓦片宽度
+	 */
+	int layerWidth;
+
+	/**
+	 * 层的瓦片高度
+	 */
+	int layerHeight;
+
+	/**
+	 * 网格数组
+	 */
+	void* tiles;
+
+	/**
+	 * 层是否可见
+	 */
+	bool visible;
+
+	/**
+	 * 层的透明度
+	 */
+	int alpha;
+
+	/**
+	 * 最小的网格id
+	 */
+	int minGid;
+
+	/**
+	 * 最大的网格id
+	 */
+	int maxGid;
+
+	/**
+	 * 层附加属性
+	 */
+	wyHashSet* properties;
+
+	/**
+	 * 层x偏移
+	 */
+	float offsetX;
+
+	/**
+	 * 层y偏移
+	 */
+	float offsetY;
+} wyLayerInfo;
+
+// create/destroy
+wyLayerInfo* wyLayerInfoNew();
+void wyLayerInfoDestroy(wyLayerInfo* info);
+
+// property
+void wyLayerInfoAddProperty(wyLayerInfo* info, const char* key, const char* value);
+char* wyLayerInfoGetProperty(wyLayerInfo* info, const char* name);
+
+
+#endif // __wyLayerInfo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyMapInfo_h__
+
+
+
+/**
+ * @typedef wyTMXOrientation
+ *
+ * TMX地图的类型
+ */
+typedef enum {
+	/// 正交型
+	ORIENTATION_ORTHOGONAL = 1,
+
+	/// 等角型
+	ORIENTATION_ISOMETRIC,
+
+	/// 六边型
+	ORIENTATION_HEXAGONAL
+} wyTMXOrientation;
+
+typedef struct wyTileHash {
+	int gid;
+	wyHashSet* properties;
+} wyTileHash;
+
+typedef struct wyMapInfo {
+	// tmx filename
+	char* filename;
+
+	// map orientation
+	wyTMXOrientation orientation;
+
+	// map width & height in tiles
+	int mapWidth;
+	int mapHeight;
+
+	// tiles width & height in pixels
+	float tileWidth;
+	float tileHeight;
+
+	// Layers
+	wyArray* layers;
+
+	// tilesets
+	wyArray* tilesets;
+
+	// ObjectGroups
+	wyArray* objectGroups;
+
+	// properties
+	wyHashSet* properties;
+
+	// tile properties
+	wyHashSet* tileProperties;
+} wyMapInfo;
+
+// create/destroy
+wyMapInfo* wyMapInfoNew();
+void wyMapInfoDestroy(wyMapInfo* info);
+
+// property
+void wyMapInfoAddProperty(wyMapInfo* info, const char* key, const char* value);
+char* wyMapInfoGetProperty(wyMapInfo* info, const char* name);
+
+// tile property
+void wyMapInfoNewTileProperties(wyMapInfo* info, int gid);
+char* wyMapInfoGetTileProperty(wyMapInfo* info, int gid, const char* key);
+void wyMapInfoAddTileProperty(wyMapInfo* info, int gid, const char* key, const char* value);
+
+
+#endif // __wyMapInfo_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTMXObjectGroup_h__
+
+
+/**
+ * @class wyTMXObjectGroup
+ *
+ * \if English
+ * Object group in TMX map
+ * \else
+ * TMX地图中的对象组
+ * \endif
+ */
+class wyTMXObjectGroup : public wyObject {
+public:
+	virtual ~wyTMXObjectGroup();
+	static wyTMXObjectGroup* make();
+
+	/**
+	* 添加ObectGroup属性，如属性已存在，则不操作。
+	*
+	* @param[in] key 属性名
+	* @param[in] value 属性值
+	*/
+	void addProperty(const char* key, const char* value);
+
+	/**
+	* 查询ObectGroup的属性值
+	*
+	* @param[in] name 属性名
+	* @return 返回属性名name的值，如无此属性则返回NULL。
+	*/
+	char* getProperty(const char* name);
+
+	/**
+	* 在ObectGroup中新建一个Object
+	*
+	* @return 返回新建对象的指针，对象类型为 \link wyHashSet wyHashSet \endlink。
+	*/
+	wyTMXObject* newObject();
+
+	/**
+	* 根据名字获得ObectGroup的一个对象
+	*
+	* @param[in] name 对象的名字
+	* @return 返回该对象的指针，如没找到则返回NULL。
+	*/
+	wyTMXObject* getObject(const char* name);
+	
+	/**
+	 * 根据索引获得对象, 如果一个对象没有名字, 可以用这个方式得到对象. 对象的索引按照它们
+	 * 在tmx中出现的顺序从0开始
+	 *
+	 * @param index 对象索引
+	 * @return 对象的属性哈希表, 如果索引不合法则返回NULL
+	 */
+	wyTMXObject* getObjectAt(int index);
+
+	/**
+	 * 得到对象的个数
+	 *
+	 * @return 对象个数
+	 */
+	int getObjectCount() { return m_objects->num; }
+	
+	/**
+	* 添加Object属性
+	*
+	* @param[in] object  要操作的object指针
+	* @param[in] key 属性
+	* @param[in] value 属性值
+	*/
+	void addObjectProperty(wyTMXObject* object, const char* key, const char* value);
+
+	/**
+	* 查询object属性值
+	*
+	* @param[in] object  指针，指定朝哪个Object添加
+	* @param[in] key 属性名
+	* @return 返回属性值，如没找到则返回NULL。
+	*/
+	char* getObjectProperty(wyTMXObject* object, const char* key);
+
+	/**
+	 * \if English
+	 * Set object group name
+	 *
+	 * @param name name string, the string will be copied so it is safe to release it after method returns
+	 * \else
+	 * 设置对象组名称
+	 *
+	 * @param name 名称, 其内容会被拷贝, 因此setName返回后可以释放该指针
+	 * \endif
+	 */
+	void setName(const char* name);
+
+	/**
+	 * \if English
+	 * Get object group name
+	 *
+	 * @return name, caller should not release it
+	 * \else
+	 * 得到对象组名称
+	 *
+	 * @return 名称字符串, 调用者不需要释放
+	 * \endif
+	 */
+	const char* getName() { return m_name; }
+
+	/**
+	 * \if English
+	 * Set offset x
+	 *
+	 * @param x x offset
+	 * \else
+	 * 设置对象组在地图中的像素偏移x值
+	 *
+	 * @param x x偏移值
+	 * \endif
+	 */
+	void setOffsetX(float x) { m_offsetX = x; }
+
+	/**
+	 * \if English
+	 * Get offset x
+	 *
+	 * @return x offset
+	 * \else
+	 * 得到对象组在地图中的像素偏移x值
+	 *
+	 * @return x便宜值
+	 * \endif
+	 */
+	float getOffsetX() { return m_offsetX; }
+
+	/**
+	 * \if English
+	 * Set offset y
+	 *
+	 * @param y y offset
+	 * \else
+	 * 设置对象组在地图中的像素偏移y值
+	 *
+	 * @param y y偏移值
+	 * \endif
+	 */
+	void setOffsetY(float y) { m_offsetY = y; }
+
+	/**
+	 * \if English
+	 * Get offset y
+	 *
+	 * @return y offset
+	 * \else
+	 * 得到对象组在地图中的像素偏移y值
+	 *
+	 * @return y便宜值
+	 * \endif
+	 */
+	float getOffsetY() { return m_offsetY; }
+	
+	/**
+	 * \if English
+	 * Set color
+	 *
+	 * @param color color, format is 0xaarrggbb
+	 * \else
+	 * 设置颜色
+	 *
+	 * @param color 颜色值, 格式0xaarrggbb
+	 * \endif
+	 */
+	void setColor(int color) { m_color = color; }
+
+	/**
+	 * \if English
+	 * Get color
+	 *
+	 * @return color in 0xaarrggbb format
+	 * \else
+	 * 得到颜色属性
+	 *
+	 * @return 颜色
+	 * \endif
+	 */
+	int getColor() { return m_color; }
+
+	/**
+	 * \if English
+	 * Get opacity
+	 *
+	 * @return opacity property of object group, from 0 to 1
+	 * \else
+	 * 得到透明度属性
+	 *
+	 * @return 透明度属性, 从0到1
+	 * \endif
+	 */
+	float getOpacity() { return m_opacity; }
+
+	/**
+	 * \if English
+	 * Set opacity
+	 *
+	 * @param opacity opacity property, from 0 to 1
+	 * \else
+	 * 设置透明度属性
+	 *
+	 * @param opacity 透明度, 从0到1
+	 * \endif
+	 */
+	void setOpacity(float opacity) { m_opacity = MIN(1, MAX(0, opacity)); }
+};
+
+#endif // __wyTMXObjectGroup_h__
+
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTileSetInfo_h__
+
+
+
+typedef struct wyTileSetInfo {
+	/**
+	 * tileset的名称
+	 */
+	const char* name;
+
+	/**
+	 * tileset的起始网格id，网格id是按照行的顺序依次递增的，比如
+	 * gid为1, 表示第一行第二列的网格
+	 */
+	int firstGid;
+
+	/**
+	 * 单个瓦片的宽度，单位是像素
+	 */
+	float tileWidth;
+
+	/**
+	 * 单个瓦片的高度，单位是像素
+	 */
+	float tileHeight;
+
+	/**
+	 * 瓦片在图片集中的间隔 ，单位是像素
+	 */
+	float spacing;
+
+	/**
+	 * 图片集的边缘宽度，单位是像素
+	 */
+	float margin;
+
+	/**
+	 * 图片集的资源id
+	 */
+	int sourceImageId;
+
+	/**
+	 * 图片集的路径
+	 */
+	const char* sourceImagePath;
+
+	/**
+	 * true表示\c sourceImagePath 是一个文件系统路径, false表示是assets下的相对路径
+	 */
+	bool sourceImageIsFile;
+
+	/**
+	 * 图片集像素宽度
+	 */
+	float imageWidth;
+
+	/**
+	 * 图片集像素高度
+	 */
+	float imageHeight;
+} wyTileSetInfo;
+
+/**
+ * 创建一个新的\link wyTileSetInfo wyTileSetInfo\endlink 结构
+ *
+ * @return \link wyTileSetInfo wyTileSetInfo\endlink
+ */
+wyTileSetInfo* wyTileSetInfoNew();
+
+/**
+ * 销毁\link wyTileSetInfo wyTileSetInfo\endlink 结构
+ *
+ * @param info \link wyTileSetInfo wyTileSetInfo\endlink
+ */
+void wyTileSetInfoDestroy(wyTileSetInfo* info);
+
+/**
+ * 根据网格id得到相应的贴图矩形，origin表示矩形的左上角. 注意这个方法不是用来得到瓦片的
+ * 位置矩形, 而是瓦片相关联图片在图片集中的矩形
+ *
+ * @param info \link wyTileSetInfo wyTileSetInfo\endlink
+ * @param gid 瓦片id, 这个id需要减去firstGid才是真正的gid
+ * @param 瓦片图片在图片集中的矩形
+ */
+wyRect wyTileSetInfoGetRect(wyTileSetInfo* info, int gid);
+
+/**
+ * 复制一份\link wyTileSetInfo wyTileSetInfo\endlink
+ *
+ * @param info 要拷贝的\link wyTileSetInfo wyTileSetInfo\endlink 源结构
+ * @return \link wyTileSetInfo wyTileSetInfo\endlink 拷贝
+ */
+wyTileSetInfo* wyTileSetInfoCopy(wyTileSetInfo* info);
+
+
+#endif // __wyTileSetInfo_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTMXLayer_h__
+
+
+class wyTMXTileMap;
+
+/**
+ * @class wyTMXLayer
+ *
+ * 代表了TMX地图中的一个层, 提供了获取层信息的各种方法. 层是可写的, 可以通过相应方法
+ * 动态的修改瓦片. 层的坐标从左上角开始，x往右增长，y往下增长, 即(0, 0)代表的是左上角
+ * 的瓦片。
+ */
+class wyTMXLayer : public wySpriteBatchNode {
+
+public:
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param tileset related tileset
+	 * @param layerInfo info of layer
+	 * @param mapInfo info of whole map
+	 * @param tex texture of tileset
+	 * @return \link wyTMXLayer wyTMXLayer\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param tileset 瓦片集信息对象, \link wyTileSetInfo wyTileSetInfo\endlink
+	 * @param layerInfo 层信息对象, \link wyLayerInfo wyLayerInfo\endlink
+	 * @param mapInfo 地图信息对象, \link wyMapInfo wyMapInfo\endlink
+	 * @param tex tileset的贴图对象
+	 * @return \link wyTMXLayer wyTMXLayer\endlink
+	 * \endif
+	 */
+	static wyTMXLayer* make(int layerIndex, wyMapInfo* mapInfo);
+
+	/// 析构函数
+	virtual ~wyTMXLayer();
+
+	/// @see wyNode::draw
+	virtual void draw();
+	
+	/**
+	 * \if English
+	 * Remove a tile from a sprite which is got from \c tileAt method. If the sprite
+	 * is not a tile sprite, do nothing
+	 *
+	 * @param sprite sprite which is got from \c tileAt
+	 * \else
+	 * 通过\link wySpriteEx wySpriteEx\endlink对象删除一个瓦片, 这个sprite对象必须是
+	 * 通过\c tileAt方法得到的, 如果不是, 则这个方法不做任何事
+	 *
+	 * @param sprite 从\c tileAt方法得到的瓦片精灵对象
+	 * \endif
+	 */
+	void removeTile(wySpriteEx* sprite);
+
+	/**
+	 * 获得层属性
+	 *
+	 * @param key 属性关键字
+	 * @return 属性值
+	 */
+	char* getProperty(const char* key);
+
+	/**
+	 * 得到层水平方向上的瓦片个数
+	 *
+	 * @return 层水平方向上的瓦片个数
+	 */
+	int getLayerWidth() { return m_layerWidth; }
+
+	/**
+	 * 得到层垂直方向上的瓦片个数
+	 *
+	 * @return 层垂直方向上的瓦片个数
+	 */
+	int getLayerHeight() { return m_layerHeight; }
+
+	/**
+	 * 得到瓦片的像素宽度
+	 *
+	 * @return 瓦片的像素宽度
+	 */
+	int getTileWidth() { return m_tileWidth; }
+
+	/**
+	 * 得到瓦片的像素高度
+	 *
+	 * @return 瓦片的像素高度
+	 */
+	int getTileHeight() { return m_tileHeight; }
+
+	/**
+	 * 根据一个相对于节点自身的坐标, 找到对应的瓦片坐标
+	 *
+	 * @param x x坐标, 以TMX layer的左下角为原点
+	 * @param y y坐标, 以TMX layer的左下角为原点
+	 * @return 瓦片坐标, 以一个\link wyDimension wyDimension\endlink 的形式返回, 如果点击位置处没有对应的瓦片,
+	 * 		则会返回(-1, -1)
+	 */
+	wyDimension getTileCoordinateAt(float x, float y);
+
+	/**
+	 * \if English
+	 * returns the tile (wySpriteEx) at a given a tile coordinate.
+	 * The returned wySpriteEx will be already added to the wyTMXLayer. Don't add it again.
+	 * The wySpriteEx can be treated like any other wySpriteEx: rotated, scaled, translated, opacity, color, etc.
+	 * You can remove either by calling:
+	 * 		layer->removeChild(sprite, true);
+	 * 	 or layer->removeTileAt(x, y);
+	 *
+	 * Tag of returned sprite is set to x + y * layerWidth, don't modify it.
+	 *
+	 * @param x x coordinate of tile
+	 * @param y y coordinate of tile
+	 * @return \link wySpriteEx wySpriteEx\endlink object, or NULL if no tile at location
+	 * \else
+	 * 得到某个瓦片位置的wySpriteEx对象, 并且被加到了wyTMXLayer中. 返回的对象可以进行普通的旋转, 放缩, 移动,
+	 * 透明度和颜色等操作. 你可以通过removeTileAt或者removeChild方法删除掉它. 返回的sprite的tag被设置成了
+	 * x + y * layerWidth, 不要修改这个tag否则可能造成程序逻辑混乱.
+	 *
+	 * 对于比较大的地图, 比如100x100, 如果预先创建这些sprite, 则最多可能有10000个, 这在资源上也是不太好的. 因此
+	 * 返回的sprite实际上是即时创建的, 如果不需要使用的时候可以考虑删除掉. 删掉sprite的时候可以选择是否保留瓦片.
+	 *
+	 * @param x 行位置，从左往右数
+	 * @param y 列位置，从上往下数
+	 * @return \link wySpriteEx wySpriteEx\endlink 对象, 如果瓦片坐标处没有瓦片图片, 则返回NULL
+	 * \endif
+	 */
+	wySpriteEx* tileAt(int x, int y);
+
+	/**
+	 * 获得指定行列的瓦片id
+	 *
+	 * @param x 行位置，从左往右数
+	 * @param y 列位置，从上往下数
+	 * @return 瓦片id
+	 */
+	int getGidAt(int x, int y);
+
+	/**
+	 * 得到该层所有的瓦片id数组
+	 *
+	 * @param copy 可选参数, true表示返回一份瓦片id数组的拷贝, 缺省为false
+	 * @return 瓦片id数组, 数组的长度是layerWidth * layerHeight.
+	 * 		如果想得到某行列的瓦片id, 位置的计算方式是: pos = x + layerWidth * y.
+	 * 		如果copy是true, 则调用者要负责释放数组.
+	 */
+	void* getGids(bool copy = false);
+
+	/**
+	 * 删除指定行列的瓦片
+	 *
+	 * @param x 行位置，从左往右数
+	 * @param y 列位置，从上往下数
+	 */
+	void removeTileAt(int x, int y);
+
+	/**
+	 * 在指定行列位置设置瓦片id, 如果指定位置上已经存在瓦片, 则这个方法
+	 * 和updateTileAt的功能相同
+	 *
+	 * @param gid 瓦片id
+	 * @param x 行位置，从左往右数
+	 * @param y 列位置，从上往下数
+	 */
+	void setTileAt(int gid, int x, int y);
+
+	/**
+	 * 更新某行列位置的瓦片
+	 *
+	 * @param gid 瓦片id
+	 * @param x 行位置，从左往右数
+	 * @param y 列位置，从上往下数
+	 */
+	void updateTileAt(int gid, int x, int y);
+
+	/**
+	 * 根据瓦片坐标, 得到这个瓦片的左下角像素坐标, 该坐标是以layer左下角为原点的
+	 *
+	 * @param x 行位置，从左往右数
+	 * @param y 列位置，从上往下数
+	 * @return 瓦片相对于layer左下角的左下角像素坐标
+	 */
+	wyPoint getPositionAt(int x, int y);
+};
+
+#endif // __wyTMXLayer_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTMXLoader_h__
+
+
+typedef unsigned char xmlChar;
+
+/**
+ * @class wyTMXLoader
+ *
+ * 用于载入Tiled Qt设计的瓦片地图描述文件
+ */
+class wyTMXLoader {
+public:
+	/*
+	 * 载入TMX地图文件
+	 *
+	 * @param resId TMX文件资源id
+	 * @return \link wyMapInfo wyMapInfo\endlink, 解析完成后该结构保存了所有地图信息
+	 */
+	static wyMapInfo* load(int resId);
+
+	/*
+	 * 载入TMX地图文件
+	 *
+	 * @param path TMX文件的路径
+	 * @param isFile true表示path表示的是一个文件系统路径, false表示path表示的是一个assets下面的相对路径
+	 * @return \link wyMapInfo wyMapInfo\endlink, 解析完成后该结构保存了所有地图信息
+	 */
+	static wyMapInfo* load(const char* path, bool isFile);
+};
+
+#endif // __wyTMXLoader_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTMXTileMap_h__
+
+
+class wyTMXTileMap : public wyNode {
+public:
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param resId tmx file resource id
+	 * @param tex1 texture of first tileset, if more than one tileset, append other texture after this and
+	 * 		end with NULL
+	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param resId .tmx文件的资源ID
+	 * @param tex1 第一个tileset的贴图, 如果有其它tileset, 依次追加贴图对象, 必须按照tileset出
+	 * 		现在tmx中的顺序依次出现, 以NULL结尾
+	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
+	 * \endif
+	 */
+	static wyTMXTileMap* make(int resId, wyTexture2D* tex1, ...);
+
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param resId tmx file resource id
+	 * @param tex texture list of tileset
+	 * @param texCount number of textures
+	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param resId .tmx文件的资源ID
+	 * @param tex tileset的贴图列表, 必须按照tileset出现在tmx中的顺序依次出现
+	 * @param texCount 贴图个数
+	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
+	 * \endif
+	 */
+	static wyTMXTileMap* make(int resId, wyTexture2D** tex, int texCount);
+
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param path tmx file path
+	 * @param isFile true means \c path is an absolute path in file system, or false if \c path
+	 * 		is a relative path under assets
+	 * @param tex1 texture of first tileset, if more than one tileset, append other texture after this and
+	 * 		end with NULL
+	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param path tmx文件的路径
+	 * @param isFile true表示path是一个文件系统路径, false表示这是一个assets下的相对路径
+	 * @param tex1 第一个tileset的贴图, 如果有其它tileset, 依次追加贴图对象, 以NULL结尾
+	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
+	 * \endif
+	 */
+	static wyTMXTileMap* make(const char* path, bool isFile, wyTexture2D* tex1, ...);
+
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param path tmx file path
+	 * @param isFile true means \c path is an absolute path in file system, or false if \c path
+	 * 		is a relative path under assets
+	 * @param tex texture list of tileset
+	 * @param texCount number of textures
+	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param path tmx文件的路径
+	 * @param isFile true表示path是一个文件系统路径, false表示这是一个assets下的相对路径
+	 * @param tex tileset的贴图列表, 必须按照tileset出现在tmx中的顺序依次出现
+	 * @param texCount 贴图个数
+	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
+	 * \endif
+	 */
+	static wyTMXTileMap* make(const char* path, bool isFile, wyTexture2D** tex, int texCount);
+
+	/**
+	 * 析构函数
+	 */	
+	virtual ~wyTMXTileMap();
+
+	/**
+	 * 根据名字获得一个layer
+	 *
+	 * @param[in] name layer的名字 
+	 * \return 返回layer的指针, 如没找到返回NULL
+	 */
+	wyTMXLayer* getLayer(const char* name);
+	
+	/**
+	 * 根据索引得到\link wyTMXLayer wyTMXLayer\endlink
+	 *
+	 * @param index layer的索引, 从0开始
+	 * @return \link wyTMXLayer wyTMXLayer\endlink, 如果索引范围不合法, 返回NULL
+	 */
+	wyTMXLayer* getLayerAt(int index);
+
+	/**
+	 * 根据名字获得一个layer
+	 *
+	 * @param[in] name layer的名字 
+	 * \return 返回指向该layer的指针, 如没找到返回NULL
+	 */	
+	wyTMXObjectGroup* getObjectGroup(const char* name);
+
+	/**
+	 * 获得属性值
+	 *
+	 * @param[in] name 属性名 
+	 * \return 该属性的值, 如没找到返回NULL
+	 */
+	char* getProperty(const char* name);
+	
+	/**
+	 * 获得瓦片的属性
+	 *
+	 * @param[in] gid 瓦片ID	 
+	 * @param[in] name 属性名 
+	 * \return 返回属性值, 如没找到返回NULL
+	 */	
+	char* getTileProperty(int gid, const char* name);
+
+	/**
+	 * 获得地图宽度
+	 *
+	 * \return X方向上的瓦片个数
+	 */
+	int getMapWidth() { return m_mapWidth; }
+	
+	/**
+	 * 获得地图高度
+	 *
+	 * \return Y方向上的瓦片个数
+	 */	
+	int getMapHeight() { return m_mapHeight; }
+	
+	/**
+	 * 获得瓦片宽度
+	 *
+	 * \return 瓦片宽, 单位为像素
+	 */	
+	float getTileWidth() { return m_tileWidth; }
+	
+	/**
+	 * 获得瓦片高度
+	 *
+	 * \return 瓦片高, 单位为像素
+	 */	
+	float getTileHeight() { return m_tileHeight; }
+	
+	/**
+	 * 获得地图方向
+	 *
+	 * \return 方向
+	 */	
+	wyTMXOrientation getOrientation() { return m_orientation; }
+};
+
+#endif // __wyTMXTileMap_h__

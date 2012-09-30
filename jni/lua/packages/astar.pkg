@@ -1,0 +1,416 @@
+$#include "WiEngine.h"
+
+#ifndef __wyAStar_h__
+
+
+/**
+ * @class wyAStar
+ *
+ * A*算法封装,根据把地图划分成静态的网格寻找两个点之间的最短路径
+ * 算法根据所有点的f(n) = h(n) + g(n)查找最短路径
+ * 参考资料 http://baike.baidu.com/view/7850.html
+ */
+class wyAStar : public wyObject {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param mapdata A* 地图状况\link wyAStarMap wyAStarMap\endlink对象指针指针,在AStar析构中会释放该资源
+	 */
+	wyAStar(wyAStarMap* mapdata);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyAStar();
+
+	/**
+	 * 返回路径\link wyArray wyArray\endlink对象指针, 保存路径\link wyAStarStep wyAStarStep\endlink节点集合
+	 *
+	 * @return 路径\link wyArray wyArray\endlink对象指针
+	 */
+	wyArray* getPath() { return m_steps; }
+
+	/**
+	 * 路径查询,返回路径步骤数,0表示没有路径
+	 *
+	 * @param startx 起始tile　x值
+	 * @param starty 起始tile　y值
+	 * @param endx   目标tile　x值
+	 * @param endy   目标tile　y值
+	 * @param ignoreBlock   是否忽略block tile,true为忽略
+	 * @return 路径步骤数,0表示没有路径
+	 */
+	int findPath(int startx, int starty, int endx, int endy, bool ignoreBlock);
+
+	/**
+	 * 返回地图状况\link wyAStarMap wyAStarMap\endlink对象指针
+	 *
+	 * @return mapdata A* 地图状况\link wyAStarMap wyAStarMap\endlink对象指针
+	 */
+	wyAStarMap* getAStarMap() { return m_mapdata; }
+
+	/**
+	 * 计算两个tile之间的h值,默认取两节点间欧几理德距离（直线距离）做为估价值，可被子类重载
+	 *
+	 * @param startx 起始tile　x值
+	 * @param starty 起始tile　y值
+	 * @param endx   目标tile　x值
+	 * @param endy   目标tile　y值
+	 * @return 两个tile的h值
+	 */
+	virtual float heuristic(int startx, int starty, int endx, int endy);
+};
+
+#endif // __wyAStar_h__
+#ifndef __wyAStarMap_h__
+
+
+/**
+ * @class wyAStarMap
+ *
+ * A*地图状况父类封装
+ */
+class wyAStarMap : public wyObject {
+public:
+	/**
+	 * 构造函数
+	 */
+	wyAStarMap();
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyAStarMap();
+
+	/**
+	 * 返回tile数量
+	 *
+	 * @return　tile数量
+	 */
+	int getTileCount() { return m_tiles->num; }
+
+	/**
+	 * 设置tile为block状态
+	 *
+	 * @param x tile　x值
+	 * @param y tile　y值
+	 */
+	void blockTile(int x, int y);
+
+	/**
+	 * 设置tile为free状态
+	 *
+	 * @param x tile　x值
+	 * @param y tile　y值
+	 */
+	void freeTile(int x, int y);
+
+	/**
+	 * 返回tile是否为block状态
+	 *
+	 * @param x tile　x值
+	 * @param y tile　y值
+	 * @return　true为block状态
+	 */
+	bool isBlockedAt(int x, int y);
+
+	/**
+	 * 返回\link wyAStarTile wyAStarTile\endlink对象指针
+	 *
+	 * @param x tile　x值
+	 * @param y tile　y值
+	 * @return　\link wyAStarTile wyAStarTile\endlink对象指针
+	 */
+	wyAStarTile* getTileAt(int x, int y);
+
+	/**
+	 * 验证tile是否有效,子类需要实现
+	 *
+	 * @param x tile　x值
+	 * @param y tile　y值
+	 * @return　true为有效
+	 */
+	virtual bool isValidTile(int x, int y) = 0;
+
+	/**
+	 * 返回两个tile之间的g(实际代价)值,子类需要实现
+	 *
+	 * @param t1 \link wyAStarTile wyAStarTile\endlink对象指针
+	 * @param t2 \link wyAStarTile wyAStarTile\endlink对象指针
+	 * @return　g(实际代价)值
+	 */
+	virtual float getStepG(wyAStarTile* t1, wyAStarTile* t2) = 0;
+};
+
+#endif // __wyAStarMap_h__
+#ifndef __wyAStarStep_h__
+
+/**
+ * @class wyAStarStep
+ *
+ * A*查找路径返回的节点封装
+ */
+class wyAStarStep : public wyObject {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param x tile x值
+	 * @param y tile y值
+	 */
+	wyAStarStep(int x, int y);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyAStarStep();
+
+	/**
+	 * 设置tile x值
+	 *
+	 * @param x tile x值
+	 */
+	void setX(int x) { m_x = x; }
+
+	/**
+	 * 返回tile x值
+	 *
+	 * @return tile x值
+	 */
+	int getX() { return m_x; }
+
+	/**
+	 * 设置tile y值
+	 *
+	 * @param y tile y值
+	 */
+	void setY(int y) { m_y = y; }
+
+	/**
+	 * 返回tile y值
+	 *
+	 * @return tile y值
+	 */
+	int getY() { return m_y; }
+
+	/**
+	 * 设置节点f值
+	 *
+	 * @param f 节点f值
+	 */
+	void setF(float f) { m_f = f; }
+
+	/**
+	 * 返回节点f值
+	 *
+	 * @return 节点f值
+	 */
+	float getF() { return m_f; }
+
+	/**
+	 * 设置节点 h值
+	 *
+	 * @param h 节点h值
+	 */
+	void setH(float h) { m_h = h; }
+
+	/**
+	 * 返回节点h值
+	 *
+	 * @return 节点h值
+	 */
+	float getH() { return m_h; }
+
+	/**
+	 * 设置节点 g值
+	 *
+	 * @param g 节点g值
+	 */
+	void setG(float g) { m_g = g; }
+
+	/**
+	 * 返回节点h值
+	 *
+	 * @return 节点g值
+	 */
+	float getG() { return m_g; }
+
+	/**
+	 * 设置父节点\link wyAStarStep wyAStarStep\endlink对象指针
+	 *
+	 * @param node 父节点\link wyAStarStep wyAStarStep\endlink对象指针
+	 */
+	void setParent(wyAStarStep* node);
+
+	/**
+	 * 返回父节点\link wyAStarStep wyAStarStep\endlink对象指针
+	 *
+	 * @return 父节点\link wyAStarStep wyAStarStep\endlink对象指针
+	 */
+	wyAStarStep* getParent() { return m_parent; }
+};
+
+#endif // __wyAStarStep_h__
+#ifndef __wyAStarTile_h__
+
+
+#define TILE_FREE 0
+#define TILE_BLOCKED 1
+
+/**
+ * @class wyAStarTile
+ *
+ * A*地图状况tile封装
+ */
+class wyAStarTile : public wyObject {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param type tile状态, free或者block
+	 * @param x tile x值
+	 * @param y tile y值
+	 */
+	wyAStarTile(int type, int x, int y);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyAStarTile();
+
+	/**
+	 * 返回g值得影响值
+	 *
+	 * @return g值得影响值
+	 */
+	float getGRate() { return m_gRate; }
+
+	/**
+	 * 设置g值得影响值
+	 *
+	 * @param gRate g值得影响值
+	 */
+	void setGRate(float gRate) { m_gRate = gRate; }
+
+	/**
+	 * 返回tile x值
+	 *
+	 * @return tile x值
+	 */
+	int getX() { return m_x; }
+
+	/**
+	 * 返回tile y值
+	 *
+	 * @return tile y值
+	 */
+	int getY() { return m_y; }
+
+	/**
+	 * 返回tile状态, free或者block
+	 *
+	 * @return tile状态, free或者block
+	 */
+	int getType() { return m_type; }
+
+	/**
+	 * 设置tile状态, free或者block
+	 *
+	 * @param type tile状态
+	 */
+	void setType(int type) { m_type = type; }
+
+	/**
+	 * 判断是否为block状态
+	 *
+	 * @return true为block状态
+	 */
+	bool isBlocked() { return m_type == TILE_BLOCKED; }
+
+	/**
+	 * 判断是否为free状态
+	 *
+	 * @return true为free状态
+	 */
+	bool isFree() { return m_type == TILE_FREE; }
+
+	/**
+	 * 增加子节点\link wyAStarTile wyAStarTile\endlink对象指针
+	 *
+	 * @param tile 子节点\link wyAStarTile wyAStarTile\endlink对象指针
+	 */
+	void pushChild(wyAStarTile* tile);
+
+	/**
+	 * 返回子节点\link wyArray wyArray\endlink对象指针
+	 *
+	 * @return 子节点\link wyArray wyArray\endlink对象指针
+	 */
+	wyArray* getChilds() { return m_childs; }
+};
+
+#endif // __wyAStarTile_h__
+#ifndef __wyHexagonAStarMap_h__
+
+
+/**
+ * @class wyHexagonAStarMap
+ *
+ * A*六变形地图状况tile封装
+ */
+class wyHexagonAStarMap : public wyAStarMap {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param width 横向tile数量
+	 * @param height 纵向tile数量
+	 */
+	wyHexagonAStarMap(int width, int height);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyHexagonAStarMap();
+
+	/// @see wyAStarMap::validTile
+	virtual bool isValidTile(int x, int y);
+
+	/// @see wyAStarMap::getStepG
+	virtual float getStepG(wyAStarTile* t1, wyAStarTile* t2);
+};
+
+#endif // __wyHexagonAStarMap_h__
+#ifndef __wyRectAStarMap_h__
+
+
+/**
+ * @class wyRectAStarMap
+ *
+ * A*矩形地图状况tile封装
+ */
+class wyRectAStarMap : public wyAStarMap {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param width 横向tile数量
+	 * @param height 纵向tile数量
+	 * @param isAllowDiagonal 是否允许斜线查找, true为允许
+	 */
+	wyRectAStarMap(int width, int height, bool isAllowDiagonal);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRectAStarMap();
+
+	/// @see wyAStarMap::validTile
+	virtual bool isValidTile(int x, int y);
+
+	/// @see wyAStarMap::getStepG
+	virtual float getStepG(wyAStarTile* t1, wyAStarTile* t2);
+};
+
+#endif // __wyRectAStarMap_h__

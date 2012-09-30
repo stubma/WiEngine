@@ -1,0 +1,12 @@
+b2Draw增加了DrawPoint方法
+b2World.DrawShape增加了对sensor的判断
+b2World增加了对java层contact listener的封装支持，用一个b2ContactListener包装java层监听器，由b2World负责销毁包装类
+b2World增加了对java层destruction listener的封装支持，用一个b2DestructionListener包装java层监听器，由b2World负责销毁包装类
+b2Body, b2BodyDef增加了java层user data的引用
+b2Fixture, b2FixtureDef增加了java层user data的引用
+b2Joint, b2JointDef增加了java层user data的引用
+b2World增加了获得block allocator的api, jni需要使用
+b2RopeJoint增加了GetLength(), SetMaxLength()方法
+b2World中增加了对wyBox2D的引用
+b2Fixture增加了设置动画，清除动画的方法
+增加对物理设计工具PhysicsEditor的支持；

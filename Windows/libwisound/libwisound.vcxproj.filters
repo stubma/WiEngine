@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\WiSound\wyAudioManager.cpp" />
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyMp3Stream.cpp">
+      <Filter>backends\openal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyOggStream.cpp">
+      <Filter>backends\openal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyOpenAL.cpp">
+      <Filter>backends\openal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyWavStream.cpp">
+      <Filter>backends\openal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyAudioManager_openal.cpp">
+      <Filter>backends\openal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyAudioPlayer.cpp">
+      <Filter>backends\openal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyAudioStream.cpp">
+      <Filter>backends\openal</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\WiSound\wyJNI.h" />
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyAudioStream.h">
+      <Filter>backends\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyMp3Stream.h">
+      <Filter>backends\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyOggStream.h">
+      <Filter>backends\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyOpenAL.h">
+      <Filter>backends\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyWavStream.h">
+      <Filter>backends\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyAudioManager_openal.h">
+      <Filter>backends\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyAudioPlayer.h">
+      <Filter>backends\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\wisound\wyAudioManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="backends">
+      <UniqueIdentifier>{8d725126-991e-48b5-9cf1-a01dc8a469f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="backends\openal">
+      <UniqueIdentifier>{aede2cc6-45d7-497f-b68b-1bdca75b37b7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

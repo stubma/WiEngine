@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\libpng\png.c" />
+    <ClCompile Include="..\..\jni\libpng\pngerror.c" />
+    <ClCompile Include="..\..\jni\libpng\pnggccrd.c" />
+    <ClCompile Include="..\..\jni\libpng\pngget.c" />
+    <ClCompile Include="..\..\jni\libpng\pngmem.c" />
+    <ClCompile Include="..\..\jni\libpng\pngpread.c" />
+    <ClCompile Include="..\..\jni\libpng\pngread.c" />
+    <ClCompile Include="..\..\jni\libpng\pngrio.c" />
+    <ClCompile Include="..\..\jni\libpng\pngrtran.c" />
+    <ClCompile Include="..\..\jni\libpng\pngrutil.c" />
+    <ClCompile Include="..\..\jni\libpng\pngset.c" />
+    <ClCompile Include="..\..\jni\libpng\pngtest.c" />
+    <ClCompile Include="..\..\jni\libpng\pngtrans.c" />
+    <ClCompile Include="..\..\jni\libpng\pngvcrd.c" />
+    <ClCompile Include="..\..\jni\libpng\pngwio.c" />
+    <ClCompile Include="..\..\jni\libpng\pngwrite.c" />
+    <ClCompile Include="..\..\jni\libpng\pngwtran.c" />
+    <ClCompile Include="..\..\jni\libpng\pngwutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\libpng\png.h" />
+    <ClInclude Include="..\..\jni\libpng\pngconf.h" />
+    <ClInclude Include="..\..\jni\libpng\pngusr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libz\libz.vcxproj">
+      <Project>{a84811e2-e408-475d-95c8-3810ec8a64a2}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D9B1762C-1184-4E06-AF04-F8A0D9546EB2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libpng</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBPNG_EXPORTS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\libpng;..\libz\include</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>false</ExceptionHandling>
+      <BasicRuntimeChecks>
+      </BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CompileAs>CompileAsC</CompileAs>
+      <StringPooling>
+      </StringPooling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBPNG_EXPORTS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\libpng;..\libz\include</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>false</ExceptionHandling>
+      <BasicRuntimeChecks>
+      </BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CompileAs>CompileAsC</CompileAs>
+      <StringPooling>
+      </StringPooling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\lua\lapi.c" />
+    <ClCompile Include="..\..\jni\lua\lauxlib.c" />
+    <ClCompile Include="..\..\jni\lua\lbaselib.c" />
+    <ClCompile Include="..\..\jni\lua\lcode.c" />
+    <ClCompile Include="..\..\jni\lua\ldblib.c" />
+    <ClCompile Include="..\..\jni\lua\ldebug.c" />
+    <ClCompile Include="..\..\jni\lua\ldo.c" />
+    <ClCompile Include="..\..\jni\lua\ldump.c" />
+    <ClCompile Include="..\..\jni\lua\lfunc.c" />
+    <ClCompile Include="..\..\jni\lua\lgc.c" />
+    <ClCompile Include="..\..\jni\lua\linit.c" />
+    <ClCompile Include="..\..\jni\lua\liolib.c" />
+    <ClCompile Include="..\..\jni\lua\llex.c" />
+    <ClCompile Include="..\..\jni\lua\lmathlib.c" />
+    <ClCompile Include="..\..\jni\lua\lmem.c" />
+    <ClCompile Include="..\..\jni\lua\loadlib.c" />
+    <ClCompile Include="..\..\jni\lua\lobject.c" />
+    <ClCompile Include="..\..\jni\lua\lopcodes.c" />
+    <ClCompile Include="..\..\jni\lua\loslib.c" />
+    <ClCompile Include="..\..\jni\lua\lparser.c" />
+    <ClCompile Include="..\..\jni\lua\lstate.c" />
+    <ClCompile Include="..\..\jni\lua\lstring.c" />
+    <ClCompile Include="..\..\jni\lua\lstrlib.c" />
+    <ClCompile Include="..\..\jni\lua\ltable.c" />
+    <ClCompile Include="..\..\jni\lua\ltablib.c" />
+    <ClCompile Include="..\..\jni\lua\ltm.c" />
+    <ClCompile Include="..\..\jni\lua\lua.c" />
+    <ClCompile Include="..\..\jni\lua\lundump.c" />
+    <ClCompile Include="..\..\jni\lua\lvm.c" />
+    <ClCompile Include="..\..\jni\lua\lzio.c" />
+    <ClCompile Include="..\..\jni\lua\print.c" />
+    <ClCompile Include="..\..\jni\lua\wyLua.cpp" />
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_event.c">
+      <Filter>tolua++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_is.c">
+      <Filter>tolua++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_map.c">
+      <Filter>tolua++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_push.c">
+      <Filter>tolua++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\tolua++\tolua_to.c">
+      <Filter>tolua++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\actions.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\afcanim.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\astar.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\bitmapfont.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\common.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\dialog.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\easeactions.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\events.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\filters.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\grid.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\gridactions.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\nodes.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\opengl.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\particle.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\persistence.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\tmx.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\transitions.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\types.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\lua\packages\utils.cpp">
+      <Filter>packages</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\lua\lapi.h" />
+    <ClInclude Include="..\..\jni\lua\lauxlib.h" />
+    <ClInclude Include="..\..\jni\lua\lcode.h" />
+    <ClInclude Include="..\..\jni\lua\ldebug.h" />
+    <ClInclude Include="..\..\jni\lua\ldo.h" />
+    <ClInclude Include="..\..\jni\lua\lfunc.h" />
+    <ClInclude Include="..\..\jni\lua\lgc.h" />
+    <ClInclude Include="..\..\jni\lua\llex.h" />
+    <ClInclude Include="..\..\jni\lua\llimits.h" />
+    <ClInclude Include="..\..\jni\lua\lmem.h" />
+    <ClInclude Include="..\..\jni\lua\lobject.h" />
+    <ClInclude Include="..\..\jni\lua\lopcodes.h" />
+    <ClInclude Include="..\..\jni\lua\lparser.h" />
+    <ClInclude Include="..\..\jni\lua\lstate.h" />
+    <ClInclude Include="..\..\jni\lua\lstring.h" />
+    <ClInclude Include="..\..\jni\lua\ltable.h" />
+    <ClInclude Include="..\..\jni\lua\ltm.h" />
+    <ClInclude Include="..\..\jni\lua\lua.h" />
+    <ClInclude Include="..\..\jni\lua\luaconf.h" />
+    <ClInclude Include="..\..\jni\lua\lualib.h" />
+    <ClInclude Include="..\..\jni\lua\lundump.h" />
+    <ClInclude Include="..\..\jni\lua\lvm.h" />
+    <ClInclude Include="..\..\jni\lua\lzio.h" />
+    <ClInclude Include="..\..\jni\lua\tolua++\tolua_event.h">
+      <Filter>tolua++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\lua\tolua++\tolua++.h">
+      <Filter>tolua++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\lua\wyLua.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="tolua++">
+      <UniqueIdentifier>{98f56f27-b10b-4ef7-85de-2439ba38b0b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="packages">
+      <UniqueIdentifier>{1884fe56-8d59-4337-9045-698185e5244d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,423 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyHGEParticleLoader_h__
+
+
+/**
+ * @class wyParticleLoader
+ *
+ * 用于载入HGE(HAFF'S GAME ENGINE)的粒子系统描述文件
+ */
+class wyHGEParticleLoader {
+public:
+	/**
+	 * 载入HGE粒子系统的描述文件
+	 *
+	 * @param[in] resId .psi描述文件的资源id
+	 * @param[in] particleCount 指定粒子系统的粒子数量
+	 * @param[in] tex 指定粒子系统的粒子贴图
+	 *
+	 * @return \link wyQuadParticleSystem wyQuadParticleSystem\endlink
+	 */
+	static wyQuadParticleSystem* load(int resId, int particleCount, wyTexture2D* tex);
+
+	/**
+	 * 载入HGE粒子系统的描述文件
+	 *
+	 * @param[in] path .psi描述文件的asset路径或者文件系统路径
+	 * @param[in] particleCount 指定粒子系统的粒子数量
+	 * @param[in] tex 指定粒子系统的粒子贴图
+	 * @param[in] isFile 可选参数, true表示path是一个文件系统路径, false表示path是一个assets下的相对路径
+	 *
+	 * @return \link wyQuadParticleSystem wyQuadParticleSystem\endlink
+	 */
+	static wyQuadParticleSystem* load(const char* path, int particleCount, wyTexture2D* tex, bool isFile = false);
+};
+
+#endif // __wyHGEParticleLoader_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyParticle_h__
+
+
+
+typedef struct wyParticle {
+	// current position of this particle
+	wyPoint pos;
+
+	// init position when the particle is emitted
+	wyPoint startPos;
+
+	// color and delta color
+	wyColor4F color;
+	wyColor4F deltaColor;
+
+	// particle size
+	float size;
+	float deltaSize;
+
+	// rotation in degrees, anchor is particle pos
+	float rotation;
+	float deltaRotation;
+
+	// how many time to live
+	float timeToLive;
+
+	// for gravity mode
+	wyPoint direction;
+	float radialAccel;
+	float tangentialAccel;
+
+	// for radius mode
+	float radian;
+	float radianPerSecond;
+	float radius;
+	float deltaRadius;
+} wyParticle;
+
+// create
+wyParticle* wyParticleNew();
+
+
+#endif // __wyParticle_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyParticleLoader_h__
+
+
+typedef unsigned char xmlChar;
+
+/**
+ * @class wyParticleLoader
+ *
+ * 用于载入particle designer设计的粒子系统描述文件
+ */
+class wyParticleLoader {
+public:
+	/**
+	 * 载入particle designer描述文件
+	 *
+	 * @param resId pd描述文件的资源id
+	 * @return \link wyQuadParticleSystem wyQuadParticleSystem\endlink
+	 */
+	static wyQuadParticleSystem* load(int resId);
+
+	/**
+	 * 载入particle designer描述文件
+	 *
+	 * @param path pd描述文件的asset路径或者文件系统路径
+	 * @param isFile 可选参数, true表示path是一个文件系统路径, false表示path是一个assets下的相对路径
+	 * @return \link wyQuadParticleSystem wyQuadParticleSystem\endlink
+	 */
+	static wyQuadParticleSystem* load(const char* path, bool isFile = false);
+};
+
+#endif // __wyParticleLoader_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyParticleSystem_h__
+
+
+/** The Particle emitter lives forever */
+#define PARTICLE_DURATION_INFINITY -1
+
+/** The starting size of the particle is equal to the ending size */
+#define PARTICLE_START_SIZE_EQUAL_TO_END_SIZE -1
+
+/** The starting radius of the particle is equal to the ending radius */
+#define PARTICLE_START_RADIUS_EQUAL_TO_END_RADIUS -1
+
+/**
+ * 粒子系统模式
+ */
+typedef enum {
+	/** Gravity mode (A mode) */
+	GRAVITY = 1,
+
+	/** Radius mode (B mode) */
+	RADIUS
+} wyParticleSystemMode;
+
+typedef enum {
+	/** If the emitter is repositioned, the living particles won't be repositioned */
+	FREE = 1,
+
+	/** If the emitter is repositioned, the living particles will be repositioned too */
+	GROUPED,
+} wyParticleSystemPositionType;
+
+/**
+ * @class wyParticleSystem
+ *
+ * 粒子系统
+ */
+class wyParticleSystem : public wyNode {
+public:
+	/**
+	 * 析构函数
+	 */ 	
+	virtual ~wyParticleSystem();
+
+	/// @see wyNode::setPosition
+	virtual void setPosition(float x, float y);
+
+	/// @see wyNode::getBlendFunc
+	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
+
+	/// @see wyNode::setBlendFunc
+	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
+
+	/// @see wyNode::getTexture
+	virtual wyTexture2D* getTexture() { return m_tex; }
+
+	/// @see wyNode::setTexture
+	virtual void setTexture(wyTexture2D* tex);
+
+	/**
+	 * 重设粒子系统, 重设后所有粒子的生存时间会被清零，也就相当于所有粒子会在下次
+	 * 更新时清除。
+	 */
+	void resetSystem();
+
+	/**
+	 * 停止粒子系统，粒子会停止释放
+	 */
+	void stopSystem();
+
+	// setters
+	void setBlendAdditive(bool additive);
+	bool isBlendAdditive() { return m_blendFunc.src == GL_SRC_ALPHA && m_blendFunc.dst == GL_ONE; }
+	void setParticlePositionVariance(float baseX, float baseY, float varianceX, float varianceY);
+	void setDirectionAngleVariance(float base, float variance);
+	void setStartSizeVariance(float base, float variance);
+	void setEndSizeVariance(float base, float variance);
+	void setLifeVariance(float base, float variance);
+	void setStartColorVariance(float baseR, float baseG, float baseB, float baseA, float varR, float varG, float varB, float varA);
+	void setEndColorVariance(float baseR, float baseG, float baseB, float baseA, float varR, float varG, float varB, float varA);
+	void setStartSpinVariance(float base, float variance);
+	void setEndSpinVariance(float base, float variance);
+	void setSpeedVariance(float base, float variance);
+	void setParticleGravity(float gravityX, float gravityY);
+	void setTangentialAccelerationVariance(float base, float variance);
+	void setRadialAccelerationVariance(float base, float variance);
+	void setStartRadiusVariance(float base, float variance);
+	void setEndRadiusVariance(float base, float variance);
+	void setRotationVariance(float base, float variance);
+
+	// getter/setters
+	wyPoint getParticleGravity() { return m_gravity; }
+	void setDuration(float d) { m_duration = d; }
+	float getDuration() { return m_duration; }
+	wyPoint getCenterOfGravity() { return m_centerOfGravity; }
+	bool isAutoRemoveOnFinish() { return m_autoRemoveOnFinish; }
+	void setAutoRemoveOnFinish(bool flag) { m_autoRemoveOnFinish = flag; }
+	float getEmissionRate() { return m_emissionRate; }
+	void setEmissionRate(float rate) { m_emissionRate = rate; }
+	float getLife() { return m_life; }
+	wyParticleSystemMode getEmitterMode() { return m_emitterMode; }
+	void setEmitterMode(wyParticleSystemMode mode) { m_emitterMode = mode; }
+	wyParticleSystemPositionType getPositionType() { return m_positionType; }
+	void setPositionType(wyParticleSystemPositionType type) { m_positionType = type; }
+	int getParticleCount() { return m_particleCount; }
+	int getMaxParticles() { return m_maxParticles; }
+};
+
+#endif // __wyParticleSystem_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyPointParticleSystem_h__
+
+
+/**
+ * @class wyPointParticleSystem
+ *
+ * 点粒子系统
+ */
+class wyPointParticleSystem : public wyParticleSystem {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] numberOfParticles 粒子数量
+	 */
+	wyPointParticleSystem(int numberOfParticles);
+	
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyPointParticleSystem();
+
+	/**
+	 * 在屏幕上绘制粒子系统的当前帧
+	 * 
+	 * @see wyNode::draw
+	 */
+	virtual void draw();
+};
+
+#endif // __wyPointParticleSystem_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyQuadParticleSystem_h__
+
+
+/**
+ * @class wyQuadParticleSystem
+ *
+ * 方块粒子系统
+ */
+class wyQuadParticleSystem : public wyParticleSystem {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] numberOfParticles 粒子数量
+	 */
+	wyQuadParticleSystem(int numberOfParticles);
+	
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyQuadParticleSystem();
+
+	/**
+	 * 在屏幕上绘制粒子系统的当前帧
+	 * 
+	 * @see wyNode::draw
+	 */
+	virtual void draw();
+
+	/**
+	 * 设置应用于粒子的贴图
+	 *
+	 * @param[in] tex 贴图
+	 */	
+	virtual void setTexture(wyTexture2D* tex);
+
+	/**
+	 * 设置应用于粒子的贴图
+	 *
+	 * @param[in] tex 贴图
+	 * @param[in] rect 贴图内区域，如{0，0，tex.width/2, tex.height/2}表示仅左下1/4区域用于贴图操作
+	 */	
+	void setTexture(wyTexture2D* tex, wyRect rect);
+};
+
+
+#endif // __wyQuadParticleSystem_h__

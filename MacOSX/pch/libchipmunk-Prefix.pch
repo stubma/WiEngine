@@ -1,0 +1,11 @@
+//
+// Prefix header for all source files of the 'libchipmunk' target in the 'libchipmunk' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import "wyNode.h"
+	#import "wyArray.h"
+	#import "wyHashSet.h"
+	#import "WiEngine-Chipmunk.h"
+#endif

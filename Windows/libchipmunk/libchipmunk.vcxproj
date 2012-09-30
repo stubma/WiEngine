@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\chipmunk\chipmunk.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpConstraint.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpDampedRotarySpring.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpDampedSpring.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpGearJoint.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpGrooveJoint.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpPinJoint.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpPivotJoint.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpRatchetJoint.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpRotaryLimitJoint.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpSimpleMotor.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\constraints\cpSlideJoint.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpArbiter.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpArray.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpBB.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpBody.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpCollision.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpHashSet.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpPolyShape.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpShape.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpSpace.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpSpaceComponent.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpSpaceHash.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpSpaceQuery.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpSpaceStep.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\cpVect.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\drawSpace.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\wyChipmunk.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\wyChipmunkPELoader.cpp" />
+    <ClCompile Include="..\..\jni\chipmunk\wyShapeAnimation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\chipmunk\chipmunk.h" />
+    <ClInclude Include="..\..\jni\chipmunk\chipmunk_ffi.h" />
+    <ClInclude Include="..\..\jni\chipmunk\chipmunk_private.h" />
+    <ClInclude Include="..\..\jni\chipmunk\chipmunk_types.h" />
+    <ClInclude Include="..\..\jni\chipmunk\chipmunk_unsafe.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpConstraint.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpDampedRotarySpring.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpDampedSpring.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpGearJoint.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpGrooveJoint.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpPinJoint.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpPivotJoint.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpRatchetJoint.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpRotaryLimitJoint.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpSimpleMotor.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\cpSlideJoint.h" />
+    <ClInclude Include="..\..\jni\chipmunk\constraints\util.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpArbiter.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpArray.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpBB.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpBody.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpCollision.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpHashSet.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpPolyShape.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpShape.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpSpace.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpSpaceHash.h" />
+    <ClInclude Include="..\..\jni\chipmunk\cpVect.h" />
+    <ClInclude Include="..\..\jni\chipmunk\drawSpace.h" />
+    <ClInclude Include="..\..\jni\chipmunk\prime.h" />
+    <ClInclude Include="..\..\jni\chipmunk\wyJNI.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\chipmunk\wyChipmunk.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\chipmunk\wyChipmunkPELoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\chipmunk\wyShapeAnimation.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libwiengine\libwiengine.vcxproj">
+      <Project>{b0ae0601-02ca-43ef-8f61-c3b31fadbda2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libxml2\libxml2.vcxproj">
+      <Project>{478ee92c-bf93-4e4e-850c-50d6a863199d}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4C005BEC-040B-4981-B023-860DD3C4BDAF}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libchipmunk</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBCHIPMUNK_EXPORTS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\chipmunk\constraints;..\..\jni\chipmunk;..\..\jni\libxml2\include;..\libpthread;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\platform\windows;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\chipmunk;..\..\jni;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4068</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libEGL.lib;libgles_cm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dependence;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBCHIPMUNK_EXPORTS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\chipmunk\constraints;..\..\jni\chipmunk;..\..\jni\libxml2\include;..\libpthread;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\platform\windows;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\chipmunk;..\..\jni;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4068</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libEGL.lib;libgles_cm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dependence;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,4 @@
+1. ndk的locale.h有问题，去掉了相关的代码，只有llex.c中有一处引用
+2. 把print改成调用LOGD
+3. 所有的头文件加上了extern "C"
+4. lua_isstring判断如果是数字也认为是string, 暂时去掉了设置. 如果不去掉它在调用wyTexture2D::makePNG时, 把resId当成字符串调错了方法.

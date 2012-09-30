@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8445EBFD-7178-4BC9-9A6B-03C2D1A3B04A}</ProjectGuid>
+    <Keyword>CustomAppWizProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="2052\Images\DottedHori.gif" />
+    <None Include="2052\Images\DottedVert.gif" />
+    <None Include="2052\Images\spacer.gif" />
+    <None Include="2052\NewStyles.css" />
+    <None Include="default.vcxproj" />
+    <None Include="HTML\2052\default.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Images\WiEngineWizard.gif" />
+    <None Include="Images\WiEngineWizard_Background.gif" />
+    <None Include="Scripts\2052\default.js" />
+    <None Include="Templates\2052\Templates.inf" />
+    <None Include="Templates\2052\WiEngine.ico" />
+    <None Include="WiEngineWizard.ico" />
+    <None Include="WiEngineWizard.vsdir" />
+    <None Include="WiEngineWizard.vsz" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Templates\2052\FirstScene.h" />
+    <ClInclude Include="Templates\2052\resource.h" />
+    <ClInclude Include="Templates\2052\stdafx.h" />
+    <ClInclude Include="Templates\2052\targetver.h" />
+    <ClInclude Include="Templates\2052\WiEngineApp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Templates\2052\FirstScene.cpp" />
+    <ClCompile Include="Templates\2052\stdafx.cpp" />
+    <ClCompile Include="Templates\2052\WiEngineApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Templates\2052\WiEngineSkeletonProject.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

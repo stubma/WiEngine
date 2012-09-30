@@ -1,0 +1,12 @@
+#include "com_wiyun_engine_transitions_LeftBottomTilesShrinkOutTransition.h"
+#include "wyLeftBottomTilesShrinkOutTransition.h"
+
+extern jfieldID g_fid_BaseObject_mPointer;
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_transitions_LeftBottomTilesShrinkOutTransition_nativeInit
+  (JNIEnv * env, jobject thiz, jfloat duration, jobject inScene, int rows, int cols) {
+	wyScene* in = inScene == NULL ? NULL : (wyScene*)env->GetIntField(inScene, g_fid_BaseObject_mPointer);
+	wyLeftBottomTilesShrinkOutTransition* trans = WYNEW wyLeftBottomTilesShrinkOutTransition(duration, in, rows, cols);
+	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)trans);
+	wyObjectLazyRelease(trans);
+}

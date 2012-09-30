@@ -1,0 +1,820 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libjpeg\libjpeg.vcxproj">
+      <Project>{5d6ece36-0116-481e-952a-09fcf377c00b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libnsbmp\libnsbmp.vcxproj">
+      <Project>{935281d4-cdda-4c26-ac78-80addfc745ba}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libpng\libpng.vcxproj">
+      <Project>{d9b1762c-1184-4e06-af04-f8a0d9546eb2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libpthread\libpthread.vcxproj">
+      <Project>{d5d948cb-0ded-40c7-94d9-191c89b3988b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libsqlite\libsqlite.vcxproj">
+      <Project>{ce9ed8d3-ac9c-40cb-b727-057bc1223410}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libwiskia\libwiskia.vcxproj">
+      <Project>{61e30a4f-2cf1-40a4-8592-d7cd1a411a08}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libxml2\libxml2.vcxproj">
+      <Project>{478ee92c-bf93-4e4e-850c-50d6a863199d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libz\libz.vcxproj">
+      <Project>{a84811e2-e408-475d-95c8-3810ec8a64a2}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\WiEngine\impl\dialog\wyDialog_resources.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\events\com_wiyun_engine_events_Accelerometer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\events\com_wiyun_engine_events_EventDispatcher.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_Director.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_TextBox.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\resource.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyAndroidStrings.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyAssetInputStream_win.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyAssetOutputStream_win.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyDirector_win.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyEventDispatcher_win.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyGestureRecognizer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyResMap.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wySkiaAdapter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyTextBox_win.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyUtils_win.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\tmx\wyTMXObjectLayer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\utils\com_wiyun_engine_utils_ImagePickerActivity.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyAnimate.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyBezier.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyBlink.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyCallFunc.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyCameraAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyClipIn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyClipOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyCoverFlowAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyDelayTime.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyFadeIn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyFadeOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyFadeTo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyFiniteTimeAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyFollow.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyHide.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyHypotrochoid.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyInstantAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyIntervalAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyJumpBy.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyJumpTo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyLagrange.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyMoveBy.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyMoveByAngle.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyMoveByPath.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyMoveTo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyOrbitCamera.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyPlace.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyProgressBy.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyProgressTo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyRepeat.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyRepeatForever.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyReverseTime.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyRotateBy.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyRotateTo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyScaleBy.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyScaleTo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wySequence.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyShake.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyShow.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wySkewBy.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wySkewTo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wySpawn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wySpeed.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyTintBy.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyTintTo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyToggleVisibility.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAFCAnimation.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAFCClip.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAFCClipMapping.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAFCConstants.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAFCFileData.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAFCFrame.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAFCSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyArcticConstants.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyArcticFileData.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyArcticLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyArcticManager.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyArcticSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAuroraConstants.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAuroraFileData.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAuroraLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAuroraManager.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyAuroraSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyMWFileData.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyMWLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyMWManager.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wyMWSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPX3Action.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPX3Constants.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPX3FileData.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPX3Frame.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPX3Loader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPX3Manager.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPX3Sprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPX3TileSet.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPXAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPXConstants.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPXFileData.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPXFrame.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPXLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPXManager.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\afcanim\wySPXSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\astar\wyAStar.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\astar\wyAStarMap.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\astar\wyAStarStep.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\astar\wyAStarTile.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\astar\wyHexagonAStarMap.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\astar\wyRectAStarMap.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\bitmapfont\wyAngelCodeTXTFontLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\bitmapfont\wyAngelCodeXMLFontLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\bitmapfont\wyBitmapFont.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\bitmapfont\wyBitmapFontLabel.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\bitmapfont\wyHGEFontLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyArray.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyAutoReleasePool.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyDevice.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyGlobal.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyHashSet.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyMemory.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyObject.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyThread.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\dialog\wyDialog.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\dialog\wyDialogPopupTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\dialog\wyDialogTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseBackIn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseBackInOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseBackOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseBounce.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseBounceIn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseBounceInOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseBounceOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseElastic.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseElasticIn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseElasticInOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseElasticOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseExponentialIn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseExponentialInOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseExponentialOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseIn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseInOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseRateAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseSineIn.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseSineInOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\easeactions\wyEaseSineOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\events\wyEventDispatcher.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\events\wyEvents.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyAreaColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyBlurColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyColorMatrix.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyColorMatrixColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyCombineColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyCustomColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyDropShadowColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyEmbossColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyGlowColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyLightingColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\filters\wyMappingColorFilter.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyBottomLineShrinkOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyBottomTilesShrinkOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyGrid3DAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyGridAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyGridFlipX.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyGridFlipY.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyJumpTiles3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyLeftBottomTilesShrinkOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyLeftLineShrinkOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyLens3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyLiquid.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyPageTurn3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyReuseGrid.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyRightLineShrinkOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyRightTopTilesShrinkOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyRipple3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyShaky3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyShakyTiles3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyShatteredTiles3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyShuffleTiles.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wySplitCols.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wySplitRows.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyStopGrid.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wySuck.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyTiledGrid3DAction.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyTopLineShrinkOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyTopTilesShrinkOut.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyTurnOffTiles.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyTwirl.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyWaves.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyWaves3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyWavesTiles3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyBaseGrid.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGrabber.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGrid3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyTiledGrid3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTGlobal.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTMemoryFileSystem.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTResourceFile.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTString.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyActionManager.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyAnimation.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyArrayTileMapAtlas.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyAtlasLabel.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyAtlasNode.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyBladeRibbon.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyButton.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyColorLayer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyCoverFlow.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyDirector.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyDotPageIndicator.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyFrame.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyGradientColorLayer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyLabel.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyLayer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyLineRibbon.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyMenu.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyMenuItem.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyMenuItemAtlasLabel.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyMenuItemLabel.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyMenuItemSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyMenuItemToggle.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyMotionStreak.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyMultiplexLayer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyNinePatchSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyNode.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyPageControl.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyPageIndicator.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyParallaxNode.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyParallaxObject.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyProgressTimer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyRenderTexture.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyRibbon.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyScene.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyScheduler.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyScrollableLayer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyScrollableLayerListener.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wySlider.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wySpotRibbon.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wySprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wySpriteBatchNode.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wySpriteEx.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wySpriteFrame.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyStripRibbon.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyTextBox.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyTextureNode.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyTGATileMapAtlas.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyTiledSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyTileMapAtlas.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyToast.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyVirtualJoystick.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\opengl\glu.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyCamera.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyGLTexture2D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyPrimitives.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTexture2D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTextureAtlas.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTextureManager.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\particle\wyHGEParticleLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\particle\wyParticle.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\particle\wyParticleLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\particle\wyParticleSystem.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\particle\wyPointParticleSystem.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\particle\wyQuadParticleSystem.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\persistence\wyDatabase.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\persistence\wyPrefs.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\persistence\wyResultSet.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\persistence\wyStatement.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\dirent.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\EGL\egl.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\EGL\eglext.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\EGL\eglplatform.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES\egl.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES\gl.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES\glext.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES\glplatform.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\KHR\khrplatform.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\stdbool.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\unistd.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\wyGestureRecognizerListener.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\wyWinGLView.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyLayerInfo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyMapInfo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyTileSetInfo.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyTMXLayer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyTMXLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyTMXObject.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyTMXObjectGroup.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyTMXTileMap.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyBottomPushInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyBottomSlideInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyBottomTilesShrinkOutTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyClipInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyClipOutTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyColorFadeTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyCrossFadeTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyFlipAngularTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyFlipXTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyFlipYTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyJumpZoomTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyLeftBottomTilesShrinkOutTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyLeftPushInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyLeftSlideInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyPageTurn3DTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyRadialCCWTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyRadialCWTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyRightPushInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyRightSlideInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyRightTopTilesShrinkOutTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyRotateZoomTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyShrinkGrowTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wySplitColsTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wySplitRowsTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wySuckTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyTopPushInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyTopSlideInTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyTopTilesShrinkOutTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyTransitionScene.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyTurnOffTilesTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyZoomFlipAngularTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyZoomFlipXTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\transitions\wyZoomFlipYTransition.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyAffineTransform.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyBezierConfig.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyBlendFunc.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyColor3B.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyColor4B.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyColor4F.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyColorHSV.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyDimension.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyHypotrochoidConfig.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyLagrangeConfig.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyPoint.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyPointList.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyPVR.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyQuad2D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyQuad3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyRect.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wySize.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyTypes.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\types\wyVertex3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyAssetInputStream.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyAssetOutputStream.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyCharProvider.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyImagePicker.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyLog.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyMath.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyMD5.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyMemoryInputStream.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyMemoryOutputStream.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyPerformance.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyResourceDecoder.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyRunnable.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyScroller.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyTargetSelector.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyTGALoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyUtils.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyVerletPoint.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyVerletRope.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyVerletStick.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyZwoptex.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\utils\wyZwoptexManager.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\WiEngine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyAnimate.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyBezier.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyBlink.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyCallFunc.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyCameraAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyClipIn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyClipOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyCoverFlowAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyDelayTime.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyFadeIn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyFadeOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyFadeTo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyFiniteTimeAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyFollow.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyHide.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyHypotrochoid.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyInstantAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyIntervalAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyJumpBy.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyJumpTo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyLagrange.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyMoveBy.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyMoveByAngle.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyMoveByPath.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyMoveTo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyOrbitCamera.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyPlace.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyProgressBy.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyProgressTo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyRepeat.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyRepeatForever.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyReverseTime.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyRotateBy.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyRotateTo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyScaleBy.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyScaleTo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wySequence.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyShake.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyShow.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wySkewBy.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wySkewTo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wySpawn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wySpeed.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyTintBy.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyTintTo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyToggleVisibility.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAFCAnimation.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAFCClip.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAFCClipMapping.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAFCFileData.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAFCFrame.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAFCSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyArcticFileData.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyArcticLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyArcticManager.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyArcticSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAuroraFileData.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAuroraLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAuroraManager.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyAuroraSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyMWFileData.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyMWLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyMWManager.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wyMWSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPX3Action.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPX3FileData.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPX3Frame.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPX3Loader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPX3Manager.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPX3Sprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPX3TileSet.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPXAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPXFileData.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPXFrame.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPXLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPXManager.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\afcanim\wySPXSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\astar\wyAStar.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\astar\wyAStarMap.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\astar\wyAStarStep.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\astar\wyAStarTile.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\astar\wyHexagonAStarMap.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\astar\wyRectAStarMap.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\bitmapfont\wyAngelCodeTXTFontLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\bitmapfont\wyAngelCodeXMLFontLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\bitmapfont\wyBitmapFont.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\bitmapfont\wyBitmapFontLabel.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\bitmapfont\wyHGEFontLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyArray.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyAutoReleasePool.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyDevice.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyGlobal.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyHashSet.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyMemory.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyObject.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyThread.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\dialog\wyDialog.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\dialog\wyDialogPopupTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\dialog\wyDialogTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseBackIn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseBackInOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseBackOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseBounce.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseBounceIn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseBounceInOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseBounceOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseElastic.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseElasticIn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseElasticInOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseElasticOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseExponentialIn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseExponentialInOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseExponentialOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseIn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseInOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseRateAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseSineIn.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseSineInOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\easeactions\wyEaseSineOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\events\com_wiyun_engine_events_Accelerometer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\events\com_wiyun_engine_events_EventDispatcher.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\events\wyEventDispatcher.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyAreaColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyBlurColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyColorMatrix.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyColorMatrixColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyCombineColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyCustomColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyDropShadowColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyEmbossColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyGlowColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyLightingColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyMappingColorFilter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyBottomLineShrinkOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyBottomTilesShrinkOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyGrid3DAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyGridAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyGridFlipX.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyGridFlipY.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyJumpTiles3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyLeftBottomTilesShrinkOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyLeftLineShrinkOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyLens3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyLiquid.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyPageTurn3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyReuseGrid.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyRightLineShrinkOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyRightTopTilesShrinkOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyRipple3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyShaky3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyShakyTiles3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyShatteredTiles3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyShuffleTiles.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wySplitCols.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wySplitRows.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyStopGrid.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wySuck.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyTiledGrid3DAction.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyTopLineShrinkOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyTopTilesShrinkOut.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyTurnOffTiles.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyTwirl.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyWaves.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyWaves3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyWavesTiles3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyBaseGrid.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGrabber.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGrid3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyTiledGrid3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\mfs\PVRTResourceFile.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\mfs\PVRTString.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_Director.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_TextBox.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyActionManager.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyAnimation.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyArrayTileMapAtlas.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyAtlasLabel.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyAtlasNode.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyBladeRibbon.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyButton.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyColorLayer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyCoverFlow.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyDirector.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyDotPageIndicator.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyFrame.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyGradientColorLayer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyLabel.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyLayer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyLineRibbon.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyMenu.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyMenuItem.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyMenuItemAtlasLabel.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyMenuItemLabel.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyMenuItemSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyMenuItemToggle.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyMotionStreak.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyMultiplexLayer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyNinePatchSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyNode.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyPageControl.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyParallaxNode.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyParallaxObject.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyProgressTimer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyRenderTexture.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyRibbon.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyScene.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyScheduler.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyScrollableLayer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wySlider.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wySpotRibbon.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wySprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wySpriteBatchNode.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wySpriteEx.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wySpriteFrame.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyStripRibbon.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyTextBox.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyTextureNode.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyTGATileMapAtlas.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyTiledSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyTileMapAtlas.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyToast.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyVirtualJoystick.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\glu.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyCamera.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyGLTexture2D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyPrimitives.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTexture2D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTextureAtlas.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTextureManager.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyHGEParticleLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyParticle.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyParticleLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyParticleSystem.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyPointParticleSystem.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyQuadParticleSystem.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\persistence\wyDatabase.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\persistence\wyResultSet.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\persistence\wyStatement.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\dllmain.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyAndroidStrings.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyAssetInputStream_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyAssetOutputStream_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyDevice_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyDirector_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyEventDispatcher_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyGestureRecognizer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyImagePicker_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyPrefs_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyResMap.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wySkiaAdapter.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyTextBox_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyThread_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyUtils_win.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyWinGLView.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyLayerInfo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyMapInfo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyTileSetInfo.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyTMXLayer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyTMXLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyTMXObject.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyTMXObjectGroup.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyTMXObjectLayer.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyTMXTileMap.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyBottomPushInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyBottomSlideInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyBottomTilesShrinkOutTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyClipInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyClipOutTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyColorFadeTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyCrossFadeTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyFlipAngularTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyFlipXTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyFlipYTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyJumpZoomTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyLeftBottomTilesShrinkOutTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyLeftPushInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyLeftSlideInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyPageTurn3DTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyRadialCCWTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyRadialCWTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyRightPushInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyRightSlideInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyRightTopTilesShrinkOutTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyRotateZoomTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyShrinkGrowTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wySplitColsTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wySplitRowsTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wySuckTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyTopPushInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyTopSlideInTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyTopTilesShrinkOutTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyTransitionScene.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyTurnOffTilesTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyZoomFlipAngularTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyZoomFlipXTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\transitions\wyZoomFlipYTransition.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyColor3B.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyColor4B.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyColor4F.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyColorHSV.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyDimension.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyPoint.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyPointList.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyPVR.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyQuad2D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyQuad3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyRect.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wySize.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyVertex3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\com_wiyun_engine_utils_ImagePickerActivity.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyAssetInputStream.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyAssetOutputStream.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyImagePicker.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyLog.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyMath.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyMD5.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyMemoryInputStream.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyMemoryOutputStream.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyPerformance.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyResourceDecoder.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyRunnable.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyScroller.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyTargetSelector.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyTGALoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyUtils.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyVerletPoint.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyVerletRope.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyVerletStick.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyZwoptex.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\utils\wyZwoptexManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\jni\WiEngine\impl\platform\windows\WiEngine.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B0AE0601-02CA-43EF-8F61-C3B31FADBDA2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libwiengine</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)jni\WiEngine\include\platform\windows;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWIENGINE_EXPORTS;_CRT_SECURE_NO_WARNINGS;GL_GLEXT_PROTOTYPES;WY_CFLAG_OPTIMIZE_MATH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4244;4018;4996</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libEGL.lib;libgles_cm.lib;Iphlpapi.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dependence</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>.;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4244;4018;4996</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWIENGINE_EXPORTS;_CRT_SECURE_NO_WARNINGS;GL_GLEXT_PROTOTYPES;WY_CFLAG_OPTIMIZE_MATH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libEGL.lib;libgles_cm.lib;Iphlpapi.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dependence</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

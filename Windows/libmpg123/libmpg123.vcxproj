@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\libmpg123\compat.c" />
+    <ClCompile Include="..\..\jni\libmpg123\dct64.c" />
+    <ClCompile Include="..\..\jni\libmpg123\dct64_i386.c" />
+    <ClCompile Include="..\..\jni\libmpg123\equalizer.c" />
+    <ClCompile Include="..\..\jni\libmpg123\format.c" />
+    <ClCompile Include="..\..\jni\libmpg123\frame.c" />
+    <ClCompile Include="..\..\jni\libmpg123\icy.c" />
+    <ClCompile Include="..\..\jni\libmpg123\icy2utf8.c" />
+    <ClCompile Include="..\..\jni\libmpg123\id3.c" />
+    <ClCompile Include="..\..\jni\libmpg123\index.c" />
+    <ClCompile Include="..\..\jni\libmpg123\layer1.c" />
+    <ClCompile Include="..\..\jni\libmpg123\layer2.c" />
+    <ClCompile Include="..\..\jni\libmpg123\layer3.c" />
+    <ClCompile Include="..\..\jni\libmpg123\libmpg123.c" />
+    <ClCompile Include="..\..\jni\libmpg123\ntom.c" />
+    <ClCompile Include="..\..\jni\libmpg123\optimize.c" />
+    <ClCompile Include="..\..\jni\libmpg123\parse.c" />
+    <ClCompile Include="..\..\jni\libmpg123\readers.c" />
+    <ClCompile Include="..\..\jni\libmpg123\stringbuf.c" />
+    <ClCompile Include="..\..\jni\libmpg123\synth.c" />
+    <ClCompile Include="..\..\jni\libmpg123\synth_8bit.c" />
+    <ClCompile Include="..\..\jni\libmpg123\synth_real.c" />
+    <ClCompile Include="..\..\jni\libmpg123\synth_s32.c" />
+    <ClCompile Include="..\..\jni\libmpg123\tabinit.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\libmpg123\compat.h" />
+    <ClInclude Include="..\..\jni\libmpg123\config.h" />
+    <ClInclude Include="..\..\jni\libmpg123\config_default.h" />
+    <ClInclude Include="..\..\jni\libmpg123\config_win.h" />
+    <ClInclude Include="..\..\jni\libmpg123\frame.h" />
+    <ClInclude Include="..\..\jni\libmpg123\icy.h" />
+    <ClInclude Include="..\..\jni\libmpg123\icy2utf8.h" />
+    <ClInclude Include="..\..\jni\libmpg123\id3.h" />
+    <ClInclude Include="..\..\jni\libmpg123\index.h" />
+    <ClInclude Include="..\..\jni\libmpg123\intsym.h" />
+    <ClInclude Include="..\..\jni\libmpg123\l12_integer_tables.h" />
+    <ClInclude Include="..\..\jni\libmpg123\l2tables.h" />
+    <ClInclude Include="..\..\jni\libmpg123\l3_integer_tables.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mangle.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mpg123.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mpg123lib_intern.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mpg123_default.h" />
+    <ClInclude Include="..\..\jni\libmpg123\mpg123_win.h" />
+    <ClInclude Include="..\..\jni\libmpg123\optimize.h" />
+    <ClInclude Include="..\..\jni\libmpg123\parse.h" />
+    <ClInclude Include="..\..\jni\libmpg123\reader.h" />
+    <ClInclude Include="..\..\jni\libmpg123\sample.h" />
+    <ClInclude Include="..\..\jni\libmpg123\synth.h" />
+    <ClInclude Include="..\..\jni\libmpg123\synth_8bit.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\jni\libmpg123\synth_arm.S" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{51952BBA-A3C0-42E3-832C-6089F89171D2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libmpg123</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;OPT_GENERIC</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\WiEngine\include\platform\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;OPT_GENERIC</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\WiEngine\include\platform\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

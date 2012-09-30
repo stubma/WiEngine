@@ -1,0 +1,1348 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyColorFilter_h__
+
+/**
+ * @class wyColorFilter
+ *
+ * \if English
+ * color filter is used to transform colors in a texture
+ * \else
+ * 颜色过滤器用来对一个贴图中的颜色进行转换
+ * \endif
+ */
+class wyColorFilter : public wyObject {
+public:
+	virtual ~wyColorFilter() {}
+};
+
+#endif // __wyColorFilter_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyColorMatrix_h__
+
+
+/**
+ * @class wyColorMatrix
+ *
+ * \if English
+ * 5x4 matrix for transforming the color+alpha components of a Bitmap.
+ * The matrix is stored in a single array, and its treated as follows:
+ *  [ a, b, c, d, e,
+ *    f, g, h, i, j,
+ *    k, l, m, n, o,
+ *    p, q, r, s, t ]
+ *
+ * \par
+ * When applied to a color [r, g, b, a], the resulting color is computed as
+ * (after clamping)
+ *   R' = a*R + b*G + c*B + d*A + e;
+ *   G' = f*R + g*G + h*B + i*A + j;
+ *   B' = k*R + l*G + m*B + n*A + o;
+ *   A' = p*R + q*G + r*B + s*A + t;
+ * \else
+ * 一个5x4的颜色转换矩阵, 这个矩阵以一个20个浮点数的数组来表示:
+ *  [ a, b, c, d, e,
+ *    f, g, h, i, j,
+ *    k, l, m, n, o,
+ *    p, q, r, s, t ]
+ *
+ * \par
+ * 当应用到一个颜色[r, g, b, a]上时, 结果颜色经过矩阵运行并取值在区间[0, 1]:
+ *   R' = a*R + b*G + c*B + d*A + e;
+ *   G' = f*R + g*G + h*B + i*A + j;
+ *   B' = k*R + l*G + m*B + n*A + o;
+ *   A' = p*R + q*G + r*B + s*A + t;
+ * \endif
+ */
+class wyColorMatrix : public wyObject {
+public:
+	virtual ~wyColorMatrix();
+
+	/**
+	 * \if English
+	 * create a identity color matrix
+	 *
+	 * @return \link wyColorMatrix wyColorMatrix\endlink
+	 * \else
+	 * 创建一个单位颜色矩阵, 即对角线元素为1
+	 *
+	 * @return \link wyColorMatrix wyColorMatrix\endlink
+	 * \endif
+	 */
+	static wyColorMatrix* make();
+
+	/**
+	 * \if English
+	 * create a matrix
+	 *
+	 * @param m matrix elements, must have 20 elements. elements will be copied so
+	 * 		caller can release the pointer when make returns
+	 * @return \link wyColorMatrix wyColorMatrix\endlink
+	 * \else
+	 * 创建一个颜色矩阵
+	 *
+	 * @param m 矩阵元素, 必须包含20个浮点数. 元素内容会被拷贝, 因此make返回后调用者可以释放指针.
+	 * @return \link wyColorMatrix wyColorMatrix\endlink
+	 * \endif
+	 */
+	static wyColorMatrix* make(float* m);
+
+	/**
+	 * \if English
+	 * reset matrix to identity
+	 * \else
+	 * 重置矩阵为单位矩阵
+	 * \endif
+	 */
+	void reset();
+
+	/**
+	 * \if English
+	 * get matrix elements
+	 *
+	 * @return matrix element pointer, caller should not release it
+	 * \else
+	 * 得到矩阵元素
+	 *
+	 * @return 矩阵元素, 调用者不需要释放
+	 * \endif
+	 */
+	float* getMatrix() { return m_matrix; }
+
+	/**
+	 * \if English
+	 * copy elements of other matrix
+	 *
+	 * @param m other \link wyColorMatrix wyColorMatrix\endlink object
+	 * \else
+	 * 复制其它矩阵内容
+	 *
+	 * @param m 要复制的\link wyColorMatrix wyColorMatrix\endlink对象
+	 * \endif
+	 */
+	void setMatrix(wyColorMatrix* m);
+
+	/**
+	 * \if English
+	 * copy elements from a float array, float array must at least contain 20 float number
+	 *
+	 * @param m float array
+	 * \else
+	 * 从一个浮点数组设置矩阵元素, 数组至少要有20个浮点数
+	 *
+	 * @param m 浮点数组
+	 * \endif
+	 */
+	void setMatrix(float* m);
+
+    /**
+     * \if English
+     * Set this color matrix to scale by the specified values.
+     *
+     * @param rScale scale of red
+     * @param gScale scale of green
+     * @param bScale scale of blue
+     * @param aScale scale of alpha
+     * \else
+     * 设置颜色矩阵的缩放值
+     *
+     * @param rScale 红色的缩放值
+     * @param gScale 绿色的缩放值
+     * @param bScale 蓝色的缩放值
+     * @param aScale 透明度的缩放值
+     * \endif
+     */
+    void setScale(float rScale, float gScale, float bScale, float aScale);
+
+    /**
+     * \if English
+     * Set the rotation on a color axis by the specified values.
+     *
+     * @param axis axis value
+     * 		axis=0 correspond to a rotation around the RED color
+     * 		axis=1 correspond to a rotation around the GREEN color
+     * 		axis=2 correspond to a rotation around the BLUE color
+     * @param degrees rotation degrees
+     * \else
+     * 旋转颜色矩阵
+     *
+     * @param axis 旋转轴
+     * 		0表示按照红色旋转
+     * 		1表示按照绿色旋转
+     * 		2表示按照蓝色旋转
+     * @param degrees 旋转角度
+     * \endif
+     */
+    void setRotate(int axis, float degrees);
+
+    /**
+     * \if English
+     * Set this color matrix to the concatenation of the two specified
+     * color matrices, such that the resulting color matrix has the same effect
+     * as applying matB and then applying matA. It is legal for either matA or
+     * matB to be the same color matrix as this.
+     *
+     * @param matA matrix A
+     * @param matB matrix B
+     * \else
+     * 当前矩阵变成两个矩阵的组合, 其效果相当于先使用矩阵A, 再使用矩阵B.
+     *
+     * @param matA 矩阵A, 可以为当前矩阵
+     * @param matB 矩阵B, 可以为当前矩阵
+     * \endif
+     */
+    void setConcat(wyColorMatrix* matA, wyColorMatrix* matB);
+
+    /**
+     * \if English
+     * Concat this colormatrix with the specified prematrix. This is logically
+     * the same as calling setConcat(this, prematrix);
+     *
+     * @param prematrix matrix to be concated
+     * \else
+     * 前置连接一个矩阵
+     *
+     * @param prematrix 要连接的矩阵
+     */
+    void preConcat(wyColorMatrix* prematrix) { setConcat(this, prematrix); }
+
+    /**
+     * \if English
+     * Concat this colormatrix with the specified postmatrix. This is logically
+     * the same as calling setConcat(postmatrix, this);
+     *
+     * @param postmatrix matrix to be concated
+     * \else
+     * 后置连接一个矩阵
+     *
+     * @param postmatrix 要连接的矩阵
+     * \endif
+     */
+    void postConcat(wyColorMatrix* postmatrix) { setConcat(postmatrix, this); }
+
+    /**
+     * \if English
+     * Set the matrix to affect the saturation of colors. A value of 0 maps the
+     * color to gray-scale. 1 is identity.
+     *
+     * @param sat saturation, from 0 from 1
+     * \else
+     * 设置颜色矩阵的饱和度修正参数, 取值从0到1, 0表示把颜色转换为灰度, 1表示不变
+     *
+     * @param sat 饱和度, 从0到1
+     * \endif
+     */
+    void setSaturation(float sat);
+
+    /**
+     * \if English
+     * Set the matrix to convert RGB to YUV
+     * \else
+     * 设置颜色矩阵, 用来把rgb颜色转变成yuv颜色
+     * \endif
+     */
+    void setRGB2YUV();
+
+    /**
+     * \if English
+     * Set the matrix to convert from YUV to RGB
+     * \else
+     * 设置颜色矩阵, 用来把yuv颜色转换为rgb颜色
+     * \endif
+     */
+    void setYUV2RGB();
+
+    /**
+     * \if English
+     * set the matrix to convert image to digital nagative
+     * \else
+     * 设置颜色矩阵, 将图片转换为底片效果
+     * \endif
+     */
+    void setNegative();
+};
+
+#endif // __wyColorMatrix_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyColorMatrixColorFilter_h__
+
+
+/**
+ * @class wyColorMatrixColorFilter
+ *
+ * \if English
+ * color filter which use a color matrix to transform colors
+ * \else
+ * 使用颜色矩阵对颜色进行转换的过滤器
+ * \endif
+ */
+class wyColorMatrixColorFilter : public wyColorFilter {
+public:
+	virtual ~wyColorMatrixColorFilter();
+
+	/**
+	 * \if English
+	 * create a color matrix filter
+	 *
+	 * @param m \link wyColorMatrix wyColorMatrix\endlink
+	 * @return \link wyColorMatrixColorFilter wyColorMatrixColorFilter\endlink
+	 * \else
+	 * 创建一个颜色矩阵过滤器
+	 *
+	 * @param m \link wyColorMatrix wyColorMatrix\endlink
+	 * @return \link wyColorMatrixColorFilter wyColorMatrixColorFilter\endlink
+	 * \endif
+	 */
+	static wyColorMatrixColorFilter* make(wyColorMatrix* m);
+
+	/// @see wyColorFilter::apply
+	virtual void apply(void* data, int width, int height);
+};
+
+#endif // __wyColorMatrixColorFilter_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLightingColorFilter_h__
+
+/**
+ * @class wyLightingColorFilter
+ *
+ * \if English
+ * Color filter that multiplies the RGB channels by one color, and then adds a second color,
+ * pinning the result for each component to [0..255]. The alpha components of the mul and add arguments
+ * are ignored.
+ * \else
+ * 这个滤镜对颜色的三原色进行一个乘法, 然后再做一个加法, 最后的结果限制在[0, 255]之内. 透明度不参与乘法和加法.
+ *
+ * \par
+ * 例如: 如果想把图片中的红色清空, 可以指定和0xFF00FFFF相乘, 再和0x00000000相加.
+ * \endif
+ */
+class wyLightingColorFilter : public wyColorFilter {
+public:
+	virtual ~wyLightingColorFilter();
+
+	/**
+	 * \if English
+	 * static constructor
+	 *
+	 * @param mul color to be multiplied, format is 0xaarrggbb
+	 * @param add color to be added, format is 0xaarrggbb
+	 * @return \link wyLightingColorFilter wyLightingColorFilter\endlink
+	 * \else
+	 * 构造函数
+	 *
+	 * @param mul 用来相乘的颜色, 格式是0xaarrggbb
+	 * @param add 用来相加的颜色, 格式是0xaarrggbb
+	 * @return \link wyLightingColorFilter wyLightingColorFilter\endlink
+	 * \endif
+	 */
+	static wyLightingColorFilter* make(int mul, int add);
+
+	/// @see wyColorFilter::apply
+	virtual void apply(void* data, int width, int height);
+};
+
+#endif // __wyLightingColorFilter_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyMappingColorFilter_h__
+
+
+/**
+ * @class wyMappingColorFilter
+ *
+ * \if English
+ * This filter map a color to another color, so you can replace a color to another color easily.
+ * This filter by default neglect alpha channel so alpha keep unchanged, but you can set flag to
+ * change this behavior.
+ * \else
+ * 这个方法将某个颜色替换为其它颜色, 这样可以方便的修改图片的某色值. 当前前提是你必须知道要替换的色值. 这个
+ * 滤镜缺省情况下不操作alpha值, 所以alpha值会保持不变, 但是你可以设置标志让它操作alpha值.
+ * \endif
+ */
+class wyMappingColorFilter : public wyColorFilter {
+public:
+	virtual ~wyMappingColorFilter();
+	static wyMappingColorFilter* make();
+
+	/// @see wyColorFilter::apply
+	virtual void apply(void* data, int width, int height);
+
+	/**
+	 * \if English
+	 * Define a color mapping
+	 *
+	 * @param from the color need to be changed, in argb format
+	 * @param to destination color, in argb format
+	 * @param fromMask mask of \c from color, it decides which part is compared and which part
+	 * 		is kept. Default is 0x00ffffff so only rgb of \c from is compared with source color
+	 * @param toMask mask of \c to color and it decides which part is copied to source. Default
+	 * 		is 0x00ffffff so rgb of \c to is copied to source and alpha of source is kept.
+	 * \else
+	 * 定义一个颜色映射
+	 *
+	 * @param from 需要被替换的颜色
+	 * @param to 需要被替换成的颜色
+	 * @param fromMask 颜色的比较位的掩码, 用来决定颜色的哪些部分参与比较, 哪些部分保持不变. 缺省值是
+	 * 		0x00ffffff, 这表示只比较源颜色和\c from的rgb值
+	 * @param toMask \c to的掩码值, 表示了什么部分会被拷贝到颜色中, 而这个掩码的反码就是源颜色的保留部分.
+	 * 		缺省值是0x00ffffff, 表示\c to的rgb部分会拷贝过去, 而源颜色的alpha值保持不变
+	 * \else
+	 */
+	void mapColor(int from, int to, int fromMask = 0x00ffffff, int toMask = 0x00ffffff);
+
+	/**
+	 * \if English
+	 * Unmap a color
+	 *
+	 * @param from color need to be removed from map
+	 * \else
+	 * 取消一个颜色的映射
+	 *
+	 * @param from 需要被取消的颜色映射的原始色
+	 * \endif
+	 */
+	void unmapColor(int from);
+};
+
+#endif // __wyMappingColorFilter_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyCombineColorFilter_h__
+
+/**
+ * @class wyCombineColorFilter
+ *
+ * \if English
+ * Combine many color filters together and perform them one by one. Output
+ * of previous filter is the input of next.
+ * \else
+ * 将多个过滤器组合成一个, 先后执行它们, 后一个过滤器以前一个过滤器的输出为输入.
+ * 过滤器越多, 速度可能越慢, 因此要谨慎使用.
+ * \endif
+ */
+class wyCombineColorFilter : public wyColorFilter {
+public:
+	virtual ~wyCombineColorFilter();
+
+	/**
+	 * \if English
+	 * Static constructor, must be ended by NULL
+	 *
+	 * @param filter1 first filter, more filters can follow filter2, use NULL to end
+	 * \else
+	 * 静态构造函数, 必须以NULL表示结束
+	 *
+	 * @param filter1 第一个过滤器, 如果有更多过滤器可以跟在后面, 以NULL结束
+	 * \endif
+	 */
+	static wyCombineColorFilter* make(wyColorFilter* filter1, ...);
+
+	/**
+	 * \if English
+	 * Add a filter to last
+	 *
+	 * @param filter color filter to be added
+	 * \else
+	 * 添加一个过滤器到最后
+	 *
+	 * @param filter 过滤器
+	 * \endif
+	 */
+	void addFilter(wyColorFilter* filter);
+
+	/// @see wyColorFilter::apply
+	virtual void apply(void* data, int width, int height);
+};
+
+#endif // __wyCombineColorFilter_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEmbossColorFilter_h__
+
+/**
+ * @class wyEmbossColorFilter
+ *
+ * \if English
+ * Emboss effect for texture
+ * \else
+ * 浮雕效果的滤镜
+ * \endif
+ */
+class wyEmbossColorFilter : public wyColorFilter {
+public:
+	virtual ~wyEmbossColorFilter();
+
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param grayLevel gray level for emboss effect
+	 * \else
+	 * 静态构造函数
+	 *
+	 * param grayLevel 浮雕效果的灰度级别, 级别越低, 最终的效果越暗. 缺省值是128.
+	 * \endif
+	 */
+	static wyEmbossColorFilter* make(unsigned int grayLevel = 128);
+
+	/// @see wyColorFilter::apply
+	virtual void apply(void* data, int width, int height);
+
+	/**
+	 * \if English
+	 * Set gray level of emboss filter
+	 *
+	 * @param grayLevel gray level for emboss effect, from 0 to 255
+	 * \else
+	 * 设置浮雕滤镜的灰度级别, 级别越低, 最终的效果越暗
+	 *
+	 * @param grayLevel 浮雕效果的灰度级别, 级别越低, 最终的效果越暗
+	 * \endif
+	 */
+	void setGrayLevel(unsigned int grayLevel) { m_grayLevel = grayLevel; }
+
+	/**
+	 * \if English
+	 * Get gray level of emboss filter
+	 *
+	 * @return grayLevel gray level for emboss effect, from 0 to 255
+	 * \else
+	 * 获得浮雕滤镜的灰度级别, 级别越低, 最终的效果越暗
+	 *
+	 * @return grayLevel 浮雕效果的灰度级别, 级别越低, 最终的效果越暗
+	 * \endif
+	 */
+	unsigned int getGrayLevel() { return m_grayLevel; }
+};
+
+#endif // __wyEmbossColorFilter_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyBlurColorFilter_h__
+
+/**
+ * @class wyBlurColorFilter
+ *
+ * \if English
+ * Blur filter, using average filter algorithm
+ * \else
+ * 模糊滤镜, 使用平均模糊算法
+ * \endif
+ */
+class wyBlurColorFilter : public wyColorFilter {
+public:
+	virtual ~wyBlurColorFilter();
+
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param radius blur radius, at least 1
+	 * @return \link wyBlurColorFilter wyBlurColorFilter\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param radius 模糊半径, 至少大于等于1, 如果小于1则不做任何事
+	 * @return \link wyBlurColorFilter wyBlurColorFilter\endlink
+	 * \endif
+	 */
+	static wyBlurColorFilter* make(int radius);
+
+	/// @see wyColorFilter::apply
+	virtual void apply(void* data, int width, int height);
+
+	/**
+	 * \if English
+	 * Set blur radius
+	 *
+	 * @param radius blur radius
+	 * \else
+	 * 设置模糊半径
+	 *
+	 * @param radius 模糊半径
+	 * \endif
+	 */
+	void setRadius(int radius) { m_radius = radius; }
+
+	/**
+	 * \if English
+	 * Get blur radius
+	 *
+	 * @return blur radius
+	 * \else
+	 * 得到模糊半径
+	 *
+	 * @return 模糊半径
+	 * \endif
+	 */
+	int getRadius() { return m_radius; }
+};
+
+#endif // __wyBlurColorFilter_h__
+
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyGlowColorFilter_h__
+
+/**
+ * @class wyGlowColorFilter
+ *
+ * \if English
+ * Glow texture
+ * \else
+ * 光环滤镜
+ * \endif
+ */
+class wyGlowColorFilter : public wyColorFilter {
+public:
+    virtual ~wyGlowColorFilter();
+
+    /**
+     * \if English
+     * Static constructor
+     *
+     * @param color The color of the glow
+     * @param radius The radius of the glow in pixels
+     * @param highlightRadius The radius of the highlight area
+     * @param opacity The opacity of the glow
+     * @return \link wyGlowColorFilter wyGlowColorFilter\endlink
+     * \else
+     * 静态构造函数
+     *
+     * @param color 光环颜色
+     * @param radius 光环半径
+     * @param highlightRadius 光环半径高亮区域
+     * @param opacity 光环透明度
+     * @return \link wyGlowColorFilter wyGlowColorFilter\endlink
+     * \endif
+     */
+    static wyGlowColorFilter* make(wyColor3B color, int radius, int highlightRadius, int opacity);
+
+    /// @see wyColorFilter::apply
+    virtual void apply(void* data, int width, int height);
+
+    /**
+     * \if English
+     * Set blur radius
+     *
+     * @param radius blur radius
+     * \else
+     * 设置模糊半径
+     *
+     * @param radius 光环半径
+     * \endif
+     */
+    void setRadius(int radius) { m_radius = radius; }
+
+    /**
+     * \if English
+     * Get blur radius
+     *
+     * @return blur radius
+     * \else
+     * 得到光环半径
+     *
+     * @return 光环半径
+     * \endif
+     */
+    int getRadius() { return m_radius; }
+
+    /**
+     * \if English
+     * Set opacity of the glow
+     *
+     * @param opacity of the glow
+     * \else
+     * 设置光环透明度
+     *
+     * @param radius 光环透明度
+     * \endif
+     */
+    void setOpacity(int opacity) { m_opacity = opacity; }
+
+    /**
+     * \if English
+     * The opacity of the glow
+     *
+     * @return The opacity of the glow
+     * \else
+     * 得到光环透明度
+     *
+     * @return 光环透明度
+     * \endif
+     */
+    int getOpacity() { return m_opacity; }
+
+    /**
+     * \if English
+     * Set radius of the highlight area
+     *
+     * @param radius of the highlight area
+     * \else
+     * 设置光环高亮区域半径
+     *
+     * @param radius 光环高亮区域半径
+     * \endif
+     */
+    void setHighlightRadius(int highlightRadius) { m_highlightRadius = highlightRadius; }
+
+    /**
+     * \if English
+     * The radius of the highlight area
+     *
+     * @return The radius of the highlight area
+     * \else
+     * 得到光环高亮区域半径
+     *
+     * @return 光环高亮区域半径
+     * \endif
+     */
+    int getHighlightRadius() { return m_highlightRadius; }
+};
+
+#endif // __wyGlowColorFilter_h__
+
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyDropShadowColorFilter_h__
+
+/**
+ * @class wyDropShadowColorFilter
+ *
+ * \if English
+ * Glow texture
+ * \else
+ * 阴影滤镜
+ * \endif
+ */
+class wyDropShadowColorFilter : public wyColorFilter {
+public:
+    virtual ~wyDropShadowColorFilter();
+
+    /**
+     * \if English
+     * Static constructor
+     *
+     * @param color The color of the glow
+     * @param radius The radius of the glow in pixels
+     * @param highlightRadius The radius of the highlight area
+     * @param opacity The opacity of the glow
+     * @return \link wyDropShadowColorFilter wyDropShadowColorFilter\endlink
+     * \else
+     * 静态构造函数
+     *
+     * @param color 阴影颜色
+     * @param radius 阴影半径
+     * @param highlightRadius 阴影半径高亮区域
+     * @param opacity 阴影透明度
+     * @return \link wyDropShadowColorFilter wyDropShadowColorFilter\endlink
+     * \endif
+     */
+    static wyDropShadowColorFilter* make(wyColor3B color, int radius, int highlightRadius, int opacity);
+
+    /// @see wyColorFilter::apply
+    virtual void apply(void* data, int width, int height);
+
+    /**
+     * \if English
+     * Set blur radius
+     *
+     * @param radius blur radius
+     * \else
+     * 设置模糊半径
+     *
+     * @param radius 阴影半径
+     * \endif
+     */
+    void setRadius(int radius) { m_radius = radius; }
+
+    /**
+     * \if English
+     * Get blur radius
+     *
+     * @return blur radius
+     * \else
+     * 得到阴影半径
+     *
+     * @return 模糊半径
+     * \endif
+     */
+    int getRadius() { return m_radius; }
+
+    /**
+     * \if English
+     * Set opacity of the glow
+     *
+     * @param opacity of the glow
+     * \else
+     * 设置阴影透明度
+     *
+     * @param radius 阴影透明度
+     * \endif
+     */
+    void setOpacity(int opacity) { m_opacity = opacity; }
+
+    /**
+     * \if English
+     * The opacity of the glow
+     *
+     * @return The opacity of the glow
+     * \else
+     * 得到阴影透明度
+     *
+     * @return 阴影透明度
+     * \endif
+     */
+    int getOpacity() { return m_opacity; }
+
+    /**
+     * \if English
+     * Set radius of the highlight area
+     *
+     * @param radius of the highlight area
+     * \else
+     * 设置阴影高亮区域半径
+     *
+     * @param radius 阴影高亮区域半径
+     * \endif
+     */
+    void setHighlightRadius(int highlightRadius) { m_highlightRadius = highlightRadius; }
+
+    /**
+     * \if English
+     * The radius of the highlight area
+     *
+     * @return The radius of the highlight area
+     * \else
+     * 得到阴影高亮区域半径
+     *
+     * @return 阴影高亮区域半径
+     * \endif
+     */
+    int getHighlightRadius() { return m_highlightRadius; }
+};
+
+#endif // __wyDropShadowColorFilter_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyAreaColorFilter_h__
+
+/**
+ * @class wyAreaColorFilter
+ *
+ * \if English
+ * Map color at some area to other color. The area shape can be point, line, rectangle, circle
+ * \else
+ * 对某些区域的颜色进行映射. 这些区域可以是点, 线, 矩形, 多边形等形状
+ * \endif
+ */
+class wyAreaColorFilter : public wyColorFilter {
+public:
+	virtual ~wyAreaColorFilter();
+	static wyAreaColorFilter* make();
+
+	/// @see wyColorFilter::apply
+	virtual void apply(void* data, int width, int height);
+
+	/**
+	 * \if English
+	 * Map color at a point to other color
+	 *
+	 * @param x the x position, uses top-left corner of image as origin
+	 * @param y the y position, uses top-left corner of image as origin
+	 * @param from source color to be matched
+	 * @param to destination color to be replaced to
+	 * @param fromMask mask of \c from color, it decides which part is compared and which part
+	 * 		is kept. Default is 0x00ffffff so only rgb of \c from is compared with source color
+	 * @param toMask mask of \c to color and it decides which part is copied to source. Default
+	 * 		is 0x00ffffff so rgb of \c to is copied to source and alpha of source is kept.
+	 * \else
+	 * 替换一个位置上的颜色
+	 *
+	 * @param x 需要映射的x位置, 原点是图片的左上角
+	 * @param y 需要映射的y位置, 原点是图片的左上角
+	 * @param from 需要映射的源颜色, 格式是0xaarrggbb
+	 * @param to 需要映射到的颜色, 格式是0xaarrggbb
+	 * @param fromMask 颜色的比较位的掩码, 用来决定颜色的哪些部分参与比较, 哪些部分保持不变. 缺省值是
+	 * 		0x00ffffff, 这表示只比较源颜色和\c from的rgb值
+	 * @param toMask \c to的掩码值, 表示了什么部分会被拷贝到颜色中, 而这个掩码的反码就是源颜色的保留部分.
+	 * 		缺省值是0x00ffffff, 表示\c to的rgb部分会拷贝过去, 而源颜色的alpha值保持不变
+	 * \endif
+	 */
+	void mapPoint(int x, int y, int from, int to, int fromMask = 0x00ffffff, int toMask = 0x00ffffff);
+
+	/**
+	 * \if English
+	 * Remove a position mapping
+	 *
+	 * @param x the x position, uses top-left corner of image as origin
+	 * @param y the y position, uses top-left corner of image as origin
+	 * \else
+	 * 删除一个点的颜色映射
+	 *
+	 * @param x 需要删除映射的x位置, 原点是图片的左上角
+	 * @param y 需要删除映射的y位置, 原点是图片的左上角
+	 * \endif
+	 */
+	void removePoint(int x, int y);
+
+	/**
+	 * \if English
+	 * Map colors at a line to other color
+	 *
+	 * @param x1 start x position, uses top-left corner of image as origin
+	 * @param y1 start y position, uses top-left corner of image as origin
+	 * @param x2 end x position, uses top-left corner of image as origin
+	 * @param y2 end y position, uses top-left corner of image as origin
+	 * @param from source color to be matched
+	 * @param to destination color to be replaced to
+	 * @param fromMask mask of \c from color, it decides which part is compared and which part
+	 * 		is kept. Default is 0x00ffffff so only rgb of \c from is compared with source color
+	 * @param toMask mask of \c to color and it decides which part is copied to source. Default
+	 * 		is 0x00ffffff so rgb of \c to is copied to source and alpha of source is kept.
+	 * \else
+	 * 替换一个位置上的颜色
+	 *
+	 * @param x1 线的起始x位置, 原点是图片的左上角
+	 * @param y1 线的起始y位置, 原点是图片的左上角
+	 * @param x2 线的结束x位置, 原点是图片的左上角
+	 * @param y2 线的结束y位置, 原点是图片的左上角
+	 * @param from 需要映射的源颜色, 格式是0xaarrggbb
+	 * @param to 需要映射到的颜色, 格式是0xaarrggbb
+	 * @param fromMask 颜色的比较位的掩码, 用来决定颜色的哪些部分参与比较, 哪些部分保持不变. 缺省值是
+	 * 		0x00ffffff, 这表示只比较源颜色和\c from的rgb值
+	 * @param toMask \c to的掩码值, 表示了什么部分会被拷贝到颜色中, 而这个掩码的反码就是源颜色的保留部分.
+	 * 		缺省值是0x00ffffff, 表示\c to的rgb部分会拷贝过去, 而源颜色的alpha值保持不变
+	 * \endif
+	 */
+	void mapLine(int x1, int y1, int x2, int y2, int from, int to, int fromMask = 0x00ffffff, int toMask = 0x00ffffff);
+
+	/**
+	 * \if English
+	 * Remove a line mapping
+	 *
+	 * @param x1 start x position, uses top-left corner of image as origin
+	 * @param y1 start y position, uses top-left corner of image as origin
+	 * @param x2 end x position, uses top-left corner of image as origin
+	 * @param y2 end y position, uses top-left corner of image as origin
+	 * \else
+	 * 删除一条线的颜色映射
+	 *
+	 * @param x1 线的起始x位置, 原点是图片的左上角
+	 * @param y1 线的起始y位置, 原点是图片的左上角
+	 * @param x2 线的结束x位置, 原点是图片的左上角
+	 * @param y2 线的结束y位置, 原点是图片的左上角
+	 * \endif
+	 */
+	void removeLine(int x1, int y1, int x2, int y2);
+
+	/**
+	 * \if English
+	 * Map colors in a rectangle to other color
+	 *
+	 * @param x rect top-left x position, origin is top-left of image
+	 * @param y rect top-left y position, origin is top-left of image
+	 * @param w rect width
+	 * @param h rect height
+	 * @param from source color to be matched
+	 * @param to destination color to be replaced to
+	 * @param fromMask mask of \c from color, it decides which part is compared and which part
+	 * 		is kept. Default is 0x00ffffff so only rgb of \c from is compared with source color
+	 * @param toMask mask of \c to color and it decides which part is copied to source. Default
+	 * 		is 0x00ffffff so rgb of \c to is copied to source and alpha of source is kept.
+	 * \else
+	 * 替换一个位置上的颜色
+	 *
+	 * @param x 矩形的左上角x位置, 原点是图片的左上角
+	 * @param y 矩形的左上角y位置, 原点是图片的左上角
+	 * @param w 矩形宽度
+	 * @param h 矩形高度
+	 * @param from 需要映射的源颜色, 格式是0xaarrggbb
+	 * @param to 需要映射到的颜色, 格式是0xaarrggbb
+	 * @param fromMask 颜色的比较位的掩码, 用来决定颜色的哪些部分参与比较, 哪些部分保持不变. 缺省值是
+	 * 		0x00ffffff, 这表示只比较源颜色和\c from的rgb值
+	 * @param toMask \c to的掩码值, 表示了什么部分会被拷贝到颜色中, 而这个掩码的反码就是源颜色的保留部分.
+	 * 		缺省值是0x00ffffff, 表示\c to的rgb部分会拷贝过去, 而源颜色的alpha值保持不变
+	 * \endif
+	 */
+	void mapRect(int x, int y, int w, int h, int from, int to, int fromMask = 0x00ffffff, int toMask = 0x00ffffff);
+
+	/**
+	 * \if English
+	 * Remove a rectangle mapping
+	 *
+	 * @param x rect top-left x position, origin is top-left of image
+	 * @param y rect top-left y position, origin is top-left of image
+	 * @param w rect width
+	 * @param h rect height
+	 * \else
+	 * 删除一个矩形上的颜色映射
+	 *
+	 * @param x 矩形的左上角x位置, 原点是图片的左上角
+	 * @param y 矩形的左上角y位置, 原点是图片的左上角
+	 * @param w 矩形宽度
+	 * @param h 矩形高度
+	 * \endif
+	 */
+	void removeRect(int x, int y, int w, int h);
+
+	/**
+	 * \if English
+	 * Map colors in a circle to other color
+	 *
+	 * @param centerX center of circle, origin is top-left of image
+	 * @param centerY centerY of circle, origin is top-left of image
+	 * @param radius circle radius
+	 * @param from source color to be matched
+	 * @param to destination color to be replaced to
+	 * @param fromMask mask of \c from color, it decides which part is compared and which part
+	 * 		is kept. Default is 0x00ffffff so only rgb of \c from is compared with source color
+	 * @param toMask mask of \c to color and it decides which part is copied to source. Default
+	 * 		is 0x00ffffff so rgb of \c to is copied to source and alpha of source is kept.
+	 * \else
+	 * 替换一个位置上的颜色
+	 *
+	 * @param centerX 圆形的中心点x位置, 原点是图片的左上角
+	 * @param centerY 圆形的中心点y位置, 原点是图片的左上角
+	 * @param radius 圆形半径
+	 * @param from 需要映射的源颜色, 格式是0xaarrggbb
+	 * @param to 需要映射到的颜色, 格式是0xaarrggbb
+	 * @param fromMask 颜色的比较位的掩码, 用来决定颜色的哪些部分参与比较, 哪些部分保持不变. 缺省值是
+	 * 		0x00ffffff, 这表示只比较源颜色和\c from的rgb值
+	 * @param toMask \c to的掩码值, 表示了什么部分会被拷贝到颜色中, 而这个掩码的反码就是源颜色的保留部分.
+	 * 		缺省值是0x00ffffff, 表示\c to的rgb部分会拷贝过去, 而源颜色的alpha值保持不变
+	 * \endif
+	 */
+	void mapCircle(int centerX, int centerY, int radius, int from, int to, int fromMask = 0x00ffffff, int toMask = 0x00ffffff);
+
+	/**
+	 * \if English
+	 * Remove a circle mapping
+	 *
+	 * @param centerX center of circle, origin is top-left of image
+	 * @param centerY centerY of circle, origin is top-left of image
+	 * @param radius circle radius
+	 * \else
+	 * 删除一个圆形上的颜色映射
+	 *
+	 * @param centerX 圆形的中心点x位置, 原点是图片的左上角
+	 * @param centerY 圆形的中心点y位置, 原点是图片的左上角
+	 * @param radius 圆形半径
+	 * \endif
+	 */
+	void removeCircle(int centerX, int centerY, int radius);
+};
+
+#endif // __wyAreaColorFilter_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyCustomColorFilter_h__
+
+/**
+ * @typedef wyColorFilterDelegate
+ *
+ * \if English
+ * Delegate of color filter apply method
+ * \else
+ * 滤镜的apply方法代理, 实现这个接口并配合\link wyCustomColorFilter wyCustomColorFilter\endlink使用可以
+ * 使用自定义的方法处理图像数据.
+ * \endif
+ */
+typedef struct wyColorFilterDelegate {
+} wyColorFilterDelegate;
+
+/**
+ * @class wyCustomColorFilter
+ *
+ * \if English
+ * Custom color filter, filter is implemented by setting a callback
+ * \else
+ * 自定义的滤镜实现, 通过设置一个回调来让开发者实现滤镜方法
+ * \endif
+ */
+class wyCustomColorFilter : public wyColorFilter {
+public:
+	virtual ~wyCustomColorFilter();
+
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink
+	 * @param userData extra user data pointer
+	 * @return \link wyCustomColorFilter wyCustomColorFilter\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink
+	 * @param userData 额外用户数据指针
+	 * @return \link wyCustomColorFilter wyCustomColorFilter\endlink
+	 * \endif
+	 */
+	static wyCustomColorFilter* make(wyColorFilterDelegate* delegate, void* userData);
+
+	/// @see wyColorFilter::apply
+	virtual void apply(void* data, int width, int height);
+
+	/**
+	 * \if English
+	 * Set delegate
+	 *
+	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink
+	 * @param data extra data pointer
+	 * \else
+	 * 设置回调
+	 *
+	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink 结构指针
+	 * @param data 附加数据指针
+	 * \endif
+	 */
+	void setDelegate(wyColorFilterDelegate* delegate, void* data);
+};
+
+#endif // __wyCustomColorFilter_h__

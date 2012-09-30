@@ -1,0 +1,1476 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseAction_h__
+
+
+/**
+ * @class wyEaseAction
+ *
+ * 非线性动作的封装, 是所有非线性动作的基类，负责把线性动作转换成非线性动作
+ */
+class wyEaseAction : public wyIntervalAction {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 */
+	wyEaseAction(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyEaseAction();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::stop
+	virtual void stop();
+
+	/**
+	 * 设置该EaseAction所包含的动作. 如果当前EaseAction正在运行, 则调用此方法无效. 在包含动作
+	 * 被设置之前, 调用copy和reverse方法都是危险的.
+	 *
+	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
+	 */
+	void setWrappedAction(wyIntervalAction* wrapped);
+};
+
+#endif // __wyEaseAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseBackIn_h__
+
+
+/**
+ * @class wyEaseBackIn
+ *
+ * 详细了解可见示例 EaseActions\\EaseBackIn.
+ */
+class wyEaseBackIn : public wyEaseAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseBackIn动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseBackIn* make(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseBackIn动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseBackIn(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */	
+	virtual ~wyEaseBackIn();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseBackOut，其wrapped成员也将执行reverse
+	 */		
+	virtual wyAction* reverse();
+	
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		
+	virtual void update(float t);
+};
+
+#endif // __wyEaseBackIn_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseBackInOut_h__
+
+
+/**
+ * @class wyEaseBackInOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseBackInOut.
+ */
+class wyEaseBackInOut : public wyEaseAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseBackInOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseBackInOut* make(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseBackInOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseBackInOut(wyIntervalAction* wrapped = NULL);
+	
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseBackInOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		 
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseBackInOut，其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+	
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */			
+	virtual void update(float t);
+};
+
+#endif // __wyEaseBackInOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseBackOut_h__
+
+
+/**
+ * @class wyEaseBackOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseBackOut.
+ */
+class wyEaseBackOut : public wyEaseAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseBackOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseBackOut* make(wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseBackOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseBackOut(wyIntervalAction* wrapped = NULL);
+		 
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseBackOut();
+
+    /**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseBackIn，其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */	
+	virtual void update(float t);
+};
+
+#endif // __wyEaseBackOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseBounce_h__
+
+
+/**
+ * @class wyEaseBounce
+ *
+ * 封装了bounce函数，开发者可继承此类，实现自己的 bounce action。SDK中提供了基于此基类的3个具体实现，
+ * \link wyEaseBounceIn wyEaseBounceIn \endlink, \link wyEaseBounceOut wyEaseBounceOut \endlink，\link wyEaseBounceInOut wyEaseBouceInOut \endlink
+ */
+class wyEaseBounce : public wyEaseAction {
+public:
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseBounce动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseBounce(wyIntervalAction* wrapped);
+	 
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseBounce();
+};
+
+#endif // __wyEaseBounce_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseBounceIn_h__
+
+
+/**
+ * @class wyEaseBounceIn
+ *
+ * 详细了解可见示例 EaseActions\\EaseBounceIn.
+ */
+class wyEaseBounceIn : public wyEaseBounce {
+public:
+	/**
+	 * 静态创建函数
+	 *
+	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
+	 */
+	static wyEaseBounceIn* make(wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped \see wyEaseBounce::wyEaseBounce
+	 */
+ 	wyEaseBounceIn(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseBounceIn();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+	
+	/**
+	 * 生成一个新的对象，新对象将执行EaseBounceOut, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+	
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */	
+	virtual void update(float t);
+};
+
+#endif // __wyEaseBounceIn_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseBounceInOut_h__
+
+
+/**
+ * @class wyEaseBounceInOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseBounceInOut.
+ */
+class wyEaseBounceInOut : public wyEaseBounce {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped \see wyEaseBounce::wyEaseBounce
+	 */
+	static wyEaseBounceInOut* make(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped \see wyEaseBounce::wyEaseBounce
+	 */
+	wyEaseBounceInOut(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseBounceInOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseBounceInOut, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */	
+	virtual void update(float t);
+};
+
+#endif // __wyEaseBounceInOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseBounceOut_h__
+
+
+/**
+ * @class wyEaseBounceOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseBounceOut.
+ */
+class wyEaseBounceOut : public wyEaseBounce {
+public:
+	/**
+	 * 静态创建函数
+	 *
+	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
+	 */
+	static wyEaseBounceOut* make(wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped \see wyEaseBounce::wyEaseBounce
+	 */
+	wyEaseBounceOut(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseBounceOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */	
+	virtual wyAction* copy();
+	
+	/**
+	 * 生成一个新的对象，新对象将执行EaseBounceIn, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */	
+	virtual void update(float t);
+};
+
+#endif // __wyEaseBounceOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseElastic_h__
+
+
+/**
+ * @class wyEaseElastic
+ *
+ * 基类，开发者可继承此类，实现自己的 EaseElastic action。SDK中提供了基于此基类的3个具体实现，
+ * \link wyEaseElasticIn wyEaseElasticIn \endlink, \link wyEaseElasticOut wyEaseElasticOut \endlink，\link wyEaseElasticInOut wyEaseElasticInOut \endlink
+ */
+class wyEaseElastic : public wyEaseAction {
+public:
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] period Elastic的波动周期，值越小，波动越快
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * 		EaseElastic动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseElastic(float period, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */	
+	virtual ~wyEaseElastic();
+};
+
+#endif // __wyEaseElastic_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseElasticIn_h__
+
+
+/**
+ * @class wyEaseElasticIn
+ *
+ * 详细了解可见示例 EaseActions\\EaseElasticIn.
+ */
+class wyEaseElasticIn : public wyEaseElastic {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] period  \see wyEaseElastic::wyEaseElastic
+	 * @param[in] wrapped \see wyEaseElastic::wyEaseElastic
+	 */
+	static wyEaseElasticIn* make(float period, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] period  \see wyEaseElastic::wyEaseElastic
+	 * @param[in] wrapped \see wyEaseElastic::wyEaseElastic
+	 */
+	wyEaseElasticIn(float period, wyIntervalAction* wrapped = NULL);
+	
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseElasticIn();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */			 
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseElasticOut, 其wrapped成员也将执行reverse
+	 */		
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		
+	virtual void update(float t);
+};
+
+#endif // __wyEaseElasticIn_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseElasticInOut_h__
+
+
+/**
+ * @class wyEaseElasticInOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseElasticInOut.
+ */
+class wyEaseElasticInOut : public wyEaseElastic {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] period  \see wyEaseElastic::wyEaseElastic
+	 * @param[in] wrapped \see wyEaseElastic::wyEaseElastic
+	 */
+	static wyEaseElasticInOut* make(float period, wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] period  \see wyEaseElastic::wyEaseElastic
+	 * @param[in] wrapped \see wyEaseElastic::wyEaseElastic
+	 */
+	wyEaseElasticInOut(float period, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */			
+	virtual ~wyEaseElasticInOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseElasticInOut, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		
+	virtual void update(float t);
+};
+
+#endif // __wyEaseElasticInOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseElasticOut_h__
+
+
+/**
+ * @class wyEaseElasticOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseElasticOut.
+ */
+class wyEaseElasticOut : public wyEaseElastic {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] period  \see wyEaseElastic::wyEaseElastic
+	 * @param[in] wrapped \see wyEaseElastic::wyEaseElastic
+	 */
+	static wyEaseElasticOut* make(float period, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] period  \see wyEaseElastic::wyEaseElastic
+	 * @param[in] wrapped \see wyEaseElastic::wyEaseElastic
+	 */
+	wyEaseElasticOut(float period, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */	
+	virtual ~wyEaseElasticOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+	
+	/**
+	 * 生成一个新的对象，新对象将执行EaseElasticIn, 其wrapped成员也将执行reverse
+	 */			
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */	
+	 virtual void update(float t);
+};
+
+#endif // __wyEaseElasticOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseExponentialIn_h__
+
+
+/**
+ * @class wyEaseExponentialIn
+ *
+ * 详细了解可见示例 EaseActions\\EaseExponentialIn.
+ */
+class wyEaseExponentialIn : public wyEaseAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseExponentialIn动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseExponentialIn* make(wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseExponentialIn动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseExponentialIn(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseExponentialIn();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseExponentialIn, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		
+	virtual void update(float t);
+};
+
+#endif // __wyEaseExponentialIn_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseExponentialInOut_h__
+
+
+/**
+ * @class wyEaseExponentialInOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseExponentialInOut.
+ */
+class wyEaseExponentialInOut : public wyEaseAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseExponentialInOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseExponentialInOut* make(wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseExponentialInOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseExponentialInOut(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseExponentialInOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseExponentialInOut, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		
+	virtual void update(float t);
+};
+
+#endif // __wyEaseExponentialInOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseExponentialOut_h__
+
+
+/**
+ * @class wyEaseExponentialOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseExponentialOut.
+ */
+class wyEaseExponentialOut : public wyEaseAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseExponentialOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseExponentialOut* make(wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseExponentialOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseExponentialOut(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */	
+	virtual ~wyEaseExponentialOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseExponentialIn, 其wrapped成员也将执行reverse
+	 */
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */	
+	virtual void update(float t);
+};
+
+#endif // __wyEaseExponentialOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseIn_h__
+
+
+/**
+ * @class wyEaseIn
+ *
+ * 详细了解可见示例 EaseActions\\EaseIn.
+ */
+class wyEaseIn : public wyEaseRateAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] rate \see wyEaseRateAction::wyEaseRateAction
+	 * @param[in] wrapped \see wyEaseRateAction::wyEaseRateAction
+	 */
+	static wyEaseIn* make(float rate, wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] rate \see wyEaseRateAction::wyEaseRateAction
+	 * @param[in] wrapped \see wyEaseRateAction::wyEaseRateAction
+	 */
+	wyEaseIn(float rate, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseIn();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseOut, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */			
+	virtual void update(float t);
+};
+
+#endif // __wyEaseIn_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseInOut_h__
+
+
+/**
+ * @class wyEaseInOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseInOut.
+ */
+class wyEaseInOut : public wyEaseRateAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] rate \see wyEaseRateAction::wyEaseRateAction
+	 * @param[in] wrapped \see wyEaseRateAction::wyEaseRateAction
+	 */
+	static wyEaseInOut* make(float rate, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] rate \see wyEaseRateAction::wyEaseRateAction
+	 * @param[in] wrapped \see wyEaseRateAction::wyEaseRateAction
+	 */
+	wyEaseInOut(float rate, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */	
+	virtual ~wyEaseInOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */	
+	virtual wyAction* copy();
+	
+	/**
+	 * 生成一个新的对象，新对象将执行EaseInOut, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		
+	virtual void update(float t);
+};
+
+#endif // __wyEaseInOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseOut_h__
+
+
+/**
+ * @class wyEaseOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseOut.
+ */
+class wyEaseOut : public wyEaseRateAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] rate \see wyEaseRateAction::wyEaseRateAction
+	 * @param[in] wrapped \see wyEaseRateAction::wyEaseRateAction
+	 */
+    static wyEaseOut* make(float rate, wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] rate \see wyEaseRateAction::wyEaseRateAction
+	 * @param[in] wrapped \see wyEaseRateAction::wyEaseRateAction
+	 */
+    wyEaseOut(float rate, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseIn, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		 	
+	virtual void update(float t);
+};
+
+#endif // __wyEaseOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseRateAction_h__
+
+
+/**
+ * @class wyEaseRateAction
+ *
+ * 基类，开发者可继承此类，实现自己的 EaseRate action。SDK中提供了基于此基类的3个具体实现，
+ * \link wyEaseIn wyEaseIn \endlink, \link wyEaseOut wyEaseOut \endlink，\link wyEaseInOut wyEaseInOut \endlink
+ */
+class wyEaseRateAction : public wyEaseAction {
+public:
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] rate 变化率，值越大，变化越大
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * 		EaseRate动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseRateAction(float rate, wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseRateAction();
+};
+
+#endif // __wyEaseRateAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseSineIn_h__
+
+
+/**
+ * @class wyEaseSineIn
+ *
+ * 详细了解可见示例 EaseActions\\EaseSinIn.
+ */
+class wyEaseSineIn : public wyEaseAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseSinIn动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseSineIn* make(wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseSinIn动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseSineIn(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseSineIn();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseSineOut, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+	
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		
+	virtual void update(float t);
+};
+
+#endif // __wyEaseSineIn_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseSineInOut_h__
+
+
+/**
+ * @class wyEaseSineInOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseSineInOut.
+ */
+class wyEaseSineInOut : public wyEaseAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseSineOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseSineInOut* make(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseSineOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseSineInOut(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */		
+	virtual ~wyEaseSineInOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */	
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseSineInOut, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */		
+	virtual void update(float t);
+};
+
+#endif // __wyEaseSineInOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyEaseSineOut_h__
+
+
+/**
+ * @class wyEaseSineOut
+ *
+ * 详细了解可见示例 EaseActions\\EaseSineOut.
+ */
+class wyEaseSineOut : public wyEaseAction {
+public:
+ 	/**
+	 * 静态构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseSineOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	static wyEaseSineOut* make(wyIntervalAction* wrapped = NULL);
+
+ 	/**
+	 * 构造函数
+	 *
+	 * @param[in] wrapped 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	 * EaseSineOut动作将应用于wrapped所指向的target \link wyNode m_target \endlink 上
+	 */
+	wyEaseSineOut(wyIntervalAction* wrapped = NULL);
+
+	/**
+	 * 析构函数
+	 */	
+	virtual ~wyEaseSineOut();
+
+	/**
+	 * 生成一个新的对象，新对象是this的copy，其wrapped成员也会在新的对象中生成新的copy
+	 */		
+	virtual wyAction* copy();
+
+	/**
+	 * 生成一个新的对象，新对象将执行EaseSineIn, 其wrapped成员也将执行reverse
+	 */	
+	virtual wyAction* reverse();
+
+	/**
+	 * 使用转换公式计算新值t2，并执行wrapped-\>update(t2);
+	 *
+	 * @param[in] t 有效值区间为[0,1]
+	 */	
+	virtual void update(float t);
+};
+
+#endif // __wyEaseSineOut_h__

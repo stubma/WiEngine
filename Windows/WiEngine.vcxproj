@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="libbox2d\libbox2d.vcxproj">
+      <Project>{df17e696-5188-4116-ac4a-8b7fa613d4db}</Project>
+    </ProjectReference>
+    <ProjectReference Include="libchipmunk\libchipmunk.vcxproj">
+      <Project>{4c005bec-040b-4981-b023-860dd3c4bdaf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="libjson\libjson.vcxproj">
+      <Project>{9f501aff-2c19-4993-a801-9182d4d01efa}</Project>
+    </ProjectReference>
+    <ProjectReference Include="liblua\liblua.vcxproj">
+      <Project>{9aafd680-72b3-490d-8b81-263a20f2cce8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="libwiengine\libwiengine.vcxproj">
+      <Project>{b0ae0601-02ca-43ef-8f61-c3b31fadbda2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="libwinetwork\libwinetwork.vcxproj">
+      <Project>{9574b958-3056-43cc-bbd3-14fd1423b264}</Project>
+    </ProjectReference>
+    <ProjectReference Include="libwisound\libwisound.vcxproj">
+      <Project>{6afc1e5f-7f6f-44c8-a1f8-d3badfe98ee4}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Chipmunk\ChipmunkDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\common.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\GridActions\GridActionDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Lua\LuaDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Network\NetworkDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Nodes\NodeDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Others\OtherDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Particles\ParticleDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Performance\PerformanceDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Persistence\PersistenceDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Sound\SoundDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Transition\TransitionDemos.cpp" />
+    <ClCompile Include="Demo\dllmain.cpp" />
+    <ClCompile Include="Demo\WiEngineApp.cpp" />
+    <ClCompile Include="Demo\WiEngineDemos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Chipmunk\ChipmunkDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\common.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\GridActions\GridActionDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Lua\LuaDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Network\NetworkDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Nodes\NodeDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Others\memory_file.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Others\OtherDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Particles\ParticleDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Performance\PerformanceDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Persistence\PersistenceDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Sound\SoundDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Transition\TransitionDemos.h" />
+    <ClInclude Include="Demo\WiEngineApp.h" />
+    <ClInclude Include="Demo\WiEngineDemos.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{259BD5B2-4FEB-4B0F-B370-1E09CFD538C3}</ProjectGuid>
+    <RootNamespace>WiEngine</RootNamespace>
+    <ProjectName>WiEngineDemos</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\jni\WiEngine\include;..\jni\WiEngine\impl\platform\windows;..\jni\WiEngine\include\winetwork;..\jni\WiEngine\include\designer;..\jni\WiEngine\include\wisound;..\jni\WiEngine\include\tmx;..\jni\WiEngine\include\transitions;..\jni\WiEngine\include\iap;..\jni\WiEngine\include\json;..\jni\WiEngine\include\lua;..\jni\WiEngine\include\box2d;..\jni\chipmunk;..\jni\WiEngine\include\chipmunk;..\jni\WiEngine\include\persistence;..\jni\WiEngine\include\mfs;..\jni\WiEngine\include\particle;..\jni\WiEngine\include\grid;..\jni\WiEngine\include\gridactions;..\jni\WiEngine\include\events;..\jni\WiEngine\include\filters;..\jni\WiEngine\include\easeactions;..\jni\WiEngine\include\dialog;..\jni\WiEngine\include\afcanim;..\jni\WiEngine\include\bitmapfont;..\jni\WiEngine\include\astar;..\jni\WiEngine\include\nodes;..\jni\WiEngine\include\actions;..\jni\WiEngine\include\types;..\jni\WiEngine\include\opengl;..\jni\WiEngine\include\utils;..\jni\WiEngine\include\common;..\jni\WiEngine\include\platform\windows;..\jni\libnsbmp;..\jni\libpng;..\jni\libjpeg;..\jni\libxml2\include;..\jni\lua;libpthread;libz\include;..\jni;..\samples\WiEngineDemos_native\jni\Demos</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;WINDOWS</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libEGL.lib;libgles_cm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>dependence;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <PostBuildEvent>
+      <Command>mkdir $(Configuration)\drawable
+mkdir $(Configuration)\raw
+mkdir $(Configuration)\assets
+mkdir $(Configuration)\values
+copy /Y ..\samples\WiEngineDemos_native\res\drawable\* $(Configuration)\drawable
+copy /Y ..\samples\WiEngineDemos_native\res\raw\* $(Configuration)\raw
+copy /Y ..\samples\WiEngineDemos_native\assets\* $(Configuration)\assets
+copy /Y ..\samples\WiEngineDemos_native\res\values\strings.xml $(Configuration)\values\strings-en.xml
+copy /Y ..\samples\WiEngineDemos_native\res\values-zh\strings.xml $(Configuration)\values\strings-zh.xml
+copy /Y ..\samples\WiEngineDemos_native\AndroidManifest.xml $(Configuration)\values
+copy /Y dependence\* $(Configuration)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\jni\WiEngine\include;..\jni\WiEngine\impl\platform\windows;..\jni\WiEngine\include\winetwork;..\jni\WiEngine\include\designer;..\jni\WiEngine\include\wisound;..\jni\WiEngine\include\tmx;..\jni\WiEngine\include\transitions;..\jni\WiEngine\include\iap;..\jni\WiEngine\include\json;..\jni\WiEngine\include\lua;..\jni\WiEngine\include\box2d;..\jni\chipmunk;..\jni\WiEngine\include\chipmunk;..\jni\WiEngine\include\persistence;..\jni\WiEngine\include\mfs;..\jni\WiEngine\include\particle;..\jni\WiEngine\include\grid;..\jni\WiEngine\include\gridactions;..\jni\WiEngine\include\events;..\jni\WiEngine\include\filters;..\jni\WiEngine\include\easeactions;..\jni\WiEngine\include\dialog;..\jni\WiEngine\include\afcanim;..\jni\WiEngine\include\bitmapfont;..\jni\WiEngine\include\astar;..\jni\WiEngine\include\nodes;..\jni\WiEngine\include\actions;..\jni\WiEngine\include\types;..\jni\WiEngine\include\opengl;..\jni\WiEngine\include\utils;..\jni\WiEngine\include\common;..\jni\WiEngine\include\platform\windows;..\jni\libnsbmp;..\jni\libpng;..\jni\libjpeg;..\jni\libxml2\include;..\jni\lua;libpthread;libz\include;..\jni;..\samples\WiEngineDemos_native\jni\Demos</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;WINDOWS</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>dependence;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>libEGL.lib;libgles_cm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir $(Configuration)\drawable
+mkdir $(Configuration)\raw
+mkdir $(Configuration)\assets
+mkdir $(Configuration)\values
+copy /Y ..\samples\WiEngineDemos_native\res\drawable\* $(Configuration)\drawable
+copy /Y ..\samples\WiEngineDemos_native\res\raw\* $(Configuration)\raw
+copy /Y ..\samples\WiEngineDemos_native\assets\* $(Configuration)\assets
+copy /Y ..\samples\WiEngineDemos_native\res\values\strings.xml $(Configuration)\values\strings-en.xml
+copy /Y ..\samples\WiEngineDemos_native\res\values-zh\strings.xml $(Configuration)\values\strings-zh.xml
+copy /Y ..\samples\WiEngineDemos_native\AndroidManifest.xml $(Configuration)\values
+copy /Y dependence\* $(Configuration)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

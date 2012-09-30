@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+    <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>1</integer>
+        </dict>
+        <key>bodies</key>
+		<dict>
+
+			<key>drink</key>
+			<dict>
+				<key>anchorpoint</key>
+                <string>{ 0.55063,0.43005 }</string>
+                <key>fixtures</key>
+                <array>
+
+					<dict>
+                        <key>mass</key>
+                        <real>2</real>
+                        <key>elasticity</key>
+                        <real>0.2</real>
+                        <key>friction</key>
+                        <real>0.3</real>
+                        <key>surface_velocity</key>
+                        <string>{ 0.00000,0.00000 }</string>
+                        <key>layers</key>
+                        <integer>7</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>collision_type</key>
+                        <integer>0</integer>
+                        <key>isSensor</key>
+                        <false/>
+                        <key>fixture_type</key>
+                        <key>POLYGON</key>
+                        
+						<key>polygons</key>
+						<array>
+							<array>	
+								<string>{ -5.50000,45.65000 }</string>	
+								<string>{ -10.50000,-64.35000 }</string>	
+								<string>{ -21.50000,-60.35000 }</string>	
+								<string>{ -32.50000,35.65000 }</string>	
+								<string>{ -29.50000,43.65000 }</string>
+							</array>
+							<array>	
+								<string>{ 34.00000,34.15000 }</string>	
+								<string>{ 24.00000,-53.85000 }</string>	
+								<string>{ 20.00000,-62.85000 }</string>	
+								<string>{ -10.50000,-64.35000 }</string>	
+								<string>{ -5.50000,45.65000 }</string>	
+								<string>{ 4.50000,46.65000 }</string>	
+								<string>{ 32.50000,42.65000 }</string>
+							</array>
+							<array>	
+								<string>{ -33.50000,102.65000 }</string>	
+								<string>{ -2.00000,78.15000 }</string>	
+								<string>{ -10.00000,75.15000 }</string>	
+								<string>{ -36.00000,97.15000 }</string>
+							</array>
+							<array>	
+								<string>{ -2.00000,78.15000 }</string>	
+								<string>{ 4.50000,46.65000 }</string>	
+								<string>{ -4.00000,49.15000 }</string>	
+								<string>{ -10.00000,75.15000 }</string>
+							</array>
+							<array>	
+								<string>{ 4.50000,46.65000 }</string>	
+								<string>{ -5.50000,45.65000 }</string>	
+								<string>{ -4.00000,49.15000 }</string>
+							</array>
+						</array>
+                        
+					</dict>
+
+				</array>
+			</dict>
+
+			<key>hamburger</key>
+			<dict>
+				<key>anchorpoint</key>
+                <string>{ 0.54235,0.45014 }</string>
+                <key>fixtures</key>
+                <array>
+
+					<dict>
+                        <key>mass</key>
+                        <real>2</real>
+                        <key>elasticity</key>
+                        <real>0.5</real>
+                        <key>friction</key>
+                        <real>0.5</real>
+                        <key>surface_velocity</key>
+                        <string>{ 0.00000,0.00000 }</string>
+                        <key>layers</key>
+                        <integer>7</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>collision_type</key>
+                        <integer>0</integer>
+                        <key>isSensor</key>
+                        <false/>
+                        <key>fixture_type</key>
+                        <key>POLYGON</key>
+                        
+						<key>polygons</key>
+						<array>
+							<array>	
+								<string>{ -47.82000,19.14000 }</string>	
+								<string>{ -40.32000,26.64000 }</string>	
+								<string>{ -26.32000,32.64000 }</string>	
+								<string>{ 9.68000,35.64000 }</string>	
+								<string>{ 34.68000,8.64000 }</string>	
+								<string>{ -46.82000,3.14000 }</string>	
+								<string>{ -51.82000,9.14000 }</string>
+							</array>
+							<array>	
+								<string>{ 21.68000,-30.36000 }</string>	
+								<string>{ -38.32000,-27.36000 }</string>	
+								<string>{ -41.82000,-19.86000 }</string>	
+								<string>{ 41.18000,-8.86000 }</string>	
+								<string>{ 44.18000,-11.86000 }</string>	
+								<string>{ 39.18000,-25.86000 }</string>
+							</array>
+							<array>	
+								<string>{ 34.68000,8.64000 }</string>	
+								<string>{ 9.68000,35.64000 }</string>	
+								<string>{ 25.68000,33.64000 }</string>	
+								<string>{ 35.68000,28.64000 }</string>	
+								<string>{ 44.18000,16.14000 }</string>	
+								<string>{ 42.68000,10.64000 }</string>
+							</array>
+							<array>	
+								<string>{ -46.82000,-10.86000 }</string>	
+								<string>{ -41.82000,-19.86000 }</string>	
+								<string>{ -49.82000,-13.86000 }</string>
+							</array>
+							<array>	
+								<string>{ 41.18000,-8.86000 }</string>	
+								<string>{ -41.82000,-19.86000 }</string>	
+								<string>{ -46.82000,3.14000 }</string>	
+								<string>{ 34.68000,8.64000 }</string>	
+								<string>{ 42.18000,-0.86000 }</string>
+							</array>
+							<array>	
+								<string>{ -46.82000,3.14000 }</string>	
+								<string>{ -41.82000,-19.86000 }</string>	
+								<string>{ -46.82000,-10.86000 }</string>
+							</array>
+						</array>
+                        
+					</dict>
+
+				</array>
+			</dict>
+
+			<key>hotdog</key>
+			<dict>
+				<key>anchorpoint</key>
+                <string>{ 0.47659,0.51866 }</string>
+                <key>fixtures</key>
+                <array>
+
+					<dict>
+                        <key>mass</key>
+                        <real>2</real>
+                        <key>elasticity</key>
+                        <real>0.6</real>
+                        <key>friction</key>
+                        <real>0.1</real>
+                        <key>surface_velocity</key>
+                        <string>{ 0.00000,0.00000 }</string>
+                        <key>layers</key>
+                        <integer>7</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>collision_type</key>
+                        <integer>0</integer>
+                        <key>isSensor</key>
+                        <false/>
+                        <key>fixture_type</key>
+                        <key>POLYGON</key>
+                        
+						<key>polygons</key>
+						<array>
+							<array>	
+								<string>{ 43.45000,24.25000 }</string>	
+								<string>{ 2.95000,-29.25000 }</string>	
+								<string>{ -27.05000,-30.25000 }</string>	
+								<string>{ -39.05000,-27.25000 }</string>	
+								<string>{ -5.05000,18.75000 }</string>	
+								<string>{ 31.95000,32.75000 }</string>	
+								<string>{ 39.95000,31.75000 }</string>
+							</array>
+							<array>	
+								<string>{ -54.55000,1.25000 }</string>	
+								<string>{ -47.05000,11.75000 }</string>	
+								<string>{ -5.05000,18.75000 }</string>	
+								<string>{ -39.05000,-27.25000 }</string>	
+								<string>{ -53.55000,-14.75000 }</string>
+							</array>
+							<array>	
+								<string>{ 61.45000,6.25000 }</string>	
+								<string>{ 55.45000,-2.75000 }</string>	
+								<string>{ 32.95000,-19.25000 }</string>	
+								<string>{ 2.95000,-29.25000 }</string>	
+								<string>{ 43.45000,24.25000 }</string>	
+								<string>{ 62.45000,14.25000 }</string>
+							</array>
+						</array>
+                        
+					</dict>
+
+				</array>
+			</dict>
+
+			<key>icecream</key>
+			<dict>
+				<key>anchorpoint</key>
+                <string>{ 0.45595,0.47284 }</string>
+                <key>fixtures</key>
+                <array>
+
+					<dict>
+                        <key>mass</key>
+                        <real>2</real>
+                        <key>elasticity</key>
+                        <real>0.3</real>
+                        <key>friction</key>
+                        <real>0.2</real>
+                        <key>surface_velocity</key>
+                        <string>{ 0.00000,0.00000 }</string>
+                        <key>layers</key>
+                        <integer>7</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>collision_type</key>
+                        <integer>0</integer>
+                        <key>isSensor</key>
+                        <false/>
+                        <key>fixture_type</key>
+                        <key>POLYGON</key>
+                        
+						<key>polygons</key>
+						<array>
+							<array>	
+								<string>{ 65.05000,34.39000 }</string>	
+								<string>{ 41.55000,9.89000 }</string>	
+								<string>{ 35.55000,10.89000 }</string>	
+								<string>{ 52.55000,35.89000 }</string>	
+								<string>{ 62.55000,42.89000 }</string>	
+								<string>{ 66.05000,40.39000 }</string>
+							</array>
+							<array>	
+								<string>{ 5.55000,25.89000 }</string>	
+								<string>{ 10.55000,19.39000 }</string>	
+								<string>{ 13.05000,15.39000 }</string>	
+								<string>{ -5.45000,18.89000 }</string>	
+								<string>{ -2.45000,24.89000 }</string>
+							</array>
+							<array>	
+								<string>{ 10.55000,32.39000 }</string>	
+								<string>{ 10.55000,19.39000 }</string>	
+								<string>{ 5.55000,25.89000 }</string>	
+								<string>{ 7.05000,32.39000 }</string>
+							</array>
+							<array>	
+								<string>{ 45.05000,-13.61000 }</string>	
+								<string>{ 35.05000,-24.61000 }</string>	
+								<string>{ 18.55000,-35.11000 }</string>	
+								<string>{ -23.45000,-35.11000 }</string>	
+								<string>{ -31.45000,15.89000 }</string>	
+								<string>{ 41.55000,9.89000 }</string>	
+								<string>{ 48.05000,2.39000 }</string>
+							</array>
+							<array>	
+								<string>{ -50.45000,5.89000 }</string>	
+								<string>{ -31.45000,15.89000 }</string>	
+								<string>{ -23.45000,-35.11000 }</string>	
+								<string>{ -45.45000,-21.11000 }</string>	
+								<string>{ -52.45000,-10.11000 }</string>	
+								<string>{ -53.95000,0.39000 }</string>
+							</array>
+							<array>	
+								<string>{ 35.55000,10.89000 }</string>	
+								<string>{ -15.45000,14.89000 }</string>	
+								<string>{ -5.45000,18.89000 }</string>
+							</array>
+							<array>	
+								<string>{ 41.55000,9.89000 }</string>	
+								<string>{ -15.45000,14.89000 }</string>	
+								<string>{ 35.55000,10.89000 }</string>
+							</array>
+						</array>
+                        
+					</dict>
+
+				</array>
+			</dict>
+
+			<key>icecream2</key>
+			<dict>
+				<key>anchorpoint</key>
+                <string>{ 0.48298,0.60158 }</string>
+                <key>fixtures</key>
+                <array>
+
+					<dict>
+                        <key>mass</key>
+                        <real>2</real>
+                        <key>elasticity</key>
+                        <real>0.4</real>
+                        <key>friction</key>
+                        <real>0.2</real>
+                        <key>surface_velocity</key>
+                        <string>{ 0.00000,0.00000 }</string>
+                        <key>layers</key>
+                        <integer>7</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>collision_type</key>
+                        <integer>0</integer>
+                        <key>isSensor</key>
+                        <false/>
+                        <key>fixture_type</key>
+                        <key>POLYGON</key>
+                        
+						<key>polygons</key>
+						<array>
+							<array>	
+								<string>{ 20.80000,19.24000 }</string>	
+								<string>{ 0.30000,29.74000 }</string>	
+								<string>{ 9.30000,34.74000 }</string>
+							</array>
+							<array>	
+								<string>{ 0.30000,29.74000 }</string>	
+								<string>{ 20.80000,19.24000 }</string>	
+								<string>{ 20.80000,-28.76000 }</string>	
+								<string>{ 2.80000,-29.76000 }</string>	
+								<string>{ -21.20000,-26.76000 }</string>	
+								<string>{ -21.20000,21.24000 }</string>	
+								<string>{ -9.70000,33.74000 }</string>
+							</array>
+							<array>	
+								<string>{ 6.80000,-55.76000 }</string>	
+								<string>{ 6.80000,-31.76000 }</string>	
+								<string>{ 15.30000,-32.26000 }</string>	
+								<string>{ 15.80000,-54.76000 }</string>	
+								<string>{ 12.30000,-57.26000 }</string>
+							</array>
+							<array>	
+								<string>{ 6.80000,-31.76000 }</string>	
+								<string>{ 2.80000,-29.76000 }</string>	
+								<string>{ 20.80000,-28.76000 }</string>	
+								<string>{ 15.30000,-32.26000 }</string>
+							</array>
+							<array>	
+								<string>{ -12.20000,-32.76000 }</string>	
+								<string>{ -3.70000,-32.26000 }</string>	
+								<string>{ -5.20000,-56.76000 }</string>	
+								<string>{ -11.70000,-57.26000 }</string>
+							</array>
+							<array>	
+								<string>{ -21.20000,-26.76000 }</string>	
+								<string>{ 2.80000,-29.76000 }</string>	
+								<string>{ -3.70000,-32.26000 }</string>	
+								<string>{ -12.20000,-32.76000 }</string>
+							</array>
+						</array>
+                        
+					</dict>
+
+				</array>
+			</dict>
+
+			<key>icecream3</key>
+			<dict>
+				<key>anchorpoint</key>
+                <string>{ 0.47280,0.62907 }</string>
+                <key>fixtures</key>
+                <array>
+
+					<dict>
+                        <key>mass</key>
+                        <real>2</real>
+                        <key>elasticity</key>
+                        <real>0.3</real>
+                        <key>friction</key>
+                        <real>0.2</real>
+                        <key>surface_velocity</key>
+                        <string>{ 0.00000,0.00000 }</string>
+                        <key>layers</key>
+                        <integer>7</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>collision_type</key>
+                        <integer>0</integer>
+                        <key>isSensor</key>
+                        <false/>
+                        <key>fixture_type</key>
+                        <key>POLYGON</key>
+                        
+						<key>polygons</key>
+						<array>
+							<array>	
+								<string>{ 12.36000,25.27000 }</string>	
+								<string>{ -17.14000,21.77000 }</string>	
+								<string>{ 1.36000,34.77000 }</string>	
+								<string>{ 14.36000,33.27000 }</string>
+							</array>
+							<array>	
+								<string>{ -2.64000,-70.73000 }</string>	
+								<string>{ -17.14000,21.77000 }</string>	
+								<string>{ 13.86000,-16.23000 }</string>	
+								<string>{ 3.86000,-66.23000 }</string>	
+								<string>{ 1.86000,-70.23000 }</string>
+							</array>
+							<array>	
+								<string>{ 13.86000,-16.23000 }</string>	
+								<string>{ -17.14000,21.77000 }</string>	
+								<string>{ 12.36000,25.27000 }</string>	
+								<string>{ 19.86000,14.77000 }</string>	
+								<string>{ 23.86000,0.77000 }</string>
+							</array>
+							<array>	
+								<string>{ -22.14000,12.77000 }</string>	
+								<string>{ -17.14000,21.77000 }</string>	
+								<string>{ -18.14000,-5.23000 }</string>	
+								<string>{ -22.14000,-3.23000 }</string>
+							</array>
+							<array>	
+								<string>{ -17.14000,21.77000 }</string>	
+								<string>{ -10.14000,-26.23000 }</string>	
+								<string>{ -18.14000,-5.23000 }</string>
+							</array>
+						</array>
+                        
+					</dict>
+
+				</array>
+			</dict>
+
+			<key>orange</key>
+			<dict>
+				<key>anchorpoint</key>
+                <string>{ 0.53448,0.50847 }</string>
+                <key>fixtures</key>
+                <array>
+
+					<dict>
+                        <key>mass</key>
+                        <real>2</real>
+                        <key>elasticity</key>
+                        <real>0.3</real>
+                        <key>friction</key>
+                        <real>0.2</real>
+                        <key>surface_velocity</key>
+                        <string>{ 0.00000,0.00000 }</string>
+                        <key>layers</key>
+                        <integer>7</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>collision_type</key>
+                        <integer>0</integer>
+                        <key>isSensor</key>
+                        <false/>
+                        <key>fixture_type</key>
+                        <key>CIRCLE</key>
+                        
+                        <key>circle</key>
+                        <dict>
+                            <key>radius</key> 
+                            <real>26.041</real>
+                            <key>position</key> 
+                            <string>{ -2.000,-1.000 }</string>
+                        </dict>
+                        
+					</dict>
+
+				</array>
+			</dict>
+
+		</dict>
+	</dict>
+</plist>
+
+
+
+

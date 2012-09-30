@@ -1,0 +1,1 @@
+WiEngineDemos是WiEngine Mac OS X版本的演示工程, 其主要语言为C++. 直接用Xcode4打开工程编译运行即可

@@ -1,0 +1,1 @@
+WiEngineDemos是WiEngine iOS版本的演示工程, 其主要语言为C++. 直接用Xcode4打开工程编译运行即可. 如果想在真机上运行, 请设置您的代码签名.

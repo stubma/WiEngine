@@ -1,0 +1,46 @@
+/** 
+  @mainpage WiEngine C++ API Manual
+  
+  @section intro Introduction
+  
+  @subsection whatisit What is WiEngine?
+  WiEngine is a open-source cross-platform 2D game engine developed by WiYun Inc. WiEngine inherits design pattern of cocos2d, and introduces many new
+  features and improvements. Now WiEngine supports Android 2.0+, iOS 3.2+, Mac OS X 10.6+, and Windows (Above WinXP).
+  
+  WiEngine feature list:
+  @li Scene managing and transition effect
+  @li Texture and atlas (Supports png, jpg and pvr)
+  @li Advanced grid 3D effect, such as lens, ripple, wave, liquid, twirl
+  @li Particle system 
+  @li Actions
+  @li Common UI controls, such as button, menu, cover flow, page control, etc.
+  @li Text rendering(TTF font, bitmap font, line wrap, etc.)
+  @li Tile map(TGA, Array, TMX)
+  @li Parallax
+  @li Motion streak
+  @li System events(touch, multi-touch, accelerometer, key, gesture)
+  @li Physics engine(Chipmunk, Box2D)
+  @li Lua script
+  @li Memory file system
+  @li Sound engine which is named "WiSound"
+  @li AFC(Animation, Frame, Clip) animation format support
+  @li texture color filter
+  @li Persistence support (preference, sqlite3)
+  @li Augmented Reality framework based on OpenCV
+  @li flexible screen adaptation: by density, by base size
+  @li flexible resource protection mechanism
+  
+  @subsection license License
+  Any developer can use WiEngine freely for commercial or non-commercial purposes, but on the basis of not infringe the interests of WiYun Inc. 
+  Meanwhile WiEngine logo must be visible to end users, for example: put logo in the game loading screen. Please read the LICENSE.WiEngine file 
+  for more information. WiEngine logo is packed in the SDK/logo directory.
+  
+  @subsection samples Samples
+  Find sample code in SDK/samples directory, but please read README.txt first.
+  
+  @subsection tools Tools
+  List of third-party tools supported by WiEngine: <a href="http://blog.wiyun.com/?p=983">http://blog.wiyun.com/?p=983</a>
+  
+  @subsection more More Resources
+  WiYun Blog has many articles about WiEngine, you can view the indices: <a href="http://blog.wiyun.com/?page_id=852">http://blog.wiyun.com/?page_id=852</a>
+*/

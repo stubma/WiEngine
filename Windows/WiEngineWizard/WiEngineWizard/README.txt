@@ -1,0 +1,1 @@
+To know how to use this wizard, refer http://blog.wiyun.com/?p=1206

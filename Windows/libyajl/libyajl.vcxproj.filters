@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{9662ddb2-b3c4-4f94-9c34-b2e5273eb078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{2c4a27fd-b001-45aa-8b4a-473c4aecdfee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\yajl\src\yajl_encode.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\yajl\src\yajl_gen.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\yajl\src\yajl_lex.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\yajl\src\yajl_parser.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\yajl\src\yajl_tree.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\yajl\src\yajl_version.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\yajl\src\yajl.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\yajl\src\yajl_alloc.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\yajl\src\yajl_buf.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\yajl\src\yajl_encode.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\src\yajl_lex.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\src\yajl_parser.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\src\yajl_alloc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\src\yajl_buf.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\src\yajl_bytestack.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\include\yajl_parse.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\include\yajl_tree.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\include\yajl_version.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\include\yajl_common.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\yajl\include\yajl_gen.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

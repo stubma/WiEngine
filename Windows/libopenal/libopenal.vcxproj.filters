@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\openal\config.h" />
+    <ClInclude Include="..\..\jni\openal\wyLog.h" />
+    <ClInclude Include="..\..\jni\openal\include\AL\alc.h">
+      <Filter>include\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\include\AL\alext.h">
+      <Filter>include\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\include\AL\efx.h">
+      <Filter>include\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\include\AL\efx-creative.h">
+      <Filter>include\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\include\AL\al.h">
+      <Filter>include\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alBuffer.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alDatabuffer.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alEffect.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alError.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alFilter.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alListener.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alMain.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alSource.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alState.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alThunk.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alu.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\bs2b.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\OpenAL32\Include\alAuxEffectSlot.h">
+      <Filter>OpenAL32\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\openal\config_android.h" />
+    <ClInclude Include="..\..\jni\openal\config_win.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\openal\wyLog.cpp" />
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alAuxEffectSlot.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alBuffer.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alDatabuffer.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alEffect.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alError.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alExtension.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alFilter.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alListener.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alSource.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alState.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\OpenAL32\alThunk.c">
+      <Filter>OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\alcEcho.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\alcModulator.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\alcReverb.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\alcRing.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\alcThread.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\ALu.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\bs2b.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\mixer.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\null.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\panning.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\winmm.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\ALc.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\alcConfig.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\openal\alc\android.c">
+      <Filter>alc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="alc">
+      <UniqueIdentifier>{311f8783-8b86-43aa-aee5-fabb182fe47f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenAL32">
+      <UniqueIdentifier>{35f606cf-699d-47f3-8072-71530f70a63e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{0cbf0bc1-9162-4911-856a-3c8e9a30c270}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\AL">
+      <UniqueIdentifier>{d49e9ff3-1a3a-4774-ad33-6cf431d6a3d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenAL32\Include">
+      <UniqueIdentifier>{c3c2b97f-5701-4a04-9a71-3a092411316d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\WiNetwork\wyHttpRequest.cpp" />
+    <ClCompile Include="..\..\jni\WiNetwork\wyHttpResponse.cpp" />
+    <ClCompile Include="..\..\jni\WiNetwork\wyNetwork.cpp" />
+    <ClCompile Include="..\..\jni\WiNetwork\wyNotifyOnHttpFinishLoadingRunnable.cpp" />
+    <ClCompile Include="..\..\jni\WiNetwork\wyNotifyOnHttpLoadingFailedRunnable.cpp" />
+    <ClCompile Include="..\..\jni\WiNetwork\wyNotifyOnHttpReceiveDataRunnable.cpp" />
+    <ClCompile Include="..\..\jni\WiNetwork\wyNotifyOnReceiveHttpResponseRunnable.cpp" />
+    <ClCompile Include="..\..\jni\WiNetwork\platform\windows\wyNetwork_win.cpp">
+      <Filter>platform\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiNetwork\platform\windows\wyHttpRequest_win.cpp">
+      <Filter>platform\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiNetwork\platform\windows\wyHttpResponse_win.cpp">
+      <Filter>platform\windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\WiNetwork\wyNotifyOnHttpFinishLoadingRunnable.h" />
+    <ClInclude Include="..\..\jni\WiNetwork\wyNotifyOnHttpLoadingFailedRunnable.h" />
+    <ClInclude Include="..\..\jni\WiNetwork\wyNotifyOnHttpReceiveDataRunnable.h" />
+    <ClInclude Include="..\..\jni\WiNetwork\wyNotifyOnReceiveHttpResponseRunnable.h" />
+    <ClInclude Include="..\..\jni\WiNetwork\platform\windows\wyHttpResponse_win.h">
+      <Filter>platform\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiNetwork\platform\windows\wyHttpRequest_win.h">
+      <Filter>platform\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\winetwork\wyNetwork.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\winetwork\wyNetworkConfig.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\winetwork\wyHttpListener.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\winetwork\wyHttpRequest.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\winetwork\wyHttpResponse.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="platform">
+      <UniqueIdentifier>{2d31646e-b1f6-480b-8b45-d080ee9f26fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform\windows">
+      <UniqueIdentifier>{c3cda6ad-9768-41b3-8254-4f747aa4b874}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{e0f79921-86a3-4aee-97cd-f8ed92f9686e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{2009eecd-9670-40cf-bd50-8dc858e3eff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Poco">
+      <UniqueIdentifier>{7e8ff445-ac39-4102-ae2c-f43bf0ffc516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Poco\Net">
+      <UniqueIdentifier>{e92cd9d5-4792-4ab2-8f62-9324b94d01c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Poco\Net\DNS.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\FilePartSource.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\FTPClientSession.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\FTPStreamFactory.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HostEntry.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTMLForm.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPAuthenticationParams.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPBasicCredentials.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPBasicStreamBuf.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPBufferAllocator.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPChunkedStream.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPClientSession.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPCookie.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPCredentials.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPDigestCredentials.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPFixedLengthStream.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPHeaderStream.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPIOStream.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPMessage.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPRequest.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPRequestHandler.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPRequestHandlerFactory.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPResponse.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServer.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServerConnection.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServerConnectionFactory.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServerParams.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServerRequest.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServerRequestImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServerResponse.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServerResponseImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPServerSession.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPSession.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPSessionFactory.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPSessionInstantiator.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPStream.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\HTTPStreamFactory.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ICMPClient.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ICMPEventArgs.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ICMPPacket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ICMPPacketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ICMPSocket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ICMPSocketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ICMPv4PacketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\IPAddress.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\MailMessage.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\MailRecipient.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\MailStream.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\MediaType.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\MessageHeader.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\MulticastSocket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\MultipartReader.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\MultipartWriter.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\NameValueCollection.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\Net.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\NetException.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\NetworkInterface.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\NullPartHandler.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\PartHandler.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\PartSource.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\POP3ClientSession.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\QuotedPrintableDecoder.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\QuotedPrintableEncoder.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\RawSocket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\RawSocketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\RemoteSyslogChannel.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\RemoteSyslogListener.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ServerSocket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\ServerSocketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SMTPClientSession.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\Socket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketAcceptor.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketAddress.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketConnector.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketDefs.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketNotification.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketNotifier.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketReactor.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\SocketStream.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\StreamSocket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\StreamSocketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\StringPartSource.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\TCPServer.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\TCPServerConnection.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\TCPServerConnectionFactory.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\TCPServerDispatcher.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\TCPServerParams.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\WebSocket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\WebSocketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\AbstractHTTPRequestHandler.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\DatagramSocket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\DatagramSocketImpl.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\DialogSocket.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Poco\Net\BlobPartSource.h">
+      <Filter>include\Poco\Net</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DialogSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DNS.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FilePartSource.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FTPClientSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FTPStreamFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HostEntry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTMLForm.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPAuthenticationParams.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPBasicCredentials.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPBufferAllocator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPChunkedStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPClientSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPCookie.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPCredentials.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPDigestCredentials.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPFixedLengthStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPHeaderStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPIOStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPMessage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPRequest.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPRequestHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPRequestHandlerFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPResponse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServerConnection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServerConnectionFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServerParams.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServerRequest.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServerRequestImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServerResponse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServerResponseImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPServerSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPSessionFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPSessionInstantiator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HTTPStreamFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ICMPClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ICMPEventArgs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ICMPPacket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ICMPPacketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ICMPSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ICMPSocketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ICMPv4PacketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IPAddress.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MailMessage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MailRecipient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MailStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MediaType.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MessageHeader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MulticastSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MultipartReader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MultipartWriter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NameValueCollection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetException.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkInterface.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NullPartHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PartHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PartSource.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\POP3ClientSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\QuotedPrintableDecoder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\QuotedPrintableEncoder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RawSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RawSocketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RemoteSyslogChannel.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RemoteSyslogListener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServerSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServerSocketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SMTPClientSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Socket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SocketAddress.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SocketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SocketNotification.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SocketNotifier.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SocketReactor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SocketStream.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StreamSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StreamSocketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringPartSource.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TCPServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TCPServerConnection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TCPServerConnectionFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TCPServerDispatcher.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TCPServerParams.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebSocketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AbstractHTTPRequestHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DatagramSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DatagramSocketImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BlobPartSource.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

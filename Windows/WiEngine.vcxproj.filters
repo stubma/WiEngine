@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{bac9388f-0421-43b3-b890-d5a4111ea5d5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\GridActions\GridActionDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Network\NetworkDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Nodes\NodeDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Others\OtherDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Particles\ParticleDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Performance\PerformanceDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Persistence\PersistenceDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Sound\SoundDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Transition\TransitionDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\common.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\WiEngineDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\dllmain.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Lua\LuaDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Chipmunk\ChipmunkDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\WiEngineApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\GridActions\GridActionDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Network\NetworkDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Nodes\NodeDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Others\memory_file.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Others\OtherDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Particles\ParticleDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Performance\PerformanceDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Persistence\PersistenceDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Sound\SoundDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Transition\TransitionDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\common.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\WiEngineDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Lua\LuaDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Chipmunk\ChipmunkDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\WiEngineApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,785 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyPrefs_h__
+
+/**
+ * @class wyPrefs
+ *
+ * 封装android的preference存取逻辑, 提供方便的方法获得/设置preference值.
+ * 通过这个类, 可以在native层访问应用preference.
+ */
+class wyPrefs {
+public:
+	/**
+	 * 获得一个整数型值
+	 *
+	 * @param key 键名
+	 * @param defValue 缺省值, 如果键值没有找到, 则返回这个值. 这是可选参数.
+	 * @return 整数键值
+	 */
+	static int getInt(const char* key, int defValue = 0);
+
+	/**
+	 * 设置一个整数型值
+	 *
+	 * @param key 键名
+	 * @param value 值
+	 */
+	static void setInt(const char* key, int value);
+
+	/**
+	 * 获得一个布尔型值
+	 *
+	 * @param key 键名
+	 * @param defValue 缺省值, 如果键值没有找到, 则返回这个值. 这是可选参数.
+	 * @return 布尔键值
+	 */
+	static bool getBool(const char* key, bool defValue = false);
+
+	/**
+	 * 设置一个布尔型值
+	 *
+	 * @param key 键名
+	 * @param value 值
+	 */
+	static void setBool(const char* key, bool value);
+
+	/**
+	 * 设置一个64位整数值
+	 *
+	 * @param key 键名
+	 * @param value 值
+	 */
+	static void setInt64(const char* key, int64_t value);
+
+	/**
+	 * 获得一个64位整数值
+	 *
+	 * @param key 键名
+	 * @param defValue 缺省值, 如果键值没有找到, 则返回这个值. 这是可选参数.
+	 * @return 64位整数值
+	 */
+	static int64_t getInt64(const char* key, int64_t defValue);
+	
+	/**
+	 * 获得一个字符串型值
+	 *
+	 * @param key 键名
+	 * @param defValue 缺省值, 如果键值没有找到, 则返回这个值. 这是可选参数.
+	 * @return 字符串键值, 调用者要负责释放返回的字符串指针
+	 */
+	static const char* getString(const char* key, const char* defValue);
+
+	/**
+	 * 设置一个字符串型值
+	 *
+	 * @param key 键名
+	 * @param value 值
+	 */
+	static void setString(const char* key, const char* value);
+
+	/**
+	 * 删除所有的键值
+	 */
+	static void clear();
+
+	/**
+	 * 删除某个键值
+	 *
+	 * @param key 键名
+	 */
+	static void remove(const char* key);
+};
+
+#endif // __wyPrefs_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyDatabase_h__
+
+/**
+ * @class wyDatabase
+ *
+ * \link wyDatabase wyDatabase\endlink是一个对sqlite3数据库的C++封装层。它是一个
+ * FMDB的C++移植版，使用方法和FMDB大致相同。
+ *
+ * \par what is FMDB
+ * an Objective-C wrapper for sqlite3: https://github.com/ccgus/fmdb
+ */
+class wyDatabase : public wyObject {
+public:
+	virtual ~wyDatabase();
+
+	/**
+	 * 静态构造函数
+	 *
+	 * @param path 数据库文件绝对路径. 在iOS平台上会被映射到~/Documents下
+	 * @return \link wyDatabase wyDatabase\endlink实例
+	 */
+	static wyDatabase* make(const char* path);
+
+	/**
+	 * 数据库访问是否是线程安全的
+	 *
+	 * @return true表示是线程安全的
+	 */
+	static bool isThreadSafe();
+
+	/**
+	 * 得到底层sqlite库的版本
+	 *
+	 * @return 版本字符串
+	 */
+	static const char* sqliteLibVersion();
+
+	/**
+	 * 获得sqlite3的句柄
+	 *
+	 * @return sqlite3结构指针
+	 */
+	sqlite3* sqliteHandle() { return m_db; }
+
+	/**
+	 * 打开数据库
+	 *
+	 * @param flags 打开时的标志，这个选项只能当sqlite版本号大于等于3.5.0时才能使用，
+	 * 		如果指定了这个标志但是sqlite版本不够，则会被忽略. 缺省值是0，即没有标志.
+	 * @return true表示打开成功
+	 */
+	bool open(int flags = 0);
+
+	/**
+	 * 关闭数据库，释放资源。当然这个只是释放数据库相关的资源，wyDatabase实例并不会
+	 * 被释放。您可以重新调用open再次打开数据库。
+	 *
+	 * \note
+	 * \link wyDatabase wyDatabase\endlink在析构中也会调用close，因此如果不再使用
+	 * 数据库，直接release也可以，不需要先调用close.
+	 *
+	 * @return true表示关闭成功
+	 */
+	bool close();
+
+	/**
+	 * 数据库是否已经打开
+	 *
+	 * @return true表示数据库已经打开
+	 */
+	bool databaseExists();
+
+	/**
+	 * 验证是否数据库链接还是有效的
+	 *
+	 * @return true表示底层的数据路链接仍然是畅通的
+	 */
+	bool goodConnection();
+
+	/**
+	 * 清除缓存的sql语句对象
+	 */
+	void clearCachedStatements();
+
+	/**
+	 * 关闭当前所有结果集, 释放结果集对象
+	 */
+	void clearResultSets();
+
+	/**
+	 * 执行查询
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return \link wyResultSet wyResultSet\endlink, 如果失败返回NULL
+	 */
+	wyResultSet* executeQuery(const char* sql, ...);
+
+	/**
+	 * 执行更新
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return 成功返回true，失败返回false
+	 */
+	bool executeUpdate(const char* sql, ...);
+
+	/**
+	 * 获得最近一次的操作错误信息
+	 *
+	 * @return 错误信息字符串，调用者不需要负责释放. 如果没有返回NULL
+	 */
+	const char* lastErrorMessage();
+
+	/**
+	 * 获得最近一次的操作错误码
+	 *
+	 * @return 错误码，或者SQLITE_OK表示无错误
+	 */
+	int lastErrorCode();
+
+	/**
+	 * 最近的操作是否有错误发生
+	 *
+	 * @return true表示有错误发生
+	 */
+	bool hadError();
+
+	/**
+	 * 最近一次插入的行的id
+	 *
+	 * @return 最近一次插入的行的id
+	 */
+	int64_t lastInsertRowId();
+
+	/**
+	 * 检查数据库是否正在使用
+	 *
+	 * @return true表示数据库正在使用
+	 */
+	bool inUse() { return m_inUse || m_inTransaction; }
+
+	/**
+	 * 设置数据库是否正在使用
+	 *
+	 * @param value true表示数据库正在使用
+	 */
+	void setInUse(bool value) { m_inUse = value; }
+
+	/**
+	 * 是否要缓存预编译的语句
+	 *
+	 * @return true表示会缓存预编译的语句
+	 */
+	bool shouldCacheStatements() { return m_shouldCacheStatements; }
+
+	/**
+	 * 设置是否要缓存预编译的语句
+	 *
+	 * @param value true表示会缓存预编译的语句
+	 */
+	void setShouldCacheStatements(bool value);
+
+	/**
+	 * 返回最近一次操作改变的行数
+	 *
+	 * @return 最近一次操作改变的行数
+	 */
+	int changes();
+
+	/**
+	 * 回滚事务
+	 *
+	 * @return true表示回滚成功
+	 */
+	bool rollback();
+
+	/**
+	 * 提交事务
+	 *
+	 * @return true表示提交成功
+	 */
+	bool commit();
+
+	/**
+	 * 开始一个延迟事务
+	 *
+	 * @return true表示启动成功
+	 */
+	bool beginDeferredTransaction();
+
+	/**
+	 * 开始一个事务
+	 *
+	 * @return true表示启动成功
+	 */
+	bool beginTransaction();
+
+	/**
+	 * 检查某个表是否存在
+	 *
+	 * @param tableName 表名称
+	 * @return true表示表存在
+	 */
+	bool tableExists(const char* tableName);
+
+	/**
+	 * 一个快捷的封装方法，如果查询返回的第一列是整数类型，则可以用这个方法快速
+	 * 得到结果
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return 结果集中第一列的整数形式结果
+	 */
+	int intForQuery(const char* sql, ...);
+
+	/**
+	 * 一个快捷的封装方法，如果查询返回的第一列是长整数类型，则可以用这个方法快速
+	 * 得到结果
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return 结果集中第一列的长整数形式结果
+	 */
+	long longForQuery(const char* sql, ...);
+
+	/**
+	 * 一个快捷的封装方法，如果查询返回的第一列是64位整数类型，则可以用这个方法快速
+	 * 得到结果
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return 结果集中第一列的64位整数形式结果
+	 */
+	int64_t int64ForQuery(const char* sql, ...);
+
+	/**
+	 * 一个快捷的封装方法，如果查询返回的第一列是布尔类型，则可以用这个方法快速
+	 * 得到结果
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return 结果集中第一列的布尔结果
+	 */
+	bool boolForQuery(const char* sql, ...);
+
+	/**
+	 * 一个快捷的封装方法，如果查询返回的第一列是浮点类型，则可以用这个方法快速
+	 * 得到结果
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return 结果集中第一列的浮点结果
+	 */
+	double doubleForQuery(const char* sql, ...);
+
+	/**
+	 * 一个快捷的封装方法，如果查询返回的第一列是字符串类型，则可以用这个方法快速
+	 * 得到结果
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return 结果集中第一列的字符串结果, 调用者要负责释放该字符串
+	 */
+	const char* stringForQuery(const char* sql, ...);
+
+	/**
+	 * 一个快捷的封装方法，如果查询返回的第一列是二进制类型，则可以用这个方法快速
+	 * 得到结果
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @param outLen 用来返回数据长度
+	 * @return 结果集中第一列的二进制结果, 调用者要负责释放指针
+	 */
+	const char* dataForQuery(const char* sql, size_t* outLen, ...);
+
+	/**
+	 * 一个快捷的封装方法，如果查询返回的第一列是二进制类型，则可以用这个方法快速
+	 * 得到结果
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @param outLen 用来返回数据长度
+	 * @return 结果集中第一列的二进制结果, 调用者不需要负责释放指针
+	 */
+	const char* dataNoCopyForQuery(const char* sql, size_t* outLen, ...);
+
+	/**
+	 * 校验sql语句是否合法
+	 *
+	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
+	 * @return NULL表示语句合法，如果不为NULL，表示不合法且其是一个错误字符串，调用者不需要负责释放该字符串
+	 */
+	const char* validateSQL(const char* sql, ...);
+
+	/**
+	 * 得到数据库的schema
+	 *
+	 * @return \link wyResultSet wyResultSet\endlink
+	 */
+	wyResultSet* getSchema();
+
+	/**
+	 * 得到某个表的schema
+	 *
+	 * @param tableName 表名
+	 * @return \link wyResultSet wyResultSet\endlink
+	 */
+	wyResultSet* getTableSchema(const char* tableName);
+
+	/**
+	 * 检查某个表中是否存在某列
+	 *
+	 * @param tableName 表名
+	 * @param columnName 列名
+	 * @return true表示该列存在
+	 */
+	bool columnExists(const char* tableName, const char* columnName);
+
+	/**
+	 * 执行一个SQL文件, 文件的执行会在一个事务中进行，因此要么全部成功要么失败
+	 *
+	 * @param resId sql文件的资源id，文件必须是utf-8编码
+	 * @return true表示执行成功，false表示失败
+	 */
+	bool executeSQL(int resId);
+
+	/**
+	 * 执行一个SQL文件, 文件的执行会在一个事务中进行，因此要么全部成功要么失败
+	 *
+	 * @param path sql文件的路径，文件必须是utf-8编码
+	 * @param isFile true表示\c path 是一个文件系统路径，false表示\c path 是一个assets下的相对路径, 缺省是false
+	 * @return true表示执行成功，false表示失败
+	 */
+	bool executeSQL(const char* path, bool isFile = false);
+
+	/**
+	 * 执行一个SQL文件, 文件的执行会在一个事务中进行，因此要么全部成功要么失败
+	 *
+	 * @param data sql文件的原始字节数据
+	 * @param length data的长度
+	 * @return true表示执行成功，false表示失败
+	 */
+	bool executeSQL(const char* data, size_t length);
+	
+	/*
+	 * setter and getter
+	 */
+
+	const char* getDatabasePath() { return m_databasePath; }
+	sqlite3* getSqlite3Handle() { return m_db; }
+	int getBusyRetryTimeout() { return m_busyRetryTimeout; }
+	void setBusyRetryTimeout(int c) { m_busyRetryTimeout = c; }
+	bool isInTransaction() { return m_inTransaction; }
+};
+
+#endif // __wyDatabase_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyResultSet_h__
+
+/**
+ * @class wyResultSet
+ *
+ * 封装sqlite3返回的结果集
+ */
+class wyResultSet : public wyObject {
+public:
+    virtual ~wyResultSet();
+
+    /**
+     * 光标切换到下一行结果
+     *
+     * @return true表示成功切换到下一行，false表示无更多数据
+     */
+    bool next();
+
+    /**
+     * 是否还有更多结果
+     *
+     * @return true表示还有更多结果
+     */
+    bool hasAnotherRow();
+
+    /**
+     * 得到结果集中的列数
+     *
+     * @return 结果集中的列数
+     */
+    int columnCount();
+
+    /**
+     * 检查某列是否为空值
+     *
+     * @param columnIdx 列索引
+     * @return true表示该行为空
+     */
+    bool columnIndexIsNull(int columnIdx);
+
+    /**
+     * 检查某列是否为空值
+     *
+     * @param columnName 列名称
+     * @return true表示该行为空
+     */
+    bool columnIsNull(const char* columnName);
+
+    /**
+     * 根据列名得到列索引
+     *
+     * @param columnName 列名称
+     * @return 列索引，从0开始
+     */
+    int columnIndexForName(const char* columnName);
+
+    /**
+     * 根据列索引得到列名
+     *
+     * @param columnIndex 列索引
+     * @return 列名, 如果索引无效，返回NULL。调用者不需要负责释放指针
+     */
+    const char* columnNameForIndex(int columnIdx);
+
+    /**
+     * 得到某列的整形数据, 该列的类型如果不是整形，则会被自动转换成整形
+     *
+     * @param columnName 列名
+     * @return 整形数值
+     */
+    int intForColumn(const char* columnName);
+
+    /**
+     * 得到某列的整形数据, 该列的类型如果不是整形，则会被自动转换成整形
+     *
+     * @param columnIdx 列索引
+     * @return 整形数值
+     */
+    int intForColumnIndex(int columnIdx);
+
+    /**
+     * 得到某列的长整形数据, 该列的类型如果不是长整形，则会被自动转换成64位整数形式，再转换为长整形
+     *
+     * @param columnName 列名
+     * @return 长整形数值
+     */
+    long longForColumn(const char* columnName);
+
+    /**
+     * 得到某列的长整形数据, 该列的类型如果不是长整形，则会被自动转换成64位整数形式，再转换为长整形
+     *
+     * @param columnIdx 列索引
+     * @return 长整形数值
+     */
+    long longForColumnIndex(int columnIdx);
+
+    /**
+     * 得到某列的64位整数数据, 该列的类型如果不是64位整数，则会被自动转换成64位整数形式
+     *
+     * @param columnName 列名
+     * @return 64位整数值
+     */
+    int64_t int64ForColumn(const char* columnName);
+
+    /**
+     * 得到某列的64位整数数据, 该列的类型如果不是64位整数，则会被自动转换成64位整数形式
+     *
+     * @param columnIdx 列索引
+     * @return 64位整数值
+     */
+    int64_t int64ForColumnIndex(int columnIdx);
+
+    /**
+     * 得到某列的布尔数据, 该列的类型如果不是布尔，则会被自动转换成整数形式，再判断整数值是否非0
+     *
+     * @param columnName 列名
+     * @return 布尔值
+     */
+    bool boolForColumn(const char* columnName);
+
+    /**
+     * 得到某列的布尔数据, 该列的类型如果不是布尔，则会被自动转换成整数形式，再判断整数值是否非0
+     *
+     * @param columnIdx 列索引
+     * @return 布尔值
+     */
+    bool boolForColumnIndex(int columnIdx);
+
+    /**
+     * 得到某列的浮点数据, 该列的类型如果不是浮点，则会被自动转换成浮点形式
+     *
+     * @param columnName 列名
+     * @return 浮点值
+     */
+    double doubleForColumn(const char* columnName);
+
+    /**
+     * 得到某列的浮点数据, 该列的类型如果不是浮点，则会被自动转换成浮点形式
+     *
+     * @param columnIdx 列索引
+     * @return 浮点值
+     */
+    double doubleForColumnIndex(int columnIdx);
+
+    /**
+     * 得到某列的字符串数据，该列的类型如果不是字符串，则会被自动转换成字符串形式
+     *
+     * @param columnName 列名
+     * @return 字符串数据，调用者要负责释放该指针
+     */
+    const char* stringForColumn(const char* columnName);
+
+    /**
+     * 得到某列的字符串数据，该列的类型如果不是字符串，则会被自动转换成字符串形式
+     *
+     * @param columnIdx 列索引
+     * @return 字符串数据，调用者要负责释放该指针
+     */
+    const char* stringForColumnIndex(int columnIdx);
+
+    /**
+     * 得到某列的二进制数据，该列的类型如果不是二进制数据，则会被自动转换成二进制形式
+     *
+     * @param columnName 列名
+     * @param outLen 用来返回数据长度，不能为NULL
+     * @return 二进制数据，这份数据是数据库中内容的拷贝，所以调用者要负责释放该指针
+     */
+    const char* dataForColumn(const char* columnName, size_t* outLen);
+
+    /**
+     * 得到某列的二进制数据，该列的类型如果不是二进制数据，则会被自动转换成二进制形式
+     *
+     * @param columnIdx 列索引
+     * @param outLen 用来返回数据长度，不能为NULL
+     * @return 二进制数据，这份数据是数据库中内容的拷贝，所以调用者要负责释放该指针
+     */
+    const char* dataForColumnIndex(int columnIdx, size_t* outLen);
+
+    /**
+     * 得到某列的二进制数据，该列的类型如果不是二进制数据，则会被自动转换成二进制形式
+     *
+     * @param columnName 列名
+     * @param outLen 用来返回数据长度，不能为NULL
+     * @return 二进制数据，这份数据是数据库中的内容，所以调用者不需要释放该指针
+     */
+    const char* dataNoCopyForColumn(const char* columnName, size_t* outLen);
+
+    /**
+     * 得到某列的二进制数据，该列的类型如果不是二进制数据，则会被自动转换成二进制形式
+     *
+     * @param columnIdx 列索引
+     * @param outLen 用来返回数据长度，不能为NULL
+     * @return 二进制数据，这份数据是数据库中的内容，所以调用者不需要释放该指针
+     */
+    const char* dataNoCopyForColumnIndex(int columnIdx, size_t* outLen);
+
+    /*
+     * getter and setter
+     */
+
+    wyDatabase* getDatabase() { return m_db; }
+    wyStatement* getStatement() { return m_statement; }
+};
+
+#endif // __wyResultSet_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyStatement_h__
+
+/**
+ * @class wyStatement
+ *
+ * 封装sqlite3的语句对象
+ */
+class wyStatement : public wyObject {
+public:
+    virtual ~wyStatement();
+
+    /**
+     * 设置查询语句
+     *
+     * @param q 查询语句，其内容会被复制，因此方法返回后可以立刻释放
+     */
+    void setQuery(const char* q);
+
+    /**
+     * 获得查询语句
+     *
+     * @return 查询语句
+     */
+    const char* getQuery() { return m_query; }
+
+    /**
+     * 设置底层的语句对象
+     *
+     * @param s sqlite3_stmt结构指针
+     */
+    void setStatement(sqlite3_stmt* s);
+
+    /**
+     * 得到底层的语句对象
+     *
+     * @return sqlite3_stmt结构指针
+     */
+    sqlite3_stmt* getStatement() { return m_statement; }
+
+    /**
+     * 关闭底层的语句对象
+     */
+    void close();
+
+    /**
+     * 重置底层的语句对象
+     */
+    void reset();
+};
+
+#endif // __wyStatement_h__

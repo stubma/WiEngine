@@ -1,0 +1,6 @@
+VSWIZARD 7.0
+Wizard=VsWizard.VsWizardEngine.10.0
+
+Param="WIZARD_NAME = WiEngineWizard"
+Param="RELATIVE_PATH = VCWizards\AppWiz\Generic"
+Param="FALLBACK_LCID = 2052"

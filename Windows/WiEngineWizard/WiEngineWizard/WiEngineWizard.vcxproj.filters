@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="模板文件">
+      <UniqueIdentifier>{32d84980-c195-465a-a4d1-6fcfeed1f305}</UniqueIdentifier>
+      <Extensions>txt</Extensions>
+    </Filter>
+    <Filter Include="HTML 文件">
+      <UniqueIdentifier>{17353e4c-cae3-45a3-87ce-a08aa0bcd55b}</UniqueIdentifier>
+      <Extensions>htm</Extensions>
+    </Filter>
+    <Filter Include="图像文件">
+      <UniqueIdentifier>{8ec23ff1-6ab8-491e-a57b-f3fc4eb9f3a4}</UniqueIdentifier>
+      <Extensions>bmp</Extensions>
+    </Filter>
+    <Filter Include="脚本文件">
+      <UniqueIdentifier>{3997a2c7-3c7f-4aa3-b5e9-bd2aa57a3eee}</UniqueIdentifier>
+      <Extensions>js</Extensions>
+    </Filter>
+    <Filter Include="杂项文件">
+      <UniqueIdentifier>{a3d412ff-f670-45e9-aac9-1c5060cc26e7}</UniqueIdentifier>
+      <Extensions>vsz;vsdir;ico;vcxproj;csproj;css;inf</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Templates\2052\Templates.inf">
+      <Filter>杂项文件</Filter>
+    </None>
+    <None Include="WiEngineWizard.vsz">
+      <Filter>杂项文件</Filter>
+    </None>
+    <None Include="Scripts\2052\default.js">
+      <Filter>脚本文件</Filter>
+    </None>
+    <None Include="default.vcxproj">
+      <Filter>杂项文件</Filter>
+    </None>
+    <None Include="WiEngineWizard.vsdir">
+      <Filter>杂项文件</Filter>
+    </None>
+    <None Include="WiEngineWizard.ico">
+      <Filter>杂项文件</Filter>
+    </None>
+    <None Include="HTML\2052\default.htm">
+      <Filter>HTML 文件</Filter>
+    </None>
+    <None Include="Images\WiEngineWizard.gif" />
+    <None Include="Images\WiEngineWizard_Background.gif" />
+    <None Include="2052\NewStyles.css">
+      <Filter>杂项文件</Filter>
+    </None>
+    <None Include="2052\Images\DottedHori.gif" />
+    <None Include="2052\Images\DottedVert.gif" />
+    <None Include="2052\Images\spacer.gif" />
+    <None Include="Templates\2052\WiEngine.ico">
+      <Filter>模板文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Templates\2052\targetver.h">
+      <Filter>模板文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates\2052\WiEngineApp.h">
+      <Filter>模板文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates\2052\FirstScene.h">
+      <Filter>模板文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates\2052\resource.h">
+      <Filter>模板文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates\2052\stdafx.h">
+      <Filter>模板文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Templates\2052\WiEngineApp.cpp">
+      <Filter>模板文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Templates\2052\FirstScene.cpp">
+      <Filter>模板文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Templates\2052\stdafx.cpp">
+      <Filter>模板文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Templates\2052\WiEngineSkeletonProject.rc">
+      <Filter>模板文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

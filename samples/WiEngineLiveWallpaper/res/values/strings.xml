@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiEngineLiveWallpaper</string>
+    <string name="wallpaper_snow">Particle Snow</string>
+    <string name="wallpaper_snow_desc">通过WiEngine可以方便的实现各种动态壁纸，该示例在桌面显示一个下雪的效果，使用了粒子系统</string>
+</resources>

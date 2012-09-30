@@ -1,0 +1,6 @@
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+    #import <AppKit/AppKit.h>
+    #import <Foundation/Foundation.h>
+	#import "WiEngine.h"
+#endif

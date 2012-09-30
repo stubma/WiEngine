@@ -1,0 +1,1960 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyBottomPushInTransition_h__
+
+
+/**
+ * @class wyBottomPushInTransition
+ *
+ * 场景切换效果,载入场景从底部出现覆盖载出场景,载出场景会随载入场景向上移动，效果类似被载入场景挤出屏幕
+ */
+class wyBottomPushInTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyBottomPushInTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyBottomPushInTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyBottomPushInTransition();
+};
+
+#endif // __wyBottomPushInTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyBottomSlideInTransition_h__
+
+
+/**
+ * @class wyBottomSlideInTransition
+ *
+ * 场景切换效果,载入场景从底部出现覆盖载出场景,载出场景不会移动,效果类似被载入场景逐渐覆盖
+ */
+class wyBottomSlideInTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyBottomSlideInTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyBottomSlideInTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyBottomSlideInTransition();
+};
+
+#endif // __wyBottomSlideInTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyBottomTilesShrinkOutTransition_h__
+
+
+/**
+ * @class wyBottomTilesShrinkOutTransition
+ *
+ * 旧的场景从底部网格逐渐消失，从而显示出新场景
+ */
+class wyBottomTilesShrinkOutTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动画持续时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 格子行数
+	 * @param cols 格子列数
+	 */
+	static wyBottomTilesShrinkOutTransition* make(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动画持续时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 格子行数
+	 * @param cols 格子列数
+	 */
+	wyBottomTilesShrinkOutTransition(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyBottomTilesShrinkOutTransition();
+};
+
+#endif // __wyBottomTilesShrinkOutTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyColorFadeTransition_h__
+
+
+/**
+ * @class wyColorFadeTransition
+ *
+ * 一个颜色层由透明变成不透明，再由不透明变成透明,完成场景切换
+ */
+class wyColorFadeTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rgb 颜色层颜色\link wyColor3B wyColor3B结构\endlink
+	 */
+    static wyColorFadeTransition* make(float duration, wyScene* inScene, wyColor3B rgb);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rgb 颜色层颜色\link wyColor3B wyColor3B结构\endlink
+	 */
+    wyColorFadeTransition(float duration, wyScene* inScene, wyColor3B rgb);
+
+    /**
+	 * 析构函数
+	 */
+    virtual ~wyColorFadeTransition();
+};
+
+#endif // __wyColorFadeTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyCrossFadeTransition_h__
+
+
+/**
+ * @class wyCrossFadeTransition
+ *
+ * 旧场景从不透明变成透明，新场景从透明变成不透明
+ */
+class wyCrossFadeTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyCrossFadeTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyCrossFadeTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyCrossFadeTransition();
+};
+
+#endif // __wyCrossFadeTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyFlipAngularTransition_h__
+
+
+/**
+ * @class wyFlipAngularTransition
+ *
+ * 新旧场景在一定角度上翻转180度
+ */
+class wyFlipAngularTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toLeft 标识向左还是向右旋转，true为向左
+	 */
+	static wyFlipAngularTransition* make(float duration, wyScene* inScene, bool toLeft);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toLeft 标识向左还是向右旋转，true为向左
+	 */
+	wyFlipAngularTransition(float duration, wyScene* inScene, bool toLeft);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyFlipAngularTransition();
+};
+
+#endif // __wyFlipAngularTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyFlipXTransition_h__
+
+
+/**
+ * @class wyFlipXTransition
+ *
+ * x轴旋转180度
+ */
+class wyFlipXTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toLeft 标识向左还是向右旋转，true为向左
+	 */
+	static wyFlipXTransition* make(float duration, wyScene* inScene, bool toLeft);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toLeft 标识向左还是向右旋转，true为向左
+	 */
+	wyFlipXTransition(float duration, wyScene* inScene, bool toLeft);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyFlipXTransition();
+};
+
+#endif // __wyFlipXTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyFlipYTransition_h__
+
+
+/**
+ * @class wyFlipYTransition
+ *
+ * y轴旋转180度
+ */
+class wyFlipYTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toTop 标识向上还是向下旋转，true为向上
+	 */
+	static wyFlipYTransition* make(float duration, wyScene* inScene, bool toTop);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toTop 标识向上还是向下旋转，true为向上
+	 */
+	wyFlipYTransition(float duration, wyScene* inScene, bool toTop);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyFlipYTransition();
+};
+
+#endif // __wyFlipYTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyJumpZoomTransition_h__
+
+
+/**
+ * @class wyJumpZoomTransition
+ *
+ * 旧场景缩小后跳跃出屏幕，新场景跳跃进屏幕再放大到正常大小
+ */
+class wyJumpZoomTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyJumpZoomTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyJumpZoomTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyJumpZoomTransition();
+};
+
+#endif // __wyJumpZoomTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLeftBottomTilesShrinkOutTransition_h__
+
+
+/**
+ * @class wyLeftBottomTilesShrinkOutTransition
+ *
+ * 旧的场景的左下角网格逐渐消失，从而显示出新场景
+ */
+class wyLeftBottomTilesShrinkOutTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动画持续时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 格子行数
+	 * @param cols 格子列数
+	 */
+	static wyLeftBottomTilesShrinkOutTransition* make(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动画持续时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 格子行数
+	 * @param cols 格子列数
+	 */
+	wyLeftBottomTilesShrinkOutTransition(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyLeftBottomTilesShrinkOutTransition();
+};
+
+#endif // __wyLeftBottomTilesShrinkOutTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLeftPushInTransition_h__
+
+
+/**
+ * @class wyLeftPushInTransition
+ *
+ * 新的场景从左边进入，同时把旧场景往右推
+ */
+class wyLeftPushInTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyLeftPushInTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyLeftPushInTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyLeftPushInTransition();
+};
+
+#endif // __wyLeftPushInTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLeftSlideInTransition_h__
+
+
+/**
+ * @class wyLeftSlideInTransition
+ *
+ * 新的场景从左边进入覆盖旧的场景
+ */
+class wyLeftSlideInTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyLeftSlideInTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyLeftSlideInTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyLeftSlideInTransition();
+};
+
+#endif // __wyLeftSlideInTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyPageTurn3DTransition_h__
+
+
+/**
+ * @class wyPageTurn3DTransition
+ *
+ * 翻页形式的场景切换
+ */
+class wyPageTurn3DTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyPageTurn3DTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyPageTurn3DTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyPageTurn3DTransition();
+};
+
+#endif // __wyPageTurn3DTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRadialCCWTransition_h__
+
+
+/**
+ * @class wyRadialCCWTransition
+ *
+ * 场景切换效果, 通过一个逆时针的转动，切换出新场景
+ */
+class wyRadialCCWTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyRadialCCWTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyRadialCCWTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRadialCCWTransition();
+};
+
+#endif // __wyRadialCCWTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRadialCWTransition_h__
+
+
+/**
+ * @class wyRadialCWTransition
+ *
+ * 场景切换效果, 通过一个顺时针的转动，切换出新场景
+ */
+class wyRadialCWTransition : public wyRadialCCWTransition {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyRadialCWTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyRadialCWTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRadialCWTransition();
+};
+
+#endif // __wyRadialCWTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRightPushInTransition_h__
+
+
+/**
+ * @class wyRightPushInTransition
+ *
+ * 新的场景从右边进入，同时把旧场景往左推
+ */
+class wyRightPushInTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyRightPushInTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyRightPushInTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRightPushInTransition();
+};
+
+#endif // __wyRightPushInTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRightSlideInTransition_h__
+
+
+/**
+ * @class wyRightSlideInTransition
+ *
+ * 新的场景从右边进入覆盖旧的场景
+ */
+class wyRightSlideInTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyRightSlideInTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyRightSlideInTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRightSlideInTransition();
+};
+
+#endif // __wyRightSlideInTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRightTopTilesShrinkOutTransition_h__
+
+
+/**
+ * @class wyRightTopTilesShrinkOutTransition
+ *
+ * 旧的场景的右上角网格逐渐消失，从而显示出新场景
+ */
+class wyRightTopTilesShrinkOutTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动画持续时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 格子行数
+	 * @param cols 格子列数
+	 */
+	static wyRightTopTilesShrinkOutTransition* make(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动画持续时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 格子行数
+	 * @param cols 格子列数
+	 */
+	wyRightTopTilesShrinkOutTransition(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRightTopTilesShrinkOutTransition();
+};
+
+#endif // __wyRightTopTilesShrinkOutTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRotateZoomTransition_h__
+
+
+/**
+ * @class wyRotateZoomTransition
+ *
+ * 旧场景一边缩小一边旋转，之后新场景一边放大一边旋转
+ */
+class wyRotateZoomTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyRotateZoomTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyRotateZoomTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRotateZoomTransition();
+};
+
+#endif // __wyRotateZoomTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyShrinkGrowTransition_h__
+
+
+/**
+ * @class wyShrinkGrowTransition
+ *
+ * 旧场景逐渐缩小，新场景逐渐变大
+ */
+class wyShrinkGrowTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyShrinkGrowTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyShrinkGrowTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyShrinkGrowTransition();
+};
+
+#endif // __wyShrinkGrowTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySplitColsTransition_h__
+
+
+/**
+ * @class wySplitColsTransition
+ *
+ * 旧场景被分割层若干列，交错移出屏幕
+ */
+class wySplitColsTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param cols 列数
+	 */
+	static wySplitColsTransition* make(float duration, wyScene* inScene, int cols);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param cols 列数
+	 */
+	wySplitColsTransition(float duration, wyScene* inScene, int cols);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wySplitColsTransition();
+};
+
+#endif // __wySplitColsTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySplitRowsTransition_h__
+
+
+/**
+ * @class wySplitRowsTransition
+ *
+ * 旧场景被分割层若干行，交错移出屏幕
+ */
+class wySplitRowsTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 行数
+	 */
+	static wySplitRowsTransition* make(float duration, wyScene* inScene, int rows);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 行数
+	 */
+	wySplitRowsTransition(float duration, wyScene* inScene, int rows);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wySplitRowsTransition();
+};
+
+#endif // __wySplitRowsTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTopPushInTransition_h__
+
+
+/**
+ * @class wyTopPushInTransition
+ *
+ * 场景切换效果,载入场景从顶部出现覆盖载出场景,载出场景会随载入场景向下移动，效果类似被载入场景挤出屏幕
+ */
+class wyTopPushInTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyTopPushInTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyTopPushInTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTopPushInTransition();
+};
+
+#endif // __wyTopPushInTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTopSlideInTransition_h__
+
+
+/**
+ * @class wyTopSlideInTransition
+ *
+ * 场景切换效果,载入场景从顶部出现覆盖载出场景,载出场景不会移动，效果类似被载入场景逐渐覆盖
+ */
+class wyTopSlideInTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	static wyTopSlideInTransition* make(float duration, wyScene* inScene);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 */
+	wyTopSlideInTransition(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTopSlideInTransition();
+};
+
+#endif // __wyTopSlideInTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTopTilesShrinkOutTransition_h__
+
+
+/**
+ * @class wyTopTilesShrinkOutTransition
+ *
+ * 旧的场景的顶部网格逐渐消失，从而显示出新场景
+ */
+class wyTopTilesShrinkOutTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动画持续时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 格子行数
+	 * @param cols 格子列数
+	 */
+	static wyTopTilesShrinkOutTransition* make(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动画持续时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 格子行数
+	 * @param cols 格子列数
+	 */
+	wyTopTilesShrinkOutTransition(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTopTilesShrinkOutTransition();
+};
+
+#endif // __wyTopTilesShrinkOutTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTransitionScene_h__
+
+
+/**
+ * @class wyTransitionScene
+ *
+ * 场景切换效果的封装, 是所有场景切换的基类
+ */
+class wyTransitionScene : public wyScene {
+public:
+	static wyTransitionScene* make(float duration, wyScene* inScene);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTransitionScene();
+	
+	/// @see wyNode::draw
+	virtual void draw();
+
+	/// @see wyNode::onEnter
+	virtual void onEnter();
+
+	/// @see wyNode::onExit
+	virtual void onExit();
+
+	/// @see wyScene::isTransition
+	virtual bool isTransition() { return true; }
+
+	/**
+	 * 获得载入的\link wyScene wyScene对象指针\endlink
+	 *
+	 * @return 载入的\link wyScene wyScene对象指针\endlink
+	 */
+	wyScene* getInScene() { return m_inScene; }
+
+	/**
+	 * 设置载入场景, 只能在运行前设置.
+	 *
+	 * @param scene 需要载入的场景
+	 */
+	void setInScene(wyScene* scene);
+
+	/**
+	 * 获得载出的\link wyScene wyScene对象指针\endlink
+	 *
+	 * @return 载出的\link wyScene wyScene对象指针\endlink
+	 */
+	wyScene* getOutScene() { return m_outScene; }
+
+	/**
+	 * 设置载出场景, 只能在运行前设置.
+	 *
+	 * @param scene 需要载出的场景
+	 */
+	void setOutScene(wyScene* scene);
+
+	/**
+	 * 获得场景切换设置的时间
+	 *
+	 * @return 场景切换设置的时间
+	 */
+	float getDuration() { return m_duration; }
+
+	/**
+	 * 设置入场效果的ease动作. 内置的转换效果都是线性的, 如果想给它们设置一个非线性效果, 则
+	 * 必须在转换开始之前设置. 不过给转换动画设置非线性效果需要适当的运用, 不然出入场动画不匹配
+	 * 则会比较难看.
+	 *
+	 * @param inEase \link wyEaseAction wyEaseAction\endlink的子类
+	 */
+	void setInEaseAction(wyEaseAction* inEase);
+
+	/**
+	 * 设置出场效果的ease动作. 内置的转换效果都是线性的, 如果想给它们设置一个非线性效果, 则
+	 * 必须在转换开始之前设置. 不过给转换动画设置非线性效果需要适当的运用, 不然出入场动画不匹配
+	 * 则会比较难看.
+	 *
+	 * @param outEase \link wyEaseAction wyEaseAction\endlink的子类
+	 */
+	void setOutEaseAction(wyEaseAction* outEase);
+};
+
+#endif // __wyTransitionScene_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTurnOffTilesTransition_h__
+
+
+/**
+ * @class wyTurnOffTilesTransition
+ *
+ * 旧场景被分割层网格，网格随机一个个消失逐渐显示出新场景
+ */
+class wyTurnOffTilesTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 行数
+	 * @param cols 列数
+	 */
+	static wyTurnOffTilesTransition* make(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param rows 行数
+	 * @param cols 列数
+	 */
+	wyTurnOffTilesTransition(float duration, wyScene* inScene, int rows, int cols);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTurnOffTilesTransition();
+};
+
+#endif // __wyTurnOffTilesTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyZoomFlipAngularTransition_h__
+
+
+/**
+ * @class wyZoomFlipAngularTransition
+ *
+ * 新旧场景沿某个角度旋转180度，同时有一定的缩放
+ */
+class wyZoomFlipAngularTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toLeft 标识向左还是向右旋转，true为向左
+	 * @param scale 缩放比
+	 */
+	static wyZoomFlipAngularTransition* make(float duration, wyScene* inScene, bool toLeft, float scale);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toLeft 标识向左还是向右旋转，true为向左
+	 * @param scale 缩放比
+	 */
+	wyZoomFlipAngularTransition(float duration, wyScene* inScene, bool toLeft, float scale);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyZoomFlipAngularTransition();
+};
+
+#endif // __wyZoomFlipAngularTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyZoomFlipXTransition_h__
+
+
+/**
+ * @class wyZoomFlipXTransition
+ *
+ * 新旧场景沿x轴旋转180度，同时有一定的缩放
+ */
+class wyZoomFlipXTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toLeft 标识向左还是向右旋转，true为向左
+	 * @param scale 缩放比
+	 */
+	static wyZoomFlipXTransition* make(float duration, wyScene* inScene, bool toLeft, float scale);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toLeft 标识向左还是向右旋转，true为向左
+	 * @param scale 缩放比
+	 */
+	wyZoomFlipXTransition(float duration, wyScene* inScene, bool toLeft, float scale);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyZoomFlipXTransition();
+};
+
+#endif // __wyZoomFlipXTransition_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyZoomFlipYTransition_h__
+
+
+/**
+ * @class wyZoomFlipYTransition
+ *
+ * 新旧场景沿y轴旋转180度，同时有一定的缩放
+ */
+class wyZoomFlipYTransition : public wyTransitionScene {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toTop 标识向上还是向下旋转，true为向上
+	 * @param scale 缩放比
+	 */
+	static wyZoomFlipYTransition* make(float duration, wyScene* inScene, bool toTop, float scale);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param toTop 标识向上还是向下旋转，true为向上
+	 * @param scale 缩放比
+	 */
+	wyZoomFlipYTransition(float duration, wyScene* inScene, bool toTop, float scale);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyZoomFlipYTransition();
+};
+
+#endif // __wyZoomFlipYTransition_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySuckTransition_h__
+
+/**
+ * @class wySuckTransition
+ *
+ * \if English
+ * Transition which uses suck effect
+ * \else
+ * 使用吸入效果的转场类
+ * \endif
+ */
+class wySuckTransition : public wyTransitionScene {
+public:
+	/**
+	 * \if English
+	 * Static constructor
+	 *
+	 * @param duration transition duration time in seconds
+	 * @param inScene the scene will be switched in. If not NULL, then out scene is current scene.
+	 * 		If NULL, the out scene is not set also and somebody must set them after make returns. Generally
+	 * 		you will set \c inScene NULL when uses popSceneWithTransition and \link wyDirector wyDirector\endlink
+	 * 		will set in and out scene automatically.
+	 * @param suckX x position of sucking
+	 * @param suckY y position of sucking
+	 * @return \link wySuckTransition wySuckTransition\endlink
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 场景切换的时间
+	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
+	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
+	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
+	 * 		会自动设置载入和载出场景.
+	 * @param suckX 吸入点的x位置
+	 * @param suckY 吸入点的y位置
+	 * @return \link wySuckTransition wySuckTransition\endlink
+	 * \endif
+	 */
+	static wySuckTransition* make(float duration, wyScene* inScene, float suckX, float suckY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wySuckTransition();
+};
+
+#endif // __wySuckTransition_h__

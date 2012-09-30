@@ -1,0 +1,10 @@
+FirstScene.cpp
+FirstScene.h
+resource.h
+stdafx.cpp
+stdafx.h
+targetver.h
+WiEngine.ico
+WiEngineApp.cpp
+WiEngineApp.h
+WiEngineSkeletonProject.rc

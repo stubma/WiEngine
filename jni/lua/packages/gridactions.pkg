@@ -1,0 +1,2175 @@
+$#include "WiEngine.h"
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyBottomLineShrinkOut_h__
+
+
+/**
+ * @class wyBottomLineShrinkOut
+ *
+ * 把屏幕分成若干行，从底部开始收缩每行
+ */
+class wyBottomLineShrinkOut : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyBottomLineShrinkOut* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyBottomLineShrinkOut(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyBottomLineShrinkOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyBottomLineShrinkOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyBottomTilesShrinkOut_h__
+
+
+/**
+ * @class wyBottomTilesShrinkOut
+ *
+ * 把屏幕分成网格，从底部开始收缩每行的网格
+ */
+class wyBottomTilesShrinkOut : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyBottomTilesShrinkOut* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyBottomTilesShrinkOut(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyBottomTilesShrinkOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyBottomTilesShrinkOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyGrid3DAction_h__
+
+
+/**
+ * @class wyGrid3DAction
+ *
+ * 3维网格动作的基类
+ */
+class wyGrid3DAction : public wyGridAction {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyGrid3DAction(float duration, float gridX, float gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyGrid3DAction();
+
+	/// @see wyGridAction::makeGrid
+	virtual wyBaseGrid* makeGrid();
+
+	/// @see wyGridAction::getGridClass
+	virtual bool isGridReusable(wyBaseGrid* grid);
+
+	/**
+	 * 获取某位置的顶点坐标
+	 *
+	 * @param pos 点的行列坐标\link wyDimension wyDimension结构\endlink
+	 */
+	wyVertex3D getVertex(wyDimension pos);
+
+	/**
+	 * 获取某位置的初始顶点坐标
+	 *
+	 * @param pos 点的行列坐标\link wyDimension wyDimension结构\endlink
+	 */
+	wyVertex3D getOriginalVertex(wyDimension pos);
+
+	/**
+	 * 设置某位置的顶点坐标
+	 *
+	 * @param pos 点的行列坐标\link wyDimension wyDimension结构\endlink
+	 * @param vertex \link wyVertex3D wyVertex3D结构\endlink
+	 */
+	void setVertex(wyDimension pos, wyVertex3D vertex);
+};
+
+#endif // __wyGrid3DAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyGridAction_h__
+
+
+/**
+ * @class wyGridAction
+ *
+ * 抽象基类，用于表示所有基于网格的动作
+ */
+class wyGridAction : public wyIntervalAction {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyGridAction(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyGridAction();
+
+	/**
+	 * 返回一个网格对象，子类需要实现这个方法
+	 *
+	 * @return \link wyBaseGrid wyBaseGrid对象指针\endlink
+	 */
+	virtual wyBaseGrid* makeGrid() = 0;
+
+	/**
+	 * 检查之前的网格对象是否可以重用
+	 *
+	 * @param grid \link wyBaseGrid wyBaseGrid\endlink
+	 * @return true表示可以重用
+	 */
+	virtual bool isGridReusable(wyBaseGrid* grid) = 0;
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/**
+	 * 设置动作幅度。有些动作可以设置相应幅度，幅度会影响动作的剧烈程度。
+	 *
+	 * @param amp 动作幅度大小
+	 */
+	void setAmplitude(float amp) { m_amplitude = amp; }
+
+	/**
+	 * 设置动作幅度比率。动作幅度比率可以起到放大的作用。
+	 *
+	 * @param ar 动作幅度比率
+	 */
+	void setAmplitudeRate(float ar) { m_amplitudeRate = ar; }
+
+	/**
+	 * 获得动作幅度
+	 *
+	 * @return 动作幅度大小
+	 */
+	float getAmplitude() { return m_amplitude; }
+
+	/**
+	 * 得到动作幅度比率
+	 *
+	 * @return 动作幅度比率
+	 */
+	float getAmplitudeRate() { return m_amplitudeRate; }
+
+	/**
+	 * 得到网格行数
+	 *
+	 * @return 网格行数
+	 */
+	float getGridX() { return m_gridX; }
+
+	/**
+	 * 得到网格列数
+	 *
+	 * @return 网格列数
+	 */
+	float getGridY() { return m_gridY; }
+};
+
+#endif // __wyGridAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyGridFlipX_h__
+
+
+/**
+ * @class wyGridFlipX
+ *
+ * 旋转x轴180度
+ */
+class wyGridFlipX : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 */
+	static wyGridFlipX* make(float duration);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 */
+	wyGridFlipX(float duration);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyGridFlipX();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyGridFlipX_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyGridFlipY_h__
+
+
+/**
+ * @class wyGridFlipY
+ *
+ * 旋转y轴180度
+ */
+class wyGridFlipY : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 */
+	static wyGridFlipY* make(float duration);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 */
+	wyGridFlipY(float duration);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyGridFlipY();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyGridFlipY_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyJumpTiles3D_h__
+
+
+/**
+ * @class wyJumpTiles3D
+ *
+ * 网络跳跃，每个Tile形成上下跳跃的效果
+ */
+class wyJumpTiles3D : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 动作幅度
+	 * @param jumps 跳跃次数
+	 */
+	static wyJumpTiles3D* make(float duration, int gridX, int gridY, float amplitude, int jumps);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 动作幅度
+	 * @param jumps 跳跃次数
+	 */
+	wyJumpTiles3D(float duration, int gridX, int gridY, float amplitude, int jumps);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyJumpTiles3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyJumpTiles3D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLeftBottomTilesShrinkOut_h__
+
+
+/**
+ * @class wyLeftBottomTilesShrinkOut
+ *
+ * 把屏幕划分为网格，从左下角开始，收缩每个tile
+ */
+class wyLeftBottomTilesShrinkOut : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyLeftBottomTilesShrinkOut* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyLeftBottomTilesShrinkOut(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyLeftBottomTilesShrinkOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyLeftBottomTilesShrinkOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLeftLineShrinkOut_h__
+
+
+/**
+ * @class wyLeftLineShrinkOut
+ *
+ * 把屏幕分成若干列，从左边开始收缩每列
+ */
+class wyLeftLineShrinkOut : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyLeftLineShrinkOut* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyLeftLineShrinkOut(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyLeftLineShrinkOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyLeftLineShrinkOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLens3D_h__
+
+
+/**
+ * @class wyLens3D
+ *
+ * 透镜效果，使目标看起来好像在放大镜下
+ */
+class wyLens3D : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param centerX 透镜中心位置x坐标
+	 * @param centerY 透镜中心位置y坐标
+	 * @param deltaX 透镜横向移动距离
+	 * @param deltaY 透镜纵向移动距离
+	 * @param radius 透镜半径
+	 * @param deltaRadius 透镜半径变化量
+	 * @param lensEffect 透镜凹凸程度
+	 */
+	static wyLens3D* make(float duration, int gridX, int gridY, float centerX, float centerY,
+		float deltaX, float deltaY, float radius, float deltaRadius, float lensEffect);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param centerX 透镜中心位置x坐标
+	 * @param centerY 透镜中心位置y坐标
+	 * @param deltaX 透镜横向移动距离
+	 * @param deltaY 透镜纵向移动距离
+	 * @param radius 透镜半径
+	 * @param deltaRadius 透镜半径变化量
+	 * @param lensEffect 透镜凹凸程度
+	 */
+	wyLens3D(float duration, int gridX, int gridY, float centerX, float centerY,
+		float deltaX, float deltaY, float radius, float deltaRadius, float lensEffect);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyLens3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyLens3D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyLiquid_h__
+
+
+/**
+ * @class wyLiquid
+ *
+ * 液体效果,使目标对象呈现流动的效果
+ */
+class wyLiquid : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 幅度
+	 * @param deltaAmplitude 幅度变化量
+	 * @param waves 波数
+	 */
+	static wyLiquid* make(float duration, int gridX, int gridY, float amplitude, float deltaAmplitude, float waves);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 幅度
+	 * @param deltaAmplitude 幅度变化量
+	 * @param waves 波数
+	 */
+	wyLiquid(float duration, int gridX, int gridY, float amplitude, float deltaAmplitude, float waves);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyLiquid();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyLiquid_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyPageTurn3D_h__
+
+
+/**
+ * @class wyPageTurn3D
+ *
+ * 翻页动作
+ */
+class wyPageTurn3D : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyPageTurn3D* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyPageTurn3D(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyPageTurn3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyPageTurn3D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyReuseGrid_h__
+
+
+/**
+ * @class wyReuseGrid
+ *
+ * 复用网格。BaseGrid对象可以重复利用，可以节省时间。如果两个效果需要使用网格完成，而网格的大小
+ * 没有变化，一般可以复用网格。网格内部有复用次数的计数，这个动作就是增加它的复用次数计数
+ */
+class wyReuseGrid : public wyInstantAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param times 复用次数
+	 */
+	static wyReuseGrid* make(int times);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param times 复用次数
+	 */
+	wyReuseGrid(int times);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyReuseGrid();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::reverse
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyReuseGrid_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRightLineShrinkOut_h__
+
+
+/**
+ * @class wyRightLineShrinkOut
+ *
+ * 把屏幕分成若干列，从右边开始收缩每列
+ */
+class wyRightLineShrinkOut : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyRightLineShrinkOut* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyRightLineShrinkOut(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRightLineShrinkOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyRightLineShrinkOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRightTopTilesShrinkOut_h__
+
+
+/**
+ * @class wyRightTopTilesShrinkOut
+ *
+ * 把屏幕分成网格，从右上部开始收缩网格
+ */
+class wyRightTopTilesShrinkOut : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyRightTopTilesShrinkOut* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyRightTopTilesShrinkOut(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRightTopTilesShrinkOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyRightTopTilesShrinkOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyRipple3D_h__
+
+
+/**
+ * @class wyRipple3D
+ *
+ * 波纹动作。目标会呈现类似于水面被投入石子的效果
+ */
+class wyRipple3D : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param centerX 波动中心位置x值
+	 * @param centerY 波动中心位置值
+	 * @param deltaX 波动中心横向变化值
+	 * @param deltaY 波动中心中心变化值
+	 * @param radius 波动波及范围的半径
+	 * @param deltaRadius 波动波及范围的半径变化值
+	 * @param amplitude 幅度
+	 * @param deltaAmplitude 幅度变化值
+	 * @param waves 波数
+	 */
+	static wyRipple3D* make(float duration, int gridX, int gridY, float centerX, float centerY,
+			float deltaX, float deltaY, float radius, float deltaRadius, float amplitude, float deltaAmplitude, float waves);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param centerX 波动中心位置x值
+	 * @param centerY 波动中心位置值
+	 * @param deltaX 波动中心横向变化值
+	 * @param deltaY 波动中心中心变化值
+	 * @param radius 波动波及范围的半径
+	 * @param deltaRadius 波动波及范围的半径变化值
+	 * @param amplitude 幅度
+	 * @param deltaAmplitude 幅度变化值
+	 * @param waves 波数
+	 */
+	wyRipple3D(float duration, int gridX, int gridY, float centerX, float centerY,
+			float deltaX, float deltaY, float radius, float deltaRadius, float amplitude, float deltaAmplitude, float waves);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyRipple3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyRipple3D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyShaky3D_h__
+
+
+/**
+ * @class wyShaky3D
+ *
+ * 抖动效果
+ */
+class wyShaky3D : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param range 抖动的幅度，越大越剧烈
+	 * @param deltaRange 抖动的幅度变化值
+	 * @param shakeZ 是否在z轴方向上抖动
+	 */
+	static wyShaky3D* make(float duration, int gridX, int gridY, int range, int deltaRange, bool shakeZ);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param range 抖动的幅度，越大越剧烈
+	 * @param deltaRange 抖动的幅度变化值
+	 * @param shakeZ 是否在z轴方向上抖动
+	 */
+	wyShaky3D(float duration, int gridX, int gridY, int range, int deltaRange, bool shakeZ);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyShaky3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyShaky3D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyShakyTiles3D_h__
+
+
+/**
+ * @class wyShakyTiles3D
+ *
+ * 把屏幕分成若干行，从底部开始收缩每行
+ */
+class wyShakyTiles3D : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param range 抖动
+	 * @param deltaRange 抖动变化值
+	 * @param shakeZ 是否在z轴方向上抖动
+	 */
+	static wyShakyTiles3D* make(float duration, int gridX, int gridY, int range, int deltaRange, bool shakeZ);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param range 抖动
+	 * @param deltaRange 抖动变化值
+	 * @param shakeZ 是否在z轴方向上抖动
+	 */
+	wyShakyTiles3D(float duration, int gridX, int gridY, int range, int deltaRange, bool shakeZ);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyShakyTiles3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyShakyTiles3D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyShatteredTiles3D_h__
+
+
+/**
+ * @class wyShatteredTiles3D
+ *
+ * 把屏幕分成若干行，从底部开始收缩每行
+ */
+class wyShatteredTiles3D : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param range 网格混乱程度
+	 * @param shatterZ 是否在z轴方向上混淆
+	 */
+	static wyShatteredTiles3D* make(float duration, int gridX, int gridY, int range, bool shatterZ);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param range 网格混乱程度
+	 * @param shatterZ 是否在z轴方向上混淆
+	 */
+	wyShatteredTiles3D(float duration, int gridX, int gridY, int range, bool shatterZ);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyShatteredTiles3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyShatteredTiles3D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyShuffleTiles_h__
+
+
+typedef struct wyTile {
+	/**
+	 * 网格的行列坐标
+	 */
+	wyPoint position;
+
+	/**
+	 * 起始位置，用在某些特效中。
+	 */
+	wyPoint startPosition;
+
+	/**
+	 * 位置变化量，用在某些特效中。
+	 */
+	wyDimension delta;
+} wyTile;
+
+/**
+ * @class wyShuffleTiles
+ *
+ * 网格洗牌动作。 把网格打算重新放置
+ */
+class wyShuffleTiles : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyShuffleTiles* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyShuffleTiles(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyShuffleTiles();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyShuffleTiles_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySplitCols_h__
+
+
+/**
+ * @class wySplitCols
+ *
+ * 按照网格的列数，对每列进行交错滑动
+ */
+class wySplitCols : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wySplitCols* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wySplitCols(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wySplitCols();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wySplitCols_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySplitRows_h__
+
+
+/**
+ * @class wySplitRows
+ *
+ * 按照网格的行数，对每行进行交错滑动
+ */
+class wySplitRows : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wySplitRows* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wySplitRows(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wySplitRows();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wySplitRows_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyStopGrid_h__
+
+
+/**
+ * @class wyStopGrid
+ *
+ * 停止网格特效。 当不需要网格操作时，这个动作会中止网格操作，释放相关资源。
+ */
+class wyStopGrid : public wyInstantAction {
+public:
+	/**
+	 * 静态构造函数
+	 */
+	static wyStopGrid* make();
+
+	/**
+	 * 构造函数
+	 */
+	wyStopGrid();
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyStopGrid();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/**
+	 * 不支持此动作翻转
+	 *
+	 * @return NULL
+	 */
+	virtual wyAction* reverse();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+};
+
+#endif // __wyStopGrid_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTiledGrid3DAction_h__
+
+
+/**
+ * @class wyTiledGrid3DAction
+ *
+ * 平铺型网格动作基类
+ */
+class wyTiledGrid3DAction : public wyGridAction {
+public:
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyTiledGrid3DAction(float duration, float gridX, float gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTiledGrid3DAction();
+
+	/// @see wyGridAction::makeGrid
+	virtual wyBaseGrid* makeGrid();
+
+	/// @see wyGridAction::getGridClass
+	virtual bool isGridReusable(wyBaseGrid* grid);
+
+	/**
+	 * 得到某个位置的矩形块坐标
+	 *
+	 * @param pos 矩形块的行列坐标
+	 * @return \link wyQuad3D wyQuad3D结构\endlink
+	 */
+	wyQuad3D getTile(wyDimension pos);
+
+	/**
+	 * 得到某个位置的矩形块原始坐标
+	 *
+	 * @param pos 矩形块的行列坐标\link wyDimension wyDimension结构\endlink
+	 * @return \link wyQuad3D wyQuad3D结构\endlink
+	 */
+	wyQuad3D getOriginalTile(wyDimension pos);
+
+	/**
+	 * 设置某位置的矩形块坐标，因为矩形由4个点决定，所以使用的是 \link wyQuad3D wyQuad3D结构\endlink
+	 *
+	 * @param pos 矩形块的行列坐标\link wyDimension wyDimension结构\endlink
+	 * @param coords \link wyQuad3D wyQuad3D结构\endlink
+	 */
+	void setTile(wyDimension pos, wyQuad3D coords);
+};
+
+#endif // __wyTiledGrid3DAction_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTopLineShrinkOut_h__
+
+
+/**
+ * @class wyTopLineShrinkOut
+ *
+ * 把屏幕分成若干行，从顶部开始收缩每行
+ */
+class wyTopLineShrinkOut : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyTopLineShrinkOut* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyTopLineShrinkOut(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTopLineShrinkOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::copy
+	virtual void update(float t);
+};
+
+#endif // __wyTopLineShrinkOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTopTilesShrinkOut_h__
+
+
+/**
+ * @class wyTopTilesShrinkOut
+ *
+ * 把屏幕分成网格，从顶部开始收缩每行的网格
+ */
+class wyTopTilesShrinkOut : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyTopTilesShrinkOut* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyTopTilesShrinkOut(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTopTilesShrinkOut();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyTopTilesShrinkOut_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTurnOffTiles_h__
+
+
+/**
+ * @class wyTurnOffTiles
+ *
+ * 网格随机消失动作。网格按照随机顺序一个一个消失直到全部消失
+ */
+class wyTurnOffTiles : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	static wyTurnOffTiles* make(float duration, int gridX, int gridY);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 */
+	wyTurnOffTiles(float duration, int gridX, int gridY);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTurnOffTiles();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::start
+	virtual void start(wyNode* target);
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyTurnOffTiles_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyTwirl_h__
+
+
+/**
+ * @class wyTwirl
+ *
+ * 扭曲效果
+ */
+class wyTwirl : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param centerX 中心点位置x值
+	 * @param centerY 中心点位置y值
+	 * @param deltaX 中心点位置横向变化
+	 * @param deltaY 中心点位置纵向变化
+	 * @param amplitude 幅度
+	 * @param deltaAmplitude 幅度变化值
+	 * @param twirls 扭曲次数
+	 */
+	static wyTwirl* make(float duration, int gridX, int gridY, float centerX, float centerY, float deltaX, float deltaY, float amplitude,
+	        float deltaAmplitude, float twirls);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param centerX 中心点位置x值
+	 * @param centerY 中心点位置y值
+	 * @param deltaX 中心点位置横向变化
+	 * @param deltaY 中心点位置纵向变化
+	 * @param amplitude 幅度
+	 * @param deltaAmplitude 幅度变化值
+	 * @param twirls 扭曲次数
+	 */
+	wyTwirl(float duration, int gridX, int gridY, float centerX, float centerY, float deltaX, float deltaY, float amplitude,
+	        float deltaAmplitude, float twirls);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyTwirl();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyTwirl_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyWaves_h__
+
+
+/**
+ * @class wyWaves
+ *
+ * 波浪效果
+ */
+class wyWaves : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 幅度
+	 * @param waves 波浪数
+	 * @param vertical 是否垂直方向有波浪效果
+	 * @param horizontal 是否水平方向有波浪效果
+	 */
+	static wyWaves* make(float duration, int gridX, int gridY, float amplitude, int waves, bool vertical, bool horizontal);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 幅度
+	 * @param waves 波浪数
+	 * @param vertical 是否垂直方向有波浪效果
+	 * @param horizontal 是否水平方向有波浪效果
+	 */
+	wyWaves(float duration, int gridX, int gridY, float amplitude, int waves, bool vertical, bool horizontal);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyWaves();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyWaves_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyWaves3D_h__
+
+
+/**
+ * @class wyWaves3D
+ *
+ * 波浪效果，3D表示z轴也会发生波浪变化
+ */
+class wyWaves3D : public wyGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 幅度
+	 * @param waves 波浪数
+	 */
+	static wyWaves3D* make(float duration, int gridX, int gridY, float amplitude, int waves);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 幅度
+	 * @param waves 波浪数
+	 */
+	wyWaves3D(float duration, int gridX, int gridY, float amplitude, int waves);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyWaves3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyWaves3D_h__
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wyWavesTiles3D_h__
+
+
+/**
+ * @class wyWavesTiles3D
+ *
+ * 网格波浪效果
+ */
+class wyWavesTiles3D : public wyTiledGrid3DAction {
+public:
+	/**
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 幅度
+	 * @param waves 波浪数
+	 */
+	static wyWavesTiles3D* make(float duration, int gridX, int gridY, float amplitude, int waves);
+
+	/**
+	 * 构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param amplitude 幅度
+	 * @param waves 波浪数
+	 */
+	wyWavesTiles3D(float duration, int gridX, int gridY, float amplitude, int waves);
+
+	/**
+	 * 析构函数
+	 */
+	virtual ~wyWavesTiles3D();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wyWavesTiles3D_h__
+
+/*
+ * Copyright (c) 2010 WiYun Inc.
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+#ifndef __wySuck_h__
+
+/**
+ * @class wySuck
+ *
+ * \if English
+ * Suck effect, just like the effect when deleting notes in iPhone
+ * \else
+ * 吸入效果, 指定一个吸入点, 界面中的所有元素都从这个点被吸走, 类似于iPhone中删除备忘录
+ * 中的那种效果
+ * \endif
+ */
+class wySuck : public wyGrid3DAction {
+public:
+	/**
+	 * \if English
+	 * factory function, used to create a new instance with autoRelease enabled
+	 *
+	 * @param duration time, in seconds
+	 * @param gridX row count
+	 * @param gridY column count
+	 * @param positionX x position of sucking
+	 * @param positionY y position of sucking
+	 * \else
+	 * 静态构造函数
+	 *
+	 * @param duration 动作持续时间
+	 * @param gridX 网格行数
+	 * @param gridY 网格列数
+	 * @param positionX 吸入点x坐标
+	 * @param positionY 吸入点y坐标
+	 * \endif
+	 */
+	static wySuck* make(float duration, int gridX, int gridY, float positionX, float positionY);
+
+	virtual ~wySuck();
+
+	/// @see wyAction::copy
+	virtual wyAction* copy();
+
+	/// @see wyAction::update
+	virtual void update(float t);
+};
+
+#endif // __wySuck_h__

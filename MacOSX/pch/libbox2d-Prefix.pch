@@ -1,0 +1,16 @@
+//
+// Prefix header for all source files of the 'libbox2d' target in the 'libbox2d' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import <Foundation/Foundation.h>
+	#import "wyObject.h"
+	#import "wyScheduler.h"
+	#import "wyTexture2D.h"
+	#import "wyTypes.h"
+	#import "wyNode.h"
+	#import "wyArray.h"
+	#import "wyHashSet.h"
+	#import "WiEngine-Box2D.h"
+#endif

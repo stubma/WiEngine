@@ -1,0 +1,46 @@
+﻿<Window x:Class="WiEngineDemos_shell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:WiEngineDemos_shell"
+        Title="WiEngineDemos" Height="600" Width="800" MinWidth="800" MinHeight="600" MaxWidth="800" MaxHeight="600">
+
+    <Window.Resources>
+        <l:list_level_1 x:Key="entries_level_1"/>
+        <l:list_level_2 x:Key="entries_level_2"/>
+
+        <DataTemplate x:Key="ListItemContent">
+            <StackPanel Width="360">
+                <TextBlock  Text="{Binding Path=Title}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap"/>
+                <TextBlock  Text="{Binding Path=Desc}" FontSize="14" TextWrapping="Wrap" Padding="0,2,0,0" />
+                <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Left" MinWidth="400" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Margin="0"  Name="Grid1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+
+        <ListView HorizontalAlignment="Left" Name="listView_demoEntries_level1" VerticalAlignment="Top" Foreground="Black"
+                  ItemsSource="{Binding Source={StaticResource entries_level_1}}" 
+                  ItemTemplate="{StaticResource ListItemContent}"
+                  Background="LightBlue"
+                  MinHeight="{Binding ElementName=Grid1, Path=ActualHeight}"
+                  MinWidth="{Binding ElementName=Grid1, Path=ColumnDefinitions/ActualWidth}"
+                  SelectionChanged="listView_demoEntries_level1_SelectionChanged" SelectionMode="Single" >
+        </ListView>
+
+        <ListView HorizontalAlignment="Right" Name="listView_demoEntries_level2" VerticalAlignment="Top" Foreground="Black"
+                  ItemsSource="{Binding Source={StaticResource entries_level_2}}" 
+                  ItemTemplate="{StaticResource ListItemContent}"
+                  Background="LightBlue" Grid.Column="1"
+                  MinHeight="{Binding ElementName=Grid1, Path=ActualHeight}"
+                  MinWidth="{Binding ElementName=Grid1, Path=ColumnDefinitions/ActualWidth}"
+                  MouseDoubleClick="listView_demoEntries_level2_MouseDoubleClick" SelectionMode="Single"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible">
+        </ListView>
+    </Grid>
+</Window>

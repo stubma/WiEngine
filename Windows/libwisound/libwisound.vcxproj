@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyAudioManager_openal.cpp" />
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyAudioPlayer.cpp" />
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyAudioStream.cpp" />
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyMp3Stream.cpp" />
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyOggStream.cpp" />
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyOpenAL.cpp" />
+    <ClCompile Include="..\..\jni\WiSound\backends\openal\wyWavStream.cpp" />
+    <ClCompile Include="..\..\jni\WiSound\wyAudioManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\WiEngine\include\wisound\wyAudioManager.h" />
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyAudioManager_openal.h" />
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyAudioPlayer.h" />
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyAudioStream.h" />
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyMp3Stream.h" />
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyOggStream.h" />
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyOpenAL.h" />
+    <ClInclude Include="..\..\jni\WiSound\backends\openal\wyWavStream.h" />
+    <ClInclude Include="..\..\jni\WiSound\wyJNI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libmpg123\libmpg123.vcxproj">
+      <Project>{51952bba-a3c0-42e3-832c-6089f89171d2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libopenal\libopenal.vcxproj">
+      <Project>{d3c18632-4f5c-4fb3-b18d-2eb5368b7356}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libpthread\libpthread.vcxproj">
+      <Project>{d5d948cb-0ded-40c7-94d9-191c89b3988b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libvorbis\libvorbis.vcxproj">
+      <Project>{b70fbdac-1e48-480c-a669-a02053052595}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libwiengine\libwiengine.vcxproj">
+      <Project>{b0ae0601-02ca-43ef-8f61-c3b31fadbda2}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6AFC1E5F-7F6F-44C8-A1F8-D3BADFE98EE4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libwisound</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWISOUND_EXPORTS;BACKEND_OPENAL;AL_LIBTYPE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\openal\OpenAL32\Include;..\..\jni\vorbis;..\..\jni\libmpg123;..\..\jni\openal\include;..\libpthread;..\..\jni\WiSound\backends\openal;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\platform\windows;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\wisound;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWISOUND_EXPORTS;BACKEND_OPENAL;AL_LIBTYPE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\openal\OpenAL32\Include;..\..\jni\vorbis;..\..\jni\libmpg123;..\..\jni\openal\include;..\libpthread;..\..\jni\WiSound\backends\openal;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\platform\windows;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\wisound;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

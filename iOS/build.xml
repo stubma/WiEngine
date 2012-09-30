@@ -1,0 +1,392 @@
+<project name="WiEngine" default="sdk" basedir=".">
+	<description>
+        WiEngine iOS SDK Ant build file
+    </description>
+
+	<property name="name" value="3.10.1r3"/>
+	<tstamp>
+		<format property="time" pattern="yyyyMMddHHmm"/>
+	</tstamp>
+	
+	<!-- load some source file into property -->
+	<loadfile property="wyMemory.h" srcfile="../jni/WiEngine/include/common/wyMemory.h"></loadfile>
+	<loadfile property="Application.mk" srcfile="../jni/Application.mk"></loadfile>
+			
+	<!-- if memory debug is enabled, then append memdbg suffix -->
+	<condition 
+		property="version"
+		value="${name}_memdbg"
+		else="${name}">
+		<not>
+			<contains string="${wyMemory.h}" substring="//#define MEMORY_TRACKING"/>
+		</not>
+	</condition>
+	
+	<!-- for different platform, doxygen path -->
+	<condition 
+		property="doxygen" 
+		value="C:\Software\doxygen\bin\doxygen"
+		else="/usr/local/bin/doxygen">
+		<and>
+			<os family="windows"/>
+		</and>
+	</condition>
+	
+	<!-- properties -->
+	<property name="android.dir" value=".."/>
+	<property name="android.jni.dir" value="${android.dir}/jni"/>
+	<property name="android.native.demo.dir" value="${android.dir}/samples/WiEngineDemos_native"/>
+	<property name="doxygen.dir" value="${android.dir}/doxygen"/>
+	<property name="ios.dir" value="."/>
+	<property name="build.dir" value="build"/>
+	<property name="tmp.cppdoc.dir" value="${android.dir}/cppdoc"/>
+	<property name="device.build.dir" value="${build.dir}/Release-iphoneos"/>
+	<property name="simulator.build.dir" value="${build.dir}/Release-iphonesimulator"/>
+	<property name="dist.dir" value="${build.dir}/dist"/>
+	<property name="dist.libs.dir" value="${dist.dir}/WiEngine/libs"/>
+	<property name="dist.headers.dir" value="${dist.dir}/WiEngine/headers"/>
+	<property name="dist.templates.dir" value="${dist.dir}/templates"/>
+	<property name="dist.xcode4.templates.dir" value="${dist.dir}/templates/Xcode4"/>
+	<property name="dist.samples.dir" value="${dist.dir}/samples"/>
+	<property name="dist.zip" location="${build.dir}/WiEngine_sdk_ios_${version}.zip"/>
+	
+	<!-- make necessary dir -->
+	<target name="setup">
+		<mkdir dir="${dist.libs.dir}"/>
+		<mkdir dir="${dist.headers.dir}"/>
+		<mkdir dir="${dist.templates.dir}"/>
+		<mkdir dir="${dist.samples.dir}"/>
+	</target>
+	
+	<!-- make a full sdk -->
+	<target name="sdk">
+		<!-- prepare directory -->
+		<antcall target="setup"/>
+		
+		<!-- compile -->
+		<antcall target="compile"/>
+		
+		<!-- make fat library -->
+		<antcall target="make_fat_library"/>
+		
+		<!-- copy headers -->
+		<antcall target="copy_headers"/>
+		
+		<!-- generate cppdoc -->
+		<antcall target="cppdoc_chinese"/>
+		
+		<!-- copy cppdoc to dist -->
+		<copy todir="${dist.dir}/cppdoc">
+			<fileset dir="${tmp.cppdoc.dir}/html"/>
+		</copy>
+		
+		<!-- delete tmp cppdoc dir -->
+		<delete dir="${tmp.cppdoc.dir}"/>
+		
+		<!-- copy logo -->
+		<copy todir="${dist.dir}/logo">
+			<fileset dir="${android.dir}/logo">
+				<include name="*"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy doc -->
+		<copy todir="${dist.dir}/doc">
+			<fileset dir="${android.dir}/doc">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy auxiliary files -->
+		<copy todir="${dist.dir}">
+			<fileset dir="${android.dir}">
+				<include name="RELEASE_NOTES"/>
+				<include name="CHANGELOG"/>
+				<include name="LICENSE*"/>
+				<include name="AUTHORS"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy tools -->
+		<copy todir="${dist.dir}/tools">
+			<fileset dir="${android.dir}/tools"/>
+		</copy>
+		
+		<!-- template -->
+		<antcall target="WiEngine_template"/>
+		
+		<!-- build samples -->
+		<antcall target="samples"/>
+		
+		<!-- remove dist/WiEngine -->
+		<delete dir="${dist.dir}/WiEngine"/>
+		
+		<!-- pack -->
+		<antcall target="pack"/>
+	</target>
+	
+	<!-- make WiEngine template -->
+	<target name="WiEngine_template">
+		<!-- copy WiEngine template -->
+		<copy todir="${dist.templates.dir}">
+			<fileset dir="${ios.dir}/templates">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- generate base template -->
+		<antcall target="generate_base_template"/>
+	</target>
+	
+	<!-- make samples -->
+	<target name="samples">
+		<!-- copy base samples -->
+		<copy todir="${dist.samples.dir}">
+			<fileset dir="samples">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy WiEngine library to samples -->
+		<copy todir="${dist.samples.dir}/WiEngineDemos/WiEngine">
+			<fileset dir="${dist.dir}/WiEngine">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy base resources to samples -->
+		<copy todir="${dist.samples.dir}/WiEngineDemos/Resources">
+			<fileset dir="${ios.dir}/Resources">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- case base code to samples -->
+		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo">
+			<fileset dir="${ios.dir}/Demo">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy demo code to samples -->
+		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo">
+			<fileset dir="${android.native.demo.dir}/jni/Demos">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy assets to samples -->
+		<copy todir="${dist.samples.dir}/WiEngineDemos/Resources/assets">
+			<fileset dir="${android.native.demo.dir}/assets">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy drawable to samples -->
+		<copy todir="${dist.samples.dir}/WiEngineDemos/Resources/drawable">
+			<fileset dir="${android.native.demo.dir}/res/drawable">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy raw to samples -->
+		<copy todir="${dist.samples.dir}/WiEngineDemos/Resources/raw">
+			<fileset dir="${android.native.demo.dir}/res/raw">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy strings.xml to samples -->
+		<copy file="${android.native.demo.dir}/res/values/strings.xml" 
+			tofile="${dist.samples.dir}/WiEngineDemos/Resources/strings-en.xml">
+		</copy>
+		<copy file="${android.native.demo.dir}/res/values-zh/strings.xml" 
+			tofile="${dist.samples.dir}/WiEngineDemos/Resources/strings-zh.xml">
+		</copy>
+		
+		<!-- copy manifest to samples -->
+		<copy file="${android.native.demo.dir}/AndroidManifest.xml" 
+			todir="${dist.samples.dir}/WiEngineDemos/Resources">
+		</copy>
+	</target>
+	
+	<!-- generate base template -->
+	<target name="generate_base_template">
+		<!-- generate template plist -->
+		<java jar="ant/WiTool.jar" fork="true">
+			<arg value="${dist.dir}/WiEngine"/>
+			<arg value="${dist.xcode4.templates.dir}/WiEngine-based.xctemplate/TemplateInfo.plist"/>
+		</java>
+		
+		<!-- copy WiEngine files -->
+		<copy todir="${dist.xcode4.templates.dir}/WiEngine-based.xctemplate/WiEngine">
+			<fileset dir="${dist.dir}/WiEngine">
+				<include name="**"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- make distribution package -->
+	<target name="pack">
+		<!-- zip sdk -->
+		<zip destfile="${dist.zip}">
+			<zipfileset dir="${dist.dir}" includes="**/*"/>
+		</zip>
+	</target>
+	
+	<!-- generate cppdoc -->
+	<target name="cppdoc_chinese">
+		<exec executable="${doxygen}" dir="${doxygen.dir}">
+			<arg value="cppdoc_chinese_ios.cfg"/>
+		</exec>
+		
+		<!-- copy auxiliary resources -->
+		<copy todir="${tmp.cppdoc.dir}/html">
+			<fileset dir="${doxygen.dir}/images">
+				<include name="*.jpg"/>
+				<include name="*.png"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<!-- generate cppdoc -->
+	<target name="cppdoc_english">
+		<exec executable="${doxygen}" dir="${doxygen.dir}">
+			<arg value="cppdoc_english_ios.cfg"/>
+		</exec>
+		
+		<!-- copy auxiliary resources -->
+		<copy todir="${tmp.cppdoc.dir}/html">
+			<fileset dir="${doxygen.dir}/images">
+				<include name="*.jpg"/>
+				<include name="*.png"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<!-- make headers and libraries -->
+	<target name="WiEngine_library">
+		<antcall target="setup"/>
+		<antcall target="copy_headers"/>
+		<antcall target="compile"/>
+		<antcall target="make_fat_library"/>
+	</target>
+	
+	<!-- copy headers -->
+	<target name="copy_headers">
+		<copy todir="${dist.headers.dir}">
+			<fileset dir="${android.jni.dir}">
+				<include name="**/*.h"/>
+				<include name="**/*.hpp"/>
+				<include name="**/*.inl"/>
+				<exclude name="**/jni_init.h"/>
+                <exclude name="android_adapter/**"/>
+				<exclude name="cutils/**"/>
+				<exclude name="utils/**"/>
+				<exclude name="expat/**"/>
+				<exclude name="freetype/**"/>
+				<exclude name="skia/**"/>
+				<exclude name="Box2D/binding/**"/>
+				<exclude name="chipmunk/binding/**"/>
+				<exclude name="libmpg123/**"/>
+				<exclude name="libjpeg/**"/>
+				<exclude name="libnsbmp/**"/>
+				<exclude name="libpng/**"/>
+				<exclude name="libxml2/**"/>
+				<exclude name="lua/binding/**"/>
+				<exclude name="openal/**"/>
+				<exclude name="vorbis/**"/>
+				<exclude name="json/**"/>
+				<exclude name="yajl/**"/>
+				<exclude name="iap/**"/>
+				<exclude name="sqlite3/**"/>
+				<exclude name="WiEngine/impl/**"/>
+				<exclude name="WiEngine_binding/**"/>
+				<exclude name="WiNetwork/**"/>
+				<exclude name="WiSound/**"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<!-- compile WiEngine iOS project for device and simulator -->
+	<target name="compile">
+		<exec dir="${ios.dir}" executable="xcodebuild">
+			<arg value="-scheme"/>
+			<arg value="WiEngine"/>
+			<arg value="-configuration"/>
+			<arg value="Release"/>
+			<arg value="-sdk"/>
+			<arg value="iphonesimulator6.0"/>
+            <arg value="BUILD_DIR=${build.dir}"/>
+		</exec>
+		<exec dir="${ios.dir}" executable="xcodebuild">
+			<arg value="-scheme"/>
+			<arg value="WiEngine"/>
+			<arg value="-configuration"/>
+			<arg value="Release"/>
+			<arg value="-sdk"/>
+			<arg value="iphoneos6.0"/>
+            <arg value="BUILD_DIR=${build.dir}"/>
+		</exec>
+	</target>
+	
+	<!-- make fat library -->
+	<target name="make_fat_library">
+		<exec executable="lipo">
+			<arg value="${device.build.dir}/libwiengine.a"/>
+			<arg value="${simulator.build.dir}/libwiengine.a"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libwiengine.a"/>
+		</exec>
+		<exec executable="lipo">
+			<arg value="${device.build.dir}/libbox2d.a"/>
+			<arg value="${simulator.build.dir}/libbox2d.a"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libbox2d.a"/>
+		</exec>
+		<exec executable="lipo">
+			<arg value="${device.build.dir}/libchipmunk.a"/>
+			<arg value="${simulator.build.dir}/libchipmunk.a"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libchipmunk.a"/>
+		</exec>
+		<exec executable="lipo">
+			<arg value="${device.build.dir}/libwisound.a"/>
+			<arg value="${simulator.build.dir}/libwisound.a"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libwisound.a"/>
+		</exec>
+		<exec executable="lipo">
+			<arg value="${device.build.dir}/libwinetwork.a"/>
+			<arg value="${simulator.build.dir}/libwinetwork.a"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libwinetwork.a"/>
+		</exec>
+		<exec executable="lipo">
+			<arg value="${device.build.dir}/liblua.a"/>
+			<arg value="${simulator.build.dir}/liblua.a"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/liblua.a"/>
+		</exec>
+		<exec executable="lipo">
+			<arg value="${device.build.dir}/libjson.a"/>
+			<arg value="${simulator.build.dir}/libjson.a"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libjson.a"/>
+		</exec>
+        <exec executable="lipo">
+			<arg value="${device.build.dir}/libiap.a"/>
+			<arg value="${simulator.build.dir}/libiap.a"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libiap.a"/>
+		</exec>
+	</target>
+</project>
