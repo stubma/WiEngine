@@ -1,0 +1,726 @@
++++ 3.10.2 +++
+[new] add changeBaseSize method to wyDirector, support changing base size at running time
+[fix] a bug introduced in 3.10.1 that may tremble particle system 
+[fix] target selector in iOS wyUtils.showSystemAlertDialog is not triggered
+[fix] logic bug in wyScrollableLayer.addScrollableChild
+[fix] page layout bug when wyPageControl is not full-screen size
+
++++ 3.10.1 +++
+[new] wyZwoptexManager增加makeButton方法
+[new] wyTextBox增加set/isPassword方法
+[new] wyZwoptexManager增加了getFrameRects方法
+[new] wyNode增加getChildrenByTag方法, 可以获得所有具有同样tag的子节点
+[new] 添加了示例WiEngineDemos/Node/RenderTexture
+[rev] 对网格动作进行了重构和增强, 运行更有效率, 不再局限于全屏, 更加通用
+[rev] wyPageControl滚动时将对其它节点发送点击取消事件
+[rev] wyZwoptexManager的getFrames方法改名为getFrameNames, getFrame方法改名为getFrameRect
+[rev] wyZwoptex的getFrames方法改名为getFrameNames
+[rev] wyTextBox弹出输入对话框时自动显示软键盘
+[rev] 修正RenderTexture在基础大小适配模式下的问题
+[fix] 修正在Android 4.1上无法启动的问题
+[fix] 修正iOS上通过资源id访问资源时查找多语言资源不对的问题
+[fix] 修正一个3.10引入的timer设置成按帧调用时delta时间是0的问题
+[fix] 修正wyNinePatchSprite构造方法的第二个参数被忽略的问题
+[fix] 修正iOS/MacOSX上调用wyAudioManager.removeEffect的崩溃问题
+[fix] 修正ShapeAnimation的一个崩溃问题
+[fix] 修正CoverFlow的java版本demo的崩溃问题
+[fix] iOS上WiNetwork操作失败的一个空指针问题
+[fix] 修正set/getTtickFactor的名称错误, 应该是set/getTickFactor
+[fix] 粒子系统在某些设定条件下出现的粒子释放节奏出错
+[fix] 调用wyHttpRequest.addHeader方法后出现的崩溃问题
+[fix] Windows下wyPrefs.getString返回的字符串释放会出错的问题
+[fix] wyScrollableLayer中的子节点在滚动范围之外可以被点击的问题
+[fix] windows版本在基础适配模式下触摸点不对的问题
+[fix] wyPrefs在iOS中没有立刻同步到磁盘的问题
+
++++ 3.10.0 +++
+[new] WiEngine增加对Windows平台的支持
+[new] 增加了wyTMXObject类用于表示tmx中的自定义对象, 支持Tiled 0.8版本新增的多边形对象, 修改了示例WiEngineDemos/Node/TMX Tile Map(Isometric)
+[new] wyScrollableLayer添加removeAllScrollableChildrenLocked方法
+[new] 增加了WiEngineDemos/Performance分类
+[new] wyTexture2D增加了clone和switchToClone方法, 支持创建克隆贴图
+[new] wyDirector添加了printUnreleasedObjects方法用于帮助诊断内存泄露
+[new] Director增加了runThread方法, 运行java线程都应该通过该方法
+[new] wyTMXTileMap增加了nodeToTMXSpace和tmxToNodeSpace方法用于在节点空间和tmx空间中转换坐标
+[new] wyDirector增加了setCalculateFPS方法
+[new] wyDirector增加了printUnreleasedMemory, printMemoryUsage方法, 仅对内存调试版本有效
+[new] wyDirector增加了set/getTickFactor方法用于控制游戏整体运行速度
+[new] wyUtils添加了addAndroidStrings方法方便实现android字符串资源的重用
+[new] wyTMXTileMap添加了setColor, setAlpha方法, 支持改变颜色
+[new] wyNode添加了pause/resumeAllTimers, 用于暂停/恢复节点上的所有定时器
+[new] wyNode添加了set/getSkewX/Y方法
+[new] Texture2D添加了新的方法支持从Bitmap创建Texture2D
+[new] 添加了wySkewBy/To类, 增加了示例: WiEngineDemos/Actions/SkewBy/To
+[new] 添加了wyToast类(仅用于native), 增加了示例: WiEngineDemos_native/Node/Toast
+[new] wyTimer添加了set/getMaxInvocation方法, 可以控制触发次数
+[new] wyZwoptexManager增加removeAllZwoptex方法
+[rev] 删除了wyUtils::showToast方法, 请使用wyToast类替代
+[rev] 代码重整, 一部分类的构造方法改成protected, 只能用make创建
+[rev] wyAFCClipMapping中添加外部贴图映射时的pos参数改为中心点, 不再是左下角
+[rev] AFCClip.getClipPos返回的位置改为中心点, 不再是左下角
+[rev] wyAFCSprite支持指定贴图为null, 对于null贴图, 相关的分片将隐藏
+[rev] wyAFCSprite用setLoopCount替换了setShouldLoop方法, 支持设置循环播放次数
+[rev] wyRenderTexture重构, 增加了createTexture方法用于创建贴图对象 
+[rev] 完善对SpriteX中分片旋转的支持, AFCSprite完全支持分片旋转. AFCClipMapping的一个mapClip方法中flipY参数改成rotation
+[rev] wyNode.setAnchorPercentX/Y改名为setAnchorX/Y, getAnchorX/Y改名为getAnchorPointX/Y, getAnchorPercentX/Y改名为getAnchorX/Y, 请注意批量替换代码中的相关调用
+[rev] 删除了wyThreadCallback, wyThread::runThread使用wyTargetSelector做为参数
+[rev] wyTiledSprite的offsetBy改成float参数
+[rev] wyObjectGroup改名为wyTMXObjectGroup
+[rev] wyUtils::makeScreenshot方法的path参数改为平台无关路径
+[rev] wyMotionStreak.addPoint可以通过程序调用添加点, 之前通过代码连续添加是无效的
+[rev] fling事件改成在触摸点移出节点后也能收到
+[fix] 修正3.9.0引入的一些编译打包相关的小问题
+[fix] 某些情况下贴图之间的黑线问题
+[fix] 某些情况下对象没有释放的问题
+[fix] 修正载入BMP图片时的一个内存泄露问题
+[fix] MenuItem.setClickScale方法链接错误的问题
+[fix] 修正粒子系统中的一个内存泄漏问题
+[fix] 修正静音时按home键再回来音乐仍然播放的问题
+[fix] wyAFCSprite.replaceTextures在传入同样的贴图时可能导致的崩溃问题
+[fix] wySpriteEx.setVisible在批量渲染情况下有时失效的问题
+[fix] Dialog.addButton中label不能传null的问题
+[fix] 由于某些字体不存在而导致的崩溃问题, 该问题在少数定制程度较高的rom上可能存在, 如小米的4.0版本rom
+[fix] wyShapeAnimation中的一个对象释放错误
+[fix] wyNode.setAcceleration和setVelocity结合使用时的一个bug
+[fix] 一个矩阵计算错误, 可能导致某些情况下计算节点边框不对
+[fix] wyShatteredTiles3D中的一个笔误
+
++++ 3.9.0 +++
+[new] 添加了一个可选的json的解析库libjson.so, 仅限于native使用. 添加了示例: WiEngineDemos_native/Other/JSON Parsing
+[new] 添加了一个可选的应用内支付封装库libiap.so, 仅限于natives使用, 添加了示例: WiEngineDemos_native/IAP/In-App Purchase
+[new] 用libwinetwork.so取代了libcurl.so, 重整了WiEngineDemos/Network下的demo
+[new] libwiengine.so被拆分为libwiengine.so和libwiengine_binding.so, c++开发可以不需要后者
+[new] x86版本支持Android 3.x以上
+[new] 添加了wyMemoryInput/OutputStream类, 仅用于native
+[new] wyDialog添加了addTwoColumnsButton方法, 修改了示例WiEngineDemos/Node/Dialog
+[new] wyPageControl为每个页节点触发位置改变回调, 修改了示例WiEngineDemos/Node/Page Control
+[new] wyAFCSprite添加了getCollisionRectCount方法
+[new] wyMenuItem添加了set/getClickScale方法
+[new] wyAFCSprite添加了replaceTextures方法
+[rev] wyScrollableLayerCallback改成了C++风格的虚类定义wyScrollableLayerListener, 修改了示例WiEngineDemos/Node/ScrollableLayer
+[rev] 增加了一个scrollablelayer回调事件, 可以在滚动时实现资源释放, 提高了滚动大量贴图时的性能
+[rev] 删除了wyLayoutUtil类, 删除了demo: WiEngineDemos/Other/XML Layout
+[rev] wyNode.moveAnchorTo支持有scale的情况
+[rev] wyAFCSprite.setFlipX/Y改成立刻生效
+[rev] wyAction的copy/reverse方法改成自动autoRelease返回的对象, 使用C++的同学注意这点, 如果用到了copy/reverse, 修改你的代码
+[rev] wySpriteEx改为wyTextureNode的子类
+[fix] wyMath.randMax不能得到最大值的问题
+[fix] AudioManager中某些地方没有空指针检查
+[fix] 修正wyScrollableLayer在可滚动区域较小时的一个布局问题
+[fix] 修正wyTMXLayer.getProperty得到的不是layer的属性的问题
+[fix] wyPageControl.setCenterX/Y不起作用的问题
+[fix] wyTMXLayer代码中的一个笔误
+[fix] iOS上普通屏幕找不到2x图片的问题
+[fix] 3.8引入的一个贴图释放问题
+[fix] Body.getMassData崩溃的问题
+[fix] wyPageControl.gotoPage不触发page changed回调的问题
+
++++ 3.8.1 +++
+[new] 添加了wyDialog类, 提供了初步的对话框封装, 增加了示例: WiEngineDemos/Node/Dialog
+[new] 添加了wyClipIn/wyClipOut动作类, 增加了示例: WiEngineDemos/Action/Clip In & Out
+[new] 添加了wyClipInTransition/wyClipOutTransition类, 增加了示例: WiEngineDemos/Transition/Clip In & Out
+[new] wyAFCClip添加get/setIndex方法
+[new] wyTiledSprite支持负的间隔
+[new] wyBitmapFontLabel添加set/getLineSpacing方法
+[new] Director添加setResourceDecoderFlags方法用于控制解码哪些资源
+[new] wyAudioManager添加removeEffect方法
+[new] wyAFCSprite增加set/getBlendFunc方法
+[new] wySpriteBatchNode增加set/getBlendFunc方法
+[new] wyAtlasLabel, wyBitmapFontLabel支持断句
+[new] wyAtlasLabel添加set/getLineSpacing方法
+[new] wyTransitionScene增加了setFinishCallback方法用来设置一个wyTargetSelector在转场结束时调用
+[new] wyTransitionScene添加了make方法, 可以创建一个什么也不做的转场效果
+[new] wyNode增加moveAnchorTo方法
+[rev] wyTargetSelector进行了一些重构, 不再推荐使用onTargetSelectorInvoked来处理事件. 一些方法进行了重新命名, 可能会导致
+	编译错误, 请注意修改. 参考native的demo了解如何使用修改后的wyTargetSelector
+[rev] 普通贴图转换成A8贴图时使用红色部分作为目标alpha值
+[rev] wyButton如果没有指定按下状态的节点, 则根据普通状态以一个较暗色自动渲染按下状态
+[rev] setClipRect可以设置为0的clip rect, wyNode添加clearClipRect用来清除裁剪矩形
+[rev] wyParallaxNode在添加子节点时不再支持设定缩放值
+[fix] 修正有时候贴图已经载入但第一次使用仍然卡一下的问题
+[fix] 修正wyTiledSprite和wyParallaxNode配合使用的一些问题
+[fix] 修正分片映射时几个没有正确缩放的地方
+[fix] 修正Arctic解析时碰撞矩形x和y坐标解析反了的问题
+[fix] iOS上不能同时播放同一个音效的问题
+[fix] 修正wyBitmapFontLabel和wyAtlasLabel在某些情况下计算大小不对的问题
+[fix] Android上修改音效音量对正在播放的音效不起作用的问题
+[fix] wyNinePatchSprite的渲染计算有误
+[fix] wyParticleSystem中一处对象释放错误
+[fix] iOS上资源路径映射在国际化时不正确的问题
+[fix] wyAFCSprite在获得碰撞矩形时没有根据flipX, flipY标志转换坐标的问题
+[fix] 其它小细节修正
+
++++ 3.8.0 +++
+[new] 提供了x86架构库文件, x86版本暂时不支持Android 3.x以上版本
+[new] wyTMXTileMap支持一个layer对应于多个tileset的情况
+[new] AudioManager增加setMute, isMuted方法
+[new] wyAssetInputStream增加readShort, readInt64方法
+[new] wyUtils增加showSystemAlertDialog方法
+[new] 增加了wyResourceDecoder接口, wyDirector增加setResourceDecoder方法. 增加了示例: WiEngineDemos/Other/Resource Decoder
+[new] wyBitmapFontLabel支持设置文字对齐方式(左, 中, 右)
+[new] wyAtlasLabel支持设置文字对齐方式(左, 中, 右)
+[new] wyLabel支持设置文字对齐方式(左, 中, 右), 修改了示例WiEngineDemos/Node/Label
+[new] wyLabel支持从外部存储中(如sd卡)中载入字体文件, 之前只能从assets下载入
+[new] wyButton增加setTextureRect方法
+[rev] wyLabel的构造方法中添加了一些参数, 并且参数顺序有一些调整, 注意看api文档
+[rev] 在android上, 如果用户锁屏再点亮屏幕时不恢复声音播放, 只有用户解锁回到游戏时才恢复声音播放
+[fix] 解析SpriteX 3.9.4导出文件时的一个bug
+[fix] chipmunk中一个可能导致崩溃的问题
+[fix] 3.7.0引入的一个显示系统对话框后可能导致的崩溃问题
+[fix] onAnimationEnded函数没在动画结束时调用, 而是在最后一帧开始时调用的问题
+[fix] DotPageIndicator使用图片集时渲染计算坐标的问题.
+[fix] CollisionDetector.isCollided方法文档说CDResult可以为null但实际不行的问题
+[fix] wyTopLineShrinkOut，wyTopTilesShrinkOut, wyRightTopTilesShrinkOut, wyRightLineShrinkOut最后一行是不能缩小消失
+[fix] 一些对象没有释放的问题
+
++++ 3.7.0 +++
+[new] 支持Mac OS X平台, 要求版本10.6以上
+[new] 支持Arctic 0.2.5版本, 该版本支持多图. 修改了wyArcticSprite的构造方法参数, 更新了示例: Node/Arctic
+[new] AFC动画支持换装功能, 注意: 换装功能目前不支持SpriteX 2011和Motion Welder
+	[new] 添加了wyAFCClipMapping类用于定义分片映射规则
+	[new] wyAFCSprite添加新的playAnimation方法可以在播放动画时指定映射规则
+	[new] wyAFCSprite添加addClipMapping, removeClipMappingByTag, getClipMappingByTag等方法
+	[new] 支持从AuroraGT的module mapping文件中创建分片映射, 增加了示例: WiEngineDemos/Node/Clip Mapping (AuroraGT)
+[new] wyAFCSprite增加了set/isForceTickMode方法来强行使动画用帧模式播放, 修改了示例WiEngineDemos/Node/SpriteX 3.9.4 & SpriteX 2011
+[new] wyTiledSprite增加set/isDither方法
+[new] wyAFCSprite增加getFrameRect方法用于得到当前帧的包围矩形
+[new] wyAFCSprite增加setDebugDrawFrameRect, setDebugDrawCollisionRect方法用于调试渲染帧矩形和碰撞矩形
+[new] wyScrollableLayer增加getScrollableChildByTag方法
+[new] 支持Physics Editor 1.0.5中新增的Circle类型
+[rev] 把OpenCV作为可选模块单独提供下载, 不再包含在WiEngine的发布包中
+[rev] 在对iOS平台进行资源映射时, 不再查找资源根目录, 只查找drawable或assets等目录, 具体请看WiEngine跨平台开发指南
+[rev] ScrollableLayer去掉setScrollExtent, 这是个无用的空方法
+[rev] wyAFCSprite去掉setExternalBatchNode方法
+[rev] 去掉基础适配中的FIT_X, FIT_Y模式, 只保留FIT_XY
+[rev] 加快了wyPageControl滚动时更新Page Indicator的速度
+[fix] 修正3.6.1引入的一个载入外部资源的bug
+[fix] 修正wyAFCSprite.getCollisionRect中的一个笔误
+[fix] HGE图片字体文件不是unicode格式时的一个解析问题
+[fix] wyProgressTimer在锚点不是中心时的一个贴图坐标计算问题
+[fix] 修正在某些机型上, 使用GridAction相关功能出现的图片倒置问题
+[fix] wyScrollableLayer.isAtXEnd方法判断错误的问题
+[fix] wyLabel如果没有指定行宽, 但是文字中包含换行符时没有当做多行处理的问题
+[fix] Director.runOnGLThread方法在GL线程里调用有时候会无效的问题
+[fix] 基础大小适配模式下抓屏的一些问题
+[fix] 修正Motion Welder在多图情况下解析图片翻转标志错误的问题
+[fix] 修正解析Particle Designer导出文件时, 解析Additive Blend不对的问题
+[fix] wyPageControl有时候滚动比较难的问题
+
++++ 3.6.1 +++
+[new] 支持Android 4.0, 提升了WiEngine对各种未知机型的兼容能力
+	[new] 增加了一个新库libwiskia.so, 这个库必须被包含, 并参见demo中WiEngineDemos.java中的载入方式
+	[rev] 去掉了libaal_donut.so, 这个库在新的架构下不再需要
+[new] 支持BMP图片文件, wyTexture2D增加了相关的makeBMP方法
+[new] 支持AuroraGT编辑器中的动画功能部分. 新增了示例WiEngineDemos/Node/AuroraGT
+[new] mips版本支持Android 3.x和4.x
+[rev] 所有的示例工程都已按照ADT 14.0.0中的新方式修改, 所以建议安装最新的ADT和Android SDK
+[rev] wyTexture2D.makeJPG时可以指定一个透明色
+[fix] 修正了ColorMatrix在java端的一个可能崩溃bug
+[fix] button连续点击时click scale的一个问题
+[fix] label的行宽较小时可能造成的花屏或崩溃问题
+[fix] 修正box2d中一个可能导致崩溃的问题
+
++++ 3.6.0 +++
+[new] 升级了Box2D到2.2.2
+[new] 增加了wyBox2DCollisionDetector类, 用于在不创建world的情况下进行碰撞检测, 增加了示例WiEngineDemos/Box2D/Collision Detection
+[new] 集成了OpenCV模块(目前仅限于native), 为增强现实应用提供了简单的框架, 增加了示例分类: WiEngineDemos_native/OpenCV
+[new] 对动画相关功能进行了重构和升级
+	[new] 增加了afcanim包, 增加了wyAFCSprite和相关类, 用于对同样架构的逐帧动画提供统一的支持
+	[new] 支持Arctic动画编辑器, 关于该编辑器的介绍参见sdk/tools目录或api文档首页. 增加了示例WiEngineDemos/Node/Arctic
+	[new] 支持SpriteX 3.9.4, 这是一个动画设计工具. 添加了示例: WiEngineDemos/Node/SpriteX. 下载地址请查看sdk/tools目录或api文档首页
+	[new] 支持SpriteX 2011, 这是一个动画设计工具. 添加了示例: WiEngineDemos/Node/SpriteX 2011. 下载地址请查看sdk/tools目录或api文档首页
+	[new] 新增了wySPXSprite, wyArcticSprite, 都是wyAFCSprite的子类, 分别对应某个编辑器
+	[rev] Motion Welder集成到afcanim中, 删除了motionwelder包
+	[rev] wyMWSprite改为wyAFCSprite的子类
+	[rev] 去掉了wyMWSprite.set/getMinFrameInterval方法, 挪到了wyAFCSprite中, 改名为set/getUnitInterval
+[new] 添加了wyVirtualJoystick类, 用于支持虚拟摇杆, 添加了示例: WiEngineDemos/Node/Virtual Joystick
+[new] 添加了wyColorMatrix/wyColorFilter类, 添加了若干wyColorFilter的子类, 可以支持对贴图设置滤镜功能, 新增了示例: WiEngineDemos/Other/Color Filter
+[new] 增加了wyHypotrochoid类, 可以让节点沿内旋轮线轨迹, 或椭圆, 或圆轨迹运动, 增加了示例WiEngineDemos/Action/Hypotrochoid
+[new] BitmapRawData增加了asIntBuffer方法. 修改了示例: WiEngineDemos_java/Other/Pixel Operation
+[new] wyCoverFlow类增加了get/setHeightFromMirror, get/setBrightLevelOfMirror方法
+[new] wyUtils增加了mapAssetsPath方法
+[new] Node添加了getActionPointer/getChildPointerAt方法
+[new] wyNode添加了getOriginX/getOriginY/enlargeNode/pauseAllActions/resumeAllActions/setInterceptTouch/resumeAction/pauseAction方法, 添加了示例WiEngineDemos/Action/Pause & Resume Action
+[new] wyNode添加了set/isMultiTouchClickable方法, 用于支持多点触摸情况下的点击事件
+[new] wyAssetInputStream增加readInt, readByte, set/isBigEndian方法
+[new] wyMoveBy, wyMoveTo, wyMoveByAngle, wyMoveByPath, wyBezier, wyLagrange增加了pin point属性, 可以用来指定一个朝向点, 查看相关示例了解具体效果.
+[new] wyScrollableLayer增加setLeft/Right/Top/BottomMargin方法, 小部分重新实现了内部逻辑，使添加滚动节点更加方便
+[new] wyScrollableLayer增加了setOffsetX/setOffsetY/isAtXEnd/isAtYEnd方法
+[new] wyMotionStreak增加了新的ribbon样式: STYLE_LINE, 增加了wyLineRibbon类. 修改了示例WiEngineDemos/Node/Motion Streak
+[new] Director增加了runOnGLThread方法
+[new] wyDirector增加了新的makeScreenshot方法, 支持只对屏幕一个指定矩形范围内抓屏
+[new] wyTargetSelector增加了新的构造方式, 可以指定某个类的成员函数为回调方法, WiEngineDemos_native/Node/Button做了相应修改
+[new] wyPrimitives增加画填充多边形, 填充矩形, 填充圆形的方法
+[new] 增加了wyAssetOutputStream类, 用来提供跨平台的写文件功能
+[new] wyPrefs增加set/getInt64方法
+[new] 添加了wyPageIndicator/wyDotPageIndicator类, wyPageControl增加了set/getPageIndicator方法可以设置页面指示节点. 修改了Page Control示例.
+[new] 添加了wySuck类, 添加了示例WiEngineDemos/Grid Action/Suck
+[new] 添加了wySuckTransition类, 添加了示例WiEngineDemos/Transition/Suck
+[new] 添加了示例WiEngineDemos/Other/Pause & Resume Game
+[new] 补充了VerletRope/Point/Stick的java绑定, 增加了示例: WiEngineDemos_java/Other/Verlet Rope
+[new] wyTextureNode, wySpriteEx, wySpriteBathNode增加了setAlphaFunc方法, 增加了示例: WiEngineDemos/Other/Alpha Test
+[rev] 提高了基础大小适配模式的性能
+[rev] 提高了wyBitmapFontLabel的渲染性能
+[rev] wyMWSprite: getFrameOffset可以在ignore frame offset时也有效
+[rev] 修改了label断行的算法, 解决了某些情况下断行不太理想的问题
+[rev] 当wyTextureNode的m_autoFit标志为true时, setTexture不改变节点的大小
+[rev] 对TMX做了一些修改和增强
+	[rev] 修改了wyTMXTileMap的构造函数, 需要手动指定贴图, 方便资源放在assets下时的使用
+	[rev] wyTMXLayer的构造方法需要传入贴图对象
+	[rev] 修改了wyObjectGroup的实现, 更方便访问Object和属性
+	[fix] 修正了解析时的一个问题
+	[fix] 修正解析外部tileset时的gid错误问题
+[rev] wyUtils中和数学相关的方法放到了wyMath中
+[rev] one shot timer可以在完成之后, 可以再次调度
+[rev] 禁止在场景切换未完成时调用replaceScene/pushScene
+[rev] 去掉了wyNode.isCollidedWith方法
+[fix] Button setTexture 少个参数
+[fix] 触摸事件在iOS上的一些映射问题
+[fix] 调度one shot timer的一个问题
+[fix] wyLabel.setText后, label的大小没有立刻更新
+[fix] 网格动作和基础大小适配模式时, 游戏暂停再启动贴图不能恢复的问题
+[fix] Utiltiles.loadPNG/JPG时没有根据default in density缩放的问题
+[fix] wyScrollableLayer在添加可滚动节点上的一个问题
+[fix] iOS上如果一开始就调用wyTexture2D的load方法出现的卡死问题
+[fix] iOS上手势事件派发时的一些bug
+[fix] clip区域在基础大小适配模式下的问题
+[fix] 多个clip rect嵌套时的问题
+[fix] wyLabel和wyScrollableLayer配合使用时的布局问题
+[fix] iOS上载入的贴图是premultiplied alpha的问题, 改成非premultiplied alpha格式
+[fix] wyProgressTimer不支持Zwoptex中的旋转图片的问题
+[fix] 对同一个图片多次makePNG/JPG时的内存泄漏问题
+[fix] 一些特定于iOS平台的内存泄漏问题
+[fix] wyArrayGet方法中索引判断的一个bug
+[fix] 嵌套操作子节点时可能导致的崩溃问题
+[fix] 多行标签wyLabel设置新文字后变成单行的问题
+[fix] 在华为的c和u系列机型上出现的资源id访问图片永远为第一个图片的问题
+[fix] wyBottomPushInTransition代码中的一个可以导致崩溃的笔误
+[fix] wyButton, wyMenuItemLabel, wyMenuItemAtlasLabel的一个click scale相关问题
+[fix] 修正Android上AudioManager.isBackgroundPlaying无效的问题
+[fix] 修正Director的生命周期监听器的一个由笔误导致的触发顺序错误
+
++++ 3.5.0 +++
+[new] 新增了wyDatabase/wyResultSet/wyStatement类，其提供了对sqlite3数据库的C++封装(仅面向于native)。WiEngineDemos_native中增加了Persistence分类.
+[new] 新增了wyImagePicker类(仅面向native), 支持从摄像头或者相册中获取一张图片. 增加了实例WiEngineDemes_native/Other/Pick From Album和WiEngineDemes_native/Other/Pick From Camera
+[new] wyScrollableLayer增加了一些方法用于支持设置水平和垂直滚动条，请查看示例: WiEngineDemos/Node/Scrollable Layer
+[new] wyScrollableLayer增加setRightMargin, setTopMargin方法, 方便设置滚动区域的边缘大小
+[new] wyScrollableLayer增加了getOffsetX, getOffsetY方法, 用于获得当前滚动偏移
+[new] wyScrollableLayer增加了setCallback, 用于设置滚动事件回调, 查看WiEngineDemos/Node/Scrollable Layer了解如何使用
+[new] wyZwoptex支持Zwoptex flash版本的导出格式，即XML Legacy格式
+[new] wyNode增加bringToFront/Back方法
+[new] wyFadeIn/wyFadeOut/wyFadeTo增加了一个includeChildren参数, 用于指定修改所有子节点的透明度
+[new] wyTiledSprite增加set/isStretch方法, 支持在非平铺方向进行拉伸
+[new] wyTiledSprite增加了setSpacing, getSpacingX/Y方法, 支持设置平铺之间的空隙距离
+[new] wyButton增加了set/getClickScale方法, 支持在点击时设置缩放效果
+[new] wyLabel增加了setFontSize, setFontStyle, setFontName, setFontPath等方法
+[new] 增加透明surface view支持(仅适用于Android), 增加了示例WiEngineDemos/Other/Transparent Draw Primitives
+[new] 增加跟踪节点Follow动作, 示例WiEngineDemos/Action/Follow
+[rev] wyPageControl补上遗漏的set/getCenterX方法
+[rev] wyTextBox重新设计，使用弹框式的输入方式，更适合手机设备的特点. 修改了示例WiEngineDemos/Node/Text Box
+[rev] wyBitmapFontLabel去掉了多余的setOpacity方法，因为wyNode中有setAlpha方法的定义
+[rev] 调整了wyRibbon的架构，将其实现分离为多个子类，支持水果忍者那样的刀痕轨迹效果
+	[1] wyMotionStreak构造函数中去掉了segmentThreshold参数, 增加了set/getSegmentThreshold方法来设置这个参数
+	[2] wyMotionStreak构造函数中增加了style参数，可以指定轨迹的样式，目前支持3种样式：条状，点状，刀痕
+	[3] 增加了wyStripRibbon, wySpotRibbon, wyBladeRibbon三个类分别用于不同样式的轨迹渲染
+	[4] 去掉了示例Events/Touch Streak, 其演示功能合并到实例Node/Motion Streak中
+[rev] 删除了wyBitmapFont的getFileName方法，和getPath重复了
+[fix] tmx中compression方式为zlib时不识别的问题
+[fix] wyPrefs在iOS上的缺省值不起作用问题
+[fix] wyTexture2D.makeRaw中的一个内存指针问题
+[fix] iOS上判断系统版本号的一个bug
+[fix] timer在调度之前相关节点被删除出现的崩溃问题
+[fix] jpg图片在iPad上载入不正确的问题
+[fix] 粒子系统初始颜色修改, 修正在不设置setEndColorVariance的时候导致粒子颜色变化的问题
+[fix] 动态壁纸连续预览时卡住的问题
+
++++ 3.4.0 +++
+[new] 更新了Box2D到最新版本, 集成了Box2D的Controller模块. 删除了LineJoint示例, 添加了Car, Buoyancy, Tensor Damping示例.
+[new] wyDirector增加了setScaleMode和setBaseSize方法, 支持基于基础大小的屏幕适配模式. 具体请阅读"WiEngine 3.x综述"中的"屏幕适配"一节.
+[new] wyDirector增加了popSceneWithTransition方法, WiEngineDemos/Transition下的demo增加了对这个功能的演示
+[new] wyDirector增加了set/isAllowBackgroundRunning方法 (仅用于Android)
+[new] 增加了wyScrollableLayer, 增加了示例: WiEngineDemos/Node/Scrollable Layer
+[new] 增加了wyLagrange和wyLagrangeConfig, 支持在一个拉格朗日曲线上移动节点. 新增示例: WiEngineDemos/Action/Lagrange
+[new] 增加了wyMoveByPath，用来在任意路径上移动节点。新增示例: WiEngineDemos/Action/MoveBy Path
+[new] wyBezier增加setAutoRotate方法
+[new] wyPrimitives增加wyDrawDashLine, wyDrawPath, wyDrawDashPath, wyDrawLagrange
+[new] wyMWSprite支持setColor, setAlpha
+[new] wyPageControl增加gotoPage方法
+[new] wyBitmapFont支持多page的anglecode格式
+[new] wyTexture2D增加updateRaw和makeRaw方法, 支持从像素数据生成贴图和对贴图进行像素级操作, 新增示例: WiEngineDemos/Other/Pixel Operation
+[new] 在java端，可以通过BitmapRawData生成Texture2D对象
+[rev] 修改并增强了wyParallaxNode, 修改了示例WiEngineDemos/Node/Parallax
+[rev] wyPrimitives合并wyDrawQuadBezier和wyDrawCubicBezier为wyDrawBezier方法
+[rev] 修改并增强了wyMotionStreak, 修改了示例WiEngineDemos/Node/Motion Streak和WiEngineDemos/Events/Touch Streak
+	[1] wyMotionStreak中添加了addPoint方法用来代替setPosition
+	[2] wyMotionStreak中添加了reset方法用来重置motion streak
+	[3] wyRibbon的淡出时间设置为0可以取消淡出
+	[4] wyRibbon添加了set/isContinuous方法用来设置使用连续还是非连续渲染模式, 查看示例WiEngineDemos/Node/Motion Streak了解这两种模式的区别
+	[5] wyRibbon添加了set/getDistance方法用来设置非连续渲染模式下的间隔
+	[6] wyMotionStreak可以移动位置，不再像以前那样只能处于不变的渲染位置
+[fix] label只有一行且指定了一个大于文字的行宽时出现的字体拉伸问题
+[fix] setClipRect第二个参数为true时的一个计算错误
+[fix] box2d和chipmunk的示例在Desire HD上特别慢的问题
+[fix] Utilities.loadPNG从assets中读取时的崩溃问题
+[fix] wyNinePatchSprite画反的问题
+
++++ 3.3.0 +++
+[new] 支持Android 3.x系统. 有些so文件名称改变, 请注意阅读"WiEngine 3.x综述"中的"部署方式"一节
+[new] wyTextureManager增加setTexturePixelFormat方法, 支持设置贴图格式. Texture2D增加了一些可以指定贴图格式的构造方法.
+[rev] lua模块重构, 去掉了原先的LuaJava和LuaPlus, 集成了tolua++. WiEngine的大部分API都可以通过lua访问. WiEngineDemos中的Lua部分进行了重整. iOS版本开始支持Lua.
+[rev] 点击wyPageControl的非当前页时自动切换到被点击页
+[fix] wyAudioManager不能在子线程中创建的问题
+[fix] 从assets载入tmx地图, 销毁时的一个崩溃问题
+
++++ 3.2.0 +++
+[new] 重写了WiSound声音引擎, 在低端android手机上的效率大大提高. 支持wav, mp3, ogg格式. WiEngineDemos/Sound部分进行了重整 
+[new] wyNode增加focused表示节点获得焦点, wyButton增加获得焦点渲染
+[new] 新增了wySlider类, 增加了示例: WiEngineDemos/Node/Slider
+[new] wyTransitionScene增加setInEaseAction和setOutEaseAction方法, 可以将转场效果做非线性转换. 增加了示例: WiEngineDemos/Transition/Top & Bottom Slide (Bounce)
+[new] wyUtils增加playVideo方法, 用于抽象视频播放功能. iOS版本补上了Video Playing的demo
+[new] 支持Particle Designer最新版本1.3.1
+[new] 所有的wyNode子类和wyAction子类都添加了make方法
+[new] wyTextBox支持setVisible
+[new] wyDirector添加了setNextDeltaTimeZero方法, 在wyScene切换时自动调用setNextDeltaTimeZero方法.
+[new] wyTextureNode增加makeFrame方法, 方便把一个wyTextureNode转换为wySpriteFrame
+[rev] 调整了贴图管理的内部架构, 解决了一些贴图管理上的潜在问题. 请注意阅读"WiEngine 3.x综述"中的贴图管理部分
+[rev] 去掉了Texture2D.setOwner方法, 去掉了TextureManager.addTexture/getTexture/getTextureAtlas方法, 去掉了TextureAtlas.findOrMake方法
+[rev] 对一些wyEaseAction子类的构造函数的参数顺序进行了调整
+[rev] 对iOS系统版本要求提高为3.2
+[fix] b2Body里一个引用的释放问题
+[fix] wyTMXTileMap从非res文件夹载入的问题
+[fix] 动画结合其它组合类动作时的一些问题
+[fix] Button.setTexture不能传null的问题
+[fix] Box2DRender.bindTexture不能传null的问题
+[fix] BitmapFont放在assets下的一个链接错误
+[fix] 修正了查看demo时有时候会出现的黑屏问题
+
++++ 3.1.0 +++
+[new] 集成了libcurl, 添加了wyNetwork类作为简单封装. WiEngineDemos_native中增加Network类别 (仅面向于native方式)
+[new] 支持Glyph Designer和Bitmap Font Generator图片字体工具, 新增Demo: WiEngineDemos/Node/Bitmap Font (AngelCode)
+[new] wyZwoptexManager增加getSpriteFrame方法
+[new] sdk/samples下增加native和java的框架工程: WiEngineSkeletonProject_native/java
+[new] wyDirector增加getCurrentFrameRate方法
+[new] wyDirector.makeScreenshot支持保存为jpg格式, 自动根据截屏目标文件扩展名判断
+[new] wyPageControl增加addPageAt, removeAllPages方法
+[fix] native端继承wyScene的一个问题
+[fix] TMX解析image source时的文件名获取问题
+[fix] iOS模板工程中没有设置Box2D和chipmunk头文件路径的问题
+[fix] Atlas Animation时fillAfter参数无效的问题
+[fix] 通过wyZwoptexManager创建的sprite对flip处理不正确的问题
+[fix] 其它细节问题
+
++++ 3.0.0 +++
+[new] WiEngine开始支持iOS平台, 需要iOS版本3.2或以上, 完美支持iPhone, iPhone Retina, iPad. 请根据平台下载不同的SDK包.
+[new] 新增了wyTextBox类, 用于提供文本编辑功能, 新增了demo: WiEngineDemos/Node/Text Box
+[new] 增加对物理引擎工具PhysicsEditor支持, 新增示例: WiEngineDemos/Box2D/Physics Editor和WiEngineDemos/Chipmunk/Physics Editor
+[new] wyTMXLayer添加了tileAt方法, 可以用来返回一个对应于瓦片的wySpriteEx对象. 查看WiEngineDemos/Node/TMX Tile Map (Hexagonal)了解如何使用和效果.
+[new] wyNode添加hasRunningAction, sizeToFit, isCollidedWith等方法
+[new] wyAudioManager的playBackgroundMusic添加repeatCount参数，可以控制循环次数
+[new] wyMenu.alignItemsInColumns和alignItemsInRows方法增加padding参数，可以设置行或列间隔
+[new] wyButton添加setTexture方法方便修改按钮图片
+[new] Utilities增加loadPNG/loadJPG, 方便得到图片的RGBA数据
+[new] Director增加了isEnding方法, 目前主要用在WiEngineDemos/Node/Text Box中, 用来判断操作是否安全.
+[rev] chipmunk升级到5.3.4
+[rev] wyTMXLayer的insertTileAt改名为setTileAt. wyTMXLayer的基类改为wySpriteBatchNode
+[rev] wyAction.setCallback添加data参数，去掉原来定义在wyActionCallback中的data. 保持设置callback的形式和其它地方统一。
+[fix] wyActionManager在某些情况下出现的动作释放问题
+[fix] wyAnimate中fillAfter参数无效的问题
+[fix] raw下资源的一些坐标，大小数值的屏幕适配问题
+[fix] TMX中解析ObjectGroup和获取对象属性出错的问题
+[fix] 其他小问题
+
++++ 2.3.1 +++
+[new] 添加了wyNinePatchSprite类, 可以为一个图片指定拉伸区域. 添加了示例: WiEngineDemos/Node/Nine Patch Button
+[new] wyAtlasLabel和wyBitmapFontLabel支持换行符
+[new] wyCharMap支持设置左右padding
+[new] Director增加setAccelerometerDelay方法, 用于控制加速器事件触发速度
+[new] WiEngine 2.x综述中添加代码混淆设置的说明
+[rev] 如果子节点和父节点的事件优先级相同, 让子节点先收到事件
+[rev] wyButton的构造函数改成可以传入wyNode, 不再需要是wySprite
+[fix] 修正CoverFlow的一个触摸判断问题
+[fix] 修正Director.setMaxFrameRate的问题
+[fix] 修正一个motion welder文件格式解析的问题
+[fix] 修正chipmunk的几个泄漏问题
+[fix] 修正MotionStreak设置贴图无效的问题
+[fix] 其它小问题
+
++++ 2.3.0 +++
+[new] wyNode增加set/getClipRect, 支持clip操作, 具体可以参考WiEngineDemos/Node/Tile Map, TMX Tile Map等示例查看实际效果.
+[new] wyDirector增加makeScreenshot方法, 可以用于对屏幕进行抓图. 新增了示例: WiEngineDemos/Other/Screenshot
+[new] 增加了AStar算法支持，参见示例WiEngineDemos/Other/AStar Find Path
+[new] wyTMXLayer增加了getPositionAt和getTileCoordinateAt方法, 可以用来在瓦片坐标和屏幕坐标之间进行转换.
+[new] wyPageControl增加setVertical方法, 支持纵向布局
+[new] wyNode增加set/getVelocity, set/getAcceleration方法, 用来直接提供简单的物理属性. 参考WiEngineDemos/Other/Node Physics示例了解如何使用.
+[new] 增加了示例如何载入删除贴图: WiEngineDemos/Other/Texture Load & Unload
+[new] wyPageControl增加setInitialPage方法
+[new] 支持图片集生成工具Texture Packer, tools下加入Texture Packer的说明
+[new] Zwoptex描述文件支持格式2和格式3
+[new] wyTextureNode和wySpriteEx支持Zwoptex中的rotated字段
+[new] wyZwoptexManager增加makeSpriteEx方法
+[new] wyBitmapFontLabel增加set/getSpaceWidth, set/getTabSize和setLineWidth方法
+[rev] wyTextureNode增加了set/isAutoFit方法, 设置为true时可以自动拉伸贴图。查看WiEngineDemos/Node/Image Sprite了解具体效果。
+[rev] wySpriteEx增加了set/isAutoFit方法, 设置为true时可以自动拉伸贴图。查看WiEngineDemos/Node/SpriteEx BatchNode了解具体效果。
+[rev] wyAtlasLabel进行了重现实现，支持自定义字符映射和中文，更加容易使用。查看WiEngineDemos/Node/Atlas Label了解具体变化。
+[rev] wyMenuItemAtlasLabel针对新的wyAtlasLabel进行了修改。查看WiEngineDemos/Node/Menu了解具体变化
+[fix] wyCoverFlow的一个渲染问题
+[fix] box2d贴图绑定在某些情况下出现混乱的问题
+[fix] 修正删除贴图不支持非OpenGL线程的问题
+[fix] 修正wyBlink的一个小问题
+[fix] 修正了fixture animation的一些引用计数问题
+[fix] 修正Action.isDone的一个返回值问题
+[fix] 修正在wyActionManager中一个资源释放问题
+
++++ 2.2.0 +++
+[new] 支持HGE bitmap font, 增加wyBitmapFont和wyBitmapFontLabel类，示例：WiEngineDemos/Node/Bitmap Font Label
+[new] sdk的tools目录新增了HGE Bitmap Font Editor工具(微云修改版), 请仔细阅读README.txt
+[new] 支持魅族M9的超高dpi屏幕
+[new] wyTextureNode增加setTextureRect,getTextureRect方法. wySprite增加构造函数,支持在构造时指定贴图区域. wyTexture2D增加draw方法,支持在指定位置,指定大小和贴图区域绘制图像.
+[new] 增加wyHGEParticleLoader类，支持从HGE粒子系统描述文件中导入粒子系统，示例：WiEngineDemos/Particle/HGE ParticleEd
+[new] wyProgressTimer支持atlas sprite
+[new] 增加了wyAnimationCallback，使用方式参考WiEngineDemos/Action/Animation或Atlas Animation
+[new] wyAudioManager增加了setBackgroundVolume和setEffectVolume方法，参考WiEngineDemos/Sound/Effect Sound了解用法和效果
+[new] 增加了wyFixtureAnimation类用于支持在Box2D的fixture上绑定一个动画, 参考WiEngineDemos/Box2D/Fixture Animation
+[new] WiEngineLiveWallpaper的demo添加事件处理代码
+[rev] wyTiledSprite重新实现，支持双方向平铺并去除内置事件处理，参见WiEngineDemos/Node/Tiled Sprite的变化
+[rev] wyAtlasSprite的功能被整合到wySprite中, 因此删除了wyAtlasSprite, wyAtlasButton, wyMenuItemAtlasSprite和其java端对应的类
+[rev] java端TextureNode类去掉对getWidth,getHeight的重载
+[rev] wyZwoptex增加set/getTexture方法
+[rev] wyZwoptexManager增加需要参数更少的makeSprite方法
+[fix] wyParticleSystem粒子数为1是不能正常删除的小bug
+[fix] 触摸事件坐标偶尔不准确的问题
+[fix] wyMotionStreak有时候显示不出来的问题
+[fix] 一些渲染上的小bug
+[fix] wyTextureAtlas.insertQuad时没有初始化颜色的问题
+[fix] wySpriteEx的zOrder在wySpriteBatchNode中无效的问题
+[fix] 修正锁屏时游戏不暂停的问题
+
++++ 2.1.0 +++
+[new] 增加coverflow,示例：WiEngineDemos/Node/Cover Flow
+[new] 支持Motion Welder动画格式, 示例：WiEngineDemos/Node/Motion Welder
+[new] 增加wySpriteEx类和wySpriteBatchNode类，示例：WiEngineDemos_native/Node下的SpriteEx BatchNode和SpriteEx SelfRender
+[new] 增加wyGradientColorLayer渐变色层，增加了示例: WiEngineDemos/Node/Gradient Color Layer
+[new] 增加了wyBox2DRender类，可以用来给box2d设置绑定贴图
+[new] Box2D新增示例：Bounce, Bounce(Textured), One Way(Textured), Loop Shape, Loop Shape(Textured), Edge Shapes(Textured)
+[new] 增加了wyPageControl类，增加了示例WiEngineDemos/Node/Page Control
+[new] 增加了wyShake类, 增加了示例WiEngineDemos/Action/Shake
+[new] wyTextureNode增加setDither, isDither方法
+[new] wyMotionStreak增加getLastLocation和getCurrentLocation方法
+[new] wyTextureManager增加getTextureAtlas方法，用于查找缓冲的atlas对象
+[new] wyUtils增加getString方法，便于从native层得到字符串
+[new] wyLabel支持折行
+[new] wyNode增加设置事件优先级的方法
+[new] wyAtlasSprite/wyTextureNode增加isBlend/setBlend方法
+[rev] releaseNative改名为autoRelease, 在Node中增加了一个autoRelease重载方法, 方便用来批量释放子节点.
+[rev] wyDirector增加setCullFace
+[rev] 去掉了AtlasFrame, TextureFrame, 用SpriteFrame统一替代两者
+[rev] 去掉了AtlasAnimation, AtlasAnimation的功能整合到Animation中
+[rev] Frame增加setDuration方法
+[rev] 增强了wyActionManager的稳定性
+[rev] wyMenuItemToggle的构造函数改成以NULL结尾
+[fix] TMX中tileset的tilewidth(tileheight)大小与map的tilewidth(tileheight)大小不一致时，显示被拉伸
+[fix] 修正在lephone上的兼容性问题
+[fix] 修正wyAtlasSprite在反复创建添加删除之后可能出现的混乱问题
+[fix] Zwoptex描述文件解析时一个格式的问题
+[fix] 一些内存泄漏问题
+[fix] wyMotionStreak中一个timer没有释放的问题
+
++++ 2.0.0 +++
+[new] WiEngine完全用C++重写，同时支持Java和Native两种开发方式。
+[new] 在native层完整支持Box2D, WiEngineDemos_native中增加了Box2D的示例
+[new] 在java端初步支持Box2D, WiEngineDemos_java添加了Box2D相关demo
+[new] WYGLSurfaceView提供了新的构造函数, 用来指定是否需要z buffer和stencil buffer. 缺省情况下z buffer和stencil buffer都不启用
+[new] VideoPlayingActivity增加了EXTRA_IN_END_ON_TOUCH和EXTRA_IN_NO_COMPLETION_DIALOG两个新参数
+[new] 包含libxml2.so
+[new] 增加wyPrefs, 方便从native层访问preference
+[new] 增加了wyRadialCCWTransition和wyRadialCWTransition, 增加了示例: WiEngineDemos/Transition/Radial CW & CCW
+[new] 支持将WiEngine用于动态壁纸，sdk/sample中增加了WiEngineLiveWallpaper示例工程
+[new] 在java端支持添加IDirectorLifecycleListener
+[new] sdk中增加了logo目录, 提供了各种版本的WiEngine标识图片
+[new] wyZwoptexManager增加hasZwoptex方法
+[new] wyZwoptexManager增加getFrames方法
+[new] wyAtlasSprite增加了switchAtlas方法
+[new] wyUtils类提供了getJNIEnv方法
+[new] 增加了WiEngineDemos/Events/Process Back Key示例
+[new] 抽象出BaseObject类, 其提供了releaseNative方法用于在java层是否底层对象
+[new] Action.Callback去掉了onDone, 增加了onStart, onStop和onUpdate. onDone的功能由onStop承担，在onStop中用isDone检查是否正常结束。
+[new] 增记了wyThread类方便启动子线程
+[new] 增加了wyTiledSprite类用于支持平铺贴图背景，请参考WiEngineDemos/Node/Tiled Sprite
+[new] 增加了wyScroller类用于支持滚动和fling
+[new] 支持从手机内部存储或者sd卡中载入png, jpg或者pvr文件
+[new] 支持从手机内部存储或者sd卡中载入TGA文件
+[new] 支持从手机内部存储或者sd卡中载入Particle Designer生成的粒子系统描述文件
+[new] wyTMXLayer增加获得所有gid的方法
+[new] 增加wyMoveByAngle类, 请参考WiEngineDemos/Action/MoveBy Angle
+[new] 添加了声音引擎，请在WiEngineDemos/Sound下查看声音相关示例
+[new] 支持jpeg图片
+[new] 支持从Java端对wyNode进行简单的继承，具体的例子请查看WiEngineDemos_java/Other/Texture Atlas和Drawing Primitives
+[new] Space中添加了getShapesOfBody方法
+[new] 支持从Particle Designer的生成文件中载入粒子系统效果
+[new] 支持内存文件系统, 具体例子请参考WiEngineDemos_native/Other/Memory File System
+[rev] 使用ZwoptexManager替换了以前的SpriteCache, SpriteFrame等类
+[rev] TextureManager的使用方式变化, 引入贴图池的概念, 方便分组管理贴图资源
+[rev] Texture2D.java增加带inDensity的make方法
+[rev] Texture2D去掉了从Bitmap构建贴图的方法
+[rev] 所有系统事件同步到OpenGL线程中处理
+[rev] wyScene缺省处理back按键，缺省处理行为是弹出当前场景
+[rev] WYGLSurfaceView增加enable/disableSystemHandleVolumnKey方法控制音量键处理流程
+[rev] 去掉了TextureAtlas和Sprite中的冗余方法，基本只保留使用Texture2D的构造方法
+[rev] Director.java中增加getContext方法, 必须通过getContext获得context引用
+[rev] 不在节点矩形范围内的触摸事件将不再派发到该节点
+[fix] 修正Node.stopAction/stopAllActions不会触发onStop的问题
+[fix] 修正Node.onUpdate不会触发的问题
+[fix] wyQuad2D中的成员顺序和初始化顺序不对的问题
+[fix] RepeatForever/Repeat重复执行动作时在新一轮开始时的微小停顿感
+[fix] 单次播放AtlasAnimation的崩溃问题
+[fix] AtlasSprite上改变颜色无效的问题
+[fix] Tilemap贴图方向反向的问题
+[fix] wyActionManager.removeActionLocked有时报空指针的问题
+[fix] wyAtlasSprite设置缩放有时无作用的问题
+[fix] autoRelease相关的一个问题
+[fix] javadoc需要手动调整编码到utf-8的问题
+[fix] 修正Node.getChildren的问题
+[fix] wyMenuItemSprite, wyMenuItemAtlasSprite状态图片尺寸不一样时，点击后不对齐的问题
+[fix] 其他细节问题
+
++++ 1.8.6 +++
+[new] 支持PVR 5551, 4444和565格式，同时支持非2次方大小的PVR文件
+[rev] Texture2D对贴图参数设置的方法进行了修订
+[rev] 简化了构造Label所需的一些参数
+[rev] 修正ActionManager中一个潜在的同步问题
+[new] 添加了手势和双击事件处理支持，Layer中添加了相应的方法
+[new] WiEngineDemos/Events下增加了Gesture和Double Tap示例
+[new] 为GL线程增加Looper支持
+[new] ActionManager中添加了新的remove/resume/pauseAllActions方法
+[new] Node中增加了新的stopAllActions方法
+[new] ShrinkOutTiles相关变换可以指定格子行列数
+[new] Button增加MoveOutSelector的设置
+[new] 所有的MenuItem修改为可以设置down/up/move out selector
+[new] WiEngineDemos/Node中增加ProgressTimer示例
+[rev] 去掉了Label.make中的noReuseTexture参数，Label之间不再重用贴图
+[rev] PageTurn3DTransition逻辑调整
+[rev] 鼠标移出ClickableNode时不显示选择状态
+[rev] 通过TargetSelector调用某方法时，如果被调用的方法执行错误，则抛出RuntimeException
+[rev] 去掉了一个在某些rom上可能没有实现的opengl api引用
+[fix] 修正有时候在TextureManager中出现并发修改错误的问题
+[fix] 修正TextureAtlas中修改容量时的一个逻辑错误
+[fix] 修正有些按键没有被处理但是也不会送出的bug
+[new] 为Button添加了新的make方法，支持为ACTION_DOWN和ACTION_UP设置不同的回调
+[new] 支持PVR贴图文件，目前支持RBGA8888, I8, A8和AI8四种格式, WiEngineDemos/Node下增加了PVR Sprite示例
+[new] Node.ILabel接口添加getText方法
+[new] IKeyHandler中增加wyKeyMultiple方法
+[new] ClickableNode中增加设置down/up selector的方法
+[rev] 当设置了最大帧率时，使用Thread.sleep使GL线程等待
+[rev] 调整了帧率的显示逻辑，15帧刷新一次
+[rev] 包结构小小的重构，去掉了layers和menus两个包，移动到了nodes包中
+[rev] 删除了exceptions包
+[rev] 构造Button和MenuItemAtlasSprite是，选择和禁止状态图片允许为null
+[rev] 对Node中操作子节点的方法进行了完善，进行了同步和条件检查
+[fix] 修正在Node.onEnter调用之前scheduleOnce没效果的问题
+[fix] 修正up事件在按钮外发生回调仍然被调用的bug
+[fix] 修正TextureAtlas中的一个索引相关bug
+[new] 增加了IMultiTouchHandler接口，实现对Multi Touch的支持，WiEngineDemos/Events增加了Multi Touch示例，该示例需要2.0以上版本才能工作。
+[rev] 去掉了一些对2.2上才有的API的引用
+[fix] 修正在某些机型上出现的变色bug
+[fix] 修正WYVexter3D相关的一个bug
+[fix] WiEngineDemos编译时缺少lua和chipmunk jar包的问题
+
++++ 1.8.0 +++
+[new] 添加了Lua支持，WiEngineDemos中增加了Lua相关Demo。如果想使用，在工程中添加WiEngine-lua.jar和liblua.so即可，如果不用则不必添加。
+[new] 对一些独立模块进行了单独打包，如果不想使用这些独立模块，不需要在工程中包含相关文件。具体情况请查看RELEASE_NOTES
+[new] 增加了TargetSelector对象，可以用该对象指定更复杂的回调函数。新的selector字符串语法和Objective C有差异，请务必阅读sdk附带的文档"如何使用TargetSelector"。
+[new] WiEngineDemos/Action中增加Call Function示例代码演示了TargetSelector的使用
+[new] WiEngineDemos/Other中增加了SchedulerTest，用于演示调度器和TargetSelector的使用
+[new] Node中增加了scheduleByFrame方法，支持对一个方法进行按帧调用，比如每2帧调用一次。Scheduler.Timer中增加了set/getFrame方法和新的构造函数
+[new] 增加了VideoPlayingActivity类，方便嵌入视频播放功能。WiEngineDemos/Other中增加了Video Playing示例。
+[new] WiEngineDemos/Events增加了Character Moving，演示了如何控制一个小人行走
+[new] TMX中支持cocos2d的属性cc_vertexz和cc_alpha_func
+[rev] 删除了CallFuncN和CallFuncND两个类，现在都可以用TargetSelector来实现了
+[rev] 由于增加了TargetSelector对象， MenuItem等类的方法有一些修改，因此您可能会在升级到1.8.0后出现一些编译错误，请仔细查看javadoc，用最新的api替换掉已经被删除的api。WiEngineDemos/Node/MenuTest已经做了相应修改，请参考。
+[rev] 由于增加了TargetSelector对象，Node的schedule/scheduleOnce/unschedule方法都成为过时方法，虽然仍可使用，但推荐使用新增的采用TargetSelector的调度方法。
+[rev] 由于增加了TargetSelector对象，ClickableNode以及子类都有相关修改
+[rev] WYVertex3D加上make方法
+[rev] 删除了WYPointSprite类
+[fix] 修正了Sequence包含多个InstantAction时，有些得不到执行的问题
+[fix] 修正了WiEngineDemos源代码中的字符串资源有冲突的问题
+[fix] 修正了如果TMX有空层导致生成地图对象出错的问题
+[fix] 修正了解析TMX属性时获得属性名称失败的问题
+
++++ 1.7.0 +++
+[new] 增加了对TMX格式文件的支持，TMX是一种XML的瓦片地图描述格式，WiEngineDemos/Node下增加了TMX相关Demo
+[new] Label支持创建时传入Typeface, 这样可以使用自定义字体文件了。请查看WiEngineDemos/Node/Label中的修改。
+[new] WiEngineDemos中的例子增加了描述性文字
+[new] 增加了WiEngineDemos/Chipmunk/Shape Animation示例
+[new] 在Director中增加setMaxFrameRate方法，可以限定最大帧率
+[new] 支持在设置MenuItem的callback时设置一个Object参数，WiEngineDemos/Node/Menu对此有相应修改
+[rev] 把Texture2D.glDelete方法改为public，通过该方法可以手动删除底层贴图对象，适用于不是通过TextureManager添加的贴图
+[rev] 删除了一些不需要的Exception
+[fix] 修正了Repeat上设置Action.Callback不起作用的bug
+[fix] 修正了Director暂停或退出时出现OpenGL ES API with no current context的问题
+[fix] 修正了TextureAtlas.removeQuad不正常的bug
+[fix] 修正WiEngine退出时没有清空ShapeAnimation的问题
+
++++ 1.6.5 +++
+把Shape.getBoundingBox()返回的矩形origin改成了左下角，原来是左上角
+把一些和WYRect相关的操作，如果不是和贴图相关的，origin都定义成左下角位置
+WiEngineDemos/Chipmunk中增加Body Dragging示例
+在Director中添加了getSoundPool方法，用于获得一个SoundPool实例，如果不需要使用sound，不建议调用此方法，创建的SoundPool实例会在end时自动销毁
+修正Action.Callback的onDone调用时，target已经被清除的问题
+修改了添加label时的哈希算法 
+增加了Label的make方法，增加了noReuseTexture参数，可以指定是否重用贴图
+fix some typo
+MenuItemAtlasSprite不再继承MenuItemSprite, 而是直接继承MenuItem
+给MenuItemSprite和MenuItemAtlasSprite添加了IBlendable接口
+增加了ShapeAnimation类，支持对某个物体添加动画效果，Shape中增加了startAnimation和clearAnimation方法
+开放了Scheduler类
+修正了一个ActionManager偶尔出现的怪异同步问题
+修正一个Body在销毁时可能出现的空指针问题
+在Segment中添加了getEndpoints/getNormal/getTransformedEndpoints/getTransformedNormal
+对Shape.setTexture相关方法添加了autoSize参数，支持在修改Shape贴图的时候自动适配贴图大小
+Chipmunk增加了noDraw标志，如果为true则不会渲染空间
+Space的addPostStepCallback方法允许设置第二个参数为null
+
++++ 1.6.0 +++
+修正ClickableNode在不可见状态下仍然能收到触摸事件的bug
+增加了LayoutUtil，方便控制游戏界面的布局
+Director中添加getPreviouScene()方法
+Layer中自动处理back键，如果要处理back键，现在可以直接覆盖Layer的onBackButton方法
+WiEngineDemos/Other中增加XML Layout
+Node中增加scheduleOnce方法，支持对某个方法进行单次调用
+Space中增加removeAndDestroyBody和removeAndDestroyShape方法
+修正在chipmunk中使用非正方形贴图出现变形的bug
+WYRect中增加了isIntersect方法
+WYPoint中增加了translate方法
+Space中补上getGravityX/Y方法
+修正Label不能设置空字符串的bug
+在Body中增加getShapes(), getFirstShape()方法，方便得到附加在某个刚体上的物体
+补全Arbiter中遗漏的方法
+优化了Texture2D的逻辑，减少了内存的浪费
+
++++ 1.5.0 +++
+去掉一些不必要的log
+把Copyable接口改名成ICopyable
+修正Menu.alignItemsInColumns方法的bug
+新的文档打包到tutorial
+添加了Action的Callback接口，可以接受动作完成事件
+集成了Chipmunk物理引擎，WiEngineDemos增加了Chipmunk演示例子，请在真机上运行WiEngineDemos, 有些例子在模拟器上可能有问题
+WYPoint中增加了一些方法
+增加了Button和AtlasButton，WiEngineDemos/Node下增加了Button的Demo
+Camera中的getEye, getCenter, getUp方法参数修改
+同一个AtlasSpriteManager中，AtlasSprite可以设置不同的旋转和缩放等参数
+修正AtlasSprite中设置flipX和flipY不起作用的问题
+TextureNode添加set/getFlipX和set/getFlipY方法
+修正不能在xml中嵌入WLGLSurfaceView的问题
+添加了SpriteFrame支持，支持解析Zwoptex文件格式
+AtlasSprite不再需要加到AtlasSpriteManager中
+AtlasSprite可以添加子节点
+删除了AtlasSpriteManager, 创建AtlasSprite时需要使用TextureAtlas对象
+修正一些命名上的错误, 比如TAGLoader应该是TGALoader
+
++++ 1.0.1 +++
+修正了一些问题
+sdk包中添加了WiEngine的javadoc
+sdk包中添加了一些教程文档，后续会有更多，请随时登录http://www.wiyun.com查看
+
++++ 1.0.0 +++
+支持Android 1.6以上系统
+部分功能需要Android 2.1或者2.2才能使用
