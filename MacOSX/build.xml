@@ -3,33 +3,6 @@
         WiEngine Mac OS X SDK Ant build file
     </description>
 
-	<property name="name" value="3.10.1r2"/>
-	<tstamp>
-		<format property="time" pattern="yyyyMMddHHmm"/>
-	</tstamp>
-	
-	<!-- load some source file into property -->
-	<loadfile property="wyMemory.h" srcfile="../jni/WiEngine/include/common/wyMemory.h"></loadfile>
-	<loadfile property="Application.mk" srcfile="../jni/Application.mk"></loadfile>
-			
-	<!-- if memory debug is enabled, then append memdbg suffix -->
-	<condition 
-		property="build.name"
-		value="${name}b${time}"
-		else="${name}">
-		<and>
-			<contains string="${Application.mk}" substring="APP_ABI := armeabi"/>
-		</and>
-	</condition>
-	<condition 
-		property="version"
-		value="${build.name}_memdbg"
-		else="${build.name}">
-		<not>
-			<contains string="${wyMemory.h}" substring="//#define MEMORY_TRACKING"/>
-		</not>
-	</condition>
-	
 	<!-- for different platform, doxygen path -->
 	<condition 
 		property="doxygen" 
@@ -41,6 +14,7 @@
 	</condition>
 	
 	<!-- properties -->
+	<property name="version" value="3.10.2"/>
 	<property name="android.dir" value=".."/>
 	<property name="android.jni.dir" value="${android.dir}/jni"/>
 	<property name="android.native.demo.dir" value="${android.dir}/samples/WiEngineDemos_native"/>
@@ -91,33 +65,13 @@
 		<!-- delete tmp cppdoc dir -->
 		<delete dir="${tmp.cppdoc.dir}"/>
 		
-		<!-- copy logo -->
-		<copy todir="${dist.dir}/logo">
-			<fileset dir="${android.dir}/logo">
-				<include name="*"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy doc -->
-		<copy todir="${dist.dir}/doc">
-			<fileset dir="${android.dir}/doc">
-				<include name="**/*"/>
-			</fileset>
-		</copy>
-		
 		<!-- copy auxiliary files -->
 		<copy todir="${dist.dir}">
 			<fileset dir="${android.dir}">
-				<include name="RELEASE_NOTES"/>
 				<include name="CHANGELOG"/>
 				<include name="LICENSE*"/>
 				<include name="AUTHORS"/>
 			</fileset>
-		</copy>
-		
-		<!-- copy tools -->
-		<copy todir="${dist.dir}/tools">
-			<fileset dir="${android.dir}/tools"/>
 		</copy>
 		
 		<!-- template -->
