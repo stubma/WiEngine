@@ -251,10 +251,6 @@
 		929D43DF146FEAB900267B99 /* wyMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B7C146FC646004757F9 /* wyMemory.cpp */; };
 		929D43E0146FEAB900267B99 /* wyObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B7D146FC646004757F9 /* wyObject.cpp */; };
 		929D43E1146FEAB900267B99 /* wyThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B7E146FC646004757F9 /* wyThread.cpp */; };
-		929D43E6146FEAB900267B99 /* wyDesignerCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B80146FC646004757F9 /* wyDesignerCommon.cpp */; };
-		929D43E7146FEAB900267B99 /* wySDSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B81146FC646004757F9 /* wySDSprite.cpp */; };
-		929D43E8146FEAB900267B99 /* wySDSpriteManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B82146FC646004757F9 /* wySDSpriteManager.cpp */; };
-		929D43E9146FEAB900267B99 /* wyUDLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B83146FC646004757F9 /* wyUDLayer.cpp */; };
 		929D4400146FEAB900267B99 /* wyEaseAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B85146FC646004757F9 /* wyEaseAction.cpp */; };
 		929D4401146FEAB900267B99 /* wyEaseBackIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B86146FC646004757F9 /* wyEaseBackIn.cpp */; };
 		929D4402146FEAB900267B99 /* wyEaseBackInOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B87146FC646004757F9 /* wyEaseBackInOut.cpp */; };
@@ -1489,10 +1485,6 @@
 		92CA7B7C146FC646004757F9 /* wyMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyMemory.cpp; sourceTree = "<group>"; };
 		92CA7B7D146FC646004757F9 /* wyObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyObject.cpp; sourceTree = "<group>"; };
 		92CA7B7E146FC646004757F9 /* wyThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyThread.cpp; sourceTree = "<group>"; };
-		92CA7B80146FC646004757F9 /* wyDesignerCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyDesignerCommon.cpp; sourceTree = "<group>"; };
-		92CA7B81146FC646004757F9 /* wySDSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wySDSprite.cpp; sourceTree = "<group>"; };
-		92CA7B82146FC646004757F9 /* wySDSpriteManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wySDSpriteManager.cpp; sourceTree = "<group>"; };
-		92CA7B83146FC646004757F9 /* wyUDLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyUDLayer.cpp; sourceTree = "<group>"; };
 		92CA7B85146FC646004757F9 /* wyEaseAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyEaseAction.cpp; sourceTree = "<group>"; };
 		92CA7B86146FC646004757F9 /* wyEaseBackIn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyEaseBackIn.cpp; sourceTree = "<group>"; };
 		92CA7B87146FC646004757F9 /* wyEaseBackInOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyEaseBackInOut.cpp; sourceTree = "<group>"; };
@@ -1801,10 +1793,6 @@
 		92CA7E71146FC68D004757F9 /* wyMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyMemory.h; path = ../../include/common/wyMemory.h; sourceTree = "<group>"; };
 		92CA7E72146FC68D004757F9 /* wyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyObject.h; path = ../../include/common/wyObject.h; sourceTree = "<group>"; };
 		92CA7E73146FC68D004757F9 /* wyThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyThread.h; path = ../../include/common/wyThread.h; sourceTree = "<group>"; };
-		92CA7E74146FC693004757F9 /* wyDesignerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyDesignerCommon.h; path = ../../include/designer/wyDesignerCommon.h; sourceTree = "<group>"; };
-		92CA7E75146FC693004757F9 /* wySDSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySDSprite.h; path = ../../include/designer/wySDSprite.h; sourceTree = "<group>"; };
-		92CA7E76146FC693004757F9 /* wySDSpriteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySDSpriteManager.h; path = ../../include/designer/wySDSpriteManager.h; sourceTree = "<group>"; };
-		92CA7E77146FC693004757F9 /* wyUDLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyUDLayer.h; path = ../../include/designer/wyUDLayer.h; sourceTree = "<group>"; };
 		92CA7E78146FC69A004757F9 /* wyEaseAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyEaseAction.h; path = ../../include/easeactions/wyEaseAction.h; sourceTree = "<group>"; };
 		92CA7E79146FC69A004757F9 /* wyEaseBackIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyEaseBackIn.h; path = ../../include/easeactions/wyEaseBackIn.h; sourceTree = "<group>"; };
 		92CA7E7A146FC69A004757F9 /* wyEaseBackInOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyEaseBackInOut.h; path = ../../include/easeactions/wyEaseBackInOut.h; sourceTree = "<group>"; };
@@ -3260,7 +3248,6 @@
 				92CA7B6A146FC646004757F9 /* astar */,
 				92CA7B71146FC646004757F9 /* bitmapfont */,
 				92CA7B77146FC646004757F9 /* common */,
-				92CA7B7F146FC646004757F9 /* designer */,
 				927EDD5514BFFDA8008A847F /* dialog */,
 				92CA7B84146FC646004757F9 /* easeactions */,
 				92CA7B9B146FC646004757F9 /* events */,
@@ -3526,22 +3513,6 @@
 			);
 			name = common;
 			path = ../jni/WiEngine/impl/common;
-			sourceTree = "<group>";
-		};
-		92CA7B7F146FC646004757F9 /* designer */ = {
-			isa = PBXGroup;
-			children = (
-				92CA7E74146FC693004757F9 /* wyDesignerCommon.h */,
-				92CA7E75146FC693004757F9 /* wySDSprite.h */,
-				92CA7E76146FC693004757F9 /* wySDSpriteManager.h */,
-				92CA7E77146FC693004757F9 /* wyUDLayer.h */,
-				92CA7B80146FC646004757F9 /* wyDesignerCommon.cpp */,
-				92CA7B81146FC646004757F9 /* wySDSprite.cpp */,
-				92CA7B82146FC646004757F9 /* wySDSpriteManager.cpp */,
-				92CA7B83146FC646004757F9 /* wyUDLayer.cpp */,
-			);
-			name = designer;
-			path = ../jni/WiEngine/impl/designer;
 			sourceTree = "<group>";
 		};
 		92CA7B84146FC646004757F9 /* easeactions */ = {
@@ -4609,10 +4580,6 @@
 				929D43DF146FEAB900267B99 /* wyMemory.cpp in Sources */,
 				929D43E0146FEAB900267B99 /* wyObject.cpp in Sources */,
 				929D43E1146FEAB900267B99 /* wyThread.cpp in Sources */,
-				929D43E6146FEAB900267B99 /* wyDesignerCommon.cpp in Sources */,
-				929D43E7146FEAB900267B99 /* wySDSprite.cpp in Sources */,
-				929D43E8146FEAB900267B99 /* wySDSpriteManager.cpp in Sources */,
-				929D43E9146FEAB900267B99 /* wyUDLayer.cpp in Sources */,
 				929D4400146FEAB900267B99 /* wyEaseAction.cpp in Sources */,
 				929D4401146FEAB900267B99 /* wyEaseBackIn.cpp in Sources */,
 				929D4402146FEAB900267B99 /* wyEaseBackInOut.cpp in Sources */,
