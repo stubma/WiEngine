@@ -67,6 +67,10 @@ When you submit an issue, I hope you provide:
  1. description, platform, OS version, WiEngine version, etc.
  2. log if it is a crash problem
  3. sample code to reproduce that problem. this is not mandatory but it will gain high priority if you can provide.
+
+Documentation
+-----------------------------------
+We organize all documentation in [github wiki][18]. Now it is just a beginning and we will add more.
  
 [1]: http://www.motionwelder.com/
 [2]: http://wiengine.wiyun.com/tools/spx3.rar
@@ -85,3 +89,4 @@ When you submit an issue, I hope you provide:
 [15]: http://www.physicseditor.de/features/
 [16]: http://www.mapeditor.org/
 [17]: http://code.google.com/p/cocos2d-windows-particle-editor/
+[18]: https://github.com/stubma/WiEngine/wiki
