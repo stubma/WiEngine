@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2010 WiYun Inc.
- * Author: luma(stubma@gmail.com)
+ * Author: mike(mike.weib@gmail.com)
  *
  * For all entities this program is free software; you can redistribute
  * it and/or modify it under the terms of the 'WiEngine' license with
