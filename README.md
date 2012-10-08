@@ -2,7 +2,7 @@
 
 WiEngine
 -----------------------------------
-C++ implemented, cocos2d-like cross-platform game engine.
+C++ implemented, cocos2d-like cross-platform game engine. Any question, plese visit our forum: <a href="http://wiengine.forumer.com/">http://wiengine.forumer.com/</a>
 
 Platform Supported
 -----------------------------------
