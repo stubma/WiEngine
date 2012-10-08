@@ -1162,6 +1162,9 @@
     <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\resource.h">
       <Filter>platform\windows</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuildConfig.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyAnimate.cpp">

@@ -151,6 +151,7 @@
     <ClInclude Include="..\..\jni\WiEngine\include\bitmapfont\wyHGEFontLoader.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyArray.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyAutoReleasePool.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuildConfig.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyDevice.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyGlobal.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyHashSet.h" />
