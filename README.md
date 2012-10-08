@@ -11,7 +11,7 @@ Platform Supported
  * Mac OS X(10.6+)
  * Windows (XP or above)
  
-Main features
+Main Features
 -----------------------------------
  * Scene managing and transition effect
  * Texture and atlas (Supports png, jpg and pvr)
@@ -60,6 +60,13 @@ Tools Supported
   * Physics Editor, please download it from [http://www.physicseditor.de/features/][15]
  * Map Tool
   * Tiled, please download it from [http://www.mapeditor.org/][16]
+
+When Submit Issue
+-----------------------------------
+When you submit an issue, I hope you provide:
+ 1. description, platform, OS version, WiEngine version, etc.
+ 2. log if it is a crash problem
+ 3. sample code to reproduce that problem. this is not mandatory but it will gain high priority if you can provide.
  
 [1]: http://www.motionwelder.com/
 [2]: http://wiengine.wiyun.com/tools/spx3.rar
