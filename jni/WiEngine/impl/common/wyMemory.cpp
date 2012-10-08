@@ -30,7 +30,7 @@
 #include "wyLog.h"
 #include <memory.h>
 
-#ifdef MEMORY_TRACKING
+#ifdef WY_CFLAG_MEMORY_TRACKING
 
 // uncomment if you want to log every allocation in console
 //#define LOG_ALLOC
@@ -269,4 +269,4 @@ void _wyFree(void* ptr, const char* file, int line) {
 }
 #endif
 
-#endif // #if MEMORY_TRACKING
+#endif // #if WY_CFLAG_MEMORY_TRACKING

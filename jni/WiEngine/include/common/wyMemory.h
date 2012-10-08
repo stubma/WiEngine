@@ -31,10 +31,7 @@
 
 #include "wyGlobal.h"
 
-// uncomment it if want to enable memory tracking
-#define MEMORY_TRACKING
-
-#ifdef MEMORY_TRACKING
+#ifdef WY_CFLAG_MEMORY_TRACKING
 
 extern "C" WIENGINE_API void* _wyMalloc(size_t size, const char* file, int line, const char* logTag);
 extern "C" WIENGINE_API void* _wyCalloc(size_t nitems, size_t size, const char* file, int line);
@@ -81,6 +78,6 @@ inline void operator delete[](void* p) throw() {
 #define WYNEWARR(t, s) new t[(s)]
 #define WYDELETEARR(object) delete[] (object)
 
-#endif // #if MEMORY_TRACKING
+#endif // #if WY_CFLAG_MEMORY_TRACKING
 
 #endif // __wyMemory_h__

@@ -103,7 +103,7 @@ extern void wyDestroyAutoReleasePool();
 extern void wyOutputLeakPool();
 extern void wyClearLeakPool();
 
-#ifdef MEMORY_TRACKING
+#ifdef WY_CFLAG_MEMORY_TRACKING
 extern void wyMemoryDumpRecord(bool fullLog);
 extern void wyMemoryUsageReport();
 #endif
@@ -175,7 +175,7 @@ void wyDirector::printUnreleasedObjects() {
 }
 
 void wyDirector::printUnreleasedMemory(bool fullLog) {
-#ifdef MEMORY_TRACKING
+#ifdef WY_CFLAG_MEMORY_TRACKING
 	wyMemoryDumpRecord(fullLog);
 #else
 	LOGW("This method is only available for WiEngine memory debug version");
@@ -183,7 +183,7 @@ void wyDirector::printUnreleasedMemory(bool fullLog) {
 }
 
 void wyDirector::printMemoryUsage() {
-#ifdef MEMORY_TRACKING
+#ifdef WY_CFLAG_MEMORY_TRACKING
 	wyMemoryUsageReport();
 #else
 	LOGW("This method is only available for WiEngine memory debug version");
@@ -663,7 +663,7 @@ void wyDirector::commonDestroy() {
 	pthread_mutex_destroy(&gMutex);
 	pthread_mutex_destroy(&gCondMutex);
 	
-#ifdef MEMORY_TRACKING
+#ifdef WY_CFLAG_MEMORY_TRACKING
 	printUnreleasedMemory(true);
 #endif
 }

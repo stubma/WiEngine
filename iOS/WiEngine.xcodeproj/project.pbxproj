@@ -1704,6 +1704,7 @@
 		9258DE6B152A91E500DC1C6F /* wyTMXObjectLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTMXObjectLayer.cpp; sourceTree = "<group>"; };
 		9258DE6C152A91E500DC1C6F /* wyTMXObjectLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyTMXObjectLayer.h; sourceTree = "<group>"; };
 		9258DE6F152A942000DC1C6F /* wyTMXObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTMXObject.h; path = ../../include/tmx/wyTMXObject.h; sourceTree = "<group>"; };
+		925D572A1622A2A3008D1984 /* wyBuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBuildConfig.h; path = ../../include/common/wyBuildConfig.h; sourceTree = "<group>"; };
 		926256CE146EAB040043D85C /* wyAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyAction.cpp; sourceTree = "<group>"; };
 		926256CF146EAB040043D85C /* wyAnimate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyAnimate.cpp; sourceTree = "<group>"; };
 		926256D0146EAB040043D85C /* wyBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBezier.cpp; sourceTree = "<group>"; };
@@ -3647,6 +3648,7 @@
 			children = (
 				92625A69146EAB430043D85C /* wyArray.h */,
 				92A55FE215271CD3006C46C8 /* wyAutoReleasePool.h */,
+				925D572A1622A2A3008D1984 /* wyBuildConfig.h */,
 				92625A6A146EAB430043D85C /* wyDevice.h */,
 				92625A6B146EAB430043D85C /* wyGlobal.h */,
 				92625A6C146EAB430043D85C /* wyHashSet.h */,

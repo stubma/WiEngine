@@ -1183,6 +1183,7 @@
 		929D48F3146FFBAF00267B99 /* wyFixtureAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyFixtureAnimation.h; path = ../WiEngine/include/box2d/wyFixtureAnimation.h; sourceTree = "<group>"; };
 		929D49551470087200267B99 /* wyTextBox_macosx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTextBox_macosx.cpp; sourceTree = "<group>"; };
 		929D49561470087200267B99 /* wyTextBox_macosx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyTextBox_macosx.h; sourceTree = "<group>"; };
+		92AA64A31622A35E00690000 /* wyBuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBuildConfig.h; path = ../../include/common/wyBuildConfig.h; sourceTree = "<group>"; };
 		92BB799E1478D9FB00503912 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		92BB79A41478E67300503912 /* WYAlertDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYAlertDelegate.h; sourceTree = "<group>"; };
 		92BB79A51478E67300503912 /* WYAlertDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WYAlertDelegate.mm; sourceTree = "<group>"; };
@@ -3496,6 +3497,7 @@
 			children = (
 				92CA7E6D146FC68D004757F9 /* wyArray.h */,
 				92EFAAFA15271D0100EF9BDC /* wyAutoReleasePool.h */,
+				92AA64A31622A35E00690000 /* wyBuildConfig.h */,
 				92CA7E6E146FC68D004757F9 /* wyDevice.h */,
 				92CA7E6F146FC68D004757F9 /* wyGlobal.h */,
 				92CA7E70146FC68D004757F9 /* wyHashSet.h */,

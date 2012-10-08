@@ -34,6 +34,7 @@
  */
 
 // common headers
+#include "wyBuildConfig.h"
 #include "wyGlobal.h"
 #include "wyArray.h"
 #include "wyHashSet.h"

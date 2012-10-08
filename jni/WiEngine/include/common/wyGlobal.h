@@ -29,6 +29,8 @@
 #ifndef __wyGlobal_h__
 #define __wyGlobal_h__
 
+#include "wyBuildConfig.h"
+
 // WiEngine version
 #define WIENGINE_VERSION "3.10.1"
 

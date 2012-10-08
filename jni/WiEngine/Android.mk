@@ -29,7 +29,7 @@ include $(LOCAL_PATH)/libxml2/Android.mk
 include $(CLEAR_VARS)
 LOCAL_MODULE := wiengine
 LOCAL_LDLIBS := -L$(LOCAL_PATH)/../system_libs/$(TARGET_ARCH) -llog -lGLESv1_CM -lz -ldl -lsqlite
-LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DEGL_EGLEXT_PROTOTYPES -DWY_CFLAG_OPTIMIZE_MATH -Wno-psabi
+LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DEGL_EGLEXT_PROTOTYPES -Wno-psabi
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/WiEngine/include \
 	$(LOCAL_PATH)/WiEngine/include/actions \
 	$(LOCAL_PATH)/WiEngine/include/afcanim \
