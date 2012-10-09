@@ -29,34 +29,30 @@
 #include "wyAtlasNode.h"
 #include "wyTextureManager.h"
 #include "wyLog.h"
+#include "wyMaterial.h"
+#include "wyQuadList.h"
+#include "wyMaterialTextureParameter.h"
 
 wyAtlasNode::~wyAtlasNode() {
-	wyObjectRelease(m_atlas);
 }
 
 wyAtlasNode::wyAtlasNode() :
-		m_atlas(NULL),
 		m_itemsPerRow(0),
 		m_itemsPerColumn(0),
 		m_texStepX(0),
 		m_texStepY(0),
 		m_itemWidth(0),
-		m_itemHeight(0),
-		m_blendFunc(wybfDefault),
-		m_color(wyc4bWhite) {
+		m_itemHeight(0) {
 	// only used for subclass
 }
 
 wyAtlasNode::wyAtlasNode(wyTexture2D* tex, int itemWidth, int itemHeight, int capacity) :
-		m_atlas(NULL),
 		m_itemsPerRow(0),
 		m_itemsPerColumn(0),
 		m_texStepX(0),
 		m_texStepY(0),
 		m_itemWidth(0),
-		m_itemHeight(0),
-		m_blendFunc(wybfDefault),
-		m_color(wyc4bWhite) {
+		m_itemHeight(0) {
 	init(tex, itemWidth, itemHeight, capacity);
 }
 
@@ -65,78 +61,40 @@ wyAtlasNode* wyAtlasNode::make(wyTexture2D* tex, int itemWidth, int itemHeight, 
 	return (wyAtlasNode*)n->autoRelease();
 }
 
-void wyAtlasNode::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnable(GL_TEXTURE_2D);
-
-    glColor4f(m_color.r / 255.0f, m_color.g / 255.0f, m_color.b / 255.0f, m_color.a / 255.0f);
-
-    bool newBlend = false;
-    if (m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-        newBlend = true;
-        glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-    }
-
-	m_atlas->drawAll();
-
-    if (newBlend)
-        glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-    glDisable(GL_TEXTURE_2D);
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-}
-
-wyColor3B wyAtlasNode::getColor() {
-	wyColor3B c = {
-		m_color.r,
-		m_color.g,
-		m_color.b
-	};
-	return c;
-}
-
-void wyAtlasNode::setColor(wyColor3B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-}
-
-void wyAtlasNode::setColor(wyColor4B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	m_color.a = color.a;
-}
-
 void wyAtlasNode::init(wyTexture2D* tex, int itemWidth, int itemHeight, int capacity) {
-	// create texture and atlas and set
-	m_atlas = WYNEW wyTextureAtlas(tex, capacity);
-
+	// init member
 	m_itemWidth = itemWidth;
 	m_itemHeight = itemHeight;
 	m_height = itemHeight;
-	m_color = wyc4bWhite;
-	m_blendFunc.src = DEFAULT_BLEND_SRC;
-	m_blendFunc.dst = DEFAULT_BLEND_DST;
-	m_itemsPerColumn = (int) (m_atlas->getTexture()->getHeight() / m_itemHeight);
-	m_itemsPerRow = (int) (m_atlas->getTexture()->getWidth() / m_itemWidth);
-	m_texStepX = m_itemWidth / (float)m_atlas->getTexture()->getPixelWidth();
-	m_texStepY = m_itemHeight / (float)m_atlas->getTexture()->getPixelHeight();
+	m_itemsPerColumn = (int) (tex->getHeight() / m_itemHeight);
+	m_itemsPerRow = (int) (tex->getWidth() / m_itemWidth);
+	m_texStepX = m_itemWidth / (float)tex->getPixelWidth();
+	m_texStepY = m_itemHeight / (float)tex->getPixelHeight();
+
+	// set texture
+	setTexture(tex);
+
+	// create empty material and mesh
+	setMaterial(wyMaterial::make());
+	setMesh(wyQuadList::make());
+
+	// set blend mode
+	setBlendMode(wyRenderState::ALPHA);
 }
 
-void wyAtlasNode::setAtlas(wyTextureAtlas* atlas) {
-	wyObjectRetain(atlas);
-	wyObjectRelease(m_atlas);
-	m_atlas = atlas;
+void wyAtlasNode::updateMaterial() {
+	// get texture parameter, if none, create
+	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(!mp) {
+		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
+		m_material->addParameter(p);
+	} else {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		mtp->setTexture(m_tex);
+	}
+}
+
+void wyAtlasNode::updateMeshColor() {
+	wyQuadList* quadList = (wyQuadList*)getMesh();
+	quadList->updateColor(m_color);
 }

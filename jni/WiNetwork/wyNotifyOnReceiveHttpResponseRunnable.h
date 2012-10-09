@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 #ifndef __wyNotifyOnReceiveHttpResponseRunnable_h__
 #define __wyNotifyOnReceiveHttpResponseRunnable_h__
 

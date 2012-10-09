@@ -29,6 +29,7 @@
 #include "wyCallFunc.h"
 #include "wyNode.h"
 #include "wyLog.h"
+#include "wyTargetSelector.h"
 
 wyCallFunc::~wyCallFunc() {
 	wyObjectRelease(m_targetSelector);

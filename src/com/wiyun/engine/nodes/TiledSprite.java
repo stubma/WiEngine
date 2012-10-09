@@ -1,36 +1,6 @@
-/*
- * Copyright (c) 2010 WiYun Inc.
- * Author: luma(stubma@gmail.com)
- *
- * For all entities this program is free software; you can redistribute
- * it and/or modify it under the terms of the 'WiEngine' license with
- * the additional provision that 'WiEngine' must be credited in a manner
- * that can be be observed by end users, for example, in the credits or during
- * start up. (please find WiEngine logo in sdk's logo folder)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 package com.wiyun.engine.nodes;
 
 import com.wiyun.engine.opengl.Texture2D;
-import com.wiyun.engine.types.WYBlendFunc;
-import com.wiyun.engine.types.WYColor3B;
 import com.wiyun.engine.types.WYRect;
 
 /**
@@ -71,44 +41,6 @@ public class TiledSprite extends Node {
     
     private native void nativeInit(Texture2D tex);
     
-    public Texture2D getTexture() {
-        return Texture2D.from(nativeGetTexture());
-    }
-    
-    private native int nativeGetTexture();
-    public native void setTexture(Texture2D texture);
-    
-    public WYBlendFunc getBlendFunc() {
-    	return new WYBlendFunc(getBlendFuncSrc(), getBlendFuncDst());
-    }
-    
-    private native int getBlendFuncSrc();
-    private native int getBlendFuncDst();
-    
-    public void setBlendFunc(WYBlendFunc blendFunc) {
-    	setBlendFunc(blendFunc.src, blendFunc.dst);
-    }
-    
-    private native void setBlendFunc(int src, int dst);
-    
-    public native int getAlpha();
-
-    public native void setAlpha(int alpha);
-    
-	public WYColor3B getColor() {
-		WYColor3B color = new WYColor3B();
-		nativeGetColor(color);
-		return color;
-	}
-	
-	private native void nativeGetColor(WYColor3B color);
-	
-	public void setColor(WYColor3B color) {
-		nativeSetColor(color.r, color.g, color.b);
-	}
-	
-	private native void nativeSetColor(int r, int g, int b);
-	
 	/**
 	 * 得到是否垂直平铺标志
 	 *
@@ -272,30 +204,4 @@ public class TiledSprite extends Node {
 	 * @return 垂直方向平铺间隔
 	 */
 	public native float getSpacingY();
-	
-	/**
-	 * \if English
-	 * Is dither enabled?
-	 *
-	 * @return true means dither is enabled
-	 * \else
-	 * 是否打开抖动
-	 *
-	 * @return true表示打开抖动, false表示不打开抖动
-	 * \endif
-	 */
-	public native boolean isDither();
-
-	/**
-	 * \if English
-	 * Set dither enabled or not
-	 *
-	 * @param flag true means enable dither, falose means not
-	 * \else
-	 * 设置是否打开抖动
-	 *
-	 * @param flag true表示打开抖动, false表示不打开抖动
-	 * \endif
-	 */
-	public native void setDither(boolean flag);
 }

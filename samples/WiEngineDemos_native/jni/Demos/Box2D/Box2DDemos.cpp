@@ -1896,18 +1896,19 @@ public:
 	}
 
 	virtual void draw() {
-		if(m_result.pointCount > 0) {
-			// draw collision point
-        	glColor4f(1, 0, 0, 1);
-        	glPointSize(5);
-			wyDrawPoints((float*)m_result.points, m_result.pointCount * 2);
+		// TODO gles2
+		//if(m_result.pointCount > 0) {
+		//	// draw collision point
+  //      	glColor4f(1, 0, 0, 1);
+  //      	glPointSize(5);
+		//	wyDrawPoints((float*)m_result.points, m_result.pointCount * 2);
 
-        	// draw normal
-			wyDrawLine(m_result.points[0].x, m_result.points[0].y,
-					   m_result.points[0].x + m_result.normal.x * 50, m_result.points[0].y + m_result.normal.y * 50);
+  //      	// draw normal
+		//	wyDrawLine(m_result.points[0].x, m_result.points[0].y,
+		//			   m_result.points[0].x + m_result.normal.x * 50, m_result.points[0].y + m_result.normal.y * 50);
 
-        	glColor4f(1, 1, 1, 1);
-		}
+  //      	glColor4f(1, 1, 1, 1);
+		//}
 	}
 
 	virtual bool touchesBegan(wyMotionEvent& e) {
@@ -2675,24 +2676,25 @@ public:
 
 		m_box2d->getWorld()->RayCast(&callback, point1, point2);
 
-		glPushMatrix();
-		{
-			m_box2d->transformAncestors();
-			m_box2d->transform();
+		// TODO gles2
+		//glPushMatrix();
+		//{
+		//	m_box2d->transformAncestors();
+		//	m_box2d->transform();
 
-			b2Draw* dd = m_box2d->getDebugDrawImpl();
-			if(callback.m_fixture) {
-				dd->DrawPoint(callback.m_point, 5.0f, b2Color(0.4f, 0.9f, 0.4f));
+		//	b2Draw* dd = m_box2d->getDebugDrawImpl();
+		//	if(callback.m_fixture) {
+		//		dd->DrawPoint(callback.m_point, 5.0f, b2Color(0.4f, 0.9f, 0.4f));
 
-				dd->DrawSegment(point1, callback.m_point, b2Color(0.8f, 0.8f, 0.8f));
+		//		dd->DrawSegment(point1, callback.m_point, b2Color(0.8f, 0.8f, 0.8f));
 
-				b2Vec2 head = callback.m_point + 0.5f * callback.m_normal;
-				dd->DrawSegment(callback.m_point, head, b2Color(0.9f, 0.9f, 0.4f));
-			} else {
-				dd->DrawSegment(point1, point2, b2Color(0.8f, 0.8f, 0.8f));
-			}
-		}
-		glPopMatrix();
+		//		b2Vec2 head = callback.m_point + 0.5f * callback.m_normal;
+		//		dd->DrawSegment(callback.m_point, head, b2Color(0.9f, 0.9f, 0.4f));
+		//	} else {
+		//		dd->DrawSegment(point1, point2, b2Color(0.8f, 0.8f, 0.8f));
+		//	}
+		//}
+		//glPopMatrix();
 
 		m_angle += 0.25f * b2_pi / 180.0f;
 	}
@@ -4608,24 +4610,25 @@ public:
 
 		m_box2d->getWorld()->RayCast(&callback, point1, point2);
 
-		glPushMatrix();
-		{
-			m_box2d->transformAncestors();
-			m_box2d->transform();
+		// TODO gles2
+		//glPushMatrix();
+		//{
+		//	m_box2d->transformAncestors();
+		//	m_box2d->transform();
 
-			b2Draw* dd = m_box2d->getDebugDrawImpl();
-			if(callback.m_fixture) {
-				dd->DrawPoint(callback.m_point, 5.0f, b2Color(0.4f, 0.9f, 0.4f));
+		//	b2Draw* dd = m_box2d->getDebugDrawImpl();
+		//	if(callback.m_fixture) {
+		//		dd->DrawPoint(callback.m_point, 5.0f, b2Color(0.4f, 0.9f, 0.4f));
 
-				dd->DrawSegment(point1, callback.m_point, b2Color(0.8f, 0.8f, 0.8f));
+		//		dd->DrawSegment(point1, callback.m_point, b2Color(0.8f, 0.8f, 0.8f));
 
-				b2Vec2 head = callback.m_point + 0.5f * callback.m_normal;
-				dd->DrawSegment(callback.m_point, head, b2Color(0.9f, 0.9f, 0.4f));
-			} else {
-				dd->DrawSegment(point1, point2, b2Color(0.8f, 0.8f, 0.8f));
-			}
-		}
-		glPopMatrix();
+		//		b2Vec2 head = callback.m_point + 0.5f * callback.m_normal;
+		//		dd->DrawSegment(callback.m_point, head, b2Color(0.9f, 0.9f, 0.4f));
+		//	} else {
+		//		dd->DrawSegment(point1, point2, b2Color(0.8f, 0.8f, 0.8f));
+		//	}
+		//}
+		//glPopMatrix();
 
 		m_angle += 0.25f * b2_pi / 180.0f;
 	}

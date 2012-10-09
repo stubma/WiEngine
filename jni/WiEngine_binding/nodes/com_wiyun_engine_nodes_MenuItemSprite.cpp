@@ -42,25 +42,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_nativeSetColor
 	item->setColor(c);
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_getBlendFuncSrc
-  (JNIEnv * env, jobject thiz) {
-	wyMenuItemSprite* item = (wyMenuItemSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return item->getBlendFunc().src;
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_getBlendFuncDst
-  (JNIEnv * env, jobject thiz) {
-	wyMenuItemSprite* item = (wyMenuItemSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return item->getBlendFunc().dst;
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_setBlendFunc
-  (JNIEnv * env, jobject thiz, jint src, jint dst) {
-	wyMenuItemSprite* item = (wyMenuItemSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyBlendFunc func = { src, dst };
-	item->setBlendFunc(func);
-}
-
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_nativeAutoReleaseStateSprites
   (JNIEnv * env, jobject thiz) {
 	wyMenuItemSprite* item = (wyMenuItemSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);

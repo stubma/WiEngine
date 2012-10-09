@@ -38,6 +38,10 @@
 #include <errno.h>
 #include <unistd.h>
 #include <math.h>
+#include "wyResourceDecoder.h"
+#include "wyEvents.h"
+#include "wyHashSet.h"
+#include "wyTargetSelector.h"
 
 // global decoder
 extern wyResourceDecoder* gResDecoder;

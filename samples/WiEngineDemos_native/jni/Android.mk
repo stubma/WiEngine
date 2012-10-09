@@ -17,14 +17,15 @@ endef
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wienginedemos
+LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -ldl -lGLESv2 -lwiengine -llua -lchipmunk -lwisound -lbox2d -lwinetwork -ljson -liap
 LOCAL_CFLAGS += -Wno-psabi
-LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -ldl -lGLESv1_CM -lwiengine -llua -lchipmunk -lwisound -lbox2d -lwinetwork -ljson -liap
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni \
 	$(LOCAL_PATH)/../../../jni/chipmunk \
 	$(LOCAL_PATH)/../../../jni/chipmunk/constraints \
 	$(LOCAL_PATH)/../../../jni/lua \
 	$(LOCAL_PATH)/../../../jni/lua/tolua++ \
+	$(LOCAL_PATH)/../../../jni/kazmath/include \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/actions \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/afcanim \
@@ -43,10 +44,14 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/lua \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/iap \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/mfs \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/material \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/mesh \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/nodes \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/opengl \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/particle \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/persistence \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/render \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/shader \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/tmx \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/transitions \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/types \

@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 #if ANDROID
 
 #ifndef __wyHttpRequest_android_h__

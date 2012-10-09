@@ -17,78 +17,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_nativeInit
 
 /*
  * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    nativeGetTexture
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TextureNode_nativeGetTexture
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    setTexture
- * Signature: (Lcom/wiyun/engine/opengl/Texture2D;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_setTexture
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    getBlendFuncSrc
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TextureNode_getBlendFuncSrc
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    getBlendFuncDst
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TextureNode_getBlendFuncDst
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    setBlendFunc
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_setBlendFunc
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    getAlpha
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TextureNode_getAlpha
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    setAlpha
- * Signature: (I)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_setAlpha
-  (JNIEnv *, jobject, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    nativeGetColor
- * Signature: (Lcom/wiyun/engine/types/WYColor3B;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_nativeGetColor
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    nativeSetColor
- * Signature: (III)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_nativeSetColor
-  (JNIEnv *, jobject, jint, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
  * Method:    isFlipX
  * Signature: ()Z
  */
@@ -185,22 +113,6 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TextureNode_nativeGetAnimatio
 
 /*
  * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    isBlend
- * Signature: ()Z
- */
-JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_TextureNode_isBlend
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    setBlend
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_setBlend
-  (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
  * Method:    setTextureRect
  * Signature: (Lcom/wiyun/engine/types/WYRect;)V
  */
@@ -212,7 +124,7 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_setTextureRect
  * Method:    nativegetTextureRect
  * Signature: (Lcom/wiyun/engine/types/WYRect;)V
  */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_nativegetTextureRect
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_nativeGetTextureRect
   (JNIEnv *, jobject, jobject);
 
 /*
@@ -254,14 +166,6 @@ JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_TextureNode_isAutoFit
  */
 JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TextureNode_nativeMakeFrame
   (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextureNode
- * Method:    setAlphaFunc
- * Signature: (IF)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextureNode_setAlphaFunc
-  (JNIEnv *, jobject, jint, jfloat);
 
 #ifdef __cplusplus
 }

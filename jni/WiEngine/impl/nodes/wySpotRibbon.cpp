@@ -29,6 +29,8 @@
 #include "wySpotRibbon.h"
 #include "wyTypes.h"
 #include "wyUtils.h"
+#include "wyQuadList.h"
+#include "wyMaterial.h"
 
 wySpotRibbon* wySpotRibbon::make(wyTexture2D* tex, wyColor4B color, float fade) {
 	wySpotRibbon* r = WYNEW wySpotRibbon(tex, color, fade);
@@ -38,47 +40,39 @@ wySpotRibbon* wySpotRibbon::make(wyTexture2D* tex, wyColor4B color, float fade) 
 wySpotRibbon::wySpotRibbon(wyTexture2D* tex, wyColor4B color, float fade) :
 		wyRibbon(fade),
 		m_distance(DP(20)) {
-	m_atlas = wyTextureAtlas::make(NULL);
-	m_atlas->retain();
+	// set texture
 	tex->setAntiAlias(false);
 	setTexture(tex);
-	m_atlas->setColor(color);
+
+	// create empty material and mesh
+	setMaterial(wyMaterial::make());
+	setMesh(wyQuadList::make());
+
+	// set blend mode
+	setBlendMode(wyRenderState::ALPHA);
+
+	// set color
+	setColor(color);
 }
 
 wySpotRibbon::~wySpotRibbon() {
-	wyObjectRelease(m_atlas);
 }
 
-void wySpotRibbon::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
+void wySpotRibbon::updateMaterial() {
+	// get texture parameter, if none, create
+	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(!mp) {
+		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
+		m_material->addParameter(p);
+	} else {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		mtp->setTexture(m_tex);
 	}
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-
-	bool newBlend = false;
-	if (m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-		newBlend = true;
-		glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-	}
-
-	m_atlas->drawAll();
-
-	if (newBlend)
-		glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
 }
 
-void wySpotRibbon::setTexture(wyTexture2D* tex) {
-	m_atlas->setTexture(tex);
+void wySpotRibbon::updateMeshColor() {
+	wyQuadList* atlas = (wyQuadList*)getMesh();
+	atlas->updateColor(m_color);
 }
 
 void wySpotRibbon::addPoint(wyPoint location) {
@@ -92,11 +86,10 @@ void wySpotRibbon::addPoint(wyPoint location) {
 	}
 
 	// get texture info
-	wyTexture2D* tex = m_atlas->getTexture();
-	float tW = tex->getWidth();
-	float tH = tex->getHeight();
-	float texW = tW / tex->getPixelWidth();
-	float texH = tH / tex->getPixelHeight();
+	float tW = m_tex->getWidth();
+	float tH = m_tex->getHeight();
+	float texW = tW / m_tex->getPixelWidth();
+	float texH = tH / m_tex->getPixelHeight();
 
 	// get distance between last location and current location
 	float len = wypDistance(m_lastLocation, location);
@@ -116,6 +109,7 @@ void wySpotRibbon::addPoint(wyPoint location) {
 				texW, 0);
 
 		// start to cut gap
+		wyQuadList* atlas = (wyQuadList*)getMesh();
 		float percent = m_distance / m_remaining;
 		while(m_remaining >= m_distance) {
 			// get tag point
@@ -128,7 +122,7 @@ void wySpotRibbon::addPoint(wyPoint location) {
 					p.x + tW / 2, p.y + tH / 2, 0);
 
 			// add to atlas
-			m_atlas->appendQuad(t, v);
+			atlas->appendQuad(t, v);
 
 			// adjust
 			m_remaining -= m_distance;
@@ -139,12 +133,15 @@ void wySpotRibbon::addPoint(wyPoint location) {
 }
 
 void wySpotRibbon::update(float delta) {
-	if(m_fadeTime != 0)
-		m_atlas->reduceAlpha(delta / m_fadeTime);
+	if(m_fadeTime != 0) {
+		wyQuadList* atlas = (wyQuadList*)getMesh();
+		atlas->reduceAlpha(delta / m_fadeTime);
+	}
 }
 
 void wySpotRibbon::reset() {
-	m_atlas->removeAllQuads();
+	wyQuadList* atlas = (wyQuadList*)getMesh();
+	atlas->removeAllQuads();
 	m_preLastLocation = m_lastLocation = wypZero;
 	m_remaining = 0;
 	m_firstPoint = true;

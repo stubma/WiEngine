@@ -2290,7 +2290,7 @@ public:
 	/**
 	 * 绘制绳子
 	 */
-	void draw();
+	void draw(wyNode* parent);
 
 	/**
 	 * 获得所有的\link wyVerletStick wyVerletStick\endlink对象

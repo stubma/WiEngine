@@ -3,6 +3,7 @@
 #include "WiEngine.h"
 #include "WiEngine-Box2D.h"
 #include <stdio.h>
+#include "wyLog.h"
 
 namespace Node {
 
@@ -45,7 +46,7 @@ public:
 
 class wyTilemapTestLayer: public wyNodeTestLayer {
 protected:
-	wyNode* m_TileMap;
+	wyNode* m_tilemap;
 
 	float m_LastX;
 	float m_LastY;
@@ -54,7 +55,7 @@ protected:
 
 public:
 	wyTilemapTestLayer() : m_hasViewport(false) {
-		m_TileMap = NULL;
+		m_tilemap = NULL;
 
 		// a button used to switch clip
 		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
@@ -79,17 +80,18 @@ public:
 	}
 
 	virtual void draw() {
-		if(m_hasViewport) {
-			glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-			glLineWidth(1);
-			float vertices[] = {
-				50, 50,
-				wyDevice::winWidth - 50, 50,
-				wyDevice::winWidth - 50, wyDevice::winWidth - 50,
-				50, wyDevice::winWidth - 50
-			};
-			wyDrawPoly(vertices, sizeof(vertices) / sizeof(float), true);
-		}
+		// TODO gles2
+		//if(m_hasViewport) {
+		//	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+		//	glLineWidth(1);
+		//	float vertices[] = {
+		//		50, 50,
+		//		wyDevice::winWidth - 50, 50,
+		//		wyDevice::winWidth - 50, wyDevice::winWidth - 50,
+		//		50, wyDevice::winWidth - 50
+		//	};
+		//	wyDrawPoly(vertices, sizeof(vertices) / sizeof(float), true);
+		//}
 	}
 
 	virtual bool touchesBegan(wyMotionEvent& event) {
@@ -108,16 +110,16 @@ public:
 		m_LastX = x;
 		m_LastY = y;
 
-		m_TileMap->translate(deltaX, deltaY);
+		m_tilemap->translate(deltaX, deltaY);
 		return true;
 	}
 
 	void onChangeViewport(wyTargetSelector* ts) {
 		m_hasViewport = !m_hasViewport;
 		if(m_hasViewport)
-			m_TileMap->setClipRect(wyr(50, 50, wyDevice::winWidth - 100, wyDevice::winWidth - 100));
+			m_tilemap->setClipRect(wyr(50, 50, wyDevice::winWidth - 100, wyDevice::winWidth - 100));
 		else
-			m_TileMap->clearClipRect();
+			m_tilemap->clearClipRect();
 	}
 };
 
@@ -384,7 +386,7 @@ public:
 
 		// add tile map as child
 		addChildLocked(tilemap, -1);
-		m_TileMap = tilemap;
+		m_tilemap = tilemap;
 	}
 
 	virtual ~wyArrayTileMapAtlasTestLayer() {
@@ -457,7 +459,7 @@ public:
 		label[1]->setPosition(10, DP(200));
 		addChildLocked(label[1]);
 
-		label[2] = new wyAtlasLabel("1", texture, map);
+		label[2] = new wyAtlasLabel("1", texture, map);	
 		label[2]->setColor(wyc3b(0, 255, 0));
 		label[2]->setAnchor(0, 0);
 		label[2]->setPosition(10, DP(300));
@@ -1457,7 +1459,8 @@ public:
 		// correctly
 		wySprite* src = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
 		src->setAnchor(0, 0);
-		src->setBlendFunc(wybf(GL_DST_COLOR, GL_ZERO));
+		// TODO gles2
+//		src->setBlendFunc(wybf(GL_DST_COLOR, GL_ZERO));
 		wySprite* mask = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.mask")));
 		mask->setAnchor(0, 0);
 
@@ -1734,7 +1737,7 @@ public:
 
 		// add tile map as child
 		addChildLocked(tilemap, -1);
-		m_TileMap = tilemap;
+		m_tilemap = tilemap;
 	}
 
 	virtual ~wyTGATileMapAtlasTestLayer() {
@@ -1750,14 +1753,14 @@ private:
 public:
 	wyTMXHexagonalTestLayer() {
 		// add tile map as child
-		m_TileMap = createTMXMap();
-		addChildLocked(m_TileMap);
+		m_tilemap = createTMXMap();
+		addChildLocked(m_tilemap);
 
 		// add click feedback sprite
 		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
 		m_sprite = wySprite::make(tex, wyr(0, 0, DP(32), DP(32)));
 		m_sprite->setVisible(false);
-		m_TileMap->addChildLocked(m_sprite, 10);
+		m_tilemap->addChildLocked(m_sprite, 10);
 	}
 
 	virtual ~wyTMXHexagonalTestLayer() {
@@ -1769,7 +1772,7 @@ public:
 	}
 
 	virtual bool touchesBegan(wyMotionEvent& e) {
-		wyTMXLayer* layer = ((wyTMXTileMap*)m_TileMap)->getLayerAt(0);
+		wyTMXLayer* layer = ((wyTMXTileMap*)m_tilemap)->getLayerAt(0);
 		wyPoint loc = wyp(e.x[0], e.y[0]);
 		loc = layer->worldToNodeSpace(loc);
 		wyDimension d = layer->getTileCoordinateAt(loc.x, loc.y);
@@ -1803,17 +1806,17 @@ private:
 public:
 	wyTMXIsometricTestLayer() {
 		// add tile map as child
-		m_TileMap = createTMXMap();
-		addChildLocked(m_TileMap);
+		m_tilemap = createTMXMap();
+		addChildLocked(m_tilemap);
 		
 		// add click feedback sprite
 		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
 		m_sprite = wySprite::make(tex, wyr(0, 0, DP(32), DP(32)));
 		m_sprite->setVisible(false);
-		m_TileMap->addChildLocked(m_sprite, 10);
+		m_tilemap->addChildLocked(m_sprite, 10);
 		
 		// print some properties
-		wyTMXObjectGroup* og = ((wyTMXTileMap*)m_TileMap)->getObjectGroup("Object Layer 1");
+		wyTMXObjectGroup* og = ((wyTMXTileMap*)m_tilemap)->getObjectGroup("Object Layer 1");
 		LOGD("object group property: weather: %s", og->getProperty("weather"));
 		LOGD("object count: %d", og->getObjectCount());
 		wyTMXObject* obj = og->getObjectAt(0);
@@ -1834,7 +1837,7 @@ public:
 	}
 	
 	virtual bool touchesBegan(wyMotionEvent& e) {
-		wyTMXLayer* layer = ((wyTMXTileMap*)m_TileMap)->getLayerAt(0);
+		wyTMXLayer* layer = ((wyTMXTileMap*)m_tilemap)->getLayerAt(0);
 		wyPoint loc = wyp(e.x[0], e.y[0]);
 		loc = layer->worldToNodeSpace(loc);
 		wyDimension d = layer->getTileCoordinateAt(loc.x, loc.y);
@@ -1859,14 +1862,14 @@ private:
 public:
 	wyTMXOrthogonalTestLayer() {
 		// add tile map as child
-		m_TileMap = createTMXMap();
-		addChildLocked(m_TileMap);
+		m_tilemap = createTMXMap();
+		addChildLocked(m_tilemap);
 		
 		// add click feedback sprite
 		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
 		m_sprite = wySprite::make(tex, wyr(0, 0, DP(32), DP(32)));
 		m_sprite->setVisible(false);
-		m_TileMap->addChildLocked(m_sprite, 10);
+		m_tilemap->addChildLocked(m_sprite, 10);
 	}
 
 	virtual ~wyTMXOrthogonalTestLayer() {
@@ -1879,7 +1882,7 @@ public:
 	}
 	
 	virtual bool touchesBegan(wyMotionEvent& e) {
-		wyTMXLayer* layer = ((wyTMXTileMap*)m_TileMap)->getLayerAt(0);
+		wyTMXLayer* layer = ((wyTMXTileMap*)m_tilemap)->getLayerAt(0);
 		wyPoint loc = wyp(e.x[0], e.y[0]);
 		loc = layer->worldToNodeSpace(loc);
 		wyDimension d = layer->getTileCoordinateAt(loc.x, loc.y);

@@ -32,6 +32,7 @@
 #include "wyJNI.h"
 #include "wyLog.h"
 #include "wyRunnable.h"
+#include "wyNode.h"
 
 // shared instance
 wyEventDispatcher_android* gEventDispatcher;

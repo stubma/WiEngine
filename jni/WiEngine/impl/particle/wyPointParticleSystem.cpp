@@ -50,49 +50,50 @@ wyPointParticleSystem::~wyPointParticleSystem() {
 }
 
 void wyPointParticleSystem::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	if(m_particleIdx == 0)
-		return;
-
-	if(m_tex != NULL) {
-		m_tex->load();
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
-	}
-
-	glEnable(GL_POINT_SPRITE_OES);
-	glTexEnvi(GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE);
-
-	glVertexPointer(2, GL_FLOAT, 0, m_vertices);
-	glColorPointer(4, GL_FLOAT, 0, m_colors);
-
-	glEnableClientState(GL_POINT_SIZE_ARRAY_OES);
-	glPointSizePointerOES(GL_FLOAT, 0, m_sizes);
-
-	bool newBlend = false;
-	if(m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-		newBlend = true;
-		glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-	}
-
-	glDrawArrays(GL_POINTS, 0, m_particleIdx);
-
-	// restore blend state
-	if(newBlend)
-		glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-	if(m_tex != NULL) {
-		glDisable(GL_TEXTURE_2D);
-	}
-
-	glDisableClientState(GL_POINT_SIZE_ARRAY_OES);
-	glDisable(GL_POINT_SPRITE_OES);
+	// TODO gles2
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//	if(m_particleIdx == 0)
+//		return;
+//
+//	if(m_tex != NULL) {
+//		m_tex->load();
+//		glEnable(GL_TEXTURE_2D);
+//		glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
+//	}
+//
+//	glEnable(GL_POINT_SPRITE_OES);
+//	glTexEnvi(GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE);
+//
+//	glVertexPointer(2, GL_FLOAT, 0, m_vertices);
+//	glColorPointer(4, GL_FLOAT, 0, m_colors);
+//
+//	glEnableClientState(GL_POINT_SIZE_ARRAY_OES);
+//	glPointSizePointerOES(GL_FLOAT, 0, m_sizes);
+//
+//	bool newBlend = false;
+//	if(m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
+//		newBlend = true;
+//		glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
+//	}
+//
+//	glDrawArrays(GL_POINTS, 0, m_particleIdx);
+//
+//	// restore blend state
+//	if(newBlend)
+//		glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
+//
+//	if(m_tex != NULL) {
+//		glDisable(GL_TEXTURE_2D);
+//	}
+//
+//	glDisableClientState(GL_POINT_SIZE_ARRAY_OES);
+//	glDisable(GL_POINT_SPRITE_OES);
 }
 
 wyPointParticleSystem::wyPointParticleSystem(int numberOfParticles) :

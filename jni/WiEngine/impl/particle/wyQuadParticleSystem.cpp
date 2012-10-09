@@ -29,6 +29,7 @@
 #include "wyQuadParticleSystem.h"
 #include <stdlib.h>
 #include "wyLog.h"
+#include "wyTexture2D.h"
 
 void wyQuadParticleSystem::initIndices() {
 	for(int i = 0, j = 0; i < m_maxParticles; i++) {
@@ -167,51 +168,52 @@ wyQuadParticleSystem::~wyQuadParticleSystem() {
 }
 
 void wyQuadParticleSystem::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	// Default GL states: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
-	// Needed states: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
-	// Unneeded states: -
-	if(m_tex != NULL) {
-		m_tex->load();
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
-	}
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	// set pointer
-	glVertexPointer(2, GL_FLOAT, 0, m_vertices);
-	glColorPointer(4, GL_FLOAT, 0, m_colors);
-	glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
-
-	// set blend
-	bool newBlend = false;
-	if(m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-		newBlend = true;
-		glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-	}
-
-	// draw
-	glDrawElements(GL_TRIANGLES, m_particleIdx * 6, GL_UNSIGNED_SHORT, m_indices);
-
-	// restore blend state
-	if(newBlend)
-		glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-	// restore client state
-	if(m_tex != NULL) {
-		glDisable(GL_TEXTURE_2D);
-	}
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	// TODO gles2
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//	// Default GL states: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
+//	// Needed states: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
+//	// Unneeded states: -
+//	if(m_tex != NULL) {
+//		m_tex->load();
+//		glEnable(GL_TEXTURE_2D);
+//		glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
+//	}
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_COLOR_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//
+//	// set pointer
+//	glVertexPointer(2, GL_FLOAT, 0, m_vertices);
+//	glColorPointer(4, GL_FLOAT, 0, m_colors);
+//	glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
+//
+//	// set blend
+//	bool newBlend = false;
+//	if(m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
+//		newBlend = true;
+//		glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
+//	}
+//
+//	// draw
+//	glDrawElements(GL_TRIANGLES, m_particleIdx * 6, GL_UNSIGNED_SHORT, m_indices);
+//
+//	// restore blend state
+//	if(newBlend)
+//		glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
+//
+//	// restore client state
+//	if(m_tex != NULL) {
+//		glDisable(GL_TEXTURE_2D);
+//	}
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_COLOR_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 void wyQuadParticleSystem::setTexture(wyTexture2D* tex) {

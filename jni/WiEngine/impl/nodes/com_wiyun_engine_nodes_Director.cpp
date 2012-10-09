@@ -37,6 +37,7 @@
 #include "wyUtils_android.h"
 #include "wyJavaResourceDecoder.h"
 #include "wyAutoReleasePool.h"
+#include "wyTargetSelector.h"
 
 extern JavaVM* gVM;
 extern wyDirector_android* gDirector;
@@ -222,44 +223,9 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Director_nativeGetRunningScen
 	return (jint)gDirector->getRunningScene();
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setAlphaBlending
-  (JNIEnv * env, jobject thiz, jboolean on) {
-	gDirector->setAlphaBlending(on);
-}
-
 JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Director_getMaxTextureSize
   (JNIEnv * env, jobject thiz) {
 	return wyDevice::maxTextureSize;
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Director_getProjection
-  (JNIEnv * env, jobject thiz) {
-	return gDirector->getProjection();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setProjection
-  (JNIEnv * env, jobject thiz, jint projection) {
-	gDirector->setProjection((wyProjectionType)projection);
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setDepthTest
-  (JNIEnv * env, jobject thiz, jboolean on) {
-	gDirector->setDepthTest(on);
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_set2DProjection
-  (JNIEnv * env, jobject thiz) {
-	gDirector->set2DProjection();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_set3DProjection
-  (JNIEnv * env, jobject thiz) {
-	gDirector->set3DProjection();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setCullFace
-  (JNIEnv * env, jobject thiz, jboolean on) {
-	gDirector->setCullFace(on);
 }
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setDisplayFPS

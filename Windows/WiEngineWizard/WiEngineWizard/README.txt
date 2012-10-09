@@ -1,1 +1,1 @@
-To know how to use this wizard, refer http://blog.wiyun.com/?p=1206
+关于如何安装该工程模版, 请阅读博客: http://blog.wiyun.com/?p=1206

@@ -382,67 +382,68 @@ void wyTextBox::setCallback(wyTextBoxCallback* callback, void* data) {
 }
 
 void wyTextBox::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	wyNode* node = NULL;
-    if (m_enabled) {
-        if (m_selected) {
-        	if(m_selectedState != NULL)
-        		node = m_selectedState;
-        	else
-        		node = m_normalState;
-        } else if (m_focused) {
-        	if(m_focusedState != NULL)
-				node = m_focusedState;
-			else
-				node = m_normalState;
-        } else
-        	node = m_normalState;
-    } else {
-        if (m_disabledState != NULL)
-        	node = m_disabledState;
-        else
-        	node = m_normalState;
-    }
-
-    if(node) {
-    	float dx = (getWidth() - node->getWidth()) / 2;
-    	float dy = (getHeight() - node->getHeight()) / 2;
-        glTranslatef(dx, dy, 0);
-        node->draw();
-        glTranslatef(-dx, -dy, 0);
-    }
-
-    if(m_label) {
-    	glTranslatef(m_leftPadding, m_bottomPadding, 0);
-
-    	// get rect relative to base size or real size
-		wyRect bound = getBoundingBoxRelativeToWorld();
-		wyRect r = wyr(bound.x + m_leftPadding,
-				bound.y + m_bottomPadding,
-				m_width - m_rightPadding - m_leftPadding,
-				m_height - m_topPadding - m_bottomPadding);
-
-		// get clip rect relative to real size
-		if(wyDevice::scaleMode != SCALE_MODE_BY_DENSITY)
-			r = getBaseSizeClipRect(r);
-
-		// clip
-		if(gDirector)
-			gDirector->pushClipRect(r);
-
-		// draw label
-    	m_label->draw();
-
-    	// cancel clip
-		if(gDirector)
-			gDirector->popClipRect();
-    }
+	// TODO gles2
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//	wyNode* node = NULL;
+//    if (m_enabled) {
+//        if (m_selected) {
+//        	if(m_selectedState != NULL)
+//        		node = m_selectedState;
+//        	else
+//        		node = m_normalState;
+//        } else if (m_focused) {
+//        	if(m_focusedState != NULL)
+//				node = m_focusedState;
+//			else
+//				node = m_normalState;
+//        } else
+//        	node = m_normalState;
+//    } else {
+//        if (m_disabledState != NULL)
+//        	node = m_disabledState;
+//        else
+//        	node = m_normalState;
+//    }
+//
+//    if(node) {
+//    	float dx = (getWidth() - node->getWidth()) / 2;
+//    	float dy = (getHeight() - node->getHeight()) / 2;
+//        glTranslatef(dx, dy, 0);
+//        node->draw();
+//        glTranslatef(-dx, -dy, 0);
+//    }
+//
+//    if(m_label) {
+//    	glTranslatef(m_leftPadding, m_bottomPadding, 0);
+//
+//    	// get rect relative to base size or real size
+//		wyRect bound = getBoundingBoxRelativeToWorld();
+//		wyRect r = wyr(bound.x + m_leftPadding,
+//				bound.y + m_bottomPadding,
+//				m_width - m_rightPadding - m_leftPadding,
+//				m_height - m_topPadding - m_bottomPadding);
+//
+//		// get clip rect relative to real size
+//		if(wyDevice::scaleMode != SCALE_MODE_BY_DENSITY)
+//			r = getBaseSizeClipRect(r);
+//
+//		// clip
+//		if(gDirector)
+//			gDirector->pushClipRect(r);
+//
+//		// draw label
+//    	m_label->draw();
+//
+//    	// cancel clip
+//		if(gDirector)
+//			gDirector->popClipRect();
+//    }
 }
 
 const char* wyTextBox::getText() {

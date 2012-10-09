@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\aabb.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\GL\mat4stack.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\GL\matrix.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\kazmath.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\mat3.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\mat4.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\neon_matrix_impl.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\plane.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\quaternion.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\ray2.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\triangle.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\utility.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\vec2.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\vec3.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\vec4.h" />
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\wyLog.h" />
+    <ClInclude Include="..\..\jni\kazmath\src\cpu-features.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\kazmath\src\aabb.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\GL\mat4stack.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\GL\matrix.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\mat3.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\mat4.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\neon_matrix_impl.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\plane.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\quaternion.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\ray2.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\triangle.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\utility.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\vec2.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\vec3.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\vec4.c" />
+    <ClCompile Include="..\..\jni\kazmath\src\wyLog.c" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9EE74D72-5F0E-4A28-8E33-18A8DD6A50F4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libkazmath</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\WiEngine\include\platform\windows;..\..\jni\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4180;4244;4996</DisableSpecificWarnings>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\WiEngine\include\platform\windows;..\..\jni\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4180;4244;4996</DisableSpecificWarnings>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

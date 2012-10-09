@@ -390,41 +390,11 @@ public:
 	 */
     virtual ~wyAtlasLabel();
 
-    /// @see wyNode::draw
-	virtual void draw();
-
 	/// @see wyNode::getText
 	virtual const char* getText() { return m_text; }
 
 	/// @see wyNode::setText
 	virtual void setText(const char* text);
-
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-	
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex) { m_atlas->setTexture(tex); }
 
 	/**
 	 * 设置行的宽度. 设置后节点的大小将被重新计算，因此节点大小可能会被改变。
@@ -497,52 +467,6 @@ public:
 	 * 析构函数
 	 */
     virtual ~wyAtlasNode();
-
-    /**
-	 * 画图片集
-	 */
-    virtual void draw();
-
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-	
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex) { m_atlas->setTexture(tex); }
-
-	/**
-	 * 设置图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 *
-	 * @param atlas 图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 */
-	void setAtlas(wyTextureAtlas* atlas);
-
-	/**
-	 * 返回图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 *
-	 * @return 图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 */
-	wyTextureAtlas* getAtlas() { return m_atlas; }
 };
 
 #endif // __wyAtlasNode_h__
@@ -612,42 +536,6 @@ public:
 	/// @see wyNode::draw
 	virtual void draw();
 
-	/// @see wyNode::onEnter
-	virtual void onEnter();
-
-	/// @see wyNode::onExit
-	virtual void onExit();
-
-	/// @see wyNode::setRotation
-	virtual void setRotation(float rot);
-
-	/// @see wyNode::setScale
-	virtual void setScale(float scale);
-
-	/// @see wyNode::setScaleX
-	virtual void setScaleX(float scaleX);
-
-	/// @see wyNode::setScaleY
-	virtual void setScaleY(float scaleY);
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-	
-	/// @see wyNode::getAlpha
-	virtual int getAlpha();
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha);
-
-	/// @see wyNode::setSelected
-	virtual void setSelected(bool selected);
-	
 	/**
 	 * 设置正常状态的\link wyNode wyNode对象指针\endlink
 	 *
@@ -1309,12 +1197,18 @@ typedef struct wyDirectorLifecycleListener {
 class wyDirector : public wyObject {
 public:
 	/**
+	 * \if English
+	 * get the singleton instance
+	 *
+	 * @return singleton of director
+	 * \else
 	 * 获得\link wyDirector wyDirector对象指针\endlink
 	 *
 	 * @return \link wyDirector wyDirector对象指针\endlink
+	 * \endif
 	 */
 	static wyDirector* getInstance();
-
+	
 	/**
 	 * \if English
 	 * Get the singleton instance, but don't create it if not exist
@@ -1329,238 +1223,556 @@ public:
 	static wyDirector* getInstanceNoCreate();
 
 	/**
+	 * \if English
+	 * check whether the director is performing ending phase.
+	 *
+	 * @return true means the director is ending now, it is strong suggested that
+	 * no engine-related operations be made during this phase.
+	 * \else
 	 * 检查是否Director正在结束中. 这个方法可以用来在某些不确定的情况下, 检查进行某个操作是否安全.
 	 * 比如, 正准备调用一个方法, 但是这个时候可能程序正在退出, 正在退出意味着底层的对象可能正在处于
 	 * 释放过程中或者已经释放, 如果不做检查就调用, 则可能因为调用一个已销毁对象而导致程序崩溃.
 	 *
 	 * @return true表示Director正在销毁, 在此期间最好不要再做任何事.
+	 * \endif
 	 */
 	static bool isEnding();
 
 	/**
+	 * \if English
+	 * Set a resource decoder used to decode obfuscated resource file. Director won't
+	 * take care decoder lifecycle, you must release it if needed
+	 *
+	 * @param decoder \link wyResourceDecoder wyResourceDecoder\endlink implementation, NULL
+	 * 		will disable resource decoding
+	 * \else
+	 * 设置一个资源解码器. Director不会负责释放解码器, 你必须自己处理
+	 *
+	 * @param decoder \link wyResourceDecoder wyResourceDecoder\endlink的具体实现, NULL
+	 * 		表示取消资源解码器
+	 * \endif
+	 */
+	static void setResourceDecoder(wyResourceDecoder* decoder);
+	
+	/**
+	 * \if English
+	 * Print all objects which is not released yet. It it a way to check
+	 * possible object leak. For example, call it in a scene onEnter to check
+	 * objects of previous scene are leaked or not.
+	 * \else
+	 * 打印当前还没有被释放的所有对象, 这可以用来检查内存泄露. 一般可以在一个场景的
+	 * onEnter方法里调用这个方法查看前一个场景的对象是否都已经被释放
+	 * \endif
+	 */
+	static void printUnreleasedObjects();
+
+	/**
+	 * \if English
+	 * Print all memory blocks which is not released yet. The memory block
+	 * must be allocated by WiEngine custom macro, such as wyMalloc, WYNEW etc.
+	 * Otherwise the memory block can not be tracked.
+	 *
+	 * \note
+	 * this method is only available for memory debug version. It just print a
+	 * warning in release version
+	 *
+	 * @param fullLog true means including memory log in WiEngine, or false means just
+	 * 		print memory log in app layer. default is false
+	 * \else
+	 * 打印所有还未分配的内存. 分配内存时必须使用WiEngine定义的宏, 如wyMalloc, WYNEW等.
+	 * 否则分配的内存无法被跟踪
+	 *
+	 * \note
+	 * 这个方法仅在内存调试版本中有效, 如果是正式发布的WiEngine版本, 仅打印一条警告
+	 *
+	 * @param fullLog true表示把WiEngine底层的未释放内存也都打印出来, false表示只打印
+	 * 		应用层的未释放内存. 缺省是false
+	 * \endif
+	 */
+	static void printUnreleasedMemory(bool fullLog = false);
+
+	/**
+	 * \if English
+	 * Print memory usage summary. The memory block
+	 * must be allocated by WiEngine custom macro, such as wyMalloc, WYNEW etc.
+	 * Otherwise the memory block can not be tracked.
+	 *
+	 * \note
+	 * this method is only available for memory debug version. It just print a
+	 * warning in release version
+	 * \else
+	 * 打印出内存使用情况. 分配内存时必须使用WiEngine定义的宏, 如wyMalloc, WYNEW等.
+	 * 否则分配的内存无法被跟踪
+	 *
+	 * \note
+	 * 这个方法仅在内存调试版本中有效, 如果是正式发布的WiEngine版本, 仅打印一条警告
+	 * \endif
+	 */
+	static void printMemoryUsage();
+
+	/**
+	 * \if English
+	 * destructor
+	 * \else
 	 * 析构函数
+	 * \endif
 	 */
 	virtual ~wyDirector();
 
 	/**
-	 * 获得窗口尺寸\link wySize wySize结构\endlink
+	 * \if English
+	 * set the surface view
 	 *
-	 * @return \link wySize wySize结构\endlink
-	 */
-	wySize getWindowSize();
-
-	/**
-	 * 获得窗口宽度
+	 * @param glView wyGLSurfaceView object
+	 * \else
+	 * 设置WYGLSurfaceView对象, 应该由java层调用。如果将WiEngine用于动态壁纸，则
+	 * 这个方法不需要被调用。
 	 *
-	 * @return 窗口宽度
+	 * @param glView WYGLSurfaceView对象
+	 * \endif
 	 */
-	int getWindowWidth();
+	virtual void attachInView(wyGLSurfaceView glView) = 0;
 
 	/**
-	 * 获得窗口高度
+	 * \if English
+	 * invoked from platform end, to set the context
 	 *
-	 * @return 窗口高度
-	 */
-	int getWindowHeight();
-
-	// surface lifecycle
-	void onSurfaceCreated();
-	void onSurfaceChanged(int w, int h);
-	void onSurfaceDestroyed();
-
-	/**
-	 * 添加一个生命周期监听器
+	 * @param context platform dependent context object
+	 * \else
+	 * 设置特定平台的上下文对象
 	 *
-	 * @param l \link wyDirectorLifecycleListener wyDirectorLifecycleListener\endlink
-	 * @param data 附加数据指针
+	 * @param context 特定平台的上下文对象
+	 * \endif
 	 */
-	void addLifecycleListener(const wyDirectorLifecycleListener* l, void* data);
+	virtual void attachContext(wyGLContext context) = 0;
 
 	/**
-	 * 获得WYGLSurfaceView对象
+	 * \if English
+	 * set the accelerometer level
 	 *
-	 * @return WYGLSurfaceView对象
-	 */
-	wyGLSurfaceView getGLView() { return m_glView; }
-	
-	/**
-	 * 获得android.content.Context对象
-	 *
-	 * @return android.content.Context对象
-	 */
-	wyGLContext getContext() { return m_context; }
-	
-	/**
-	 * 设置是否打开深度测试, 缺省是关闭的
-	 *
-	 * @param on true表示打开深度测试
-	 */
-	void setDepthTest(bool on);
-
-	/**
-	 * 设置是否显示FPS标签
-	 *
-	 * @param show true为显示
-	 */
-	void setShowFPS(bool show) { m_displayFPS = show; }
-
-	/**
-	 * 设置投影方式
-	 *
-	 * @param projection 投影方式
-	 */
-	void setProjection(wyProjectionType projection);
-
-	/**
-	 * 设置投影方式为正交投影方式
-	 */
-	void set2DProjection();
-
-	/**
-	 * 设置投影方式为3D投影方式
-	 */
-	void set3DProjection();
-
-	/**
-	 * 设置投影方式为默认投影方式
-	 */
-	void setDefaultProjection();
-
-	/**
+	 * @param delay \link wySensorDelay wySensorDelay \endlink
+	 * \else
 	 * 设置加速器事件的触发速度, 目前有四个级别. 常量定义在wySensorDelay枚举中
 	 *
 	 * @param delay 触发速度, 可以是DELAY_FASTEST(最快),
 	 * 		DELAY_GAME(较快), DELAY_UI(适合UI, 较慢),
 	 * 		DELAY_NORMAL(最慢)
+	 * \endif
 	 */
-	void setAccelerometerDelay(wySensorDelay delay);
+	virtual void setAccelerometerDelay(wySensorDelay delay) = 0;
 
 	/**
-	 * 该方法负责画下一帧场景
+	 * \if English
+	 * Invoked when surface is created
+	 * \else
+	 * Surface被创建时被调用
+	 * \endif
 	 */
-	void drawFrame();
+	virtual void onSurfaceCreated();
 
 	/**
+	 * \if English
+	 * Invoked when surface size is changed
+	 *
+	 * @param w new width of surface
+	 * @param h new height of surface
+	 * \else
+	 * Surface大小发生变化时被调用
+	 *
+	 * @param w surface的新宽度
+	 * @param h surface的新高度
+	 * \endif
+	 */
+	virtual void onSurfaceChanged(int w, int h);
+
+	/**
+	 * \if English
+	 * Invoked when surface is destroyed
+	 * \else
+	 * Surface被销毁时被调用
+	 * \endif
+	 */
+	virtual void onSurfaceDestroyed();
+
+	/**
+	 * \if English
+	 * set the screen adapting mode
+	 *
+	 * @param mode \link wyScaleMode wyScaleMode\endlink
+	 * \else
+	 * 设置屏幕适配模式. 这个方法必须要在surface创建之前调用.
+	 *
+	 * @param mode 屏幕适配模式
+	 * \endif
+	 */
+	virtual void setScaleMode(wyScaleMode mode);
+
+	/**
+	 * \if English
+	 * set the base size, this is the size where your games really lives in.
+	 * Notice that this function must be called before creating surface.
+	 *
+	 * For more information about base size mode, read the tutorials
+	 * \else
+	 * 设置基础大小，仅当屏幕适配模式是基础大小适配模式时有效. 这个方法必须要在surface创建之前调用.
+	 *
+	 * @param w 游戏画面基础宽度
+	 * @param h 游戏画面基础高度
+	 * \endif
+	 */
+	virtual void setBaseSize(int w, int h);
+
+	/**
+	 * \if English
+	 * pause the director. Once paused, the frame rendering, event dispatching are all paused.
+	 * A common case is to call this function from android acticity's onPause()
+	 * \else
 	 * 暂停当前场景,返回true为设置成功,如果返回false说明已经是暂停状态，一般在android onPause事件中调用
+	 * \endif
 	 */
 	bool pause();
 
 	/**
+	 * \if English
+	 * resume the paused director
+	 * \else
 	 * 恢复当前场景,返回true为设置成功,如果返回false说明已经是恢复状态
+	 * \endif
 	 */
 	bool resume();
 
-	// set max frame rate
+	/**
+	 * \if English
+	 * get the window size
+	 *
+	 * @return \link wySize wySize\endlink
+	 * \else
+	 * 获得窗口尺寸\link wySize wySize结构\endlink
+	 *
+	 * @return \link wySize wySize结构\endlink
+	 * \endif
+	 */
+	wySize getWindowSize();
+
+	/**
+	 * \if English
+	 * get the window width, in pixels
+	 * \else
+	 * 获得窗口宽度
+	 *
+	 * @return 窗口宽度
+	 * \endif
+	 */
+	int getWindowWidth();
+
+	/**
+	 * \if English
+	 * get the window height
+	 * \else
+	 * 获得窗口高度
+	 *
+	 * @return 窗口高度
+	 * \endif
+	 */
+	int getWindowHeight();
+
+	/**
+	 * \if English
+	 * to add a life cycle listener
+	 *
+	 * @param l \link wyDirectorLifecycleListener wyDirectorLifecycleListener\endlink
+	 * @param data user defined data
+	 * \else
+	 * 添加一个生命周期监听器
+	 *
+	 * @param l \link wyDirectorLifecycleListener wyDirectorLifecycleListener\endlink
+	 * @param data 附加数据指针
+	 * \endif
+	 */
+	void addLifecycleListener(const wyDirectorLifecycleListener* l, void* data);
+
+	/**
+	 * \if English
+	 * getter, to get the surface view
+	 * \else
+	 * 获得WYGLSurfaceView对象
+	 *
+	 * @return WYGLSurfaceView对象
+	 * \endif
+	 */
+	wyGLSurfaceView getGLView() { return m_glView; }
+	
+	/**
+	 * \if English
+	 * to get the context passed by attachContext
+	 * \else
+	 * 获得context对象
+	 *
+	 * @return 之前由attachContext传入的context
+	 * \endif
+	 */
+	wyGLContext getContext() { return m_context; }
+
+	/**
+	 * \if English
+	 * to set whether to display the FPS label
+	 *
+	 * @param show true means to display
+	 * \else
+	 * 设置是否显示FPS标签
+	 *
+	 * @param show true为显示
+	 * \endif
+	 */
+	void setShowFPS(bool show);
+
+	/**
+	 * \if English
+	 * Set flag indicating fps should be calculated or not, if true, you
+	 * can retrieve current frame rate by \c getCurrentFrameRate. However,
+	 * enable this feature will introduce a little cpu cost, but may be not
+	 * much
+	 *
+	 * \note
+	 * if you call setShowFPS(true), then it implied fps will be calculated
+	 * \else
+	 * 设置是否打开fps计算功能, 如果为true, 则可以通过\c getCurrentFrameRate获得当前
+	 * 帧率. 但是打开这个功能肯定会消耗一些cpu资源, 但是应该不大.
+	 *
+	 * \note
+	 * 如果调用了\c setShowFPS(true), 则fps计算也将打开
+	 * \endif
+	 */
+	void setCalculateFPS(bool flag) { m_calculateFPS = flag; }
+
+	/**
+	 * \if English
+	 * called to draw the next frame
+	 * \else
+	 * 该方法负责画下一帧场景
+	 * \endif
+	 */
+	void drawFrame();
+
+	/**
+	 * \if English
+	 * Set max frame rate
+	 *
+	 * @param maxFrameRate max frame rate
+	 * \else
+	 * 设置最大帧率
+	 *
+	 * @param maxFrameRate 最大帧率
+	 * \endif
+	 */
 	void setMaxFrameRate(int maxFrameRate);
 
-	// set blend
-	void setAlphaBlending(bool on);
-
 	/**
-	 * 剔除背面画图
+	 * \if English
+	 * to run a scene
 	 *
-	 * @param on 是否剔除背面画图，true为剔除
-	 */
-	void setCullFace(bool on);
-
-	/**
+	 * @param scene \link wyScene wyScene \endlink
+	 * \else
 	 * 运行场景
 	 *
 	 * @param scene 需要运行的\link wyScene wyScene对象指针\endlink
+	 * \endif
 	 */
 	void runWithScene(wyScene* scene);
 
 	/**
-	 * 切换场景,切换到当前场景在栈中的上一个场景
+	 * \if English
+	 * pop the top from the stack, the next scene in the stack will become the active scene
+	 * \else
+	 * 弹出栈顶的场景, 切换到当前场景在栈中的上一个场景
+	 * \endif
 	 */
 	void popScene();
-	
+
 	/**
+	 * \if English
+	 * perform scene transition from the current scene to the next scene in the stack
+	 *
+	 * @param trans \link wyTransitionScene wyTransitionScene\endlink
+	 * \else
 	 * 弹出栈顶的场景, 同时附带一个转场效果
 	 *
 	 * @param trans \link wyTransitionScene wyTransitionScene\endlink
+	 * \endif
 	 */
 	void popSceneWithTransition(wyTransitionScene* trans);
 
 	/**
+	 * \if English
+	 * push one scene to the stack, the pushed scene will become the active scene
+	 *
+	 * @param scene \link wyScene wyScene\endlink
+	 * \else
 	 * 切换场景,该方法会保留当前的场景在栈中,在下一场景按back键回回到当前场景
 	 *
 	 * @param scene 需要切换的\link wyScene wyScene对象指针\endlink
+	 * \endif
 	 */
 	void pushScene(wyScene* scene);
 
 	/**
+	 * \if English
+	 * replace the current active scene with the passed scene
+	 *
+	 * @param scene \link wyScene wyScene\endlink
+	 * \else
 	 * 切换场景,替换当前的运行场景,该方法不会保留当前的场景在栈中
 	 *
 	 * @param scene 需要切换的\link wyScene wyScene对象指针\endlink
+	 * \endif
 	 */
 	void replaceScene(wyScene* scene);
 
-	// checking texture flag
+	/**
+	 * \if Englich
+	 * Set checking texture flag so that all textures will be invalidate to make them reload
+	 *
+	 * @param flag true means all texture should be revalidate
+	 * \else
+	 * 设置检查贴图标志, 从而所有贴图都会被重新载入
+	 *
+	 * @param flag true表示所有贴图都会被重新载入
+	 * \endif
+	 */
 	void setNeedCheckTexture(bool flag) { m_needCheckTexture = flag; }
 
 	/**
+	 * \if English
+	 * to get the previous scene of the current scene
+	 * \else
 	 * 获得当前场景的上一个场景\link wyScene wyScene对象指针\endlink
 	 *
 	 * @return 当前场景的上一个场景\link wyScene wyScene对象指针\endlink
+	 * \endif
 	 */
 	wyScene* getPreviousScene();
 
 	/**
+	 * \if English
+	 * get the current scene
+	 * \else
 	 * 获得当前场景\link wyScene wyScene对象指针\endlink
 	 *
 	 * @return 当前场景\link wyScene wyScene对象指针\endlink
+	 * \endif
 	 */
 	wyScene* getRunningScene() { return m_runningScene; }
 
 	/**
+	 * \if English
+	 * get whether the director is paused
+	 *
+	 * @return true means paused
+	 * \else
 	 * 获得当前是否为暂停状态,true为暂停
 	 *
 	 * @return 当前暂停状态
+	 * \endif
 	 */
 	bool isPaused() { return m_paused; }
 
 	/**
+	 * \if English
+	 * get if the UI is paused
+	 *
+	 * @return true means UI is paused
+	 * \else
 	 * 获得当前是否被UI设置为暂停状态,true为暂停
 	 *
 	 * @return 当前暂停状态
+	 * \endif
 	 */
 	bool isUIPaused() { return m_UIPaused; }
 
 	/**
+	 * \if English
+	 * pause UI, once paused, all the running actions will stopped,
+	 * but the event dispatching is still alive
+	 * \else
 	 * 暂停游戏，此方法只负责暂停游戏的调度器调度和动作管理，事件需要游戏实现者自行判断
+	 * \endif
 	 */
 	void pauseUI() { m_UIPaused = true; }
 
 	/**
+	 * \if English
+	 * resume UI from paused state
+	 * \else
 	 * 恢复游戏，此方法只负责恢复游戏的调度器调度和动作管理，事件需要游戏实现者自行判断
+	 * \endif
 	 */
 	void resumeUI() { m_UIPaused = false; }
 
+	/**
+	 * \if English
+	 * Get max frame rate. Zero means no limitation.
+	 *
+	 * @return max frame rate
+	 * \else
+	 * 得到允许的最大帧率, 游戏将确保以不超过该帧率的速度运行, 为0表示不限制
+	 *
+	 * @return 允许的最大帧率
+	 * \endif
+	 */
 	int getMaxFrameRate() { return m_maxFrameRate; }
 
 	/**
+	 * \if English
+	 * get the projection mode being used
+	 * \else
 	 * 返回当前的投影方式
 	 *
 	 * @return 当前的投影方式
+	 * \endif
 	 */
 	wyProjectionType getProjection() { return m_projection; }
 
 	/**
+	 * \if English
+	 * test whether a specified opengl extension is supported
+	 *
+	 * @param name name of the extension
+	 * \else
 	 * 测试是否某个OpenGL扩展被支持
 	 *
 	 * @param name 扩展名称
+	 * \endif
 	 */
 	bool isExtensionSupported(const char* name);
 
 	/**
+	 * \if English
+	 * check whether the surface has been created
+	 *
+	 * @return true means created
+	 * \else
 	 * 检查surface是否已经创建
 	 *
 	 * @return true表示surface已经创建，false表示没有或者已经被销毁
+	 * \endif
 	 */
 	bool isSurfaceCreated() { return m_surfaceCreated; }
 
 	/**
+	 * \if English
+	 * make a screen shot, the picture will be saved as a png file at
+	 * the location specified by path.
+	 *
+	 * \par
+	 * Notice:
+	 * This function may not work on some devices of low configuration
+	 * due to opengl supporting.
+	 * With regard to iOS, the path to save the file is relative to
+	 * the sand box of your application.
+	 *
+	 * @param path where to save the png file. The directory will be
+	 * created automatically if not exist
+	 * \else
 	 * 抓取当前帧, 保存为png图片. 这个方法会将图片保存到指定路径，由于牵涉到文件
 	 * 写操作, 因此速度较慢, 另外使用的OpenGL接口可能在低版本Android系统上没有
 	 * 实现. 如果保存的路径在sd卡上, 则应用需要有写sd卡的权限.
@@ -1568,42 +1780,136 @@ public:
 	 * 在iOS平台上截图时, 传入的路径会被认为是相对于应用沙箱的Documents目录.
 	 *
 	 * @param path 截图保存的目标路径, 如果指定的路径不存在, 则会自动创建目录. 如果为NULL, 则不做任何事
+	 * \endif
 	 */
 	void makeScreenshot(const char* path);
 
 	/**
+	 * \if English
+	 * The only thing it is different from makeScreenshot(const char*) is that this function
+	 * won't capture the full screen, it just capture the screen specified by rect.
+	 *
+	 * @param path see makeScreenshot(const char*)
+	 * @param rect \link wyRect wyRect\endlink
+	 * \else
+	 * 抓取当前帧的一部分, 保存为png图片. 这个方法会将图片保存到指定路径，由于牵涉到文件
+	 * 写操作, 因此速度较慢, 另外使用的OpenGL接口可能在低版本Android系统上没有
+	 * 实现. 如果保存的路径在sd卡上, 则应用需要有写sd卡的权限.
+	 *
+	 * 在iOS平台上截图时, 传入的路径会被认为是相对于应用沙箱的Documents目录.
+	 *
+	 * @param path 截图保存的目标路径, 如果指定的路径不存在, 则会自动创建目录. 如果为NULL, 则不做任何事
+	 * @param rect 需要截取的屏幕矩形范围
+	 * \endif
+	 */
+	void makeScreenshot(const char* path, wyRect rect);
+
+	/**
+	 * \if English
+	 * Be equal to calling makeScreenshot(path, node->getBoundingBoxRelativeToWorld)
+	 *
+	 * @param path see makeScreenshot(const char*)
+	 * @param node \link wyNode wyNode\endlink
+	 * \else
+	 * 单独抓取某个节点范围内的内容, 节点范围会考虑到节点的缩放和旋转, 因此实际上是获得节点的
+	 * getBoundingBoxRelativeToWorld的范围进行抓取.
+	 *
+	 * \note
+	 * \c node的状态并不影响截图的结果, 因为只是获取\c node的矩形范围, 其它并无作用, 这个调用
+	 * 实际上等同于makeScreenshot(path, node->getBoundingBoxRelativeToWorld())
+	 *
+	 * @param path 截图保存的目标路径, 如果指定的路径不存在, 则会自动创建目录. 如果为NULL, 则不做任何事
+	 * @param node 需要抓取的节点
+	 * \endif
+	 */
+	void makeScreenshot(const char* path, wyNode* node);
+
+	/**
+	 * \if English
+	 * get the current frame rate
+	 *
+	 * @return the frame rate, per second
+	 * \else
 	 * 得到当前的帧率, 这个帧率其实是最近一次计算出的帧率, 因此不能说完全是当前的帧率. 不过基本和当前帧率是一致的.
 	 *
 	 * @return 最近的帧率
+	 * \endif
 	 */
 	float getCurrentFrameRate() { return m_frameRate; }
 
 	/**
+	 * \if English
+	 * check whether node has focus state
+	 *
+	 * @return true means enabled
+	 * \else
 	 * 检查节点是否具有焦点态
 	 *
 	 * @return true为可用
+	 * \endif
 	 */
 	bool isFocusEnabled() { return m_focusEnabled; }
 
 	/**
+	 * \if English
+	 * set whether to enable the node to have focus state, by default the focus state
+	 * is disabled. One common case the focus state may be useful is a game operated by
+	 * hard d-pad keyboard, where the player can easily know where the focus is now at and
+	 * what would happen if he/she push down the OK key.
+	 *
+	 * @param flag true means to enable
+	 * \else
 	 * 设置节点是否具有焦点态, true为有, 缺省为false. 如果一个节点具有焦点态, 则其可以在获得输入焦点时
 	 * 显示不同的样子. 这比较适合于某些需要通过实体键盘操作的游戏, 这样的话显示焦点态是有意义的. 对于无
 	 * 实体键盘的机型, 焦点态的用处不明显, 因此可以根据您的需要设置是否打开这个功能. 如果这个标志是false,
 	 * 则wyNode::setFocused方法没有任何效果. 如果是true, 则wyNode::setFocused会修改节点的焦点标志.
 	 *
 	 * @param flag 设置节点是否具有焦点态, true为可用
+	 * \endif
 	 */
 	void setFocusEnabled(bool flag) { m_focusEnabled = flag; }
 
 	/**
+	 * \if English
+	 * once the flag is set true, the time elapsed since the last frame will be set to zero.
+	 * Normally, you don't need to call this function manually.
+	 *
+	 * The flag will be reset to false automatically by the engine.
+	 *
+	 * This just applies a occasion that some certain operations such as resource loading
+	 * takes such a long time that the animation may miss its first few frames.
+	 *
+	 * @param flag
+	 * \else
 	 * 设置下一个delta时间是否为0. 这个方法会在每个场景载入后自动调用, 因此通常情况下您不需要调用此方法.
 	 *
 	 * @param flag true表示下一个delta时间设为0, 这主要用来避免因为资源载入导致的游戏体验不连续问题. 例如有一个场景中一开始就要执行动画,
 	 * 			但是由于场景载入需要耗费一定时间, 因此可能导致动画的前面几帧被跳过. 那么可以设置这个标志强制使下一个delta时间为0, 这样
 	 * 			动画将从第一帧开始.
+	 * \endif
 	 */
 	void setNextDeltaTimeZero(bool flag) { m_nextDeltaTimeZero = flag; }
 
+	/**
+	 * \if English
+	 * Set frame tick delta scaling factor, this can be used to control game
+	 * total behavior. A smaller value than 1 will slow down game
+	 * speed, or a larger value than one will speed up.
+	 * \else
+	 * 设置帧间隔的缩放因子, 这个方法可以用来控制游戏的整体运行速度. 如果该值比1小, 则
+	 * 游戏整体上会呈现慢动作的状态, 如果比1大, 则整体呈现快动作. 1表示正常速度.
+	 * \endif
+	 */
+	void setTickFactor(float r) { m_ttickFactor = r; }
+
+	/**
+	 * \if English
+	 * Get frame tick scaling factor
+	 * \else
+	 * 得到帧间隔缩放因子
+	 * \endif
+	 */
+	float getTickFactor() { return m_ttickFactor; }
 };
 
 #endif // __wyDirector_h__
@@ -2570,12 +2876,6 @@ public:
 	/// @see wyNode::setColor
 	virtual void setColor(wyColor4B color);
 	
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_normalState->getBlendFunc(); }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func);
-
 	/// @see wyNode::setSelected
 	virtual void setSelected(bool selected);
 
@@ -2819,12 +3119,6 @@ public:
 	 */
 	virtual ~wyMotionStreak();
 
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_ribbon->getBlendFunc(); }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_ribbon->setBlendFunc(func); }
-
 	/// @see wyNode::getTexture
 	virtual wyTexture2D* getTexture() { return m_ribbon->getTexture(); }
 
@@ -3047,29 +3341,8 @@ public:
 	/// @see wyNode::setContentSize
 	virtual void setContentSize(float w, float h);
 
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-	
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
 	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
+	virtual wyTexture2D* getTexture();
 
 	/// @see wyNode::setTexture
 	virtual void setTexture(wyTexture2D* tex);
@@ -3088,20 +3361,6 @@ public:
 	 * @return 矩形，(rect.x, rect.y)为左上角
 	 */
 	wyRect getTextureRect() { return m_texRect; }
-
-	/**
-	 * 是否进行alpha渲染
-	 *
-	 * @return true表示打开alpha blending
-	 */
-	bool isBlend() { return m_blend; }
-
-	/**
-	 * 是否打开alpha渲染, 对于不透明的大图片, 可以考虑关闭blend以提升性能
-	 *
-	 * @param flag true表示打开alpha渲染
-	 */
-	void setBlend(bool flag) { m_blend = flag; }
 };
 
 #endif // __wyNinePatchSprite_h__
@@ -4452,22 +4711,6 @@ public:
 
 	/// @see wyNode::setColor
 	virtual void setColor(wyColor4B color) {}
-	
-	/* IBlendable */
-
-	/**
-	 * 得到当前渲染模式\link wyBlendFunc wyBlendFunc结构\endlink
-	 *
-	 * @return \link wyBlendFunc wyBlendFunc结构\endlink
-	 */
-	virtual wyBlendFunc getBlendFunc() { return wybfDefault; }
-
-	/**
-	 * 设置\link wyBlendFunc wyBlendFunc结构\endlink,指定渲染模式
-	 *
-	 * @param func \link wyBlendFunc wyBlendFunc结构\endlink
-	 */
-	virtual void setBlendFunc(wyBlendFunc func) {}
 
 	/* ITextureOwner */
 
@@ -4933,12 +5176,6 @@ public:
 	/// @see wyNode::setColor
 	virtual void setColor(wyColor4B color);
 	
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
 	/**
 	 * Render之前调用的方法
 	 */
@@ -4993,12 +5230,6 @@ public:
 
 	/// @see wyNode::setContentSize
 	virtual void setContentSize(float w, float h);
-
-    /// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
 
 	/**
 	 * 强制指定下一个新端点会产生一个新的RibbonSegment
@@ -5459,106 +5690,6 @@ public:
 	///析构函数
 	virtual ~wySpriteBatchNode();
 
-	///返回图片集
-	wyTextureAtlas* getTexAtlas() { return m_atlas; }
-	
-	/// 设置贴图
-	void setTexture(wyTexture2D* tex);
-	
-	/// 获得贴图
-	wyTexture2D* getTexture();
-	
-	/// @see wyNode::draw()
-	virtual void draw();
-	
-	/// @see wyNode::visit()
-	virtual void visit();
-	
-	/// @see wyNode::addChild(wyNode*, int, int)
-	virtual void addChild(wyNode* child, int z, int tag);
-	
-	/// @see wyNode::removeChild(wyNode*, bool)
-	virtual void removeChild(wyNode* child, bool cleanup); 
-
-	/// @see wyNode::reorderChild(wyNode*, int);
-	virtual int reorderChild(wyNode* child, int z);
-
-	/**
-	 * \if English
-	 * Draw quads in a specified range
-	 *
-	 * @param start start position
-	 * @param count max count to be drawn
-	 * @return if drawing is performed, return true, otherwise false
-	 * \else
-	 * 只画一定范围内的四边形
-	 *
-	 * @param start 起始的Quad
-	 * @param count 画的Quad的个数
-	 * @return 如果渲染操作成功执行, 返回true, 否则返回false
-	 * \endif
-	 */
-	bool drawRange(int start, int count);
-
-	/**
-	 * \if English
-	 * Draw from current marker position. The marker position will move forward
-	 * by drawn quads
-	 *
-	 * @param count max quads to be drawn
-	 * \else
-	 * 从当前标记位置出开始渲染, 渲染完成后标记位置会往前推进渲染的四边形个数
-	 *
-	 * @param count 最多渲染多少个四边形
-	 * \endif
-	 */
-	void drawFromMarker(int count);
-	
-	/**
-	 * 是否打开抖动
-	 *
-	 * @return true表示打开抖动, false表示不打开抖动
-	 */
-	bool isDither() { return m_dither; }
-
-	/**
-	 * 设置是否打开抖动
-	 *
-	 * @param flag true表示打开抖动, false表示不打开抖动
-	 */
-	void setDither(bool flag) { m_dither = flag; }
-
-	/**
-	 * 是否进行alpha渲染
-	 *
-	 * @return true表示打开alpha blending
-	 */
-	bool isBlend() { return m_blend; }
-
-	/**
-	 * 是否打开alpha渲染, 对于不透明的大图片, 可以考虑关闭blend以提升性能
-	 *
-	 * @param flag true表示打开alpha渲染
-	 */
-	void setBlend(bool flag) { m_blend = flag; }
-	
-	/**
-	 * \if English
-	 * Set alpha function. If alpha function is set to GL_ALWAYS, then
-	 * alpha test is disabled
-	 *
-	 * @param func alpha test function
-	 * @param ref alpha reference value
-	 * \else
-	 * 设置alpha比较方式. 如果把alpha比较方式设置为GL_ALWAYS, 则相当于
-	 * 禁止alpha测试
-	 *
-	 * @param func alpha比较方式, 由OpenGL定义, 缺省是GL_ALWAYS
-	 * @param ref alpha参考值
-	 * \endif
-	 */
-	void setAlphaFunc(GLenum func, float ref);
-	
 	/**
 	 * \if English
 	 * Set marker position, it will affect \c drawFromMarker method
@@ -5708,9 +5839,6 @@ public:
 
 	/// @see wyNode::setColor
 	virtual void setColor(wyColor4B color);
-	
-	/// 设置渲染模式
-	virtual void setBlendFunc(wyBlendFunc func);
 
 	/// 获得贴图，两种模式均适用
 	virtual wyTexture2D* getTexture();
@@ -5936,12 +6064,6 @@ public:
 	/// @see wyNode::setColor
 	virtual void setColor(wyColor4B color);
 	
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
 	/// @see wyNode::getTexture
 	virtual wyTexture2D* getTexture() { return m_tex; }
 
@@ -6010,34 +6132,6 @@ public:
 	bool isFlipY() { return m_flipY; }
 
 	/**
-	 * 是否打开抖动
-	 *
-	 * @return true表示打开抖动, false表示不打开抖动
-	 */
-	bool isDither() { return m_dither; }
-
-	/**
-	 * 设置是否打开抖动
-	 *
-	 * @param flag true表示打开抖动, false表示不打开抖动
-	 */
-	void setDither(bool flag) { m_dither = flag; }
-
-	/**
-	 * 是否进行alpha渲染
-	 *
-	 * @return true表示打开alpha blending
-	 */
-	bool isBlend() { return m_blend; }
-
-	/**
-	 * 是否打开alpha渲染, 对于不透明的大图片, 可以考虑关闭blend以提升性能
-	 *
-	 * @param flag true表示打开alpha渲染
-	 */
-	void setBlend(bool flag) { m_blend = flag; }
-
-	/**
 	 * 设置图片来源是一个图片集，且被顺时针旋转了90度
 	 *
 	 * @param flag true表示图片来源是一个图片集，且被顺时针旋转了90度
@@ -6070,23 +6164,6 @@ public:
 	 * 的duration是0, 需要在返回后由开发者设置.
 	 */
 	wySpriteFrame* makeFrame();
-	
-	/**
-	 * \if English
-	 * Set alpha function. If alpha function is set to GL_ALWAYS, then
-	 * alpha test is disabled
-	 *
-	 * @param func alpha test function
-	 * @param ref alpha reference value
-	 * \else
-	 * 设置alpha比较方式. 如果把alpha比较方式设置为GL_ALWAYS, 则相当于
-	 * 禁止alpha测试
-	 *
-	 * @param func alpha比较方式, 由OpenGL定义, 缺省是GL_ALWAYS
-	 * @param ref alpha参考值
-	 * \endif
-	 */
-	void setAlphaFunc(GLenum func, float ref);
 };
 
 #endif // __wyTextureNode_h__
@@ -6350,39 +6427,6 @@ public:
 	 * @param velocityY y方向的fling速度, 如果没有设置垂直平铺，则被忽略
 	 */
 	void fling(float velocityX, float velocityY);
-
-	/// @see wyNode::draw
-	virtual void draw();
-
-	/// @see wyNode::setContentSize
-	virtual void setContentSize(float w, float h);
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
-
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-	
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
 	
 	/**
 	 * 设置是否在不平铺的方向上拉伸贴图, 比如贴图在水平方向上平铺, 垂直方向上不平铺,

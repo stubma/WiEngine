@@ -31,6 +31,9 @@
 #include "wyScheduler.h"
 #include "wyParallaxObject.h"
 #include "wyLog.h"
+#include "wyTexture2D.h"
+#include "wyMaterial.h"
+#include "wyQuadList.h"
 
 /**
  * @class wyTiledSpriteParallaxObject
@@ -110,13 +113,10 @@ public:
 };
 
 wyTiledSprite::wyTiledSprite(wyTexture2D* tex) :
-		m_atlas(WYNEW wyTextureAtlas(NULL)),
 		m_tileVertical(true),
 		m_tileHorizontal(true),
 		m_stretch(false),
-		m_dirty(false),
 		m_flinging(false),
-		m_dither(false),
 		m_scroller(WYNEW wyScroller()),
 		m_minOffsetX(-MAX_FLOAT),
 		m_maxOffsetX(MAX_FLOAT),
@@ -126,9 +126,14 @@ wyTiledSprite::wyTiledSprite(wyTexture2D* tex) :
 		m_offsetX(0),
 		m_offsetY(0),
 		m_spacingX(0),
-		m_spacingY(0),
-		m_blendFunc(wybfDefault),
-		m_color(wyc4bWhite) {
+		m_spacingY(0) {
+	// create empty material and mesh
+	setMaterial(wyMaterial::make());
+	setMesh(wyQuadList::make());
+
+	// set blend mode
+	setBlendMode(wyRenderState::ALPHA);
+
 	// set texture, size and position
 	setTexture(tex);
 	setContentSize(wyDevice::winWidth, wyDevice::winHeight);
@@ -141,7 +146,6 @@ wyTiledSprite::wyTiledSprite(wyTexture2D* tex) :
 }
 
 wyTiledSprite::~wyTiledSprite() {
-	m_atlas->release();
 	m_scroller->release();
 }
 
@@ -150,22 +154,17 @@ wyTiledSprite* wyTiledSprite::make(wyTexture2D* tex) {
 	return (wyTiledSprite*)n->autoRelease();
 }
 
-void wyTiledSprite::setContentSize(float w, float h) {
-	wyNode::setContentSize(w, h);
-	m_dirty = true;
-}
-
 void wyTiledSprite::setOffsetX(float offset) {
 	if(offset >= m_minOffsetX && offset <= m_maxOffsetX) {
 		m_offsetX = offset;
-		m_dirty = true;
+		setNeedUpdateMesh(true);
 	}
 }
 
 void wyTiledSprite::setOffsetY(float offset) {
 	if(offset >= m_minOffsetY && offset <= m_maxOffsetY) {
 		m_offsetY = offset;
-		m_dirty = true;
+		setNeedUpdateMesh(true);
 	}
 }
 
@@ -175,7 +174,7 @@ void wyTiledSprite::offsetBy(float dx, float dy) {
 		offset = MAX(m_minOffsetX, MIN(m_maxOffsetX, offset));
 		if(offset != m_offsetX) {
 			m_offsetX = offset;
-			m_dirty = true;
+			setNeedUpdateMesh(true);
 		}
 	}
 	if(dy != 0 && m_tileVertical) {
@@ -183,58 +182,53 @@ void wyTiledSprite::offsetBy(float dx, float dy) {
 		offset = MAX(m_minOffsetY, MIN(m_maxOffsetY, offset));
 		if(offset != m_offsetY) {
 			m_offsetY = offset;
-			m_dirty = true;
+			setNeedUpdateMesh(true);
 		}
 	}
 }
 
 void wyTiledSprite::setTextureRect(wyRect r) {
 	m_rect = r;
-	m_dirty = true;
+	setNeedUpdateMesh(true);
 }
 
 void wyTiledSprite::setTileDirection(bool horizontal, bool vertical) {
 	m_tileHorizontal = horizontal;
 	m_tileVertical = vertical;
-	m_dirty = true;
+	setNeedUpdateMesh(true);
 }
 
-wyColor3B wyTiledSprite::getColor() {
-	wyColor3B c = {
-		m_color.r,
-		m_color.g,
-		m_color.b
-	};
-	return c;
+void wyTiledSprite::updateMaterial() {
+	// get texture parameter, if none, create
+	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(!mp) {
+		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
+		m_material->addParameter(p);
+	} else {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		mtp->setTexture(m_tex);
+	}
 }
 
-void wyTiledSprite::setColor(wyColor3B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
+void wyTiledSprite::updateMeshColor() {
+	wyQuadList* quadList = (wyQuadList*)getMesh();
+	quadList->updateColor(m_color);
 }
 
-void wyTiledSprite::setColor(wyColor4B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	m_color.a = color.a;
-}
-
-void wyTiledSprite::updateQuads() {
+void wyTiledSprite::updateMesh() {
 	// if no texture, return
-	if(m_atlas->getTexture() == NULL)
+	if(m_tex == NULL)
 		return;
 
 	// first clear old quads
-	m_atlas->removeAllQuads();
+	wyQuadList* atlas = (wyQuadList*)getMesh();
+	atlas->removeAllQuads();
 
 	// get texture info
-	wyTexture2D* tex = m_atlas->getTexture();
 	float tW = m_rect.width;
 	float tH = m_rect.height;
-	float tPW = tex->getPixelWidth();
-	float tPH = tex->getPixelHeight();
+	float tPW = m_tex->getPixelWidth();
+	float tPH = m_tex->getPixelHeight();
 
 	// get original tex coords
 	float orgLeft = (2 * m_rect.x + 1) / (2 * tPW);
@@ -304,7 +298,7 @@ void wyTiledSprite::updateQuads() {
 				texCoords.tl_y = texCoords.tr_y = (startY + tH) <= m_height ? orgTop : (orgBottom - orgH * (m_height - startY) / tH);
 
 				// append quad
-				m_atlas->appendQuad(texCoords, vertex);
+				atlas->appendQuad(texCoords, vertex);
 
 				// adjust startX
 				startX += tW;
@@ -361,7 +355,7 @@ void wyTiledSprite::updateQuads() {
 			texCoords.tl_y = texCoords.tr_y = (startY + tH) <= m_height ? orgTop : (orgBottom - orgH * (m_height - startY) / tH);
 
 			// append quad
-			m_atlas->appendQuad(texCoords, vertex);
+			atlas->appendQuad(texCoords, vertex);
 
 			// adjust startY
 			startY += tH;
@@ -410,7 +404,7 @@ void wyTiledSprite::updateQuads() {
 			texCoords.tl_y = texCoords.tr_y = orgTop;
 
 			// append quad
-			m_atlas->appendQuad(texCoords, vertex);
+			atlas->appendQuad(texCoords, vertex);
 
 			// adjust startX
 			startX += tW;
@@ -446,20 +440,16 @@ void wyTiledSprite::updateQuads() {
 		texCoords.tl_y = texCoords.tr_y = orgTop;
 
 		// append quad
-		m_atlas->appendQuad(texCoords, vertex);
+		atlas->appendQuad(texCoords, vertex);
 	}
 }
 
 void wyTiledSprite::setTexture(wyTexture2D* tex) {
-	// set texture in atlas
-	m_atlas->setTexture(tex);
+	wyNode::setTexture(tex);
 
 	// set rect
 	if(tex != NULL)
 		m_rect = wyr(0, 0, tex->getWidth(), tex->getHeight());
-
-	// set flag
-	m_dirty = true;
 }
 
 void wyTiledSprite::updateFling(wyTargetSelector* ts) {
@@ -473,59 +463,6 @@ void wyTiledSprite::updateFling(wyTargetSelector* ts) {
 	} else {
 		m_flinging = false;
 	}
-}
-
-void wyTiledSprite::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	// is dirty?
-	if(m_dirty) {
-		updateQuads();
-		m_dirty = false;
-	}
-
-	// check dither
-	if(m_dither)
-		glEnable(GL_DITHER);
-
-	// enable state
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-
-	// set color
-	glColor4f(m_color.r / 255.0f, m_color.g / 255.0f, m_color.b / 255.0f, m_color.a / 255.0f);
-
-	// set blend func
-    bool newBlend = false;
-    if (m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-        newBlend = true;
-        glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-    }
-
-	// draw by atlas
-	m_atlas->drawAll();
-
-	// restore old blend
-    if (newBlend)
-        glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-    // is this cheaper than saving/restoring color state ?
-    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-	// disable state
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-    // check dither
-    if(m_dither)
-    	glDisable(GL_DITHER);
 }
 
 void wyTiledSprite::stopFling() {
@@ -558,10 +495,10 @@ wyParallaxObject* wyTiledSprite::createParallaxObject() {
 void wyTiledSprite::setSpacing(float x, float y) {
 	m_spacingX = x;
 	m_spacingY = y;
-	m_dirty = true;
+	setNeedUpdateMesh(true);
 }
 
 void wyTiledSprite::setStretch(bool flag) {
 	m_stretch = flag;
-	m_dirty = true;
+	setNeedUpdateMesh(true);
 }

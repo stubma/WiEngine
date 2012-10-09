@@ -28,63 +28,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_setTexture
 	node->setTexture(texNode);
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_getBlendFuncSrc
-  (JNIEnv * env, jobject thiz) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return node->getBlendFunc().src;
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_getBlendFuncDst
-  (JNIEnv * env, jobject thiz) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return node->getBlendFunc().dst;
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_setBlendFunc
-  (JNIEnv * env, jobject thiz, jint src, jint dst) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyBlendFunc func = { src, dst };
-	node->setBlendFunc(func);
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_getAlpha
-  (JNIEnv * env, jobject thiz) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return node->getAlpha();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_setAlpha
-  (JNIEnv * env, jobject thiz, jint alpha) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	node->setAlpha(alpha);
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_nativeGetColor
-  (JNIEnv * env, jobject thiz, jobject color) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyColor3B c = node->getColor();
-	wyUtils_android::to_WYColor3B(c, color);
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_nativeSetColor
-  (JNIEnv * env, jobject thiz, jint r, jint g, jint b) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyColor3B c = { r, g, b };
-	node->setColor(c);
-}
-
-JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_isBlend
-  (JNIEnv * env, jobject thiz) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return node->isBlend();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_setBlend
-(JNIEnv * env, jobject thiz, jboolean flag) {
-	wyNinePatchSprite* node = (wyNinePatchSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	node->setBlend(flag);
-}
-
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_NinePatchSprite_setTextureRect
   (JNIEnv* env, jobject thiz, jobject rect) {
 	wyRect texRect =  wyUtils_android::to_wyRect( rect);

@@ -16,6 +16,9 @@
     <Filter Include="common">
       <UniqueIdentifier>{14dc66f1-ec11-44ef-9fec-87346f94d0ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="designer">
+      <UniqueIdentifier>{755e00c5-e4b7-4826-9a46-2f4fe220c587}</UniqueIdentifier>
+    </Filter>
     <Filter Include="dialog">
       <UniqueIdentifier>{04f36df2-9e47-49f9-82d1-9322f5f29b08}</UniqueIdentifier>
     </Filter>
@@ -70,11 +73,23 @@
     <Filter Include="platform\windows\EGL">
       <UniqueIdentifier>{0621512c-7819-4af1-872a-9083fc1dda91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="platform\windows\GLES">
-      <UniqueIdentifier>{0586e445-9136-4990-a646-51c373e4c686}</UniqueIdentifier>
-    </Filter>
     <Filter Include="platform\windows\KHR">
       <UniqueIdentifier>{258f8cf1-df79-48c5-9ddb-a47559a5d890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="material">
+      <UniqueIdentifier>{cfb87b95-ffa2-42cb-ac6b-6e6acd4cee0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mesh">
+      <UniqueIdentifier>{7ffec6a1-a1fc-4f4b-8ba1-fbacef21a6f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{defb1291-78bc-4507-ba36-68aa0ee8ec4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{6e4a800a-98bd-4e7e-93be-83b171d272b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform\windows\GLES2">
+      <UniqueIdentifier>{0586e445-9136-4990-a646-51c373e4c686}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +398,18 @@
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyDevice.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\designer\wySDSpriteManager.h">
+      <Filter>designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\designer\wyUDLayer.h">
+      <Filter>designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\designer\wyDesignerCommon.h">
+      <Filter>designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\designer\wySDSprite.h">
+      <Filter>designer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\dialog\wyDialogTransition.h">
       <Filter>dialog</Filter>
@@ -777,13 +804,7 @@
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTexture2D.h">
       <Filter>opengl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTextureAtlas.h">
-      <Filter>opengl</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTextureManager.h">
-      <Filter>opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\opengl\glu.h">
       <Filter>opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyCamera.h">
@@ -842,18 +863,6 @@
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\EGL\egl.h">
       <Filter>platform\windows\EGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES\gl.h">
-      <Filter>platform\windows\GLES</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES\glext.h">
-      <Filter>platform\windows\GLES</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES\glplatform.h">
-      <Filter>platform\windows\GLES</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES\egl.h">
-      <Filter>platform\windows\GLES</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\KHR\khrplatform.h">
       <Filter>platform\windows\KHR</Filter>
@@ -1116,6 +1125,9 @@
     <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_TextBox.h">
       <Filter>nodes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes__U.h">
+      <Filter>nodes</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\impl\tmx\wyTMXObjectLayer.h">
       <Filter>tmx</Filter>
     </ClInclude>
@@ -1162,8 +1174,93 @@
     <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\resource.h">
       <Filter>platform\windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuildConfig.h">
+    <ClInclude Include="..\..\jni\WiEngine\include\shader\wyShaderVariable.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\shader\wyUniform.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\shader\wyAttribute.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\shader\wyShader.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\shader\wyShaderLoader.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\shader\wyShaderManager.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\shader\wyShaderProgram.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\render\wyRenderQueue.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\render\wyRenderer.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\render\wyRenderManager.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyRectangle.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyMesh.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\material\wyRenderState.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\material\wyTechnique.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\material\wyMaterial.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\material\wyMaterialParameter.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\material\wyMaterialTextureParameter.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\impl\render\wyGLES2Renderer.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\impl\render\wyGLState.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\impl\shader\common_position_texture_color_fsh.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\impl\shader\common_position_texture_color_vsh.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES2\gl2ext.h">
+      <Filter>platform\windows\GLES2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES2\gl2extimg.h">
+      <Filter>platform\windows\GLES2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES2\gl2platform.h">
+      <Filter>platform\windows\GLES2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\GLES2\gl2.h">
+      <Filter>platform\windows\GLES2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\render\wyViewport.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\WiEngine-Classes.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuffer.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyQuadList.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyCompoundNode.h">
+      <Filter>nodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1457,6 +1554,18 @@
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\common\wyAutoReleasePool.cpp">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wySDSprite.cpp">
+      <Filter>designer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wySDSpriteManager.cpp">
+      <Filter>designer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wyUDLayer.cpp">
+      <Filter>designer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wyDesignerCommon.cpp">
+      <Filter>designer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\dialog\wyDialogPopupTransition.cpp">
       <Filter>dialog</Filter>
@@ -1836,6 +1945,9 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyVirtualJoystick.cpp">
       <Filter>nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes__U.cpp">
+      <Filter>nodes</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_Director.cpp">
       <Filter>nodes</Filter>
     </ClCompile>
@@ -1845,13 +1957,7 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTexture2D.cpp">
       <Filter>opengl</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTextureAtlas.cpp">
-      <Filter>opengl</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTextureManager.cpp">
-      <Filter>opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\glu.cpp">
       <Filter>opengl</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyCamera.cpp">
@@ -2165,6 +2271,75 @@
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\dllmain.cpp">
       <Filter>platform\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\material\wyTechnique.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\material\wyMaterial.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\material\wyMaterialParameter.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\material\wyMaterialTextureParameter.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\material\wyRenderState.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyRectangle.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyMesh.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\render\wyRenderManager.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\render\wyRenderQueue.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\render\wyGLES2Renderer.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\render\wyGLState.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\render\wyRenderer.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\shader\wyShaderLoader.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\shader\wyShaderManager.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\shader\wyShaderProgram.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\shader\wyShaderVariable.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\shader\wyUniform.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\shader\wyAttribute.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\shader\wyShader.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\render\wyViewport.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\common\wyBuffer.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyQuadList.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyCompoundNode.cpp">
+      <Filter>nodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

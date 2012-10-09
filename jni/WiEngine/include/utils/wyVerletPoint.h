@@ -30,6 +30,7 @@
 #define __wyVerletPoint_h__
 
 #include "wyObject.h"
+#include "WiEngine-Classes.h"
 
 /**
  * @class wyVerletPoint

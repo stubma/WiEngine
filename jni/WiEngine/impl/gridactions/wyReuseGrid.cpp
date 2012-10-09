@@ -29,6 +29,7 @@
 #include "wyReuseGrid.h"
 #include "wyNode.h"
 #include "wyLog.h"
+#include "wyBaseGrid.h"
 
 wyAction* wyReuseGrid::copy() {
 	return wyReuseGrid::make(times);

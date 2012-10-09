@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 #ifndef __wyAssetOutputStream_win_h__
 #define __wyAssetOutputStream_win_h__
 

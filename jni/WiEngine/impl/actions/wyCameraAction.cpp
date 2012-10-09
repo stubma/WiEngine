@@ -30,6 +30,7 @@
 #include "wyReverseTime.h"
 #include "wyNode.h"
 #include "wyLog.h"
+#include "wyCamera.h"
 
 wyAction* wyCameraAction::reverse() {
 	return wyReverseTime::make((wyFiniteTimeAction*)copy());

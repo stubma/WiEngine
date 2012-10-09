@@ -1,16 +1,23 @@
 ﻿/*
  * Copyright (c) 2010 WiYun Inc.
-
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
-
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,28 +29,12 @@
 #ifndef __wyUtils_h__
 #define __wyUtils_h__
 
+#include "WiEngine-Classes.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include "wyTypes.h"
-#include "wyRunnable.h"
-#include "wyHashSet.h"
-#include "wyMath.h"
 #include "wyTexture2D.h"
-#include "wyCharProvider.h"
-#include "wyAction.h"
-
-struct wyBezierConfig;
-struct wyLagrangeConfig;
-struct wyQuad2D;
-struct wyQuad3D;
-struct wyColor4B;
-struct wyRect;
-struct wyAffineTransform;
-struct wyPoint;
-struct wyKeyEvent;
-struct wyMotionEvent;
-class wyEventDispatcher;
 
 // for easy of use
 #define DP(x) wyUtils::resolveDp((x))
@@ -739,6 +730,23 @@ public:
 	 * \endif
 	 */
 	static char* loadCString(const char* path, bool isFile);
+
+	/**
+	 * \if English
+	 * Get a C string froma a memory file. The memory file must be a C string content
+	 * and this method doesn't validate it
+	 *
+	 * @param mfsName memory file name
+	 * @return C string, and the caller should release it. Returns NULL if failed
+	 * \else
+	 * 从一个内存文件得到一个C字符串, 这个内存文件的内容必须是一个合法的C字符串. 这个方法本身不会去
+	 * 校验获得的字符串的合法性
+	 *
+	 * @param mfsName 内存文件名称
+	 * @return C字符串, 调用者要负责释放它. 如果失败, 返回NULL
+	 * \endif
+	 */
+	static char* loadCString(const char* mfsName);
 
 	/**
 	 * \if English

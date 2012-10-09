@@ -31,7 +31,7 @@
 
 #include "wyNode.h"
 #include "wyTypes.h"
-#include "wyTextureAtlas.h"
+#include "WiEngine-Classes.h"
 
 /**
  * @class wyNinePatchSprite
@@ -52,33 +52,6 @@ class WIENGINE_API wyNinePatchSprite : public wyNode {
 private:
 	/**
 	 * \if English
-	 * \link wyTextureAtlas wyTexturAtlas object\endlink
-	 * \else
-	 * 图片显示的\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 * \endif
-	 */
-    wyTextureAtlas* m_atlas;
-
-    /**
-     * \if English
-     * specify the blending mode\link wyBlendFunc wyBlendFunc\endlink
-     * else
-     * 渲染模式\link wyBlendFunc wyBlendFunc结构\endlink
-     * \endif
-     */
-    wyBlendFunc m_blendFunc;
-
-    /**
-     * \if English
-     * color, \link wyColor4B wyColor4B\endlink
-     * \else
-     * 颜色\link wyColor4B wyColor4B结构\endlink
-     * \endif
-     */
-	wyColor4B m_color;
-
-	/**
-	 * \if English
 	 * the texture rectangle area to be used, if not specified, the whole texture is used
 	 * \else
 	 * 所用贴图区域
@@ -94,24 +67,6 @@ private:
 	 * \endif
 	 */
 	wyRect m_patchRect;
-
-	/**
-	 * \if English
-	 * flag to mark whether to need to do updating
-	 * \else
-	 * true表示需要更新渲染信息
-	 * \endif
-	 */
-	bool m_dirty;
-
-	/**
-	 * \if English
-	 * flag to mark whether to enable alpha blending, by default it is enabled
-	 * \else
-	 * 是否打开alpha blending, 缺省是打开的
-	 * \endif
-	 */
-	bool m_blend;
 
 protected:
 	/**
@@ -184,35 +139,17 @@ public:
 	 */
 	virtual ~wyNinePatchSprite();
 
-	/// @see wyNode::draw
-	virtual void draw();
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
 
-	/// @see wyNode::setContentSize
-	virtual void setContentSize(float w, float h);
+	/// @see wyNode::updateMaterial
+	virtual void updateMaterial();
 
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
+	/// @see wyNode::updateMesh
+	virtual void updateMesh();
 
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
+	/// @see wyNode::updateMeshColor
+	virtual void updateMeshColor();
 
 	/// @see wyNode::setTexture
 	virtual void setTexture(wyTexture2D* tex);
@@ -241,30 +178,6 @@ public:
 	 * \endif
 	 */
 	wyRect getTextureRect() { return m_texRect; }
-
-	/**
-	 * \if English
-	 * get whether alpha blending is enabled
-	 * \else
-	 * 是否进行alpha渲染
-	 *
-	 * @return true表示打开alpha blending
-	 * \endif
-	 */
-	bool isBlend() { return m_blend; }
-
-	/**
-	 * \if English
-	 * set whether to enable alpha blending
-	 *
-	 * @param flag true means enable
-	 * \else
-	 * 是否打开alpha渲染, 对于不透明的大图片, 可以考虑关闭blend以提升性能
-	 *
-	 * @param flag true表示打开alpha渲染
-	 * \endif
-	 */
-	void setBlend(bool flag) { m_blend = flag; }
 };
 
 #endif // __wyNinePatchSprite_h__

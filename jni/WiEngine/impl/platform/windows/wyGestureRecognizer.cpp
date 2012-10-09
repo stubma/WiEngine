@@ -82,7 +82,7 @@ wyGestureRecognizer::~wyGestureRecognizer() {
 
 wyGestureRecognizer* wyGestureRecognizer::getInstance() {
 	if(!s_instance) {
-		s_instance = WYNEW wyGestureRecognizer();
+		s_instance = new wyGestureRecognizer();
 	}
 	return s_instance;
 }

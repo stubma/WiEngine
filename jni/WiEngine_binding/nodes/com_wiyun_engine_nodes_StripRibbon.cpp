@@ -20,16 +20,3 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_StripRibbon_nativeInit
 	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)ribbon);
 	wyObjectLazyRelease(ribbon);
 }
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_StripRibbon_nativeGetTexture
-  (JNIEnv * env, jobject thiz) {
-	wyStripRibbon* node = (wyStripRibbon*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return (jint)node->getTexture();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_StripRibbon_setTexture
-  (JNIEnv * env, jobject thiz, jobject tex) {
-	wyStripRibbon* node = (wyStripRibbon*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyTexture2D* texNode = (wyTexture2D*)env->GetIntField(tex, g_fid_BaseObject_mPointer);
-	node->setTexture(texNode);
-}

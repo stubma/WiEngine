@@ -29,15 +29,31 @@
 #include "wyVerletRope.h"
 #include "wyLog.h"
 #include "wyGlobal.h"
+#include "wyMaterial.h"
+#include "wyQuadList.h"
+#include "wyDirector.h"
+#include "wyRenderManager.h"
 
 wyVerletRope::wyVerletRope(wyPoint a, wyPoint b, wyTexture2D* tex, size_t length) :
 		m_points(wyArrayNew(16)),
 		m_sticks(wyArrayNew(16)),
-		m_atlas(WYNEW wyTextureAtlas(tex)),
 		m_color(wyc4bWhite),
 		m_antiSagHack(0.0f),
+		m_tex(NULL),
+		m_dirty(true),
 		m_stickLength(0),
 		m_data(NULL) {
+	// create mesh
+	m_mesh = wyQuadList::make();
+	m_mesh->retain();
+
+	// create material
+	m_material = wyMaterial::make();
+	m_material->retain();
+
+	// set texture
+	setTexture(tex);
+
 	// get distance
 	m_length = length == 0 ? wypDistance(a, b) : length;
 
@@ -77,14 +93,28 @@ wyVerletRope::wyVerletRope(wyPoint a, wyPoint b, wyTexture2D* tex, size_t length
 
 wyVerletRope::wyVerletRope(wyVerletRope* rope, int startPoint, int endPoint) :
 		m_antiSagHack(0.0f),
+		m_tex(NULL),
 		m_color(wyc4bWhite),
 		m_stickLength(0),
+		m_dirty(true),
 		m_data(NULL) {
+	// create mesh
+	m_mesh = wyQuadList::make();
+	m_mesh->retain();
+
+	// create material
+	m_material = wyMaterial::make();
+	m_material->retain();
+
+	// set texture
+	setTexture(rope->getTexture());
+
+	// create point and stick list
 	int numPoints = endPoint - startPoint + 1;
 	m_points = wyArrayNew(numPoints);
 	m_sticks = wyArrayNew(numPoints - 1);
-	m_atlas = WYNEW wyTextureAtlas(rope->m_atlas->getTexture());
 
+	// populate points
 	wyArray* points = rope->getPoints();
 	for(int i = startPoint; i <= endPoint; i++) {
 		wyVerletPoint* original = (wyVerletPoint*)wyArrayGet(points, i);
@@ -116,7 +146,25 @@ wyVerletRope::~wyVerletRope() {
 	wyArrayDestroy(m_points);
 	wyArrayEach(m_sticks, releaseObject, NULL);
 	wyArrayDestroy(m_sticks);
-	m_atlas->release();
+	wyObjectRelease(m_material);
+	wyObjectRelease(m_mesh);
+	wyObjectRelease(m_tex);
+}
+
+void wyVerletRope::setTexture(wyTexture2D* tex) {
+	wyObjectRetain(tex);
+	wyObjectRelease(m_tex);
+	m_tex = tex;
+
+	// get texture parameter, if none, create
+	wyMaterialParameter* mp = m_material->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(!mp) {
+		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
+		m_material->addParameter(p);
+	} else {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		mtp->setTexture(m_tex);
+	}
 }
 
 bool wyVerletRope::releaseObject(wyArray* arr, void* ptr, int index, void* data) {
@@ -130,10 +178,10 @@ void wyVerletRope::appendQuad(wyVerletPoint* a, wyVerletPoint* b) {
 	wyPoint pb = wyp(b->m_x, b->m_y);
 
 	// get texture effect size
-	float tW = m_atlas->getTexture()->getWidth();
-	float tH = m_atlas->getTexture()->getHeight();
-	float tPW = m_atlas->getTexture()->getPixelWidth();
-	float tPH = m_atlas->getTexture()->getPixelHeight();
+	float tW = m_tex->getWidth();
+	float tH = m_tex->getHeight();
+	float tPW = m_tex->getPixelWidth();
+	float tPH = m_tex->getPixelHeight();
 
 	// construct wyPoint, get rotation and distance
 	float radian = wypToRadian(wypSub(pa, pb));
@@ -197,7 +245,7 @@ void wyVerletRope::appendQuad(wyVerletPoint* a, wyVerletPoint* b) {
 		texCoords.tr_y = top;
 
 		// append quad
-		m_atlas->appendQuad(texCoords, vertex);
+		m_mesh->appendQuad(texCoords, vertex);
 
 		// get next segment length
 		len = MIN(remaining, tW);
@@ -207,7 +255,7 @@ void wyVerletRope::appendQuad(wyVerletPoint* a, wyVerletPoint* b) {
 
 void wyVerletRope::updateQuads() {
 	// remove all quads
-	m_atlas->removeAllQuads();
+	m_mesh->removeAllQuads();
 
 	for (int i = 0; i < m_points->num - 1; i++) {
 		// get stick points
@@ -236,6 +284,9 @@ void wyVerletRope::reset(wyPoint a, wyPoint b) {
 		wyVerletPoint* tmpPoint = (wyVerletPoint*)wyArrayGet(m_points, i);
 		tmpPoint->setPosition(tmpVector.x, tmpVector.y);
 	}
+
+	// set flag
+	m_dirty = true;
 }
 
 void wyVerletRope::update(wyPoint a, wyPoint b, float dt) {
@@ -270,6 +321,9 @@ void wyVerletRope::update(wyPoint a, wyPoint b, float dt) {
 			p->attenuate(0.05f);
 		}
 	}
+
+	// set flag
+	m_dirty = true;
 }
 
 float wyVerletRope::getCurrentLength() {
@@ -294,6 +348,7 @@ void wyVerletRope::setColor(wyColor3B color) {
 	m_color.r = color.r;
 	m_color.g = color.g;
 	m_color.b = color.b;
+	m_mesh->updateColor(m_color);
 }
 
 void wyVerletRope::setColor(wyColor4B color) {
@@ -301,6 +356,7 @@ void wyVerletRope::setColor(wyColor4B color) {
 	m_color.g = color.g;
 	m_color.b = color.b;
 	m_color.a = color.a;
+	m_mesh->updateColor(m_color);
 }
 
 bool wyVerletRope::isStretched() {
@@ -312,34 +368,16 @@ bool wyVerletRope::isStretched() {
 	return distance > m_length * 1.04f + 1.f;
 }
 
-void wyVerletRope::draw() {
+void wyVerletRope::draw(wyNode* parent) {
 	// update quads
-	updateQuads();
+	if(m_dirty) {
+		updateQuads();
+		m_dirty = false;
+	}
 
-	// enable state
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-
-	// set texture parameter
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	// set color
-	glColor4f(m_color.r / 255.0f, m_color.g / 255.0f, m_color.b / 255.0f, m_color.a / 255.0f);
-
-	// draw by atlas
-	m_atlas->drawAll();
-
-	// restore color
-	glColor4f(1.f, 1.f, 1.f, 1.0f);
-
-	// disable state
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	// apply render state
+	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+	rm->renderMaterial(parent, m_material, m_mesh);
 }
 
 int wyVerletRope::rayCast(wyPoint s, wyPoint e) {
@@ -448,4 +486,7 @@ void wyVerletRope::changeLength(float delta) {
 			}
 		}
 	}
+
+	// set flag
+	m_dirty = true;
 }

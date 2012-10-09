@@ -34,6 +34,7 @@
 #include "wySpotRibbon.h"
 #include "wyBladeRibbon.h"
 #include "wyLineRibbon.h"
+#include "wyScheduler.h"
 
 #define TS_UPDATE -10000
 

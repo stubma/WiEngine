@@ -1,39 +1,11 @@
-/*
- * Copyright (c) 2010 WiYun Inc.
- * Author: luma(stubma@gmail.com)
- *
- * For all entities this program is free software; you can redistribute
- * it and/or modify it under the terms of the 'WiEngine' license with
- * the additional provision that 'WiEngine' must be credited in a manner
- * that can be be observed by end users, for example, in the credits or during
- * start up. (please find WiEngine logo in sdk's logo folder)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 package com.wiyun.engine.nodes;
 
 import java.util.ArrayList;
 
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 
 import com.wiyun.engine.BaseWYObject;
 import com.wiyun.engine.actions.Action;
@@ -43,8 +15,8 @@ import com.wiyun.engine.events.IMultiTouchHandler;
 import com.wiyun.engine.grid.BaseGrid;
 import com.wiyun.engine.opengl.Camera;
 import com.wiyun.engine.opengl.Texture2D;
-import com.wiyun.engine.types.WYBlendFunc;
 import com.wiyun.engine.types.WYColor3B;
+import com.wiyun.engine.types.WYColor4B;
 import com.wiyun.engine.types.WYPoint;
 import com.wiyun.engine.types.WYRect;
 import com.wiyun.engine.utils.TargetSelector;
@@ -55,183 +27,131 @@ import com.wiyun.engine.utils.TargetSelector;
  */
 public class Node extends BaseWYObject implements IKeyHandler, IMultiTouchHandler, IAccelerometerHandler, OnGestureListener, OnDoubleTapListener {
 	/**
-	 * 实现此接口表示支持对单帧进行操作, 并且支持添加动画
+	 * \if English
+	 * Blend mode
+	 * \else
+	 * 渲染模式
+	 * \endif
 	 */
-	public static interface IFrames {
-		/**
-		 * 添加一个动画
-		 * 
-		 * @param animation {@link Animation}对象
-		 */
-		public void addAnimation(Animation animation);
+	public enum BlendMode {
+        /**
+         * \if English
+         * No blending mode is used.
+         * \else
+         * 不打开渲染模式
+         * \endif
+         */
+        NO_BLEND,
 
-		/**
-		 * 通过名称获得动画对象
-		 * 
-		 * @param id 动画id
-		 * @return {@link Animation}
-		 */
-		public Animation getAnimationById(int id);
+        /**
+         * \if English
+         * Additive blending. For use with glows and particle emitters.
+         *
+         * \par
+         * Result = Source Color + Destination Color -> (GL_ONE, GL_ONE)
+         * \else
+         * 追加式渲染
+         *
+         * \par
+         * 结果 = 源色彩 + 目标色彩 = (GL_ONE, GL_ONE)
+         * \endif
+         */
+        ADDITIVE,
 
-		/**
-		 * 获得当前帧
-		 * 
-		 * @return {@link Frame}
-		 */
-		public Frame getDisplayFrame();
+        /**
+         * \if English
+         * Premultiplied alpha blending, for use with premultiplied alpha textures.
+         *
+         * \par
+         * Result = Source Color + (Dest Color * (1 - Source Alpha) ) -> (GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+         * \else
+         * 预先计算alpha情况下的渲染
+         *
+         * \par
+         * 结果 = 源色彩 + (目标色彩 * (1 - 源透明度)) = (GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+         * \endif
+         */
+        PREMULTIPLIED_ALPHA,
 
-		/**
-		 * 检查某帧是否现在正在显示
-		 * 
-		 * @param frame 要检查的{@link Frame}对象
-		 * @return 如果<code>frame</code>可见，则返回true
-		 */
-		public boolean isFrameDisplayed(Frame frame);
+        /**
+         * \if English
+         * Additive blending that is multiplied with source alpha.
+         * For use with glows and particle emitters.
+         *
+         * \par
+         * Result = (Source Alpha * Source Color) + Dest Color -> (GL_SRC_ALPHA, GL_ONE)
+         * \else
+         * 追加式渲染, 考虑源色彩透明度
+         *
+         * \par
+         * 结果 = (源透明度 * 源色彩) + 目标色彩 = (GL_SRC_ALPHA, GL_ONE)
+         * \endif
+         */
+        ALPHA_ADDITIVE,
 
-		/**
-		 * 设置当前帧
-		 * 
-		 * @param newFrame 要设置为当前帧的{@link Frame}对象
-		 */
-		public void setDisplayFrame(Frame newFrame);
+        /**
+         * \if English
+         * Color blending, blends in color from dest color
+         * using source color.
+         *
+         * \par
+         * Result = Source Color + (1 - Source Color) * Dest Color -> (GL_ONE, GL_ONE_MINUS_SRC_COLOR)
+         * \else
+         * 颜色混合模式
+         *
+         * \par
+         * 结果 = 源色彩 + (1 - 源色彩) * 目标色彩 = (GL_ONE, GL_ONE_MINUS_SRC_COLOR)
+         * \endif
+         */
+        COLOR,
 
-		/**
-		 * 通过动画名称和帧索引设置当前帧
-		 * 
-		 * @param id 动画id
-		 * @param frameIndex 帧索引
-		 */
-		public void setDisplayFrame(int id, int frameIndex);
+        /**
+         * \if English
+         * Alpha blending, interpolates to source color from dest color
+         * using source alpha.
+         *
+         * \par
+         * Result = Source Alpha * Source Color + (1 - Source Alpha) * Dest Color -> (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+         * \else
+         * alpha渲染, 最常见的一种形式
+         *
+         * \par
+         * 结果 = 源透明度 * 源色彩 + (1 - 源透明度) * 目标色彩 = (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+         * \endif
+         */
+        ALPHA,
+
+        /**
+         * \if English
+         * Multiplies the source and dest colors.
+         *
+         * \par
+         * Result = Source Color * Dest Color -> (GL_DST_COLOR, GL_ZERO)
+         * \else
+         * 调和模式
+         *
+         * \par
+         * 结果 = 源色彩 * 目标色彩 = (GL_DST_COLOR, GL_ZERO)
+         * \endif
+         */
+        MODULATE,
+
+        /**
+         * \if English
+         * Multiplies the source and dest colors then doubles the result.
+         *
+         * \par
+         * Result = 2 * Source Color * Dest Color -> (GL_DST_COLOR, GL_SRC_COLOR)
+         * \else
+         * 双倍调和模式
+         *
+         * \par
+         * 结果 = 2 * 源色彩 * 目标色彩 = (GL_DST_COLOR, GL_SRC_COLOR)
+         * \endif
+         */
+        MODULATE_X2
 	}
 
-	/**
-	 * 实现此接口表示节点支持设置文本
-	 */
-	public static interface ILabel {
-		/**
-		 * 设置文字
-		 * 
-		 * @param label 文字内容
-		 */
-		public void setText(String label);
-		
-		/**
-		 * 获得文字字符串
-		 * 
-		 * @return 文字内容
-		 */
-		public String getText();
-	}
-	
-	/**
-	 * 实现此接口表示节点支持设置透明度
-	 */
-	public static interface ITransparent {
-		/**
-		 * 得到当前alpha值
-		 * 
-		 * @return alpha值，从0到255
-		 */
-		public int getAlpha();
-		
-		/**
-		 * 设置alpha值
-		 * 
-		 * @param alpha alpha值，从0到255
-		 */
-		public void setAlpha(int alpha);
-	}
-	
-	/**
-	 * 实现此接口表示节点支持设置颜色
-	 */
-	public static interface IRGB {
-		/**
-		 * 得到当前颜色
-		 * 
-		 * @return {@link WYColor3B}
-		 */
-		public WYColor3B getColor();
-
-		/**
-		 * 设置颜色
-		 * 
-		 * @param color {@link WYColor3B}
-		 */
-		public void setColor(WYColor3B color);
-	}
-
-	/**
-	 * 一个组合接口，表示支持设置颜色和透明度
-	 */
-	public static interface IColorable extends ITransparent, IRGB {
-	}
-	
-	/**
-	 * 一个组合接口，表示支持设置颜色和文字
-	 */
-	public static interface IColorableLabel extends IColorable, ILabel {
-	}
-
-	/**
-	 * 实现此接口表示可以得到大小信息
-	 */
-	public static interface ISizable {
-		/**
-		 * 得到节点高度
-		 * 
-		 * @return 节点象素高度
-		 */
-		public float getHeight();
-
-		/**
-		 * 得到节点宽度
-		 * 
-		 * @return 节点象素宽度
-		 */
-		public float getWidth();
-	}
-
-	/**
-	 * 实现该接口表示节点可以支持设置贴图且设置渲染方式
-	 */
-	public static interface IBlendableTextureOwner extends IBlendable, ITextureOwner {
-	}
-	
-	/**
-	 * 实现此接口表示节点可以包含一个贴图 
-	 */
-	public static interface ITextureOwner {
-		/**
-		 * 得到包含的贴图
-		 */
-		public Texture2D getTexture();
-
-		/**
-		 * 设置一个新贴图
-		 */
-		public void setTexture(Texture2D texture);
-	}
-	
-	/**
-	 * 实现此接口表示节点可以设置渲染模式
-	 */
-	public static interface IBlendable {
-		/**
-		 * 设置贴图的渲染方式
-		 * 
-		 * @param blendFunc {@link WYBlendFunc}
-		 */
-		public void setBlendFunc(WYBlendFunc blendFunc);
-
-		/**
-		 * 得到当前渲染方式
-		 * 
-		 * @return {@link WYBlendFunc}
-		 */
-		public WYBlendFunc getBlendFunc();
-	}
-	
 	/**
 	 * 用来监听节点位置变化的回调接口, 当setPosition方法被调用时, 这个
 	 * 回掉会被触发
@@ -1813,4 +1733,137 @@ public class Node extends BaseWYObject implements IKeyHandler, IMultiTouchHandle
 	 * @return true表示在非第一触点的情况下也触发点击事件
 	 */
 	public native boolean isMultiTouchClickable();
+
+	/**
+	 * \if English
+	 * Get current alpha
+	 * \else
+	 * 得到当前alpha值
+	 * \endif
+	 */
+	public native int getAlpha();
+
+	/**
+	 * \if English
+	 * Set node alpha
+	 * \else
+	 * 设置alpha值
+	 * \endif
+	 */
+	public native void setAlpha(int alpha);
+	
+	/**
+	 * \if English
+	 * Get node color
+	 * \else
+	 * 得到当前颜色
+	 * \endif
+	 */
+	public WYColor3B getColor() {
+		WYColor3B c = new WYColor3B();
+		nativeGetColor(c);
+		return c;
+	}
+
+	private native void nativeGetColor(WYColor3B c);
+
+	/**
+	 * \if English
+	 * Get node color
+	 * \else
+	 * 设置颜色
+	 * \endif
+	 */
+	public native void setColor(WYColor3B color);
+
+	/**
+	 * \if English
+	 * Set node color
+	 * \else
+	 * 设置颜色
+	 * \endif
+	 */
+	public native void setColor(WYColor4B color);
+	
+	/**
+	 * \if English
+	 * Is dither enabled or not
+	 *
+	 * @return true means dither is enabled
+	 * \else
+	 * 是否打开抖动
+	 *
+	 * @return true表示抖动已打开
+	 * \endif
+	 */
+	public native boolean isDither();
+
+	/**
+	 * \if English
+	 * Enable dither or not
+	 *
+	 * @param flag true means enable dither
+	 * \else
+	 * 设置是否打开抖动
+	 *
+	 * @param flag true表示打开抖动, false表示不打开抖动
+	 * \endif
+	 */
+	public native void setDither(boolean flag);
+	
+	/**
+	 * \if English
+	 * Get current blending mode
+	 *
+	 * @return blending mode
+	 * \else
+	 * 得到当前渲染模式
+	 *
+	 * @return 渲染模式
+	 * \endif
+	 */
+	public BlendMode getBlendMode() {
+		return BlendMode.values()[nativeGetBlendMode()];
+	}
+	
+	private native int nativeGetBlendMode();
+
+	/**
+	 * \if English
+	 * Set current blending mode
+	 *
+	 * @param mode blending mode
+	 * \else
+	 * 设置当前渲染模式
+	 *
+	 * @param mode 渲染模式
+	 * \endif
+	 */
+	public void setBlendMode(BlendMode mode) {
+		nativeSetBlendMode(mode.ordinal());
+	}
+	
+	private native void nativeSetBlendMode(int m);
+	
+	/**
+	 * \if English
+	 * Get texture of node
+	 * \else
+	 * 得到当前\link wyTexture2D wyTexture2D对象指针\endlink
+	 * \endif
+	 */
+    public Texture2D getTexture() {
+        return Texture2D.from(nativeGetTexture());
+    }
+    
+    private native int nativeGetTexture();
+    
+	/**
+	 * \if English
+	 * Set texture of node
+	 * \else
+	 * 设置\link wyTexture2D wyTexture2D对象指针\endlink
+	 * \endif
+	 */
+    public native void setTexture(Texture2D texture);
 }

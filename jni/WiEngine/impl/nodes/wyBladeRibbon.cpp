@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "wyLog.h"
+#include "wyTexture2D.h"
 
 // max distance between adjacent points
 #define MAX_POINT_DISTANCE 5
@@ -140,44 +141,45 @@ typedef struct wyBlade {
 	}
 
 	void draw() {
-		if(m_texture == NULL)
-			return;
-
-		// populate if dirty
-		if(m_dirty) {
-			populate();
-			m_dirty = false;
-		}
-
-		// ensure texture is loaded
-		m_texture->load();
-
-		// enable state
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glEnable(GL_TEXTURE_2D);
-
-		// set color
-		glColor4f(m_color.r / 255.f, m_color.g / 255.f, m_color.b / 255.f, m_color.a / 255.f);
-
-		// bind texture
-		glBindTexture(GL_TEXTURE_2D, m_texture->getTexture());
-
-		// pointer
-		glVertexPointer(2, GL_FLOAT, 0, m_vertices);
-		glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
-
-		// draw
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 2 * m_pointCount);
-		m_drawnPointCount = m_pointCount;
-
-		// restore color
-		glColor4f(1, 1, 1, 1);
-
-		// disable state
-		glDisable(GL_TEXTURE_2D);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		// TODO gles2
+//		if(m_texture == NULL)
+//			return;
+//
+//		// populate if dirty
+//		if(m_dirty) {
+//			populate();
+//			m_dirty = false;
+//		}
+//
+//		// ensure texture is loaded
+//		m_texture->load();
+//
+//		// enable state
+//		glEnableClientState(GL_VERTEX_ARRAY);
+//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//		glEnable(GL_TEXTURE_2D);
+//
+//		// set color
+//		glColor4f(m_color.r / 255.f, m_color.g / 255.f, m_color.b / 255.f, m_color.a / 255.f);
+//
+//		// bind texture
+//		glBindTexture(GL_TEXTURE_2D, m_texture->getTexture());
+//
+//		// pointer
+//		glVertexPointer(2, GL_FLOAT, 0, m_vertices);
+//		glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
+//
+//		// draw
+//		glDrawArrays(GL_TRIANGLE_STRIP, 0, 2 * m_pointCount);
+//		m_drawnPointCount = m_pointCount;
+//
+//		// restore color
+//		glColor4f(1, 1, 1, 1);
+//
+//		// disable state
+//		glDisable(GL_TEXTURE_2D);
+//		glDisableClientState(GL_VERTEX_ARRAY);
+//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 
 	void populate() {

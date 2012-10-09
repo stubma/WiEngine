@@ -33,6 +33,7 @@
 #include "wyTextureManager.h"
 #include "wyTypes.h"
 #include "wyUtils.h"
+#include "wyQuadList.h"
 
 typedef struct wyTileSetAtlasInfo {
     int atlasIndex;
@@ -255,8 +256,8 @@ float wyTMXLayer::getVertexZAt(int x, int y) {
 
 void wyTMXLayer::appendTileForGid(int tilesetIndex, int gid, int x, int y) {
 	// get next index
-    wyTextureAtlas* atlas = m_batchNodes[tilesetIndex]->getTexAtlas();
-	int index = atlas->getNextAvailableIndex();
+    wyQuadList* atlas = (wyQuadList*)m_batchNodes[tilesetIndex]->getMesh();
+	int index = atlas->getTotalQuads();
 
 	// save atlas index
 	int z = x + y * m_layerWidth;
@@ -264,8 +265,8 @@ void wyTMXLayer::appendTileForGid(int tilesetIndex, int gid, int x, int y) {
     m_atlasInfos[z].tilesetIndex = tilesetIndex;
 
 	// get atlas size
-	float atlasWidth = atlas->getTexture()->getPixelWidth();
-	float atlasHeight = atlas->getTexture()->getPixelHeight();
+	float atlasWidth = m_batchNodes[tilesetIndex]->getTexture()->getPixelWidth();
+	float atlasHeight = m_batchNodes[tilesetIndex]->getTexture()->getPixelHeight();
 
 	// get tile vertex
     wyTileSetInfo* tileset = (wyTileSetInfo*)wyArrayGet(m_mapInfo->tilesets, tilesetIndex);
@@ -443,7 +444,7 @@ void wyTMXLayer::removeTileAt(int x, int y) {
     
     // get batch node atlas
     wySpriteBatchNode* bn = m_batchNodes[m_atlasInfos[z].tilesetIndex];
-    wyTextureAtlas* atlas = bn->getTexAtlas();
+    wyQuadList* atlas = (wyQuadList*)bn->getMesh();
 
 	// has sprite?
 	wySpriteEx* sprite = (wySpriteEx*)bn->getChildByTag(z);
@@ -476,11 +477,11 @@ void wyTMXLayer::setTileAt(int tilesetIndex, int gid, int x, int y, int z) {
     }
     
     // get atlas and tileset
-    wyTextureAtlas* atlas = m_batchNodes[tilesetIndex]->getTexAtlas();
+    wyQuadList* atlas = (wyQuadList*)m_batchNodes[tilesetIndex]->getMesh();
     
     // get atlas size
-    float atlasWidth = atlas->getTexture()->getPixelWidth();
-    float atlasHeight = atlas->getTexture()->getPixelHeight();
+    float atlasWidth = m_batchNodes[tilesetIndex]->getTexture()->getPixelWidth();
+    float atlasHeight = m_batchNodes[tilesetIndex]->getTexture()->getPixelHeight();
     
     // get tile vertex
     wyRect rect = wyTileSetInfoGetRect(tileset, gid);
@@ -560,7 +561,7 @@ void wyTMXLayer::updateTileAt(int gid, int x, int y) {
             setTileAt(tilesetIndex, gid, x, y, z);
         } else {
             // get atlas and tileset
-            wyTextureAtlas* atlas = m_batchNodes[tilesetIndex]->getTexAtlas();
+            wyQuadList* atlas = (wyQuadList*)m_batchNodes[tilesetIndex]->getMesh();
             wyTileSetInfo* tileset = (wyTileSetInfo*)wyArrayGet(m_mapInfo->tilesets, tilesetIndex);
             
             // get tile sprite if has
@@ -570,8 +571,8 @@ void wyTMXLayer::updateTileAt(int gid, int x, int y) {
                 sprite->setTextureRect(rect);
             } else {
                 // get atlas size
-                float atlasWidth = atlas->getTexture()->getPixelWidth();
-                float atlasHeight = atlas->getTexture()->getPixelHeight();
+                float atlasWidth = m_batchNodes[tilesetIndex]->getTexture()->getPixelWidth();
+                float atlasHeight = m_batchNodes[tilesetIndex]->getTexture()->getPixelHeight();
                 
                 // get tile vertex
                 wyRect rect = wyTileSetInfoGetRect(tileset, gid);

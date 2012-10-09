@@ -22,7 +22,6 @@ DEMO_ENTRY(other, PickFromAlbumTest);
 DEMO_ENTRY(other, PickFromCameraTest);
 DEMO_ENTRY(other, PixelOperationTest);
 DEMO_ENTRY(other, ResourceDecoderTest);
-DEMO_ENTRY(other, TextureAtlasTest);
 DEMO_ENTRY(other, TextureLoadUnloadTest);
 #if ANDROID
 	DEMO_ENTRY(other, TransparentDrawPrimitivesTest);

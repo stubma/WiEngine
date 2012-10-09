@@ -23,9 +23,7 @@
 #ifndef __common_h__
 #define __common_h__
 
-#include "wyDirector.h"
-#include "wyLayer.h"
-#include "wyAction.h"
+#include "WiEngine-Classes.h"
 
 #if ANDROID
 	#define DEMO_ENTRY(pkg, CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_##pkg##_##CLASSNAME##_nativeStart(JNIEnv *, jobject);

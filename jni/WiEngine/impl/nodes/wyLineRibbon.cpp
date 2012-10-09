@@ -29,6 +29,7 @@
 #include "wyLineRibbon.h"
 #include "wyLog.h"
 #include "wyGlobal.h"
+#include "wyTexture2D.h"
 
 /**
  * @typedef wyStraightLine
@@ -198,9 +199,10 @@ typedef struct wyStraightLine {
 	}
 
 	void draw() {
-		glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)m_vertices);
-		glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)m_texCoords);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 8);
+		// TODO gles2
+//		glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)m_vertices);
+//		glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)m_texCoords);
+//		glDrawArrays(GL_TRIANGLE_STRIP, 0, 8);
 	}
 } wyStraightLine;
 
@@ -265,21 +267,22 @@ typedef struct wyLine {
 	}
 
 	void draw() {
-		// set color
-		glColor4f(m_color.r / 255.f, m_color.g / 255.f, m_color.b / 255.f, m_color.a / 255.f);
-
-		// draw straight lines
-		for(int i = 0; i < m_straightLines->num; i++) {
-			wyStraightLine* sl = (wyStraightLine*)wyArrayGet(m_straightLines, i);
-			sl->draw();
-		}
-
-		// draw joints
-		if(m_straightLines->num > 1) {
-			glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)m_jointVertices);
-			glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)m_jointTexCoords);
-			glDrawArrays(GL_TRIANGLES, 0, 6 * (m_straightLines->num - 1));
-		}
+		// TODO gles2
+//		// set color
+//		glColor4f(m_color.r / 255.f, m_color.g / 255.f, m_color.b / 255.f, m_color.a / 255.f);
+//
+//		// draw straight lines
+//		for(int i = 0; i < m_straightLines->num; i++) {
+//			wyStraightLine* sl = (wyStraightLine*)wyArrayGet(m_straightLines, i);
+//			sl->draw();
+//		}
+//
+//		// draw joints
+//		if(m_straightLines->num > 1) {
+//			glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)m_jointVertices);
+//			glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)m_jointTexCoords);
+//			glDrawArrays(GL_TRIANGLES, 0, 6 * (m_straightLines->num - 1));
+//		}
 	}
 
 	void addPoint(wyPoint& loc) {
@@ -474,37 +477,38 @@ void wyLineRibbon::setColor(wyColor4B color) {
 }
 
 void wyLineRibbon::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-	
-	// ensure texture object is created
-	m_tex->load();
-
-	// enable state
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-	
-	// ensure current texture is active
-	glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
-	
-	// draw all lines
-	for(int i = 0; i < m_lines->num; i++) {
-		wyLine* line = (wyLine*)wyArrayGet(m_lines, i);
-		line->draw();
-	}
-	
-	// restore color
-	glColor4f(1, 1, 1, 1);
-
-	// disable state
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	// TODO gles2
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//	
+//	// ensure texture object is created
+//	m_tex->load();
+//
+//	// enable state
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glEnable(GL_TEXTURE_2D);
+//	
+//	// ensure current texture is active
+//	glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
+//	
+//	// draw all lines
+//	for(int i = 0; i < m_lines->num; i++) {
+//		wyLine* line = (wyLine*)wyArrayGet(m_lines, i);
+//		line->draw();
+//	}
+//	
+//	// restore color
+//	glColor4f(1, 1, 1, 1);
+//
+//	// disable state
+//	glDisable(GL_TEXTURE_2D);
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 float wyLineRibbon::getLineWidth(int index) {

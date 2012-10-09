@@ -220,30 +220,31 @@ int wyGradientColorLayer::getDegree() {
 }
 
 void wyGradientColorLayer::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if (m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	glEnable(GL_DITHER);
-	glShadeModel( GL_SMOOTH);
-
-	glEnableClientState( GL_VERTEX_ARRAY);
-	glEnableClientState( GL_COLOR_ARRAY);
-
-	glVertexPointer(2, GL_FLOAT, 0, m_vertices);
-	glColorPointer(4, GL_UNSIGNED_BYTE, 0, m_colors);
-
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-	// Clear the vertex and color arrays
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-
-	glShadeModel(GL_FLAT);
-	glDisable(GL_DITHER);
+	// TODO gles2
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if (m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//	glEnable(GL_DITHER);
+//	glShadeModel( GL_SMOOTH);
+//
+//	glEnableClientState( GL_VERTEX_ARRAY);
+//	glEnableClientState( GL_COLOR_ARRAY);
+//
+//	glVertexPointer(2, GL_FLOAT, 0, m_vertices);
+//	glColorPointer(4, GL_UNSIGNED_BYTE, 0, m_colors);
+//
+//	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+//
+//	// Clear the vertex and color arrays
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_COLOR_ARRAY);
+//
+//	glShadeModel(GL_FLAT);
+//	glDisable(GL_DITHER);
 }
 
 void wyGradientColorLayer::setContentSize(float w, float h) {

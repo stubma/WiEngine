@@ -31,9 +31,10 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_VerletRope_update
 }
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_VerletRope_draw
-  (JNIEnv * env, jobject thiz) {
+  (JNIEnv * env, jobject thiz, jobject parent) {
 	wyVerletRope* r = (wyVerletRope*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	r->draw();
+	wyNode* n = (wyNode*)env->GetIntField(parent, g_fid_BaseObject_mPointer);
+	r->draw(n);
 }
 
 JNIEXPORT jintArray JNICALL Java_com_wiyun_engine_utils_VerletRope_getSticks

@@ -29,7 +29,7 @@
 #ifndef __wyGlobal_h__
 #define __wyGlobal_h__
 
-#include "wyBuildConfig.h"
+#include "WiEngine-Classes.h"
 
 // WiEngine version
 #define WIENGINE_VERSION "3.10.1"
@@ -47,8 +47,8 @@
 
 // opengl headers
 #if ANDROID
-	#include <GLES/gl.h>
-	#include <GLES/glext.h>
+	#include <GLES2/gl2.h>
+	#include <GLES2/gl2ext.h>
 #elif IOS
 	#import <OpenGLES/ES1/gl.h>
 	#import <OpenGLES/ES1/glext.h>
@@ -58,12 +58,20 @@
 	#import <OpenGL/gl.h>
 	#import <OpenGL/glext.h>
 #elif WINDOWS
-	#include <GLES/gl.h>
-	#include <GLES/glext.h>
+	#include <GLES2/gl2.h>
+	#include <GLES2/gl2ext.h>
 #endif
 
 // common header
 #include <unistd.h>
+
+// we use kazmath as math library
+#include "kazmath/kazmath.h"
+
+// jni
+#if ANDROID
+	#include <jni.h>
+#endif
 
 // mapping between OpenGLES and OpenGL
 #if MACOSX
@@ -220,6 +228,10 @@ public:
 };
 #define WY_STRING_MAP map<const char*, const char*, wyStrPredicate>
 #define WY_STRING_ITER WY_STRING_MAP::iterator
+#define WY_UNIFORM_MAP map<const char*, wyUniform*, wyStrPredicate>
+#define WY_UNIFORM_ITER WY_UNIFORM_MAP::iterator
+#define WY_ATTRIBUTE_MAP map<const char*, wyAttribute*, wyStrPredicate>
+#define WY_ATTRIBUTE_ITER WY_ATTRIBUTE_MAP::iterator
 
 // thread method
 extern WIENGINE_API bool isGLThread();

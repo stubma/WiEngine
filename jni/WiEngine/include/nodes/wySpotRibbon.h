@@ -42,9 +42,6 @@ private:
     /// 间隔距离，用于非连续模式, 缺省是20个dp
     float m_distance;
 
-    /// atlas
-    wyTextureAtlas* m_atlas;
-
 public:
     /**
 	 * 静态构造函数
@@ -69,14 +66,14 @@ public:
 	 */
     virtual ~wySpotRibbon();
 
-    /// @see wyNode::draw
-    virtual void draw();
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
 
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
+	/// @see wyNode::updateMaterial
+	virtual void updateMaterial();
 
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
+	/// @see wyNode::updateMeshColor
+	virtual void updateMeshColor();
 
 	/**
 	 * 被Scheduler调用的方法，不要手动调用

@@ -1,16 +1,23 @@
 /*
  * Copyright (c) 2010 WiYun Inc.
-
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
-
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,7 +30,6 @@
 #define __wyAtlasNode_h__
 
 #include "wyNode.h"
-#include "wyTextureAtlas.h"
 
 /**
  * @class wyAtlasNode
@@ -36,86 +42,23 @@
  */
 class WIENGINE_API wyAtlasNode : public wyNode {
 protected:
-	/**
-	 * \if English
-	 * \link wyTextureAtlas wyTextureAtlas\endlink
-	 * \else
-	 * 图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 * \endif
-	 */
-    wyTextureAtlas* m_atlas;
-
-    /**
-     * \if English
-     * sub sprite count of a row
-     * \else
-     * 标识每行有多少图片
-     * \endif
-     */
+    /// sprite count of a row
     int m_itemsPerRow;
 
-    /**
-     * \if English
-     * sub sprite count of a column
-     * \else
-     * 标识每列有多少图片
-     * \endif
-     */
+    /// sprite count of a column
     int m_itemsPerColumn;
 
-    /**
-     * \if English
-     * the value to be added to the texture coordinate when the tile moves one on the x axis
-     * \else
-     * 贴图坐标在x轴方向每前进一个tile需要增加的值
-     * \endif
-     */
+    /// the value to be added to the texture coordinate when the tile moves on the x axis
     float m_texStepX;
 
-    /**
-     * \if English
-     * the value to be added to the texture coordinate when the tile moves one on the y axis
-     * \else
-     * 贴图坐标在y轴方向每前进一个tile需要增加的值
-     * \endif
-     */
+    /// the value to be added to the texture coordinate when the tile moves on the y axis
     float m_texStepY;
 
-    /**
-     * \if English
-     * tile width of one, in pixels
-     * \else
-     * 每个分块图片的宽度
-     * \endif
-     */
+    /// tile width in pixels
     int m_itemWidth;
 
-    /**
-     * \if English
-     * tile height of one, in pixels
-     * \else
-     * 每个分块图片的高度
-     * \endif
-     */
+    /// tile height in pixels
     int m_itemHeight;
-
-    /**
-     * \if Englsih
-     * \link wyBlendFunc wyBlendFunc\endlink
-     * \else
-     * 渲染模式\link wyBlendFunc wyBlendFunc结构\endlink
-     * \endif
-     */
-    wyBlendFunc m_blendFunc;
-
-    /**
-     * \if English
-     * \link wyColor4B wyColor4B\endlink
-     * \else
-     * 颜色\link wyColor4B wyColor4B结构\endlink
-     * \endif
-     */
-    wyColor4B m_color;
 
 protected:
     /**
@@ -194,59 +137,11 @@ public:
 	 */
     virtual ~wyAtlasNode();
 
-    /// @see wyNode::draw
-    virtual void draw();
+    /// @see wyNode::updateMaterial
+    virtual void updateMaterial();
 
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex) { m_atlas->setTexture(tex); }
-
-	/**
-	 * \if English
-	 * setter
-	 *
-	 * @param atlas \link wyTextureAtlas wyTextureAtlas\endlink
-	 * \else
-	 * 设置图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 *
-	 * @param atlas 图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 * \endif
-	 */
-	void setAtlas(wyTextureAtlas* atlas);
-
-	/**
-	 * \if English
-	 * getter
-	 * \else
-	 * 返回图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 *
-	 * @return 图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 * \endif
-	 */
-	wyTextureAtlas* getAtlas() { return m_atlas; }
+	/// @see wyNode::updateMeshColor
+	virtual void updateMeshColor();
 };
 
 #endif // __wyAtlasNode_h__

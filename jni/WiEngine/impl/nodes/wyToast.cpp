@@ -37,6 +37,7 @@
 #include "wyTypes.h"
 #include "wyUtils.h"
 #include "wyLog.h"
+#include "wyScene.h"
 
 // toast queue
 vector<wyToast*>* wyToast::s_toastQueue = NULL;
@@ -132,25 +133,29 @@ wyToast* wyToast::make(const char* text, float duration) {
 void wyToast::layout() {
 	if(m_dirty) {
 		// adjust bg size
-		wyRect r = m_content->getBoundingBoxRelativeToParent();
-		if(m_useDefaultBg) {
-			m_bg->setContentSize(MAX(m_defaultBgWidth, r.width + m_leftMargin + m_rightMargin),
-				MAX(m_defaultBgHeight, r.height + m_topMargin + m_bottomMargin));
-		} else {
-			m_bg->setContentSize(r.width + m_leftMargin + m_rightMargin,
-					r.height + m_topMargin + m_bottomMargin);
+		wyRect r = m_content == NULL ? wyrZero : m_content->getBoundingBoxRelativeToParent();
+		if(m_bg) {
+			if(m_useDefaultBg) {
+				m_bg->setContentSize(MAX(m_defaultBgWidth, r.width + m_leftMargin + m_rightMargin),
+					MAX(m_defaultBgHeight, r.height + m_topMargin + m_bottomMargin));
+			} else {
+				m_bg->setContentSize(r.width + m_leftMargin + m_rightMargin,
+						r.height + m_topMargin + m_bottomMargin);
+			}
+
+			// set self size same as background, and position
+			setContentSize(m_bg->getWidth(), m_bg->getHeight());
+			if(m_useDefaultPosition)
+				setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 5);
+			else
+				setPosition(m_toastPositionX, m_toastPositionY);
 		}
 
-		// set self size same as background, and position
-		setContentSize(m_bg->getWidth(), m_bg->getHeight());
-		if(m_useDefaultPosition)
-			setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 5);
-		else
-			setPosition(m_toastPositionX, m_toastPositionY);
-
 		// set content and bg position
-		m_content->setPosition(getWidth() / 2, getHeight() / 2);
-		m_bg->setPosition(getWidth() / 2, getHeight() / 2);
+		if(m_content)
+			m_content->setPosition(getWidth() / 2, getHeight() / 2);
+		if(m_bg)
+			m_bg->setPosition(getWidth() / 2, getHeight() / 2);
 
 		// clear flag
 		m_dirty = false;

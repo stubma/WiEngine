@@ -26,26 +26,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <stdbool.h>
+#include "wyNinePatchSprite.h"
 #include "wyLog.h"
 #include "wyTypes.h"
 #include "wyUtils.h"
 #include "wyGlobal.h"
 #include "wyEventDispatcher.h"
-#include <unistd.h>
-#include <math.h>
-#include <zlib.h>
-#include <ctype.h>
 #include "PVRTMemoryFileSystem.h"
-#include "wyGlobal.h"
 #include "wyResourceDecoder.h"
 #include "wyAssetInputStream.h"
 #include "wyMD5.h"
-#include "wyNinePatchSprite.h"
 #include "wySequence.h"
 #include "wyFadeOut.h"
 #include "wyDelayTime.h"
 #include "wyDirector.h"
+#include "wyRunnable.h"
+#include "wyHashSet.h"
+#include "wyMath.h"
+#include "wyCharProvider.h"
+#include "wyAction.h"
+#include <stdbool.h>
+#include <unistd.h>
+#include <math.h>
+#include <zlib.h>
+#include <ctype.h>
 
 // global resource decoder
 extern wyResourceDecoder* gResDecoder;
@@ -964,6 +968,19 @@ const char* wyUtils::decodeObfuscatedData(const char* data, size_t length, size_
 		if(outLen)
 			*outLen = length;
 		return data;
+	}
+}
+
+char* wyUtils::loadCString(const char* mfsName) {
+	char* buffer = NULL;
+	size_t len;
+	if(getFile(mfsName, (const char**)&buffer, &len)) {
+		char* cstr = (char*)wyMalloc(sizeof(char) * (len + 1));
+		memcpy(cstr, buffer, len);
+		cstr[len] = 0;
+		return cstr;
+	} else {
+		return NULL;
 	}
 }
 

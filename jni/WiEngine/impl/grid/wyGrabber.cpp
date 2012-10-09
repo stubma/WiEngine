@@ -69,95 +69,96 @@ wyGrabber* wyGrabber::make(int width, int height) {
 }
 
 GLenum wyGrabber::grab() {
-	if(m_texture == 0) {
-		// get POT size of texture
-		int w = wyMath::getNextPOT(m_texWidth);
-		int h = wyMath::getNextPOT(m_texHeight);
-
-		// create texture
-		int texture;
-		glGenTextures(1, (GLuint*)&m_texture);
-		glBindTexture(GL_TEXTURE_2D, m_texture);
-
-		// apply texture parameters
-		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-		// allocate buffer and create texture from it
-		GLvoid* pixels = wyMalloc(sizeof(GLubyte) * w * h * 4);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-		wyFree(pixels);
-	}
-
-	if(m_texture) {
-		// generate a new frame buffer
-		glGenFramebuffersOES(1, (GLuint*)&m_fbo);
-
-		// get old frame buffer object
-		glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
-
-		// bind
-		glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
-
-		// associate texture with FBO
-		glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, m_texture, 0);
-
-		// get status
-		GLenum status = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
-
-		// restore old buffer
-		glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
-
-		return status;
-	} else {
-		return GL_FRAMEBUFFER_UNSUPPORTED_OES;
-	}
+//	if(m_texture == 0) {
+//		// get texture min size, here we need a texture big enough to accommodate a full  physical screen
+//		// realWidth realHeight are the best
+//		int w = wyMath::getNextPOT(wyDevice::realWidth);
+//		int h = wyMath::getNextPOT(wyDevice::realHeight);
+//
+//		// create texture
+//		int texture;
+//		glGenTextures(1, (GLuint*)&m_texture);
+//		glBindTexture(GL_TEXTURE_2D, m_texture);
+//
+//		// apply texture parameters
+//		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+//		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+//
+//		// allocate buffer and create texture from it
+//		GLvoid* pixels = wyMalloc(sizeof(GLubyte) * w * h * 4);
+//		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+//		wyFree(pixels);
+//	}
+//
+//	if(m_texture) {
+//		// generate a new frame buffer
+//		glGenFramebuffersOES(1, (GLuint*)&m_fbo);
+//
+//		// get old frame buffer object
+//		glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
+//
+//		// bind
+//		glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
+//
+//		// associate texture with FBO
+//		glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, m_texture, 0);
+//
+//		// get status
+//		GLenum status = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
+//
+//		// restore old buffer
+//		glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
+//
+//		return status;
+//	} else {
+//		return GL_FRAMEBUFFER_UNSUPPORTED_OES;
+//	}
+	return 0;
 }
 
 void wyGrabber::beforeRender() {
-	// ensure the texture is grabbed
-	if(m_texture == 0)
-		grab();
-
-	// push matrix
-	glPushMatrix();
-
-	// Calculate the adjustment ratios based on the old and new projections
-	// Adjust the orthographic propjection and viewport
-	float widthRatio = wyDevice::winWidth / m_width;
-	float heightRatio = wyDevice::winHeight / m_height;
-	glOrthof(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
-
-	// set viewport to real surface size
-	glViewport(0, 0, m_texWidth, m_texHeight);
-
-	// get old frame buffer object
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
-
-	// bind custom frame buffer
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
-
-	// clear custom frame
-	glClearColor(0, 0, 0, 0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	// ensure the texture is grabbed
+//	if(m_texture == 0)
+//		grab();
+//
+//	// push matrix
+//	glPushMatrix();
+//
+//	// Calculate the adjustment ratios based on the old and new projections
+//	// Adjust the orthographic propjection and viewport
+//	float widthRatio = wyDevice::realWidth / wyDevice::winWidth;
+//	float heightRatio = wyDevice::realHeight / wyDevice::winHeight;
+//	glOrthof(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
+//
+//	// set viewport to real surface size
+//	glViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
+//
+//	// get old frame buffer object
+//	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
+//
+//	// bind custom frame buffer
+//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
+//
+//	// clear custom frame
+//	glClearColor(0, 0, 0, 0);
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void wyGrabber::afterRender() {
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
-
-	// pop matrix
-	glPopMatrix();
-
-	// restore viewport
-	glViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
+	// TODO gles2
+//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
+//
+//	// pop matrix
+//	glPopMatrix();
 }
 
 void wyGrabber::releaseBuffer() {
 	// delete custom frame buffer
 	if(m_fbo != 0) {
-		glDeleteFramebuffersOES(1, (GLuint*)&m_fbo);
+		// TODO gles2
+//		glDeleteFramebuffersOES(1, (GLuint*)&m_fbo);
 		m_fbo = 0;
 	}
 

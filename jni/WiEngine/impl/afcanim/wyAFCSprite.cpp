@@ -234,7 +234,7 @@ void wyAFCSprite::setBlendFunc(wyBlendFunc func) {
 	m_blendFunc = func;
 	for(int i = 0; i < m_sheetList->num; i++) {
 		wySpriteBatchNode* bn = (wySpriteBatchNode*)wyArrayGet(m_sheetList, i);
-		bn->setBlendFunc(func);
+		//bn->setBlendFunc(func);
 	}
 }
 
@@ -268,130 +268,132 @@ void wyAFCSprite::setColor(wyColor4B color) {
 }
 
 void wyAFCSprite::visit() {
-	if(!m_visible)
-		return;
-
-	// should push matrix to avoid disturb current matrix
-	glPushMatrix();
-
-	// if grid is set, prepare grid
-	if(m_grid != NULL && m_grid->isActive()) {
-		m_grid->beforeDraw();
-		transformAncestors();
-	}
-
-	// transform for myself
-	transform();
-
-	// check clip
-	if(m_hasClip)
-		doClip();
-
-	// draw self
-	draw();
-
-	// restore
-	if(m_hasClip)
-		glDisable(GL_SCISSOR_TEST);
-
-	// if grid is set, end grid
-	if(m_grid != NULL && m_grid->isActive()) {
-		m_grid->afterDraw(this);
-	}
-
-	// pop matrix
-	glPopMatrix();
+	// TODO gles2
+//	if(!m_visible)
+//		return;
+//
+//	// should push matrix to avoid disturb current matrix
+//	glPushMatrix();
+//
+//	// if grid is set, prepare grid
+//	if(m_grid != NULL && m_grid->isActive()) {
+//		m_grid->beforeDraw();
+//		transformAncestors();
+//	}
+//
+//	// transform for myself
+//	transform();
+//
+//	// check clip
+//	if(m_hasClip)
+//		doClip();
+//
+//	// draw self
+//	draw();
+//
+//	// restore
+//	if(m_hasClip)
+//		glDisable(GL_SCISSOR_TEST);
+//
+//	// if grid is set, end grid
+//	if(m_grid != NULL && m_grid->isActive()) {
+//		m_grid->afterDraw(this);
+//	}
+//
+//	// pop matrix
+//	glPopMatrix();
 }
 
 void wyAFCSprite::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	// is current frame valid?
-	if(m_curFrame < 0 || m_curFrame >= m_animationData->getFrameCount())
-		return;
-
-	// reset marker of all sheet to zero
-	for(int i = 0; i < m_spriteList->num; i++) {
-		wySpriteEx* sprite = (wySpriteEx*)wyArrayGet(m_spriteList, i);
-		if(sprite->isVisible()) {
-			wySpriteBatchNode* sheet = (wySpriteBatchNode*)sprite->getParent();
-			sheet->setMarker(0);
-		} else {
-			break;
-		}
-	}
-
-	// draw based on clip order
-	int numOfQuads = 0;
-	wySpriteBatchNode* lastSheet = NULL;
-	for(int i = 0; i < m_spriteList->num; i++) {
-		wySpriteEx* sprite = (wySpriteEx*)wyArrayGet(m_spriteList, i);
-		if(sprite->isVisible()) {
-			wySpriteBatchNode* sheet = (wySpriteBatchNode*)sprite->getParent();
-			if(sheet != lastSheet) {
-				// draw last sheet
-				if(numOfQuads != 0) {
-					lastSheet->drawFromMarker(numOfQuads);
-				}
-
-				// change last sheet and reset number of quads
-				lastSheet = sheet;
-				numOfQuads = 1;
-			} else {
-				numOfQuads++;
-			}
-		}
-	}
-
-	// draw last sheet
-	if(numOfQuads != 0) {
-		lastSheet->drawFromMarker(numOfQuads);
-	}
-
-	// check debug draw flag
-	if(m_debugDrawFrameRect) {
-		wyRect bound = getFrameRect();
-		glColor4f(0, 1, 0, 1);
-		wyDrawRect2(bound);
-		glColor4f(1, 1, 1, 1);
-	}
-	if(m_debugDrawCollisionRect) {
-		glColor4f(0, 1, 0, 1);
-		wyAFCAnimation* anim = getCurrentAnimationData();
-		if(anim) {
-			wyAFCFrame* frame = anim->getFrameAt(m_curFrame);
-			if(frame) {
-				int count = frame->getClipCount();
-				for (int i = 0; i < count; i++) {
-					wyAFCClip* clip = frame->getClipAt(i);
-					if(clip->getType() == AFC_CLIP_COLLISION_RECT) {
-						wyAFCClipData& data = clip->getData();
-						wyRect r = wyr(data.clipPos.x - data.cr.size.width / 2,
-								data.clipPos.y - data.cr.size.height / 2,
-								data.cr.size.width,
-								data.cr.size.height);
-
-						// check flip flag
-						if(m_flipX) {
-							r.x = -r.x - r.width;
-						}
-						if(m_flipY) {
-							r.y = -r.y - r.height;
-						}
-
-						// draw it
-						wyDrawRect2(r);
-					}
-				}
-			}
-		}
-		glColor4f(1, 1, 1, 1);
-	}
+	// TODO gles2
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//	// is current frame valid?
+//	if(m_curFrame < 0 || m_curFrame >= m_animationData->getFrameCount())
+//		return;
+//
+//	// reset marker of all sheet to zero
+//	for(int i = 0; i < m_spriteList->num; i++) {
+//		wySpriteEx* sprite = (wySpriteEx*)wyArrayGet(m_spriteList, i);
+//		if(sprite->isVisible()) {
+//			wySpriteBatchNode* sheet = (wySpriteBatchNode*)sprite->getParent();
+//			sheet->setMarker(0);
+//		} else {
+//			break;
+//		}
+//	}
+//
+//	// draw based on clip order
+//	int numOfQuads = 0;
+//	wySpriteBatchNode* lastSheet = NULL;
+//	for(int i = 0; i < m_spriteList->num; i++) {
+//		wySpriteEx* sprite = (wySpriteEx*)wyArrayGet(m_spriteList, i);
+//		if(sprite->isVisible()) {
+//			wySpriteBatchNode* sheet = (wySpriteBatchNode*)sprite->getParent();
+//			if(sheet != lastSheet) {
+//				// draw last sheet
+//				if(numOfQuads != 0) {
+//					lastSheet->drawFromMarker(numOfQuads);
+//				}
+//
+//				// change last sheet and reset number of quads
+//				lastSheet = sheet;
+//				numOfQuads = 1;
+//			} else {
+//				numOfQuads++;
+//			}
+//		}
+//	}
+//
+//	// draw last sheet
+//	if(numOfQuads != 0) {
+//		lastSheet->drawFromMarker(numOfQuads);
+//	}
+//
+//	// check debug draw flag
+//	if(m_debugDrawFrameRect) {
+//		wyRect bound = getFrameRect();
+//		glColor4f(0, 1, 0, 1);
+//		wyDrawRect2(bound);
+//		glColor4f(1, 1, 1, 1);
+//	}
+//	if(m_debugDrawCollisionRect) {
+//		glColor4f(0, 1, 0, 1);
+//		wyAFCAnimation* anim = getCurrentAnimationData();
+//		if(anim) {
+//			wyAFCFrame* frame = anim->getFrameAt(m_curFrame);
+//			if(frame) {
+//				int count = frame->getClipCount();
+//				for (int i = 0; i < count; i++) {
+//					wyAFCClip* clip = frame->getClipAt(i);
+//					if(clip->getType() == AFC_CLIP_COLLISION_RECT) {
+//						wyAFCClipData& data = clip->getData();
+//						wyRect r = wyr(data.clipPos.x - data.cr.size.width / 2,
+//								data.clipPos.y - data.cr.size.height / 2,
+//								data.cr.size.width,
+//								data.cr.size.height);
+//
+//						// check flip flag
+//						if(m_flipX) {
+//							r.x = -r.x - r.width;
+//						}
+//						if(m_flipY) {
+//							r.y = -r.y - r.height;
+//						}
+//
+//						// draw it
+//						wyDrawRect2(r);
+//					}
+//				}
+//			}
+//		}
+//		glColor4f(1, 1, 1, 1);
+//	}
 }
 
 void wyAFCSprite::addChild(wyNode* child, int z, int tag) {

@@ -32,6 +32,7 @@
 #include <typeinfo>
 #include "wyTypes.h"
 #include "wyUtils.h"
+#include "wyQuadList.h"
 
 #define INVALID_INDEX -1
 
@@ -135,18 +136,18 @@ void wySpriteEx::setColor(wyColor4B color) {
 	m_colorDirty = true;
 }
 
-wyBlendFunc wySpriteEx::getBlendFunc() {
+wyRenderState::BlendMode wySpriteEx::getBlendMode() {
     if(m_useBatchNode) {
-        LOGW("No BlendFunc due to this sprite is using batchnode");
+        LOGW("No BlendMode due to this sprite is using batchnode");
     }
-    return m_useBatchNode ? wybfDefault : wyTextureNode::getBlendFunc();
+	return m_useBatchNode ? wyRenderState::NO_BLEND : wyTextureNode::getBlendMode();
 }
 
-void wySpriteEx::setBlendFunc(wyBlendFunc func) {
+void wySpriteEx::setBlendMode(wyRenderState::BlendMode mode) {
     if(m_useBatchNode) {
-        LOGW("Can't setBlendFunc due to this sprite is using batchnode");
+        LOGW("Can't setBlendMode due to this sprite is using batchnode");
     } else {
-    	wyTextureNode::setBlendFunc(func);
+    	wyTextureNode::setBlendMode(mode);
     }
 }
 
@@ -186,11 +187,13 @@ void wySpriteEx::updateTransform() {
         if(m_texDirty)
             updateTextureCoords();
 
-    	m_batchNode->m_atlas->updateQuad(m_texCoords, m_vertices, m_atlasIndex);
+		wyQuadList* atlas = (wyQuadList*)m_batchNode->getMesh();
+    	atlas->updateQuad(m_texCoords, m_vertices, m_atlasIndex);
     }
 
     if(m_colorDirty) {
-        updateColor();
+    	wyQuadList* atlas = (wyQuadList*)m_batchNode->getMesh();
+    	atlas->updateColor(m_color, m_atlasIndex);
     }
     
     m_texDirty = m_colorDirty = m_transformDirty = false;
@@ -214,10 +217,6 @@ wyAffineTransform wySpriteEx::getNodeToBatchNodeTransform() {
 	}
 
 	return t;
-}
-
-void wySpriteEx::updateColor() {
-	m_batchNode->m_atlas->updateColor(m_color, m_atlasIndex);
 }
 
 void wySpriteEx::updateTextureCoords() {

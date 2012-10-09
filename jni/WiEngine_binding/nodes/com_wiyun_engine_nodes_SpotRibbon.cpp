@@ -32,16 +32,3 @@ JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_nodes_SpotRibbon_getDistance
 	wySpotRibbon* r = (wySpotRibbon*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	return r->getDistance();
 }
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_SpotRibbon_nativeGetTexture
-  (JNIEnv * env, jobject thiz) {
-	wySpotRibbon* node = (wySpotRibbon*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return (jint)node->getTexture();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_SpotRibbon_setTexture
-  (JNIEnv * env, jobject thiz, jobject tex) {
-	wySpotRibbon* node = (wySpotRibbon*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyTexture2D* texNode = (wyTexture2D*)env->GetIntField(tex, g_fid_BaseObject_mPointer);
-	node->setTexture(texNode);
-}

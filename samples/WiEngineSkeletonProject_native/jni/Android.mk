@@ -17,10 +17,11 @@ endef
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wiengineskeleton
+LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv2 -lwiengine -llua -lchipmunk -lwisound -lbox2d -ljson -liap -lwinetwork
 LOCAL_CFLAGS += -Wno-psabi
-LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv1_CM -lwiengine -llua -lchipmunk -lwisound -lbox2d -ljson -liap -lwinetwork
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 	$(LOCAL_PATH)/../../../jni \
+	$(LOCAL_PATH)/../../../jni/kazmath/include \
 	$(LOCAL_PATH)/../../../jni/chipmunk \
 	$(LOCAL_PATH)/../../../jni/chipmunk/constraints \
 	$(LOCAL_PATH)/../../../jni/lua \
@@ -42,12 +43,16 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/grid \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/iap \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/json \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/material \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/mesh \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/mfs \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/network \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/nodes \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/opengl \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/particle \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/persistence \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/render \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/shader \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/spritex \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/tmx \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/transitions \

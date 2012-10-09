@@ -33,7 +33,7 @@
 #include "wyVerletStick.h"
 #include "wyTypes.h"
 #include "wyTexture2D.h"
-#include "wyTextureAtlas.h"
+#include "WiEngine-Classes.h"
 
 /**
  * @class wyVerletRope
@@ -47,76 +47,37 @@
  */
 class WIENGINE_API wyVerletRope : public wyObject {
 private:
-	/**
-	 * \if English
-	 * array of all points
-	 * \else
-	 * \link wyVerletPoint wyVerletPoint\endlink 数组
-	 * \endif
-	 */
+	/// texture of rope stick
+	wyTexture2D* m_tex;
+
+	/// array of all points
 	wyArray* m_points;
 
-	/**
-	 * \if English
-	 * array of all segments
-	 * \else
-	 * \link wyVerletStick wyVerletStick\endlink 数组
-	 * \endif
-	 */
+	/// array of all segments
 	wyArray* m_sticks;
 
-	/**
-	 * \if English
-	 * texture atlas to render rope
-	 * \else
-	 * 用来渲染绳子的atlas
-	 * \endif
-	 */
-	wyTextureAtlas* m_atlas;
+	/// quad list mesh of this rope
+	wyQuadList* m_mesh;
 
-	/**
-	 * \if English
-	 * a adjustable variable to avoid stick gap
-	 * \else
-	 * 防止出现空隙的相关常量
-	 * \endif
-	 */
+	/// material
+	wyMaterial* m_material;
+
+	/// true means mesh need to be updated
+	bool m_dirty;
+
+	/// a adjustable variable to avoid stick gap
 	float m_antiSagHack;
 
-	/**
-	 * \if English
-	 * orignal length of rope
-	 * \else
-	 * 绳子的原始长度
-	 * \endif
-	 */
+	/// orignal length of rope
 	float m_length;
 
-	/**
-	 * \if English
-	 * original length of stick
-	 * \else
-	 * stick的原始长度
-	 * \endif
-	 */
+	/// original length of stick
 	float m_stickLength;
 
-	/**
-	 * \if English
-	 * extra data pointer
-	 * \else
-	 * 附加数据指针
-	 * \endif
-	 */
+	/// extra data pointer
 	void* m_data;
 
-	/**
-	 * \if English
-	 * color of rope
-	 * \else
-	 * 颜色\link wyColor4B wyColor4B结构\endlink
-	 * \endif
-	 */
+	/// color of rope
 	wyColor4B m_color;
 
 private:
@@ -234,11 +195,15 @@ public:
 	/**
 	 * \if English
 	 * Render rope
+	 *
+	 * @param parent the node who invoked draw method
 	 * \else
 	 * 绘制绳子
+	 *
+	 * @param parent 调用draw方法的节点
 	 * \endif
 	 */
-	void draw();
+	void draw(wyNode* parent);
 
 	/**
 	 * \if English
@@ -503,6 +468,24 @@ public:
 	 * \endif
 	 */
 	void changeLength(float delta);
+
+	/**
+	 * \if English
+	 * Get texture of rope
+	 * \else
+	 * 得到绳子的贴图
+	 * \endif
+	 */
+	wyTexture2D* getTexture() { return m_tex; }
+
+	/**
+	 * \if English
+	 * Set texture
+	 * \else
+	 * 设置绳子贴图
+	 * \endif
+	 */
+	void setTexture(wyTexture2D* tex);
 };
 
 #endif // __wyVerletRope_h__

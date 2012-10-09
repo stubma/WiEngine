@@ -27,7 +27,6 @@
     <string name="MenuTest_desc">如何创建菜单和菜单项并响应点击事件</string>
     <string name="ClickAndMoveTest_desc">响应点击事件并根据点击位置移动一个图片</string>
     <string name="LabelTest_desc">如何创建标签节点</string>
-    <string name="TextureAtlasTest_desc">如何创建和渲染TextureAtlas对象</string>
     <string name="AtlasLabelTest_desc">如何创建图片集标签节点, 图片集标签的文字实际上是图片集中的图片, 因此可以使用任何字体</string>
     <string name="TGATileMapAtlasTest_desc">如何创建一个TGA瓦片地图, TGA文件保存了地图的布局, 而地图的元素保存在另外一个图片集中</string>
     <string name="ArrayTileMapAtlasTest_desc">如何创建一个数组式瓦片地图, 数组式瓦片地图的好处是可以使用代码在运行时动态生成地图</string>

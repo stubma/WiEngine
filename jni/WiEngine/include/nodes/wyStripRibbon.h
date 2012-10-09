@@ -37,10 +37,6 @@
  * 等宽条状带，它渲染一个连续的，等宽的条。
  */
 class WIENGINE_API wyStripRibbon : public wyRibbon {
-private:
-    /// atlas
-    wyTextureAtlas* m_atlas;
-
 protected:
     /**
      * 添加一个点
@@ -78,14 +74,14 @@ public:
 	 */
     virtual ~wyStripRibbon();
 
-    /// @see wyNode::draw
-    virtual void draw();
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
 
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
+	/// @see wyNode::updateMaterial
+	virtual void updateMaterial();
 
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
+	/// @see wyNode::updateMeshColor
+	virtual void updateMeshColor();
 
 	/**
 	 * 被Scheduler调用的方法，不要手动调用

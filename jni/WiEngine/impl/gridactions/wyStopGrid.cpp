@@ -29,6 +29,7 @@
 #include "wyStopGrid.h"
 #include "wyNode.h"
 #include "wyLog.h"
+#include "wyBaseGrid.h"
 
 wyStopGrid::~wyStopGrid() {
 }

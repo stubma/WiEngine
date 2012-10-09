@@ -124,96 +124,101 @@ wyBox2DDebugDraw::wyBox2DDebugDraw() {
 }
 
 void wyBox2DDebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color) {
-	GLfloat* VAR = (GLfloat*)malloc(vertexCount * 2 * sizeof(GLfloat));
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(2, GL_FLOAT, 0, VAR);
-
-	for (int i = 0; i < vertexCount; i++) {
-		VAR[2 * i] = meter2Pixel(vertices[i].x);
-		VAR[2 * i + 1] = meter2Pixel(vertices[i].y);
-	}
-
-	glColor4f(color.r, color.g, color.b, 1.f);
-	glDrawArrays(GL_LINE_STRIP, 0, vertexCount);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-
-	free(VAR);
+	// TODO gles2
+//	GLfloat* VAR = (GLfloat*)malloc(vertexCount * 2 * sizeof(GLfloat));
+//
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glVertexPointer(2, GL_FLOAT, 0, VAR);
+//
+//	for (int i = 0; i < vertexCount; i++) {
+//		VAR[2 * i] = meter2Pixel(vertices[i].x);
+//		VAR[2 * i + 1] = meter2Pixel(vertices[i].y);
+//	}
+//
+//	glColor4f(color.r, color.g, color.b, 1.f);
+//	glDrawArrays(GL_LINE_STRIP, 0, vertexCount);
+//
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//
+//	free(VAR);
 }
 
 void wyBox2DDebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color) {
-	GLfloat* VAR = (GLfloat*)malloc((vertexCount + 1) * 2 * sizeof(GLfloat));
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(2, GL_FLOAT, 0, VAR);
-
-	for (int i = 0; i < vertexCount; i++) {
-		VAR[2 * i] = meter2Pixel(vertices[i].x);
-		VAR[2 * i + 1] = meter2Pixel(vertices[i].y);
-	}
-	VAR[2 * vertexCount] = meter2Pixel(vertices[0].x);
-	VAR[2 * vertexCount + 1] = meter2Pixel(vertices[0].y);
-
-	glColor4f(color.r, color.g, color.b, 1.f);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
-
-	glColor4f(LINE_COLOR);
-	glDrawArrays(GL_LINE_STRIP, 0, vertexCount + 1);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-
-	free(VAR);
+	// TODO gles2
+//	GLfloat* VAR = (GLfloat*)malloc((vertexCount + 1) * 2 * sizeof(GLfloat));
+//
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glVertexPointer(2, GL_FLOAT, 0, VAR);
+//
+//	for (int i = 0; i < vertexCount; i++) {
+//		VAR[2 * i] = meter2Pixel(vertices[i].x);
+//		VAR[2 * i + 1] = meter2Pixel(vertices[i].y);
+//	}
+//	VAR[2 * vertexCount] = meter2Pixel(vertices[0].x);
+//	VAR[2 * vertexCount + 1] = meter2Pixel(vertices[0].y);
+//
+//	glColor4f(color.r, color.g, color.b, 1.f);
+//	glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
+//
+//	glColor4f(LINE_COLOR);
+//	glDrawArrays(GL_LINE_STRIP, 0, vertexCount + 1);
+//
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//
+//	free(VAR);
 }
 
 void wyBox2DDebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color) {
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	glVertexPointer(2, GL_FLOAT, 0, circleVAR);
-
-	glPushMatrix();
-	{
-		glTranslatef(meter2Pixel(center.x), meter2Pixel(center.y), 0.0f);
-		glScalef(meter2Pixel(radius), meter2Pixel(radius), 1.0f);
-
-		glColor4f(color.r, color.g, color.b, 1.f);
-		glDrawArrays(GL_LINE_STRIP, 0, circleVAR_count);
-	}
-	glPopMatrix();
-
-	glDisableClientState(GL_VERTEX_ARRAY);
+	// TODO gles2
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//
+//	glVertexPointer(2, GL_FLOAT, 0, circleVAR);
+//
+//	glPushMatrix();
+//	{
+//		glTranslatef(meter2Pixel(center.x), meter2Pixel(center.y), 0.0f);
+//		glScalef(meter2Pixel(radius), meter2Pixel(radius), 1.0f);
+//
+//		glColor4f(color.r, color.g, color.b, 1.f);
+//		glDrawArrays(GL_LINE_STRIP, 0, circleVAR_count);
+//	}
+//	glPopMatrix();
+//
+//	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void wyBox2DDebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color) {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(2, GL_FLOAT, 0, circleVAR);
-
-	glPushMatrix();
-	{
-		// the axis is (cos, -sin)
-		float degree = acosf(axis.x) * 180.f / M_PI;
-		if(axis.y < 0)
-			degree = 360.f - degree;
-
-		glTranslatef(meter2Pixel(center.x), meter2Pixel(center.y), 0.0f);
-		glRotatef(degree, 0.0f, 0.0f, 1.0f);
-		glScalef(meter2Pixel(radius), meter2Pixel(radius), 1.0f);
-
-		glColor4f(color.r, color.g, color.b, 1.f);
-		glDrawArrays(GL_TRIANGLE_FAN, 0, circleVAR_count - 1);
-
-		glColor4f(LINE_COLOR);
-		glDrawArrays(GL_LINE_STRIP, 0, circleVAR_count);
-	}
-	glPopMatrix();
-
-	glDisableClientState(GL_VERTEX_ARRAY);
+	// TODO gles2
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glVertexPointer(2, GL_FLOAT, 0, circleVAR);
+//
+//	glPushMatrix();
+//	{
+//		// the axis is (cos, -sin)
+//		float degree = acosf(axis.x) * 180.f / M_PI;
+//		if(axis.y < 0)
+//			degree = 360.f - degree;
+//
+//		glTranslatef(meter2Pixel(center.x), meter2Pixel(center.y), 0.0f);
+//		glRotatef(degree, 0.0f, 0.0f, 1.0f);
+//		glScalef(meter2Pixel(radius), meter2Pixel(radius), 1.0f);
+//
+//		glColor4f(color.r, color.g, color.b, 1.f);
+//		glDrawArrays(GL_TRIANGLE_FAN, 0, circleVAR_count - 1);
+//
+//		glColor4f(LINE_COLOR);
+//		glDrawArrays(GL_LINE_STRIP, 0, circleVAR_count);
+//	}
+//	glPopMatrix();
+//
+//	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void wyBox2DDebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color) {
-	glLineWidth(1.0f);
-	glColor4f(color.r, color.g, color.b, 1.f);
-	wyDrawLine(meter2Pixel(p1.x), meter2Pixel(p1.y), meter2Pixel(p2.x), meter2Pixel(p2.y));
+	// TODO gles2
+//	glLineWidth(1.0f);
+//	glColor4f(color.r, color.g, color.b, 1.f);
+//	wyDrawLine(meter2Pixel(p1.x), meter2Pixel(p1.y), meter2Pixel(p2.x), meter2Pixel(p2.y));
 }
 
 void wyBox2DDebugDraw::DrawTransform(const b2Transform& xf) {
@@ -221,9 +226,10 @@ void wyBox2DDebugDraw::DrawTransform(const b2Transform& xf) {
 }
 
 void wyBox2DDebugDraw::DrawPoint(const b2Vec2& p, float32 size, const b2Color& color) {
-	glPointSize(size);
-	glColor4f(color.r, color.g, color.b, 1.f);
-	wyDrawPoint(meter2Pixel(p.x), meter2Pixel(p.y));
+	// TODO gles2
+//	glPointSize(size);
+//	glColor4f(color.r, color.g, color.b, 1.f);
+//	wyDrawPoint(meter2Pixel(p.x), meter2Pixel(p.y));
 }
 
 wyBox2D* wyBox2D::make() {
@@ -260,19 +266,20 @@ wyBox2D::~wyBox2D() {
 }
 
 void wyBox2D::draw() {
-	if(m_debugDraw) {
-		glEnable(GL_LINE_SMOOTH);
-		glEnable(GL_POINT_SMOOTH);
-		glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
-		glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
-
-		m_world->DrawDebugData();
-
-		glDisable(GL_LINE_SMOOTH);
-		glDisable(GL_POINT_SMOOTH);
-	} else if(m_render != NULL) {
-		m_render->drawWorld(this);
-	}
+	// TODO gles2
+//	if(m_debugDraw) {
+//		glEnable(GL_LINE_SMOOTH);
+//		glEnable(GL_POINT_SMOOTH);
+//		glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+//		glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
+//
+//		m_world->DrawDebugData();
+//
+//		glDisable(GL_LINE_SMOOTH);
+//		glDisable(GL_POINT_SMOOTH);
+//	} else if(m_render != NULL) {
+//		m_render->drawWorld(this);
+//	}
 }
 
 float wyBox2D::getMeterPixels() {

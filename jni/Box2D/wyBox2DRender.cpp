@@ -175,294 +175,298 @@ void wyBox2DRender::drawShape(wyBox2D* box2d, b2Fixture* fixture, b2Body* body) 
 }
 
 void wyBox2DRender::drawCircle(wyBox2D* box2d, b2Fixture* fixture, b2Body* body, wyTexture2D* tex, wyRect rect) {
-	// check texture
-	if(tex == NULL)
-		return;
-
-	// load texture info if has
-	tex->load();
-
-	// create tex coords
-	GLfloat TEX[circleVAR_count * 2];
-	float off_s = rect.x / tex->getPixelWidth();
-	float off_t = rect.y / tex->getPixelHeight();
-	float wrap_s = rect.width / tex->getPixelWidth();
-	float wrap_t = rect.height / tex->getPixelHeight();
-	for(int i = 0; i < circleVAR_count * 2; i += 2) {
-		TEX[i] = off_s + (circleVAR[i] / 2.0f + 0.5f) * wrap_s;
-		TEX[i + 1] = off_t + (0.5f - circleVAR[i + 1] / 2.0f) * wrap_t;
-	}
-
-	// enable state
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-	glVertexPointer(2, GL_FLOAT, 0, circleVAR);
-	glTexCoordPointer(2, GL_FLOAT, 0, TEX);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-	// ensure current texture is active
-	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
-
-	// repeat texture in both direction
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glPushMatrix();
-	{
-		// get circle center, radius and axis
-		b2CircleShape* circle = (b2CircleShape*)fixture->GetShape();
-		const b2Transform& xf = body->GetTransform();
-		b2Vec2 center = b2Mul(xf, circle->m_p);
-		float32 radius = circle->m_radius;
-		b2Vec2 axis = xf.q.GetXAxis();
-
-		// the axis is (cos, -sin)
-		float degree = acosf(axis.x) * 180.f / M_PI;
-		if(axis.y < 0)
-			degree = 360.f - degree;
-
-		glTranslatef(box2d->meter2Pixel(center.x), box2d->meter2Pixel(center.y), 0.0f);
-		glRotatef(degree, 0.0f, 0.0f, 1.0f);
-		glScalef(box2d->meter2Pixel(radius), box2d->meter2Pixel(radius), 1.0f);
-
-		glDrawArrays(GL_TRIANGLE_FAN, 0, circleVAR_count);
-	}
-	glPopMatrix();
-
-	// restore old state
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
+	// TODO gles2
+//	// check texture
+//	if(tex == NULL)
+//		return;
+//
+//	// load texture info if has
+//	tex->load();
+//
+//	// create tex coords
+//	GLfloat TEX[circleVAR_count * 2];
+//	float off_s = rect.x / tex->getPixelWidth();
+//	float off_t = rect.y / tex->getPixelHeight();
+//	float wrap_s = rect.width / tex->getPixelWidth();
+//	float wrap_t = rect.height / tex->getPixelHeight();
+//	for(int i = 0; i < circleVAR_count * 2; i += 2) {
+//		TEX[i] = off_s + (circleVAR[i] / 2.0f + 0.5f) * wrap_s;
+//		TEX[i + 1] = off_t + (0.5f - circleVAR[i + 1] / 2.0f) * wrap_t;
+//	}
+//
+//	// enable state
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glEnable(GL_TEXTURE_2D);
+//	glVertexPointer(2, GL_FLOAT, 0, circleVAR);
+//	glTexCoordPointer(2, GL_FLOAT, 0, TEX);
+//	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+//
+//	// ensure current texture is active
+//	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
+//
+//	// repeat texture in both direction
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//
+//	glPushMatrix();
+//	{
+//		// get circle center, radius and axis
+//		b2CircleShape* circle = (b2CircleShape*)fixture->GetShape();
+//		const b2Transform& xf = body->GetTransform();
+//		b2Vec2 center = b2Mul(xf, circle->m_p);
+//		float32 radius = circle->m_radius;
+//		b2Vec2 axis = xf.q.GetXAxis();
+//
+//		// the axis is (cos, -sin)
+//		float degree = acosf(axis.x) * 180.f / M_PI;
+//		if(axis.y < 0)
+//			degree = 360.f - degree;
+//
+//		glTranslatef(box2d->meter2Pixel(center.x), box2d->meter2Pixel(center.y), 0.0f);
+//		glRotatef(degree, 0.0f, 0.0f, 1.0f);
+//		glScalef(box2d->meter2Pixel(radius), box2d->meter2Pixel(radius), 1.0f);
+//
+//		glDrawArrays(GL_TRIANGLE_FAN, 0, circleVAR_count);
+//	}
+//	glPopMatrix();
+//
+//	// restore old state
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisable(GL_TEXTURE_2D);
 }
 
 void wyBox2DRender::drawEdge(wyBox2D* box2d, b2Fixture* fixture, b2Body* body, wyTexture2D* tex, wyRect rect) {
-	// check texture
-	if(tex == NULL)
-		return;
-
-	// load texture info if has
-	tex->load();
-
-	// get rotation angle in degree
-	b2EdgeShape* edge = (b2EdgeShape*)fixture->GetShape();
-	const b2Transform& xf = body->GetTransform();
-	float angle = xf.q.GetAngle();
-	b2Vec2 v = edge->m_vertex1;
-	v -= edge->m_vertex2;
-
-	// get middle point
-	b2Vec2 middle = edge->m_vertex1;
-	middle += edge->m_vertex2;
-	middle *= 0.5f;
-
-	// get length in pixel
-	float length = box2d->meter2Pixel(v.Length());
-
-	// build vertices
-	GLfloat vertices[] = {
-		-length / 2, -rect.height / 2,
-		length / 2, -rect.height / 2,
-		-length / 2, rect.height / 2,
-		length / 2, rect.height / 2
-	};
-
-	// build tex coords
-	float left = rect.x / tex->getPixelWidth();
-	float right = (rect.x + rect.width) / tex->getPixelWidth();
-	float top = (rect.y + rect.height) / tex->getPixelHeight();
-	float bottom = rect.y / tex->getPixelHeight();
-	GLfloat texCoords[] = {
-		left, bottom,
-		right, bottom,
-		left, top,
-		right, top
-	};
-
-	// enable state
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-	glVertexPointer(2, GL_FLOAT, 0, vertices);
-	glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-	// ensure current texture is active
-	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
-
-	// repeat texture in both direction
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	// draw
-	glPushMatrix();
-	{
-		glTranslatef(box2d->meter2Pixel(middle.x), box2d->meter2Pixel(middle.y), 0.0f);
-		glRotatef(wyMath::r2d(angle + atan(v.y / v.x)), 0, 0, 1);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	}
-	glPopMatrix();
-
-	// restore old state
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
+	// TODO gles2
+//	// check texture
+//	if(tex == NULL)
+//		return;
+//
+//	// load texture info if has
+//	tex->load();
+//
+//	// get rotation angle in degree
+//	b2EdgeShape* edge = (b2EdgeShape*)fixture->GetShape();
+//	const b2Transform& xf = body->GetTransform();
+//	float angle = xf.q.GetAngle();
+//	b2Vec2 v = edge->m_vertex1;
+//	v -= edge->m_vertex2;
+//
+//	// get middle point
+//	b2Vec2 middle = edge->m_vertex1;
+//	middle += edge->m_vertex2;
+//	middle *= 0.5f;
+//
+//	// get length in pixel
+//	float length = box2d->meter2Pixel(v.Length());
+//
+//	// build vertices
+//	GLfloat vertices[] = {
+//		-length / 2, -rect.height / 2,
+//		length / 2, -rect.height / 2,
+//		-length / 2, rect.height / 2,
+//		length / 2, rect.height / 2
+//	};
+//
+//	// build tex coords
+//	float left = rect.x / tex->getPixelWidth();
+//	float right = (rect.x + rect.width) / tex->getPixelWidth();
+//	float top = (rect.y + rect.height) / tex->getPixelHeight();
+//	float bottom = rect.y / tex->getPixelHeight();
+//	GLfloat texCoords[] = {
+//		left, bottom,
+//		right, bottom,
+//		left, top,
+//		right, top
+//	};
+//
+//	// enable state
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glEnable(GL_TEXTURE_2D);
+//	glVertexPointer(2, GL_FLOAT, 0, vertices);
+//	glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+//	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+//
+//	// ensure current texture is active
+//	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
+//
+//	// repeat texture in both direction
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//
+//	// draw
+//	glPushMatrix();
+//	{
+//		glTranslatef(box2d->meter2Pixel(middle.x), box2d->meter2Pixel(middle.y), 0.0f);
+//		glRotatef(wyMath::r2d(angle + atan(v.y / v.x)), 0, 0, 1);
+//		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+//	}
+//	glPopMatrix();
+//
+//	// restore old state
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisable(GL_TEXTURE_2D);
 }
 
 void wyBox2DRender::drawChain(wyBox2D* box2d, b2Fixture* fixture, b2Body* body, wyTexture2D* tex, wyRect rect) {
-	// check texture
-	if(tex == NULL)
-		return;
-
-	// load texture info if has
-	tex->load();
-
-	// get something
-	b2ChainShape* chain = (b2ChainShape*)fixture->GetShape();
-	const b2Transform& xf = body->GetTransform();
-	int count = chain->m_count;
-	const b2Vec2* vertices = chain->m_vertices;
-	float angle = xf.q.GetAngle();
-
-	// enable state
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-
-	// ensure current texture is active
-	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
-
-	// repeat texture in both direction
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	for(int i = 0; i < count; i++) {
-		// 得到一条边的倾斜角度, atan的返回值范围是-PI/2到-PI/2
-		b2Vec2 v1 = vertices[i];
-		b2Vec2 v2 = (i == count - 1) ? vertices[0] : vertices[i + 1];
-		b2Vec2 v = v1;
-		v -= v2;
-		float slop = atan(v.y / v.x);
-
-		// 构造一个矩阵，可以让这条边旋转到水平位置
-		b2Mat22 m = b2Mat22(-slop);
-
-		// 选择这条边，得到旋转后的两个端点
-		b2Vec2 mv1 = b2Mul(m, v1);
-		b2Vec2 mv2 = b2Mul(m, v2);
-
-		// 得到边长
-		float length = v.Length();
-
-		// 计算从原点到这条边的距离
-		float u = (-mv1.x * (mv2.x - mv1.x) + -mv1.y * (mv2.y - mv1.y)) / length / length;
-		b2Vec2 intersect = b2Vec2(mv1.x + u * (mv2.x - mv1.x), mv1.y + u * (mv2.y - mv1.y));
-		float distance = box2d->meter2Pixel(intersect.Length());
-		bool above = intersect.y > 0;
-
-		// 根据以上参数就可以构造出旋转到水平位置后，边的顶点数组
-		GLfloat vertices[] = {
-			box2d->meter2Pixel(mv1.x), -rect.height / 2 + (above ? distance : -distance),
-			box2d->meter2Pixel(mv2.x), -rect.height / 2 + (above ? distance : -distance),
-			box2d->meter2Pixel(mv1.x), rect.height / 2 + (above ? distance : -distance),
-			box2d->meter2Pixel(mv2.x), rect.height / 2 + (above ? distance : -distance)
-		};
-
-		// 得到贴图坐标的范围
-		float left = rect.x / tex->getPixelWidth();
-		float right = (rect.x + rect.width) / tex->getPixelWidth();
-		float top = (rect.y + rect.height) / tex->getPixelHeight();
-		float bottom = rect.y / tex->getPixelHeight();
-		GLfloat texCoords[] = {
-			left, bottom,
-			right, bottom,
-			left, top,
-			right, top
-		};
-
-		// set array
-		glVertexPointer(2, GL_FLOAT, 0, vertices);
-		glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-		// draw
-		glPushMatrix();
-		{
-			glTranslatef(box2d->meter2Pixel(xf.p.x), box2d->meter2Pixel(xf.p.y), 0.0f);
-			glRotatef(wyMath::r2d(angle + slop), 0, 0, 1);
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-		}
-		glPopMatrix();
-	}
-
-	// restore old state
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
+	// TODO gles2
+//	// check texture
+//	if(tex == NULL)
+//		return;
+//
+//	// load texture info if has
+//	tex->load();
+//
+//	// get something
+//	b2ChainShape* chain = (b2ChainShape*)fixture->GetShape();
+//	const b2Transform& xf = body->GetTransform();
+//	int count = chain->m_count;
+//	const b2Vec2* vertices = chain->m_vertices;
+//	float angle = xf.q.GetAngle();
+//
+//	// enable state
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glEnable(GL_TEXTURE_2D);
+//
+//	// ensure current texture is active
+//	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
+//
+//	// repeat texture in both direction
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//
+//	for(int i = 0; i < count; i++) {
+//		// 得到一条边的倾斜角度, atan的返回值范围是-PI/2到-PI/2
+//		b2Vec2 v1 = vertices[i];
+//		b2Vec2 v2 = (i == count - 1) ? vertices[0] : vertices[i + 1];
+//		b2Vec2 v = v1;
+//		v -= v2;
+//		float slop = atan(v.y / v.x);
+//
+//		// 构造一个矩阵，可以让这条边旋转到水平位置
+//		b2Mat22 m = b2Mat22(-slop);
+//
+//		// 选择这条边，得到旋转后的两个端点
+//		b2Vec2 mv1 = b2Mul(m, v1);
+//		b2Vec2 mv2 = b2Mul(m, v2);
+//
+//		// 得到边长
+//		float length = v.Length();
+//
+//		// 计算从原点到这条边的距离
+//		float u = (-mv1.x * (mv2.x - mv1.x) + -mv1.y * (mv2.y - mv1.y)) / length / length;
+//		b2Vec2 intersect = b2Vec2(mv1.x + u * (mv2.x - mv1.x), mv1.y + u * (mv2.y - mv1.y));
+//		float distance = box2d->meter2Pixel(intersect.Length());
+//		bool above = intersect.y > 0;
+//
+//		// 根据以上参数就可以构造出旋转到水平位置后，边的顶点数组
+//		GLfloat vertices[] = {
+//			box2d->meter2Pixel(mv1.x), -rect.height / 2 + (above ? distance : -distance),
+//			box2d->meter2Pixel(mv2.x), -rect.height / 2 + (above ? distance : -distance),
+//			box2d->meter2Pixel(mv1.x), rect.height / 2 + (above ? distance : -distance),
+//			box2d->meter2Pixel(mv2.x), rect.height / 2 + (above ? distance : -distance)
+//		};
+//
+//		// 得到贴图坐标的范围
+//		float left = rect.x / tex->getPixelWidth();
+//		float right = (rect.x + rect.width) / tex->getPixelWidth();
+//		float top = (rect.y + rect.height) / tex->getPixelHeight();
+//		float bottom = rect.y / tex->getPixelHeight();
+//		GLfloat texCoords[] = {
+//			left, bottom,
+//			right, bottom,
+//			left, top,
+//			right, top
+//		};
+//
+//		// set array
+//		glVertexPointer(2, GL_FLOAT, 0, vertices);
+//		glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+//		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+//
+//		// draw
+//		glPushMatrix();
+//		{
+//			glTranslatef(box2d->meter2Pixel(xf.p.x), box2d->meter2Pixel(xf.p.y), 0.0f);
+//			glRotatef(wyMath::r2d(angle + slop), 0, 0, 1);
+//			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+//		}
+//		glPopMatrix();
+//	}
+//
+//	// restore old state
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisable(GL_TEXTURE_2D);
 }
 
 void wyBox2DRender::drawPolygon(wyBox2D* box2d, b2Fixture* fixture, b2Body* body, wyTexture2D* tex, wyRect rect) {
-	// check texture
-	if(tex == NULL)
-		return;
-
-	// load texture info if has
-	tex->load();
-
-	// get polygon and transform, compute aabb
-	b2PolygonShape* poly = (b2PolygonShape*)fixture->GetShape();
-	const b2Transform& xf = body->GetTransform();
-	b2AABB aabb;
-	poly->ComputeAABB(&aabb, b2Transform_identity, 0);
-	float shapeW = aabb.upperBound.x - aabb.lowerBound.x;
-	float shapeH = aabb.upperBound.y - aabb.lowerBound.y;
-
-	// create vertex and texture array
-	int count = poly->m_count;
-	GLfloat* VAR = (GLfloat*)malloc(count * 2 * sizeof(GLfloat));
-	GLfloat* TEX = (GLfloat*)malloc(count * 2 * sizeof(GLfloat));
-
-	// enable state
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-	glVertexPointer(2, GL_FLOAT, 0, VAR);
-	glTexCoordPointer(2, GL_FLOAT, 0, TEX);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-	// ensure current texture is active
-	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
-
-	// repeat texture in both direction
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	// fill array
-	float left = rect.x / tex->getPixelWidth();
-	float bottom = (rect.y + rect.height) / tex->getPixelHeight();
-	float width = rect.width / tex->getPixelWidth();
-	float height = rect.height / tex->getPixelHeight();
-	for (int i = 0; i < count; i++) {
-		VAR[2 * i] = box2d->meter2Pixel(poly->m_vertices[i].x);
-		VAR[2 * i + 1] = box2d->meter2Pixel(poly->m_vertices[i].y);
-
-		TEX[2 * i] = left + width * (poly->m_vertices[i].x - aabb.lowerBound.x) / shapeW;
-		TEX[2 * i + 1] = bottom - height * (poly->m_vertices[i].y - aabb.lowerBound.y) / shapeH;
-	}
-
-	glPushMatrix();
-	{
-		glTranslatef(box2d->meter2Pixel(xf.p.x), box2d->meter2Pixel(xf.p.y), 0.0f);
-		glRotatef(wyMath::r2d(xf.q.GetAngle()), 0, 0, 1);
-		glDrawArrays(GL_TRIANGLE_FAN, 0, count);
-	}
-	glPopMatrix();
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
-
-	// free
-	free(VAR);
-	free(TEX);
+	// TODO gles2
+//	// check texture
+//	if(tex == NULL)
+//		return;
+//
+//	// load texture info if has
+//	tex->load();
+//
+//	// get polygon and transform, compute aabb
+//	b2PolygonShape* poly = (b2PolygonShape*)fixture->GetShape();
+//	const b2Transform& xf = body->GetTransform();
+//	b2AABB aabb;
+//	poly->ComputeAABB(&aabb, b2Transform_identity, 0);
+//	float shapeW = aabb.upperBound.x - aabb.lowerBound.x;
+//	float shapeH = aabb.upperBound.y - aabb.lowerBound.y;
+//
+//	// create vertex and texture array
+//	int count = poly->m_count;
+//	GLfloat* VAR = (GLfloat*)malloc(count * 2 * sizeof(GLfloat));
+//	GLfloat* TEX = (GLfloat*)malloc(count * 2 * sizeof(GLfloat));
+//
+//	// enable state
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glEnable(GL_TEXTURE_2D);
+//	glVertexPointer(2, GL_FLOAT, 0, VAR);
+//	glTexCoordPointer(2, GL_FLOAT, 0, TEX);
+//	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+//
+//	// ensure current texture is active
+//	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
+//
+//	// repeat texture in both direction
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//
+//	// fill array
+//	float left = rect.x / tex->getPixelWidth();
+//	float bottom = (rect.y + rect.height) / tex->getPixelHeight();
+//	float width = rect.width / tex->getPixelWidth();
+//	float height = rect.height / tex->getPixelHeight();
+//	for (int i = 0; i < count; i++) {
+//		VAR[2 * i] = box2d->meter2Pixel(poly->m_vertices[i].x);
+//		VAR[2 * i + 1] = box2d->meter2Pixel(poly->m_vertices[i].y);
+//
+//		TEX[2 * i] = left + width * (poly->m_vertices[i].x - aabb.lowerBound.x) / shapeW;
+//		TEX[2 * i + 1] = bottom - height * (poly->m_vertices[i].y - aabb.lowerBound.y) / shapeH;
+//	}
+//
+//	glPushMatrix();
+//	{
+//		glTranslatef(box2d->meter2Pixel(xf.p.x), box2d->meter2Pixel(xf.p.y), 0.0f);
+//		glRotatef(wyMath::r2d(xf.q.GetAngle()), 0, 0, 1);
+//		glDrawArrays(GL_TRIANGLE_FAN, 0, count);
+//	}
+//	glPopMatrix();
+//
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisable(GL_TEXTURE_2D);
+//
+//	// free
+//	free(VAR);
+//	free(TEX);
 }

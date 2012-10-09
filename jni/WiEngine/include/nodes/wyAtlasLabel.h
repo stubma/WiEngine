@@ -1,16 +1,23 @@
 /*
  * Copyright (c) 2010 WiYun Inc.
-
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
-
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,9 +30,9 @@
 #define __wyAtlasLabel_h__
 
 #include "wyNode.h"
-#include "wyTextureAtlas.h"
 #include "wyHashSet.h"
 #include "wyCharProvider.h"
+#include "WiEngine-Classes.h"
 
 class wyCharMap;
 
@@ -76,67 +83,22 @@ public:
 	};
 
 protected:
-	/**
-	 * \if English
-	 * the label's content
-	 * \else
-	 * 标签显示内容的文字字符串
-	 * \endif
-	 */
+	/// the label's content
     const char* m_text;
 
-    /**
-     * \if English
-     * \link wyTextureAtlas wyTextureAtlas\endlink
-     * \else
-     * \link wyTextureAtlas wyTextureAtlas\endlink 对象
-     * \endif
-     */
-    wyTextureAtlas* m_atlas;
-
-    /**
-     * \if English
-     * \link wyCharMap wyCharMap\endlink
-     * \else
-     * 字符矩形映射表
-     * \endif
-     */
+    /// \link wyCharMap wyCharMap\endlink
     wyCharMap* m_map;
 
 	/**
-	 * \if English
 	 * line width of this label.
 	 * If content of the label can't be accommodated by a single line,
 	 * multiple lines will be applied. If this value is not specified,
 	 * one single line is applied.
-	 * \else
-	 * 行的宽度，将根据这个宽度决定共显示多少行, 节点的宽度将不超过
-	 * 行宽。缺省行宽是无穷大，因此如果不设置行宽，label就只会有
-	 * 一行
-	 * \endif
 	 */
 	float m_lineWidth;
 
 	/// line spacing, can be negative
 	float m_lineSpacing;
-
-	/**
-	 * \if English
-	 * see \link wyBlendFunc wyBlendFunc\endlink
-	 * \else
-	 * 渲染模式\link wyBlendFunc wyBlendFunc结构\endlink
-	 * \endif
-	 */
-    wyBlendFunc m_blendFunc;
-
-    /**
-     * \if English
-     * see \link wyColor4B wyColor4B\endlink
-     * \else
-     * 颜色\link wyColor4B wyColor4B结构\endlink
-     * \endif
-     */
-    wyColor4B m_color;
 
 	/// text alignment, can be left, center or right
 	Alignment m_alignment;
@@ -185,41 +147,23 @@ public:
 	 */
     virtual ~wyAtlasLabel();
 
-    /// @see wyNode::draw
-	virtual void draw();
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
+
+	/// @see wyGeometry::updateMaterial
+	virtual void updateMaterial();
+
+	/// @see wyGeometry::updateMesh
+	virtual void updateMesh();
+
+	/// @see wyGeometry::updateMeshColor
+	virtual void updateMeshColor();
 
 	/// @see wyNode::getText
 	virtual const char* getText() { return m_text; }
 
 	/// @see wyNode::setText
 	virtual void setText(const char* text);
-
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex) { m_atlas->setTexture(tex); }
 
 	/**
 	 * \if English
@@ -317,33 +261,16 @@ class WIENGINE_API wyCharMap : public wyObject, public wyCharProvider {
 	friend class wyAtlasLabel;
 
 private:
-	/**
-	 * \if English
-	 * hash map
-	 * \else
-	 * 字符映射表
-	 * \endif
-	 */
+	/// hash map of character utf-8 code to character
 	wyHashSet* m_charMap;
 
 	/**
-	 * \if English
 	 * the width of blank space character, if not specified by the font, this value will be used.
 	 * The default value is 6dp.
-	 * \else
-	 * 空格字符的像素宽度，如果位图字体中没有空格，则会使用
-	 * 这个宽度来作为空格的宽度, 缺省值是6dp
-	 * \endif
 	 */
 	float m_spaceWidth;
 
-	/**
-	 * \if English
-	 * the space count of character tab, 4 is used by default
-	 * \else
-	 * 一个制表符占的空格数，缺省是4
-	 * \endif
-	 */
+	/// the space count of character tab, 4 is used by default
 	int m_tabSize;
 
 	/// total height of all characters
@@ -354,24 +281,19 @@ private:
 	static void* buildCharHash(void* ptr, void* data);
     static bool releaseHash(void* elt, void* data);
 
-private:
-	static bool reverseVertices(wyTextureAtlas* atlas, wyQuad3D* v, void* data);
-
-	static void releaseLine(const char* line);
-
 protected:
     /**
-     * to update the character info in the \link wyTextureAtlas wyTextureAtlas\endlink
+     * to update the character info
      *
      * @param text null terminated c string, the string is utf-8 coded.
      * @param lineWidth line width
      * @param lineSpacing spacing between lines
      * @param alignment text alignment
-     * @param atlas \link wyTextureAtlas wyTextureAtlas\endlink
+     * @param atlas \link wyAtlasLabel wyAtlasLabel\endlink
      * @param w to return the updated width, can be NULL
      * @param h to return the updated height, can be NULL
      */
-    void updateAtlas(const char* text, float lineWidth, float lineSpacing, wyAtlasLabel::Alignment alignment, wyTextureAtlas* atlas, float* w, float* h);
+    void updateAtlas(const char* text, float lineWidth, float lineSpacing, wyAtlasLabel::Alignment alignment, wyAtlasLabel* atlas, float* w, float* h);
 
 	/**
 	 * Measure width of every lines

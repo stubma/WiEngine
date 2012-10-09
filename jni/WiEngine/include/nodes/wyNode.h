@@ -1,16 +1,23 @@
 ﻿/*
  * Copyright (c) 2010 WiYun Inc.
-
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
-
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,25 +29,17 @@
 #ifndef __wyNode_h__
 #define __wyNode_h__
 
+#include "WiEngine-Classes.h"
 #include <stdbool.h>
 #include "wyAction.h"
-#include "wyCamera.h"
-#include "wyBaseGrid.h"
-#include "wyScheduler.h"
 #include "wyTypes.h"
 #include "wyEvents.h"
 #include "wyArray.h"
-#include "wyAnimation.h"
 #include "wyTargetSelector.h"
-#include "wyParallaxObject.h"
-#include "wyGlobal.h"
-
-class wyTexture2D;
+#include "wyRenderQueue.h"
+#include "wyRenderState.h"
 
 #define INVALID_TAG -1
-
-class wyNode;
-class wyEventDispatcher;
 
 /**
  * @struct wyNodePositionListener
@@ -81,6 +80,9 @@ private:
 	wyTouchState m_state;
 
 protected:
+	/// render bucket
+	wyRenderQueue::Bucket m_queueBucket;
+
 	/// 转换矩阵，用来转换到父节点矩阵值
 	wyAffineTransform m_transformMatrix;
 
@@ -240,6 +242,43 @@ protected:
 
 	/// y aceleration in y axis, in pixels/second
 	float m_accelerationY;
+
+	/// mesh
+	wyMesh* m_mesh;
+
+	/// material
+	wyMaterial* m_material;
+
+	/**
+	 * true means this node has more than one material and so
+	 *
+	 * \note
+	 * Default node implemention only think node has only one material.
+	 * So must override isMultiMaterial to return true and
+	 * override get/setMaterial, get/setMesh and get/setLodLevel method.
+	 */
+	bool m_multiMaterial;
+
+	/// level of detail
+	int m_lodLevel;
+
+	/// texture related to this node
+	wyTexture2D* m_tex;
+
+	/// node color, meaningless for non-geometry node
+	wyColor4B m_color;
+
+	/// world matrix of this geometry
+	kmMat4 m_worldMatrix;
+
+	/// true means material should be updated
+	bool m_materialNeedUpdate;
+
+	/// true means mesh need to be updated
+	bool m_meshNeedUpdate;
+
+	/// true means mesh color need to be updated
+	bool m_meshColorNeedUpdate;
 
 	/// true indicating clip rect is set
 	bool m_hasClip;
@@ -408,11 +447,6 @@ protected:
 	 */
 	wyRect getBaseSizeClipRect(wyRect r);
 
-	/**
-	 * 进行clip, 方法会考虑当前的适配模式
-	 */
-	void doClip();
-
 public:
 	/// static creator
 	static wyNode* make();
@@ -422,10 +456,10 @@ public:
 
 	/**
 	 * \if English
-	 * Render this node and children in deep-first order
+	 * Self render method, default is empty. If \c isSelfDraw returns true, then
+	 * this method will be invoked
 	 * \else
-	 * 执行该节点的渲染。子类需要实现这个方法。这个方法调用时，坐标系会被转换到节点
-	 * 自身坐标系，即(0, 0)代表节点左下角
+	 * 如果\c isSelfDraw返回true, 那么这个方法将被调用, 在这里可以实现自定义的渲染逻辑
 	 * \endif
 	 */
 	virtual void draw();
@@ -1608,6 +1642,15 @@ public:
 
 	/**
 	 * \if English
+	 * Has clip rect set
+	 * \else
+	 * 节点是否有裁剪矩形
+	 * \endif
+	 */
+	bool hasClipRect() { return m_hasClip; }
+
+	/**
+	 * \if English
 	 * Get clip rect
 	 *
 	 * @return clip rectangle
@@ -2233,6 +2276,19 @@ public:
 	 * \endif
 	 */
 	wyBaseGrid* getGrid() { return m_grid; }
+
+	/**
+	 * \if English
+	 * Is grid active, if grid is NULL, returns false
+	 *
+	 * @return true means grid is active
+	 * \else
+	 * 是否网格是激活的, 如果没有网格, 返回false
+	 *
+	 * @return true表示网格目前是激活的
+	 * \endif
+	 */
+	bool isGridActive();
 
 	/**
 	 * \if English
@@ -2926,7 +2982,7 @@ public:
 	 * 得到当前alpha值
 	 * \endif
 	 */
-	virtual int getAlpha() { return 255; }
+	virtual int getAlpha() { return m_color.a; }
 
 	/**
 	 * \if English
@@ -2935,7 +2991,7 @@ public:
 	 * 设置alpha值
 	 * \endif
 	 */
-	virtual void setAlpha(int alpha) {}
+	virtual void setAlpha(int alpha);
 
 	/* IRGB */
 
@@ -2946,7 +3002,7 @@ public:
 	 * 得到当前颜色
 	 * \endif
 	 */
-	virtual wyColor3B getColor() { return wyc3bWhite; }
+	virtual wyColor3B getColor() { return wyc4b2c3b(m_color); }
 
 	/**
 	 * \if English
@@ -2955,7 +3011,7 @@ public:
 	 * 设置颜色
 	 * \endif
 	 */
-	virtual void setColor(wyColor3B color) {}
+	virtual void setColor(wyColor3B color);
 
 	/**
 	 * \if English
@@ -2964,29 +3020,63 @@ public:
 	 * 设置颜色
 	 * \endif
 	 */
-	virtual void setColor(wyColor4B color) {}
+	virtual void setColor(wyColor4B color);
+
+	/* IDitherable */
+
+	/**
+	 * \if English
+	 * Is dither enabled or not
+	 *
+	 * @return true means dither is enabled
+	 * \else
+	 * 是否打开抖动
+	 *
+	 * @return true表示抖动已打开
+	 * \endif
+	 */
+	virtual bool isDither();
+
+	/**
+	 * \if English
+	 * Enable dither or not
+	 *
+	 * @param flag true means enable dither
+	 * \else
+	 * 设置是否打开抖动
+	 *
+	 * @param flag true表示打开抖动, false表示不打开抖动
+	 * \endif
+	 */
+	virtual void setDither(bool flag);
 
 	/* IBlendable */
 
 	/**
 	 * \if English
-	 * Get node blending function
+	 * Get current blending mode
+	 *
+	 * @return blending mode
 	 * \else
-	 * 得到当前渲染模式\link wyBlendFunc wyBlendFunc结构\endlink
+	 * 得到当前渲染模式
+	 *
+	 * @return 渲染模式
 	 * \endif
 	 */
-	virtual wyBlendFunc getBlendFunc() { return wybfDefault; }
+	virtual wyRenderState::BlendMode getBlendMode();
 
 	/**
 	 * \if English
-	 * Set node blending function
+	 * Set current blending mode
+	 *
+	 * @param mode blending mode
 	 * \else
-	 * 设置\link wyBlendFunc wyBlendFunc结构\endlink,指定渲染模式
+	 * 设置当前渲染模式
+	 *
+	 * @param mode 渲染模式
 	 * \endif
 	 */
-	virtual void setBlendFunc(wyBlendFunc func) {}
-
-	/* ITextureOwner */
+	virtual void setBlendMode(wyRenderState::BlendMode mode);
 
 	/**
 	 * \if English
@@ -2995,7 +3085,7 @@ public:
 	 * 得到当前\link wyTexture2D wyTexture2D对象指针\endlink
 	 * \endif
 	 */
-	virtual wyTexture2D* getTexture() { return NULL; }
+	virtual wyTexture2D* getTexture() { return m_tex; }
 
 	/**
 	 * \if English
@@ -3004,9 +3094,7 @@ public:
 	 * 设置\link wyTexture2D wyTexture2D对象指针\endlink
 	 * \endif
 	 */
-	virtual void setTexture(wyTexture2D* tex) {}
-
-	/* IParallaxable */
+	virtual void setTexture(wyTexture2D* tex);
 
 	/**
 	 * \if English
@@ -3019,7 +3107,70 @@ public:
 	 * @return \link wyParallaxObject wyParallaxObject\endlink
 	 * \endif
 	 */
-	virtual wyParallaxObject* createParallaxObject() { return wyParallaxObject::make(); }
+	virtual wyParallaxObject* createParallaxObject();
+
+	/**
+	 * \if English
+	 * Is this node a visual element?
+	 *
+	 * @return true means this node is a visual element, a subclass of \link wyGeometry wyGeometry\endlink
+	 * \else
+	 * 这个节点是否是一个可见元素
+	 *
+	 * @return true表示这个节点是一个可见元素, 一个\link wyGeometry wyGeometry\endlink的子类
+	 * \endif
+	 */
+	virtual bool isGeometry() { return false; }
+
+	/**
+	 * \if English
+	 * Return true means this node implemented \c draw method to render it. If false,
+	 * \link wyRenderManager wyRenderManager\endlink will render this node. Of course this
+	 * flag is only valid when \c isGeometry returns true
+	 * self
+	 * \else
+	 * 返回true说明这个节点实现了\c draw方法实现自身的渲染. false表示\link wyRenderManager wyRenderManager\endlink
+	 * 会按照标准流程渲染这个节点. 这个标志仅当\c isGeometry返回true是有意义.
+	 * \endif
+	 */
+	virtual bool isSelfDraw() { return false; }
+
+	/**
+	 * \if English
+	 * Is this node visitable. "Visitable" means its children should be visited when
+	 * rendering this node
+	 * \else
+	 * 标识一个节点是否是可遍历的. "可遍历"指的是渲染该节点时必须递归的渲染每一个子节点
+	 * \endif
+	 */
+	virtual bool isVisitable() { return true; }
+
+	/**
+	 * \if English
+	 * Update material
+	 * \else
+	 * 更新材质参数
+	 * \endif
+	 */
+	virtual void updateMaterial() {}
+
+	/**
+	 * \if English
+	 * Update mesh
+	 * \else
+	 * 更新网格
+	 * \endif
+	 */
+	virtual void updateMesh() {}
+
+	/**
+	 * \if English
+	 * Update mesh color
+	 * \else
+	 * 更新网格颜色信息
+	 * \endif
+	 */
+	virtual void updateMeshColor() {}
 
 	/**
 	 * \if English
@@ -3189,7 +3340,7 @@ public:
 	 * @param data 附加数据指针
 	 * \endif
 	 */
-	void setPositionListener(wyNodePositionListener* listener, void* data);
+	virtual void setPositionListener(wyNodePositionListener* listener, void* data);
 
 	/**
 	 * \if English
@@ -3200,7 +3351,7 @@ public:
 	 * 缺省值是true, 即不让后续节点继续处理事件.
 	 * \endif
 	 */
-	void setInterceptTouch(bool flag) { m_interceptTouch = flag; }
+	virtual void setInterceptTouch(bool flag) { m_interceptTouch = flag; }
 
 	/**
 	 * \if English
@@ -3215,7 +3366,7 @@ public:
 	 * @return 如果\c node 是当前节点的子孙, 则返回true
 	 * \endif
 	 */
-	bool isAncestor(wyNode* node);
+	virtual bool isAncestor(wyNode* node);
 
 	/**
 	 * \if English
@@ -3224,7 +3375,7 @@ public:
 	 * 设置节点是否在非第一触点的情况下也触发点击事件
 	 * \endif
 	 */
-	void setMultiTouchClickable(bool flag) { m_multiTouchClickable = flag; }
+	virtual void setMultiTouchClickable(bool flag) { m_multiTouchClickable = flag; }
 
 	/**
 	 * \if English
@@ -3233,7 +3384,258 @@ public:
 	 * 节点是否在非第一触点的情况下也触发点击事件
 	 * \endif
 	 */
-	bool isMultiTouchClickable() { return m_multiTouchClickable; }
+	virtual bool isMultiTouchClickable() { return m_multiTouchClickable; }
+
+	/**
+	 * \if English
+	 * Set flag indicating material need to be updated before rendering
+	 *
+	 * @param flag true means need update
+	 * \else
+	 * 标记材质参数是否需要更新
+	 *
+	 * @param flag true表示材质参数需要更新
+	 * \endif
+	 */
+	virtual void setNeedUpdateMaterial(bool flag) { m_materialNeedUpdate = flag; }
+
+	/**
+	 * \if English
+	 * Set flag indicating mesh need to be updated before rendering
+	 *
+	 * @param flag true means need update
+	 * \else
+	 * 标记mesh需要被更新
+	 *
+	 * @param flag true表示mesh需要被更新
+	 * \endif
+	 */
+	virtual void setNeedUpdateMesh(bool flag) { m_meshNeedUpdate = flag; }
+
+	/**
+	 * \if English
+	 * Set flag indicating mesh color need to be updated before rendering
+	 *
+	 * @param flag true means need update
+	 * \else
+	 * 标记mesh的颜色信息需要被更新
+	 *
+	 * @param flag true表示mesh颜色需要被更新
+	 * \endif
+	 */
+	virtual void setNeedUpdateMeshColor(bool flag) { m_meshColorNeedUpdate = flag; }
+
+	/**
+	 * \if English
+	 * Is material need to be updated?
+	 *
+	 * @return true means need update
+	 * \else
+	 * 材质是否需要更新
+	 *
+	 * @return true表示需要更新
+	 * \endif
+	 */
+	virtual bool isNeedUpdateMaterial() { return m_materialNeedUpdate; }
+
+	/**
+	 * \if English
+	 * Is mesh need to be updated?
+	 *
+	 * @return true means need update
+	 * \else
+	 * mesh是否需要更新
+	 *
+	 * @return true表示需要更新
+	 * \endif
+	 */
+	virtual bool isNeedUpdateMesh() { return m_meshNeedUpdate; }
+
+	/**
+	 * \if English
+	 * Is mesh color need to be updated?
+	 *
+	 * @return true means need update
+	 * \else
+	 * mesh颜色是否需要更新
+	 *
+	 * @return true表示需要更新
+	 * \endif
+	 */
+	virtual bool isNeedUpdateMeshColor() { return m_meshColorNeedUpdate; }
+
+	/**
+	 * \if English
+	 * Return count of bounded material
+	 * \else
+	 * 返回该节点关联的材质个数
+	 * \endif
+	 */
+	virtual int getMaterialCount() { return 1; }
+
+	/**
+	 * \if English
+	 * True means this node has more than one material bounded
+	 * \else
+	 * 返回true则表示该节点有多张关联材质
+	 * \endif
+	 */
+	bool isMultiMaterial() { return getMaterialCount() > 1; }
+
+	/**
+	 * \if English
+	 * Set mesh
+	 *
+	 * @param mesh \link wyMesh wyMesh\endlink
+	 * @param index index of mesh, for node which only has one material, this parameter
+	 * 		is useless. So it is optional and default value is zero.
+	 * \else
+	 * 设置渲染数据
+	 *
+	 * @param mesh \link wyMesh wyMesh\endlink
+     * @param index mesh的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
+     * 		缺省是0
+	 * \endif
+	 */
+	virtual void setMesh(wyMesh* mesh, int index = 0);
+
+	/**
+	 * \if English
+	 * Get mesh
+	 *
+	 * @param index index of mesh, for node which only has one material, this parameter
+	 * 		is useless. So it is optional and default value is zero.
+	 * @return \link wyMesh wyMesh\endlink
+	 * \else
+	 * 得到渲染数据
+	 *
+     * @param index mesh的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
+     * 		缺省是0
+	 * @return \link wyMesh wyMesh\endlink
+	 * \endif
+	 */
+	virtual wyMesh* getMesh(int index = 0) { return m_mesh; }
+
+	/**
+	 * \if English
+	 * Get material
+	 *
+	 * @param m \link wyMaterial wyMaterial\endlink
+	 * @param index index of material, for node which only has one material, this parameter
+	 * 		is useless. So it is optional and default value is zero.
+	 * \else
+	 * 得到材质
+	 *
+	 * @param m \link wyMaterial wyMaterial\endlink
+     * @param index material的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
+     * 		缺省是0
+	 * \endif
+	 */
+	virtual void setMaterial(wyMaterial* m, int index = 0);
+
+	/**
+	 * \if English
+	 * Set material
+	 *
+	 * @param index index of material, for node which only has one material, this parameter
+	 * 		is useless. So it is optional and default value is zero.
+	 * @return \link wyMaterial wyMaterial\endlink
+	 * \else
+	 * 设置材质
+	 *
+     * @param index material的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
+     * 		缺省是0
+	 * @return \link wyMaterial wyMaterial\endlink
+	 * \endif
+	 */
+	virtual wyMaterial* getMaterial(int index = 0) { return m_material; }
+
+    /**
+     * \if English
+     * Returns the LOD level
+     *
+	 * @param index index of mesh, for node which only has one material, this parameter
+	 * 		is useless. So it is optional and default value is zero.
+     * @return the LOD level set
+     * \else
+     * 得到当前的模型精细等级
+     *
+     * @param index mesh的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
+     * 		缺省是0
+     * @return 模型精细等级
+     * \endif
+     */
+    virtual int getLodLevel(int index = 0) { return m_lodLevel; }
+
+    /**
+     * \if English
+     * Set the LOD level
+     *
+     * @param level the LOD level
+	 * @param index index of mesh, for node which only has one material, this parameter
+	 * 		is useless. So it is optional and default value is zero.
+     * \else
+     * 设置当前的模型精细等级
+     *
+     * @param level 模型精细等级
+     * @param index mesh的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
+     * 		缺省是0
+     * \endif
+     */
+    virtual void setLodLevel(int level, int index = 0);
+
+    /**
+     * \if English
+     * Get world matrix of this node. This is meaningless if this node
+	 * is not a geometry node
+     *
+     * @return world matrix
+     * \else
+     * 得到这个物体的模型矩阵, 因此只对有模型的节点才有实际意义
+     *
+     * @return 模型矩阵
+     * \endif
+     */
+    virtual kmMat4* getWorldMatrix() { return &m_worldMatrix; }
+
+	/**
+	 * \if English
+	 * Get clip rect which is transformed if relative self flag is true
+	 *
+	 * @return clip rect transformed
+	 * \else
+	 * 得到最终的裁剪矩形, 如果裁剪矩形是相对于自身的, 则这个方法可以获得最终的裁剪矩形
+	 *
+	 * @return 最终的裁剪矩形
+	 * \endif
+	 */
+	virtual wyRect getResolvedClipRect();
+
+	/**
+	 * \if English
+	 * Get queue bucket id, default value is \c wyRenderQueue::INHERIT
+	 *
+	 * @return queue bucket id
+	 * \else
+	 * 得到渲染队列标识, 缺省是\c wyRenderQueue::INHERIT
+	 *
+	 * @return 本节点所属的渲染队列标识
+	 * \endif
+	 */
+	virtual wyRenderQueue::Bucket getQueueBucket();
+
+	/**
+	 * \if English
+	 * Set queue bucket id
+	 *
+	 * @param bucket queue bucket id
+	 * \else
+	 * 设置渲染队列标识
+	 *
+	 * @param bucket 本节点所属的渲染队列标识
+	 * \endif
+	 */
+	virtual void setQueueBucket(wyRenderQueue::Bucket bucket) { m_queueBucket = bucket; }
 
 	/**
 	 * \if English

@@ -27,6 +27,9 @@
  * THE SOFTWARE.
  */
 #include "wyStripRibbon.h"
+#include "wyTexture2D.h"
+#include "wyQuadList.h"
+#include "wyMaterial.h"
 
 wyStripRibbon* wyStripRibbon::make(wyTexture2D* tex, wyColor4B color, float fade) {
 	wyStripRibbon* r = WYNEW wyStripRibbon(tex, color, fade);
@@ -34,52 +37,46 @@ wyStripRibbon* wyStripRibbon::make(wyTexture2D* tex, wyColor4B color, float fade
 }
 
 wyStripRibbon::wyStripRibbon(wyTexture2D* tex, wyColor4B color, float fade) : wyRibbon(fade) {
-	m_atlas = wyTextureAtlas::make(NULL);
-	m_atlas->retain();
+	// set texture
 	tex->setAntiAlias(false);
 	setTexture(tex);
-	m_atlas->setColor(color);
+
+	// create empty material and mesh
+	setMaterial(wyMaterial::make());
+	setMesh(wyQuadList::make());
+
+	// set blend mode
+	setBlendMode(wyRenderState::ALPHA);
+
+	// set color
+	setColor(color);
 }
 
 wyStripRibbon::~wyStripRibbon() {
-	wyObjectRelease(m_atlas);
 }
 
-void wyStripRibbon::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
+void wyStripRibbon::updateMaterial() {
+	// get texture parameter, if none, create
+	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(!mp) {
+		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
+		m_material->addParameter(p);
+	} else {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		mtp->setTexture(m_tex);
 	}
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-
-	bool newBlend = false;
-	if (m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-		newBlend = true;
-		glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-	}
-
-	m_atlas->drawAll();
-
-	if (newBlend)
-		glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
 }
 
-void wyStripRibbon::setTexture(wyTexture2D* tex) {
-	m_atlas->setTexture(tex);
+void wyStripRibbon::updateMeshColor() {
+	wyQuadList* atlas = (wyQuadList*)getMesh();
+	atlas->updateColor(m_color);
 }
 
 void wyStripRibbon::update(float delta) {
-	if(m_fadeTime != 0)
-		m_atlas->reduceAlpha(delta / m_fadeTime);
+	if(m_fadeTime != 0) {
+		wyQuadList* atlas = (wyQuadList*)getMesh();
+		atlas->reduceAlpha(delta / m_fadeTime);
+	}
 }
 
 void wyStripRibbon::addPoint(wyPoint location) {
@@ -93,11 +90,10 @@ void wyStripRibbon::addPoint(wyPoint location) {
 	}
 
 	// get texture info
-	wyTexture2D* tex = m_atlas->getTexture();
-	float tW = tex->getWidth();
-	float tH = tex->getHeight();
-	float texW = tW / tex->getPixelWidth();
-	float texH = tH / tex->getPixelHeight();
+	float tW = m_tex->getWidth();
+	float tH = m_tex->getHeight();
+	float texW = tW / m_tex->getPixelWidth();
+	float texH = tH / m_tex->getPixelHeight();
 
 	// get distance between last location and current location
 	float len = wypDistance(m_lastLocation, location);
@@ -107,7 +103,7 @@ void wyStripRibbon::addPoint(wyPoint location) {
 	float dy = location.y - m_lastLocation.y;
 
 	// get texture end
-	float tLen = len / tex->getPixelHeight();
+	float tLen = len / m_tex->getPixelHeight();
 	float tEnd = m_remaining + tLen;
 
 	// start cut
@@ -138,14 +134,15 @@ void wyStripRibbon::addPoint(wyPoint location) {
 }
 
 void wyStripRibbon::reset() {
-	m_atlas->removeAllQuads();
+	wyQuadList* atlas = (wyQuadList*)getMesh();
+	atlas->removeAllQuads();
 	m_preLastLocation = m_lastLocation = wypZero;
 	m_remaining = 0;
 	m_firstPoint = true;
 }
 
 void wyStripRibbon::addQuad(wyPoint pre, wyPoint from, wyPoint to, float tStart, float tEnd, float texW) {
-	float ribbonWidth = getTexture()->getWidth() * 0.5f;
+	float ribbonWidth = m_tex->getWidth() * 0.5f;
 	wyPoint sub1 = (pre.x == from.x && pre.y == from.y) ? wypSub(from, to) : wypSub(pre, from);
 	wyPoint sub2 = wypSub(from, to);
 	float r1 = wypToRadian(sub1) + M_PI / 2;
@@ -165,5 +162,6 @@ void wyStripRibbon::addQuad(wyPoint pre, wyPoint from, wyPoint to, float tStart,
 	wyQuad2D t;
 	wyq3Set(v, bl.x, bl.y, 0, br.x, br.y, 0, tl.x, tl.y, 0, tr.x, tr.y, 0);
 	wyq2Set(t, 0, tEnd, texW, tEnd, 0, tStart, texW, tStart);
-	m_atlas->appendQuad(t, v);
+	wyQuadList* atlas = (wyQuadList*)getMesh();
+	atlas->appendQuad(t, v);
 }

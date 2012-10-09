@@ -43,6 +43,9 @@ wyScene::wyScene() : m_backKeyTracing(false) {
 	// we need a node which can handle back key, so the scene is
 	// the best candidate
 	setKeyEnabled(true);
+
+	// for wyScene, we default manage it in GUI bucket
+	setQueueBucket(wyRenderQueue::GUI_BUCKET);
 }
 
 wyScene::~wyScene() {

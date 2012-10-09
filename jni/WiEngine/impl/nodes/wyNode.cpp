@@ -34,8 +34,15 @@
 #include "wyUtils.h"
 #include "wyActionManager.h"
 #include "wyEventDispatcher.h"
-#include "wyParallaxObject.h"
 #include "wyLog.h"
+#include "wyMaterial.h"
+#include "wyMesh.h"
+#include "wyParallaxObject.h"
+#include "wyMaterial.h"
+#include "wyAnimation.h"
+#include "wyScheduler.h"
+#include "wyCamera.h"
+#include "wyBaseGrid.h"
 #if ANDROID
 	#include "wyJNI.h"
 #endif
@@ -352,7 +359,7 @@ void wyNode::visit() {
 		return;
 
 	// should push matrix to avoid disturb current matrix
-	glPushMatrix();
+	kmGLPushMatrix();
 
 	// if grid is set, prepare grid
 	// if not, transform self
@@ -362,10 +369,6 @@ void wyNode::visit() {
 	} else {
 		transform();
 	}
-
-	// check clip
-	if(m_hasClip)
-		doClip();
 
 	// draw children whose z order is less than zero
 	for(int i = 0; i < m_children->num; i++) {
@@ -386,57 +389,39 @@ void wyNode::visit() {
 			n->visit();
 	}
 
-	// restore
-	if(m_hasClip && gDirector)
-		gDirector->popClipRect();
-
 	// if grid is set, end grid
 	if(hasGrid) {
 		m_grid->afterDraw(this);
 	}
 
 	// pop matrix
-	glPopMatrix();
+	kmGLPopMatrix();
 }
 
 void wyNode::transform() {
-	// translate
-	if(m_relativeAnchorPoint) {
-		glTranslatef(-m_anchorPointX, -m_anchorPointY, m_vertexZ);
-	}
+	// get node to parent matrix
+	kmMat4 worldMatrix;
+	updateNodeToParentTransform();
+	wyaToGL(m_transformMatrix, worldMatrix.mat);
 
-	// translate to position and anchor
-	glTranslatef(m_positionX + m_anchorPointX, m_positionY + m_anchorPointY, m_vertexZ);
+	// Update Z vertex manually
+	worldMatrix.mat[14] = m_vertexZ;
 
-	// rotate
-	if(m_rotation != 0.0f) {
-		glRotatef(-m_rotation, 0.0f, 0.0f, 1.0f);
-	}
+	// append node matrix to current module view matrix
+	kmGLMultMatrix(&worldMatrix);
 
-	// skew
-	if(m_skewX != 0 || m_skewY != 0) {
-		wyAffineTransform skewMatrix = wya(1.0f, tanf(wyMath::d2r(-m_skewY)), tanf(wyMath::d2r(m_skewX)), 1.0f, 0.0f, 0.0f);
-		GLfloat	glMatrix[16];
-		wyaToGL(skewMatrix, glMatrix);
-		glMultMatrixf(glMatrix);
-	}
-
-	// scale
-	if(m_scaleX != 1.0f || m_scaleY != 1.0f) {
-		glScalef(m_scaleX, m_scaleY, 1.0f);
-	}
-
-	/*
-	 * if camera is available, locate it
-	 * In previous version, this should not be performed when grid is active,
-	 * but now is ok, because grid render currently is independent of node transform
-	 */
+	// if camera is available and grid is not, locate camera
+	// because we calculate matrix already, so need compensate the anchor point loss
 	if(m_camera != NULL) {
-		m_camera->locate();
-	}
+		bool translate = m_anchorPointX != 0 || m_anchorPointY != 0;
+		if(translate)
+			kmGLTranslatef(m_anchorPointX, m_anchorPointY, 0);
 
-	// restore and reposition point
-	glTranslatef(-m_anchorPointX, -m_anchorPointY, m_vertexZ);
+		kmGLMultMatrix(m_camera->getViewMatrix());
+
+		if(translate)
+			kmGLTranslatef(-m_anchorPointX, -m_anchorPointY, 0);
+	}
 }
 
 void wyNode::transformAncestors() {
@@ -446,7 +431,7 @@ void wyNode::transformAncestors() {
 	}
 }
 
-void wyNode::doClip() {
+wyRect wyNode::getResolvedClipRect() {
 	// get clip rect relative to base size
 	wyRect r = m_clipRect;
 
@@ -462,9 +447,7 @@ void wyNode::doClip() {
 	if(wyDevice::scaleMode != SCALE_MODE_BY_DENSITY)
 		r = getBaseSizeClipRect(r);
 
-	// apply it
-	if(gDirector)
-		gDirector->pushClipRect(r);
+	return r;
 }
 
 void wyNode::onEnter() {
@@ -584,6 +567,9 @@ wyNode::~wyNode() {
 	}
 
 	// release members
+	wyObjectRelease(m_tex);
+	wyObjectRelease(m_mesh);
+	wyObjectRelease(m_material);
 	wyObjectRelease(m_camera);
 	wyObjectRelease(m_grid);
 	wyObjectRelease(m_downSelector);
@@ -668,6 +654,7 @@ void wyNode::setContentSize(float w, float h) {
 		m_anchorPointX = w * m_anchorX;
 		m_anchorPointY = h * m_anchorY;
 		setTransformDirty();
+		setNeedUpdateMesh(true);
 	}
 }
 
@@ -1040,6 +1027,7 @@ bool wyNode::onSingleTapUp(wyMotionEvent& e) {
 }
 
 wyNode::wyNode() :
+		m_queueBucket(wyRenderQueue::INHERIT_BUCKET),
 		m_transformMatrix(wyaZero),
 		m_inverseMatrix(wyaZero),
 		m_transformDirty(true),
@@ -1092,6 +1080,14 @@ wyNode::wyNode() :
 		m_grid(NULL),
 		m_camera(NULL),
 		m_timers(NULL),
+		m_material(NULL),
+		m_mesh(NULL),
+		m_lodLevel(0),
+		m_tex(NULL),
+		m_color(wyc4bWhite),
+		m_meshColorNeedUpdate(false),
+		m_materialNeedUpdate(false),
+		m_meshNeedUpdate(false),
 		m_touchCoffin(NULL),
 #if ANDROID
 		m_jTouchHandler(NULL),
@@ -1155,30 +1151,46 @@ void wyNode::setRelativeAnchorPoint(bool flag) {
 
 void wyNode::updateNodeToParentTransform() {
 	if(m_transformDirty) {
-		m_transformMatrix = wyaIdentity;
-
-		if(!m_relativeAnchorPoint && (m_anchorPointX != 0 || m_anchorPointY != 0))
-			wyaTranslate(&m_transformMatrix, m_anchorPointX, m_anchorPointY);
-
-		if(m_positionX != 0 || m_positionY != 0)
-			wyaTranslate(&m_transformMatrix, m_positionX, m_positionY);
-
-		if(m_rotation != 0)
-			wyaRotate(&m_transformMatrix, -wyMath::d2r(m_rotation));
-
-		if(m_skewX != 0 || m_skewY != 0) {
-			// create a skewed coordinate system
-			// apply the skew to the transform
-			wyAffineTransform skew = wya(1.0f, tanf(wyMath::d2r(-m_skewY)), tanf(wyMath::d2r(m_skewX)), 1.0f, 0.0f, 0.0f);
-			wyaConact(&skew, &m_transformMatrix);
-			m_transformMatrix = skew;
+		// Translate values
+		float x = m_positionX;
+		float y = m_positionY;
+		if(!m_relativeAnchorPoint) {
+			x += m_anchorPointX;
+			y += m_anchorPointY;
 		}
 
-		if(m_scaleX != 1.f || m_scaleY != 1.f)
-			wyaScale(&m_transformMatrix, m_scaleX, m_scaleY);
+		// Rotation values
+		float c = 1, s = 0;
+		if(m_rotation != 0) {
+			float radians = -wyMath::d2r(m_rotation);
+			c = cosf(radians);
+			s = sinf(radians);
+		}
 
-		if(m_anchorPointX != 0 || m_anchorPointY != 0)
-			wyaTranslate(&m_transformMatrix, -m_anchorPointX, -m_anchorPointY);
+		// need skew or not?
+		bool needsSkewMatrix = m_skewX != 0 || m_skewY != 0;
+
+		// optimization:
+		// inline anchor point calculation if skew is not needed
+		if(!needsSkewMatrix && !(m_anchorPointX == 0 && m_anchorPointY == 0)) {
+			x += c * -m_anchorPointX * m_scaleX + -s * -m_anchorPointY * m_scaleY;
+			y += s * -m_anchorPointX * m_scaleX + c * -m_anchorPointY * m_scaleY;
+		}
+
+		// Build Transform Matrix
+		m_transformMatrix = wya(c * m_scaleX, s * m_scaleX, -s * m_scaleY, c * m_scaleY, x, y);
+
+		// XXX: Try to inline skew
+		// If skew is needed, apply skew and then anchor point
+		if(needsSkewMatrix) {
+			wyAffineTransform skewMatrix = wya(1.0f, tanf(wyMath::d2r(-m_skewY)), tanf(wyMath::d2r(m_skewX)), 1.0f, 0.0f, 0.0f);
+			wyaConact(&skewMatrix, &m_transformMatrix);
+			m_transformMatrix = skewMatrix;
+
+			// adjust anchor point
+			if(!(m_anchorPointX == 0 && m_anchorPointY == 0))
+				wyaTranslate(&m_transformMatrix, -m_anchorPointX, -m_anchorPointY);
+		}
 
 		m_transformDirty = false;
 	}
@@ -1720,4 +1732,121 @@ void wyNode::setUserData(wyUserData& ud) {
 #endif
 
 	memcpy(&m_data, &ud, sizeof(wyUserData));
+}
+
+void wyNode::setTexture(wyTexture2D* tex) {
+	wyObjectRetain(tex);
+	wyObjectRelease(m_tex);
+	m_tex = tex;
+
+	// flag update
+	setNeedUpdateMaterial(true);
+	setNeedUpdateMesh(true);
+}
+
+void wyNode::setMesh(wyMesh* mesh, int index) {
+	wyObjectRetain(mesh);
+	wyObjectRelease(m_mesh);
+	m_mesh = mesh;
+}
+
+void wyNode::setMaterial(wyMaterial* m, int index) {
+	wyObjectRetain(m);
+	wyObjectRelease(m_material);
+	m_material = m;
+}
+
+void wyNode::setLodLevel(int level, int index) {
+	if(!m_mesh) {
+		LOGW("wyNode::setLodLevel: no mesh is bound for this node so no LOD level is available");
+		return;
+	}
+
+	if(m_mesh->getNumberOfLodLevel() == 0) {
+		LOGW("wyNode::setLodLevel: no LOD data set on geometry mesh");
+		return;
+	}
+
+	if(level < 0 || level >= m_mesh->getNumberOfLodLevel()) {
+		LOGW("wyNode::setLodLevel: level %d is not valid");
+		return;
+	}
+
+	m_lodLevel = level;
+}
+
+wyRenderQueue::Bucket wyNode::getQueueBucket() {
+    if (m_queueBucket != wyRenderQueue::INHERIT_BUCKET) {
+        return m_queueBucket;
+    } else if (m_parent) {
+        return m_parent->getQueueBucket();
+    } else {
+        return wyRenderQueue::OPAQUE_BUCKET;
+    }
+}
+
+void wyNode::setAlpha(int alpha) {
+	m_color.a = alpha;
+	setNeedUpdateMeshColor(true);
+}
+
+void wyNode::setColor(wyColor3B color) {
+	m_color.r = color.r;
+	m_color.g = color.g;
+	m_color.b = color.b;
+	setNeedUpdateMeshColor(true);
+}
+
+void wyNode::setColor(wyColor4B color) {
+	m_color.r = color.r;
+	m_color.g = color.g;
+	m_color.b = color.b;
+	m_color.a = color.a;
+	setNeedUpdateMeshColor(true);
+}
+
+bool wyNode::isDither() {
+	if(getMaterialCount() > 0) {
+		wyTechnique* tech = getMaterial(0)->getTechnique();
+		wyRenderState* rs = tech->getRenderState();
+		return rs->ditherEnabled;
+	} else {
+		return false;
+	}
+}
+
+void wyNode::setDither(bool flag) {
+	int count = getMaterialCount();
+    for(int i = 0; i < count; i++) {
+		wyTechnique* tech = getMaterial(i)->getTechnique();
+		wyRenderState* rs = tech->getRenderState();
+		rs->ditherEnabled = flag;
+    }
+}
+
+wyRenderState::BlendMode wyNode::getBlendMode() {
+	if(getMaterialCount() > 0) {
+		wyTechnique* tech = getMaterial(0)->getTechnique();
+		wyRenderState* rs = tech->getRenderState();
+		return rs->blendMode;
+	} else {
+		return wyRenderState::NO_BLEND;
+	}
+}
+
+void wyNode::setBlendMode(wyRenderState::BlendMode mode) {
+	int count = getMaterialCount();
+    for(int i = 0; i < count; i++) {
+		wyTechnique* tech = getMaterial(i)->getTechnique();
+		wyRenderState* rs = tech->getRenderState();
+		rs->blendMode = mode;
+    }
+}
+
+wyParallaxObject* wyNode::createParallaxObject() { 
+	return wyParallaxObject::make(); 
+}
+
+bool wyNode::isGridActive() { 
+	return m_grid != NULL && m_grid->isActive(); 
 }

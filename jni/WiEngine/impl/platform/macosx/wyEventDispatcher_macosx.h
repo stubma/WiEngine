@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 #ifndef __wyEventDispatcher_macosx_h__
 #define __wyEventDispatcher_macosx_h__
 

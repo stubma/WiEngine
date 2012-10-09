@@ -32,6 +32,9 @@
 #include "wyZwoptexManager.h"
 #include "wyTypes.h"
 #include "wyUtils.h"
+#include "wyMaterial.h"
+#include "wyQuadList.h"
+#include "wyMaterialTextureParameter.h"
 #if ANDROID
 	#include "wyJNI.h"
 #endif
@@ -107,19 +110,6 @@ void* wyCharMap::buildCharHash(void* ptr, void* data) {
 	return hash;
 }
 
-bool wyCharMap::reverseVertices(wyTextureAtlas* atlas, wyQuad3D* v, void* data) {
-	float height = *(float*)data;
-	v->bl_y = height - v->bl_y;
-	v->br_y = height - v->br_y;
-	v->tl_y = height - v->tl_y;
-	v->tr_y = height - v->tr_y;
-	return true;
-}
-
-void wyCharMap::releaseLine(const char* line) {
-	wyFree((void*)line);
-}
-
 vector<float>* wyCharMap::measureWidth(vector<const char*>* lines) {
 	vector<float>* widthList = WYNEW vector<float>();
 	widthList->reserve(lines->size());
@@ -175,8 +165,9 @@ vector<float>* wyCharMap::measureWidth(vector<const char*>* lines) {
 	return widthList;
 }
 
-void wyCharMap::updateAtlas(const char* text, float lineWidth, float lineSpacing, wyAtlasLabel::Alignment alignment, wyTextureAtlas* atlas, float* w, float* h) {
+void wyCharMap::updateAtlas(const char* text, float lineWidth, float lineSpacing, wyAtlasLabel::Alignment alignment, wyAtlasLabel* label, float* w, float* h) {
 	// clear atlas
+	wyQuadList* atlas = (wyQuadList*)label->getMesh();
 	atlas->removeAllQuads();
 
 	// if text is null, do nothing
@@ -208,8 +199,8 @@ void wyCharMap::updateAtlas(const char* text, float lineWidth, float lineSpacing
 	float prevLineHeight = 0;
 
 	// texture size
-	float texPixelWidth = atlas->getTexture()->getPixelWidth();
-	float texPixelHeight = atlas->getTexture()->getPixelHeight();
+	float texPixelWidth = label->getTexture()->getPixelWidth();
+	float texPixelHeight = label->getTexture()->getPixelHeight();
 
 	// render line one by one
 	for(vector<const char*>::iterator iter = lines->begin(); iter != lines->end(); iter++, line++) {
@@ -376,11 +367,12 @@ void wyCharMap::updateAtlas(const char* text, float lineWidth, float lineSpacing
 		*h = y;
 
 	// batch update vertices
-	atlas->iterateQuad3D(reverseVertices, &y);
+	atlas->scale(1, -1, 1);
+	atlas->translate(0, y, 0);
 	
 	// release
 	for(vector<const char*>::iterator iter = lines->begin(); iter != lines->end(); iter++) {
-		releaseLine(*iter);
+		wyFree((void*)*iter);
 	}
 	WYDELETE(lines);
 	WYDELETE(widthList);
@@ -475,7 +467,6 @@ float wyCharMap::measureText(const char* chars, int length, float spaceWidth, fl
 }
 
 wyAtlasLabel::~wyAtlasLabel() {
-	m_atlas->release();
 	m_map->release();
 	if(m_text != NULL)
 		wyFree((void*)m_text);
@@ -484,15 +475,22 @@ wyAtlasLabel::~wyAtlasLabel() {
 wyAtlasLabel::wyAtlasLabel(const char* text, wyTexture2D* tex, wyCharMap* map) :
 		m_text(NULL),
 		m_lineSpacing(0),
-		m_lineWidth(MAX_FLOAT),
-		m_blendFunc(wybfDefault),
-		m_color(wyc4bWhite) {
-	m_atlas = wyTextureAtlas::make(tex);
-	m_atlas->retain();
-
+		m_lineWidth(MAX_FLOAT) {
+	// create char map
 	m_map = map;
 	m_map->retain();
 
+	// set texture
+	setTexture(tex);
+
+	// create empty material and mesh
+	setMaterial(wyMaterial::make());
+	setMesh(wyQuadList::make());
+
+	// set blend mode
+	setBlendMode(wyRenderState::ALPHA);
+
+	// set text
 	setText(text);
 }
 
@@ -501,63 +499,34 @@ wyAtlasLabel* wyAtlasLabel::make(const char* text, wyTexture2D* tex, wyCharMap* 
 	return (wyAtlasLabel*)n->autoRelease();
 }
 
-wyColor3B wyAtlasLabel::getColor() {
-	wyColor3B c = {
-		m_color.r,
-		m_color.g,
-		m_color.b
-	};
-	return c;
-}
-
-void wyAtlasLabel::setColor(wyColor3B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-}
-
-void wyAtlasLabel::setColor(wyColor4B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	m_color.a = color.a;
-}
-
-void wyAtlasLabel::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
+void wyAtlasLabel::updateMaterial() {
+	// get texture parameter, if none, create
+	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(!mp) {
+		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
+		m_material->addParameter(p);
+	} else {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		mtp->setTexture(m_tex);
 	}
+}
 
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnable(GL_TEXTURE_2D);
+void wyAtlasLabel::updateMesh() {
+	float w, h;
+	m_map->updateAtlas(m_text, m_lineWidth, m_lineSpacing, m_alignment, this, &w, &h);
+	setContentSize(w, h);
 
-    glColor4f(m_color.r / 255.0f, m_color.g / 255.0f, m_color.b / 255.0f, m_color.a / 255.0f);
+	// setContentSize will set flag to true, so clear it because we already updated mesh
+	setNeedUpdateMesh(false);
+}
 
-    bool newBlend = false;
-    if (m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-        newBlend = true;
-        glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-    }
-
-	m_atlas->drawAll();
-
-    if (newBlend)
-        glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-    glDisable(GL_TEXTURE_2D);
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+void wyAtlasLabel::updateMeshColor() {
+	wyQuadList* quadList = (wyQuadList*)getMesh();
+	quadList->updateColor(m_color);
 }
 
 void wyAtlasLabel::setText(const char* text) {
 	size_t len = wyUtils::strlen8(text);
-	m_atlas->resizeCapacity(len);
 
 	if(m_text != text) {
 		if(m_text != NULL)
@@ -565,33 +534,22 @@ void wyAtlasLabel::setText(const char* text) {
 		m_text = wyUtils::copy(text);
 	}
 
-	float w, h;
-	m_map->updateAtlas(m_text, m_lineWidth, m_lineSpacing, m_alignment, m_atlas, &w, &h);
-	setContentSize(w, h);
+	updateMesh();
 }
 
 void wyAtlasLabel::setLineWidth(float width) {
 	if(m_lineWidth != width) {
 		m_lineWidth = width;
-
-		float w, h;
-		m_map->updateAtlas(m_text, m_lineWidth, m_lineSpacing, m_alignment, m_atlas, &w, &h);
-		setContentSize(w, h);
+		updateMesh();
 	}
 }
 
 void wyAtlasLabel::setLineSpacing(float spacing) {
 	m_lineSpacing = spacing;
-
-	float w, h;
-	m_map->updateAtlas(m_text, m_lineWidth, m_lineSpacing, m_alignment, m_atlas, &w, &h);
-	setContentSize(w, h);
+	updateMesh();
 }
 
 void wyAtlasLabel::setAlignment(Alignment alignment) {
 	m_alignment = alignment;
-
-	float w, h;
-	m_map->updateAtlas(m_text, m_lineWidth, m_lineSpacing, m_alignment, m_atlas, &w, &h);
-	setContentSize(w, h);
+	updateMesh();
 }

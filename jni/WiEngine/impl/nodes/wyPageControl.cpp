@@ -32,6 +32,7 @@
 #include "wyTypes.h"
 #include "wyUtils.h"
 #include "wyEventDispatcher.h"
+#include "wyScheduler.h"
 
 #if ANDROID
 #include "wyUtils_android.h"

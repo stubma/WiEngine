@@ -39,6 +39,8 @@
 #include "wyEvents.h"
 #include "wyDirector.h"
 #include "wyWinGLView.h"
+#include "wyTargetSelector.h"
+#include "wyResourceDecoder.h"
 
 #define PNG_BYTES_TO_CHECK 8
 

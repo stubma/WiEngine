@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include "wyLog.h"
 #include "wyGLTexture2D.h"
+#include "wyRunnable.h"
 
 // mutex
 extern pthread_mutex_t gMutex;

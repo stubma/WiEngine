@@ -323,9 +323,6 @@ public:
 	 */
 	virtual ~wyBitmapFontLabel();
 
-	/// @see wyNode::draw()
-	virtual void draw();
-
 	/// @see wyNode::setText
 	virtual void setText(const char* text);
 
@@ -341,21 +338,6 @@ public:
 	 * 获得字体
 	 */
 	wyBitmapFont* getFont() { return m_font; };
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color) { m_color = color; }
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
 
 	/**
 	 * 设置一个空格的像素宽度

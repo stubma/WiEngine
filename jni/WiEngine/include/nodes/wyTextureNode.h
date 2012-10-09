@@ -1,16 +1,23 @@
 /*
  * Copyright (c) 2010 WiYun Inc.
-
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
-
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -39,17 +46,8 @@
  */
 class WIENGINE_API wyTextureNode : public wyNode {
 protected:
-    /// 图片显示的\link wyTexture2D wyTexture2D对象指针\endlink
-    wyTexture2D* m_tex;
-
     /// 原始的贴图对象，由于可以在节点上设置帧，所以对于原始的贴图需要保留一份引用以便动画结束时能够恢复
     wyTexture2D* m_originalTex;
-
-    /// 渲染模式\link wyBlendFunc wyBlendFunc结构\endlink
-    wyBlendFunc m_blendFunc;
-
-	/// 颜色\link wyColor4B wyColor4B结构\endlink
-	wyColor4B m_color;
     
     /// true表示原始的贴图数据已经被保存
     bool m_originSaved;
@@ -70,41 +68,6 @@ protected:
 
 	/// true表示图片来源于一个图片集，则图片集中的图片被顺时针旋转了90度
 	bool m_rotatedZwoptex;
-
-	/// 是否打开alpha blending, 缺省是打开的
-	bool m_blend;
-
-	/**
-	 * \if English
-	 * enable alpha test or not
-	 * \else
-	 * true表示打开alpha测试, false表示不打开
-	 * \endif
-	 */
-	bool m_alphaTest;
-
-	/**
-	 * \if English
-	 * alpha function defined by OpenGL
-	 * \else
-	 * alpha测试方式, 由OpenGL定义
-	 * \endif
-	 */
-	GLenum m_alphaFunc;
-
-	/**
-	 * \if English
-	 * Alpha reference value, from 0 to 1
-	 * \else
-	 * alpha参考值, 从0到1
-	 * \endif
-	 */
-	float m_alphaRef;
-
-	/**
-	 * 标识是否抖动图片, 抖动可以消除某些颜色值丰富的图片显示时的渐变感
-	 */
-	bool m_dither;
 
 	/**
 	 * true表示渲染时，贴图会自动适配节点的大小。这样的话，如果贴图大小不等于
@@ -159,39 +122,19 @@ public:
 	 */
 	virtual ~wyTextureNode();
 
-	/// @see wyNode::draw
-	virtual void draw();
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
 
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
+	/// @see wyGeometry::updateMaterial
+	virtual void updateMaterial();
 
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
+	/// @see wyGeometry::updateMesh
+	virtual void updateMesh();
 
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
+	/// @see wyGeometry::updateMeshColor
+	virtual void updateMeshColor();
 
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_tex; }
-
-	/**
-	 * 设置贴图, 贴图设置后, 如果\c m_autoFit为true, 则不改变节点本身大小.
-	 * 如果\c m_autoFit为false, 则将把节点大小修改为贴图大小
-	 *
-	 * @param tex \link wyTexture2D wyTexture2D\endlink
-	 */
+	/// @see wyNode::setTexture
 	virtual void setTexture(wyTexture2D* tex);
 
 	/**
@@ -254,34 +197,6 @@ public:
 	 * @return 是否以X轴为转动轴翻转图片，true为翻转
 	 */
 	bool isFlipY() { return m_flipY; }
-
-	/**
-	 * 是否打开抖动
-	 *
-	 * @return true表示打开抖动, false表示不打开抖动
-	 */
-	bool isDither() { return m_dither; }
-
-	/**
-	 * 设置是否打开抖动
-	 *
-	 * @param flag true表示打开抖动, false表示不打开抖动
-	 */
-	void setDither(bool flag) { m_dither = flag; }
-
-	/**
-	 * 是否进行alpha渲染
-	 *
-	 * @return true表示打开alpha blending
-	 */
-	bool isBlend() { return m_blend; }
-
-	/**
-	 * 是否打开alpha渲染, 对于不透明的大图片, 可以考虑关闭blend以提升性能
-	 *
-	 * @param flag true表示打开alpha渲染
-	 */
-	void setBlend(bool flag) { m_blend = flag; }
 
 	/**
 	 * 设置图片来源是一个图片集，且被顺时针旋转了90度

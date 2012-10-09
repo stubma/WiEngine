@@ -115,12 +115,12 @@ void wyMenuItemSprite::setColor(wyColor4B color) {
 		m_disabledState->setColor(color);
 }
 
-void wyMenuItemSprite::setBlendFunc(wyBlendFunc func) {
-	m_normalState->setBlendFunc(func);
+void wyMenuItemSprite::setBlendMode(wyRenderState::BlendMode mode) {
+	m_normalState->setBlendMode(mode);
 	if(m_selectedState != NULL)
-		m_selectedState->setBlendFunc(func);
+		m_selectedState->setBlendMode(mode);
 	if(m_disabledState != NULL)
-		m_disabledState->setBlendFunc(func);
+		m_disabledState->setBlendMode(mode);
 }
 
 void wyMenuItemSprite::setRotation(float rot) {

@@ -111,20 +111,22 @@ namespace Other {
 		}
 		
 		void onSelectAlphaFunc(wyTargetSelector* ts) {
-			m_currentFunc++;
-			m_currentFunc %= 7;
-			m_alphaFunc = ALPHA_FUNC[m_currentFunc];
-			m_funcLabel->setText(ALPHA_FUNC_TEXT[m_currentFunc]);
-			m_sprite->setAlphaFunc(m_alphaFunc, m_slider->getValue() / 255.f);
+			// TODO gles2
+			//m_currentFunc++;
+			//m_currentFunc %= 7;
+			//m_alphaFunc = ALPHA_FUNC[m_currentFunc];
+			//m_funcLabel->setText(ALPHA_FUNC_TEXT[m_currentFunc]);
+			//m_sprite->setAlphaFunc(m_alphaFunc, m_slider->getValue() / 255.f);
 		}
 		
 		static void onValueChanged(wySlider* slider, void* data) {
-			wyAlphaTestTestLayer* layer = (wyAlphaTestTestLayer*)data;
-			layer->m_sprite->setAlphaFunc(layer->m_alphaFunc, slider->getValue() / 255.f);
-			
-			char buf[8];
-			sprintf(buf, "%d", (int)slider->getValue());
-			layer->m_hint->setText(buf);
+			// TODO gles2
+			//wyAlphaTestTestLayer* layer = (wyAlphaTestTestLayer*)data;
+			//layer->m_sprite->setAlphaFunc(layer->m_alphaFunc, slider->getValue() / 255.f);
+			//
+			//char buf[8];
+			//sprintf(buf, "%d", (int)slider->getValue());
+			//layer->m_hint->setText(buf);
 		}
 	};
 
@@ -579,91 +581,92 @@ namespace Other {
 		virtual ~wyDrawPrimitivesTestLayer() {
 		}
 		
-		virtual void draw(){
-			// 画简单线段
-			// 默认参数: 宽度 1, 颜色 RGB(255,255,255,255)
-			// Anti-Aliased
-			glEnable(GL_LINE_SMOOTH);
-			
-			wyDrawLine(0, 0, wyDevice::winWidth, wyDevice::winHeight);
-			
-			// 关掉反锯齿
-			glDisable(GL_LINE_SMOOTH);
-			// 设置线段宽度, 宽度大于1时，无法使用GL_LINE_SMOOTH。
-			glLineWidth(5.0f);
-			// 设置颜色
-			glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-			wyDrawLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
-			
-			// 记住：OpenGL是一个状态机.如果你不再次设置画图参数，当前属性不会改变。
-			
-			/* 在中心画一个大点（半径为64) */
-			glPointSize(64);
-			glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
-			wyDrawPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-			
-			/* 画四个小点（半径为4）*/
-			float points[] = {
-				60, 60, 70, 70, 60, 70, 70, 60
-			};
-			glPointSize(4);
-			glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
-			wyDrawPoints(points, sizeof(points) / sizeof(float));
-			
-			/* 画一个绿色圆圈，圆圈被分成10段 */
-			glLineWidth(16);
-			glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-			wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
-			
-			/*
-			 * 画一个青色圆圈，圆圈被分成50段。并且带一条中心到圆周的直线。
-			 * draw a green circle with 50 segments with line to center
-			 */
-			glLineWidth(2);
-			glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
-			wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
-			
-			/* 画一个黄色的多边形 */
-			glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-			glLineWidth(10);
-			float vertices[] = {
-				0, 0, 50, 50, 100, 50, 100, 100, 50, 100
-			};
-			wyDrawPoly(vertices, sizeof(vertices) / sizeof(float), false);
-			
-			/* 画闭合多边形 */
-			glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
-			glLineWidth(2);
-			float vertices2[] = {
-				30, 130, 30, 230, 50, 200
-			};
-			wyDrawPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
-			
-			/* 画"二次贝赛尔曲线" */
-			wyBezierConfig c = wybcQuad(0, wyDevice::winHeight, wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winWidth, wyDevice::winHeight);
-			wyDrawBezier(c, 50);
-			
-			/* 画"三次贝塞尔曲线" */
-			c = wybcCubic(wyDevice::winWidth / 2,
-						  wyDevice::winHeight / 2,
-						  wyDevice::winWidth / 2 + 30,
-						  wyDevice::winHeight / 2 + 50,
-						  wyDevice::winWidth / 2 + 60,
-						  wyDevice::winHeight / 2 - 50,
-						  wyDevice::winWidth,
-						  wyDevice::winHeight / 2);
-			wyDrawBezier(c, 100);
-			
-			/* 画填充矩形 */
-			float vertices_fill[] = {
-				400, 400, 500, 400, 500, 500, 400, 500, 350, 450
-			};
-			wyDrawSolidPoly(vertices_fill, 10, wyc4bRed);
-			
-			/* 重置 */
-			glLineWidth(1);
-			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-			glPointSize(1);
+		virtual void draw() {
+			// TODO gles2
+			//// 画简单线段
+			//// 默认参数: 宽度 1, 颜色 RGB(255,255,255,255)
+			//// Anti-Aliased
+			//glEnable(GL_LINE_SMOOTH);
+			//
+			//wyDrawLine(0, 0, wyDevice::winWidth, wyDevice::winHeight);
+			//
+			//// 关掉反锯齿
+			//glDisable(GL_LINE_SMOOTH);
+			//// 设置线段宽度, 宽度大于1时，无法使用GL_LINE_SMOOTH。
+			//glLineWidth(5.0f);
+			//// 设置颜色
+			//glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+			//wyDrawLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
+			//
+			//// 记住：OpenGL是一个状态机.如果你不再次设置画图参数，当前属性不会改变。
+			//
+			///* 在中心画一个大点（半径为64) */
+			//glPointSize(64);
+			//glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
+			//wyDrawPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
+			//
+			///* 画四个小点（半径为4）*/
+			//float points[] = {
+			//	60, 60, 70, 70, 60, 70, 70, 60
+			//};
+			//glPointSize(4);
+			//glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
+			//wyDrawPoints(points, sizeof(points) / sizeof(float));
+			//
+			///* 画一个绿色圆圈，圆圈被分成10段 */
+			//glLineWidth(16);
+			//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+			//wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
+			//
+			///*
+			// * 画一个青色圆圈，圆圈被分成50段。并且带一条中心到圆周的直线。
+			// * draw a green circle with 50 segments with line to center
+			// */
+			//glLineWidth(2);
+			//glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
+			//wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
+			//
+			///* 画一个黄色的多边形 */
+			//glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+			//glLineWidth(10);
+			//float vertices[] = {
+			//	0, 0, 50, 50, 100, 50, 100, 100, 50, 100
+			//};
+			//wyDrawPoly(vertices, sizeof(vertices) / sizeof(float), false);
+			//
+			///* 画闭合多边形 */
+			//glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
+			//glLineWidth(2);
+			//float vertices2[] = {
+			//	30, 130, 30, 230, 50, 200
+			//};
+			//wyDrawPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
+			//
+			///* 画"二次贝赛尔曲线" */
+			//wyBezierConfig c = wybcQuad(0, wyDevice::winHeight, wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winWidth, wyDevice::winHeight);
+			//wyDrawBezier(c, 50);
+			//
+			///* 画"三次贝塞尔曲线" */
+			//c = wybcCubic(wyDevice::winWidth / 2,
+			//			  wyDevice::winHeight / 2,
+			//			  wyDevice::winWidth / 2 + 30,
+			//			  wyDevice::winHeight / 2 + 50,
+			//			  wyDevice::winWidth / 2 + 60,
+			//			  wyDevice::winHeight / 2 - 50,
+			//			  wyDevice::winWidth,
+			//			  wyDevice::winHeight / 2);
+			//wyDrawBezier(c, 100);
+			//
+			///* 画填充矩形 */
+			//float vertices_fill[] = {
+			//	400, 400, 500, 400, 500, 500, 400, 500, 350, 450
+			//};
+			//wyDrawSolidPoly(vertices_fill, 10, wyc4bRed);
+			//
+			///* 重置 */
+			//glLineWidth(1);
+			//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			//glPointSize(1);
 		}
 	};
 
@@ -834,7 +837,6 @@ namespace Other {
 			// the background sprite
 			m_bg = wySprite::make(NULL);
 			m_bg->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-			m_bg->setBlend(false);
 			addChildLocked(m_bg);
 			
 			// buttons
@@ -896,7 +898,6 @@ namespace Other {
 			// the background sprite
 			m_bg = wySprite::make(NULL);
 			m_bg->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-			m_bg->setBlend(false);
 			addChildLocked(m_bg);
 			
 			// buttons
@@ -1207,51 +1208,6 @@ namespace Other {
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 
-	class wyTextureAtlasTestLayer : public wyLayer{
-		wyTextureAtlas* m_Atlas;
-	public:
-		wyTextureAtlasTestLayer() {
-			m_Atlas = (wyTextureAtlas*) wyTextureAtlas::make(wyTexture2D::makeJPG(RES("R.drawable.test_jpg")))->retain();
-			
-			float y = (wyDevice::winHeight - m_Atlas->getHeight()) / 2;
-			float x = (wyDevice::winWidth - m_Atlas->getWidth()) / 2;
-			
-			// specify texture coordination and vertice
-			wyQuad2D texCoords = {
-	    		0.0f, m_Atlas->getHeightScale(), m_Atlas->getWidthScale(),
-	    		m_Atlas->getHeightScale(), 0.0f, 0.0f, m_Atlas->getWidthScale(), 0.0f
-			};
-			
-			wyQuad3D vertices = {
-	            x, y, 0,
-	            x + m_Atlas->getWidth(), y, 0,
-	            x, y + m_Atlas->getHeight(), 0,
-	            x + m_Atlas->getWidth(), y + m_Atlas->getHeight(), 0,
-			};
-			
-			m_Atlas->updateQuad(texCoords, vertices, 0);
-			m_Atlas->updateColor(wyc4bWhite, 0);
-		}
-		
-		virtual ~wyTextureAtlasTestLayer(){
-			wyObjectRelease(m_Atlas);
-		}
-		
-		virtual void draw() {
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glEnable(GL_TEXTURE_2D);
-			
-			m_Atlas->drawAll();
-			
-			glDisable(GL_TEXTURE_2D);
-			glDisableClientState(GL_VERTEX_ARRAY);
-			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		}
-	};
-
-	//////////////////////////////////////////////////////////////////////////////////////////
-
     class GotoSceneRunnable : public wyRunnable {
     private:
         wyScene* m_scene;
@@ -1488,83 +1444,84 @@ namespace Other {
 		virtual ~wyTransparentDrawPrimitivesTestLayer(){
 		}
 		
-		virtual void draw(){
-			// 画简单线段
-			// 默认参数: 宽度 1, 颜色 RGB(255,255,255,255)
-			// Anti-Aliased
-			glEnable(GL_LINE_SMOOTH);
-			
-			wyDrawLine(0, 0, wyDevice::winWidth, wyDevice::winHeight);
-			
-			// 关掉反锯齿
-			glDisable(GL_LINE_SMOOTH);
-			// 设置线段宽度, 宽度大于1时，无法使用GL_LINE_SMOOTH。
-			glLineWidth(5.0f);
-			// 设置颜色
-			glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-			wyDrawLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
-			
-			// 记住：OpenGL是一个状态机.如果你不再次设置画图参数，当前属性不会改变。
-			
-			// 在中心画一个大点（半径为64)
-			glPointSize(64);
-			glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
-			wyDrawPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-			
-			// 画四个小点（半径为4）
-			float points[] = {
-				60, 60, 70, 70, 60, 70, 70, 60
-			};
-			glPointSize(4);
-			glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
-			wyDrawPoints(points, sizeof(points) / sizeof(float));
-			
-			// 画一个绿色圆圈，圆圈被分成10段
-			glLineWidth(16);
-			glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-			wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
-			
-			// 画一个青色圆圈，圆圈被分成50段。并且带一条中心到圆周的直线。
-			// draw a green circle with 50 segments with line to center
-			glLineWidth(2);
-			glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
-			wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
-			
-			// 画一个黄色的多边形
-			glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-			glLineWidth(10);
-			float vertices[] = {
-				0, 0, 50, 50, 100, 50, 100, 100, 50, 100
-			};
-			wyDrawPoly(vertices, sizeof(vertices) / sizeof(float), false);
-			
-			// 画闭合多边形
-			glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
-			glLineWidth(2);
-			float vertices2[] = {
-				30, 130, 30, 230, 50, 200
-			};
-			wyDrawPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
-			
-			// 画"二次贝赛尔曲线"
-			wyBezierConfig c = wybcQuad(0, wyDevice::winHeight, wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winWidth, wyDevice::winHeight);
-			wyDrawBezier(c, 50);
-			
-			// 画"三次贝塞尔曲线"
-			c = wybcCubic(wyDevice::winWidth / 2,
-						  wyDevice::winHeight / 2,
-						  wyDevice::winWidth / 2 + 30,
-						  wyDevice::winHeight / 2 + 50,
-						  wyDevice::winWidth / 2 + 60,
-						  wyDevice::winHeight / 2 - 50,
-						  wyDevice::winWidth,
-						  wyDevice::winHeight / 2);
-			wyDrawBezier(c, 100);
-			
-			// 重置
-			glLineWidth(1);
-			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-			glPointSize(1);
+		virtual void draw() {
+			// TODO gles2
+//			// 画简单线段
+//			// 默认参数: 宽度 1, 颜色 RGB(255,255,255,255)
+//			// Anti-Aliased
+//			glEnable(GL_LINE_SMOOTH);
+//
+//			wyDrawLine(0, 0, wyDevice::winWidth, wyDevice::winHeight);
+//
+//			// 关掉反锯齿
+//			glDisable(GL_LINE_SMOOTH);
+//			// 设置线段宽度, 宽度大于1时，无法使用GL_LINE_SMOOTH。
+//			glLineWidth(5.0f);
+//			// 设置颜色
+//			glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+//			wyDrawLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
+//
+//			// 记住：OpenGL是一个状态机.如果你不再次设置画图参数，当前属性不会改变。
+//
+//			// 在中心画一个大点（半径为64)
+//			glPointSize(64);
+//			glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
+//			wyDrawPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
+//
+//			// 画四个小点（半径为4）
+//			float points[] = {
+//				60, 60, 70, 70, 60, 70, 70, 60
+//			};
+//			glPointSize(4);
+//			glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
+//			wyDrawPoints(points, sizeof(points) / sizeof(float));
+//
+//			// 画一个绿色圆圈，圆圈被分成10段
+//			glLineWidth(16);
+//			glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+//			wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
+//
+//			// 画一个青色圆圈，圆圈被分成50段。并且带一条中心到圆周的直线。
+//			// draw a green circle with 50 segments with line to center
+//			glLineWidth(2);
+//			glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
+//			wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
+//
+//			// 画一个黄色的多边形
+//			glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+//			glLineWidth(10);
+//			float vertices[] = {
+//				0, 0, 50, 50, 100, 50, 100, 100, 50, 100
+//			};
+//			wyDrawPoly(vertices, sizeof(vertices) / sizeof(float), false);
+//
+//			// 画闭合多边形
+//			glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
+//			glLineWidth(2);
+//			float vertices2[] = {
+//				30, 130, 30, 230, 50, 200
+//			};
+//			wyDrawPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
+//
+//			// 画"二次贝赛尔曲线"
+//			wyBezierConfig c = wybcQuad(0, wyDevice::winHeight, wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winWidth, wyDevice::winHeight);
+//			wyDrawBezier(c, 50);
+//
+//			// 画"三次贝塞尔曲线"
+//			c = wybcCubic(wyDevice::winWidth / 2,
+//						  wyDevice::winHeight / 2,
+//						  wyDevice::winWidth / 2 + 30,
+//						  wyDevice::winHeight / 2 + 50,
+//						  wyDevice::winWidth / 2 + 60,
+//						  wyDevice::winHeight / 2 - 50,
+//						  wyDevice::winWidth,
+//						  wyDevice::winHeight / 2);
+//			wyDrawBezier(c, 100);
+//
+//			// 重置
+//			glLineWidth(1);
+//			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+//			glPointSize(1);
 		}
 	};
 #endif
@@ -1590,13 +1547,20 @@ namespace Other {
 			scheduleLocked(t);
 		}
 		
+		virtual bool isGeometry() {
+			return true;
+		}
+
+		virtual bool isSelfDraw() {
+			return true;
+		}
+
 		virtual ~wyVerletRopeTestLayer() {
 			m_rope->release();
 		}
 		
 		virtual void draw() {
-			wyLayer::draw();
-			m_rope->draw();
+			m_rope->draw(this);
 		}
 		
 		virtual bool touchesBegan(wyMotionEvent& e) {
@@ -1636,8 +1600,6 @@ namespace Other {
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 	class wyZwoptexTestLayer : public wyLayer {
-		wyTextureAtlas* m_Atlas;
-		
 	public:
 		wyZwoptexTestLayer() {
 			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
@@ -1708,7 +1670,6 @@ DEMO_ENTRY_IMPL(PickFromAlbumTest);
 DEMO_ENTRY_IMPL(PickFromCameraTest);
 DEMO_ENTRY_IMPL(PixelOperationTest);
 DEMO_ENTRY_IMPL(ResourceDecoderTest);
-DEMO_ENTRY_IMPL(TextureAtlasTest);
 DEMO_ENTRY_IMPL(TextureLoadUnloadTest);
 #if ANDROID
 	DEMO_ENTRY_IMPL(TransparentDrawPrimitivesTest);

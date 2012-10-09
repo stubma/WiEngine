@@ -31,27 +31,34 @@
 #include <stdlib.h>
 #include "wyLog.h"
 #include "wyGlobal.h"
+#include "wyMaterial.h"
+#include "wyRectangle.h"
+#include "wyShaderManager.h"
 
 wyTextureNode::wyTextureNode(wyTexture2D* tex) :
-		m_tex(NULL),
 		m_originalTex(NULL),
-		m_blendFunc(wybfDefault),
-		m_color(wyc4bWhite),
         m_originSaved(false),
 		m_flipX(false),
 		m_flipY(false),
-		m_blend(true),
-		m_alphaTest(false),
-		m_alphaFunc(GL_ALWAYS),
-		m_alphaRef(0),
-		m_dither(false),
 		m_rotatedZwoptex(false),
 		m_autoFit(false),
 		m_currentFrame(NULL),
 		m_pointLeftBottom(wypZero),
 		m_animations(WYNEW map<int, wyAnimation*>()),
 		m_texRect(wyrZero) {
+	// create empty material and mesh, default we use rectangle mesh
+	setMaterial(wyMaterial::make());
+	setMesh(wyRectangle::make());
+
+	// set texture
 	setTexture(tex);
+
+	// set blend mode
+	setBlendMode(wyRenderState::ALPHA);
+
+	// flag update
+	setNeedUpdateMaterial(true);
+	setNeedUpdateMesh(true);
 }
 
 wyTextureNode* wyTextureNode::make(wyTexture2D* tex) {
@@ -63,38 +70,51 @@ void wyTextureNode::releaseAnimation(int id, wyAnimation* anim) {
 	wyObjectRelease(anim);
 }
 
-wyColor3B wyTextureNode::getColor() {
-	wyColor3B c = {
-		m_color.r,
-		m_color.g,
-		m_color.b
-	};
-	return c;
+void wyTextureNode::updateMaterial() {
+	// get texture parameter, if none, create
+	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(!mp) {
+		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
+		m_material->addParameter(p);
+	} else {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		mtp->setTexture(m_tex);
+	}
 }
 
-void wyTextureNode::setColor(wyColor3B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
+void wyTextureNode::updateMesh() {
+	// update texture to mesh
+	wyRectangle* rect = (wyRectangle*)getMesh();
+	rect->updateForTexture(m_tex,
+			m_autoFit ? 0 : m_pointLeftBottom.x,
+			m_autoFit ? 0 : m_pointLeftBottom.y,
+			m_autoFit ? m_width : (m_rotatedZwoptex ? m_texRect.height : m_texRect.width),
+			m_autoFit ? m_height : (m_rotatedZwoptex ? m_texRect.width : m_texRect.height),
+            m_width,
+            m_height,
+			m_flipX,
+			m_flipY,
+			m_texRect,
+			m_rotatedZwoptex);
 }
 
-void wyTextureNode::setColor(wyColor4B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	m_color.a = color.a;
+void wyTextureNode::updateMeshColor() {
+	// update color of mesh
+	wyRectangle* rect = (wyRectangle*)getMesh();
+	rect->updateColor(m_color);
 }
 
 void wyTextureNode::setTextureRect(wyRect rect) {
 	m_texRect = rect;
 	if(!m_autoFit)
 		setContentSize(rect.width, rect.height);
+
+	// flag update
+	setNeedUpdateMesh(true);
 }
 
 void wyTextureNode::setTexture(wyTexture2D* tex) {
-	wyObjectRetain(tex);
-	wyObjectRelease(m_tex);
-	m_tex = tex;
+	wyNode::setTexture(tex);
 
 	// sync content size
 	if(tex != NULL) {
@@ -203,6 +223,10 @@ void wyTextureNode::setDisplayFrame(wyFrame* newFrame) {
 	    	LOGW("setDisplayFrame: wyTextureNode only accepts wySpriteFrame");
 	    }
 	}
+
+	// flag update
+	setNeedUpdateMaterial(true);
+	setNeedUpdateMesh(true);
 }
 
 wySpriteFrame* wyTextureNode::makeFrame() {
@@ -236,76 +260,4 @@ wyTextureNode::~wyTextureNode() {
 	wyObjectRelease(m_currentFrame);
 	wyObjectRelease(m_tex);
 	wyObjectRelease(m_originalTex);
-}
-
-void wyTextureNode::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	// check dither
-	if(m_dither)
-		glEnable(GL_DITHER);
-
-    glColor4f(m_color.r / 255.0f, m_color.g / 255.0f, m_color.b / 255.0f, m_color.a / 255.0f);
-
-    // check alpha
-    if(m_alphaTest) {
-		glEnable(GL_ALPHA_TEST);
-		glAlphaFunc(m_alphaFunc, m_alphaRef);
-    }
-
-	// check blend
-	if(!m_blend)
-		glDisable(GL_BLEND);
-
-    bool newBlend = false;
-    if (m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-        newBlend = true;
-        glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-    }
-
-    if (m_tex != NULL) {
-    	m_tex->draw(m_autoFit ? 0 : m_pointLeftBottom.x,
-    			m_autoFit ? 0 : m_pointLeftBottom.y,
-    			m_autoFit ? m_width : (m_rotatedZwoptex ? m_texRect.height : m_texRect.width),
-    			m_autoFit ? m_height : (m_rotatedZwoptex ? m_texRect.width : m_texRect.height),
-                m_width,
-                m_height,
-				m_flipX,
-				m_flipY,
-				m_texRect,
-				m_rotatedZwoptex);
-    }
-
-    if (newBlend)
-        glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-	// check blend
-	if(!m_blend)
-		glEnable(GL_BLEND);
-
-    // check alpha
-    if(m_alphaTest)
-    	glDisable(GL_ALPHA_TEST);
-
-    // is this cheaper than saving/restoring color state ?
-    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-    // check dither
-    if(m_dither)
-    	glDisable(GL_DITHER);
-}
-
-void wyTextureNode::setAlphaFunc(GLenum func, float ref) {
-	if(func == GL_ALWAYS) {
-		m_alphaTest = false;
-	} else {
-		m_alphaTest = true;
-		m_alphaFunc = func;
-		m_alphaRef = ref;
-	}
 }

@@ -169,9 +169,9 @@ void* getAssetByResId(int id, float* scale) {
 		// get cookie
 		cookie = res.getTableCookie(block);
 
-		/*
-		 * XXX: obtain resource string if it is TYPE_STRING.
-		 * comment out data type checking, because in some model, such as
+		/**
+		 * obtain resource string if it is TYPE_STRING
+		 * XXX: comment data type checking, because we found in some model, such as
 		 * lephone 1.0(based on android 1.6), the data type is 0 so that the resource
 		 * string can't be loaded. Have to disable this checking for lephone compatibility
 		 */
@@ -241,11 +241,11 @@ typedef int64_t (android::Asset::*seek64)(int64_t offset, int whence);
 int seekAsset(void* asset, int offset, int mode) {
 	if(asset) {
 		/**
-		 * XXX: Android 3.x Asset::seek method changes parameter to 64 bits integer,
-		 * for 3.x compatibility, the workaround is made:
-		 * 1. first we call seek with old prototype, i.e., 32 bits integer parameter
-		 * 2. if returned value is not same as expected one, we think it is abnormal and
-		 *    re-invoke it with 64 bits prototype.
+		 * Android 3.x中Asset::seek方法的参数变成了一个64位整数, 因此为了
+		 * 兼容3.x, 做了以下workaround
+		 * 1. 首先按照Asset.h定义的seek原型调用
+		 * 2. 如果上一步返回值和我们预期的不一致, 我们认为这是不正常的, 因此
+		 *    强行把seek的指针cast成64位版本再调用一次
 		 */
 		Asset* a = (Asset*)asset;
 		int expected = getAssetLength(asset) - getAssetRemainingLength(asset);

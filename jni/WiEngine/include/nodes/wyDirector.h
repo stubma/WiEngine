@@ -1,16 +1,23 @@
 /*
  * Copyright (c) 2010 WiYun Inc.
-
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
-
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,14 +29,10 @@
 #ifndef __wyDirector_h__
 #define __wyDirector_h__
 
+#include "WiEngine-Classes.h"
 #include <stdbool.h>
-#include "wyLabel.h"
-#include "wyScene.h"
-#include "wyArray.h"
-#include "wyTransitionScene.h"
-#include "wyPrimitives.h"
-#include "wyGlobal.h"
-#include "wyResourceDecoder.h"
+#include "wyObject.h"
+#include "wyTypes.h"
 
 /**
  * @typedef wyProjectionType
@@ -303,6 +306,12 @@ typedef struct wyDirectorLifecycleListener {
  */
 class WIENGINE_API wyDirector : public wyObject {
 protected:
+	/// render manager
+	wyRenderManager* m_renderManager;
+
+	/// main viewport
+	wyViewport* m_mainViewport;
+
 	/**
 	 * \if English
 	 * projection mode, by default it is PROJECTION_3D
@@ -424,15 +433,6 @@ protected:
 
 	/**
 	 * \if English
-	 * to mark whether to open opengl depth test
-	 * \else
-	 * 标识是否打开深度测试
-	 * \endif
-	 */
-	bool m_enableDepthTest;
-
-	/**
-	 * \if English
 	 * to mark whether it is needed to take a screen shot
 	 * \else
 	 * true表示下一帧要进行截图, 截图之后该标志重新设置为false
@@ -549,33 +549,6 @@ protected:
 	 * \endif
 	 */
 	wyArray* m_lifecycleListeners;
-
-	/**
-	 * \if English
-	 * act as a stack to maintain the scissor information, \link wyRect wyRect\endlink
-	 * \else
-	 * 裁剪区域栈
-	 * \endif
-	 */
-	wyRect* m_clipStack;
-
-	/**
-	 * \if English
-	 * element count in the m_clipStack
-	 * \else
-	 * 裁剪区域栈中的矩形个数
-	 * \endif
-	 */
-	int m_clipStackCount;
-
-	/**
-	 * \if English
-	 * the capacity of m_clipStack
-	 * \else
-	 * 裁剪区域栈的容量
-	 * \endif
-	 */
-	int m_clipStackCapacity;
 
 	/**
 	 * \if English
@@ -1141,19 +1114,6 @@ public:
 	 * \endif
 	 */
 	wyGLContext getContext() { return m_context; }
-	
-	/**
-	 * \if English
-	 * to set whether to open opengl depth test
-	 *
-	 * @param on true means to open
-	 * \else
-	 * 设置是否打开深度测试, 缺省是关闭的
-	 *
-	 * @param on true表示打开深度测试
-	 * \endif
-	 */
-	void setDepthTest(bool on);
 
 	/**
 	 * \if English
@@ -1189,46 +1149,6 @@ public:
 
 	/**
 	 * \if English
-	 * set the projection mode
-	 *
-	 * @param projection \link wyProjectionType wyProjectionType\endlink
-	 * \else
-	 * 设置投影方式
-	 *
-	 * @param projection 投影方式
-	 * \endif
-	 */
-	void setProjection(wyProjectionType projection);
-
-	/**
-	 * \if English
-	 * set orthographic projection as the projection mode
-	 * \else
-	 * 设置投影方式为正交投影方式
-	 * \endif
-	 */
-	void set2DProjection();
-
-	/**
-	 * \if English
-	 * set the perspective projection as the projection mode
-	 * \else
-	 * 设置投影方式为3D投影方式
-	 * \endif
-	 */
-	void set3DProjection();
-
-	/**
-	 * \if English
-	 * set default projection as the projected mode
-	 * \else
-	 * 设置投影方式为默认投影方式
-	 * \endif
-	 */
-	void setDefaultProjection();
-
-	/**
-	 * \if English
 	 * called to draw the next frame
 	 * \else
 	 * 该方法负责画下一帧场景
@@ -1248,32 +1168,6 @@ public:
 	 * \endif
 	 */
 	void setMaxFrameRate(int maxFrameRate);
-
-	/**
-	 * \if English
-	 * Enable alpha blending or not, default is true
-	 *
-	 * @param on true means alpha blending should be enabled
-	 * \else
-	 * 设置是否打开alpha渲染, 缺省是true
-	 *
-	 * @param on true表示打开alpha渲染
-	 * \endif
-	 */
-	void setAlphaBlending(bool on);
-
-	/**
-	 * \if English
-	 * to specify whether front- or back-facing facets can be culled in the opengl
-	 *
-	 * @param on true means the back-facing facets can be culled
-	 * \else
-	 * 剔除背面画图
-	 *
-	 * @param on 是否剔除背面画图，true为剔除
-	 * \endif
-	 */
-	void setCullFace(bool on);
 
 	/**
 	 * \if English
@@ -1600,36 +1494,6 @@ public:
 
 	/**
 	 * \if English
-	 * push one clip rectangle to the clip stack. The pushed one will become
-	 * the active clip rectangle to be used
-	 * Normally, you don't need to call it.
-	 *
-	 * @param rect \link wyRect wyRect\endlink
-	 * \else
-	 * 推入一个裁切区域矩形, 如果当前没有打开区域裁剪, 则会打开. 如果当前已经有区域裁剪,
-	 * 则新推入的矩形会取代当前裁剪矩形.
-	 *
-	 * \note
-	 * 这个方法主要由内部逻辑调用, 一般不需要直接调用
-	 *
-	 * @param rect \link wyRect wyRect\endlink
-	 * \endif
-	 */
-	void pushClipRect(wyRect& rect);
-
-	/**
-	 * \if English
-	 * pop out the top element from the stack, the new top element will become
-	 * the clip rectangle to be used
-	 * \else
-	 * 弹出一个裁剪区域, 如果当前已经有裁剪区域, 则被弹出且使用前一个区域为当前区域, 如果当前
-	 * 只有一个裁剪区域, 则关闭区域裁剪. 如果一个也没有, 不做任何事
-	 * \endif
-	 */
-	void popClipRect();
-
-	/**
-	 * \if English
 	 * Set frame tick delta scaling factor, this can be used to control game
 	 * total behavior. A smaller value than 1 will slow down game
 	 * speed, or a larger value than one will speed up.
@@ -1648,6 +1512,15 @@ public:
 	 * \endif
 	 */
 	float getTickFactor() { return m_tickFactor; }
+
+	/**
+	 * \if English
+	 * Get render manager
+	 * \else
+	 * 得到渲染管理器
+	 * \endif
+	 */
+	wyRenderManager* getRenderManager() { return m_renderManager; }
 };
 
 #endif // __wyDirector_h__

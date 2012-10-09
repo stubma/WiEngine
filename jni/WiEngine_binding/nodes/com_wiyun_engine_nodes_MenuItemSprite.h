@@ -51,30 +51,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_nativeSetColor
 
 /*
  * Class:     com_wiyun_engine_nodes_MenuItemSprite
- * Method:    getBlendFuncSrc
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_getBlendFuncSrc
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_MenuItemSprite
- * Method:    getBlendFuncDst
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_getBlendFuncDst
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_MenuItemSprite
- * Method:    setBlendFunc
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemSprite_setBlendFunc
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_MenuItemSprite
  * Method:    nativeAutoReleaseStateSprites
  * Signature: ()V
  */

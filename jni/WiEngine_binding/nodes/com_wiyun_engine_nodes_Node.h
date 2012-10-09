@@ -89,6 +89,14 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_nativeConvertToNodeSpace
 
 /*
  * Class:     com_wiyun_engine_nodes_Node
+ * Method:    removeChildren
+ * Signature: (IZ)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_removeChildren
+  (JNIEnv *, jobject, jint, jboolean);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
  * Method:    draw
  * Signature: ()V
  */
@@ -477,14 +485,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_removeChild__Lcom_wiyun_
  * Signature: (IZ)V
  */
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_removeChild__IZ
-  (JNIEnv *, jobject, jint, jboolean);
-
-/*
- * Class:     com_wiyun_engine_nodes_Node
- * Method:    removeChildren
- * Signature: (IZ)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_removeChildren
   (JNIEnv *, jobject, jint, jboolean);
 
 /*
@@ -1246,6 +1246,94 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setMultiTouchClickable
  */
 JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_Node_isMultiTouchClickable
   (JNIEnv *, jobject);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    getAlpha
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_getAlpha
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    setAlpha
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setAlpha
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    nativeGetColor
+ * Signature: (Lcom/wiyun/engine/types/WYColor3B;)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetColor
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    setColor
+ * Signature: (Lcom/wiyun/engine/types/WYColor3B;)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setColor__Lcom_wiyun_engine_types_WYColor3B_2
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    setColor
+ * Signature: (Lcom/wiyun/engine/types/WYColor4B;)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setColor__Lcom_wiyun_engine_types_WYColor4B_2
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    isDither
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_Node_isDither
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    setDither
+ * Signature: (Z)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setDither
+  (JNIEnv *, jobject, jboolean);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    nativeGetBlendMode
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetBlendMode
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    nativeSetBlendMode
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_nativeSetBlendMode
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    nativeGetTexture
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetTexture
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Node
+ * Method:    setTexture
+ * Signature: (Lcom/wiyun/engine/opengl/Texture2D;)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setTexture
+  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

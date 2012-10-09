@@ -15,22 +15,6 @@ extern "C" {
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_StripRibbon_nativeInit
   (JNIEnv *, jobject, jobject, jobject, jfloat);
 
-/*
- * Class:     com_wiyun_engine_nodes_StripRibbon
- * Method:    nativeGetTexture
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_StripRibbon_nativeGetTexture
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_StripRibbon
- * Method:    setTexture
- * Signature: (Lcom/wiyun/engine/opengl/Texture2D;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_StripRibbon_setTexture
-  (JNIEnv *, jobject, jobject);
-
 #ifdef __cplusplus
 }
 #endif

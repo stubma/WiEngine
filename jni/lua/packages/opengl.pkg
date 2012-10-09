@@ -37,91 +37,242 @@ enum wyTexture2D::TextAlignment {
  */
 class wyCamera : public wyObject {
 public:
-	/**
-	 * 得到视点的z位置
-	 *
-	 * @return 视点的z位置
-	 */
-	static float getZEye();
-
 	static wyCamera* make();
 
 	/**
-	 * 析构函数
-	 */
-	virtual ~wyCamera();
-
-	/**
+	 * \if English
+	 * Restore camera to default position
+	 * \else
 	 * 回复到缺省的镜头设置
+	 * \endif
 	 */
-	void restore();
+	void restoreCamera();
 
 	/**
-	 * 根据当前设置的各种参数放置镜头
+	 * \if English
+	 * Restore to default projection matrix
+	 * \else
+	 * 回复到缺省的投影矩阵
+	 * \endif
 	 */
-	void locate();
+	void restoreProjection();
 
 	/**
+	 * \if English
+	 * Restore to default viewport range
+	 * \else
+	 * 回复到缺省的视口大小
+	 * \endif
+	 */
+	void restoreViewport();
+
+	/**
+	 * \if English
+	 * Get current view matrix
+	 * \else
+	 * 得到当前相机矩阵
+	 * \endif
+	 */
+	kmMat4* getViewMatrix();
+
+	/**
+	 * \if English
+	 * Get current projection matrix
+	 * \else
+	 * 得到当前投影矩阵
+	 * \endif
+	 */
+	kmMat4* getProjectionMatrix();
+
+	/**
+	 * \if English
+	 * Get viewport bound
+	 *
+	 * @return viewport rectangle
+	 * \else
+	 * 得到视口矩形
+	 *
+	 * @return 视口矩形
+	 * \endif
+	 */
+	wyRect getViewportRect();
+
+	/**
+	 * \if English
+	 * Set orthogonal projection
+	 *
+	 * @param l left bound of ortho
+	 * @param r right bound of ortho
+	 * @param b bottom bound of ortho
+	 * @param t top bound of ortho
+	 * @param near near end of cylinder
+	 * @param far far end of cylinder
+	 * \else
+	 * 使用正交投影
+	 *
+	 * @param l 柱体作边界
+	 * @param r 柱体右边界
+	 * @param b 柱体下边界
+	 * @param t 柱体上边界
+	 * @param near 柱体近端
+	 * @param far 柱体远端
+	 * \endif
+	 */
+	void setOrtho(float l, float r, float b, float t, float near, float far);
+
+	/**
+	 * \if English
+	 * Set perspective projection
+	 *
+	 * @param fovy the angle of the field of view in the x-z plane; its value must be in the range [0.0,180.0]
+	 * @param widthRatio the relative width to viewport width
+	 * @param heightRatio the relative height to viewport height
+	 * @param near near distances between the viewpoint and the clipping planes, along the negative z-axis. it should always be positive
+	 * @param far far distances between the viewpoint and the clipping planes, along the negative z-axis. it should always be positive
+	 * \else
+	 * 设置梯形投影参数
+	 *
+	 * @param fovy 视图范围和x-z平面的夹角, 必须在[0, 180]度范围内
+	 * @param widthRatio 梯形宽相对于视口宽的比例
+	 * @param heightRatio 梯形高相对于视口高的比例
+	 * @param near 视点和最近的clip平面距离
+	 * @param far 视点和最远的clip平面距离
+	 * \endif
+	 */
+	void setPerspective(float fovy, float widthRatio, float heightRatio, float near, float far);
+
+	/**
+	 * \if English
+	 * Get z location of eye
+	 * \else
+	 * 得到相机的z位置
+	 * \endif
+	 */
+	float getZEye() { return m_cameraParams.eye.z; }
+
+	/**
+	 * \if English
+	 * Get eye location
+	 *
+	 * @param e float array to hold returned eye location, length must be at least 3
+	 * \else
+	 * 得到相机位置
+	 *
+	 * @param e 返回相机位置的浮点数据, 长度至少要为3
+	 * \endif
+	 */
+	void getEye(float* e);
+
+	/**
+	 * \if English
+	 * Set position of camera location
+	 *
+	 * @param x position of camera x location
+	 * @param y position of camera y location
+	 * @param z position of camera z location
+	 * \else
 	 * 设置当前镜头位置
 	 *
 	 * @param x 当前镜头x位置
 	 * @param y 当前镜头y位置
 	 * @param z 当前镜头z位置
+	 * \endif
 	 */
 	void setEye(float x, float y, float z);
 
 	/**
+	 * \if English
+	 * Get camera center location
+	 *
+	 * @param e float array to hold returned camera center location, length must be at least 3
+	 * \else
+	 * 得到相机对准的中心位置
+	 *
+	 * @param c 返回相机对准的中心位置的浮点数据, 长度至少要为3
+	 * \endif
+	 */
+	void getCenter(float* c);
+
+	/**
+	 * \if English
+	 * Set position of camera center, it will multiply viewport size
+	 * to get final position
+	 *
+	 * @param x position of camera x center
+	 * @param y position of camera y center
+	 * @param z position of camera z center
+	 * \else
 	 * 设置当前视线中心位置
 	 *
 	 * @param x 当前视线中心x位置
 	 * @param y 当前视线中心y位置
 	 * @param z 当前视线中心z位置
+	 * \endif
 	 */
 	void setCenter(float x, float y, float z);
 
 	/**
+	 * \if English
+	 * Get camera up location
+	 *
+	 * @param e float array to hold returned camera up location, length must be at least 3
+	 * \else
+	 * 得到相机正方向
+	 *
+	 * @param c 返回相机正方向, 长度至少要为3
+	 * \endif
+	 */
+	void getUp(float* u);
+
+	/**
+	 * \if English
+	 * Set camera positive vector
+	 *
+	 * @param x x value of up vector
+	 * @param y y value of up vector
+	 * @param z z value of up vector
+	 * \else
 	 * 设置当前正方向位置
 	 *
 	 * @param x 正方向位置的x值
 	 * @param y 正方向位置的y值
 	 * @param z 正方向位置的z值
+	 * \endif
 	 */
 	void setUp(float x, float y, float z);
 
 	/**
-	 * 获得当前镜头位置
+	 * \if English
+	 * Set camera position and center are relative value of window
 	 *
-	 * @param eye 必须是一个长度为3的浮点数组
+	 * @param flag true means camera position and center are relative value of window
+	 * \else
+	 * 设置摄像机的位置和中心是否是一个相对于窗口的相对值, 如果窗口宽400, 而center的x值是0.5, 则
+	 * 实际的摄像机x位置是200
+	 *
+	 * @param true表示摄像机的位置和中心是一个相对于窗口的相对值
+	 * \endif
 	 */
-	void getEye(float* eye);
+	void setUseRelativeValue(bool flag);
 
 	/**
-	 * 获得当前视线中心位置
+	 * \if English
+	 * Set viewport relative size
 	 *
-	 * @param center 必须是一个长度为3的浮点数组
-	 */
-	void getCenter(float* center);
-
-	/**
-	 * 获得当前正方向位置
+	 * @param x relative x value
+	 * @param y relative y value
+	 * @param w relative width
+	 * @param h relative height
+	 * \else
+	 * 设置视口的相对于surface的大小
 	 *
-	 * @param up 必须是一个长度为3的浮点数组
+	 * @param x x相对位置
+	 * @param y y相对位置
+	 * @param w 相对宽度
+	 * @param h 相对高度
+	 * \endif
 	 */
-	void getUp(float* up);
-
-	/**
-	 * 得到脏标志
-	 *
-	 * @return 得到当前的脏标志
-	 */
-	bool isDirty() { return m_dirty; }
-
-	/**
-	 * 设置脏标志
-	 *
-	 * @param dirty true表示镜头需要重新放置
-	 */
-	void setDirty(bool dirty) { m_dirty = dirty; }
+	void setViewport(float x, float y, float w, float h);
 };
 
 #endif // __wyCamera_h__
@@ -1366,273 +1517,7 @@ public:
 };
 
 #endif // __wyTexture2D_h__
-/*
- * Copyright (c) 2010 WiYun Inc.
 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-#ifndef __wyTextureAtlas_h__
-
-
-#define ATLAS_DEFAULT_CAPACITY 29
-
-class wyTextureAtlas;
-
-/**
- * @class wyTextureAtlas
- *
- * 图片集的封装
- */
-class wyTextureAtlas : public wyObject {
-
-public:
-	/**
-	 * 获得图片集\link wyTextureAtlas wyTextureAtlas对象\endlink 指针，
-	 * 这个方法始终创建新的\link wyTextureAtlas wyTextureAtlas对象\endlink
-	 *
-	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @return 图片集\link wyTextureAtlas wyTextureAtlas对象指针\endlink
-	 */
-	static wyTextureAtlas* make(wyTexture2D* tex);
-
-	/**
-	 * 构造函数
-	 *
-	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @param capacity 缓存尺寸,默认ATLAS_DEFAULT_CAPACITY
-	 */
-	wyTextureAtlas(wyTexture2D* tex, int capacity = ATLAS_DEFAULT_CAPACITY);
-
-	/**
-	 * 析构函数
-	 */
-	virtual ~wyTextureAtlas();
-
-	/**
-	 * 设置图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 *
-	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 */
-	void setTexture(wyTexture2D* tex);
-
-	/**
-	 * 获得图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 *
-	 * @return 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 */
-	wyTexture2D* getTexture() { return m_tex; }
-
-	/**
-	 * 重新计算缓存,如果小于当前数则返回
-	 *
-	 * @param newCapacity 缓存数
-	 */
-	void resizeCapacity(int newCapacity);
-
-	/**
-	 * 删除所有矩形
-	 */
-	void removeAllQuads() { m_totalQuads = 0; }
-
-	/**
-	 * 获得下一个可用的矩形索引
-	 *
-	 * @return 下一个可用的矩形索引
-	 */
-	int getNextAvailableIndex();
-
-	/**
-	 * 更新缓存中的顶点和纹理
-	 *
-	 * @param quadT 纹理\link wyQuad2D wyQuad2D结构\endlink
-	 * @param quadV 顶点\link wyQuad3D wyQuad3D结构\endlink
-	 * @param index 缓存中的索引
-	 */
-	void updateQuad(wyQuad2D& quadT, wyQuad3D& quadV, int index);
-
-	/**
-	 * 更新缓存中的颜色
-	 *
-	 * @param color 颜色\link wyColor4B wyColor4B结构\endlink
-	 * @param index 缓存中的索引
-	 */
-	void updateColor(wyColor4B color, int index);
-
-	/**
-	 * 在缓存中添加顶点和纹理,放到队列中最后
-	 *
-	 * @param quadT 纹理\link wyQuad2D wyQuad2D结构\endlink
-	 * @param quadV 顶点\link wyQuad3D wyQuad3D结构\endlink
-	 * @return 新添加的四边形在atlas中的索引
-	 */
-	int appendQuad(wyQuad2D& quadT, wyQuad3D& quadV);
-
-	/**
-	 * 在缓存指定索引中添加顶点和纹理, 如果插入在最后，则不需要额外操作，
-	 * 如果插入在中间，则会把插入位置处的Quad移动到最后一个
-	 *
-	 * @param quadT 纹理\link wyQuad2D wyQuad2D结构\endlink
-	 * @param quadV 顶点\link wyQuad3D wyQuad3D结构\endlink
-	 * @param index 缓存索引
-	 */
-	void insertQuad(wyQuad2D& quadT, wyQuad3D& quadV, int index);
-
-	/**
-	 * 删除指定位置的Quad, 如果删除的是最后一个，则不需要额外操作，
-	 * 如果删除的是中间的，则最后一个Quad会被移动到被删除的位置
-	 *
-	 * @param index 缓存索引
-	 */
-	void removeQuad(int index);
-
-	/**
-	 * 删除一定范围内的四边形
-	 *
-	 * @param start 删除的起始索引
-	 * @param count 删除的四边形个数
-	 */
-	void removeQuads(int start, int count);
-
-	/**
-	 * 把自己的一个四边形拷贝到另外一个\link wyTextureAtlas wyTextureAtlas\endlink 节点中
-	 *
-	 * @param from 要拷贝的四边形索引位置，如果范围不合法，则什么也不做
-	 * @param destAtlas 目标\link wyTextureAtlas wyTextureAtlas\endlink
-	 */
-	void copyTo(int from, wyTextureAtlas* destAtlas);
-
-	/**
-	 * 把自己的一个四边形拷贝到传入的指针中
-	 *
-	 * @param from 要拷贝的四边形索引位置，如果范围不合法，则什么也不做
-	 * @param quadT 保存贴图坐标，一个\link wyQuad2D wyQuad2D\endlink 结构指针
-	 * @param quadV 保存顶点坐标，一个\link wyQuad3D wyQuad3D\endlink 结构指针
-	 */
-	void copyTo(int from, wyQuad2D* quadT, wyQuad3D* quadV);
-
-	/**
-	 * 画缓存中的某一索引图像
-	 *
-	 * @param index 缓存索引
-	 */
-	void drawOne(int index);
-
-	/**
-	 * 画缓存中指定数值的图像
-	 *
-	 * @param numOfQuads 缓存索引
-	 */
-	void draw(int numOfQuads);
-
-	/**
-	 * 画缓存指定位置开始，指定数量的图像
-	 *
-	 * @param start 缓存Quad起始位置
-	 * @param numOfQuads 画多少个Quad
-	 */
-	void drawRange(int start, int numOfQuads);
-
-	/**
-	 * 画缓存中所有使用的图像
-	 */
-	void drawAll();
-
-	/**
-	 * 获得缓存中使用的总数
-	 *
-	 * @return 缓存中使用的总数
-	 */
-	int getTotalQuads() { return m_totalQuads; }
-
-	/**
-	 * 获得是否启动自定义的颜色缓存
-	 *
-	 * @return 是否启动自定义的颜色缓存
-	 */
-	bool isWithColorArray() { return m_withColorArray; }
-
-	/**
-	 * 获得缓存空间大小
-	 *
-	 * @return 缓存空间大小
-	 */
-	int getCapacity() { return m_capacity; }
-
-	/**
-	 * 获得图片集像素高度
-	 *
-	 * @return 图片集像素高度
-	 */
-	int getPixelHeight() { return m_tex->getPixelHeight(); }
-
-	/**
-	 * 获得图片集像素宽度
-	 *
-	 * @return 图片集像素宽度
-	 */
-	int getPixelWidth() { return m_tex->getPixelWidth(); }
-
-	/**
-	 * 获得图片集宽度
-	 *
-	 * @return 图片集宽度
-	 */
-	float getWidth() { return m_tex->getWidth(); }
-
-	/**
-	 * 获得图片集高度
-	 *
-	 * @return 图片集高度
-	 */
-	float getHeight() { return m_tex->getHeight(); }
-
-	/**
-	 * 获得图片集宽度缩放比
-	 *
-	 * @return 图片集宽度缩放比
-	 */
-	float getWidthScale() { return m_tex->getWidthScale(); }
-
-	/**
-	 * 获得图片集高度缩放比
-	 *
-	 * @return 图片集高度缩放比
-	 */
-	float getHeightScale() { return m_tex->getHeightScale(); }
-
-	/**
-	 * 设置atlas的缺省颜色, 调用这个方法将会打开atlas的颜色数组
-	 *
-	 * @param color \link wyColor4B wyColor4B\endlink
-	 */
-	void setColor(wyColor4B color);
-
-	/**
-	 * 所有顶点的alpha都减去一个指定值, 该方法仅当颜色数组启用时有效. alpha
-	 * 小于等于0的四边形将被删除
-	 *
-	 * @param delta 需要减去的alpha值
-	 */
-	void reduceAlpha(float delta);
-};
-
-#endif // __wyTextureAtlas_h__
 /*
  * Copyright (c) 2010 WiYun Inc.
 

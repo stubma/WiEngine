@@ -378,17 +378,18 @@ namespace Action {
     	}
 
     	virtual void draw() {
-			// draw bezier curve so we can see the node is follow the track
-			glColor4f(0, 1, 0, 1);
-			wyDrawHypotrochoid(m_c, 100);
+			// TODO gles2
+			//// draw bezier curve so we can see the node is follow the track
+			//glColor4f(0, 1, 0, 1);
+			//wyDrawHypotrochoid(m_c, 100);
 
-			glColor4f(1, 0, 0, 1);
-			wyDrawHypotrochoid(m_ellipse, 100);
+			//glColor4f(1, 0, 0, 1);
+			//wyDrawHypotrochoid(m_ellipse, 100);
 
-			glColor4f(0, 0, 1, 1);
-			wyDrawHypotrochoid(m_circle, 100);
+			//glColor4f(0, 0, 1, 1);
+			//wyDrawHypotrochoid(m_circle, 100);
 
-			glColor4f(1, 1, 1, 1);
+			//glColor4f(1, 1, 1, 1);
 		}
 	};
 
@@ -427,19 +428,20 @@ namespace Action {
         }
 
         virtual void draw() {
-        	// draw lagrange curve so we can see the node is follow the track
-        	glColor4f(0, 1, 0, 1);
-        	wyDrawLagrange(m_config, 30);
+			// TODO gles2
+        	//// draw lagrange curve so we can see the node is follow the track
+        	//glColor4f(0, 1, 0, 1);
+        	//wyDrawLagrange(m_config, 30);
 
-        	// draw lagrange start, end, and control points
-        	glColor4f(1, 0, 0, 1);
-        	glPointSize(5);
-        	wyDrawPoint(m_config.startX, m_config.startY);
-        	wyDrawPoint(m_config.cp1X, m_config.cp1Y);
-        	wyDrawPoint(m_config.cp2X, m_config.cp2Y);
-        	wyDrawPoint(m_config.endX, m_config.endY);
+        	//// draw lagrange start, end, and control points
+        	//glColor4f(1, 0, 0, 1);
+        	//glPointSize(5);
+        	//wyDrawPoint(m_config.startX, m_config.startY);
+        	//wyDrawPoint(m_config.cp1X, m_config.cp1Y);
+        	//wyDrawPoint(m_config.cp2X, m_config.cp2Y);
+        	//wyDrawPoint(m_config.endX, m_config.endY);
 
-        	glColor4f(1, 1, 1, 1);
+        	//glColor4f(1, 1, 1, 1);
         }
     };
 
@@ -461,19 +463,20 @@ namespace Action {
         }
 
         virtual void draw() {
-        	// draw pin point
-        	glColor4f(1, 0, 0, 1);
-        	glPointSize(5);
-        	wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
+			// TODO gles2
+        	//// draw pin point
+        	//glColor4f(1, 0, 0, 1);
+        	//glPointSize(5);
+        	//wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
 
-        	// draw anchor point
-        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
-        	anchor = m_Sprite->nodeToWorldSpace(anchor);
-        	wyDrawPoint(anchor.x, anchor.y);
+        	//// draw anchor point
+        	//wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	//anchor = m_Sprite->nodeToWorldSpace(anchor);
+        	//wyDrawPoint(anchor.x, anchor.y);
 
-        	// draw line between pin point and anchor point
-        	glColor4f(0, 1, 0, 1);
-        	wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+        	//// draw line between pin point and anchor point
+        	//glColor4f(0, 1, 0, 1);
+        	//wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
         }
     };
 
@@ -496,19 +499,20 @@ namespace Action {
 		}
 
         virtual void draw() {
-        	// draw pin point
-        	glColor4f(1, 0, 0, 1);
-        	glPointSize(5);
-        	wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
+			// TODO gles2
+        	//// draw pin point
+        	//glColor4f(1, 0, 0, 1);
+        	//glPointSize(5);
+        	//wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
 
-        	// draw anchor point
-        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
-        	anchor = m_Sprite->nodeToWorldSpace(anchor);
-        	wyDrawPoint(anchor.x, anchor.y);
+        	//// draw anchor point
+        	//wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	//anchor = m_Sprite->nodeToWorldSpace(anchor);
+        	//wyDrawPoint(anchor.x, anchor.y);
 
-        	// draw line between pin point and anchor point
-        	glColor4f(0, 1, 0, 1);
-        	wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+        	//// draw line between pin point and anchor point
+        	//glColor4f(0, 1, 0, 1);
+        	//wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
         }
 	};
 
@@ -545,18 +549,19 @@ namespace Action {
 		}
 
         virtual void draw() {
-        	// draw bezier curve so we can see the node is follow the track
-        	glColor4f(0, 1, 0, 1);
-        	float* points = m_path->getPoints();
-        	int count = m_path->getPointCount();
-        	wyDrawDashPath(points, count * 2, 5);
+			// TODO gles2
+        	//// draw bezier curve so we can see the node is follow the track
+        	//glColor4f(0, 1, 0, 1);
+        	//float* points = m_path->getPoints();
+        	//int count = m_path->getPointCount();
+        	//wyDrawDashPath(points, count * 2, 5);
 
-        	// draw bezier start, end, and control points
-        	glColor4f(1, 0, 0, 1);
-        	glPointSize(5);
-        	wyDrawPoints(points, count * 2);
+        	//// draw bezier start, end, and control points
+        	//glColor4f(1, 0, 0, 1);
+        	//glPointSize(5);
+        	//wyDrawPoints(points, count * 2);
 
-        	glColor4f(1, 1, 1, 1);
+        	//glColor4f(1, 1, 1, 1);
         }
 	};
 
@@ -579,19 +584,20 @@ namespace Action {
         }
 
         virtual void draw() {
-        	// draw pin point
-        	glColor4f(1, 0, 0, 1);
-        	glPointSize(5);
-        	wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
+			// TODO gles2
+        	//// draw pin point
+        	//glColor4f(1, 0, 0, 1);
+        	//glPointSize(5);
+        	//wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
 
-        	// draw anchor point
-        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
-        	anchor = m_Sprite->nodeToWorldSpace(anchor);
-        	wyDrawPoint(anchor.x, anchor.y);
+        	//// draw anchor point
+        	//wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	//anchor = m_Sprite->nodeToWorldSpace(anchor);
+        	//wyDrawPoint(anchor.x, anchor.y);
 
-        	// draw line between pin point and anchor point
-        	glColor4f(0, 1, 0, 1);
-        	wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+        	//// draw line between pin point and anchor point
+        	//glColor4f(0, 1, 0, 1);
+        	//wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
         }
     };
 
@@ -872,19 +878,20 @@ namespace Action {
         }
 
         virtual void draw() {
-        	// draw bezier curve so we can see the node is follow the track
-        	glColor4f(0, 1, 0, 1);
-        	wyDrawBezier(m_config, 30);
+			// TODO gles2
+        	//// draw bezier curve so we can see the node is follow the track
+        	//glColor4f(0, 1, 0, 1);
+        	//wyDrawBezier(m_config, 30);
 
-        	// draw bezier start, end, and control points
-        	glColor4f(1, 0, 0, 1);
-        	glPointSize(5);
-        	wyDrawPoint(m_config.startX, m_config.startY);
-        	wyDrawPoint(m_config.cp1X, m_config.cp1Y);
-        	wyDrawPoint(m_config.cp2X, m_config.cp2Y);
-        	wyDrawPoint(m_config.endX, m_config.endY);
+        	//// draw bezier start, end, and control points
+        	//glColor4f(1, 0, 0, 1);
+        	//glPointSize(5);
+        	//wyDrawPoint(m_config.startX, m_config.startY);
+        	//wyDrawPoint(m_config.cp1X, m_config.cp1Y);
+        	//wyDrawPoint(m_config.cp2X, m_config.cp2Y);
+        	//wyDrawPoint(m_config.endX, m_config.endY);
 
-        	glColor4f(1, 1, 1, 1);
+        	//glColor4f(1, 1, 1, 1);
         }
     };
     

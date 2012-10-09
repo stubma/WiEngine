@@ -31,22 +31,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_SpotRibbon_setDistance
 JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_nodes_SpotRibbon_getDistance
   (JNIEnv *, jobject);
 
-/*
- * Class:     com_wiyun_engine_nodes_SpotRibbon
- * Method:    nativeGetTexture
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_SpotRibbon_nativeGetTexture
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_SpotRibbon
- * Method:    setTexture
- * Signature: (Lcom/wiyun/engine/opengl/Texture2D;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_SpotRibbon_setTexture
-  (JNIEnv *, jobject, jobject);
-
 #ifdef __cplusplus
 }
 #endif

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: bitmapfont
-** Generated automatically by tolua++-1.0.92 on Wed Nov 23 22:12:25 2011.
+** Generated automatically by tolua++-1.0.92 on 08/13/12 14:39:19.
 */
 
 #ifndef __cplusplus
@@ -18,9 +18,9 @@ TOLUA_API int  tolua_bitmapfont_open (lua_State* tolua_S);
 /* function to release collected object via destructor */
 #ifdef __cplusplus
 
-static int tolua_collect_wyColor3B (lua_State* tolua_S)
+static int tolua_collect_wyBitmapFontLabel (lua_State* tolua_S)
 {
- wyColor3B* self = (wyColor3B*) tolua_tousertype(tolua_S,1,0);
+ wyBitmapFontLabel* self = (wyBitmapFontLabel*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -28,13 +28,6 @@ static int tolua_collect_wyColor3B (lua_State* tolua_S)
 static int tolua_collect_wyCharInfo (lua_State* tolua_S)
 {
  wyCharInfo* self = (wyCharInfo*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyBitmapFontLabel (lua_State* tolua_S)
-{
- wyBitmapFontLabel* self = (wyBitmapFontLabel*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -49,9 +42,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyCharInfo");
  tolua_usertype(tolua_S,"wyTexture2D");
  tolua_usertype(tolua_S,"size_t");
- tolua_usertype(tolua_S,"wyColor3B");
  tolua_usertype(tolua_S,"wyHGEFontLoader");
- tolua_usertype(tolua_S,"wyColor4B");
  tolua_usertype(tolua_S,"wyNode");
  tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyBitmapFontLabel");
@@ -935,37 +926,6 @@ static int tolua_bitmapfont_wyBitmapFontLabel_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyBitmapFontLabel */
-#ifndef TOLUA_DISABLE_tolua_bitmapfont_wyBitmapFontLabel_draw00
-static int tolua_bitmapfont_wyBitmapFontLabel_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyBitmapFontLabel",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyBitmapFontLabel* self = (wyBitmapFontLabel*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: setText of class  wyBitmapFontLabel */
 #ifndef TOLUA_DISABLE_tolua_bitmapfont_wyBitmapFontLabel_setText00
 static int tolua_bitmapfont_wyBitmapFontLabel_setText00(lua_State* tolua_S)
@@ -1091,174 +1051,6 @@ static int tolua_bitmapfont_wyBitmapFontLabel_getFont00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getFont'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setColor of class  wyBitmapFontLabel */
-#ifndef TOLUA_DISABLE_tolua_bitmapfont_wyBitmapFontLabel_setColor00
-static int tolua_bitmapfont_wyBitmapFontLabel_setColor00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyBitmapFontLabel",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyColor4B",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyBitmapFontLabel* self = (wyBitmapFontLabel*)  tolua_tousertype(tolua_S,1,0);
-  wyColor4B color = *((wyColor4B*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setColor'", NULL);
-#endif
-  {
-   self->setColor(color);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setColor'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setColor of class  wyBitmapFontLabel */
-#ifndef TOLUA_DISABLE_tolua_bitmapfont_wyBitmapFontLabel_setColor01
-static int tolua_bitmapfont_wyBitmapFontLabel_setColor01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyBitmapFontLabel",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyColor3B",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  wyBitmapFontLabel* self = (wyBitmapFontLabel*)  tolua_tousertype(tolua_S,1,0);
-  wyColor3B color = *((wyColor3B*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setColor'", NULL);
-#endif
-  {
-   self->setColor(color);
-  }
- }
- return 0;
-tolua_lerror:
- return tolua_bitmapfont_wyBitmapFontLabel_setColor00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getColor of class  wyBitmapFontLabel */
-#ifndef TOLUA_DISABLE_tolua_bitmapfont_wyBitmapFontLabel_getColor00
-static int tolua_bitmapfont_wyBitmapFontLabel_getColor00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyBitmapFontLabel",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyBitmapFontLabel* self = (wyBitmapFontLabel*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getColor'", NULL);
-#endif
-  {
-   wyColor3B tolua_ret = (wyColor3B)  self->getColor();
-   {
-#ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((wyColor3B)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"wyColor3B");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(wyColor3B));
-     tolua_pushusertype(tolua_S,tolua_obj,"wyColor3B");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#endif
-   }
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getColor'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getAlpha of class  wyBitmapFontLabel */
-#ifndef TOLUA_DISABLE_tolua_bitmapfont_wyBitmapFontLabel_getAlpha00
-static int tolua_bitmapfont_wyBitmapFontLabel_getAlpha00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyBitmapFontLabel",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyBitmapFontLabel* self = (wyBitmapFontLabel*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAlpha'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getAlpha();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getAlpha'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setAlpha of class  wyBitmapFontLabel */
-#ifndef TOLUA_DISABLE_tolua_bitmapfont_wyBitmapFontLabel_setAlpha00
-static int tolua_bitmapfont_wyBitmapFontLabel_setAlpha00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyBitmapFontLabel",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyBitmapFontLabel* self = (wyBitmapFontLabel*)  tolua_tousertype(tolua_S,1,0);
-  int alpha = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAlpha'", NULL);
-#endif
-  {
-   self->setAlpha(alpha);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setAlpha'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1621,16 +1413,10 @@ TOLUA_API int tolua_bitmapfont_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_bitmapfont_wyBitmapFontLabel_new00_local);
    tolua_function(tolua_S,".call",tolua_bitmapfont_wyBitmapFontLabel_new00_local);
    tolua_function(tolua_S,"delete",tolua_bitmapfont_wyBitmapFontLabel_delete00);
-   tolua_function(tolua_S,"draw",tolua_bitmapfont_wyBitmapFontLabel_draw00);
    tolua_function(tolua_S,"setText",tolua_bitmapfont_wyBitmapFontLabel_setText00);
    tolua_function(tolua_S,"getText",tolua_bitmapfont_wyBitmapFontLabel_getText00);
    tolua_function(tolua_S,"setFont",tolua_bitmapfont_wyBitmapFontLabel_setFont00);
    tolua_function(tolua_S,"getFont",tolua_bitmapfont_wyBitmapFontLabel_getFont00);
-   tolua_function(tolua_S,"setColor",tolua_bitmapfont_wyBitmapFontLabel_setColor00);
-   tolua_function(tolua_S,"setColor",tolua_bitmapfont_wyBitmapFontLabel_setColor01);
-   tolua_function(tolua_S,"getColor",tolua_bitmapfont_wyBitmapFontLabel_getColor00);
-   tolua_function(tolua_S,"getAlpha",tolua_bitmapfont_wyBitmapFontLabel_getAlpha00);
-   tolua_function(tolua_S,"setAlpha",tolua_bitmapfont_wyBitmapFontLabel_setAlpha00);
    tolua_function(tolua_S,"setSpaceWidth",tolua_bitmapfont_wyBitmapFontLabel_setSpaceWidth00);
    tolua_function(tolua_S,"getSpaceWidth",tolua_bitmapfont_wyBitmapFontLabel_getSpaceWidth00);
    tolua_function(tolua_S,"setTabSize",tolua_bitmapfont_wyBitmapFontLabel_setTabSize00);

@@ -1,16 +1,23 @@
 /*
  * Copyright (c) 2010 WiYun Inc.
-
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
-
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,8 +30,8 @@
 #define __wyBitmapFontLabel_h__
 
 #include "wyNode.h"
-#include "wyBitmapFont.h"
-#include "wyTextureAtlas.h"
+#include "wyQuadList.h"
+#include "WiEngine-Classes.h"
 
 /**
  * @class wyBitmapFontLabel
@@ -78,82 +85,36 @@ public:
 	};
 
 private:
-	/**
-	 * \if English
-	 * the label string in utf-8 encoding
-	 * \else
-	 * utf-8字符串
-	 * \endif
-	 */
+	/// the label string in utf-8 encoding
 	const char* m_text;
 
-	/**
-	 * \if English
-	 * the related \link wyBitmapFont wyBitmapFont\endlink object
-	 * \else
-	 * \link wyBitmapFont wyBitmapFont\endlink 对象
-	 * \endif
-	 */
+	/// the related \link wyBitmapFont wyBitmapFont\endlink object
 	wyBitmapFont* m_font;
 
-	/**
-	 * \if English
-	 * the atlas texture array of every font page texture
-	 * \else
-	 * 对应于每个字体页的图片集对象
-	 * \endif
-	 */
-	wyArray* m_atlasList;
+	/// material list
+	vector<wyMaterial*>* m_materialList;
+
+	/// mesh list
+	vector<wyQuadList*>* m_meshList;
 
 	/**
-	 * \if English
-	 * color of label
-	 * \else
-	 * 字体颜色
-	 * \endif
-	 */
-	wyColor4B m_color;
-
-	/**
-	 * \if English
 	 * the pixel width of a space character if there is no space bitmap in font.
-	 * default if 6dp
-	 * \else
-	 * 空格字符的像素宽度，如果位图字体中没有空格，则会使用
-	 * 这个宽度来作为空格的宽度, 缺省值是6dp
-	 * \endif
+	 * default is 6dp
 	 */
 	float m_spaceWidth;
 
 	/**
-	 * \if English
 	 * how many space character can be mapped to one tab character, default 1 tab equals
 	 * 4 space
-	 * \else
-	 * 一个制表符占的空格数，缺省是4
-	 * \endif
 	 */
 	int m_tabSize;
 
-	/**
-	 * \if English
-	 * line width of label. default is 0 which means only single line.
-	 * \else
-	 * 行的宽度，将根据这个宽度决定共显示多少行, 节点的宽度将不超过行宽。缺省是0,
-	 * 小于等于0的值都表示行宽是无穷大，因此如果不设置行宽，label就只会有一行
-	 * \endif
-	 */
+	/// line width of label. default is 0 which means only single line.
 	float m_lineWidth;
 
 	/**
-	 * \if English
 	 * line height. default is 0 means line height is dynamically calculated so
 	 * every line may have different height. If set, every line is set to same height.
-	 * \else
-	 * 行的高度, 如果不设置则缺省是0, 一个任意小于等于0的行高表示动态计算行高, 即会取
-	 * 行中最高字符的高度, 因此每行可能都不一样高. 如果设置了一个大于0的行高, 则会使用
-	 * 该行高, 那么每行都是一样高.
-	 * \endif
 	 */
 	float m_lineHeight;
 
@@ -164,23 +125,11 @@ private:
 	float m_lineSpacing;
 
 private:
-	static bool clearAtlas(wyArray* arr, void* ptr, int index, void* data);
-	static bool releaseAtlas(wyArray* arr, void* ptr, int index, void* data);
-	static bool adjustAtlasPosition(wyTextureAtlas* atlas, wyQuad3D* quadV, void* data);
-
-	static void releaseLine(const char* line);
+	/// clear all quads in every quad list mesh
+	void clearAtlas();
 
 protected:
 	wyBitmapFontLabel() {}
-
-	/**
-	 * \if English
-	 * re-calculate size of label
-	 * \else
-	 * 重新计算label的大小
-	 * \endif
-	 */
-	void updateContentSize();
 
 	/**
 	 * Get width of node
@@ -223,8 +172,29 @@ public:
 
 	virtual ~wyBitmapFontLabel();
 
-	/// @see wyNode::draw()
-	virtual void draw();
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
+
+	/// @see wyGeometry::updateMaterial
+	virtual void updateMaterial();
+
+	/// @see wyGeometry::updateMesh
+	virtual void updateMesh();
+
+	/// @see wyGeometry::updateMeshColor
+	virtual void updateMeshColor();
+
+	/// @see wyNode::getMaterialCount
+	virtual int getMaterialCount() { return m_materialList->size(); }
+
+	/// @see wyNode::getMaterial
+	virtual wyMaterial* getMaterial(int index = 0) { return m_materialList->at(index); }
+
+	/// @see wyNode::getMesh
+	virtual wyMesh* getMesh(int index = 0) { return m_meshList->at(index); }
+
+	/// @see wyNode::getLodLevel
+	virtual int getLodLevel(int index = 0) { return 0; }
 
 	/// @see wyNode::setText
 	virtual void setText(const char* text);
@@ -249,21 +219,6 @@ public:
 	 * \endif
 	 */
 	wyBitmapFont* getFont() { return m_font; };
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color) { m_color = color; }
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
 
 	/**
 	 * \if English

@@ -95,14 +95,14 @@ public:
 	/**
 	 * \if English
 	 * Invoked when failed to load http request. This method will be invoked after
-	 * onHttpReceiveResponse, and then you should not get onHttpReceiveData and
-	 * onHttpFinishLoading callback.
+	 * \c onHttpReceiveResponse, and then you should not get \c onHttpReceiveData and
+	 * \c onHttpFinishLoading callback.
 	 *
 	 * @param response response object. This object will be released after this callback returns.
 	 * 		You must retain it if you want to keep it for later use
 	 * \else
-	 * 当http请求失败时调用. 这个调用会在onHttpReceiveResponse之后发生, 且你将不再收到
-	 * onHttpReceiveData和onHttpFinishLoading回调
+	 * 当http请求失败时调用. 这个调用会在\c onHttpReceiveResponse之后发生, 且你将不再收到
+	 * \c onHttpReceiveData和\c onHttpFinishLoading回调
 	 *
 	 * @param response 响应对象, 这个回调完成之后, 该对象会被释放. 如果你希望保留用作其它用途, 必须retain它
 	 * \endif

@@ -83,13 +83,14 @@ void wyTMXObjectLayer::draw() {
 				buffer[i].y = p.y;
 			}
 
+			// TODO gles2
 			// draw lines
-			glColor4f(0, 1, 0, 1);
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glVertexPointer(2, GL_FLOAT, 0, buffer);
-			glDrawArrays(GL_LINE_STRIP, 0, m_vertices.getCount());
-			glDisableClientState(GL_VERTEX_ARRAY);
-			glColor4f(1, 1, 1, 1);
+//			glColor4f(0, 1, 0, 1);
+//			glEnableClientState(GL_VERTEX_ARRAY);
+//			glVertexPointer(2, GL_FLOAT, 0, buffer);
+//			glDrawArrays(GL_LINE_STRIP, 0, m_vertices.getCount());
+//			glDisableClientState(GL_VERTEX_ARRAY);
+//			glColor4f(1, 1, 1, 1);
 		}
 	}
 }

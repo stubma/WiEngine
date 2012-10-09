@@ -30,7 +30,6 @@
 #define __wyTiledSprite_h__
 
 #include "wyNode.h"
-#include "wyTextureAtlas.h"
 #include "wyScroller.h"
 
 class wyTiledSpriteParallaxObject;
@@ -53,9 +52,6 @@ class WIENGINE_API wyTiledSprite : public wyNode {
 	friend class wyTiledSpriteParallaxObject;
 
 private:
-	/// 封装贴图的图片集对象
-	wyTextureAtlas* m_atlas;
-
 	/**
 	 * 如果这个贴图是一个图片集中的某帧，则可以设置矩形参数，缺省情况下
 	 * 这个矩形是{0, 0, m_tex->getWidth(), m_tex->getHeight() }，即贴图
@@ -78,9 +74,6 @@ private:
 	/// 上边界(垂直平铺时)的偏移值，为正时相当于把贴图向上移动，为负时相当于向下移动
 	float m_offsetY;
 
-	/// true indicating vertex array need to be updated
-	bool m_dirty;
-
 	/// max offset in x axis, default is MAX_FLOAT
 	float m_maxOffsetX;
 
@@ -99,26 +92,11 @@ private:
 	/// \link wyScroller wyScroller 结构指针\endlink
 	wyScroller* m_scroller;
 
-	/// 颜色\link wyColor4B wyColor4B结构\endlink
-	wyColor4B m_color;
-
-	/// 渲染模式\link wyBlendFunc wyBlendFunc结构\endlink
-    wyBlendFunc m_blendFunc;
-
     /// x方向平铺间隔
     float m_spacingX;
 
     /// y方向平铺间隔
     float m_spacingY;
-
-	/**
-	 * \if English
-	 * dither image or not, dither can eliminate color block
-	 * \else
-	 * 标识是否抖动图片, 抖动可以消除某些颜色值丰富的图片显示时的渐变感
-	 * \endif
-	 */
-	bool m_dither;
 
 private:
 	/**
@@ -149,6 +127,21 @@ public:
 	 * 析构函数
 	 */
 	virtual ~wyTiledSprite();
+
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
+
+	/// @see wyNode::setTexture
+	virtual void setTexture(wyTexture2D* tex);
+
+	/// @see wyNode::updateMaterial
+	virtual void updateMaterial();
+
+	/// @see wyNode::updateMesh
+	virtual void updateMesh();
+
+	/// @see wyNode::updateMeshColor
+	virtual void updateMeshColor();
 
 	/**
 	 * 得到是否垂直平铺标志
@@ -284,39 +277,6 @@ public:
 	 */
 	void fling(float velocityX, float velocityY);
 
-	/// @see wyNode::draw
-	virtual void draw();
-
-	/// @see wyNode::setContentSize
-	virtual void setContentSize(float w, float h);
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
-
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
 	/// @see wyNode::createParallaxObject
 	virtual wyParallaxObject* createParallaxObject();
 
@@ -356,32 +316,6 @@ public:
 	 * @return 垂直方向平铺间隔
 	 */
 	float getSpacingY() { return m_spacingY; }
-
-	/**
-	 * \if English
-	 * Is dither enabled?
-	 *
-	 * @return true means dither is enabled
-	 * \else
-	 * 是否打开抖动
-	 *
-	 * @return true表示打开抖动, false表示不打开抖动
-	 * \endif
-	 */
-	bool isDither() { return m_dither; }
-
-	/**
-	 * \if English
-	 * Set dither enabled or not
-	 *
-	 * @param flag true means enable dither, falose means not
-	 * \else
-	 * 设置是否打开抖动
-	 *
-	 * @param flag true表示打开抖动, false表示不打开抖动
-	 * \endif
-	 */
-	void setDither(bool flag) { m_dither = flag; }
 };
 
 #endif // __wyTiledSprite_h__

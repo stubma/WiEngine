@@ -1095,40 +1095,41 @@ void wyGLTexture2D::doLoad() {
             left, top,
             right, top
         };
-        
-        // get state
-        GLboolean vertexArrayEnabled = glIsEnabled(GL_VERTEX_ARRAY);
-        GLboolean texCoordArrayEnabled = glIsEnabled(GL_TEXTURE_COORD_ARRAY);
-        GLboolean colorArrayEnabled = glIsEnabled(GL_COLOR_ARRAY);
-        GLboolean tex2dEnabled = glIsEnabled(GL_TEXTURE_2D);
-        
-        // enable states
-        if(!vertexArrayEnabled)
-            glEnableClientState(GL_VERTEX_ARRAY);
-        if(!texCoordArrayEnabled)
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        if(colorArrayEnabled)
-            glDisableClientState(GL_COLOR_ARRAY);
-        if(!tex2dEnabled)
-            glEnable(GL_TEXTURE_2D);
-			
-        // ensure current texture is active
-        glBindTexture(GL_TEXTURE_2D, m_texture);
-        
-        // set vertices and texture coordination and draw
-        glVertexPointer(3, GL_FLOAT, 0, vertices);
-        glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        
-        // disable states
-        if(!vertexArrayEnabled)
-            glDisableClientState(GL_VERTEX_ARRAY);
-        if(!texCoordArrayEnabled) 
-            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-        if(colorArrayEnabled)
-            glEnableClientState(GL_COLOR_ARRAY);
-        if(!tex2dEnabled)
-            glDisable(GL_TEXTURE_2D);
+   
+		// TODO gles2
+//      // get state
+//        GLboolean vertexArrayEnabled = glIsEnabled(GL_VERTEX_ARRAY);
+//        GLboolean texCoordArrayEnabled = glIsEnabled(GL_TEXTURE_COORD_ARRAY);
+//        GLboolean colorArrayEnabled = glIsEnabled(GL_COLOR_ARRAY);
+//        GLboolean tex2dEnabled = glIsEnabled(GL_TEXTURE_2D);
+//        
+//        // enable states
+//        if(!vertexArrayEnabled)
+//            glEnableClientState(GL_VERTEX_ARRAY);
+//        if(!texCoordArrayEnabled)
+//            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//        if(colorArrayEnabled)
+//            glDisableClientState(GL_COLOR_ARRAY);
+//        if(!tex2dEnabled)
+//            glEnable(GL_TEXTURE_2D);
+//			
+//        // ensure current texture is active
+//        glBindTexture(GL_TEXTURE_2D, m_texture);
+//        
+//        // set vertices and texture coordination and draw
+//        glVertexPointer(3, GL_FLOAT, 0, vertices);
+//        glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+//        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+//        
+//        // disable states
+//        if(!vertexArrayEnabled)
+//            glDisableClientState(GL_VERTEX_ARRAY);
+//        if(!texCoordArrayEnabled) 
+//            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//        if(colorArrayEnabled)
+//            glEnableClientState(GL_COLOR_ARRAY);
+//        if(!tex2dEnabled)
+//            glDisable(GL_TEXTURE_2D);
 	}
 }
 
@@ -1279,10 +1280,10 @@ void wyGLTexture2D::setParameters(int min, int mag, int wrapS, int wrapT) {
 }
 
 void wyGLTexture2D::applyParameters() {
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_minFilter);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_magFilter);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrapS);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrapT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_minFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_magFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrapS);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrapT);
 }
 
 bool wyGLTexture2D::hasPremultipliedAlpha() {
@@ -1406,27 +1407,28 @@ void wyGLTexture2D::draw(float x, float y, float width, float height, float sour
 		wyUtils::swap(vertices, 8, 11);
 	}
 
-	// enable states
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-
-	// ensure current texture is active
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-
-	// apply texture parameters in both direction
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrapS);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrapT);
-
-	// set vertices and texture coordination and draw
-	glVertexPointer(3, GL_FLOAT, 0, vertices);
-	glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-	// disable states
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisable(GL_TEXTURE_2D);
+	// TODO gles2
+//	// enable states
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glEnable(GL_TEXTURE_2D);
+//
+//	// ensure current texture is active
+//	glBindTexture(GL_TEXTURE_2D, m_texture);
+//
+//	// apply texture parameters in both direction
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrapS);
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrapT);
+//
+//	// set vertices and texture coordination and draw
+//	glVertexPointer(3, GL_FLOAT, 0, vertices);
+//	glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+//	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+//
+//	// disable states
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisable(GL_TEXTURE_2D);
 }
 
 const char* wyGLTexture2D::convertPixelFormat(const char* data) {

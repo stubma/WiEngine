@@ -35,47 +35,48 @@
 #include "wyDirector.h"
 
 void wyRenderTexture::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnable(GL_TEXTURE_2D);
-
-    glColor4f(m_color.r / 255.0f, m_color.g / 255.0f, m_color.b / 255.0f, m_color.a / 255.0f);
-
-    bool newBlend = false;
-    if (m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
-        newBlend = true;
-        glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
-    }
-
-    // need flip y axis because opengl texture starts from bottom
-	if (m_texture != 0) {
-		wyDrawTexture(m_texture,
-				m_texWidth,
-				m_texHeight,
-				0,
-				0,
-				m_width,
-				m_height,
-				false,
-				true);
-	}
-
-    if (newBlend)
-        glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-    // is this cheaper than saving/restoring color state ?
-    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-    glDisable(GL_TEXTURE_2D);
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	// TODO gles2
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//    glEnableClientState(GL_VERTEX_ARRAY);
+//    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//    glEnable(GL_TEXTURE_2D);
+//
+//    glColor4f(m_color.r / 255.0f, m_color.g / 255.0f, m_color.b / 255.0f, m_color.a / 255.0f);
+//
+//    bool newBlend = false;
+//    if (m_blendFunc.src != DEFAULT_BLEND_SRC || m_blendFunc.dst != DEFAULT_BLEND_DST) {
+//        newBlend = true;
+//        glBlendFunc(m_blendFunc.src, m_blendFunc.dst);
+//    }
+//
+//    // need flip y axis because opengl texture starts from bottom
+//	if (m_texture != 0) {
+//		wyDrawTexture(m_texture,
+//				m_texWidth,
+//				m_texHeight,
+//				0,
+//				0,
+//				m_width,
+//				m_height,
+//				false,
+//				true);
+//	}
+//
+//    if (newBlend)
+//        glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
+//
+//    // is this cheaper than saving/restoring color state ?
+//    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+//
+//    glDisable(GL_TEXTURE_2D);
+//    glDisableClientState(GL_VERTEX_ARRAY);
+//    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 wyColor3B wyRenderTexture::getColor() {
@@ -146,35 +147,35 @@ wyRenderTexture::wyRenderTexture() :
 }
 
 void wyRenderTexture::createFrameBuffer(int w, int h) {
-	// create texture
-	glGenTextures(1, (GLuint*)&m_texture);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-
-	// apply texture parameters
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	// allocate buffer and create texture from it
-	GLvoid* pixels = (GLvoid*)wyCalloc(w * h * 4, sizeof(GLubyte));
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-	wyFree(pixels);
-
-	// generate a new frame buffer
-	glGenFramebuffersOES(1, (GLuint*)&m_fbo);
-
-	// get old frame buffer object
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
-
-	// bind
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
-
-	// associate texture with FBO
-	glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, m_texture, 0);
-
-	// restore old buffer
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
+//	// create texture
+//	glGenTextures(1, (GLuint*)&m_texture);
+//	glBindTexture(GL_TEXTURE_2D, m_texture);
+//
+//	// apply texture parameters
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//	glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//
+//	// allocate buffer and create texture from it
+//	GLvoid* pixels = (GLvoid*)wyCalloc(w * h * 4, sizeof(GLubyte));
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+//	wyFree(pixels);
+//
+//	// generate a new frame buffer
+//	glGenFramebuffersOES(1, (GLuint*)&m_fbo);
+//
+//	// get old frame buffer object
+//	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
+//
+//	// bind
+//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
+//
+//	// associate texture with FBO
+//	glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, m_texture, 0);
+//
+//	// restore old buffer
+//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
 }
 
 wyRenderTexture* wyRenderTexture::make(int width, int height) {
@@ -209,40 +210,43 @@ void wyRenderTexture::beginRender(float r, float g, float b, float a) {
 }
 
 void wyRenderTexture::beginRender() {
-	// push matrix
-	glPushMatrix();
-
-	// Calculate the adjustment ratios based on the old and new projections
-	// Adjust the orthographic propjection and viewport
-	float widthRatio = wyDevice::winWidth / m_width;
-	float heightRatio = wyDevice::winHeight / m_height;
-	glOrthof(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
-
-	// set viewport to real surface size
-	glViewport(0, 0, m_texWidth, m_texHeight);
-
-	// get old frame buffer object
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
-
-	// bind buffer
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
+	// TODO gles2
+//	// push matrix
+//	glPushMatrix();
+//
+//	// Calculate the adjustment ratios based on the old and new projections
+//	// Adjust the orthographic propjection and viewport
+//	float widthRatio = wyDevice::winWidth / m_width;
+//	float heightRatio = wyDevice::winHeight / m_height;
+//	glOrthof(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
+//
+//	// set viewport to real surface size
+//	glViewport(0, 0, m_texWidth, m_texHeight);
+//
+//	// get old frame buffer object
+//	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
+//
+//	// bind buffer
+//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
 }
 
 void wyRenderTexture::endRender() {
-	// bind buffer
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
-
-	// pop matrix
-	glPopMatrix();
-
-	// restore viewport
-	glViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
+	// TODO gles2
+//	// bind buffer
+//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
+//
+//	// pop matrix
+//	glPopMatrix();
+//
+//	// restore viewport
+//	glViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
 }
 
 void wyRenderTexture::releaseBuffer() {
 	// delete custom frame buffer
 	if(m_fbo != 0) {
-		glDeleteFramebuffersOES(1, (GLuint*)&m_fbo);
+		// TODO gles2
+//		glDeleteFramebuffersOES(1, (GLuint*)&m_fbo);
 		m_fbo = 0;
 	}
 

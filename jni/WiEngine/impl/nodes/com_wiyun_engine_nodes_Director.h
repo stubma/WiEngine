@@ -198,46 +198,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_runWithScene
 
 /*
  * Class:     com_wiyun_engine_nodes_Director
- * Method:    set2DProjection
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_set2DProjection
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_Director
- * Method:    set3DProjection
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_set3DProjection
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_Director
- * Method:    setAlphaBlending
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setAlphaBlending
-  (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     com_wiyun_engine_nodes_Director
- * Method:    setDepthTest
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setDepthTest
-  (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     com_wiyun_engine_nodes_Director
- * Method:    setCullFace
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setCullFace
-  (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     com_wiyun_engine_nodes_Director
  * Method:    setDisplayFPS
  * Signature: (Z)V
  */
@@ -246,14 +206,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setDisplayFPS
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setCalculateFPS
   (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     com_wiyun_engine_nodes_Director
- * Method:    setProjection
- * Signature: (I)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Director_setProjection
-  (JNIEnv *, jobject, jint);
 
 /*
  * Class:     com_wiyun_engine_nodes_Director

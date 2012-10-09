@@ -34,10 +34,10 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_VerletRope_update
 /*
  * Class:     com_wiyun_engine_utils_VerletRope
  * Method:    draw
- * Signature: ()V
+ * Signature: (Lcom/wiyun/engine/nodes/Node;)V
  */
 JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_VerletRope_draw
-  (JNIEnv *, jobject);
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_wiyun_engine_utils_VerletRope

@@ -17,78 +17,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TiledSprite_nativeInit
 
 /*
  * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    nativeGetTexture
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TiledSprite_nativeGetTexture
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    setTexture
- * Signature: (Lcom/wiyun/engine/opengl/Texture2D;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TiledSprite_setTexture
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    getBlendFuncSrc
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TiledSprite_getBlendFuncSrc
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    getBlendFuncDst
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TiledSprite_getBlendFuncDst
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    setBlendFunc
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TiledSprite_setBlendFunc
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    getAlpha
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_TiledSprite_getAlpha
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    setAlpha
- * Signature: (I)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TiledSprite_setAlpha
-  (JNIEnv *, jobject, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    nativeGetColor
- * Signature: (Lcom/wiyun/engine/types/WYColor3B;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TiledSprite_nativeGetColor
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    nativeSetColor
- * Signature: (III)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TiledSprite_nativeSetColor
-  (JNIEnv *, jobject, jint, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
  * Method:    isTileVertical
  * Signature: ()Z
  */
@@ -270,22 +198,6 @@ JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_nodes_TiledSprite_getSpacingX
  */
 JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_nodes_TiledSprite_getSpacingY
   (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    isDither
- * Signature: ()Z
- */
-JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_TiledSprite_isDither
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TiledSprite
- * Method:    setDither
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TiledSprite_setDither
-  (JNIEnv *, jobject, jboolean);
 
 #ifdef __cplusplus
 }

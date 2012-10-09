@@ -104,7 +104,8 @@ namespace Grid_Action {
     class wyPageTurn3DTestLayer : public wyActionTestLayer {
     public:
         wyPageTurn3DTestLayer() {
-        	wyDirector::getInstance()->setCullFace(true);
+			// TODO gles2
+        	//wyDirector::getInstance()->setCullFace(true);
 			wyIntervalAction* a = wyPageTurn3D::make(2.0f, 12, 20);
             wyIntervalAction* t = wySequence::make(
             		a,

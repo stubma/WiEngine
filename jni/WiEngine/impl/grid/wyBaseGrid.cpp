@@ -65,26 +65,32 @@ void wyBaseGrid::beforeDraw() {
 }
 
 void wyBaseGrid::afterDraw(wyNode* node) {
-	// after render will pop matrix to parent space
-	m_grabber->afterRender();
-
-	// need transform to this node because afterRender will pop matrix to parent space
-	node->transform();
-
-	// now use the texture to render
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, m_grabber->getTexture());
-
-	// render
-    blit();
-
-	// reset state
-    glDisable(GL_TEXTURE_2D);
+	// TODO gles2
+//	m_grabber->afterRender();
+//
+//	// need to recover matrix for blit operation
+//	gDirector->set3DProjection();
+//
+//	if(node->hasCamera()) {
+//		wyCamera* camera = node->getCamera();
+//		if(camera->isDirty()) {
+//			glTranslatef(node->getAnchorPointX(), node->getAnchorPointY(), 0);
+//			camera->locate();
+//			glTranslatef(-node->getAnchorPointX(), -node->getAnchorPointY(), 0);
+//		}
+//	}
+//
+//    glEnable(GL_TEXTURE_2D);
+//    glBindTexture(GL_TEXTURE_2D, m_grabber->getTexture());
+//
+//    blit();
+//    glDisable(GL_TEXTURE_2D);
 }
 
 void wyBaseGrid::setActive(bool flag) {
-	m_active = flag;
-	if(!m_active) {
-		gDirector->setProjection(gDirector->getProjection());
-	}
+	// TODO gles2
+//	m_active = flag;
+//	if(!m_active) {
+//		gDirector->setProjection(gDirector->getProjection());
+//	}
 }

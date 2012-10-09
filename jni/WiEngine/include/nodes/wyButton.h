@@ -1,16 +1,23 @@
 /*
  * Copyright (c) 2010 WiYun Inc.
-
+ * Author: luma(stubma@gmail.com)
+ *
+ * For all entities this program is free software; you can redistribute
+ * it and/or modify it under the terms of the 'WiEngine' license with
+ * the additional provision that 'WiEngine' must be credited in a manner
+ * that can be be observed by end users, for example, in the credits or during
+ * start up. (please find WiEngine logo in sdk's logo folder)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
-
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,7 +29,7 @@
 #ifndef __wyButton_h__
 #define __wyButton_h__
 
-#include "wyNode.h"
+#include "wyCompoundNode.h"
 
 /**
  * @class wyButton
@@ -35,44 +42,12 @@
  * 状态节点接收事件, 因为按钮在onEnter和onExit发生时也会调用它们的相应方法.
  * \endif
  */
-class WIENGINE_API wyButton : public wyNode {
+class WIENGINE_API wyButton : public wyCompoundNode {
+private:
+	/// old color of normal state node
+	wyColor3B m_oldNormalColor;
+
 protected:
-	/**
-	 * \if English
-	 * normal state
-	 * \else
-	 * 正常状态的\link wyNode wyNode对象指针 \endlink
-	 * \endif
-	 */
-	wyNode* m_normalState;
-
-	/**
-	 * \if English
-	 * selected state
-	 * \else
-	 * 被选中状态的\link wyNode wyNode对象指针 \endlink
-	 * \endif
-	 */
-	wyNode* m_selectedState;
-
-	/**
-	 * \if English
-	 * disabled state
-	 * \else
-	 * 禁用状态的\link wyNode wyNode对象指针 \endlink
-	 * \endif
-	 */
-	wyNode* m_disabledState;
-
-	/**
-	 * \if English
-	 * focused state
-	 * \else
-	 * 获得焦点状态的\link wyNode wyNode对象指针 \endlink
-	 * \endif
-	 */
-	wyNode* m_focusedState;
-
 	/**
 	 * \if English
 	 * specify how much the button will be scaled while being clicked
@@ -90,6 +65,10 @@ protected:
 	 * \endif
 	 */
 	float m_originalScale;
+
+protected:
+	/// @see wyCompoundNode::getStateTag
+	virtual int getStateTag();
 
 public:
 	/**
@@ -146,41 +125,8 @@ public:
 	 */
 	virtual ~wyButton();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
-	/// @see wyNode::onEnter
-	virtual void onEnter();
-
-	/// @see wyNode::onExit
-	virtual void onExit();
-
-	/// @see wyNode::setRotation
-	virtual void setRotation(float rot);
-
-	/// @see wyNode::setScale
-	virtual void setScale(float scale);
-
-	/// @see wyNode::setScaleX
-	virtual void setScaleX(float scaleX);
-
-	/// @see wyNode::setScaleY
-	virtual void setScaleY(float scaleY);
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
-
-	/// @see wyNode::getAlpha
-	virtual int getAlpha();
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha);
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
 
 	/// @see wyNode::setSelected
 	virtual void setSelected(bool selected);

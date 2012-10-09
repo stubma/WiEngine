@@ -1,31 +1,3 @@
-/*
- * Copyright (c) 2010 WiYun Inc.
- * Author: luma(stubma@gmail.com)
- *
- * For all entities this program is free software; you can redistribute
- * it and/or modify it under the terms of the 'WiEngine' license with
- * the additional provision that 'WiEngine' must be credited in a manner
- * that can be be observed by end users, for example, in the credits or during
- * start up. (please find WiEngine logo in sdk's logo folder)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 package com.wiyun.engine.opengl;
 
 import java.lang.reflect.Field;
@@ -66,12 +38,6 @@ public class WYGLSurfaceView extends GLSurfaceView {
 	// flag indicating system can handle menu key event, default is true
 	private boolean mSystemHandleMenuKey;
 	
-	// use z buffer or not, default is false
-	private boolean mEnableZBuffer;
-	
-	// use stencil buffer or not, default is false
-	private boolean mEnableStencilBuffer;
-	
 	// mute set flag for audiomanager
 	static boolean sMuteSet = false;
 	
@@ -81,7 +47,7 @@ public class WYGLSurfaceView extends GLSurfaceView {
      * @param context {@link Context}
      */
     public WYGLSurfaceView(Context context) {
-        this(context, null, false, false, false);
+        this(context, null, false);
     }
     
     /**
@@ -91,7 +57,7 @@ public class WYGLSurfaceView extends GLSurfaceView {
      * @param transparent true表示背景透明
      */
     public WYGLSurfaceView(Context context, boolean transparent) {
-        this(context, null, false , false , transparent);
+        this(context, null, transparent);
     }
     
     /**
@@ -101,7 +67,7 @@ public class WYGLSurfaceView extends GLSurfaceView {
      * @param attrs 属性集, 如果从xml创建WYGLSurfaceView, 会传入这个参数
      */
     public WYGLSurfaceView(Context context, AttributeSet attrs) {
-    	this(context, attrs, false, false, false);
+    	this(context, attrs, false);
 	}
     
     /**
@@ -113,7 +79,7 @@ public class WYGLSurfaceView extends GLSurfaceView {
      * @param enableStencilBuffer 是否打开stencil buffer
      * @param transparent true表示使surface view透明
      */
-    public WYGLSurfaceView(Context context, AttributeSet attrs, boolean enableZBuffer, boolean enableStencilBuffer, boolean transparent) {
+    public WYGLSurfaceView(Context context, AttributeSet attrs, boolean transparent) {
 		super(context, attrs);
 		
 		/*
@@ -136,8 +102,6 @@ public class WYGLSurfaceView extends GLSurfaceView {
 		// let system handle some keys
 		mSystemHandleVolumnKey = true;
 		mSystemHandleMenuKey = true;
-		mEnableZBuffer = enableZBuffer;
-		mEnableStencilBuffer = enableStencilBuffer;
 		
         // create director instance
         mDirector = Director.getInstance();
@@ -150,6 +114,9 @@ public class WYGLSurfaceView extends GLSurfaceView {
         mGestureDetector = new GestureDetector(context, mDispatcher);
         mGestureDetector.setIsLongpressEnabled(true);
 
+        // important if you want to use opengl es 2.0
+        setEGLContextClientVersion(2);
+        
         // set director as renderer
         setEGLConfigChooser(new WYConfigChooser(transparent));
         if (transparent) {
@@ -223,14 +190,6 @@ public class WYGLSurfaceView extends GLSurfaceView {
     	
     	// notify director
     	mDirector.onSurfaceDestroyed();
-    }
-    
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-    	super.surfaceCreated(holder);
-    	
-    	// enable depth test if z buffer is switched on
-		Director.getInstance().setDepthTest(mEnableZBuffer);
     }
     
     @Override
@@ -422,16 +381,16 @@ public class WYGLSurfaceView extends GLSurfaceView {
 			config_attribs[i++] = a;
 			
 			// z buffer
-			if(mEnableZBuffer) {
-				config_attribs[i++] = EGL10.EGL_DEPTH_SIZE;
-				config_attribs[i++] = 16;
-			}
+			config_attribs[i++] = EGL10.EGL_DEPTH_SIZE;
+			config_attribs[i++] = 16;
 			
 			// stencil buffer
-			if(mEnableStencilBuffer) {
-				config_attribs[i++] = EGL10.EGL_STENCIL_SIZE;
-				config_attribs[i++] = 8;
-			}
+			config_attribs[i++] = EGL10.EGL_STENCIL_SIZE;
+			config_attribs[i++] = 8;
+			
+			// render type
+			config_attribs[i++] = EGL10.EGL_RENDERABLE_TYPE;
+			config_attribs[i++] = 4; /* EGL_OPENGL_ES2_BIT */
 			
 			// surface type
 			config_attribs[i++] = EGL10.EGL_SURFACE_TYPE;

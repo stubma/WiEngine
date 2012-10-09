@@ -1,7 +1,6 @@
 #include "com_wiyun_engine_utils_ZwoptexManager.h"
 #include "wyZwoptexManager.h"
 #include "wyTypes.h"
-#include "wyTextureAtlas.h"
 #include "wyUtils_android.h"
 
 extern jfieldID g_fid_BaseObject_mPointer;

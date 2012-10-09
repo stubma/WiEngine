@@ -34,6 +34,8 @@
 #include "wyCallFunc.h"
 #include "wySequence.h"
 #include "wyDelayTime.h"
+#include "wyScheduler.h"
+#include "wyCamera.h"
 
 extern wyDirector* gDirector;
 extern wyEventDispatcher* gEventDispatcher;
@@ -196,14 +198,14 @@ void wyTransitionScene::finish(wyTargetSelector* ts) {
 	m_inScene->setScale(1.0f);
 	m_inScene->setRotation(0.0f);
 	if(m_inScene->hasCamera())
-		m_inScene->getCamera()->restore();
+		m_inScene->getCamera()->restoreCamera();
 
 	m_outScene->setVisible(false);
 	m_outScene->setPosition(0, 0);
 	m_outScene->setScale(1.0f);
 	m_outScene->setRotation(0.0f);
 	if(m_outScene->hasCamera())
-		m_outScene->getCamera()->restore();
+		m_outScene->getCamera()->restoreCamera();
 
 	// schedule to set new scene
     wyTargetSelector* selSetNewScene = wyTargetSelector::make(this, SEL(wyTransitionScene::setNewScene));

@@ -1,5 +1,6 @@
 #include "com_wiyun_engine_actions_CallFunc.h"
 #include "wyCallFunc.h"
+#include "wyTargetSelector.h"
 
 extern jfieldID g_fid_BaseObject_mPointer;
 

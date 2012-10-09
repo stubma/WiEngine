@@ -31,6 +31,7 @@
 #include "wyTypes.h"
 #include "wyCoverFlow.h"
 #include "wyCoverFlowAction.h"
+#include "wyTexture2D.h"
 
 wyCover::wyCover(wyTexture2D* tex) :
 		m_posX(0),
@@ -60,9 +61,10 @@ void wyCover::setTexture(wyTexture2D* tex) {
 }
 
 void wyCover::transform() {
-    glTranslatef(m_posX, m_posY, m_posZ);
-    glRotatef(m_rotateDegreeY, 0.0f, 1.0f, 0.0f);
-    glScalef(m_scale, m_scale, 1.0f);
+	// TODO gles2
+//    glTranslatef(m_posX, m_posY, m_posZ);
+//    glRotatef(m_rotateDegreeY, 0.0f, 1.0f, 0.0f);
+//    glScalef(m_scale, m_scale, 1.0f);
 }
 
 wyVertex3D wyCover::getPosition() {
@@ -482,35 +484,36 @@ void wyCoverFlow::drawRightCovers() {
 }
 
 void wyCoverFlow::drawCover(wyCover* cover) {
-    if(!cover)
-        return;
-
-	// get texture
-	wyTexture2D* tex = cover->getTexture();
-    if(!tex)
-        return;
-
-	// ensure texture is loaded
-	tex->load();
-
-	// save matrix
-    glPushMatrix();
-
-	// transform
-    cover->transform();
-
-	// bind texture
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, tex->getTexture());
-   
-	// draw
-    drawMesh(tex->getWidth() / tex->getPixelWidth(), tex->getHeight() / tex->getPixelHeight());
-
-	// restore state
-    glDisable(GL_TEXTURE_2D);
-
-	// restore matrix
-    glPopMatrix();
+	// TODO gles2
+//    if(!cover)
+//        return;
+//
+//	// get texture
+//	wyTexture2D* tex = cover->getTexture();
+//    if(!tex)
+//        return;
+//
+//	// ensure texture is loaded
+//	tex->load();
+//
+//	// save matrix
+//    glPushMatrix();
+//
+//	// transform
+//    cover->transform();
+//
+//	// bind texture
+//    glEnable(GL_TEXTURE_2D);
+//    glBindTexture(GL_TEXTURE_2D, tex->getTexture());
+//   
+//	// draw
+//    drawMesh(tex->getWidth() / tex->getPixelWidth(), tex->getHeight() / tex->getPixelHeight());
+//
+//	// restore state
+//    glDisable(GL_TEXTURE_2D);
+//
+//	// restore matrix
+//    glPopMatrix();
 }
 
 void wyCoverFlow::matrixMulti(Matrix44 m1, Matrix44 m2, Matrix44 result) {
@@ -750,56 +753,57 @@ wyCover* wyCoverFlow::getTouchedCover(float x, float y) {
 }
 
 void wyCoverFlow::drawMesh(float ratioX, float ratioY) {
-	int stride = sizeof(SVertex);
-
-    glTranslatef(m_frontCenterX, m_frontCenterY, 0);
-
-    if(m_fVBOSupported && ratioX == 1.0f && ratioY == 1.0f) {
-    	// bind the VBO for the mesh
-    	glBindBuffer(GL_ARRAY_BUFFER, m_uiVbo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiAllIndexVbo);
-    	glVertexPointer(3, GL_FLOAT, stride, 0);
-    	glNormalPointer(GL_FLOAT, stride, (GLvoid*)offsetof(SVertex, n));
-    	glColorPointer(4, GL_FLOAT, stride, (GLvoid*)offsetof(SVertex, c));
-    	glTexCoordPointer(2, GL_FLOAT, stride, (GLvoid*)offsetof(SVertex, t));
-
-    	//enable alpha blending just for the borders
-    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        if(m_bMirrorEnabled) {
-            glDrawElements(GL_TRIANGLES, 108, GL_UNSIGNED_SHORT, 0);
-        } else {
-            glDrawElements(GL_TRIANGLES, 48, GL_UNSIGNED_SHORT, 0);
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, (GLvoid*)192);
-        }
-    } else {
-    	glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    	glVertexPointer(3, GL_FLOAT, stride, (GLvoid*)m_coverPoints);
-    	glNormalPointer(GL_FLOAT, stride, (GLvoid*)((size_t)m_coverPoints + offsetof(SVertex, n)));
-    	glColorPointer(4, GL_FLOAT, stride, (GLvoid*)((size_t)m_coverPoints + offsetof(SVertex, c)));
-
-        if(ratioX != 1.0f || ratioY != 1.0f) {
-            for(int i = 0; i < 32; ++i) {
-                if(ratioX != 1.0f)
-                    m_texCoordsReal[i].x = m_coverPoints[i].t.x * ratioX;
-                if(ratioY != 1.0f)
-                    m_texCoordsReal[i].y = m_coverPoints[i].t.y * ratioY;
-            }            
-        }
-
-    	glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)(m_texCoordsReal));
-
-    	//enable alpha blending just for the borders
-    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        if(m_bMirrorEnabled) {
-            glDrawElements(GL_TRIANGLES, 108, GL_UNSIGNED_SHORT, m_indicesAll);
-        } else {
-            glDrawElements(GL_TRIANGLES, 48, GL_UNSIGNED_SHORT, m_indicesAll);
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, (GLvoid*)((char*)m_indicesAll + 192));
-        }
-    }
+	// TODO gles2
+//	int stride = sizeof(SVertex);
+//
+//    glTranslatef(m_frontCenterX, m_frontCenterY, 0);
+//
+//    if(m_fVBOSupported && ratioX == 1.0f && ratioY == 1.0f) {
+//    	// bind the VBO for the mesh
+//    	glBindBuffer(GL_ARRAY_BUFFER, m_uiVbo);
+//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiAllIndexVbo);
+//    	glVertexPointer(3, GL_FLOAT, stride, 0);
+//    	glNormalPointer(GL_FLOAT, stride, (GLvoid*)offsetof(SVertex, n));
+//    	glColorPointer(4, GL_FLOAT, stride, (GLvoid*)offsetof(SVertex, c));
+//    	glTexCoordPointer(2, GL_FLOAT, stride, (GLvoid*)offsetof(SVertex, t));
+//
+//    	//enable alpha blending just for the borders
+//    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//
+//        if(m_bMirrorEnabled) {
+//            glDrawElements(GL_TRIANGLES, 108, GL_UNSIGNED_SHORT, 0);
+//        } else {
+//            glDrawElements(GL_TRIANGLES, 48, GL_UNSIGNED_SHORT, 0);
+//            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, (GLvoid*)192);
+//        }
+//    } else {
+//    	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//    	glVertexPointer(3, GL_FLOAT, stride, (GLvoid*)m_coverPoints);
+//    	glNormalPointer(GL_FLOAT, stride, (GLvoid*)((size_t)m_coverPoints + offsetof(SVertex, n)));
+//    	glColorPointer(4, GL_FLOAT, stride, (GLvoid*)((size_t)m_coverPoints + offsetof(SVertex, c)));
+//
+//        if(ratioX != 1.0f || ratioY != 1.0f) {
+//            for(int i = 0; i < 32; ++i) {
+//                if(ratioX != 1.0f)
+//                    m_texCoordsReal[i].x = m_coverPoints[i].t.x * ratioX;
+//                if(ratioY != 1.0f)
+//                    m_texCoordsReal[i].y = m_coverPoints[i].t.y * ratioY;
+//            }            
+//        }
+//
+//    	glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)(m_texCoordsReal));
+//
+//    	//enable alpha blending just for the borders
+//    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//
+//        if(m_bMirrorEnabled) {
+//            glDrawElements(GL_TRIANGLES, 108, GL_UNSIGNED_SHORT, m_indicesAll);
+//        } else {
+//            glDrawElements(GL_TRIANGLES, 48, GL_UNSIGNED_SHORT, m_indicesAll);
+//            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, (GLvoid*)((char*)m_indicesAll + 192));
+//        }
+//    }
 }
 
 void wyCoverFlow::draw() {
@@ -827,39 +831,40 @@ void wyCoverFlow::draw() {
     
     initVertices();
 
-    // Clears the color and depth buffer
-    glShadeModel(GL_SMOOTH);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-    // get modelview and projection matrix
-    if(m_isMartixQuerySupported) {
-        // clear opengl error flag
-        glGetError();
-
-        glGetFloatv(GL_MODELVIEW_MATRIX, (GLfloat*)m_modelViewMatrix);
-        glGetFloatv(GL_PROJECTION_MATRIX, (GLfloat*)m_projectionMatrix);
-
-        if(GL_NO_ERROR != glGetError())
-            m_isMartixQuerySupported = false;
-        else
-            m_isMatrixValid = true;
-    }
-
-    //do drawing
-    drawLeftCovers();
-    drawRightCovers();
-    drawFrontCover();
-    
-	// unbind the vertex buffers as we don't need them bound anymore
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-    glShadeModel(GL_FLAT);
+	// TODO gles2
+//    // Clears the color and depth buffer
+//    glShadeModel(GL_SMOOTH);
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_COLOR_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//
+//    // get modelview and projection matrix
+//    if(m_isMartixQuerySupported) {
+//        // clear opengl error flag
+//        glGetError();
+//
+//        glGetFloatv(GL_MODELVIEW_MATRIX, (GLfloat*)m_modelViewMatrix);
+//        glGetFloatv(GL_PROJECTION_MATRIX, (GLfloat*)m_projectionMatrix);
+//
+//        if(GL_NO_ERROR != glGetError())
+//            m_isMartixQuerySupported = false;
+//        else
+//            m_isMatrixValid = true;
+//    }
+//
+//    //do drawing
+//    drawLeftCovers();
+//    drawRightCovers();
+//    drawFrontCover();
+//    
+//	// unbind the vertex buffers as we don't need them bound anymore
+//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisableClientState(GL_COLOR_ARRAY);
+//    glShadeModel(GL_FLAT);
 }
 
 void wyCoverFlow::initVertices() {

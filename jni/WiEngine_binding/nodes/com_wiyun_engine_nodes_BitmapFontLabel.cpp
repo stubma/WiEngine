@@ -43,30 +43,6 @@ JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_getText
     return env->NewStringUTF(text);
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_setColor
-  (JNIEnv* env, jobject thiz , jobject jColor) {
-    wyBitmapFontLabel* fontLabel = (wyBitmapFontLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);  
-    fontLabel->setColor(wyUtils_android::to_wyColor3B( jColor));
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_nativeGetColor
-  (JNIEnv* env, jobject thiz, jobject jColor) {
-    wyBitmapFontLabel* fontLabel = (wyBitmapFontLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);  
-    wyUtils_android::to_WYColor3B(fontLabel->getColor(), jColor);
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_getAlpha
-  (JNIEnv * env, jobject thiz) {
-    wyBitmapFontLabel* fontLabel = (wyBitmapFontLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);  
-    return fontLabel->getAlpha();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_setAlpha
-  (JNIEnv * env, jobject thiz, jint alpha) {
-    wyBitmapFontLabel* fontLabel = (wyBitmapFontLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);  
-	fontLabel->setAlpha(alpha);
-}
-
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_setSpaceWidth
   (JNIEnv* env, jobject thiz, jfloat w) {
 	wyBitmapFontLabel* fontLabel = (wyBitmapFontLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);

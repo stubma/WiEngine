@@ -31,7 +31,6 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
-#include "glu.h"
 #include "wyTypes.h"
 #include "wyActionManager.h"
 #include "wyTextureManager.h"
@@ -51,6 +50,13 @@
 #include "wyBitmapFont.h"
 #include "wyToast.h"
 #include "wyAutoReleasePool.h"
+#include "wyGLES2Renderer.h"
+#include "wyShaderManager.h"
+#include "wyRenderManager.h"
+#include "wyViewport.h"
+#include "wyLabel.h"
+#include "wyScene.h"
+#include "wyTransitionScene.h"
 #include "wyMath.h"
 
 /// global director instance
@@ -81,6 +87,7 @@ extern wySPXManager* gSPXManager;
 extern wySPX3Manager* gSPX3Manager;
 extern wyArcticManager* gArcticManager;
 extern wyAuroraManager* gAuroraManager;
+extern wyShaderManager* gShaderManager;
 
 #ifdef __cplusplus
 extern "C" {
@@ -194,7 +201,6 @@ wyDirector::wyDirector() :
 		m_displayFPS(false),
 		m_calculateFPS(false),
 		m_surfaceCreated(false),
-		m_enableDepthTest(false),
 		m_makeScreenshot(false),
 		m_focusEnabled(true),
 		m_screenshotPath(NULL),
@@ -207,12 +213,11 @@ wyDirector::wyDirector() :
 		m_fpsLabel(NULL),
 		m_scenesStack(NULL),
 		m_lifecycleListeners(wyArrayNew(3)),
-		m_clipStack((wyRect*)wyMalloc(10 * sizeof(wyRect))),
-		m_clipStackCount(0),
-		m_clipStackCapacity(10),
 		m_glView(NULL),
 		m_context(NULL),
-		m_lifecycleData(NULL) {
+		m_lifecycleData(NULL),
+		m_renderManager(NULL),
+		m_mainViewport(NULL) {
 	// reset global variable
 	g_Director_isEnding = false;
 
@@ -369,6 +374,15 @@ void wyDirector::setShowFPS(bool show) {
 }
 
 void wyDirector::onSurfaceCreated() {
+	/*
+	 * surface created but we still get surface create callback?
+	 * ok, we assume a surface destroy is leaked and it will happen when user locks
+	 * screen in Android, so we manually invoke surface destroy callback
+	 */
+	if(m_surfaceCreated) {
+		onSurfaceDestroyed();
+	}
+
 	// set flag
 	m_surfaceCreated = true;
 
@@ -378,42 +392,43 @@ void wyDirector::onSurfaceCreated() {
 	// 返回OpenGL支持的最大贴图尺寸,设置到wyDevice::maxTextureSize
 	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &wyDevice::maxTextureSize);
 
-	// 选项:禁用抖动特效，以提高性能。
-	glDisable(GL_DITHER);
-
-	// 对透视进行修正
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-
-	// enable alpha blending
-	setAlphaBlending(true);
-
-	// disable depth test
-	setDepthTest(m_enableDepthTest);
-
-	// 指定象素的算法
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	// 选项:禁用光照特效
-	glDisable(GL_LIGHTING);
-
-	// 禁用剪刀测试
-	glDisable(GL_SCISSOR_TEST);
-
-	// 选择平滑方式
-	glShadeModel(GL_FLAT);
-
-	// 设置背景色黑色
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	// enable event
 	gEventDispatcher->setDispatchEvent(true);
+
+	// create shader manager so that built-in shader will be loaded
+	wyShaderManager::getInstance();
+
+	// create render manager and main viewport
+	if(!m_renderManager) {
+		// create render manager with opengl es 2.0 implementation
+		m_renderManager = wyRenderManager::make(wyGLES2Renderer::make());
+		m_renderManager->retain();
+
+		// create main view port
+		wyCamera* cam = wyCamera::make();
+		cam->setPerspective(60, 1, 1, 0.5f, 1500.0f);
+		cam->setEye(0.5f, 0.5f, 1 / GOLDEN_MEAN);
+		cam->setCenter(0.5f, 0.5f, 0);
+		cam->setUp(0, 1, 0);
+		cam->setUseRelativeValue(true);
+		m_mainViewport = wyViewport::make("main", cam);
+		m_mainViewport->setClearFlag(true, true, true);
+		m_renderManager->addViewport(m_mainViewport);
+
+		// if running scene is not NULL, attach it to viewport now
+		if(m_runningScene)
+			m_mainViewport->attachRoot(m_runningScene);
+	}
 
 	// notify listener
 	notifySurfaceCreated();
 }
 
 void wyDirector::onSurfaceChanged(int w, int h) {
+	// surface not created?
+	if(!m_surfaceCreated)
+		return;
+
 	// save real size
 	wyDevice::realWidth = w;
 	wyDevice::realHeight = h;
@@ -428,10 +443,26 @@ void wyDirector::onSurfaceChanged(int w, int h) {
 		wyDevice::defaultInDensity = wyDevice::density;
 	}
 
-	// create fps label
+	/*
+	 * create fps label
+	 * however, we don't create it if in memory debug mode because fps
+	 * label changes constantly and it will print lots of malloc messages
+	 */
 	if(!m_fpsLabel) {
+		// create fps label and make it in GUI bucket
 	    m_fpsLabel = wyLabel::make("00.0", SP(24));
 	    m_fpsLabel->retain();
+	    m_fpsLabel->setAnchor(0, 0);
+	    m_fpsLabel->setQueueBucket(wyRenderQueue::GUI_BUCKET);
+
+	    // create fps viewport
+		wyCamera* cam = wyCamera::make();
+		cam->setOrtho(0, 1, 0, 1, -1024, 1024);
+		wyViewport* fpsViewport = wyViewport::make("fps", cam);
+		m_renderManager->addPostViewport(fpsViewport);
+
+		// attach fps label to viewport
+		fpsViewport->attachRoot(m_fpsLabel);
 	}
 
 	/*
@@ -440,9 +471,6 @@ void wyDirector::onSurfaceChanged(int w, int h) {
 	 */
 	if(m_runningScene)
 		setNeedCheckTexture(true);
-
-	// set viewport and projection
-	setDefaultProjection();
 
 	// ensure we don't have a frame loss when returns
 	m_nextDeltaTimeZero = true;
@@ -455,6 +483,12 @@ void wyDirector::onSurfaceDestroyed() {
 	if(m_surfaceCreated) {
 		m_surfaceCreated = false;
 		setNeedCheckTexture(true);
+
+		// release shader manager because surface is destroy, shader should also be invalid
+		wyObjectRelease(gShaderManager);
+
+		// reset render
+		m_renderManager->getRenderer()->onSurfaceDestroyed();
 
 		// notify listener
 		notifySurfaceDestroyed();
@@ -498,9 +532,6 @@ void wyDirector::drawFrame() {
 	}
 
 	// set default state
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
 
 	// if we have next scene to set, reset delta time
@@ -531,11 +562,8 @@ void wyDirector::drawFrame() {
 	}
 
 	if(!m_paused) {
-		// draw the scene
-		if(m_runningScene != NULL) {
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			m_runningScene->visit();
-		}
+		// render frame
+		m_renderManager->render(m_delta);
 
 		/*
 		 * can't move action tick before visit running scene. sometimes the internal
@@ -608,6 +636,9 @@ void wyDirector::commonDestroy() {
 	// release auto release pool
 	wyDestroyAutoReleasePool();
 
+	// release matrix stack
+	kmGLFreeAll();
+
 	// free members
 	wyObjectRelease(m_fpsLabel);
 	if(m_runningScene != NULL) {
@@ -623,7 +654,9 @@ void wyDirector::commonDestroy() {
 	wyArrayEach(m_scenesStack, releaseScene, NULL);
 	wyArrayDestroy(m_scenesStack);
 	wyArrayDestroy(m_lifecycleListeners);
-	wyFree(m_clipStack);
+
+	// release render manager
+	wyObjectRelease(m_renderManager);
 
 	// clear singleton instance
 	wyObjectRelease(gTextureManager);
@@ -656,96 +689,6 @@ void wyDirector::commonDestroy() {
 #ifdef WY_CFLAG_MEMORY_TRACKING
 	printUnreleasedMemory(true);
 #endif
-}
-
-void wyDirector::setDepthTest(bool on) {
-	m_enableDepthTest = on;
-	if(m_surfaceCreated && isGLThread()) {
-		/* 启动禁用深度测试 */
-		if(on) {
-			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(GL_LEQUAL);
-			glDepthRangef(0, 1);
-			glClearDepthf(1);
-		} else {
-			glDisable(GL_DEPTH_TEST);
-		}
-	}
-}
-
-void wyDirector::setProjection(wyProjectionType projection) {
-	switch(projection) {
-		case PROJECTION_2D:
-			// set projection matrix
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			glOrthof(0, wyDevice::realWidth, 0, wyDevice::realHeight, -1024, 1024);
-
-			// set model view matrix
-			glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
-			break;
-		case PROJECTION_3D:
-			// viewport should be whole screen
-			glViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
-
-			// set projection matrix
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			gluPerspective(60, (GLfloat)wyDevice::winWidth / wyDevice::winHeight, 0.5, 1500);
-
-			// set model view matrix
-			glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
-
-			// set camera
-			gluLookAt(wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winHeight / GOLDEN_MEAN, wyDevice::winWidth / 2, wyDevice::winHeight / 2, 0, 0.0f, 1.0f, 0.0f);
-			break;
-		case PROJECTION_CUSTOM:
-			// if custom, ignore it.
-			// The user is responsible for setting the correct projection
-			break;
-		default:
-			LOGW("Director: Unrecognized projection");
-			break;
-	}
-
-	m_projection = projection;
-}
-
-void wyDirector::set2DProjection() {
-	setProjection(PROJECTION_2D);
-}
-
-void wyDirector::set3DProjection() {
-	setProjection(PROJECTION_3D);
-}
-
-void wyDirector::setDefaultProjection() {
-	setProjection(PROJECTION_DEFAULT);
-}
-
-void wyDirector::setAlphaBlending(bool on) {
-	if(on)
-		glEnable(GL_BLEND); // 启用融合
-	else
-		glDisable(GL_BLEND); // 关闭融合
-}
-
-void wyDirector::setCullFace(bool on) {
-	if(on) {
-		// Counter-clockwise winding.
-		glFrontFace(GL_CCW);
-
-		// Enable face culling.
-		glEnable(GL_CULL_FACE);
-
-		// What faces to remove with the face culling.
-		glCullFace(GL_BACK);
-	} else {
-		// Disable face culling.
-		glDisable(GL_CULL_FACE);
-	}
 }
 
 void wyDirector::setMaxFrameRate(int maxFrameRate) {
@@ -827,6 +770,10 @@ void wyDirector::setRunningScene(wyScene* scene) {
 	wyObjectRetain(scene);
 	wyObjectRelease(m_runningScene);
 	m_runningScene = scene;
+
+	// attach to main view port
+	if(m_mainViewport)
+		m_mainViewport->attachRoot(m_runningScene);
 }
 
 void wyDirector::setNextScene(wyScene* scene) {
@@ -924,44 +871,5 @@ void wyDirector::changeBaseSize(int w, int h) {
 	wyDevice::baseScaleY = (float)wyDevice::realHeight / wyDevice::winHeight;
 	wyDevice::defaultInDensity = wyDevice::density;
 
-	setDefaultProjection();
-}
-
-void wyDirector::pushClipRect(wyRect& rect) {
-	// ensure capacity
-	while(m_clipStackCount >= m_clipStackCapacity) {
-		m_clipStackCapacity *= 2;
-		m_clipStack = (wyRect*)wyRealloc(m_clipStack, m_clipStackCapacity * sizeof(wyRect));
-	}
-
-	// enable scissor if this is first clip rect
-	if(m_clipStackCount == 0) {
-		glEnable(GL_SCISSOR_TEST);
-	}
-
-	// push clip rect
-	m_clipStack[m_clipStackCount++] = rect;
-
-	// enable rect
-	glScissor(rect.x, rect.y, rect.width, rect.height);
-}
-
-void wyDirector::popClipRect() {
-	// check count
-	if(m_clipStackCount <= 0)
-		return;
-
-	// decrease count
-	m_clipStackCount--;
-
-	// if this is last clip rect
-	if(m_clipStackCount == 0) {
-		glDisable(GL_SCISSOR_TEST);
-	} else {
-		// enable previous rect
-		glScissor(m_clipStack[m_clipStackCount - 1].x,
-				m_clipStack[m_clipStackCount - 1].y,
-				m_clipStack[m_clipStackCount - 1].width,
-				m_clipStack[m_clipStackCount - 1].height);
-	}
+	m_mainViewport->getCamera()->setDirty(true);
 }

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: opengl
-** Generated automatically by tolua++-1.0.92 on Sat Dec 24 20:13:50 2011.
+** Generated automatically by tolua++-1.0.92 on 08/22/12 14:21:10.
 */
 
 #ifndef __cplusplus
@@ -25,16 +25,9 @@ static int tolua_collect_wyGLTexture2D (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyTextureAtlas (lua_State* tolua_S)
+static int tolua_collect_wyRect (lua_State* tolua_S)
 {
- wyTextureAtlas* self = (wyTextureAtlas*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyCamera (lua_State* tolua_S)
-{
- wyCamera* self = (wyCamera*) tolua_tousertype(tolua_S,1,0);
+ wyRect* self = (wyRect*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -59,50 +52,20 @@ static int tolua_collect_wyTextureManager (lua_State* tolua_S)
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"wyLagrangeConfig");
- tolua_usertype(tolua_S,"wyGLTexture2D");
+ tolua_usertype(tolua_S,"kmMat4");
  tolua_usertype(tolua_S,"wyCamera");
  tolua_usertype(tolua_S,"wyFontStyle");
- tolua_usertype(tolua_S,"wyTextureAtlas");
- tolua_usertype(tolua_S,"wyTextureManager");
  tolua_usertype(tolua_S,"wyTexture2D");
  tolua_usertype(tolua_S,"size_t");
- tolua_usertype(tolua_S,"wyQuad2D");
+ tolua_usertype(tolua_S,"wyTextureManager");
  tolua_usertype(tolua_S,"wyColor4B");
  tolua_usertype(tolua_S,"wyBezierConfig");
- tolua_usertype(tolua_S,"wyQuad3D");
+ tolua_usertype(tolua_S,"wyGLTexture2D");
  tolua_usertype(tolua_S,"wyEventDispatcher");
  tolua_usertype(tolua_S,"wyObject");
- tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyColorFilter");
+ tolua_usertype(tolua_S,"wyRect");
 }
-
-/* method: getZEye of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getZEye00
-static int tolua_opengl_wyCamera_getZEye00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCamera",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   float tolua_ret = (float)  wyCamera::getZEye();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getZEye'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
 
 /* method: make of class  wyCamera */
 #ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_make00
@@ -132,9 +95,9 @@ static int tolua_opengl_wyCamera_make00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: delete of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_delete00
-static int tolua_opengl_wyCamera_delete00(lua_State* tolua_S)
+/* method: restoreCamera of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_restoreCamera00
+static int tolua_opengl_wyCamera_restoreCamera00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -148,53 +111,24 @@ static int tolua_opengl_wyCamera_delete00(lua_State* tolua_S)
  {
   wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
-#endif
-  Mtolua_delete(self);
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: restore of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_restore00
-static int tolua_opengl_wyCamera_restore00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'restore'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'restoreCamera'", NULL);
 #endif
   {
-   self->restore();
+   self->restoreCamera();
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'restore'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'restoreCamera'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: locate of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_locate00
-static int tolua_opengl_wyCamera_locate00(lua_State* tolua_S)
+/* method: restoreProjection of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_restoreProjection00
+static int tolua_opengl_wyCamera_restoreProjection00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -208,16 +142,303 @@ static int tolua_opengl_wyCamera_locate00(lua_State* tolua_S)
  {
   wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'locate'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'restoreProjection'", NULL);
 #endif
   {
-   self->locate();
+   self->restoreProjection();
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'locate'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'restoreProjection'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: restoreViewport of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_restoreViewport00
+static int tolua_opengl_wyCamera_restoreViewport00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'restoreViewport'", NULL);
+#endif
+  {
+   self->restoreViewport();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'restoreViewport'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getViewMatrix of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getViewMatrix00
+static int tolua_opengl_wyCamera_getViewMatrix00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getViewMatrix'", NULL);
+#endif
+  {
+   kmMat4* tolua_ret = (kmMat4*)  self->getViewMatrix();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"kmMat4");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getViewMatrix'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getProjectionMatrix of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getProjectionMatrix00
+static int tolua_opengl_wyCamera_getProjectionMatrix00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getProjectionMatrix'", NULL);
+#endif
+  {
+   kmMat4* tolua_ret = (kmMat4*)  self->getProjectionMatrix();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"kmMat4");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getProjectionMatrix'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getViewportRect of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getViewportRect00
+static int tolua_opengl_wyCamera_getViewportRect00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getViewportRect'", NULL);
+#endif
+  {
+   wyRect tolua_ret = (wyRect)  self->getViewportRect();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((wyRect)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"wyRect");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(wyRect));
+     tolua_pushusertype(tolua_S,tolua_obj,"wyRect");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getViewportRect'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOrtho of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_setOrtho00
+static int tolua_opengl_wyCamera_setOrtho00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,8,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+  float l = ((float)  tolua_tonumber(tolua_S,2,0));
+  float r = ((float)  tolua_tonumber(tolua_S,3,0));
+  float b = ((float)  tolua_tonumber(tolua_S,4,0));
+  float t = ((float)  tolua_tonumber(tolua_S,5,0));
+  float near = ((float)  tolua_tonumber(tolua_S,6,0));
+  float far = ((float)  tolua_tonumber(tolua_S,7,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOrtho'", NULL);
+#endif
+  {
+   self->setOrtho(l,r,b,t,near,far);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOrtho'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPerspective of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_setPerspective00
+static int tolua_opengl_wyCamera_setPerspective00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+  float fovy = ((float)  tolua_tonumber(tolua_S,2,0));
+  float widthRatio = ((float)  tolua_tonumber(tolua_S,3,0));
+  float heightRatio = ((float)  tolua_tonumber(tolua_S,4,0));
+  float near = ((float)  tolua_tonumber(tolua_S,5,0));
+  float far = ((float)  tolua_tonumber(tolua_S,6,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPerspective'", NULL);
+#endif
+  {
+   self->setPerspective(fovy,widthRatio,heightRatio,near,far);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPerspective'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getZEye of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getZEye00
+static int tolua_opengl_wyCamera_getZEye00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getZEye'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getZEye();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getZEye'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getEye of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getEye00
+static int tolua_opengl_wyCamera_getEye00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+  float e = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getEye'", NULL);
+#endif
+  {
+   self->getEye(&e);
+   tolua_pushnumber(tolua_S,(lua_Number)e);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getEye'.",&tolua_err);
  return 0;
 #endif
 }
@@ -260,6 +481,40 @@ static int tolua_opengl_wyCamera_setEye00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getCenter of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getCenter00
+static int tolua_opengl_wyCamera_getCenter00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+  float c = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCenter'", NULL);
+#endif
+  {
+   self->getCenter(&c);
+   tolua_pushnumber(tolua_S,(lua_Number)c);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCenter'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setCenter of class  wyCamera */
 #ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_setCenter00
 static int tolua_opengl_wyCamera_setCenter00(lua_State* tolua_S)
@@ -292,6 +547,40 @@ static int tolua_opengl_wyCamera_setCenter00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setCenter'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getUp of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getUp00
+static int tolua_opengl_wyCamera_getUp00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+  float u = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getUp'", NULL);
+#endif
+  {
+   self->getUp(&u);
+   tolua_pushnumber(tolua_S,(lua_Number)u);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getUp'.",&tolua_err);
  return 0;
 #endif
 }
@@ -334,143 +623,9 @@ static int tolua_opengl_wyCamera_setUp00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getEye of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getEye00
-static int tolua_opengl_wyCamera_getEye00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
-  float eye = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getEye'", NULL);
-#endif
-  {
-   self->getEye(&eye);
-   tolua_pushnumber(tolua_S,(lua_Number)eye);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getEye'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getCenter of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getCenter00
-static int tolua_opengl_wyCamera_getCenter00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
-  float center = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCenter'", NULL);
-#endif
-  {
-   self->getCenter(&center);
-   tolua_pushnumber(tolua_S,(lua_Number)center);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getCenter'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getUp of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_getUp00
-static int tolua_opengl_wyCamera_getUp00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
-  float up = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getUp'", NULL);
-#endif
-  {
-   self->getUp(&up);
-   tolua_pushnumber(tolua_S,(lua_Number)up);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getUp'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isDirty of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_isDirty00
-static int tolua_opengl_wyCamera_isDirty00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isDirty'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isDirty();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isDirty'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setDirty of class  wyCamera */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_setDirty00
-static int tolua_opengl_wyCamera_setDirty00(lua_State* tolua_S)
+/* method: setUseRelativeValue of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_setUseRelativeValue00
+static int tolua_opengl_wyCamera_setUseRelativeValue00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -484,18 +639,57 @@ static int tolua_opengl_wyCamera_setDirty00(lua_State* tolua_S)
 #endif
  {
   wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
-  bool dirty = ((bool)  tolua_toboolean(tolua_S,2,0));
+  bool flag = ((bool)  tolua_toboolean(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDirty'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setUseRelativeValue'", NULL);
 #endif
   {
-   self->setDirty(dirty);
+   self->setUseRelativeValue(flag);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setDirty'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'setUseRelativeValue'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setViewport of class  wyCamera */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyCamera_setViewport00
+static int tolua_opengl_wyCamera_setViewport00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+  float w = ((float)  tolua_tonumber(tolua_S,4,0));
+  float h = ((float)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setViewport'", NULL);
+#endif
+  {
+   self->setViewport(x,y,w,h);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setViewport'.",&tolua_err);
  return 0;
 #endif
 }
@@ -4334,1057 +4528,6 @@ static int tolua_opengl_wyTextureManager_getTexturePixelFormat00(lua_State* tolu
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: make of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_make00
-static int tolua_opengl_wyTextureAtlas_make00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyTextureAtlas* tolua_ret = (wyTextureAtlas*)  wyTextureAtlas::make(tex);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTextureAtlas");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_new00
-static int tolua_opengl_wyTextureAtlas_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  int capacity = ((int)  tolua_tonumber(tolua_S,3,ATLAS_DEFAULT_CAPACITY));
-  {
-   wyTextureAtlas* tolua_ret = (wyTextureAtlas*)  Mtolua_new((wyTextureAtlas)(tex,capacity));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTextureAtlas");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_new00_local
-static int tolua_opengl_wyTextureAtlas_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  int capacity = ((int)  tolua_tonumber(tolua_S,3,ATLAS_DEFAULT_CAPACITY));
-  {
-   wyTextureAtlas* tolua_ret = (wyTextureAtlas*)  Mtolua_new((wyTextureAtlas)(tex,capacity));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTextureAtlas");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: delete of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_delete00
-static int tolua_opengl_wyTextureAtlas_delete00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
-#endif
-  Mtolua_delete(self);
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setTexture of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_setTexture00
-static int tolua_opengl_wyTextureAtlas_setTexture00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setTexture'", NULL);
-#endif
-  {
-   self->setTexture(tex);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setTexture'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getTexture of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getTexture00
-static int tolua_opengl_wyTextureAtlas_getTexture00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTexture'", NULL);
-#endif
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  self->getTexture();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getTexture'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: resizeCapacity of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_resizeCapacity00
-static int tolua_opengl_wyTextureAtlas_resizeCapacity00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  int newCapacity = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'resizeCapacity'", NULL);
-#endif
-  {
-   self->resizeCapacity(newCapacity);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'resizeCapacity'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: removeAllQuads of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_removeAllQuads00
-static int tolua_opengl_wyTextureAtlas_removeAllQuads00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeAllQuads'", NULL);
-#endif
-  {
-   self->removeAllQuads();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeAllQuads'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getNextAvailableIndex of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getNextAvailableIndex00
-static int tolua_opengl_wyTextureAtlas_getNextAvailableIndex00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNextAvailableIndex'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getNextAvailableIndex();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getNextAvailableIndex'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: updateQuad of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_updateQuad00
-static int tolua_opengl_wyTextureAtlas_updateQuad00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyQuad2D",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"wyQuad3D",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  wyQuad2D* quadT = ((wyQuad2D*)  tolua_tousertype(tolua_S,2,0));
-  wyQuad3D* quadV = ((wyQuad3D*)  tolua_tousertype(tolua_S,3,0));
-  int index = ((int)  tolua_tonumber(tolua_S,4,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'updateQuad'", NULL);
-#endif
-  {
-   self->updateQuad(*quadT,*quadV,index);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'updateQuad'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: updateColor of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_updateColor00
-static int tolua_opengl_wyTextureAtlas_updateColor00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyColor4B",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  wyColor4B color = *((wyColor4B*)  tolua_tousertype(tolua_S,2,0));
-  int index = ((int)  tolua_tonumber(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'updateColor'", NULL);
-#endif
-  {
-   self->updateColor(color,index);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'updateColor'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: appendQuad of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_appendQuad00
-static int tolua_opengl_wyTextureAtlas_appendQuad00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyQuad2D",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"wyQuad3D",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  wyQuad2D* quadT = ((wyQuad2D*)  tolua_tousertype(tolua_S,2,0));
-  wyQuad3D* quadV = ((wyQuad3D*)  tolua_tousertype(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'appendQuad'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->appendQuad(*quadT,*quadV);
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'appendQuad'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: insertQuad of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_insertQuad00
-static int tolua_opengl_wyTextureAtlas_insertQuad00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyQuad2D",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"wyQuad3D",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  wyQuad2D* quadT = ((wyQuad2D*)  tolua_tousertype(tolua_S,2,0));
-  wyQuad3D* quadV = ((wyQuad3D*)  tolua_tousertype(tolua_S,3,0));
-  int index = ((int)  tolua_tonumber(tolua_S,4,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'insertQuad'", NULL);
-#endif
-  {
-   self->insertQuad(*quadT,*quadV,index);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'insertQuad'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: removeQuad of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_removeQuad00
-static int tolua_opengl_wyTextureAtlas_removeQuad00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  int index = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeQuad'", NULL);
-#endif
-  {
-   self->removeQuad(index);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeQuad'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: removeQuads of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_removeQuads00
-static int tolua_opengl_wyTextureAtlas_removeQuads00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  int start = ((int)  tolua_tonumber(tolua_S,2,0));
-  int count = ((int)  tolua_tonumber(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeQuads'", NULL);
-#endif
-  {
-   self->removeQuads(start,count);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeQuads'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: copyTo of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_copyTo00
-static int tolua_opengl_wyTextureAtlas_copyTo00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  int from = ((int)  tolua_tonumber(tolua_S,2,0));
-  wyTextureAtlas* destAtlas = ((wyTextureAtlas*)  tolua_tousertype(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'copyTo'", NULL);
-#endif
-  {
-   self->copyTo(from,destAtlas);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'copyTo'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: copyTo of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_copyTo01
-static int tolua_opengl_wyTextureAtlas_copyTo01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wyQuad2D",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,4,"wyQuad3D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  int from = ((int)  tolua_tonumber(tolua_S,2,0));
-  wyQuad2D* quadT = ((wyQuad2D*)  tolua_tousertype(tolua_S,3,0));
-  wyQuad3D* quadV = ((wyQuad3D*)  tolua_tousertype(tolua_S,4,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'copyTo'", NULL);
-#endif
-  {
-   self->copyTo(from,quadT,quadV);
-  }
- }
- return 0;
-tolua_lerror:
- return tolua_opengl_wyTextureAtlas_copyTo00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: drawOne of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_drawOne00
-static int tolua_opengl_wyTextureAtlas_drawOne00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  int index = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'drawOne'", NULL);
-#endif
-  {
-   self->drawOne(index);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'drawOne'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_draw00
-static int tolua_opengl_wyTextureAtlas_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  int numOfQuads = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw(numOfQuads);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: drawRange of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_drawRange00
-static int tolua_opengl_wyTextureAtlas_drawRange00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  int start = ((int)  tolua_tonumber(tolua_S,2,0));
-  int numOfQuads = ((int)  tolua_tonumber(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'drawRange'", NULL);
-#endif
-  {
-   self->drawRange(start,numOfQuads);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'drawRange'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: drawAll of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_drawAll00
-static int tolua_opengl_wyTextureAtlas_drawAll00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'drawAll'", NULL);
-#endif
-  {
-   self->drawAll();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'drawAll'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getTotalQuads of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getTotalQuads00
-static int tolua_opengl_wyTextureAtlas_getTotalQuads00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTotalQuads'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getTotalQuads();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getTotalQuads'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isWithColorArray of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_isWithColorArray00
-static int tolua_opengl_wyTextureAtlas_isWithColorArray00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isWithColorArray'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isWithColorArray();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isWithColorArray'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getCapacity of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getCapacity00
-static int tolua_opengl_wyTextureAtlas_getCapacity00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCapacity'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getCapacity();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getCapacity'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getPixelHeight of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getPixelHeight00
-static int tolua_opengl_wyTextureAtlas_getPixelHeight00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPixelHeight'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getPixelHeight();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getPixelHeight'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getPixelWidth of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getPixelWidth00
-static int tolua_opengl_wyTextureAtlas_getPixelWidth00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPixelWidth'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getPixelWidth();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getPixelWidth'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getWidth of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getWidth00
-static int tolua_opengl_wyTextureAtlas_getWidth00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getWidth'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getWidth();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getWidth'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getHeight of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getHeight00
-static int tolua_opengl_wyTextureAtlas_getHeight00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getHeight'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getHeight();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getHeight'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getWidthScale of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getWidthScale00
-static int tolua_opengl_wyTextureAtlas_getWidthScale00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getWidthScale'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getWidthScale();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getWidthScale'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getHeightScale of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_getHeightScale00
-static int tolua_opengl_wyTextureAtlas_getHeightScale00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getHeightScale'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getHeightScale();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getHeightScale'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setColor of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_setColor00
-static int tolua_opengl_wyTextureAtlas_setColor00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyColor4B",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  wyColor4B color = *((wyColor4B*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setColor'", NULL);
-#endif
-  {
-   self->setColor(color);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setColor'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: reduceAlpha of class  wyTextureAtlas */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTextureAtlas_reduceAlpha00
-static int tolua_opengl_wyTextureAtlas_reduceAlpha00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureAtlas",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureAtlas* self = (wyTextureAtlas*)  tolua_tousertype(tolua_S,1,0);
-  float delta = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'reduceAlpha'", NULL);
-#endif
-  {
-   self->reduceAlpha(delta);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'reduceAlpha'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* Open function */
 TOLUA_API int tolua_opengl_open (lua_State* tolua_S)
 {
@@ -5395,25 +4538,26 @@ TOLUA_API int tolua_opengl_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"wyTexture2D::LEFT",wyTexture2D::LEFT);
   tolua_constant(tolua_S,"wyTexture2D::CENTER",wyTexture2D::CENTER);
   tolua_constant(tolua_S,"wyTexture2D::RIGHT",wyTexture2D::RIGHT);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"wyCamera","wyCamera","wyObject",tolua_collect_wyCamera);
-  #else
   tolua_cclass(tolua_S,"wyCamera","wyCamera","wyObject",NULL);
-  #endif
   tolua_beginmodule(tolua_S,"wyCamera");
-   tolua_function(tolua_S,"getZEye",tolua_opengl_wyCamera_getZEye00);
    tolua_function(tolua_S,"make",tolua_opengl_wyCamera_make00);
-   tolua_function(tolua_S,"delete",tolua_opengl_wyCamera_delete00);
-   tolua_function(tolua_S,"restore",tolua_opengl_wyCamera_restore00);
-   tolua_function(tolua_S,"locate",tolua_opengl_wyCamera_locate00);
-   tolua_function(tolua_S,"setEye",tolua_opengl_wyCamera_setEye00);
-   tolua_function(tolua_S,"setCenter",tolua_opengl_wyCamera_setCenter00);
-   tolua_function(tolua_S,"setUp",tolua_opengl_wyCamera_setUp00);
+   tolua_function(tolua_S,"restoreCamera",tolua_opengl_wyCamera_restoreCamera00);
+   tolua_function(tolua_S,"restoreProjection",tolua_opengl_wyCamera_restoreProjection00);
+   tolua_function(tolua_S,"restoreViewport",tolua_opengl_wyCamera_restoreViewport00);
+   tolua_function(tolua_S,"getViewMatrix",tolua_opengl_wyCamera_getViewMatrix00);
+   tolua_function(tolua_S,"getProjectionMatrix",tolua_opengl_wyCamera_getProjectionMatrix00);
+   tolua_function(tolua_S,"getViewportRect",tolua_opengl_wyCamera_getViewportRect00);
+   tolua_function(tolua_S,"setOrtho",tolua_opengl_wyCamera_setOrtho00);
+   tolua_function(tolua_S,"setPerspective",tolua_opengl_wyCamera_setPerspective00);
+   tolua_function(tolua_S,"getZEye",tolua_opengl_wyCamera_getZEye00);
    tolua_function(tolua_S,"getEye",tolua_opengl_wyCamera_getEye00);
+   tolua_function(tolua_S,"setEye",tolua_opengl_wyCamera_setEye00);
    tolua_function(tolua_S,"getCenter",tolua_opengl_wyCamera_getCenter00);
+   tolua_function(tolua_S,"setCenter",tolua_opengl_wyCamera_setCenter00);
    tolua_function(tolua_S,"getUp",tolua_opengl_wyCamera_getUp00);
-   tolua_function(tolua_S,"isDirty",tolua_opengl_wyCamera_isDirty00);
-   tolua_function(tolua_S,"setDirty",tolua_opengl_wyCamera_setDirty00);
+   tolua_function(tolua_S,"setUp",tolua_opengl_wyCamera_setUp00);
+   tolua_function(tolua_S,"setUseRelativeValue",tolua_opengl_wyCamera_setUseRelativeValue00);
+   tolua_function(tolua_S,"setViewport",tolua_opengl_wyCamera_setViewport00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wyTexture2D","wyTexture2D","wyObject",tolua_collect_wyTexture2D);
@@ -5572,47 +4716,6 @@ TOLUA_API int tolua_opengl_open (lua_State* tolua_S)
    tolua_function(tolua_S,"removeTexture",tolua_opengl_wyTextureManager_removeTexture02);
    tolua_function(tolua_S,"setTexturePixelFormat",tolua_opengl_wyTextureManager_setTexturePixelFormat00);
    tolua_function(tolua_S,"getTexturePixelFormat",tolua_opengl_wyTextureManager_getTexturePixelFormat00);
-  tolua_endmodule(tolua_S);
-  tolua_constant(tolua_S,"ATLAS_DEFAULT_CAPACITY",ATLAS_DEFAULT_CAPACITY);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"wyTextureAtlas","wyTextureAtlas","wyObject",tolua_collect_wyTextureAtlas);
-  #else
-  tolua_cclass(tolua_S,"wyTextureAtlas","wyTextureAtlas","wyObject",NULL);
-  #endif
-  tolua_beginmodule(tolua_S,"wyTextureAtlas");
-   tolua_function(tolua_S,"make",tolua_opengl_wyTextureAtlas_make00);
-   tolua_function(tolua_S,"new",tolua_opengl_wyTextureAtlas_new00);
-   tolua_function(tolua_S,"new_local",tolua_opengl_wyTextureAtlas_new00_local);
-   tolua_function(tolua_S,".call",tolua_opengl_wyTextureAtlas_new00_local);
-   tolua_function(tolua_S,"delete",tolua_opengl_wyTextureAtlas_delete00);
-   tolua_function(tolua_S,"setTexture",tolua_opengl_wyTextureAtlas_setTexture00);
-   tolua_function(tolua_S,"getTexture",tolua_opengl_wyTextureAtlas_getTexture00);
-   tolua_function(tolua_S,"resizeCapacity",tolua_opengl_wyTextureAtlas_resizeCapacity00);
-   tolua_function(tolua_S,"removeAllQuads",tolua_opengl_wyTextureAtlas_removeAllQuads00);
-   tolua_function(tolua_S,"getNextAvailableIndex",tolua_opengl_wyTextureAtlas_getNextAvailableIndex00);
-   tolua_function(tolua_S,"updateQuad",tolua_opengl_wyTextureAtlas_updateQuad00);
-   tolua_function(tolua_S,"updateColor",tolua_opengl_wyTextureAtlas_updateColor00);
-   tolua_function(tolua_S,"appendQuad",tolua_opengl_wyTextureAtlas_appendQuad00);
-   tolua_function(tolua_S,"insertQuad",tolua_opengl_wyTextureAtlas_insertQuad00);
-   tolua_function(tolua_S,"removeQuad",tolua_opengl_wyTextureAtlas_removeQuad00);
-   tolua_function(tolua_S,"removeQuads",tolua_opengl_wyTextureAtlas_removeQuads00);
-   tolua_function(tolua_S,"copyTo",tolua_opengl_wyTextureAtlas_copyTo00);
-   tolua_function(tolua_S,"copyTo",tolua_opengl_wyTextureAtlas_copyTo01);
-   tolua_function(tolua_S,"drawOne",tolua_opengl_wyTextureAtlas_drawOne00);
-   tolua_function(tolua_S,"draw",tolua_opengl_wyTextureAtlas_draw00);
-   tolua_function(tolua_S,"drawRange",tolua_opengl_wyTextureAtlas_drawRange00);
-   tolua_function(tolua_S,"drawAll",tolua_opengl_wyTextureAtlas_drawAll00);
-   tolua_function(tolua_S,"getTotalQuads",tolua_opengl_wyTextureAtlas_getTotalQuads00);
-   tolua_function(tolua_S,"isWithColorArray",tolua_opengl_wyTextureAtlas_isWithColorArray00);
-   tolua_function(tolua_S,"getCapacity",tolua_opengl_wyTextureAtlas_getCapacity00);
-   tolua_function(tolua_S,"getPixelHeight",tolua_opengl_wyTextureAtlas_getPixelHeight00);
-   tolua_function(tolua_S,"getPixelWidth",tolua_opengl_wyTextureAtlas_getPixelWidth00);
-   tolua_function(tolua_S,"getWidth",tolua_opengl_wyTextureAtlas_getWidth00);
-   tolua_function(tolua_S,"getHeight",tolua_opengl_wyTextureAtlas_getHeight00);
-   tolua_function(tolua_S,"getWidthScale",tolua_opengl_wyTextureAtlas_getWidthScale00);
-   tolua_function(tolua_S,"getHeightScale",tolua_opengl_wyTextureAtlas_getHeightScale00);
-   tolua_function(tolua_S,"setColor",tolua_opengl_wyTextureAtlas_setColor00);
-   tolua_function(tolua_S,"reduceAlpha",tolua_opengl_wyTextureAtlas_reduceAlpha00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

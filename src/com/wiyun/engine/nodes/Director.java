@@ -1,31 +1,3 @@
-/*
- * Copyright (c) 2010 WiYun Inc.
- * Author: luma(stubma@gmail.com)
- *
- * For all entities this program is free software; you can redistribute
- * it and/or modify it under the terms of the 'WiEngine' license with
- * the additional provision that 'WiEngine' must be credited in a manner
- * that can be be observed by end users, for example, in the credits or during
- * start up. (please find WiEngine logo in sdk's logo folder)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 package com.wiyun.engine.nodes;
 
 import java.util.Locale;
@@ -708,38 +680,6 @@ public class Director implements GLSurfaceView.Renderer {
 	public native void runWithScene(Scene scene);
 
 	/**
-	 * 设置为2D投影，即正交投影方式
-	 */
-	public native void set2DProjection();
-
-	/**
-	 * 设置为3D投影方式
-	 */
-	public native void set3DProjection();
-
-	/**
-	 * 设置是否打开alpha渲染，缺省是打开的
-	 * 
-	 * @param on true表示打开，false表示不打开
-	 */
-	public native void setAlphaBlending(boolean on);
-
-	/**
-	 * 设置是否打开深度测试，如果投影是3D投影则缺省是打开的，如果是正交投影则缺省
-	 * 是不打开的
-	 * 
-	 * @param on true表示打开, false表示不打开
-	 */
-	public native void setDepthTest(boolean on);
-	
-	/**
-	 * 设置是否打开Cull Face。打开后非可见平面不会被渲染。缺省是不打开。
-	 * 
-	 * @param on true表示打开，false表示不打开
-	 */
-	public native void setCullFace(boolean on);
-
-	/**
 	 * 设置是否在左下角显示帧率，缺省是不显示，正式发布时建议不显示。
 	 * 
 	 * @param value true表示打开，false表示不打开
@@ -764,17 +704,6 @@ public class Director implements GLSurfaceView.Renderer {
 	 * \endif
 	 */
 	public native void setCalculateFPS(boolean flag);
-
-	/**
-	 * 设置投影方式, 如果投影方式是PROJECTION_CUSTOM, 应该添加一个生命周期事件
-	 * 监听器, 然后在onSurfaceChanged回调中设置投影方式
-	 * 
-	 * @param projection 投影方式
-	 * @see #PROJECTION_2D
-	 * @see #PROJECTION_3D
-	 * @see #PROJECTION_CUSTOM
-	 */
-	public native void setProjection(int projection);
 
 	/**
 	 * <p>得到当前窗口大小。</p><br/>

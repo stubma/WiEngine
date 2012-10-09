@@ -488,56 +488,57 @@ void wyProgressTimer::updateProgress() {
 }
 
 void wyProgressTimer::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	if(m_vertexCount == 0)
-		return;
-	if(m_sprite == NULL)
-		return;
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-
-	bool newBlend = false;
-	wyBlendFunc blendFunc = m_sprite->getBlendFunc();
-	if(blendFunc.src != DEFAULT_BLEND_SRC || blendFunc.dst != DEFAULT_BLEND_DST) {
-		newBlend = true;
-		glBlendFunc(blendFunc.src, blendFunc.dst);
-	}
-
-	// ensure texture is loaded
-	wyTexture2D* tex = m_sprite->getTexture();
-	tex->load();
-
-	// bind texture
-	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
-
-	// set pointer
-	glVertexPointer(2, GL_FLOAT, 0, m_vertices);
-	glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
-	glColorPointer(4, GL_FLOAT, 0, m_colors);
-
-	// draw
-	if(m_style == RADIAL_CCW || m_style == RADIAL_CW) {
-		glDrawArrays(GL_TRIANGLE_FAN, 0, m_vertexCount);
-	} else if(m_style == HORIZONTAL_BAR_LR || m_style == HORIZONTAL_BAR_RL || m_style == VERTICAL_BAR_BT || m_style == VERTICAL_BAR_TB) {
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, m_vertexCount);
-	}
-
-	if(newBlend)
-		glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
-
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
+	// TODO gles2
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//	if(m_vertexCount == 0)
+//		return;
+//	if(m_sprite == NULL)
+//		return;
+//
+//	glEnableClientState(GL_VERTEX_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glEnableClientState(GL_COLOR_ARRAY);
+//	glEnable(GL_TEXTURE_2D);
+//
+//	bool newBlend = false;
+//	wyBlendFunc blendFunc = m_sprite->getBlendFunc();
+//	if(blendFunc.src != DEFAULT_BLEND_SRC || blendFunc.dst != DEFAULT_BLEND_DST) {
+//		newBlend = true;
+//		glBlendFunc(blendFunc.src, blendFunc.dst);
+//	}
+//
+//	// ensure texture is loaded
+//	wyTexture2D* tex = m_sprite->getTexture();
+//	tex->load();
+//
+//	// bind texture
+//	glBindTexture(GL_TEXTURE_2D, tex->getTexture());
+//
+//	// set pointer
+//	glVertexPointer(2, GL_FLOAT, 0, m_vertices);
+//	glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
+//	glColorPointer(4, GL_FLOAT, 0, m_colors);
+//
+//	// draw
+//	if(m_style == RADIAL_CCW || m_style == RADIAL_CW) {
+//		glDrawArrays(GL_TRIANGLE_FAN, 0, m_vertexCount);
+//	} else if(m_style == HORIZONTAL_BAR_LR || m_style == HORIZONTAL_BAR_RL || m_style == VERTICAL_BAR_BT || m_style == VERTICAL_BAR_TB) {
+//		glDrawArrays(GL_TRIANGLE_STRIP, 0, m_vertexCount);
+//	}
+//
+//	if(newBlend)
+//		glBlendFunc(DEFAULT_BLEND_SRC, DEFAULT_BLEND_DST);
+//
+//	glDisable(GL_TEXTURE_2D);
+//	glDisableClientState(GL_VERTEX_ARRAY);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisableClientState(GL_COLOR_ARRAY);
 }
 
 void wyProgressTimer::setPercentage(float percentage) {

@@ -28,6 +28,7 @@
  */
 #include "wyBezier.h"
 #include "wyNode.h"
+#include "wyTypes.h"
 
 wyBezier::wyBezier(float duration, wyBezierConfig config) :
 	wyIntervalAction(duration),

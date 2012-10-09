@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{fa26f1db-f341-46cc-9875-bbd5eca201e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{860325b6-9d26-4d66-aed4-f0de6638a35a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GL">
+      <UniqueIdentifier>{a65b9c65-70c3-412e-b769-b9fbdcbbd313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\kazmath">
+      <UniqueIdentifier>{59a668e3-88ed-4a0a-84e8-88dbc05c9f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\kazmath\GL">
+      <UniqueIdentifier>{07d01fa2-65c5-4d1f-82a2-b0b17db08a8e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\GL\matrix.h">
+      <Filter>include\kazmath\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\GL\mat4stack.h">
+      <Filter>include\kazmath\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\aabb.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\kazmath.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\mat3.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\mat4.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\neon_matrix_impl.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\plane.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\quaternion.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\ray2.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\triangle.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\utility.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\vec2.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\vec3.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\vec4.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\include\kazmath\wyLog.h">
+      <Filter>include\kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\kazmath\src\cpu-features.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\kazmath\src\aabb.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\mat3.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\mat4.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\neon_matrix_impl.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\plane.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\quaternion.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\ray2.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\triangle.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\utility.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\vec2.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\vec3.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\vec4.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\GL\mat4stack.c">
+      <Filter>src\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\GL\matrix.c">
+      <Filter>src\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\kazmath\src\wyLog.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -31,6 +31,7 @@
 #include "wyGlobal.h"
 #include <stdlib.h>
 #include "wyLog.h"
+#include "wyScheduler.h"
 
 wyParallaxNode* wyParallaxNode::make() {
 	wyParallaxNode* n = WYNEW wyParallaxNode();

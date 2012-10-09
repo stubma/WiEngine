@@ -33,17 +33,18 @@
 #include "wyGlobal.h"
 
 void wyTiledGrid3D::blit() {
-    int n = m_gridX * m_gridY;
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-    glVertexPointer(3, GL_FLOAT, 0, m_vertices);
-    glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
-    glDrawElements(GL_TRIANGLES, n * 6, GL_UNSIGNED_SHORT, m_indices);
-
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	// TODO gles2
+//    int n = m_gridX * m_gridY;
+//
+//    glEnableClientState(GL_VERTEX_ARRAY);
+//    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//
+//    glVertexPointer(3, GL_FLOAT, 0, m_vertices);
+//    glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
+//    glDrawElements(GL_TRIANGLES, n * 6, GL_UNSIGNED_SHORT, m_indices);
+//
+//    glDisableClientState(GL_VERTEX_ARRAY);
+//    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 void wyTiledGrid3D::reuse() {

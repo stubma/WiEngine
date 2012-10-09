@@ -1019,3 +1019,73 @@ JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_Node_isMultiTouchClickabl
 	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	return node->isMultiTouchClickable();
 }
+
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_getAlpha
+  (JNIEnv * env, jobject thiz) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	return node->getAlpha();
+}
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setAlpha
+  (JNIEnv * env, jobject thiz, jint alpha) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	node->setAlpha(alpha);
+}
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetColor
+  (JNIEnv * env, jobject thiz, jobject c) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	wyColor3B nc = node->getColor();
+	wyUtils_android::to_WYColor3B(nc, c);
+}
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setColor__Lcom_wiyun_engine_types_WYColor3B_2
+  (JNIEnv * env, jobject thiz, jobject c) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	wyColor3B nc = wyUtils_android::to_wyColor3B(c);
+	node->setColor(nc);
+}
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setColor__Lcom_wiyun_engine_types_WYColor4B_2
+  (JNIEnv * env, jobject thiz, jobject c) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	wyColor4B nc = wyUtils_android::to_wyColor4B(c);
+	node->setColor(nc);
+}
+
+JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_Node_isDither
+  (JNIEnv * env, jobject thiz) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	return node->isDither();
+}
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setDither
+  (JNIEnv * env, jobject thiz, jboolean flag) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	node->setDither(flag);
+}
+
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetBlendMode
+  (JNIEnv * env, jobject thiz) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	return node->getBlendMode();
+}
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_nativeSetBlendMode
+  (JNIEnv * env, jobject thiz, jint m) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	node->setBlendMode((wyRenderState::BlendMode)m);
+}
+
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetTexture
+  (JNIEnv * env, jobject thiz) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	return (jint)node->getTexture();
+}
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setTexture
+  (JNIEnv * env, jobject thiz, jobject tex) {
+	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	wyTexture2D* t = (wyTexture2D*)env->GetIntField(tex, g_fid_BaseObject_mPointer);
+	node->setTexture(t);
+}

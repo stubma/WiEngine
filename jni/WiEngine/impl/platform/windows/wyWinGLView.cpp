@@ -90,7 +90,7 @@ wyWinGLView::~wyWinGLView() {
 }
 
 wyWinGLView* wyWinGLView::make() {
-	wyWinGLView* v = WYNEW wyWinGLView();
+	wyWinGLView* v = new wyWinGLView();
 	return (wyWinGLView*)v->autoRelease();
 }
 
@@ -323,7 +323,7 @@ void wyWinGLView::prepare() {
 	m_eglDisplay = eglGetDisplay(GetDC(m_hWnd));
 	eRet = eglInitialize(m_eglDisplay, &nMajor, &nMinor);
 
-	// check init  result
+	// check init result
 	if(eRet == EGL_FALSE) {
 		LOGE("wyWinGLView::initEgl: failed to init EGL");
 		return;
@@ -336,6 +336,7 @@ void wyWinGLView::prepare() {
 		EGL_RENDERABLE_TYPE,	EGL_OPENGL_ES2_BIT,
 		EGL_NATIVE_RENDERABLE,	EGL_FALSE,
 		EGL_DEPTH_SIZE,			16,
+		EGL_STENCIL_SIZE,		8,
 		EGL_NONE,
 	};
 	EGLint iConfigs;

@@ -55,38 +55,6 @@ JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_getText
 
 /*
  * Class:     com_wiyun_engine_nodes_BitmapFontLabel
- * Method:    setColor
- * Signature: (Lcom/wiyun/engine/types/WYColor3B;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_setColor
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_BitmapFontLabel
- * Method:    nativeGetColor
- * Signature: (Lcom/wiyun/engine/types/WYColor3B;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_nativeGetColor
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_BitmapFontLabel
- * Method:    getAlpha
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_getAlpha
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_BitmapFontLabel
- * Method:    setAlpha
- * Signature: (I)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_BitmapFontLabel_setAlpha
-  (JNIEnv *, jobject, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_BitmapFontLabel
  * Method:    setSpaceWidth
  * Signature: (F)V
  */

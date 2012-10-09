@@ -29,6 +29,7 @@
 #include "wyLua.h"
 #include "WiEngine.h"
 #include "tolua++.h"
+#include "wyLog.h"
 
 extern int tolua_actions_open(lua_State* tolua_S);
 extern int tolua_afcanim_open(lua_State* tolua_S);
