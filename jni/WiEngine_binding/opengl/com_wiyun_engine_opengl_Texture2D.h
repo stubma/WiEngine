@@ -256,7 +256,7 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeClone
  * Method:    switchToClone
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_switchToClone
+JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_opengl_Texture2D_switchToClone
   (JNIEnv *, jobject, jint);
 
 #ifdef __cplusplus

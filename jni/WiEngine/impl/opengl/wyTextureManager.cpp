@@ -121,16 +121,18 @@ const char* wyTextureManager::hashForData(const void* data, size_t length) {
 	return wyMD5::md5(data, length);
 }
 
-void wyTextureManager::switchToClonedTexture(wyTexture2D* t, int cloneId) {
+bool wyTextureManager::switchToClonedTexture(wyTexture2D* t, int cloneId) {
 	for(map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->begin(); iter != m_textureHash->end();) {
 		wyTextureHash& hash = iter->second;
 		if(hash.isClone && hash.sourceHandle == t->m_handle && hash.cloneId == cloneId) {
 			t->m_handle = hash.handle;
 			t->m_md5 = hash.md5;
 			t->m_source = hash.source;
-			break;
+			return true;
 		}
 	}
+
+	return false;
 }
 
 wyTexture2D* wyTextureManager::cloneTexture(wyTexture2D* t, int sourceHandle, const char* md5, int cloneId) {
