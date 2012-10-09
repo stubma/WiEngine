@@ -578,7 +578,8 @@ void wyZwoptex::addFrame(wyZwoptexFrame* frame) {
 }
 
 wyZwoptexFrame* wyZwoptex::getFrame(const char* key) {
-	return (*m_frames)[key];
+	WY_ZWOPTEXFRAME_ITER iter = m_frames->find(key);
+	return iter == m_frames->end() ? NULL : iter->second;
 }
 
 wySpriteFrame* wyZwoptex::getSpriteFrame(const char* key) {
