@@ -584,6 +584,6 @@ wyTexture2D* wyTexture2D::clone(int cloneId) {
 	return gTextureManager->cloneTexture(this, cloneId);
 }
 
-void wyTexture2D::switchToClone(int cloneId) {
-	gTextureManager->switchToClonedTexture(this, cloneId);
+bool wyTexture2D::switchToClone(int cloneId) {
+	return gTextureManager->switchToClonedTexture(this, cloneId);
 }

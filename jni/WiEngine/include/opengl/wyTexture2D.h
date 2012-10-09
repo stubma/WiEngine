@@ -1134,14 +1134,16 @@ public:
 	 * cloned proxy. If clone id not found, do nothing
 	 *
 	 * @param cloneId clone id
+	 * @return true means ok, false means there is no clone which has that id
 	 * \else
 	 * 把当前的贴图代理对象定位到某个克隆贴图对象上. 这是因为克隆贴图代理不能直接被创建, 只能先
 	 * 创建原始贴图代理, 再调用这个方法重新定位. 如果指定的克隆id没有找到, 则该方法无效果
 	 *
 	 * @param cloneId 克隆贴图id
+	 * @return true表示切换成功, false表示指定id的克隆不存在
 	 * \endif
 	 */
-	void switchToClone(int cloneId);
+	bool switchToClone(int cloneId);
 };
 
 #endif // __wyTexture2D_h__

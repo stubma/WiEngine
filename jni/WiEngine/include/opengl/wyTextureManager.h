@@ -197,8 +197,14 @@ private:
 	/// clone a texture, but hash is given
 	wyTexture2D* cloneTexture(wyTexture2D* t, int sourceHandle, const char* md5, int cloneId);
 
-	/// switch a proxy texture to a cloned proxy
-	void switchToClonedTexture(wyTexture2D* t, int cloneId);
+	/**
+	 * switch a proxy texture to a cloned proxy
+	 *
+	 * @param t source texture
+	 * @param cloneId id to identify the clone
+	 * @return true means ok, false means there is no clone with specified id
+	 */
+	bool switchToClonedTexture(wyTexture2D* t, int cloneId);
 
 	/**
 	 * create wyGLTexture2D for a md5 hash
