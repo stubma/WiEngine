@@ -40,4 +40,18 @@
  */
 #define WY_CFLAG_OPTIMIZE_MATH
 
+/**
+ * This macro enable screenshot mode. It will run game in 60 fps
+ * and save every frame in sd card, of course it will slow down game
+ * speed.
+ *
+ * What you should do:
+ * 1. sd card is available
+ * 2. uncomment this definition
+ * 3. re-compile WiEngine and re-compile your game
+ * 4. run you game
+ * 5. find screenshot in /sdcard/WiEngine folder. for other platform, the path will be mapped.
+ */
+//#define WY_CFLAG_SCREENSHOT_MODE
+
 #endif // __wyBuildConfig_h__

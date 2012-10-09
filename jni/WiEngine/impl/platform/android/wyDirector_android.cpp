@@ -620,7 +620,7 @@ void wyDirector_android::backgroundLooper(wyTargetSelector* sel) {
 		wyClearAutoReleasePool();
 
 		// check frame rate setting, but neglect it if in screenshot mode
-#ifndef SCREENSHOT_MODE
+#ifndef WY_CFLAG_SCREENSHOT_MODE
 		if(gDirector->m_maxFrameRate > 0) {
 			int64_t now = wyUtils::currentTimeMillis();
 			gDirector->m_savedDelta += now - gDirector->m_lastFrameTime;

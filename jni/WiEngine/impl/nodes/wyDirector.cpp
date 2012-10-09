@@ -62,18 +62,8 @@ bool g_Director_isEnding;
 /// global resource decoder
 extern wyResourceDecoder* gResDecoder;
 
-/**
- * 抓屏模式, 此模式下以60fps进行抓屏, 即1秒钟产生60张png图片
- * 当想对某个demo做连续抓屏时
- * 1. 确定sd卡可用
- * 2. 确定SCREENSHOT_MODE被定义
- * 3. 运行程序
- * 4. 录制完毕后, 在sd卡的WiEngine目录下获得所有截图图片
- */
-//#define SCREENSHOT_MODE
-
 // 只要不重新install apk, 这个index一直增加，因此可以录制多个连起来
-#ifdef SCREENSHOT_MODE
+#ifdef WY_CFLAG_SCREENSHOT_MODE
 	static int sScreenshotFrameIndex = 1;
 #endif
 
@@ -481,7 +471,7 @@ void wyDirector::drawFrame() {
 	wyClearAutoReleasePool();
 
 	// check frame rate setting, but neglect it if in screenshot mode
-#ifndef SCREENSHOT_MODE
+#ifndef WY_CFLAG_SCREENSHOT_MODE
 	if(m_maxFrameRate > 0) {
 		int64_t now = wyUtils::currentTimeMillis();
 		m_savedDelta += now - m_lastFrameTime;
@@ -524,7 +514,7 @@ void wyDirector::drawFrame() {
 	calculateDeltaTime();
 
 	// if in screenshot mode, use 60fps always
-#ifdef SCREENSHOT_MODE
+#ifdef WY_CFLAG_SCREENSHOT_MODE
 	m_delta = 1.f / 60.f;
 #endif
 
@@ -556,7 +546,7 @@ void wyDirector::drawFrame() {
         if(!m_UIPaused)
         	gActionManager->tick(m_delta * m_tickFactor);
 
-#ifndef SCREENSHOT_MODE
+#ifndef WY_CFLAG_SCREENSHOT_MODE
         // calcuate fps or not
 		// but don't calculate fps if in screenshot mode
         if(m_calculateFPS)
@@ -581,17 +571,17 @@ void wyDirector::drawFrame() {
 			wyFree((void*)m_screenshotPath);
 			m_screenshotPath = NULL;
 		}
-#endif // #ifndef SCREENSHOT_MODE
+#endif // #ifndef WY_CFLAG_SCREENSHOT_MODE
 	}
 
 	// make screenshot
-#ifdef SCREENSHOT_MODE
+#ifdef WY_CFLAG_SCREENSHOT_MODE
     char fsPath[128];
     sprintf(fsPath, "/sdcard/WiEngine/%06d.png", sScreenshotFrameIndex++);
     const char* path = wyUtils::mapLocalPath(fsPath);
 	wyUtils::makeScreenshot(path);
 	wyFree((void*)path);
-#endif // #ifdef SCREENSHOT_MODE
+#endif // #ifdef WY_CFLAG_SCREENSHOT_MODE
 
 	// process events
 	gEventDispatcher->processEventsLocked();
