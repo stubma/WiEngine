@@ -177,12 +177,13 @@ wyDirector_android::~wyDirector_android() {
 	// global deinit
 	globalDeInit(env);
 
-	// unload sal lib
+	// unload aal lib
 	if(sAALHandler != NULL) {
 		/*
-		 * 不要close这个东西, 可能是因为android底层有什么bug, 导致重复载入卸载45
-		 * 次之后就会出现问题. 而android上的dlopen又不支持RTLD_NODELETE这个flag,
-		 * 所以只能不close它, 就没事了
+		 * don't close the library handler because Android may have a bug that may
+		 * leak it. That bug will crash engine after loading 45 times, yes exactly
+		 * 45 times, at least on some model. Meanwhile Android dlopen doesn't support
+		 * RTLD_NODELETE flag, so just not close it
 		 */
 //		dlclose(sAALHandler);
 		sAALHandler = NULL;
