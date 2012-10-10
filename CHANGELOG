@@ -1,5 +1,6 @@
 +++ 3.10.2 +++
 [new] add changeBaseSize method to wyDirector, support changing base size at running time
+[new] add deleteClone method in wyTexture2D, add deleteClonedTexture in wyTextureManager
 [rev] add boolean return value to wyTexture2D.switchToClone method
 [fix] a bug introduced in 3.10.1 that may tremble particle system 
 [fix] target selector in iOS wyUtils.showSystemAlertDialog is not triggered
