@@ -208,6 +208,14 @@ private:
 	bool switchToClonedTexture(wyTexture2D* t, int cloneId);
 
 	/**
+	 * Delete a cloned texture immediately in cache and in opengl
+	 *
+	 * @param cloneId id of cloned texture
+	 * @return true means ok, false means no clone has that id
+	 */
+	bool deleteClonedTexture(wyTexture2D* t, int cloneId);
+
+	/**
 	 * create wyGLTexture2D for a md5 hash
 	 *
 	 * @param md5 md5 for this texture
