@@ -135,6 +135,28 @@ bool wyTextureManager::switchToClonedTexture(wyTexture2D* t, int cloneId) {
 	return false;
 }
 
+bool wyTextureManager::deleteClonedTexture(wyTexture2D* t, int cloneId) {
+	for(map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->begin(); iter != m_textureHash->end(); iter++) {
+		wyTextureHash& hash = iter->second;
+		if(hash.isClone && hash.sourceHandle == t->m_handle && hash.cloneId == cloneId) {
+			// release this cloned texture
+			if(m_textures[hash.handle]) {
+				m_textures[hash.handle]->release();
+				m_textures[hash.handle] = NULL;
+			}
+
+			// remove this texture hash
+			m_idleHandles->push_back(hash.handle);
+			releaseTexHash(0, hash);
+			m_textureHash->erase(iter);
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
 wyTexture2D* wyTextureManager::cloneTexture(wyTexture2D* t, int sourceHandle, const char* md5, int cloneId) {
 	// can't clone empty texture
 	if(m_textures[sourceHandle] == NULL)

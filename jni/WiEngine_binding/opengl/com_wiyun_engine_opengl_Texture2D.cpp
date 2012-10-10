@@ -261,3 +261,9 @@ JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_opengl_Texture2D_switchToClone
 	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	return tex->switchToClone(cloneId);
 }
+
+JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_opengl_Texture2D_deleteClone
+  (JNIEnv * env, jobject thiz, jint cloneId) {
+	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	return tex->deleteClone(cloneId);
+}

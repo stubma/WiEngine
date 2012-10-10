@@ -1162,6 +1162,22 @@ public:
 	 * \endif
 	 */
 	bool switchToClone(int cloneId);
+
+	/**
+	 * \if English
+	 * Delete a cloned texture with specified id, it will immediately delete texture both
+	 * in cache and in opengl.
+	 *
+	 * @param cloneId id of cloned texture
+	 * @return true means ok, false means no clone has that id
+	 * \else
+	 * 删除某个克隆贴图. 该方法立刻从贴图缓冲和opengl中删除贴图资源
+	 *
+	 * @param cloneId 要删除的克隆贴图id
+	 * @return true表示成功, false表示不存在该id的克隆
+	 * \endif
+	 */
+	bool deleteClone(int cloneId);
 };
 
 #endif // __wyTexture2D_h__

@@ -603,3 +603,7 @@ wyTexture2D* wyTexture2D::clone(int cloneId) {
 bool wyTexture2D::switchToClone(int cloneId) {
 	return gTextureManager->switchToClonedTexture(this, cloneId);
 }
+
+bool wyTexture2D::deleteClone(int cloneId) {
+	return gTextureManager->deleteClonedTexture(this, cloneId);
+}
