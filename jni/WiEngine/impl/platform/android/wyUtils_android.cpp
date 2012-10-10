@@ -1246,7 +1246,7 @@ bool wyUtils::createFolder(const char* path) {
 	return mkdir(path) == 0;
 }
 
-char* wyUtils::loadBMP(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadBMP(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// necessary variables, callbacks
 	bmp_bitmap_callback_vt bitmap_callbacks = {
 		bitmap_create,
@@ -1274,9 +1274,9 @@ char* wyUtils::loadBMP(const char* data, size_t length, size_t* w, size_t* h, bo
 	int width = bmp.width;
 	int height = bmp.height;
 	if(w != NULL)
-		*w = width * scaleX + 0.5f;
+		*w = width * scaleX;
 	if(h != NULL)
-		*h = height * scaleY + 0.5f;
+		*h = height * scaleY;
 
 	// scale or not
 	if(!sizeOnly) {
@@ -1312,7 +1312,7 @@ char* wyUtils::loadBMP(const char* data, size_t length, size_t* w, size_t* h, bo
 	return image_data;
 }
 
-char* wyUtils::loadPNG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// check sig
 	if(png_sig_cmp((png_bytep)data, (png_size_t)0, PNG_BYTES_TO_CHECK)) {
 		LOGW("verify png sig failed");
@@ -1353,9 +1353,9 @@ char* wyUtils::loadPNG(const char* data, size_t length, size_t* w, size_t* h, bo
 	png_read_info(png_ptr, info_ptr);
 	png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, NULL, NULL, NULL);
 	if(w != NULL)
-		*w = width * scaleX + 0.5f;
+		*w = width * scaleX;
 	if(h != NULL)
-		*h = height * scaleY + 0.5f;
+		*h = height * scaleY;
 
 	if(!sizeOnly) {
 		// control png options
@@ -1410,7 +1410,7 @@ char* wyUtils::loadPNG(const char* data, size_t length, size_t* w, size_t* h, bo
 	}
 }
 
-char* wyUtils::loadJPG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// necessary variables
 	struct jpeg_decompress_struct cinfo;
 	struct wiengine_error_mgr jerr;
@@ -1441,9 +1441,9 @@ char* wyUtils::loadJPG(const char* data, size_t length, size_t* w, size_t* h, bo
 	int width = cinfo.image_width;
 	int height = cinfo.image_height;
 	if(w != NULL)
-		*w = width * scaleX + 0.5f;
+		*w = width * scaleX;
 	if(h != NULL)
-		*h = height * scaleY + 0.5f;
+		*h = height * scaleY;
 
 	// if size only, we can return
 	if(sizeOnly) {

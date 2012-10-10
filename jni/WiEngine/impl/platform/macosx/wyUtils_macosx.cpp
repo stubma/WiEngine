@@ -201,7 +201,7 @@ CGImageRef wyUtils_macosx::to_CGImage(NSImage* image) {
 	return CGImageSourceCreateImageAtIndex(imageSourceRef, 0, NULL);
 }
 
-char* wyUtils_macosx::loadNSImage(NSImage* image, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils_macosx::loadNSImage(NSImage* image, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// check nil
 	if(image == nil) {
 		LOGW("loadPNG: NSImage is nil, can't load it");
@@ -211,8 +211,8 @@ char* wyUtils_macosx::loadNSImage(NSImage* image, size_t* w, size_t* h, bool siz
 	// calculate desired size
 	// we must use image rep because NSImage always sample image in 72 dpi
 	NSBitmapImageRep* rep = [[image representations] objectAtIndex:0];
-	int width = [rep pixelsWide] * scaleX;
-	int height = [rep pixelsHigh] * scaleY;
+	float width = [rep pixelsWide] * scaleX;
+	float height = [rep pixelsHigh] * scaleY;
 	if(w != NULL)
 		*w = width;
 	if(h != NULL)
@@ -943,7 +943,7 @@ bool wyUtils::createFolder(const char* path) {
 	return ret;
 }
 
-char* wyUtils::loadBMP(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadBMP(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	NSImage* image = [[[NSImage alloc] initWithData:[NSData dataWithBytes:data length:length]] autorelease];
 	if(image == nil) {
 		LOGW("loadBMP: failed to create NSImage from data");
@@ -953,7 +953,7 @@ char* wyUtils::loadBMP(const char* data, size_t length, size_t* w, size_t* h, bo
 	return wyUtils_macosx::loadNSImage(image, w, h, sizeOnly, scaleX, scaleY);
 }
 
-char* wyUtils::loadPNG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	NSImage* image = [[[NSImage alloc] initWithData:[NSData dataWithBytes:data length:length]] autorelease];
 	if(image == nil) {
 		LOGW("loadPNG: failed to create NSImage from data");
@@ -963,7 +963,7 @@ char* wyUtils::loadPNG(const char* data, size_t length, size_t* w, size_t* h, bo
 	return wyUtils_macosx::loadNSImage(image, w, h, sizeOnly, scaleX, scaleY);
 }
 
-char* wyUtils::loadJPG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	NSImage* image = [[[NSImage alloc] initWithData:[NSData dataWithBytes:data length:length]] autorelease];
 	if(image == nil) {
 		LOGW("loadJPG: failed to create NSImage from data");

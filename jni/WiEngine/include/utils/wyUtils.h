@@ -353,7 +353,7 @@ public:
 	 * @return 经过解析后的png图片数据, RGBA8888格式, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadBMP(int resId, size_t* w, size_t* h, bool sizeOnly);
+	static char* loadBMP(int resId, float* w, float* h, bool sizeOnly);
 
 	/**
 	 * \if English
@@ -380,7 +380,7 @@ public:
 	 * @return 经过解析后的bmp图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
 	 * \endif
 	 */
-	static char* loadBMP(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadBMP(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -405,7 +405,7 @@ public:
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadBMP(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadBMP(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -432,7 +432,7 @@ public:
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadBMP(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadBMP(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -453,7 +453,7 @@ public:
 	 * @return 经过解析后的png图片数据, RGBA8888格式, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadPNG(int resId, size_t* w, size_t* h, bool sizeOnly);
+	static char* loadPNG(int resId, float* w, float* h, bool sizeOnly);
 
 	/**
 	 * \if English
@@ -480,7 +480,7 @@ public:
 	 * @return 经过解析后的png图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
 	 * \endif
 	 */
-	static char* loadPNG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -505,7 +505,7 @@ public:
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadPNG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadPNG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -532,7 +532,7 @@ public:
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadPNG(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadPNG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -557,7 +557,7 @@ public:
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadJPG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadJPG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -584,7 +584,7 @@ public:
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadJPG(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadJPG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -611,7 +611,7 @@ public:
 	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadJPG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * \if English
@@ -632,7 +632,7 @@ public:
 	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
 	 * \endif
 	 */
-	static char* loadJPG(int resId, size_t* w, size_t* h, bool sizeOnly);
+	static char* loadJPG(int resId, float* w, float* h, bool sizeOnly);
 	
 	/**
 	 * \if English
@@ -769,7 +769,7 @@ public:
 	 * @return true表示获得大小成功, false表示失败
 	 * \endif
 	 */
-	static bool getPVRSize(const char* data, size_t length, size_t* w, size_t* h, float scale);
+	static bool getPVRSize(const char* data, size_t length, float* w, float* h, float scale);
 
 	/**
 	 * \if English
@@ -792,7 +792,7 @@ public:
 	 * @return true表示获得大小成功, false表示失败
 	 * \endif
 	 */
-	static bool getPVRSize(int resId, size_t* w, size_t* h, float* outScale);
+	static bool getPVRSize(int resId, float* w, float* h, float* outScale);
 
 	/**
 	 * \if English
@@ -813,7 +813,7 @@ public:
 	 * @return true表示获得大小成功, false表示失败
 	 * \endif
 	 */
-	static bool getPVRSize(FILE* f, size_t* w, size_t* h, float scale);
+	static bool getPVRSize(FILE* f, float* w, float* h, float scale);
 
 	/**
 	 * \if English
@@ -836,7 +836,7 @@ public:
 	 * @return true表示获得大小成功, false表示失败
 	 * \endif
 	 */
-	static bool getPVRSize(const char* path, bool isFile, size_t* w, size_t* h, float scale);
+	static bool getPVRSize(const char* path, bool isFile, float* w, float* h, float scale);
 	
 	/**
 	 * \if English

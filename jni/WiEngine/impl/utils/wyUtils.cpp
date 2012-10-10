@@ -984,7 +984,7 @@ char* wyUtils::loadCString(const char* mfsName) {
 	}
 }
 
-char* wyUtils::loadBMP(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadBMP(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(f, &length);
@@ -997,7 +997,7 @@ char* wyUtils::loadBMP(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scale
 	return data;
 }
 
-char* wyUtils::loadBMP(int resId, size_t* w, size_t* h, bool sizeOnly) {
+char* wyUtils::loadBMP(int resId, float* w, float* h, bool sizeOnly) {
 	// load raw data
 	size_t length;
 	float scale;
@@ -1011,7 +1011,7 @@ char* wyUtils::loadBMP(int resId, size_t* w, size_t* h, bool sizeOnly) {
 	return data;
 }
 
-char* wyUtils::loadBMP(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadBMP(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(path, isFile, &length);
@@ -1024,7 +1024,7 @@ char* wyUtils::loadBMP(const char* path, bool isFile, size_t* w, size_t* h, bool
 	return data;
 }
 
-char* wyUtils::loadPNG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadPNG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(f, &length);
@@ -1037,7 +1037,7 @@ char* wyUtils::loadPNG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scale
 	return data;
 }
 
-char* wyUtils::loadPNG(int resId, size_t* w, size_t* h, bool sizeOnly) {
+char* wyUtils::loadPNG(int resId, float* w, float* h, bool sizeOnly) {
 	// load raw data
 	size_t length;
 	float scale;
@@ -1051,7 +1051,7 @@ char* wyUtils::loadPNG(int resId, size_t* w, size_t* h, bool sizeOnly) {
 	return data;
 }
 
-char* wyUtils::loadPNG(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadPNG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(path, isFile, &length);
@@ -1064,7 +1064,7 @@ char* wyUtils::loadPNG(const char* path, bool isFile, size_t* w, size_t* h, bool
 	return data;
 }
 
-char* wyUtils::loadJPG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadJPG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(f, &length);
@@ -1077,7 +1077,7 @@ char* wyUtils::loadJPG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scale
 	return data;
 }
 
-char* wyUtils::loadJPG(int resId, size_t* w, size_t* h, bool sizeOnly) {
+char* wyUtils::loadJPG(int resId, float* w, float* h, bool sizeOnly) {
 	// load raw data
 	size_t length;
 	float scale;
@@ -1091,7 +1091,7 @@ char* wyUtils::loadJPG(int resId, size_t* w, size_t* h, bool sizeOnly) {
 	return data;
 }
 
-char* wyUtils::loadJPG(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadJPG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(path, isFile, &length);
@@ -1148,7 +1148,7 @@ char* wyUtils::loadRaw(FILE* f, size_t* outLen, bool noDecode) {
 	return data;
 }
 
-bool wyUtils::getPVRSize(const char* data, size_t length, size_t* w, size_t* h, float scale) {
+bool wyUtils::getPVRSize(const char* data, size_t length, float* w, float* h, float scale) {
 	// create buffer
 	wyPVRHeader* header = NULL;
 	if ((header = (wyPVRHeader*)wyMalloc(sizeof(wyPVRHeader))) == NULL) {
@@ -1174,8 +1174,8 @@ bool wyUtils::getPVRSize(const char* data, size_t length, size_t* w, size_t* h, 
 	// check format if supports scaling
 //	wyPVRFormat format = (wyPVRFormat)(header->flags & PVR_TEXTURE_FLAG_TYPE_MASK);
 //	if(canScalePVR(format)) {
-//		*w = *w * scale + 0.5f;
-//		*h = *h * scale + 0.5f;
+//		*w = *w * scale;
+//		*h = *h * scale;
 //	}
 	
 	// free header
@@ -1184,7 +1184,7 @@ bool wyUtils::getPVRSize(const char* data, size_t length, size_t* w, size_t* h, 
 	return true;
 }
 
-bool wyUtils::getPVRSize(FILE* f, size_t* w, size_t* h, float scale) {
+bool wyUtils::getPVRSize(FILE* f, float* w, float* h, float scale) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(f, &length);
@@ -1198,7 +1198,7 @@ bool wyUtils::getPVRSize(FILE* f, size_t* w, size_t* h, float scale) {
 	return ret;
 }
 
-bool wyUtils::getPVRSize(int resId, size_t* w, size_t* h, float* outScale) {
+bool wyUtils::getPVRSize(int resId, float* w, float* h, float* outScale) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(resId, &length, outScale);
@@ -1211,7 +1211,7 @@ bool wyUtils::getPVRSize(int resId, size_t* w, size_t* h, float* outScale) {
 	return ret;
 }
 
-bool wyUtils::getPVRSize(const char* path, bool isFile, size_t* w, size_t* h, float scale) {
+bool wyUtils::getPVRSize(const char* path, bool isFile, float* w, float* h, float scale) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(path, isFile, &length);

@@ -1318,7 +1318,7 @@ public:
 	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
 	 * @return 经过解析后的png图片数据, RGBA8888格式, 调用者需要负责释放返回的数据
 	 */
-	static char* loadPNG(int resId, size_t* w, size_t* h, bool sizeOnly);
+	static char* loadPNG(int resId, float* w, float* h, bool sizeOnly);
 
 	/**
 	 * 从内存的数组中载入png图片
@@ -1332,7 +1332,7 @@ public:
 	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return 经过解析后的png图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
 	 */
-	static char* loadPNG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * 从一个标准FILE指针中读取png图片，这个方法会负责关闭文件
@@ -1345,7 +1345,7 @@ public:
 	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 */
-	static char* loadPNG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadPNG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * 从文件系统或者asset中载入png图片
@@ -1359,7 +1359,7 @@ public:
 	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 */
-	static char* loadPNG(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadPNG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * 从一个标准FILE指针中读取jpg图片，这个方法会负责关闭文件
@@ -1372,7 +1372,7 @@ public:
 	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 */
-	static char* loadJPG(FILE* f, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadJPG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * 从文件系统或者asset中载入jpg图片
@@ -1386,7 +1386,7 @@ public:
 	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 */
-	static char* loadJPG(const char* path, bool isFile, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadJPG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * 从内存的数组中载入jpg图片
@@ -1400,7 +1400,7 @@ public:
 	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 */
-	static char* loadJPG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
 	 * 从资源文件中载入jpg图片
@@ -1411,7 +1411,7 @@ public:
 	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
 	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
 	 */
-	static char* loadJPG(int resId, size_t* w, size_t* h, bool sizeOnly);
+	static char* loadJPG(int resId, float* w, float* h, bool sizeOnly);
 	
 	/**
 	 * 从某个FILE指针中读取所有内容
@@ -1471,7 +1471,7 @@ public:
 	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return true表示获得大小成功, false表示失败
 	 */
-	static bool getPVRSize(const char* data, size_t length, size_t* w, size_t* h, float scale);
+	static bool getPVRSize(const char* data, size_t length, float* w, float* h, float scale);
 
 	/**
 	 * 得到PVR图片的大小
@@ -1484,7 +1484,7 @@ public:
 	 * 		如果不需要，可以传NULL
 	 * @return true表示获得大小成功, false表示失败
 	 */
-	static bool getPVRSize(int resId, size_t* w, size_t* h, float* outScale);
+	static bool getPVRSize(int resId, float* w, float* h, float* outScale);
 
 	/**
 	 * 得到PVR图片的大小
@@ -1495,7 +1495,7 @@ public:
 	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return true表示获得大小成功, false表示失败
 	 */
-	static bool getPVRSize(FILE* f, size_t* w, size_t* h, float scale);
+	static bool getPVRSize(FILE* f, float* w, float* h, float scale);
 
 	/**
 	 * 得到PVR图片的大小
@@ -1507,7 +1507,7 @@ public:
 	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
 	 * @return true表示获得大小成功, false表示失败
 	 */
-	static bool getPVRSize(const char* path, bool isFile, size_t* w, size_t* h, float scale);
+	static bool getPVRSize(const char* path, bool isFile, float* w, float* h, float scale);
 	
 	/**
 	 * PVR头部的字段是little endian的, 这个方法把它们转换为host endian

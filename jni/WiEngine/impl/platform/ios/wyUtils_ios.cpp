@@ -87,7 +87,7 @@ float wyUtils_ios::getDensity(NSString* fileName) {
     return inDensity;
 }
 
-char* wyUtils_ios::loadUIImage(UIImage* image, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils_ios::loadUIImage(UIImage* image, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// check nil
 	if(image == nil) {
 		LOGW("loadPNG: UIImage is nil, can't load it");
@@ -95,8 +95,8 @@ char* wyUtils_ios::loadUIImage(UIImage* image, size_t* w, size_t* h, bool sizeOn
 	}
 
 	// calculate desired size
-	int width = image.size.width * (wyDevice::apiLevel >= 400 ? image.scale : 1.f) * scaleX;
-	int height = image.size.height * (wyDevice::apiLevel >= 400 ? image.scale : 1.f) * scaleY;
+	float width = image.size.width * (wyDevice::apiLevel >= 400 ? image.scale : 1.f) * scaleX;
+	float height = image.size.height * (wyDevice::apiLevel >= 400 ? image.scale : 1.f) * scaleY;
 	if(w != NULL)
 		*w = width;
 	if(h != NULL)
@@ -789,7 +789,7 @@ bool wyUtils::createFolder(const char* path) {
 	return ret;
 }
 
-char* wyUtils::loadBMP(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadBMP(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	UIImage* image = [UIImage imageWithData:[NSData dataWithBytes:data length:length]];
 	if(image == nil) {
 		LOGW("loadBMP: failed to create UIImage from data");
@@ -799,7 +799,7 @@ char* wyUtils::loadBMP(const char* data, size_t length, size_t* w, size_t* h, bo
 	return wyUtils_ios::loadUIImage(image, w, h, sizeOnly, scaleX, scaleY);
 }
 
-char* wyUtils::loadPNG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	UIImage* image = [UIImage imageWithData:[NSData dataWithBytes:data length:length]];
 	if(image == nil) {
 		LOGW("loadPNG: failed to create UIImage from data");
@@ -809,7 +809,7 @@ char* wyUtils::loadPNG(const char* data, size_t length, size_t* w, size_t* h, bo
 	return wyUtils_ios::loadUIImage(image, w, h, sizeOnly, scaleX, scaleY);
 }
 
-char* wyUtils::loadJPG(const char* data, size_t length, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	UIImage* image = [UIImage imageWithData:[NSData dataWithBytes:data length:length]];
 	if(image == nil) {
 		LOGW("loadJPG: failed to create UIImage from data");

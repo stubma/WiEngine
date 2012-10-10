@@ -78,7 +78,7 @@ wyGLTexture2D* wyGLTexture2D::makeBMP(int resId, int transparentColor, wyTexture
 	tex->m_transparentColor = transparentColor;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadBMP(resId, &width, &height, true);
 	tex->initSize(width, height);
 
@@ -94,7 +94,7 @@ wyGLTexture2D* wyGLTexture2D::makeJPG(int resId, int transparentColor, wyTexture
 	tex->m_resId = resId;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadJPG(resId, &width, &height, true);
 	tex->initSize(width, height);
 
@@ -109,7 +109,7 @@ wyGLTexture2D* wyGLTexture2D::makePNG(int resId, wyTexturePixelFormat pixelForma
 	tex->m_resId = resId;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadPNG(resId, &width, &height, true);
 	tex->initSize(width, height);
 
@@ -123,7 +123,7 @@ wyGLTexture2D* wyGLTexture2D::makePVR(int resId) {
 	tex->m_resId = resId;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	float scale;
 	wyUtils::getPVRSize(resId, &width, &height, &scale);
 	tex->m_inDensity = wyDevice::density / scale;
@@ -144,7 +144,7 @@ wyGLTexture2D* wyGLTexture2D::makeRawBMP(const char* data, size_t length, int tr
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadBMP(data, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -163,7 +163,7 @@ wyGLTexture2D* wyGLTexture2D::makeRawJPG(const char* data, size_t length, int tr
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadJPG(data, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -181,7 +181,7 @@ wyGLTexture2D* wyGLTexture2D::makeRawPNG(const char* data, size_t length, wyText
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadPNG(data, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -198,7 +198,7 @@ wyGLTexture2D* wyGLTexture2D::makeRawPVR(const char* data, size_t length, float 
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::getPVRSize(data, length, &width, &height, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -218,7 +218,7 @@ wyGLTexture2D* wyGLTexture2D::makeBMP(const char* assetPath, int transparentColo
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadBMP(assetPath, false, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -238,7 +238,7 @@ wyGLTexture2D* wyGLTexture2D::makeJPG(const char* assetPath, int transparentColo
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadJPG(assetPath, false, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -257,7 +257,7 @@ wyGLTexture2D* wyGLTexture2D::makePNG(const char* assetPath, wyTexturePixelForma
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadPNG(assetPath, false, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -275,7 +275,7 @@ wyGLTexture2D* wyGLTexture2D::makePVR(const char* assetPath, float inDensity) {
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::getPVRSize(assetPath, false, &width, &height, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -299,7 +299,7 @@ wyGLTexture2D* wyGLTexture2D::makeMemoryBMP(const char* mfsName, int transparent
 	wyUtils::getFile(mfsName, &mfsData, &length);
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadBMP(mfsData, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -323,7 +323,7 @@ wyGLTexture2D* wyGLTexture2D::makeMemoryJPG(const char* mfsName, int transparent
 	wyUtils::getFile(mfsName, &mfsData, &length);
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadJPG(mfsData, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -346,7 +346,7 @@ wyGLTexture2D* wyGLTexture2D::makeMemoryPNG(const char* mfsName, wyTexturePixelF
 	wyUtils::getFile(mfsName, &mfsData, &length);
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadPNG(mfsData, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -368,7 +368,7 @@ wyGLTexture2D* wyGLTexture2D::makeMemoryPVR(const char* mfsName, float inDensity
 	wyUtils::getFile(mfsName, &mfsData, &length);
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::getPVRSize(mfsData, length, &width, &height, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -388,7 +388,7 @@ wyGLTexture2D* wyGLTexture2D::makeFileBMP(const char* fsPath, int transparentCol
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadBMP(fsPath, true, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -408,7 +408,7 @@ wyGLTexture2D* wyGLTexture2D::makeFileJPG(const char* fsPath, int transparentCol
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadJPG(fsPath, true, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -427,7 +427,7 @@ wyGLTexture2D* wyGLTexture2D::makeFilePNG(const char* fsPath, wyTexturePixelForm
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::loadPNG(fsPath, true, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -445,7 +445,7 @@ wyGLTexture2D* wyGLTexture2D::makeFilePVR(const char* fsPath, float inDensity) {
 	tex->m_inDensity = inDensity;
 
 	// init size
-	size_t width, height;
+	float width, height;
 	wyUtils::getPVRSize(fsPath, true, &width, &height, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
@@ -528,6 +528,8 @@ wyGLTexture2D::wyGLTexture2D() :
 		m_texture(0),
 		m_pixelWidth(0),
 		m_pixelHeight(0),
+		m_preciseWidth(0),
+		m_preciseHeight(0),
 		m_width(0),
 		m_height(0),
 		m_minFilter(GL_LINEAR),
@@ -543,9 +545,11 @@ wyGLTexture2D::wyGLTexture2D() :
 		m_inDensity(wyDevice::defaultInDensity) {
 }
 
-void wyGLTexture2D::initSize(int realWidth, int realHeight) {
-	m_width = realWidth;
-	m_height = realHeight;
+void wyGLTexture2D::initSize(float realWidth, float realHeight) {
+	m_preciseWidth = realWidth;
+	m_preciseHeight = realHeight;
+	m_width = (int)(realWidth + 0.5f);
+	m_height = (int)(realHeight + 0.5f);
 	m_pixelWidth = wyMath::getNextPOT(realWidth);
 	m_pixelHeight = wyMath::getNextPOT(realHeight);
 	m_widthScale = m_width / m_pixelWidth;
@@ -555,7 +559,7 @@ void wyGLTexture2D::initSize(int realWidth, int realHeight) {
 char* wyGLTexture2D::loadPNG() {
 	char* raw = NULL;
 	float scale = wyDevice::density / m_inDensity;
-	size_t w, h;
+	float w, h;
 	if(m_resId != 0) {
 		size_t len;
 		char* png = wyUtils::loadRaw(m_resId, &len, &scale);
@@ -597,7 +601,7 @@ char* wyGLTexture2D::loadBMP() {
 	// decompress bmp data in RGBA8888
 	float scale = wyDevice::density / m_inDensity;
 	char* raw = NULL;
-	size_t w, h;
+	float w, h;
 	if(m_resId != 0) {
 		size_t len;
 		char* bmp = wyUtils::loadRaw(m_resId, &len, &scale);
@@ -664,7 +668,7 @@ char* wyGLTexture2D::loadJPG() {
 	// decompress jpg data in RGBA8888
 	float scale = wyDevice::density / m_inDensity;
 	char* raw = NULL;
-	size_t w, h;
+	float w, h;
 	if(m_resId != 0) {
 		size_t len;
 		char* jpg = wyUtils::loadRaw(m_resId, &len, &scale);

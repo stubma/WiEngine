@@ -115,6 +115,12 @@ private:
 	/// 贴图实际宽度，高度
 	int m_pixelWidth, m_pixelHeight;
 
+	/// precise width of image after scaled
+	float m_preciseWidth;
+
+	/// precise height of image after scaled
+	float m_preciseHeight;
+
 	/// 原始图片的宽度，高度
 	float m_width, m_height;
 
@@ -424,7 +430,7 @@ private:
 	 * @param realWidth 贴图的有效像素宽度
 	 * @param realHeight 贴图的有效像素高度
 	 */
-	void initSize(int realWidth, int realHeight);
+	void initSize(float realWidth, float realHeight);
 
 	/**
 	 * 把RGBA8888格式的数据转换成为当前贴图格式的数据
@@ -629,6 +635,24 @@ private:
 	 * @return 原始图片的高度
 	 */
 	float getHeight() { return m_height; }
+
+	/**
+	 * \if English
+	 * Get precise scaled width of image
+	 * \else
+	 * 得到图片缩放后的精确宽度, 这个宽度不会丢失精度
+	 * \endif
+	 */
+	float getPreciseWidth() { return m_preciseWidth; }
+
+	/**
+	 * \if English
+	 * Get precise scaled height of image
+	 * \else
+	 * 得到图片缩放后的精确高度, 这个高度不会丢失精度
+	 * \endif
+	 */
+	float getPreciseHeight() { return m_preciseHeight; }
 
 	/**
 	 * 得到贴图实际宽度

@@ -997,6 +997,24 @@ public:
 	float getHeight();
 
 	/**
+	 * \if English
+	 * Get precise scaled width of image
+	 * \else
+	 * 得到图片缩放后的精确宽度, 这个宽度不会丢失精度
+	 * \endif
+	 */
+	float getPreciseWidth();
+
+	/**
+	 * \if English
+	 * Get precise scaled height of image
+	 * \else
+	 * 得到图片缩放后的精确高度, 这个高度不会丢失精度
+	 * \endif
+	 */
+	float getPreciseHeight();
+
+	/**
 	 * 得到贴图实际宽度
 	 *
 	 * @return 贴图实际宽度
