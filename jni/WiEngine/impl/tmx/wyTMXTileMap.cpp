@@ -165,8 +165,8 @@ void wyTMXTileMap::init(wyMapInfo* map, wyArray* textures) {
         if(tileset) {
             tileset->texture = (wyTexture2D*)wyArrayGet(textures, i);
             tileset->texture->retain();
-            tileset->imageWidth = tileset->texture->getWidth();
-            tileset->imageHeight = tileset->texture->getHeight();
+            tileset->imageWidth = tileset->texture->getPreciseWidth();
+            tileset->imageHeight = tileset->texture->getPreciseHeight();
         }
     }
 

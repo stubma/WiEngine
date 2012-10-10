@@ -472,6 +472,22 @@ float wyTexture2D::getHeight() {
 		return 0;
 }
 
+float wyTexture2D::getPreciseWidth() {
+	wyGLTexture2D* tex = gTextureManager->getTexture(this);
+	if(tex)
+		return tex->getPreciseWidth();
+	else
+		return 0;
+}
+
+float wyTexture2D::getPreciseHeight() {
+	wyGLTexture2D* tex = gTextureManager->getTexture(this);
+	if(tex)
+		return tex->getPreciseHeight();
+	else
+		return 0;
+}
+
 int wyTexture2D::getPixelWidth() {
 	wyGLTexture2D* tex = gTextureManager->getTexture(this);
 	if(tex)

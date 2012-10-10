@@ -971,7 +971,10 @@ namespace Other {
 		wyPixelOperationTestLayer() {
 			// load raw data and create texture from raw data
 			m_line = 0;
-			m_raw = wyUtils::loadPNG(RES("R.drawable.grossini"), &m_rawWidth, &m_rawHeight, false);
+            float w, h;
+			m_raw = wyUtils::loadPNG(RES("R.drawable.grossini"), &w, &h, false);
+            m_rawWidth = w + 0.5f;
+            m_rawHeight = h + 0.5f;
 			m_tex = wyTexture2D::makeRaw(m_raw, m_rawWidth, m_rawHeight);
 			wySprite* sprite = wySprite::make(m_tex);
 			sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);

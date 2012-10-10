@@ -75,7 +75,7 @@ public:
 	 * @return 适合于创建OpenGL贴图的数据, 如果\c sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
 	 * \endif
 	 */
-	static char* loadNSImage(NSImage* image, size_t* w, size_t* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadNSImage(NSImage* image, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 	
 	/**
 	 * \if English
