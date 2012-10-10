@@ -5,6 +5,8 @@
 [fix] target selector in iOS wyUtils.showSystemAlertDialog is not triggered
 [fix] logic bug in wyScrollableLayer.addScrollableChild
 [fix] page layout bug when wyPageControl is not full-screen size
+[fix] fix bug #1, can't use bracket to return element because it will be added when it is not found
+[fix] fix bug #3, forget increase iterator in switchToClonedTexture loop
 
 +++ 3.10.1 +++
 [new] wyZwoptexManager增加makeButton方法
