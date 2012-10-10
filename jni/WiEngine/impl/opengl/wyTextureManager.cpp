@@ -122,7 +122,7 @@ const char* wyTextureManager::hashForData(const void* data, size_t length) {
 }
 
 bool wyTextureManager::switchToClonedTexture(wyTexture2D* t, int cloneId) {
-	for(map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->begin(); iter != m_textureHash->end();) {
+	for(map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->begin(); iter != m_textureHash->end(); iter++) {
 		wyTextureHash& hash = iter->second;
 		if(hash.isClone && hash.sourceHandle == t->m_handle && hash.cloneId == cloneId) {
 			t->m_handle = hash.handle;
