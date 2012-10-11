@@ -59,11 +59,26 @@ private:
 	/// technique used to render this material
 	wyTechnique* m_technique;
 
+	/// shader program key
+	int m_programKey;
+
 protected:
-	wyMaterial();
+	/**
+	 * Constructor
+	 *
+	 * @param programKey shader program key
+	 */
+	wyMaterial(int programKey);
 
 public:
 	static wyMaterial* make();
+
+	/**
+	 * Create material instance which use non-default shader program
+	 *
+	 * @param programKey shader program key
+	 */
+	static wyMaterial* make(int programKey);
 
 	virtual ~wyMaterial();
 

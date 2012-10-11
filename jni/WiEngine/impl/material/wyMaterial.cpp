@@ -28,7 +28,8 @@
  */
 #include "wyMaterial.h"
 
-wyMaterial::wyMaterial() :
+wyMaterial::wyMaterial(int programKey) :
+		m_programKey(programKey),
 		m_technique(NULL) {
 	m_params = WYNEW map<unsigned int, wyMaterialParameter*>();
 }
@@ -42,7 +43,12 @@ wyMaterial::~wyMaterial() {
 }
 
 wyMaterial* wyMaterial::make() {
-	wyMaterial* m = WYNEW wyMaterial();
+	wyMaterial* m = WYNEW wyMaterial(wyShaderManager::DEFAULT_PROGRAM);
+	return (wyMaterial*)m->autoRelease();
+}
+
+wyMaterial* wyMaterial::make(int programKey) {
+	wyMaterial* m = WYNEW wyMaterial(programKey);
 	return (wyMaterial*)m->autoRelease();
 }
 
@@ -69,7 +75,7 @@ void wyMaterial::setTechnique(wyTechnique* tech) {
 
 wyTechnique* wyMaterial::getTechnique() {
 	if(!m_technique) {
-		setTechnique(wyTechnique::make());
+		setTechnique(wyTechnique::make(m_programKey));
 	}
 	return m_technique;
 }
