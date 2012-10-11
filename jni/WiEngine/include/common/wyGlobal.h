@@ -29,6 +29,7 @@
 #ifndef __wyGlobal_h__
 #define __wyGlobal_h__
 
+#include "wyBuildConfig.h"
 #include "WiEngine-Classes.h"
 
 // WiEngine version
