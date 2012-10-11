@@ -52,9 +52,8 @@ extern pthread_mutex_t gMutex;
 static wyArray* sAutoReleasePool = NULL;
 static wyArray* sLazyReleasePool = NULL;
 
-// comment following line when leak tracing is not needed
-#define LEAK_TRACE
-#ifdef LEAK_TRACE
+// only needed when memory tracking is enabled
+#ifdef WY_CFLAG_MEMORY_TRACKING
 static wyArray* sLeakPool = NULL;
 #endif
 
@@ -64,7 +63,7 @@ wyObject::wyObject() :
         m_jTSConnector(NULL),
 #endif
         m_name(NULL) {
-#ifdef LEAK_TRACE
+#ifdef WY_CFLAG_MEMORY_TRACKING
 	if(sLeakPool != NULL)
 		wyArrayPush(sLeakPool, this);
 #endif
@@ -77,7 +76,7 @@ wyObject::~wyObject() {
 		LOGD("Destroyed: %s, %d", name, this);
 #endif
 
-#ifdef LEAK_TRACE
+#ifdef WY_CFLAG_MEMORY_TRACKING
 	if(sLeakPool != NULL)
 		wyArrayDeleteObj(sLeakPool, this, NULL, NULL);
 #endif
@@ -230,7 +229,7 @@ static bool releaseObject(wyArray* arr, void* ptr, int index, void* data) {
 	return true;
 }
 
-#ifdef LEAK_TRACE
+#ifdef WY_CFLAG_MEMORY_TRACKING
 static bool outputLeak(wyArray* arr, void* ptr, int index, void* data) {
 	wyObject* obj = (wyObject*)ptr;
 	LOGD("unreleased object: %s, addr: %x, retain count: %d", obj->getClassName(), obj, obj->getRetainCount());
@@ -247,7 +246,7 @@ void wyInitAutoReleasePool() {
 	}
 
 	// for tracing leak
-#ifdef LEAK_TRACE
+#ifdef WY_CFLAG_MEMORY_TRACKING
 	if(sLeakPool == NULL) {
 		sLeakPool = wyArrayNew(100);
 	}
@@ -281,25 +280,25 @@ void wyDestroyAutoReleasePool() {
 	wyClearLazyReleasePool();
 }
 
+#ifdef WY_CFLAG_MEMORY_TRACKING
+
 void wyOutputLeakPool() {
-#ifdef LEAK_TRACE
 	if(sLeakPool != NULL) {
 		if(sLeakPool->num > 0)
 			LOGD("leak pool count: %d", sLeakPool->num);
 		wyArrayEach(sLeakPool, outputLeak, NULL);
 	}
-#endif
 }
 
 void wyClearLeakPool() {
-#ifdef LEAK_TRACE
 	if(sLeakPool != NULL) {
 		wyArrayClear(sLeakPool);
 		wyArrayDestroy(sLeakPool);
 		sLeakPool = NULL;
 	}
-#endif
 }
+
+#endif
 
 void wyOutputLazyPool() {
 	LOGD("+++ objects still not autoreleased +++");
