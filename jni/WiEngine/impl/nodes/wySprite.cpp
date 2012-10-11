@@ -31,12 +31,10 @@
 #include "wyLog.h"
 
 wySprite::~wySprite() {
-	LOGD("~wySprite: %d", this);
 }
 
 wySprite::wySprite(wyTexture2D* tex) :
 		wyTextureNode(tex) {
-	LOGD("wySprite: %d", this);
 }
 
 wySprite* wySprite::make(wyTexture2D* tex) {
@@ -53,13 +51,11 @@ wySprite* wySprite::make(wyTexture2D* tex, wyRect texRect) {
 
 wySprite::wySprite(wyTexture2D* tex, wyRect texRect) :
 		wyTextureNode(tex) {
-	LOGD("wySprite: %d", this);
 	setTextureRect(texRect);
 }
 
 wySprite::wySprite(wyTexture2D* tex, wyZwoptexFrame* f) :
 		wyTextureNode(tex) {
-	LOGD("wySprite: %d", this);
 	setTextureRect(f->rect);
 	setContentSize(f->sourceSize.width, f->sourceSize.height);
 	setRotatedZwoptex(f->rotated);
