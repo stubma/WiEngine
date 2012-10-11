@@ -48,11 +48,6 @@ extern pthread_mutex_t gMutex;
 	extern jmethodID g_mid_BaseWYObject_onTargetSelectorInvoked;
 #endif
 
-// for tracing retain/release
-#define RETAIN_TRACE false
-#define RELEASE_TRACE false
-#define DESTROY_TRACE false
-
 // release pools
 static wyArray* sAutoReleasePool = NULL;
 static wyArray* sLazyReleasePool = NULL;
@@ -76,11 +71,11 @@ wyObject::wyObject() :
 }
 
 wyObject::~wyObject() {
-	if(DESTROY_TRACE) {
-		const char* name = getClassName();
-		if(name != NULL)
-			LOGD("Destroyed: %s, %d", name, this);
-	}
+#ifdef WY_CFLAG_DESTROY_TRACE
+	const char* name = getClassName();
+	if(name != NULL)
+		LOGD("Destroyed: %s, %d", name, this);
+#endif
 
 #ifdef LEAK_TRACE
 	if(sLeakPool != NULL)
@@ -109,11 +104,11 @@ const char* wyObject::getClassName() {
 wyObject* wyObject::retain() {
 	m_retainCount++;
 
-	if(RETAIN_TRACE) {
-		const char* name = getClassName();
-		if(name != NULL)
-			LOGD("Retained: %s, %d, %d", name, this, m_retainCount);
-	}
+#ifdef WY_CFLAG_RETAIN_TRACE
+	const char* name = getClassName();
+	if(name != NULL)
+		LOGD("Retained: %s, %d, %d", name, this, m_retainCount);
+#endif
 
 	return this;
 }
@@ -133,11 +128,11 @@ void wyObject::release() {
 
 	m_retainCount--;
 
-	if(RELEASE_TRACE) {
-		const char* name = getClassName();
-		if(name != NULL)
-			LOGD("Released: %s, %d, %d", name, this, m_retainCount);
-	}
+#ifdef WY_CFLAG_RELEASE_TRACE
+	const char* name = getClassName();
+	if(name != NULL)
+		LOGD("Released: %s, %d, %d", name, this, m_retainCount);
+#endif
 
 	if(m_retainCount <= 0)
 		WYDELETE(this);
