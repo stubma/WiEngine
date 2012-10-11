@@ -34,49 +34,28 @@
 /**
  * @class wyShaderManager
  *
- * \if English
  * Singleton shader manager
- * \else
- * 单例模式的shader程序管理器
- * \endif
  */
 class WIENGINE_API wyShaderManager : public wyObject {
 public:
 	/**
-	 * \if English
 	 * Key for builtin shader program
-	 * \else
-	 * 内置的shader程序的标识名称
-	 * \endif
 	 */
 	enum ProgramKey {
-		/**
-		 * \if English
-		 * Program which handle position, color and texture
-		 * \else
-		 * 最常用的程序类型, 负责位置, 颜色与贴图的渲染
-		 * \endif
-		 */
+		/// Program which handle position, color and texture
 		PROG_PCT = 0x10000000,
 
+		/// program which handle position and color
+		PROG_PC = 0x10000001,
+
 		/**
-		 * \if English
 		 * external program loaded by application, the id of external will be added
 		 * to this key
-		 * \else
-		 * 应用使用的自定义shader程序, 会加上这个数值以表示这是一个外部shader程序
-		 * \endif
 		 */
 		EXTERNAL = 0x20000000
 	};
 
-	/**
-	 * \if English
-	 * Default program used to render material
-	 * \else
-	 * 缺省的shader key
-	 * \endif
-	 */
+	/// Default program used to render material
 	static const ProgramKey DEFAULT_PROGRAM = PROG_PCT;
 
 private:

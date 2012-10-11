@@ -29,6 +29,8 @@
 #include "wyShaderManager.h"
 #include "common_position_texture_color_fsh.h"
 #include "common_position_texture_color_vsh.h"
+#include "common_position_color_fsh.h"
+#include "common_position_color_vsh.h"
 
 /// global singleton
 wyShaderManager* gShaderManager = NULL;
@@ -54,6 +56,7 @@ wyShaderManager* wyShaderManager::getInstance() {
 }
 
 void wyShaderManager::loadBuiltinShaders() {
+	// PROG_PCT
 	wyShader* vsh = wyShader::makeRaw(wyShader::VERTEX, common_position_texture_color_vsh);
 	wyShader* fsh = wyShader::makeRaw(wyShader::FRAGMENT, common_position_texture_color_fsh);
 	wyShaderProgram* p = addProgram(PROG_PCT, vsh, fsh);
@@ -67,6 +70,18 @@ void wyShaderManager::loadBuiltinShaders() {
 		p->addUniform(wyShaderVariable::TEXTURE_2D,
 				wyUniform::NAME[wyUniform::TEXTURE_2D],
 				wyUniform::TEXTURE_2D);
+	}
+
+	// PROG_PC
+	vsh = wyShader::makeRaw(wyShader::VERTEX, common_position_color_vsh);
+	fsh = wyShader::makeRaw(wyShader::FRAGMENT, common_position_color_fsh);
+	p = addProgram(PROG_PC, vsh, fsh);
+	p->addAttribute(wyShaderVariable::VEC4, wyAttribute::NAME[wyAttribute::POSITION], wyAttribute::POSITION);
+	p->addAttribute(wyShaderVariable::VEC4, wyAttribute::NAME[wyAttribute::COLOR], wyAttribute::COLOR);
+	if(p->link()) {
+		p->addUniform(wyShaderVariable::MAT4,
+				wyUniform::NAME[wyUniform::WORLD_VIEW_PROJECTION_MATRIX],
+				wyUniform::WORLD_VIEW_PROJECTION_MATRIX);
 	}
 }
 
