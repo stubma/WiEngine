@@ -156,6 +156,10 @@ void wyGLES2Renderer::setDepthRange(float start, float end) {
 }
 
 void wyGLES2Renderer::applyRenderState(wyRenderState* rs) {
+	// do null checking
+	if(!rs)
+		return;
+
 	// depth test
 	if(m_state->depthTestEnabled != rs->depthTestEnabled) {
 		if(rs->depthTestEnabled) {
