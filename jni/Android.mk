@@ -69,8 +69,7 @@ include $(LOCAL_PATH)/Box2D/Android.mk
 # build lua lib
 ###########################################################
 
-# for speed, we don't build lua lib now, if you want to use lua, uncomment it
-# include $(LOCAL_PATH)/lua/Android.mk
+include $(LOCAL_PATH)/lua/Android.mk
 
 ###########################################################
 # build winetwork lib
