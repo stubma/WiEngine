@@ -36,6 +36,21 @@
 #define WY_CFLAG_MEMORY_TRACKING
 
 /**
+ * uncomment it to print log in every wyObject.retain invocation
+ */
+//#define WY_CFLAG_RETAIN_TRACE
+
+/**
+ * uncomment it to print log in every wyObject release invocation
+ */
+//#define WY_CFLAG_RELEASE_TRACE
+
+/**
+ * uncomment it to print log in every wyObject deconstructor
+ */
+//#define WY_CFLAG_DESTROY_TRACE
+
+/**
  * optimize math operation, when not needed, comment it
  */
 #define WY_CFLAG_OPTIMIZE_MATH
