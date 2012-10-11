@@ -258,6 +258,5 @@ wyTextureNode::~wyTextureNode() {
 	}
 	WYDELETE(m_animations);
 	wyObjectRelease(m_currentFrame);
-	wyObjectRelease(m_tex);
 	wyObjectRelease(m_originalTex);
 }
