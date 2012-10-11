@@ -888,8 +888,8 @@ namespace Action {
         }
 
         virtual ~wyBezierTestLayer() {
-        	m_material->release();
-        	m_mesh->release();
+        	m_lineMat->release();
+        	m_lineMesh->release();
         }
 
         virtual bool isGeometry() {
