@@ -97,10 +97,10 @@ extern "C" {
 extern void wyInitAutoReleasePool();
 extern void wyClearAutoReleasePool();
 extern void wyDestroyAutoReleasePool();
-extern void wyOutputLeakPool();
-extern void wyClearLeakPool();
 
 #ifdef WY_CFLAG_MEMORY_TRACKING
+extern void wyOutputLeakPool();
+extern void wyClearLeakPool();
 extern void wyMemoryDumpRecord(bool fullLog);
 extern void wyMemoryUsageReport();
 #endif
