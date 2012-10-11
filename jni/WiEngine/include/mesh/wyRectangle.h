@@ -62,6 +62,9 @@ public:
 
 	virtual ~wyRectangle();
 
+	/// @see wyMesh::getElementCount
+	virtual int getElementCount() { return 4; }
+
 	/**
 	 * \if English
 	 * Update mesh data for a texture 2d object

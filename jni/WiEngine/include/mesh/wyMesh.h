@@ -167,9 +167,6 @@ protected:
 	/// line width of line mesh
 	float m_lineWidth;
 
-	/// element count in buffer
-	int m_elements;
-
 private:
 	static void releaseAttributeConnection(AttributeConnection* conn);
 
@@ -177,8 +174,6 @@ protected:
 	wyMesh();
 
 public:
-	static wyMesh* make();
-
 	virtual ~wyMesh();
 
 	/**
@@ -422,17 +417,11 @@ public:
 	float getPointSize() { return m_pointSize; }
 
 	/**
-	 * \if English
-	 * Get element count in buffer
+	 * Get element count in mesh buffer
 	 *
 	 * @return element count
-	 * \else
-	 * 得到缓冲区中的元素个数
-	 *
-	 * @return 元素个数
-	 * \endif
 	 */
-	int getElementCount() { return m_elements; }
+	virtual int getElementCount() = 0;
 };
 
 #endif // __wyMesh_h__

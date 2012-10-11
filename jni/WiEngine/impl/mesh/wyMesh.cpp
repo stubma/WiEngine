@@ -31,7 +31,6 @@
 wyMesh::wyMesh() :
 		m_mode(TRIANGLES),
 		m_lodLevels(NULL),
-		m_elements(MAX_INT),
 		m_lineWidth(1),
 		m_pointSize(1) {
 	// create buffer array
@@ -53,11 +52,6 @@ wyMesh::~wyMesh() {
 	}
 }
 
-wyMesh* wyMesh::make() {
-	wyMesh* m = WYNEW wyMesh();
-	return (wyMesh*)m->autoRelease();
-}
-
 void wyMesh::connectAttribute(const char* name, wyBuffer* buf, int offset, int components) {
 	AttributeConnection* conn = (AttributeConnection*)wyMalloc(sizeof(AttributeConnection));
 	conn->name = wyUtils::copy(name);
@@ -66,7 +60,6 @@ void wyMesh::connectAttribute(const char* name, wyBuffer* buf, int offset, int c
 	conn->value.ib.offset = offset;
 	conn->value.ib.components = components;
 	conn->type = wyShaderVariable::INTERLEAVED_BUFFER;
-	m_elements = MIN(m_elements, buf->getElementCount());
 
 	m_attrConnections->push_back(conn);
 }

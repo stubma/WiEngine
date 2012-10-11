@@ -66,6 +66,9 @@ public:
 	virtual ~wyQuadList();
 	static wyQuadList* make();
 
+	/// @see wyMesh::getElementCount()
+	virtual int getElementCount();
+
 	/**
 	 * \if English
 	 * Append a quad to buffer end

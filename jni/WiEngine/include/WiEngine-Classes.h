@@ -233,6 +233,7 @@ class wyRenderState;
 class wyTechnique;
 
 // mesh
+class wyLines;
 class wyMesh;
 class wyQuadList;
 class wyRectangle;

@@ -849,8 +849,11 @@ namespace Action {
     private:
     	wyBezierConfig m_config;
 
+    	wyMaterial* m_lineMat;
+    	wyLines* m_lineMesh;
+
     public:
-        wyBezierTestLayer(){
+        wyBezierTestLayer() {
 	        m_Sprite->setPosition(60, wyDevice::winHeight / 2);
 
 	        m_config = wybcCubic(m_Sprite->getPositionX(),
@@ -875,9 +878,33 @@ namespace Action {
     
             wyAction* action = wyRepeatForever::make(t);
             m_Sprite->runAction(action);
+
+            // material and mesh for bezier curve drawing
+            m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_lineMat->retain();
+            m_lineMesh = wyLines::makeBezier(m_config, 30);
+            m_lineMesh->updateColor(wyc4bGreen);
+            m_lineMesh->retain();
+        }
+
+        virtual ~wyBezierTestLayer() {
+        	m_material->release();
+        	m_mesh->release();
+        }
+
+        virtual bool isGeometry() {
+        	return true;
+        }
+
+        virtual bool isSelfDraw() {
+        	return true;
         }
 
         virtual void draw() {
+        	// draw bezier curve
+        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
+
 			// TODO gles2
         	//// draw bezier curve so we can see the node is follow the track
         	//glColor4f(0, 1, 0, 1);
