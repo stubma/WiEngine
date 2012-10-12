@@ -67,6 +67,28 @@ wyLines* wyLines::makeBezier(wyBezierConfig& c, int segments) {
 	return (wyLines*)lines->autoRelease();
 }
 
+wyLines* wyLines::makeLagrange(wyLagrangeConfig& c, int segments) {
+	// create lines
+	wyLines* lines = WYNEW wyLines();
+
+	// help variable
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// fill every vertex
+	float step = 1.f / segments;
+	float t = 0;
+	for(int i = 0; i <= segments; i++) {
+		wyPoint p = wylcPointAt(c, t);
+		kmVec3Fill(&v.pos, p.x, p.y, 0);
+		lines->m_buf->append(&v, 1);
+		t += step;
+	}
+
+	// return
+	return (wyLines*)lines->autoRelease();
+}
+
 void wyLines::updateColor(wyColor4B color) {
 	// color
 	float r = color.r / 255.0f;

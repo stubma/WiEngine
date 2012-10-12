@@ -399,8 +399,13 @@ namespace Action {
     private:
     	wyLagrangeConfig m_config;
 
+    	wyMaterial* m_lineMat;
+    	wyLines* m_lineMesh;
+    	wyMaterial* m_pointMat;
+    	wyPoints* m_pointMesh;
+
     public:
-    	wyLagrangeTestLayer(){
+    	wyLagrangeTestLayer() {
 	        m_Sprite->setPosition(60, wyDevice::winHeight / 2);
 
 	        m_config = wylcCubic(m_Sprite->getPositionX(),
@@ -425,23 +430,48 @@ namespace Action {
 
             wyAction* action = wyRepeatForever::make(t);
             m_Sprite->runAction(action);
+
+            // material and mesh for lagrange curve drawing
+            m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_lineMat->retain();
+            m_lineMesh = wyLines::makeLagrange(m_config, 30);
+            m_lineMesh->updateColor(wyc4bGreen);
+            m_lineMesh->retain();
+
+            // material and mesh for lagrange control points
+            m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_pointMat->retain();
+            m_pointMesh = wyPoints::make();
+            m_pointMesh->retain();
+            m_pointMesh->setPointSize(5);
+            m_pointMesh->addPoint(m_config.startX, m_config.startY, 0, wyc4bRed);
+            m_pointMesh->addPoint(m_config.cp1X, m_config.cp1Y, 0, wyc4bRed);
+            m_pointMesh->addPoint(m_config.cp2X, m_config.cp2Y, 0, wyc4bRed);
+            m_pointMesh->addPoint(m_config.endX, m_config.endY, 0, wyc4bRed);
+        }
+
+        virtual ~wyLagrangeTestLayer() {
+        	m_lineMat->release();
+        	m_lineMesh->release();
+        	m_pointMat->release();
+        	m_pointMesh->release();
+        }
+
+        virtual bool isGeometry() {
+        	return true;
+        }
+
+        virtual bool isSelfDraw() {
+        	return true;
         }
 
         virtual void draw() {
-			// TODO gles2
-        	//// draw lagrange curve so we can see the node is follow the track
-        	//glColor4f(0, 1, 0, 1);
-        	//wyDrawLagrange(m_config, 30);
+        	// draw bezier curve
+        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
 
-        	//// draw lagrange start, end, and control points
-        	//glColor4f(1, 0, 0, 1);
-        	//glPointSize(5);
-        	//wyDrawPoint(m_config.startX, m_config.startY);
-        	//wyDrawPoint(m_config.cp1X, m_config.cp1Y);
-        	//wyDrawPoint(m_config.cp2X, m_config.cp2Y);
-        	//wyDrawPoint(m_config.endX, m_config.endY);
-
-        	//glColor4f(1, 1, 1, 1);
+        	// draw bezier control points
+        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
         }
     };
 

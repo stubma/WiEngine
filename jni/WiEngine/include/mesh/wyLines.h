@@ -55,6 +55,15 @@ public:
 	 */
 	static wyLines* makeBezier(wyBezierConfig& c, int segments);
 
+	/**
+	 * Create a lagrange curve mesh
+	 *
+	 * @param c \link wyLagrangeConfig wyLagrangeConfig\endlink
+	 * @param segments how many segments drawn for the lagrange curve
+	 * @return \link wyLines wyLines\endlink
+	 */
+	static wyLines* makeLagrange(wyLagrangeConfig& c, int segments);
+
 	virtual ~wyLines();
 
 	/// @see wyMesh::getElementCount()
