@@ -369,21 +369,24 @@ namespace Action {
     		// material and mesh for first curve
             m_mat1 = wyMaterial::make(wyShaderManager::PROG_PC);
             m_mat1->retain();
-            m_mesh1 = wyLines::makeHypotrochoid(m_c, 100);
+            m_mesh1 = wyLines::make();
+            m_mesh1->buildHypotrochoid(m_c, 100);
             m_mesh1->updateColor(wyc4bGreen);
             m_mesh1->retain();
 
     		// material and mesh for second curve
             m_mat2 = wyMaterial::make(wyShaderManager::PROG_PC);
             m_mat2->retain();
-            m_mesh2 = wyLines::makeHypotrochoid(m_ellipse, 100);
+            m_mesh2 = wyLines::make();
+            m_mesh2->buildHypotrochoid(m_ellipse, 100);
             m_mesh2->updateColor(wyc4bGreen);
             m_mesh2->retain();
 
     		// material and mesh for third curve
             m_mat3 = wyMaterial::make(wyShaderManager::PROG_PC);
             m_mat3->retain();
-            m_mesh3 = wyLines::makeHypotrochoid(m_circle, 100);
+            m_mesh3 = wyLines::make();
+            m_mesh3->buildHypotrochoid(m_circle, 100);
             m_mesh3->updateColor(wyc4bGreen);
             m_mesh3->retain();
     	}
@@ -472,7 +475,8 @@ namespace Action {
             // material and mesh for lagrange curve drawing
             m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
             m_lineMat->retain();
-            m_lineMesh = wyLines::makeLagrange(m_config, 30);
+            m_lineMesh = wyLines::make();
+            m_lineMesh->buildLagrange(m_config, 30);
             m_lineMesh->updateColor(wyc4bGreen);
             m_lineMesh->retain();
 
@@ -516,6 +520,12 @@ namespace Action {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     class wyMoveByTestLayer : public wyActionTestLayer {
+    private:
+    	wyMaterial* m_lineMat;
+    	wyLines* m_lineMesh;
+    	wyMaterial* m_pointMat;
+    	wyPoints* m_pointMesh;
+
     public:
         wyMoveByTestLayer() {
         	reorderChild(m_Sprite, -1);
@@ -528,9 +538,53 @@ namespace Action {
 
             wyAction* action = wyRepeatForever::make(t);
             m_Sprite->runAction(action);
+
+			// material and mesh for path
+			m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_lineMat->retain();
+        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	anchor = m_Sprite->nodeToWorldSpace(anchor);
+			m_lineMesh = wyLines::make();
+			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			m_lineMesh->retain();
+			m_lineMesh->updateColor(wyc4bGreen);
+
+			// material and mesh for points
+			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_pointMat->retain();
+			m_pointMesh = wyPoints::make();
+			m_pointMesh->retain();
+			m_pointMesh->setPointSize(5);
+			m_pointMesh->addPoint(DP(100), wyDevice::winHeight - DP(100), 0, wyc4bRed);
+        }
+
+        virtual ~wyMoveByTestLayer() {
+        	m_lineMat->release();
+        	m_lineMesh->release();
+        	m_pointMat->release();
+        	m_pointMesh->release();
+        }
+
+        virtual bool isGeometry() {
+        	return true;
+        }
+
+        virtual bool isSelfDraw() {
+        	return true;
         }
 
         virtual void draw() {
+        	// update dash line
+        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	anchor = m_Sprite->nodeToWorldSpace(anchor);
+			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			m_lineMesh->updateColor(wyc4bGreen);
+
+			// draw
+        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
+        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
+
 			// TODO gles2
         	//// draw pin point
         	//glColor4f(1, 0, 0, 1);
@@ -630,7 +684,8 @@ namespace Action {
 					wyDevice::winWidth - DP(30), wyDevice::winHeight - DP(30), 0,
 					wyDevice::winWidth - DP(30), DP(30), 0
 			};
-			m_lineMesh = wyLines::makePath(p, sizeof(p) / sizeof(float));
+			m_lineMesh = wyLines::make();
+			m_lineMesh->buildPath(p, sizeof(p) / sizeof(float));
 			m_lineMesh->retain();
 			m_lineMesh->updateColor(wyc4bGreen);
 
@@ -987,7 +1042,8 @@ namespace Action {
             // material and mesh for bezier curve drawing
             m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
             m_lineMat->retain();
-            m_lineMesh = wyLines::makeBezier(m_config, 30);
+            m_lineMesh = wyLines::make();
+            m_lineMesh->buildBezier(m_config, 30);
             m_lineMesh->updateColor(wyc4bGreen);
             m_lineMesh->retain();
 

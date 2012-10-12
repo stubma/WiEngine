@@ -46,41 +46,51 @@ protected:
 	wyLines();
 
 public:
+	/// create a empty instance of wyLines, no vertex
+	static wyLines* make();
+
 	/**
-	 * Create a bezier curve lines mesh
+	 * Fill mesh with a bezier curve
 	 *
 	 * @param c \link wyBezierConfig wyBezierConfig\endlink
 	 * @param segments how many segments drawn for the bezier curve
-	 * @return \link wyLines wyLines\endlink
 	 */
-	static wyLines* makeBezier(wyBezierConfig& c, int segments);
+	void buildBezier(wyBezierConfig& c, int segments);
 
 	/**
-	 * Create a lagrange curve mesh
+	 * Fill mesh with a lagrange curve
 	 *
 	 * @param c \link wyLagrangeConfig wyLagrangeConfig\endlink
 	 * @param segments how many segments drawn for the lagrange curve
-	 * @return \link wyLines wyLines\endlink
 	 */
-	static wyLines* makeLagrange(wyLagrangeConfig& c, int segments);
+	void buildLagrange(wyLagrangeConfig& c, int segments);
 
 	/**
-	 * Create a hypotrochoid curve mesh
+	 * Fill mesh with a hypotrochoid curve
 	 *
 	 * @param c \link wyHypotrochoidConfig wyHypotrochoidConfig\endlink
 	 * @param segments how many segments drawn for the hypotrochoid curve
-	 * @return \link wyLines wyLines\endlink
 	 */
-	static wyLines* makeHypotrochoid(wyHypotrochoidConfig& c, int segments);
+	void buildHypotrochoid(wyHypotrochoidConfig& c, int segments);
 
 	/**
-	 * Create a mesh contains many connected lines
+	 * Fill mesh with many connected lines
 	 *
 	 * @param points the point coordinates, in order (x, y, z), (x, y, z), ...
 	 * @param length count of float in \c points buffer, should be point count * 3
-	 * @return \link wyLines wyLines\endlink
 	 */
-	static wyLines* makePath(float* points, size_t length);
+	void buildPath(float* points, size_t length);
+
+	/**
+	 * Fill mesh with dash lines
+	 *
+	 * @param x1 start x
+	 * @param y1 start y
+	 * @param x2 end x
+	 * @param y2 end y
+	 * @param dashLength dash length
+	 */
+	void buildDashLine(float x1, float y1, float x2, float y2, float dashLength);
 
 	virtual ~wyLines();
 
@@ -93,6 +103,16 @@ public:
 	 * @param color \link wyColor4B wyColor4B\endlink
 	 */
 	void updateColor(wyColor4B color);
+
+	/**
+	 * Update one vertex
+	 *
+	 * @param index index of vertex, if index is invalid, do nothing
+	 * @param x new x coordinate
+	 * @param y new y coordinate
+	 * @param z new z coordinate
+	 */
+	void updateVertex(int index, float x, float y, float z);
 };
 
 #endif // __wyLines_h__

@@ -45,9 +45,14 @@ wyLines::wyLines() {
 wyLines::~wyLines() {
 }
 
-wyLines* wyLines::makeBezier(wyBezierConfig& c, int segments) {
-	// create lines
-	wyLines* lines = WYNEW wyLines();
+wyLines* wyLines::make() {
+	wyLines* l = WYNEW wyLines();
+	return (wyLines*)l->autoRelease();
+}
+
+void wyLines::buildBezier(wyBezierConfig& c, int segments) {
+	// clear
+	m_buf->clear();
 
 	// help variable
 	Vertex v;
@@ -59,17 +64,14 @@ wyLines* wyLines::makeBezier(wyBezierConfig& c, int segments) {
 	for(int i = 0; i <= segments; i++) {
 		wyPoint p = wybcPointAt(c, t);
 		kmVec3Fill(&v.pos, p.x, p.y, 0);
-		lines->m_buf->append(&v, 1);
+		m_buf->append(&v, 1);
 		t += step;
 	}
-
-	// return
-	return (wyLines*)lines->autoRelease();
 }
 
-wyLines* wyLines::makeLagrange(wyLagrangeConfig& c, int segments) {
-	// create lines
-	wyLines* lines = WYNEW wyLines();
+void wyLines::buildLagrange(wyLagrangeConfig& c, int segments) {
+	// clear
+	m_buf->clear();
 
 	// help variable
 	Vertex v;
@@ -81,17 +83,14 @@ wyLines* wyLines::makeLagrange(wyLagrangeConfig& c, int segments) {
 	for(int i = 0; i <= segments; i++) {
 		wyPoint p = wylcPointAt(c, t);
 		kmVec3Fill(&v.pos, p.x, p.y, 0);
-		lines->m_buf->append(&v, 1);
+		m_buf->append(&v, 1);
 		t += step;
 	}
-
-	// return
-	return (wyLines*)lines->autoRelease();
 }
 
-wyLines* wyLines::makeHypotrochoid(wyHypotrochoidConfig& c, int segments) {
-	// create lines
-	wyLines* lines = WYNEW wyLines();
+void wyLines::buildHypotrochoid(wyHypotrochoidConfig& c, int segments) {
+	// clear
+	m_buf->clear();
 
 	// help variable
 	Vertex v;
@@ -103,17 +102,14 @@ wyLines* wyLines::makeHypotrochoid(wyHypotrochoidConfig& c, int segments) {
 	for (int i = 0; i <= segments; i++) {
 		wyPoint p = wyhcPointAt(c, t);
 		kmVec3Fill(&v.pos, p.x, p.y, 0);
-		lines->m_buf->append(&v, 1);
+		m_buf->append(&v, 1);
 		t += step;
 	}
-
-	// return
-	return (wyLines*)lines->autoRelease();
 }
 
-wyLines* wyLines::makePath(float* points, size_t length) {
-	// create lines
-	wyLines* lines = WYNEW wyLines();
+void wyLines::buildPath(float* points, size_t length) {
+	// clear
+	m_buf->clear();
 
 	// help variable
 	Vertex v;
@@ -122,11 +118,42 @@ wyLines* wyLines::makePath(float* points, size_t length) {
 	// fill every vertex
 	for(size_t i = 0; i < length; i += 3) {
 		kmVec3Fill(&v.pos, points[i], points[i + 1], points[i + 2]);
-		lines->m_buf->append(&v, 1);
+		m_buf->append(&v, 1);
+	}
+}
+
+void wyLines::buildDashLine(float x1, float y1, float x2, float y2, float dashLength) {
+	// clear
+	m_buf->clear();
+
+	// help variable
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// how many segments
+	float dx = x2 - x1;
+	float dy = y2 - y1;
+	float dist = wyMath::sqrt(dx * dx + dy * dy);
+	float x = dx / dist * dashLength;
+	float y = dy / dist * dashLength;
+	wyPoint p1 = wyp(x1, y1);
+	int segments = (int)(dist / dashLength);
+	int lines = (int)((float)segments / 2.0f);
+
+	// fill every vertex
+	for(int i = 0; i < lines; i++) {
+		kmVec3Fill(&v.pos, x1, y1, 0);
+		m_buf->append(&v, 1);
+		x1 += x;
+		y1 += y;
+		kmVec3Fill(&v.pos, x1, y1, 0);
+		m_buf->append(&v, 1);
+		x1 += x;
+		y1 += y;
 	}
 
-	// return
-	return (wyLines*)lines->autoRelease();
+	// the mode should be changed to lines
+	m_mode = LINES;
 }
 
 void wyLines::updateColor(wyColor4B color) {
@@ -146,4 +173,12 @@ void wyLines::updateColor(wyColor4B color) {
 
 int wyLines::getElementCount() {
 	return m_buf->getElementCount();
+}
+
+void wyLines::updateVertex(int index, float x, float y, float z) {
+	if(index < 0 || index >= m_buf->getElementCount())
+		return;
+
+	Vertex* v = (Vertex*)m_buf->getData();
+	kmVec3Fill(&v[index].pos, x, y, z);
 }
