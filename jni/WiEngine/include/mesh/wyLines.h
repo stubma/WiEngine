@@ -64,6 +64,15 @@ public:
 	 */
 	static wyLines* makeLagrange(wyLagrangeConfig& c, int segments);
 
+	/**
+	 * Create a hypotrochoid curve mesh
+	 *
+	 * @param c \link wyHypotrochoidConfig wyHypotrochoidConfig\endlink
+	 * @param segments how many segments drawn for the hypotrochoid curve
+	 * @return \link wyLines wyLines\endlink
+	 */
+	static wyLines* makeHypotrochoid(wyHypotrochoidConfig& c, int segments);
+
 	virtual ~wyLines();
 
 	/// @see wyMesh::getElementCount()

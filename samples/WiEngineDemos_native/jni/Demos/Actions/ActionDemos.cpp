@@ -346,8 +346,15 @@ namespace Action {
     	wyHypotrochoidConfig m_circle;
     	wyHypotrochoidConfig m_ellipse;
 
+    	wyMaterial* m_mat1;
+    	wyLines* m_mesh1;
+    	wyMaterial* m_mat2;
+    	wyLines* m_mesh2;
+    	wyMaterial* m_mat3;
+    	wyLines* m_mesh3;
+
 	public:
-    	wyHypotrochoidTestLayer(){
+    	wyHypotrochoidTestLayer() {
     		m_c = wyhcQuad(DP(100), DP(40), DP(100), 0, 720, wyDevice::winWidth / 2, wyDevice::winHeight / 2);
     		addTrace(m_c);
 
@@ -358,6 +365,27 @@ namespace Action {
     		addTrace(m_circle);
 
     		m_Sprite->setVisible(false);
+
+    		// material and mesh for first curve
+            m_mat1 = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_mat1->retain();
+            m_mesh1 = wyLines::makeHypotrochoid(m_c, 100);
+            m_mesh1->updateColor(wyc4bGreen);
+            m_mesh1->retain();
+
+    		// material and mesh for second curve
+            m_mat2 = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_mat2->retain();
+            m_mesh2 = wyLines::makeHypotrochoid(m_ellipse, 100);
+            m_mesh2->updateColor(wyc4bGreen);
+            m_mesh2->retain();
+
+    		// material and mesh for third curve
+            m_mat3 = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_mat3->retain();
+            m_mesh3 = wyLines::makeHypotrochoid(m_circle, 100);
+            m_mesh3->updateColor(wyc4bGreen);
+            m_mesh3->retain();
     	}
 
     	void addTrace(wyHypotrochoidConfig c) {
@@ -377,19 +405,29 @@ namespace Action {
 			r->runAction(action);
     	}
 
+        virtual ~wyHypotrochoidTestLayer() {
+        	m_mat1->release();
+        	m_mesh1->release();
+        	m_mat2->release();
+        	m_mesh2->release();
+        	m_mat3->release();
+        	m_mesh3->release();
+        }
+
+        virtual bool isGeometry() {
+        	return true;
+        }
+
+        virtual bool isSelfDraw() {
+        	return true;
+        }
+
     	virtual void draw() {
-			// TODO gles2
-			//// draw bezier curve so we can see the node is follow the track
-			//glColor4f(0, 1, 0, 1);
-			//wyDrawHypotrochoid(m_c, 100);
-
-			//glColor4f(1, 0, 0, 1);
-			//wyDrawHypotrochoid(m_ellipse, 100);
-
-			//glColor4f(0, 0, 1, 1);
-			//wyDrawHypotrochoid(m_circle, 100);
-
-			//glColor4f(1, 1, 1, 1);
+        	// draw curves
+        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+        	rm->renderMaterial(this, m_mat1, m_mesh1);
+        	rm->renderMaterial(this, m_mat2, m_mesh2);
+        	rm->renderMaterial(this, m_mat3, m_mesh3);
 		}
 	};
 
