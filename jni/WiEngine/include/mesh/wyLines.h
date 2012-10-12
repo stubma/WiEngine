@@ -73,6 +73,15 @@ public:
 	 */
 	static wyLines* makeHypotrochoid(wyHypotrochoidConfig& c, int segments);
 
+	/**
+	 * Create a mesh contains many connected lines
+	 *
+	 * @param points the point coordinates, in order (x, y, z), (x, y, z), ...
+	 * @param length count of float in \c points buffer, should be point count * 3
+	 * @return \link wyLines wyLines\endlink
+	 */
+	static wyLines* makePath(float* points, size_t length);
+
 	virtual ~wyLines();
 
 	/// @see wyMesh::getElementCount()

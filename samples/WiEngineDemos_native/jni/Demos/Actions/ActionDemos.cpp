@@ -590,6 +590,11 @@ namespace Action {
     private:
     	wyMoveByPath* m_path;
 
+    	wyMaterial* m_lineMat;
+    	wyLines* m_lineMesh;
+    	wyMaterial* m_pointMat;
+    	wyPoints* m_pointMesh;
+
     public:
     	wyMoveByPathTestLayer() {
     		m_Sprite->setPosition(DP(30), wyDevice::winHeight / 2);
@@ -614,22 +619,52 @@ namespace Action {
 
 			wyAction* action = wyRepeatForever::make(t);
 			m_Sprite->runAction(action);
+
+			// material and mesh for path
+			m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_lineMat->retain();
+			float p[] = {
+					DP(30), wyDevice::winHeight / 2, 0,
+					wyDevice::winWidth / 2, wyDevice::winHeight / 2, 0,
+					wyDevice::winWidth / 2, wyDevice::winHeight - DP(30), 0,
+					wyDevice::winWidth - DP(30), wyDevice::winHeight - DP(30), 0,
+					wyDevice::winWidth - DP(30), DP(30), 0
+			};
+			m_lineMesh = wyLines::makePath(p, sizeof(p) / sizeof(float));
+			m_lineMesh->retain();
+			m_lineMesh->updateColor(wyc4bGreen);
+
+			// material and mesh for points
+			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_pointMat->retain();
+			m_pointMesh = wyPoints::make();
+			m_pointMesh->retain();
+			m_pointMesh->setPointSize(5);
+			for(int i = 0; i < sizeof(p) / sizeof(float); i += 3) {
+				m_pointMesh->addPoint(p[i], p[i + 1], p[i + 2], wyc4bRed);
+			}
 		}
 
+        virtual ~wyMoveByPathTestLayer() {
+        	m_lineMat->release();
+        	m_lineMesh->release();
+        	m_pointMat->release();
+        	m_pointMesh->release();
+        }
+
+        virtual bool isGeometry() {
+        	return true;
+        }
+
+        virtual bool isSelfDraw() {
+        	return true;
+        }
+
         virtual void draw() {
-			// TODO gles2
-        	//// draw bezier curve so we can see the node is follow the track
-        	//glColor4f(0, 1, 0, 1);
-        	//float* points = m_path->getPoints();
-        	//int count = m_path->getPointCount();
-        	//wyDrawDashPath(points, count * 2, 5);
-
-        	//// draw bezier start, end, and control points
-        	//glColor4f(1, 0, 0, 1);
-        	//glPointSize(5);
-        	//wyDrawPoints(points, count * 2);
-
-        	//glColor4f(1, 1, 1, 1);
+        	// draw path
+        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
+        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
         }
 	};
 

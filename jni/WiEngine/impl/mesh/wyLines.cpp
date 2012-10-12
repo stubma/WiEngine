@@ -111,6 +111,24 @@ wyLines* wyLines::makeHypotrochoid(wyHypotrochoidConfig& c, int segments) {
 	return (wyLines*)lines->autoRelease();
 }
 
+wyLines* wyLines::makePath(float* points, size_t length) {
+	// create lines
+	wyLines* lines = WYNEW wyLines();
+
+	// help variable
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// fill every vertex
+	for(size_t i = 0; i < length; i += 3) {
+		kmVec3Fill(&v.pos, points[i], points[i + 1], points[i + 2]);
+		lines->m_buf->append(&v, 1);
+	}
+
+	// return
+	return (wyLines*)lines->autoRelease();
+}
+
 void wyLines::updateColor(wyColor4B color) {
 	// color
 	float r = color.r / 255.0f;
