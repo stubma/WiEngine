@@ -851,6 +851,8 @@ namespace Action {
 
     	wyMaterial* m_lineMat;
     	wyLines* m_lineMesh;
+    	wyMaterial* m_pointMat;
+    	wyPoints* m_pointMesh;
 
     public:
         wyBezierTestLayer() {
@@ -885,11 +887,24 @@ namespace Action {
             m_lineMesh = wyLines::makeBezier(m_config, 30);
             m_lineMesh->updateColor(wyc4bGreen);
             m_lineMesh->retain();
+
+            // material and mesh for bezier control points
+            m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_pointMat->retain();
+            m_pointMesh = wyPoints::make();
+            m_pointMesh->retain();
+            m_pointMesh->setPointSize(5);
+            m_pointMesh->addPoint(m_config.startX, m_config.startY, 0, wyc4bRed);
+            m_pointMesh->addPoint(m_config.cp1X, m_config.cp1Y, 0, wyc4bRed);
+            m_pointMesh->addPoint(m_config.cp2X, m_config.cp2Y, 0, wyc4bRed);
+            m_pointMesh->addPoint(m_config.endX, m_config.endY, 0, wyc4bRed);
         }
 
         virtual ~wyBezierTestLayer() {
         	m_lineMat->release();
         	m_lineMesh->release();
+        	m_pointMat->release();
+        	m_pointMesh->release();
         }
 
         virtual bool isGeometry() {
@@ -905,20 +920,8 @@ namespace Action {
         	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
         	rm->renderMaterial(this, m_lineMat, m_lineMesh);
 
-			// TODO gles2
-        	//// draw bezier curve so we can see the node is follow the track
-        	//glColor4f(0, 1, 0, 1);
-        	//wyDrawBezier(m_config, 30);
-
-        	//// draw bezier start, end, and control points
-        	//glColor4f(1, 0, 0, 1);
-        	//glPointSize(5);
-        	//wyDrawPoint(m_config.startX, m_config.startY);
-        	//wyDrawPoint(m_config.cp1X, m_config.cp1Y);
-        	//wyDrawPoint(m_config.cp2X, m_config.cp2Y);
-        	//wyDrawPoint(m_config.endX, m_config.endY);
-
-        	//glColor4f(1, 1, 1, 1);
+        	// draw bezier control points
+        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
         }
     };
     

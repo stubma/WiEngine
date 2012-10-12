@@ -235,6 +235,7 @@
 // mesh
 #include "wyLines.h"
 #include "wyMesh.h"
+#include "wyPoints.h"
 #include "wyQuadList.h"
 #include "wyRectangle.h"
 

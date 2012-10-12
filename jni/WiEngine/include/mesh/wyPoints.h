@@ -26,41 +26,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include "wyUniform.h"
-#include "wyLog.h"
+#ifndef __wyPoints_h__
+#define __wyPoints_h__
 
-const char* wyUniform::NAME[] = {
-		"u_worldMatrix",
-		"u_viewMatrix",
-		"u_projectionMatrix",
-		"u_MVMatrix",
-		"u_normalMatrix",
-		"u_MVPMatrix",
-		"u_VPMatrix",
-		"u_texture2d",
-		"u_pointSize"
+#include "wyMesh.h"
+#include "WiEngine-Classes.h"
+
+/**
+ * @class wyPoints
+ *
+ * A mesh represents a series of points
+ */
+class WIENGINE_API wyPoints : public wyMesh {
+private:
+	/// vertex buffer
+	wyBuffer* m_buf;
+
+protected:
+	wyPoints();
+
+public:
+	/**
+	 * Create a point mesh
+	 *
+	 * @return \link wyPoints wyPoints\endlink
+	 */
+	static wyPoints* make();
+
+	virtual ~wyPoints();
+
+	/// @see wyMesh::getElementCount()
+	virtual int getElementCount();
+
+	/**
+	 * Add a point
+	 *
+	 * @param x point x value
+	 * @param y point y value
+	 * @param z point z value
+	 * @param c point color
+	 */
+	void addPoint(float x, float y, float z, wyColor4B c);
 };
 
-wyUniform::wyUniform(GLuint program, Type type, const char* name, Binding binding) :
-		wyShaderVariable(type, name),
-		m_program(program),
-		m_binding(binding) {
-	m_location = glGetUniformLocation(m_program, name);
-}
-
-wyUniform::~wyUniform() {
-}
-
-wyUniform* wyUniform::make(GLuint program, Type type, const char* name, Binding binding) {
-	wyUniform* u = WYNEW wyUniform(program, type, name, binding);
-	return (wyUniform*)u->autoRelease();
-}
-
-wyUniform* wyUniform::make(GLuint program, Type type, Binding binding) {
-	if(binding == CUSTOM) {
-		LOGW("wyUniform::make: must specify name for CUSTOM binding");
-		return NULL;
-	} else {
-		return make(program, type, NAME[binding], binding);
-	}
-}
+#endif // __wyPoints_h__

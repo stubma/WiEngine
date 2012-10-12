@@ -26,41 +26,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include "wyUniform.h"
-#include "wyLog.h"
+#include "wyPoints.h"
+#include "wyAttribute.h"
 
-const char* wyUniform::NAME[] = {
-		"u_worldMatrix",
-		"u_viewMatrix",
-		"u_projectionMatrix",
-		"u_MVMatrix",
-		"u_normalMatrix",
-		"u_MVPMatrix",
-		"u_VPMatrix",
-		"u_texture2d",
-		"u_pointSize"
-};
+wyPoints::wyPoints() {
+	m_mode = POINTS;
 
-wyUniform::wyUniform(GLuint program, Type type, const char* name, Binding binding) :
-		wyShaderVariable(type, name),
-		m_program(program),
-		m_binding(binding) {
-	m_location = glGetUniformLocation(m_program, name);
+	// create buffer
+	m_buf = wyBuffer::makeCustom(sizeof(Vertex));
+
+	// connect attribute
+	connectAttribute(wyAttribute::NAME[wyAttribute::POSITION], m_buf, 0, 3);
+	connectAttribute(wyAttribute::NAME[wyAttribute::COLOR], m_buf, sizeof(kmVec3) + sizeof(kmVec2), 4);
 }
 
-wyUniform::~wyUniform() {
+wyPoints::~wyPoints() {
 }
 
-wyUniform* wyUniform::make(GLuint program, Type type, const char* name, Binding binding) {
-	wyUniform* u = WYNEW wyUniform(program, type, name, binding);
-	return (wyUniform*)u->autoRelease();
+wyPoints* wyPoints::make() {
+	wyPoints* p = WYNEW wyPoints();
+	return (wyPoints*)p->autoRelease();
 }
 
-wyUniform* wyUniform::make(GLuint program, Type type, Binding binding) {
-	if(binding == CUSTOM) {
-		LOGW("wyUniform::make: must specify name for CUSTOM binding");
-		return NULL;
-	} else {
-		return make(program, type, NAME[binding], binding);
-	}
+int wyPoints::getElementCount() {
+	return m_buf->getElementCount();
+}
+
+void wyPoints::addPoint(float x, float y, float z, wyColor4B c) {
+	Vertex v;
+	kmVec4Fill(&v.color, c.r / 255.0f, c.g / 255.0f, c.b / 255.0f, c.a / 255.0f);
+	kmVec3Fill(&v.pos, x, y, z);
+	m_buf->append(&v, 1);
 }

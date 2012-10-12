@@ -2,6 +2,7 @@ attribute vec4 a_position;
 attribute vec4 a_color;
 
 uniform	mat4 u_MVPMatrix;
+uniform float u_pointSize;
 
 #ifdef GL_ES
 	varying lowp vec4 v_fragmentColor;
@@ -12,4 +13,5 @@ uniform	mat4 u_MVPMatrix;
 void main() {
     gl_Position = u_MVPMatrix * a_position;
 	v_fragmentColor = a_color;
+	gl_PointSize = u_pointSize;
 }

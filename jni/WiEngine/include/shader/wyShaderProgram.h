@@ -34,6 +34,11 @@
 #include "wyAttribute.h"
 #include "wyShader.h"
 
+#define WY_UNIFORM_MAP map<const char*, wyUniform*, wyStrPredicate>
+#define WY_UNIFORM_ITER WY_UNIFORM_MAP::iterator
+#define WY_ATTRIBUTE_MAP map<const char*, wyAttribute*, wyStrPredicate>
+#define WY_ATTRIBUTE_ITER WY_ATTRIBUTE_MAP::iterator
+
 /**
  * @class wyShaderProgram
  *

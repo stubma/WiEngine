@@ -42,107 +42,50 @@
  */
 class WIENGINE_API wyUniform : public wyShaderVariable {
 public:
-	/**
-	 * \if English
-	 * Binding of uniform
-	 * \else
-	 * Uniform参数绑定
-	 * \endif
-	 */
+	/// Binding of uniform
 	enum Binding {
-	    /**
-	     * \if English
-	     * The world matrix. Converts Model space to World space.
-	     * \else
-	     * 世界矩阵, 将模型坐标转换为世界坐标
-	     * \endif
-	     */
+	    /// The world matrix. Converts Model space to World space.
 	    WORLD_MATRIX,
 
-	    /**
-	     * \if English
-	     * The view matrix. Converts World space to View space.
-	     * \else
-	     * 视图矩阵, 将世界坐标转换为视图坐标
-	     * \endif
-	     */
+	    /// The view matrix. Converts World space to View space.
 	    VIEW_MATRIX,
 
-	    /**
-	     * \if English
-	     * The projection matrix. Converts View space to Clip/Projection space.
-	     * \else
-	     * 投影矩阵, 将视图坐标转换为投影坐标
-	     * \endif
-	     */
+	    /// The projection matrix. Converts View space to Clip/Projection space.
 	    PROJECTION_MATRIX,
 
-	    /**
-	     * \if English
-	     * The world view matrix. Converts Model space to View space.
-	     * \else
-	     * World-view矩阵, 将模型坐标转换为视图坐标
-	     * \endif
-	     */
+	    /// The world view matrix. Converts Model space to View space.
 	    WORLD_VIEW_MATRIX,
 
 	    /**
-	     * \if English
 	     * The normal matrix. The inverse transpose of the worldview matrix.
 	     * Converts normals from model space to view space.
 	     * Type: mat3
-	     * \else
-	     * 法线矩阵, 其是world-view矩阵的逆转置, 将法线从模型坐标转换到视图坐标, 类型是mat3
-	     * \endif
 	     */
 	    NORMAL_MATRIX,
 
 	    /**
-	     * \if English
 	     * The world view projection matrix. Converts Model space to Clip/Projection
 	     * space.
-	     * \else
-	     * world-view-projection矩阵, 将模型坐标转换为投影坐标
-	     * \endif
 	     */
 	    WORLD_VIEW_PROJECTION_MATRIX,
 
 	    /**
-	     * \if English
 	     * The view projection matrix. Converts View space to Clip/Projection
 	     * space.
-	     * \else
-	     * view-projection matrix, 将视图坐标转换为投影坐标
-	     * \endif
 	     */
 	    VIEW_PROJECTION_MATRIX,
 
-	    /**
-	     * \if English
-	     * Texture 2D sample
-	     * \else
-	     * 2D贴图
-	     * \endif
-	     */
+	    /// Texture 2D sample
 	    TEXTURE_2D,
 
-	    /**
-	     * \if English
-	     * A placeholder indicating how many binding type here
-	     * \else
-	     * 用来表示由多少个绑定类型的占位符号
-	     * \endif
-	     */
+	    /// point sprite size
+	    POINT_SIZE,
+
+	    /// A placeholder indicating how many binding type here
 	    CUSTOM
 	};
 
-	/**
-	 * \if English
-	 * Default name for predefined bindings
-	 * \else
-	 * 预定义的uniform名称
-	 * \endif
-	 */
+	/// Default name for predefined bindings
 	static const char* NAME[];
 
 private:

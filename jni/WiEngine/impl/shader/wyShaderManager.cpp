@@ -82,6 +82,9 @@ void wyShaderManager::loadBuiltinShaders() {
 		p->addUniform(wyShaderVariable::MAT4,
 				wyUniform::NAME[wyUniform::WORLD_VIEW_PROJECTION_MATRIX],
 				wyUniform::WORLD_VIEW_PROJECTION_MATRIX);
+		p->addUniform(wyShaderVariable::FLOAT,
+				wyUniform::NAME[wyUniform::POINT_SIZE],
+				wyUniform::POINT_SIZE);
 	}
 }
 

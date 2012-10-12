@@ -364,14 +364,30 @@ void wyGLES2Renderer::renderMesh(wyMesh* mesh, int lodLevel) {
 	// check point size, and line width
 	switch(mesh->getMode()) {
 		case wyMesh::POINTS:
-			// android and windows doesn't have glPointSize api in GLES 2.0
-#if !defined(ANDROID) && !defined(WINDOWS)
-			if(m_state->pointSize != mesh->getPointSize()) {
-	            glPointSize(mesh->getPointSize());
-	            m_state->pointSize = mesh->getPointSize();
+		{
+			// try to find point size uniform and set it
+			WY_UNIFORM_MAP* uniforms = m_state->activeProgram->getUniforms();
+			WY_UNIFORM_ITER iter = uniforms->find(wyUniform::NAME[wyUniform::POINT_SIZE]);
+			if(iter != uniforms->end()) {
+				// sync value to uniform
+				wyShaderVariable::Value v;
+				v.f = mesh->getPointSize();
+				iter->second->setValue(v);
+
+				// send it to opengl
+				GLint loc = iter->second->getLocation();
+				glUniform1f(loc, v.f);
+
+				// clear need sync flag
+				iter->second->setNeedSync(false);
 			}
-#endif
+
+			// save point size in state
+			if(m_state->pointSize != mesh->getPointSize()) {
+				m_state->pointSize = mesh->getPointSize();
+			}
 			break;
+		}
 		case wyMesh::LINES:
 		case wyMesh::LINE_STRIP:
 		case wyMesh::LINE_LOOP:

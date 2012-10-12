@@ -235,6 +235,7 @@ class wyTechnique;
 // mesh
 class wyLines;
 class wyMesh;
+class wyPoints;
 class wyQuadList;
 class wyRectangle;
 
