@@ -584,27 +584,18 @@ namespace Action {
         	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
         	rm->renderMaterial(this, m_lineMat, m_lineMesh);
         	rm->renderMaterial(this, m_pointMat, m_pointMesh);
-
-			// TODO gles2
-        	//// draw pin point
-        	//glColor4f(1, 0, 0, 1);
-        	//glPointSize(5);
-        	//wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
-
-        	//// draw anchor point
-        	//wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
-        	//anchor = m_Sprite->nodeToWorldSpace(anchor);
-        	//wyDrawPoint(anchor.x, anchor.y);
-
-        	//// draw line between pin point and anchor point
-        	//glColor4f(0, 1, 0, 1);
-        	//wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
         }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     class wyMoveByAngleTestLayer : public wyActionTestLayer {
+    private:
+    	wyMaterial* m_lineMat;
+    	wyLines* m_lineMesh;
+    	wyMaterial* m_pointMat;
+    	wyPoints* m_pointMesh;
+
     public:
     	wyMoveByAngleTestLayer() {
     		reorderChild(m_Sprite, -1);
@@ -618,23 +609,52 @@ namespace Action {
 
 			wyAction* action = wyRepeatForever::make(t);
 			m_Sprite->runAction(action);
+
+			// material and mesh for path
+			m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_lineMat->retain();
+        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	anchor = m_Sprite->nodeToWorldSpace(anchor);
+			m_lineMesh = wyLines::make();
+			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			m_lineMesh->retain();
+			m_lineMesh->updateColor(wyc4bGreen);
+
+			// material and mesh for points
+			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_pointMat->retain();
+			m_pointMesh = wyPoints::make();
+			m_pointMesh->retain();
+			m_pointMesh->setPointSize(5);
+			m_pointMesh->addPoint(DP(100), wyDevice::winHeight - DP(100), 0, wyc4bRed);
 		}
 
+        virtual ~wyMoveByAngleTestLayer() {
+        	m_lineMat->release();
+        	m_lineMesh->release();
+        	m_pointMat->release();
+        	m_pointMesh->release();
+        }
+
+        virtual bool isGeometry() {
+        	return true;
+        }
+
+        virtual bool isSelfDraw() {
+        	return true;
+        }
+
         virtual void draw() {
-			// TODO gles2
-        	//// draw pin point
-        	//glColor4f(1, 0, 0, 1);
-        	//glPointSize(5);
-        	//wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
+        	// update dash line
+        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	anchor = m_Sprite->nodeToWorldSpace(anchor);
+			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			m_lineMesh->updateColor(wyc4bGreen);
 
-        	//// draw anchor point
-        	//wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
-        	//anchor = m_Sprite->nodeToWorldSpace(anchor);
-        	//wyDrawPoint(anchor.x, anchor.y);
-
-        	//// draw line between pin point and anchor point
-        	//glColor4f(0, 1, 0, 1);
-        	//wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			// draw
+        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
+        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
         }
 	};
 
