@@ -76,8 +76,8 @@ public:
 	/**
 	 * Fill mesh with many connected lines
 	 *
-	 * @param points the point coordinates, in order (x, y, z), (x, y, z), ...
-	 * @param length count of float in \c points buffer, should be point count * 3
+	 * @param points the point coordinates, in order (x, y), (x, y), ...
+	 * @param length count of float in \c points buffer, should be point count * 2
 	 */
 	void buildPath(float* points, size_t length);
 
@@ -91,6 +91,15 @@ public:
 	 * @param dashLength dash length
 	 */
 	void buildDashLine(float x1, float y1, float x2, float y2, float dashLength);
+
+	/**
+	 * Fill mesh with many connected dash lines
+	 *
+	 * @param points the point coordinates, in order (x, y), (x, y), ...
+	 * @param length count of float in \c points buffer, should be point count * 2
+	 * @param dashLength length of dash line
+	 */
+	void buildDashPath(float* points, size_t length, float dashLength);
 
 	virtual ~wyLines();
 

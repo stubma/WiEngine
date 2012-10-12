@@ -698,14 +698,14 @@ namespace Action {
 			m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
 			m_lineMat->retain();
 			float p[] = {
-					DP(30), wyDevice::winHeight / 2, 0,
-					wyDevice::winWidth / 2, wyDevice::winHeight / 2, 0,
-					wyDevice::winWidth / 2, wyDevice::winHeight - DP(30), 0,
-					wyDevice::winWidth - DP(30), wyDevice::winHeight - DP(30), 0,
-					wyDevice::winWidth - DP(30), DP(30), 0
+					DP(30), wyDevice::winHeight / 2,
+					wyDevice::winWidth / 2, wyDevice::winHeight / 2,
+					wyDevice::winWidth / 2, wyDevice::winHeight - DP(30),
+					wyDevice::winWidth - DP(30), wyDevice::winHeight - DP(30),
+					wyDevice::winWidth - DP(30), DP(30)
 			};
 			m_lineMesh = wyLines::make();
-			m_lineMesh->buildPath(p, sizeof(p) / sizeof(float));
+			m_lineMesh->buildDashPath(p, sizeof(p) / sizeof(float), 5);
 			m_lineMesh->retain();
 			m_lineMesh->updateColor(wyc4bGreen);
 
@@ -715,8 +715,8 @@ namespace Action {
 			m_pointMesh = wyPoints::make();
 			m_pointMesh->retain();
 			m_pointMesh->setPointSize(5);
-			for(int i = 0; i < sizeof(p) / sizeof(float); i += 3) {
-				m_pointMesh->addPoint(p[i], p[i + 1], p[i + 2], wyc4bRed);
+			for(int i = 0; i < sizeof(p) / sizeof(float); i += 2) {
+				m_pointMesh->addPoint(p[i], p[i + 1], 0, wyc4bRed);
 			}
 		}
 

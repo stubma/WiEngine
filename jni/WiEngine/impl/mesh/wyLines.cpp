@@ -116,8 +116,8 @@ void wyLines::buildPath(float* points, size_t length) {
 	kmVec4Fill(&v.color, 1, 1, 1, 1);
 
 	// fill every vertex
-	for(size_t i = 0; i < length; i += 3) {
-		kmVec3Fill(&v.pos, points[i], points[i + 1], points[i + 2]);
+	for(size_t i = 0; i < length; i += 2) {
+		kmVec3Fill(&v.pos, points[i], points[i + 1], 0);
 		m_buf->append(&v, 1);
 	}
 }
@@ -150,6 +150,47 @@ void wyLines::buildDashLine(float x1, float y1, float x2, float y2, float dashLe
 		m_buf->append(&v, 1);
 		x1 += x;
 		y1 += y;
+	}
+
+	// the mode should be changed to lines
+	m_mode = LINES;
+}
+
+void wyLines::buildDashPath(float* points, size_t length, float dashLength) {
+	// clear
+	m_buf->clear();
+
+	// help variable
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	for(int i = 0; i < length - 2; i += 2) {
+		float x1 = points[i];
+		float y1 = points[i + 1];
+		float x2 = points[i + 2];
+		float y2 = points[i + 3];
+
+		// how many segments
+		float dx = x2 - x1;
+		float dy = y2 - y1;
+		float dist = wyMath::sqrt(dx * dx + dy * dy);
+		float x = dx / dist * dashLength;
+		float y = dy / dist * dashLength;
+		wyPoint p1 = wyp(x1, y1);
+		int segments = (int)(dist / dashLength);
+		int lines = (int)((float)segments / 2.0f);
+
+		// fill every vertex
+		for(int i = 0; i < lines; i++) {
+			kmVec3Fill(&v.pos, x1, y1, 0);
+			m_buf->append(&v, 1);
+			x1 += x;
+			y1 += y;
+			kmVec3Fill(&v.pos, x1, y1, 0);
+			m_buf->append(&v, 1);
+			x1 += x;
+			y1 += y;
+		}
 	}
 
 	// the mode should be changed to lines
