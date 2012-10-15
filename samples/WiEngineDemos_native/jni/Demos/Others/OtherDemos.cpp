@@ -572,16 +572,58 @@ namespace Other {
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 	class wyDrawPrimitivesTestLayer : public wyLayer {
+	private:
+		wyMaterial* m_mat;
+		wyShape* m_poly1;
+		wyShape* m_poly2;
+
 	public:
 		wyDrawPrimitivesTestLayer() {
 			wyRotateBy* rotate = wyRotateBy::make(4, -360);
 			runAction(rotate);
+
+			// common material for primitive drawing
+			m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_mat->retain();
+
+			// a yellow open poly lines
+			float vertices[] = {
+			      0, 0, 50, 50, 100, 50, 100, 100, 50, 100
+			};
+			m_poly1 = wyShape::make();
+			m_poly1->retain();
+			m_poly1->setLineWidth(10);
+			m_poly1->buildPoly(vertices, sizeof(vertices) / sizeof(float), false);
+			m_poly1->updateColor(wyc4bYellow);
+
+			// a closed poly
+			float vertices2[] = {
+				30, 130, 30, 230, 50, 200
+			};
+			m_poly2 = wyShape::make();
+			m_poly2->retain();
+			m_poly2->setLineWidth(2);
+			m_poly2->buildPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
+			m_poly2->updateColor(wyc4b(255, 0, 255, 255));
 		}
 		
 		virtual ~wyDrawPrimitivesTestLayer() {
+			m_mat->release();
+			m_poly1->release();
+			m_poly2->release();
+		}
+
+		virtual bool isGeometry() {
+			return true;
+		}
+
+		virtual bool isSelfDraw() {
+			return true;
 		}
 		
 		virtual void draw() {
+			wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+
 			// TODO gles2
 			//// 画简单线段
 			//// 默认参数: 宽度 1, 颜色 RGB(255,255,255,255)
@@ -626,21 +668,13 @@ namespace Other {
 			//glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
 			//wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
 			//
-			///* 画一个黄色的多边形 */
-			//glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-			//glLineWidth(10);
-			//float vertices[] = {
-			//	0, 0, 50, 50, 100, 50, 100, 100, 50, 100
-			//};
-			//wyDrawPoly(vertices, sizeof(vertices) / sizeof(float), false);
-			//
-			///* 画闭合多边形 */
-			//glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
-			//glLineWidth(2);
-			//float vertices2[] = {
-			//	30, 130, 30, 230, 50, 200
-			//};
-			//wyDrawPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
+
+			// yellow open poly lines
+			rm->renderMaterial(this, m_mat, m_poly1);
+
+			// closed poly
+			rm->renderMaterial(this, m_mat, m_poly2);
+
 			//
 			///* 画"二次贝赛尔曲线" */
 			//wyBezierConfig c = wybcQuad(0, wyDevice::winHeight, wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winWidth, wyDevice::winHeight);

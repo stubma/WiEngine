@@ -90,6 +90,16 @@ public:
 	void buildHypotrochoid(wyHypotrochoidConfig& c, int segments);
 
 	/**
+	 * Fill mesh with one line
+	 *
+	 * @param x1 line start x
+	 * @param y1 line start y
+	 * @param x2 line end x
+	 * @param y2 line end y
+	 */
+	void buildLine(float x1, float y1, float x2, float y2);
+
+	/**
 	 * Fill mesh with many connected lines
 	 *
 	 * @param points the point coordinates, in order (x, y), (x, y), ...
@@ -116,6 +126,15 @@ public:
 	 * @param dashLength length of dash line
 	 */
 	void buildDashPath(float* points, size_t length, float dashLength);
+
+	/**
+	 * Fill mesh with a poly
+	 *
+	 * @param p poly vertex buff
+	 * @param length length of float, should be vertex count * 2
+	 * @param close true means need connect start and end point
+	 */
+	void buildPoly(float* p, size_t length, bool close);
 
 	virtual ~wyShape();
 

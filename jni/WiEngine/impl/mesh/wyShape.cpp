@@ -82,6 +82,24 @@ void wyShape::buildPoints(float* p, size_t length) {
 	m_mode = POINTS;
 }
 
+void wyShape::buildLine(float x1, float y1, float x2, float y2) {
+	// clear
+	m_buf->clear();
+
+	// start
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+	kmVec3Fill(&v.pos, x1, y1, 0);
+	m_buf->append(&v, 1);
+
+	// end
+	kmVec3Fill(&v.pos, x2, y2, 0);
+	m_buf->append(&v, 1);
+
+	// the mode should be line strip
+	m_mode = LINE_STRIP;
+}
+
 void wyShape::buildBezier(wyBezierConfig& c, int segments) {
 	// clear
 	m_buf->clear();
@@ -99,6 +117,9 @@ void wyShape::buildBezier(wyBezierConfig& c, int segments) {
 		m_buf->append(&v, 1);
 		t += step;
 	}
+
+	// the mode should be line strip
+	m_mode = LINE_STRIP;
 }
 
 void wyShape::buildLagrange(wyLagrangeConfig& c, int segments) {
@@ -118,6 +139,9 @@ void wyShape::buildLagrange(wyLagrangeConfig& c, int segments) {
 		m_buf->append(&v, 1);
 		t += step;
 	}
+
+	// the mode should be line strip
+	m_mode = LINE_STRIP;
 }
 
 void wyShape::buildHypotrochoid(wyHypotrochoidConfig& c, int segments) {
@@ -137,6 +161,9 @@ void wyShape::buildHypotrochoid(wyHypotrochoidConfig& c, int segments) {
 		m_buf->append(&v, 1);
 		t += step;
 	}
+
+	// the mode should be line strip
+	m_mode = LINE_STRIP;
 }
 
 void wyShape::buildPath(float* points, size_t length) {
@@ -152,6 +179,9 @@ void wyShape::buildPath(float* points, size_t length) {
 		kmVec3Fill(&v.pos, points[i], points[i + 1], 0);
 		m_buf->append(&v, 1);
 	}
+
+	// the mode should be line strip
+	m_mode = LINE_STRIP;
 }
 
 void wyShape::buildDashLine(float x1, float y1, float x2, float y2, float dashLength) {
@@ -227,6 +257,31 @@ void wyShape::buildDashPath(float* points, size_t length, float dashLength) {
 
 	// the mode should be changed to lines
 	m_mode = LINES;
+}
+
+void wyShape::buildPoly(float* p, size_t length, bool close) {
+	// clear
+	m_buf->clear();
+
+	// start
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// append point
+	for(int i = 0; i < length; i += 2) {
+		kmVec3Fill(&v.pos, p[i], p[i + 1], 0);
+		m_buf->append(&v, 1);
+	}
+
+	// GL_LINE_LOOP is very slow in desire HD, so we still use LINE_STRIP
+	// append start point again because we use LINE_STRIP
+	if(close && length >= 2) {
+		kmVec3Fill(&v.pos, p[0], p[1], 0);
+		m_buf->append(&v, 1);
+	}
+
+	// set mode
+	m_mode = LINE_STRIP;
 }
 
 void wyShape::updateColor(wyColor4B color) {
