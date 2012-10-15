@@ -41,6 +41,7 @@ WIENGINE_API extern const wyColor4B wyc4bGray;
 WIENGINE_API extern const wyColor4B wyc4bRed;
 WIENGINE_API extern const wyColor4B wyc4bGreen;
 WIENGINE_API extern const wyColor4B wyc4bBlue;
+WIENGINE_API extern const wyColor4B wyc4bYellow;
 WIENGINE_API extern const wyColor4B wyc4bTransparent;
 
 static inline wyColor4B wyc4b(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {

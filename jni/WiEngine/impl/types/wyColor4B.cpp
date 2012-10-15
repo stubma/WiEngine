@@ -38,6 +38,7 @@ const wyColor4B wyc4bGray = { 126, 126, 126, 255 };
 const wyColor4B wyc4bRed = { 255, 0, 0, 255 };
 const wyColor4B wyc4bGreen = { 0, 255, 0, 255 };
 const wyColor4B wyc4bBlue = { 0, 0, 255, 255 };
+const wyColor4B wyc4bYellow = { 255, 255, 0, 255 };
 const wyColor4B wyc4bTransparent = { 0, 0, 0, 0 };
 
 #ifdef __cplusplus
