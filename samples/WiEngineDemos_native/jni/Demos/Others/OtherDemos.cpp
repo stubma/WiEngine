@@ -580,6 +580,7 @@ namespace Other {
 		wyShape* m_point2;
 		wyShape* m_circle1;
 		wyShape* m_circle2;
+		wyShape* m_circle3;
 		wyShape* m_poly1;
 		wyShape* m_poly2;
 		wyShape* m_poly3;
@@ -639,6 +640,12 @@ namespace Other {
 			m_circle2->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
 			m_circle2->updateColor(wyc4bCyan);
 
+			// solid circle
+			m_circle3 = wyShape::make();
+			m_circle3->retain();
+			m_circle3->buildSolidCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 4, 30, 30);
+			m_circle3->updateColor(wyc4bBlue);
+
 			// a yellow open poly lines
 			float vertices[] = {
 			      0, 0, 50, 50, 100, 50, 100, 100, 50, 100
@@ -696,6 +703,7 @@ namespace Other {
 			m_point2->release();
 			m_circle1->release();
 			m_circle2->release();
+			m_circle3->release();
 			m_poly1->release();
 			m_poly2->release();
 			m_poly3->release();
@@ -731,6 +739,9 @@ namespace Other {
 
 			// cyan circle with radius line
 			rm->renderMaterial(this, m_mat, m_circle2);
+
+			// solid circle
+			rm->renderMaterial(this, m_mat, m_circle3);
 
 			// yellow open poly lines
 			rm->renderMaterial(this, m_mat, m_poly1);

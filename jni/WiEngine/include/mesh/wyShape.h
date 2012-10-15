@@ -156,6 +156,16 @@ public:
 	 */
 	void buildSolidPoly(float* p, size_t length);
 
+	/*
+	 * Fill mesh with a solid circle
+	 *
+	 * @param centerX circle center x
+	 * @param centerY circle center y
+	 * @param r radius
+	 * @param segments segments, the more it is, the more accurate the circle is
+	 */
+	void buildSolidCircle(float centerX, float centerY, float r, int segments);
+
 	virtual ~wyShape();
 
 	/// @see wyMesh::getElementCount()

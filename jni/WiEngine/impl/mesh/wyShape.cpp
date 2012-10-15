@@ -342,6 +342,43 @@ void wyShape::buildCircle(float centerX, float centerY, float r, float radiusLin
 	m_mode = LINE_STRIP;
 }
 
+void wyShape::buildSolidCircle(float centerX, float centerY, float r, int segments) {
+	// clear
+	m_buf->clear();
+
+	// split coefficient
+	float coef = 2.0f * M_PI / segments;
+
+	// first point
+	float fx, fy;
+
+	// center first
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+	kmVec3Fill(&v.pos, centerX, centerY, 0);
+	m_buf->append(&v, 1);
+
+	// fill
+	for(int i = 0; i <= segments; i++) {
+		float rads = i * coef;
+		float j = r * cos(rads) + centerX;
+		float k = r * sin(rads) + centerY;
+		if(i == 0) {
+			fx = j;
+			fy = k;
+		}
+		kmVec3Fill(&v.pos, j, k, 0);
+		m_buf->append(&v, 1);
+	}
+
+	// last
+	kmVec3Fill(&v.pos, fx, fy, 0);
+	m_buf->append(&v, 1);
+
+	// set mode
+	m_mode = TRIANGLE_FAN;
+}
+
 void wyShape::updateColor(wyColor4B color) {
 	// color
 	float r = color.r / 255.0f;
