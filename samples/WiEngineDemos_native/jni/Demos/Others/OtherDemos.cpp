@@ -574,8 +574,17 @@ namespace Other {
 	class wyDrawPrimitivesTestLayer : public wyLayer {
 	private:
 		wyMaterial* m_mat;
+		wyShape* m_line1;
+		wyShape* m_line2;
+		wyShape* m_point1;
+		wyShape* m_point2;
+		wyShape* m_circle1;
+		wyShape* m_circle2;
 		wyShape* m_poly1;
 		wyShape* m_poly2;
+		wyShape* m_poly3;
+		wyShape* m_bezier1;
+		wyShape* m_bezier2;
 
 	public:
 		wyDrawPrimitivesTestLayer() {
@@ -585,6 +594,50 @@ namespace Other {
 			// common material for primitive drawing
 			m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
 			m_mat->retain();
+			m_mat->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
+
+			// white line
+			m_line1 = wyShape::make();
+			m_line1->retain();
+			m_line1->buildLine(0, 0, wyDevice::winWidth, wyDevice::winHeight);
+
+			// red thick line
+			m_line2 = wyShape::make();
+			m_line2->retain();
+			m_line2->setLineWidth(5);
+			m_line2->buildLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
+			m_line2->updateColor(wyc4bRed);
+
+			// a big point
+			m_point1 = wyShape::make();
+			m_point1->retain();
+			m_point1->setPointSize(64);
+			m_point1->buildPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
+			m_point1->updateColor(wyc4b(0, 0, 255, 127));
+
+			// four small points
+			float points[] = {
+				60, 60, 70, 70, 60, 70, 70, 60
+			};
+			m_point2 = wyShape::make();
+			m_point2->retain();
+			m_point2->setPointSize(4);
+			m_point2->buildPoints(points, sizeof(points) / sizeof(float));
+			m_point2->updateColor(wyc4b(0, 255, 255, 255));
+
+			// green circle
+			m_circle1 = wyShape::make();
+			m_circle1->retain();
+			m_circle1->setLineWidth(11);
+			m_circle1->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
+			m_circle1->updateColor(wyc4bGreen);
+
+			// cyan circle with radius line
+			m_circle2 = wyShape::make();
+			m_circle2->retain();
+			m_circle2->setLineWidth(2);
+			m_circle2->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
+			m_circle2->updateColor(wyc4bCyan);
 
 			// a yellow open poly lines
 			float vertices[] = {
@@ -605,12 +658,49 @@ namespace Other {
 			m_poly2->setLineWidth(2);
 			m_poly2->buildPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
 			m_poly2->updateColor(wyc4b(255, 0, 255, 255));
+
+			// solid poly
+			float vertices_fill[] = {
+				400, 400, 500, 400, 500, 500, 400, 500, 350, 450
+			};
+			m_poly3 = wyShape::make();
+			m_poly3->retain();
+			m_poly3->buildSolidPoly(vertices_fill, sizeof(vertices_fill) / sizeof(float));
+			m_poly3->updateColor(wyc4bRed);
+
+			// quad bezier
+			wyBezierConfig c = wybcQuad(0, wyDevice::winHeight, wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winWidth, wyDevice::winHeight);
+			m_bezier1 = wyShape::make();
+			m_bezier1->retain();
+			m_bezier1->buildBezier(c, 50);
+
+			// cubic bezier
+			c = wybcCubic(wyDevice::winWidth / 2,
+						  wyDevice::winHeight / 2,
+						  wyDevice::winWidth / 2 + 30,
+						  wyDevice::winHeight / 2 + 50,
+						  wyDevice::winWidth / 2 + 60,
+						  wyDevice::winHeight / 2 - 50,
+						  wyDevice::winWidth,
+						  wyDevice::winHeight / 2);
+			m_bezier2 = wyShape::make();
+			m_bezier2->retain();
+			m_bezier2->buildBezier(c, 100);
 		}
 		
 		virtual ~wyDrawPrimitivesTestLayer() {
 			m_mat->release();
+			m_line1->release();
+			m_line2->release();
+			m_point1->release();
+			m_point2->release();
+			m_circle1->release();
+			m_circle2->release();
 			m_poly1->release();
 			m_poly2->release();
+			m_poly3->release();
+			m_bezier1->release();
+			m_bezier2->release();
 		}
 
 		virtual bool isGeometry() {
@@ -624,50 +714,23 @@ namespace Other {
 		virtual void draw() {
 			wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
 
-			// TODO gles2
-			//// 画简单线段
-			//// 默认参数: 宽度 1, 颜色 RGB(255,255,255,255)
-			//// Anti-Aliased
-			//glEnable(GL_LINE_SMOOTH);
-			//
-			//wyDrawLine(0, 0, wyDevice::winWidth, wyDevice::winHeight);
-			//
-			//// 关掉反锯齿
-			//glDisable(GL_LINE_SMOOTH);
-			//// 设置线段宽度, 宽度大于1时，无法使用GL_LINE_SMOOTH。
-			//glLineWidth(5.0f);
-			//// 设置颜色
-			//glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-			//wyDrawLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
-			//
-			//// 记住：OpenGL是一个状态机.如果你不再次设置画图参数，当前属性不会改变。
-			//
-			///* 在中心画一个大点（半径为64) */
-			//glPointSize(64);
-			//glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
-			//wyDrawPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-			//
-			///* 画四个小点（半径为4）*/
-			//float points[] = {
-			//	60, 60, 70, 70, 60, 70, 70, 60
-			//};
-			//glPointSize(4);
-			//glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
-			//wyDrawPoints(points, sizeof(points) / sizeof(float));
-			//
-			///* 画一个绿色圆圈，圆圈被分成10段 */
-			//glLineWidth(16);
-			//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-			//wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
-			//
-			///*
-			// * 画一个青色圆圈，圆圈被分成50段。并且带一条中心到圆周的直线。
-			// * draw a green circle with 50 segments with line to center
-			// */
-			//glLineWidth(2);
-			//glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
-			//wyDrawCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
-			//
+			// white line
+			rm->renderMaterial(this, m_mat, m_line1);
+
+			// red thick line
+			rm->renderMaterial(this, m_mat, m_line2);
+
+			// a big point
+			rm->renderMaterial(this, m_mat, m_point1);
+
+			// four small points
+			rm->renderMaterial(this, m_mat, m_point2);
+
+			// green circle
+			rm->renderMaterial(this, m_mat, m_circle1);
+
+			// cyan circle with radius line
+			rm->renderMaterial(this, m_mat, m_circle2);
 
 			// yellow open poly lines
 			rm->renderMaterial(this, m_mat, m_poly1);
@@ -675,32 +738,14 @@ namespace Other {
 			// closed poly
 			rm->renderMaterial(this, m_mat, m_poly2);
 
-			//
-			///* 画"二次贝赛尔曲线" */
-			//wyBezierConfig c = wybcQuad(0, wyDevice::winHeight, wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winWidth, wyDevice::winHeight);
-			//wyDrawBezier(c, 50);
-			//
-			///* 画"三次贝塞尔曲线" */
-			//c = wybcCubic(wyDevice::winWidth / 2,
-			//			  wyDevice::winHeight / 2,
-			//			  wyDevice::winWidth / 2 + 30,
-			//			  wyDevice::winHeight / 2 + 50,
-			//			  wyDevice::winWidth / 2 + 60,
-			//			  wyDevice::winHeight / 2 - 50,
-			//			  wyDevice::winWidth,
-			//			  wyDevice::winHeight / 2);
-			//wyDrawBezier(c, 100);
-			//
-			///* 画填充矩形 */
-			//float vertices_fill[] = {
-			//	400, 400, 500, 400, 500, 500, 400, 500, 350, 450
-			//};
-			//wyDrawSolidPoly(vertices_fill, 10, wyc4bRed);
-			//
-			///* 重置 */
-			//glLineWidth(1);
-			//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-			//glPointSize(1);
+			// solid poly
+			rm->renderMaterial(this, m_mat, m_poly3);
+
+			// quad bezier
+			rm->renderMaterial(this, m_mat, m_bezier1);
+
+			// cubic bezier
+			rm->renderMaterial(this, m_mat, m_bezier2);
 		}
 	};
 

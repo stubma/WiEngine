@@ -284,6 +284,64 @@ void wyShape::buildPoly(float* p, size_t length, bool close) {
 	m_mode = LINE_STRIP;
 }
 
+void wyShape::buildSolidPoly(float* p, size_t length) {
+	// clear
+	m_buf->clear();
+
+	// start
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// append point
+	for(int i = 0; i < length; i += 2) {
+		kmVec3Fill(&v.pos, p[i], p[i + 1], 0);
+		m_buf->append(&v, 1);
+	}
+
+	// set mode
+	m_mode = TRIANGLE_FAN;
+}
+
+void wyShape::buildCircle(float centerX, float centerY, float r, float radiusLineAngle, int segments, bool drawLineToCenter) {
+	// clear
+	m_buf->clear();
+
+	// split coefficient
+	float coef = 2.0f * M_PI / segments;
+	float a = radiusLineAngle / 180.0f * M_PI;
+
+	// first point
+	float fx, fy;
+
+	// fill
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+	for(int i = 0; i <= segments; i++) {
+		float rads = i * coef;
+		float j = r * cos(rads + a) + centerX;
+		float k = r * sin(rads + a) + centerY;
+		if(i == 0) {
+			fx = j;
+			fy = k;
+		}
+		kmVec3Fill(&v.pos, j, k, 0);
+		m_buf->append(&v, 1);
+	}
+
+	// last, because we use line strip
+	kmVec3Fill(&v.pos, fx, fy, 0);
+	m_buf->append(&v, 1);
+
+	// radius line
+	if(drawLineToCenter) {
+		kmVec3Fill(&v.pos, centerX, centerY, 0);
+		m_buf->append(&v, 1);
+	}
+
+	// set mode
+	m_mode = LINE_STRIP;
+}
+
 void wyShape::updateColor(wyColor4B color) {
 	// color
 	float r = color.r / 255.0f;

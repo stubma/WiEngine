@@ -136,6 +136,26 @@ public:
 	 */
 	void buildPoly(float* p, size_t length, bool close);
 
+	/**
+	 * Fill mesh with a circle
+	 *
+	 * @param centerX circle center x
+	 * @param centerY circle center y
+	 * @param r radius
+	 * @param radiusLineAngle angle between radius and x axis, positive value is counter-clockwise
+	 * @param segments how many segments, the more it is, the best the circle looks
+	 * @param drawLineToCenter true means draw a radius line
+	 */
+	void buildCircle(float centerX, float centerY, float r, float radiusLineAngle, int segments, bool drawLineToCenter);
+
+	/**
+	 * Fill mesh with a poly. The poly is auto closed
+	 *
+	 * @param p poly vertex buff
+	 * @param length length of float, should be vertex count * 2
+	 */
+	void buildSolidPoly(float* p, size_t length);
+
 	virtual ~wyShape();
 
 	/// @see wyMesh::getElementCount()
