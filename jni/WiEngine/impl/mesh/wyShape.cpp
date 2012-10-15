@@ -26,11 +26,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include "wyLines.h"
+#include "wyShape.h"
 #include "wyAttribute.h"
 #include "wyLog.h"
 
-wyLines::wyLines() {
+wyShape::wyShape() {
 	// the mode should be line strip
 	m_mode = LINE_STRIP;
 
@@ -42,15 +42,47 @@ wyLines::wyLines() {
 	connectAttribute(wyAttribute::NAME[wyAttribute::COLOR], m_buf, sizeof(kmVec3) + sizeof(kmVec2), 4);
 }
 
-wyLines::~wyLines() {
+wyShape::~wyShape() {
 }
 
-wyLines* wyLines::make() {
-	wyLines* l = WYNEW wyLines();
-	return (wyLines*)l->autoRelease();
+wyShape* wyShape::make() {
+	wyShape* l = WYNEW wyShape();
+	return (wyShape*)l->autoRelease();
 }
 
-void wyLines::buildBezier(wyBezierConfig& c, int segments) {
+void wyShape::buildPoint(float x, float y) {
+	// clear
+	m_buf->clear();
+
+	// add
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+	kmVec3Fill(&v.pos, x, y, 0);
+	m_buf->append(&v, 1);
+
+	// the mode should be changed to points
+	m_mode = POINTS;
+}
+
+void wyShape::buildPoints(float* p, size_t length) {
+	// clear
+	m_buf->clear();
+
+	// help variable
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// fill every vertex
+	for(int i = 0; i < length; i += 2) {
+		kmVec3Fill(&v.pos, p[i], p[i + 1], 0);
+		m_buf->append(&v, 1);
+	}
+
+	// the mode should be changed to points
+	m_mode = POINTS;
+}
+
+void wyShape::buildBezier(wyBezierConfig& c, int segments) {
 	// clear
 	m_buf->clear();
 
@@ -69,7 +101,7 @@ void wyLines::buildBezier(wyBezierConfig& c, int segments) {
 	}
 }
 
-void wyLines::buildLagrange(wyLagrangeConfig& c, int segments) {
+void wyShape::buildLagrange(wyLagrangeConfig& c, int segments) {
 	// clear
 	m_buf->clear();
 
@@ -88,7 +120,7 @@ void wyLines::buildLagrange(wyLagrangeConfig& c, int segments) {
 	}
 }
 
-void wyLines::buildHypotrochoid(wyHypotrochoidConfig& c, int segments) {
+void wyShape::buildHypotrochoid(wyHypotrochoidConfig& c, int segments) {
 	// clear
 	m_buf->clear();
 
@@ -107,7 +139,7 @@ void wyLines::buildHypotrochoid(wyHypotrochoidConfig& c, int segments) {
 	}
 }
 
-void wyLines::buildPath(float* points, size_t length) {
+void wyShape::buildPath(float* points, size_t length) {
 	// clear
 	m_buf->clear();
 
@@ -122,7 +154,7 @@ void wyLines::buildPath(float* points, size_t length) {
 	}
 }
 
-void wyLines::buildDashLine(float x1, float y1, float x2, float y2, float dashLength) {
+void wyShape::buildDashLine(float x1, float y1, float x2, float y2, float dashLength) {
 	// clear
 	m_buf->clear();
 
@@ -156,7 +188,7 @@ void wyLines::buildDashLine(float x1, float y1, float x2, float y2, float dashLe
 	m_mode = LINES;
 }
 
-void wyLines::buildDashPath(float* points, size_t length, float dashLength) {
+void wyShape::buildDashPath(float* points, size_t length, float dashLength) {
 	// clear
 	m_buf->clear();
 
@@ -197,7 +229,7 @@ void wyLines::buildDashPath(float* points, size_t length, float dashLength) {
 	m_mode = LINES;
 }
 
-void wyLines::updateColor(wyColor4B color) {
+void wyShape::updateColor(wyColor4B color) {
 	// color
 	float r = color.r / 255.0f;
 	float g = color.g / 255.0f;
@@ -212,14 +244,21 @@ void wyLines::updateColor(wyColor4B color) {
 	}
 }
 
-int wyLines::getElementCount() {
+int wyShape::getElementCount() {
 	return m_buf->getElementCount();
 }
 
-void wyLines::updateVertex(int index, float x, float y, float z) {
+void wyShape::updateVertex(int index, float x, float y, float z) {
 	if(index < 0 || index >= m_buf->getElementCount())
 		return;
 
 	Vertex* v = (Vertex*)m_buf->getData();
 	kmVec3Fill(&v[index].pos, x, y, z);
+}
+
+void wyShape::addPoint(float x, float y, float z, wyColor4B c) {
+	Vertex v;
+	kmVec4Fill(&v.color, c.r / 255.0f, c.g / 255.0f, c.b / 255.0f, c.a / 255.0f);
+	kmVec3Fill(&v.pos, x, y, z);
+	m_buf->append(&v, 1);
 }

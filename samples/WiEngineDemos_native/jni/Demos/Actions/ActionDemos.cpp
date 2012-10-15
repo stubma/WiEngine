@@ -347,11 +347,11 @@ namespace Action {
     	wyHypotrochoidConfig m_ellipse;
 
     	wyMaterial* m_mat1;
-    	wyLines* m_mesh1;
+    	wyShape* m_mesh1;
     	wyMaterial* m_mat2;
-    	wyLines* m_mesh2;
+    	wyShape* m_mesh2;
     	wyMaterial* m_mat3;
-    	wyLines* m_mesh3;
+    	wyShape* m_mesh3;
 
 	public:
     	wyHypotrochoidTestLayer() {
@@ -369,7 +369,7 @@ namespace Action {
     		// material and mesh for first curve
             m_mat1 = wyMaterial::make(wyShaderManager::PROG_PC);
             m_mat1->retain();
-            m_mesh1 = wyLines::make();
+            m_mesh1 = wyShape::make();
             m_mesh1->buildHypotrochoid(m_c, 100);
             m_mesh1->updateColor(wyc4bGreen);
             m_mesh1->retain();
@@ -377,7 +377,7 @@ namespace Action {
     		// material and mesh for second curve
             m_mat2 = wyMaterial::make(wyShaderManager::PROG_PC);
             m_mat2->retain();
-            m_mesh2 = wyLines::make();
+            m_mesh2 = wyShape::make();
             m_mesh2->buildHypotrochoid(m_ellipse, 100);
             m_mesh2->updateColor(wyc4bGreen);
             m_mesh2->retain();
@@ -385,7 +385,7 @@ namespace Action {
     		// material and mesh for third curve
             m_mat3 = wyMaterial::make(wyShaderManager::PROG_PC);
             m_mat3->retain();
-            m_mesh3 = wyLines::make();
+            m_mesh3 = wyShape::make();
             m_mesh3->buildHypotrochoid(m_circle, 100);
             m_mesh3->updateColor(wyc4bGreen);
             m_mesh3->retain();
@@ -441,9 +441,9 @@ namespace Action {
     	wyLagrangeConfig m_config;
 
     	wyMaterial* m_lineMat;
-    	wyLines* m_lineMesh;
+    	wyShape* m_lineMesh;
     	wyMaterial* m_pointMat;
-    	wyPoints* m_pointMesh;
+    	wyShape* m_pointMesh;
 
     public:
     	wyLagrangeTestLayer() {
@@ -475,7 +475,7 @@ namespace Action {
             // material and mesh for lagrange curve drawing
             m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
             m_lineMat->retain();
-            m_lineMesh = wyLines::make();
+            m_lineMesh = wyShape::make();
             m_lineMesh->buildLagrange(m_config, 30);
             m_lineMesh->updateColor(wyc4bGreen);
             m_lineMesh->retain();
@@ -483,13 +483,17 @@ namespace Action {
             // material and mesh for lagrange control points
             m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
             m_pointMat->retain();
-            m_pointMesh = wyPoints::make();
+            m_pointMesh = wyShape::make();
             m_pointMesh->retain();
             m_pointMesh->setPointSize(5);
-            m_pointMesh->addPoint(m_config.startX, m_config.startY, 0, wyc4bRed);
-            m_pointMesh->addPoint(m_config.cp1X, m_config.cp1Y, 0, wyc4bRed);
-            m_pointMesh->addPoint(m_config.cp2X, m_config.cp2Y, 0, wyc4bRed);
-            m_pointMesh->addPoint(m_config.endX, m_config.endY, 0, wyc4bRed);
+            float p[] = {
+                    m_config.startX, m_config.startY,
+                    m_config.cp1X, m_config.cp1Y,
+                    m_config.cp2X, m_config.cp2Y,
+                    m_config.endX, m_config.endY
+            };
+            m_pointMesh->buildPoints(p, sizeof(p) / sizeof(float));
+            m_pointMesh->updateColor(wyc4bRed);
         }
 
         virtual ~wyLagrangeTestLayer() {
@@ -522,9 +526,9 @@ namespace Action {
     class wyMoveByTestLayer : public wyActionTestLayer {
     private:
     	wyMaterial* m_lineMat;
-    	wyLines* m_lineMesh;
+    	wyShape* m_lineMesh;
     	wyMaterial* m_pointMat;
-    	wyPoints* m_pointMesh;
+    	wyShape* m_pointMesh;
 
     public:
         wyMoveByTestLayer() {
@@ -544,7 +548,7 @@ namespace Action {
 			m_lineMat->retain();
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
-			m_lineMesh = wyLines::make();
+			m_lineMesh = wyShape::make();
 			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
 			m_lineMesh->retain();
 			m_lineMesh->updateColor(wyc4bGreen);
@@ -552,10 +556,11 @@ namespace Action {
 			// material and mesh for points
 			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
 			m_pointMat->retain();
-			m_pointMesh = wyPoints::make();
+			m_pointMesh = wyShape::make();
 			m_pointMesh->retain();
 			m_pointMesh->setPointSize(5);
-			m_pointMesh->addPoint(DP(100), wyDevice::winHeight - DP(100), 0, wyc4bRed);
+			m_pointMesh->buildPoint(DP(100), wyDevice::winHeight - DP(100));
+			m_pointMesh->updateColor(wyc4bRed);
         }
 
         virtual ~wyMoveByTestLayer() {
@@ -592,9 +597,9 @@ namespace Action {
     class wyMoveByAngleTestLayer : public wyActionTestLayer {
     private:
     	wyMaterial* m_lineMat;
-    	wyLines* m_lineMesh;
+    	wyShape* m_lineMesh;
     	wyMaterial* m_pointMat;
-    	wyPoints* m_pointMesh;
+    	wyShape* m_pointMesh;
 
     public:
     	wyMoveByAngleTestLayer() {
@@ -615,7 +620,7 @@ namespace Action {
 			m_lineMat->retain();
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
-			m_lineMesh = wyLines::make();
+			m_lineMesh = wyShape::make();
 			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
 			m_lineMesh->retain();
 			m_lineMesh->updateColor(wyc4bGreen);
@@ -623,10 +628,11 @@ namespace Action {
 			// material and mesh for points
 			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
 			m_pointMat->retain();
-			m_pointMesh = wyPoints::make();
+			m_pointMesh = wyShape::make();
 			m_pointMesh->retain();
 			m_pointMesh->setPointSize(5);
-			m_pointMesh->addPoint(DP(100), wyDevice::winHeight - DP(100), 0, wyc4bRed);
+			m_pointMesh->buildPoint(DP(100), wyDevice::winHeight - DP(100));
+			m_pointMesh->updateColor(wyc4bRed);
 		}
 
         virtual ~wyMoveByAngleTestLayer() {
@@ -665,9 +671,9 @@ namespace Action {
     	wyMoveByPath* m_path;
 
     	wyMaterial* m_lineMat;
-    	wyLines* m_lineMesh;
+    	wyShape* m_lineMesh;
     	wyMaterial* m_pointMat;
-    	wyPoints* m_pointMesh;
+    	wyShape* m_pointMesh;
 
     public:
     	wyMoveByPathTestLayer() {
@@ -704,7 +710,7 @@ namespace Action {
 					wyDevice::winWidth - DP(30), wyDevice::winHeight - DP(30),
 					wyDevice::winWidth - DP(30), DP(30)
 			};
-			m_lineMesh = wyLines::make();
+			m_lineMesh = wyShape::make();
 			m_lineMesh->buildDashPath(p, sizeof(p) / sizeof(float), 5);
 			m_lineMesh->retain();
 			m_lineMesh->updateColor(wyc4bGreen);
@@ -712,12 +718,11 @@ namespace Action {
 			// material and mesh for points
 			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
 			m_pointMat->retain();
-			m_pointMesh = wyPoints::make();
+			m_pointMesh = wyShape::make();
 			m_pointMesh->retain();
 			m_pointMesh->setPointSize(5);
-			for(int i = 0; i < sizeof(p) / sizeof(float); i += 2) {
-				m_pointMesh->addPoint(p[i], p[i + 1], 0, wyc4bRed);
-			}
+			m_pointMesh->buildPoints(p, sizeof(p) / sizeof(float));
+			m_pointMesh->updateColor(wyc4bRed);
 		}
 
         virtual ~wyMoveByPathTestLayer() {
@@ -1028,9 +1033,9 @@ namespace Action {
     	wyBezierConfig m_config;
 
     	wyMaterial* m_lineMat;
-    	wyLines* m_lineMesh;
+    	wyShape* m_lineMesh;
     	wyMaterial* m_pointMat;
-    	wyPoints* m_pointMesh;
+    	wyShape* m_pointMesh;
 
     public:
         wyBezierTestLayer() {
@@ -1062,7 +1067,7 @@ namespace Action {
             // material and mesh for bezier curve drawing
             m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
             m_lineMat->retain();
-            m_lineMesh = wyLines::make();
+            m_lineMesh = wyShape::make();
             m_lineMesh->buildBezier(m_config, 30);
             m_lineMesh->updateColor(wyc4bGreen);
             m_lineMesh->retain();
@@ -1070,13 +1075,17 @@ namespace Action {
             // material and mesh for bezier control points
             m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
             m_pointMat->retain();
-            m_pointMesh = wyPoints::make();
+            m_pointMesh = wyShape::make();
             m_pointMesh->retain();
             m_pointMesh->setPointSize(5);
-            m_pointMesh->addPoint(m_config.startX, m_config.startY, 0, wyc4bRed);
-            m_pointMesh->addPoint(m_config.cp1X, m_config.cp1Y, 0, wyc4bRed);
-            m_pointMesh->addPoint(m_config.cp2X, m_config.cp2Y, 0, wyc4bRed);
-            m_pointMesh->addPoint(m_config.endX, m_config.endY, 0, wyc4bRed);
+            float p[] = {
+                    m_config.startX, m_config.startY,
+                    m_config.cp1X, m_config.cp1Y,
+                    m_config.cp2X, m_config.cp2Y,
+                    m_config.endX, m_config.endY
+            };
+            m_pointMesh->buildPoints(p, sizeof(p) / sizeof(float));
+            m_pointMesh->updateColor(wyc4bRed);
         }
 
         virtual ~wyBezierTestLayer() {

@@ -233,9 +233,8 @@
 #include "wyTechnique.h"
 
 // mesh
-#include "wyLines.h"
+#include "wyShape.h"
 #include "wyMesh.h"
-#include "wyPoints.h"
 #include "wyQuadList.h"
 #include "wyRectangle.h"
 

@@ -26,28 +26,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef __wyLines_h__
-#define __wyLines_h__
+#ifndef __wyShape_h__
+#define __wyShape_h__
 
 #include "wyMesh.h"
 #include "WiEngine-Classes.h"
 
 /**
- * @class wyLines
+ * @class wyShape
  *
  * A mesh represents a series of lines
  */
-class WIENGINE_API wyLines : public wyMesh {
+class WIENGINE_API wyShape : public wyMesh {
 private:
 	/// vertex buffer
 	wyBuffer* m_buf;
 
 protected:
-	wyLines();
+	wyShape();
 
 public:
-	/// create a empty instance of wyLines, no vertex
-	static wyLines* make();
+	/// create a empty instance of wyShape, no vertex
+	static wyShape* make();
+
+	/**
+	 * Fill mesh with one point
+	 *
+	 * @param x point x
+	 * @param y point y
+	 */
+	void buildPoint(float x, float y);
+
+	/**
+	 * Fill mesh with points
+	 *
+	 * @param p points buffer, x1, y1, x2, y2, ...
+	 * @param length count of float, should be point count * 2
+	 */
+	void buildPoints(float* p, size_t length);
 
 	/**
 	 * Fill mesh with a bezier curve
@@ -101,7 +117,7 @@ public:
 	 */
 	void buildDashPath(float* points, size_t length, float dashLength);
 
-	virtual ~wyLines();
+	virtual ~wyShape();
 
 	/// @see wyMesh::getElementCount()
 	virtual int getElementCount();
@@ -122,6 +138,16 @@ public:
 	 * @param z new z coordinate
 	 */
 	void updateVertex(int index, float x, float y, float z);
+
+	/**
+	 * Add a point
+	 *
+	 * @param x point x value
+	 * @param y point y value
+	 * @param z point z value
+	 * @param c point color
+	 */
+	void addPoint(float x, float y, float z, wyColor4B c);
 };
 
-#endif // __wyLines_h__
+#endif // __wyShape_h__
