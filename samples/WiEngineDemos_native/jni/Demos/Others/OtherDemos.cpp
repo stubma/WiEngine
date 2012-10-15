@@ -581,6 +581,8 @@ namespace Other {
 		wyShape* m_circle1;
 		wyShape* m_circle2;
 		wyShape* m_circle3;
+		wyShape* m_rect1;
+		wyShape* m_rect2;
 		wyShape* m_poly1;
 		wyShape* m_poly2;
 		wyShape* m_poly3;
@@ -646,6 +648,30 @@ namespace Other {
 			m_circle3->buildSolidCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 4, 30, 30);
 			m_circle3->updateColor(wyc4bBlue);
 
+			// rect
+			float rect[] = {
+					wyDevice::winWidth / 2 - 50, wyDevice::winHeight / 4 - 30,
+					wyDevice::winWidth / 2 + 50, wyDevice::winHeight / 4 - 30,
+					wyDevice::winWidth / 2 + 50, wyDevice::winHeight / 4 + 30,
+					wyDevice::winWidth / 2 - 50, wyDevice::winHeight / 4 + 30
+			};
+			m_rect1 = wyShape::make();
+			m_rect1->retain();
+			m_rect1->buildRect(rect);
+			m_rect1->updateColor(wyc4bRed);
+
+			// solid rect
+			float rect2[] = {
+					wyDevice::winWidth / 2 - 5, wyDevice::winHeight / 4 - 5,
+					wyDevice::winWidth / 2 + 5, wyDevice::winHeight / 4 - 5,
+					wyDevice::winWidth / 2 + 5, wyDevice::winHeight / 4 + 5,
+					wyDevice::winWidth / 2 - 5, wyDevice::winHeight / 4 + 5
+			};
+			m_rect2 = wyShape::make();
+			m_rect2->retain();
+			m_rect2->buildSolidRect(rect2);
+			m_rect2->updateColor(wyc4bRed);
+
 			// a yellow open poly lines
 			float vertices[] = {
 			      0, 0, 50, 50, 100, 50, 100, 100, 50, 100
@@ -704,6 +730,8 @@ namespace Other {
 			m_circle1->release();
 			m_circle2->release();
 			m_circle3->release();
+			m_rect1->release();
+			m_rect2->release();
 			m_poly1->release();
 			m_poly2->release();
 			m_poly3->release();
@@ -742,6 +770,12 @@ namespace Other {
 
 			// solid circle
 			rm->renderMaterial(this, m_mat, m_circle3);
+
+			// rect
+			rm->renderMaterial(this, m_mat, m_rect1);
+
+			// solid rect
+			rm->renderMaterial(this, m_mat, m_rect2);
 
 			// yellow open poly lines
 			rm->renderMaterial(this, m_mat, m_poly1);

@@ -259,6 +259,50 @@ void wyShape::buildDashPath(float* points, size_t length, float dashLength) {
 	m_mode = LINES;
 }
 
+void wyShape::buildRect(float* p) {
+	// clear
+	m_buf->clear();
+
+	// start
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// four vertices
+	for(int i = 0; i < 8; i += 2) {
+		kmVec3Fill(&v.pos, p[i], p[i + 1], 0);
+		m_buf->append(&v, 1);
+	}
+
+	// last
+	kmVec3Fill(&v.pos, p[0], p[1], 0);
+	m_buf->append(&v, 1);
+
+	// mode
+	m_mode = LINE_STRIP;
+}
+
+void wyShape::buildSolidRect(float* p) {
+	// clear
+	m_buf->clear();
+
+	// start
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// four vertices
+	for(int i = 0; i < 8; i += 2) {
+		kmVec3Fill(&v.pos, p[i], p[i + 1], 0);
+		m_buf->append(&v, 1);
+	}
+
+	// last
+	kmVec3Fill(&v.pos, p[0], p[1], 0);
+	m_buf->append(&v, 1);
+
+	// mode
+	m_mode = TRIANGLE_FAN;
+}
+
 void wyShape::buildPoly(float* p, size_t length, bool close) {
 	// clear
 	m_buf->clear();

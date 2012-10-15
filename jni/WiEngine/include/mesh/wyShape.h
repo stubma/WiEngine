@@ -128,6 +128,20 @@ public:
 	void buildDashPath(float* points, size_t length, float dashLength);
 
 	/**
+	 * Fill mesh with a rectangle
+	 *
+	 * @param p must contains 8 floats
+	 */
+	void buildRect(float* p);
+
+	/**
+	 * Fill mesh with a solid rectangle
+	 *
+	 * @param p must contains 8 floats
+	 */
+	void buildSolidRect(float* p);
+
+	/**
 	 * Fill mesh with a poly
 	 *
 	 * @param p poly vertex buff
