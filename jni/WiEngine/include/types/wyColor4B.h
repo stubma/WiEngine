@@ -37,6 +37,7 @@ extern "C" {
 
 WIENGINE_API extern const wyColor4B wyc4bWhite;
 WIENGINE_API extern const wyColor4B wyc4bBlack;
+WIENGINE_API extern const wyColor4B wyc4bCyan;
 WIENGINE_API extern const wyColor4B wyc4bGray;
 WIENGINE_API extern const wyColor4B wyc4bRed;
 WIENGINE_API extern const wyColor4B wyc4bGreen;

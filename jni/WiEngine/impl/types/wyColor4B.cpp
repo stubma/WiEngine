@@ -34,6 +34,7 @@ extern "C" {
 
 const wyColor4B wyc4bWhite = { 255, 255, 255, 255 };
 const wyColor4B wyc4bBlack = { 0, 0, 0, 255 };
+const wyColor4B wyc4bCyan = { 0, 255, 255, 255 };
 const wyColor4B wyc4bGray = { 126, 126, 126, 255 };
 const wyColor4B wyc4bRed = { 255, 0, 0, 255 };
 const wyColor4B wyc4bGreen = { 0, 255, 0, 255 };
