@@ -440,9 +440,8 @@ namespace Action {
     private:
     	wyLagrangeConfig m_config;
 
-    	wyMaterial* m_lineMat;
+    	wyMaterial* m_mat;
     	wyShape* m_lineMesh;
-    	wyMaterial* m_pointMat;
     	wyShape* m_pointMesh;
 
     public:
@@ -473,16 +472,14 @@ namespace Action {
             m_Sprite->runAction(action);
 
             // material and mesh for lagrange curve drawing
-            m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_lineMat->retain();
+            m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_mat->retain();
             m_lineMesh = wyShape::make();
             m_lineMesh->buildLagrange(m_config, 30);
             m_lineMesh->updateColor(wyc4bGreen);
             m_lineMesh->retain();
 
-            // material and mesh for lagrange control points
-            m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_pointMat->retain();
+            // mesh for lagrange control points
             m_pointMesh = wyShape::make();
             m_pointMesh->retain();
             m_pointMesh->setPointSize(5);
@@ -497,9 +494,8 @@ namespace Action {
         }
 
         virtual ~wyLagrangeTestLayer() {
-        	m_lineMat->release();
+        	m_mat->release();
         	m_lineMesh->release();
-        	m_pointMat->release();
         	m_pointMesh->release();
         }
 
@@ -514,10 +510,10 @@ namespace Action {
         virtual void draw() {
         	// draw bezier curve
         	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
+        	rm->renderMaterial(this, m_mat, m_lineMesh);
 
         	// draw bezier control points
-        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
+        	rm->renderMaterial(this, m_mat, m_pointMesh);
         }
     };
 
@@ -525,9 +521,8 @@ namespace Action {
 
     class wyMoveByTestLayer : public wyActionTestLayer {
     private:
-    	wyMaterial* m_lineMat;
+    	wyMaterial* m_mat;
     	wyShape* m_lineMesh;
-    	wyMaterial* m_pointMat;
     	wyShape* m_pointMesh;
 
     public:
@@ -544,8 +539,8 @@ namespace Action {
             m_Sprite->runAction(action);
 
 			// material and mesh for path
-			m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_lineMat->retain();
+            m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_mat->retain();
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
 			m_lineMesh = wyShape::make();
@@ -553,9 +548,7 @@ namespace Action {
 			m_lineMesh->retain();
 			m_lineMesh->updateColor(wyc4bGreen);
 
-			// material and mesh for points
-			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_pointMat->retain();
+			// mesh for points
 			m_pointMesh = wyShape::make();
 			m_pointMesh->retain();
 			m_pointMesh->setPointSize(5);
@@ -564,9 +557,8 @@ namespace Action {
         }
 
         virtual ~wyMoveByTestLayer() {
-        	m_lineMat->release();
+        	m_mat->release();
         	m_lineMesh->release();
-        	m_pointMat->release();
         	m_pointMesh->release();
         }
 
@@ -587,8 +579,8 @@ namespace Action {
 
 			// draw
         	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
-        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
+        	rm->renderMaterial(this, m_mat, m_lineMesh);
+        	rm->renderMaterial(this, m_mat, m_pointMesh);
         }
     };
 
@@ -596,9 +588,8 @@ namespace Action {
 
     class wyMoveByAngleTestLayer : public wyActionTestLayer {
     private:
-    	wyMaterial* m_lineMat;
+    	wyMaterial* m_mat;
     	wyShape* m_lineMesh;
-    	wyMaterial* m_pointMat;
     	wyShape* m_pointMesh;
 
     public:
@@ -616,8 +607,8 @@ namespace Action {
 			m_Sprite->runAction(action);
 
 			// material and mesh for path
-			m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_lineMat->retain();
+			m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_mat->retain();
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
 			m_lineMesh = wyShape::make();
@@ -625,9 +616,7 @@ namespace Action {
 			m_lineMesh->retain();
 			m_lineMesh->updateColor(wyc4bGreen);
 
-			// material and mesh for points
-			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_pointMat->retain();
+			// mesh for points
 			m_pointMesh = wyShape::make();
 			m_pointMesh->retain();
 			m_pointMesh->setPointSize(5);
@@ -636,9 +625,8 @@ namespace Action {
 		}
 
         virtual ~wyMoveByAngleTestLayer() {
-        	m_lineMat->release();
+        	m_mat->release();
         	m_lineMesh->release();
-        	m_pointMat->release();
         	m_pointMesh->release();
         }
 
@@ -659,8 +647,8 @@ namespace Action {
 
 			// draw
         	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
-        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
+        	rm->renderMaterial(this, m_mat, m_lineMesh);
+        	rm->renderMaterial(this, m_mat, m_pointMesh);
         }
 	};
 
@@ -670,9 +658,8 @@ namespace Action {
     private:
     	wyMoveByPath* m_path;
 
-    	wyMaterial* m_lineMat;
+    	wyMaterial* m_mat;
     	wyShape* m_lineMesh;
-    	wyMaterial* m_pointMat;
     	wyShape* m_pointMesh;
 
     public:
@@ -701,8 +688,8 @@ namespace Action {
 			m_Sprite->runAction(action);
 
 			// material and mesh for path
-			m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_lineMat->retain();
+			m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
+			m_mat->retain();
 			float p[] = {
 					DP(30), wyDevice::winHeight / 2,
 					wyDevice::winWidth / 2, wyDevice::winHeight / 2,
@@ -715,9 +702,7 @@ namespace Action {
 			m_lineMesh->retain();
 			m_lineMesh->updateColor(wyc4bGreen);
 
-			// material and mesh for points
-			m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_pointMat->retain();
+			// mesh for points
 			m_pointMesh = wyShape::make();
 			m_pointMesh->retain();
 			m_pointMesh->setPointSize(5);
@@ -726,9 +711,8 @@ namespace Action {
 		}
 
         virtual ~wyMoveByPathTestLayer() {
-        	m_lineMat->release();
+        	m_mat->release();
         	m_lineMesh->release();
-        	m_pointMat->release();
         	m_pointMesh->release();
         }
 
@@ -743,8 +727,8 @@ namespace Action {
         virtual void draw() {
         	// draw path
         	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
-        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
+        	rm->renderMaterial(this, m_mat, m_lineMesh);
+        	rm->renderMaterial(this, m_mat, m_pointMesh);
         }
 	};
 
@@ -1032,9 +1016,8 @@ namespace Action {
     private:
     	wyBezierConfig m_config;
 
-    	wyMaterial* m_lineMat;
+    	wyMaterial* m_mat;
     	wyShape* m_lineMesh;
-    	wyMaterial* m_pointMat;
     	wyShape* m_pointMesh;
 
     public:
@@ -1065,16 +1048,14 @@ namespace Action {
             m_Sprite->runAction(action);
 
             // material and mesh for bezier curve drawing
-            m_lineMat = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_lineMat->retain();
+            m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
+            m_mat->retain();
             m_lineMesh = wyShape::make();
             m_lineMesh->buildBezier(m_config, 30);
             m_lineMesh->updateColor(wyc4bGreen);
             m_lineMesh->retain();
 
-            // material and mesh for bezier control points
-            m_pointMat = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_pointMat->retain();
+            // mesh for bezier control points
             m_pointMesh = wyShape::make();
             m_pointMesh->retain();
             m_pointMesh->setPointSize(5);
@@ -1089,9 +1070,8 @@ namespace Action {
         }
 
         virtual ~wyBezierTestLayer() {
-        	m_lineMat->release();
+        	m_mat->release();
         	m_lineMesh->release();
-        	m_pointMat->release();
         	m_pointMesh->release();
         }
 
@@ -1106,10 +1086,10 @@ namespace Action {
         virtual void draw() {
         	// draw bezier curve
         	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_lineMat, m_lineMesh);
+        	rm->renderMaterial(this, m_mat, m_lineMesh);
 
         	// draw bezier control points
-        	rm->renderMaterial(this, m_pointMat, m_pointMesh);
+        	rm->renderMaterial(this, m_mat, m_pointMesh);
         }
     };
     
