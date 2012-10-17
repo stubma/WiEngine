@@ -41,93 +41,34 @@
  * \endif
  */
 class WIENGINE_API wyColorLayer : public wyLayer {
-protected:
-	/**
-	 * \if English
-	 * opengl vertices
-	 * \else
-	 * opengl顶点
-	 * \endif
-	 */
-	GLfloat* m_vertices;
-
-	/**
-	 * \if English
-	 * color of the layer, used by opengl
-	 * \else
-	 * opengl颜色
-	 * \endif
-	 */
-	GLubyte* m_colors;
-
-	/**
-	 * \if English
-	 * color of the layer, \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 颜色\link wyColor4B wyColor4B结构\endlink
-	 * \endif
-	 */
-	wyColor4B m_color;
-
 private:
 	void updateColor();
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param color \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param color 颜色\link wyColor4B wyColor4B结构\endlink
-	 * \endif
 	 */
 	static wyColorLayer* make(wyColor4B color = wyc4bTransparent);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param color \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param color 颜色\link wyColor4B wyColor4B结构\endlink
-	 * \endif
 	 */
 	wyColorLayer(wyColor4B color = wyc4bTransparent);
 
-	/**
-	 * \if English
-	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
-	 */
 	virtual ~wyColorLayer();
 
-	/// @see wyNode::draw
-	virtual void draw();
+	/// @see wyNode::isGeometry
+	virtual bool isGeometry() { return true; }
 
-	/// @see wyNode::setContentSize
-	virtual void setContentSize(float w, float h);
+	/// @see wyNode::updateMesh
+	virtual void updateMesh();
 
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
-
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha);
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
+	/// @see wyNode::updateMeshColor
+	virtual void updateMeshColor();
 };
 
 #endif // __wyColorLayer_h__

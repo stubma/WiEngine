@@ -28,105 +28,46 @@
  */
 #include "wyColorLayer.h"
 #include "wyLog.h"
-#include <stdlib.h>
 #include "wyGlobal.h"
+#include "wyShape.h"
+#include "wyMaterial.h"
 
 wyColorLayer* wyColorLayer::make(wyColor4B color) {
 	wyColorLayer* n = WYNEW wyColorLayer(color);
 	return (wyColorLayer*)n->autoRelease();
 }
 
-void wyColorLayer::updateColor() {
-	for (int i = 0; i < 4 * 4 * sizeof(GLubyte); i++) {
-		switch (i % 4) {
-			case 0:
-				m_colors[i] = m_color.r;
-				break;
-			case 1:
-				m_colors[i] = m_color.g;
-				break;
-			case 2:
-				m_colors[i] = m_color.b;
-				break;
-			default:
-				m_colors[i] = m_color.a;
-				break;
-		}
-	}
-}
-
-void wyColorLayer::setAlpha(int alpha) {
-	m_color.a = alpha;
-	updateColor();
-}
-
-wyColor3B wyColorLayer::getColor() {
-	wyColor3B c = {
-		m_color.r,
-		m_color.g,
-		m_color.b
-	};
-	return c;
-}
-
-void wyColorLayer::setColor(wyColor3B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	updateColor();
-}
-
-void wyColorLayer::setColor(wyColor4B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	m_color.a = color.a;
-	updateColor();
-}
-
 wyColorLayer::~wyColorLayer() {
-	wyFree(m_vertices);
-	wyFree(m_colors);
 }
 
-void wyColorLayer::draw() {
-	// TODO gles2
-//	// if no draw flag is set, call wyNode::draw and it
-//	// will decide forward drawing to java layer or not
-//	if(m_noDraw) {
-//		wyNode::draw();
-//		return;
-//	}
-//
-//    glEnableClientState(GL_VERTEX_ARRAY);
-//    glEnableClientState(GL_COLOR_ARRAY);
-//
-//    glVertexPointer(2, GL_FLOAT, 0, m_vertices);
-//    glColorPointer(4, GL_UNSIGNED_BYTE, 0, m_colors);
-//
-//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-//
-//    // Clear the vertex and color arrays
-//    glDisableClientState(GL_VERTEX_ARRAY);
-//    glDisableClientState(GL_COLOR_ARRAY);
-}
+wyColorLayer::wyColorLayer(wyColor4B color) {
+	// create render pair
+	float rect[] = {
+			0, 0,
+			wyDevice::winWidth, 0,
+			wyDevice::winWidth, wyDevice::winHeight,
+			0, wyDevice::winHeight
+	};
+	wyShape* s = wyShape::make();
+	s->buildSolidRect(rect);
+	addRenderPair(wyMaterial::make(wyShaderManager::PROG_PC), s);
 
-void wyColorLayer::setContentSize(float w, float h) {
-    // Layer default ctor calls setContentSize priot to nio alloc
-    if (m_vertices != NULL) {
-    	m_vertices[2] = w;
-    	m_vertices[5] = h;
-    	m_vertices[6] = w;
-    	m_vertices[7] = h;
-    }
-
-    wyLayer::setContentSize(w, h);
-}
-
-wyColorLayer::wyColorLayer(wyColor4B color) :
-		m_vertices((GLfloat*)wyCalloc(4 * 2, sizeof(GLfloat))),
-		m_colors((GLubyte*)wyMalloc(4 * 4 * sizeof(GLubyte))),
-		m_color(color) {
-    updateColor();
+	// set color, size, blend
+	setColor(color);
     setContentSize(wyDevice::winWidth, wyDevice::winHeight);
+    setBlendMode(wyRenderState::ALPHA);
+}
+
+void wyColorLayer::updateMesh() {
+	float rect[] = {
+			0, 0,
+			m_width, 0,
+			m_width, m_height,
+			0, m_height
+	};
+	((wyShape*)getMesh())->buildSolidRect(rect);
+}
+
+void wyColorLayer::updateMeshColor() {
+	((wyShape*)getMesh())->updateColor(m_color);
 }
