@@ -47,8 +47,7 @@ wyTextureNode::wyTextureNode(wyTexture2D* tex) :
 		m_animations(WYNEW map<int, wyAnimation*>()),
 		m_texRect(wyrZero) {
 	// create empty material and mesh, default we use rectangle mesh
-	setMaterial(wyMaterial::make());
-	setMesh(wyRectangle::make());
+	addRenderPair(wyMaterial::make(), wyRectangle::make());
 
 	// set texture
 	setTexture(tex);
@@ -70,22 +69,10 @@ void wyTextureNode::releaseAnimation(int id, wyAnimation* anim) {
 	wyObjectRelease(anim);
 }
 
-void wyTextureNode::updateMaterial() {
-	// get texture parameter, if none, create
-	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-	if(!mp) {
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
-		m_material->addParameter(p);
-	} else {
-		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-		mtp->setTexture(m_tex);
-	}
-}
-
 void wyTextureNode::updateMesh() {
 	// update texture to mesh
 	wyRectangle* rect = (wyRectangle*)getMesh();
-	rect->updateForTexture(m_tex,
+	rect->updateForTexture(getTexture(),
 			m_autoFit ? 0 : m_pointLeftBottom.x,
 			m_autoFit ? 0 : m_pointLeftBottom.y,
 			m_autoFit ? m_width : (m_rotatedZwoptex ? m_texRect.height : m_texRect.width),
@@ -113,8 +100,8 @@ void wyTextureNode::setTextureRect(wyRect rect) {
 	setNeedUpdateMesh(true);
 }
 
-void wyTextureNode::setTexture(wyTexture2D* tex) {
-	wyNode::setTexture(tex);
+void wyTextureNode::setTexture(wyTexture2D* tex, int index) {
+	wyNode::setTexture(tex, 0);
 
 	// sync content size
 	if(tex != NULL) {
@@ -190,7 +177,7 @@ void wyTextureNode::setDisplayFrame(wyFrame* newFrame) {
             if(!m_originSaved) {
                 m_originSaved = true;
                 
-				m_originalTex = m_tex;
+				m_originalTex = getTexture();
 				wyObjectRetain(m_originalTex);
                 m_originTexRect = m_texRect;
                 m_originContentSize = getContentSize();
@@ -233,7 +220,7 @@ wySpriteFrame* wyTextureNode::makeFrame() {
 	float offsetX = m_pointLeftBottom.x - (m_width - (m_rotatedZwoptex ? m_texRect.height : m_texRect.width)) / 2;
 	float offsetY = m_pointLeftBottom.y - (m_height - (m_rotatedZwoptex ? m_texRect.width : m_texRect.height)) / 2;
 	return wySpriteFrame::make(0,
-			m_tex,
+			getTexture(),
 			m_texRect,
 			wyp(offsetX, offsetY),
 			wys(m_width, m_height),

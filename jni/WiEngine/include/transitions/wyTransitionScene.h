@@ -149,9 +149,6 @@ public:
 	 */
 	virtual ~wyTransitionScene();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/// @see wyNode::onEnter
 	virtual void onEnter();
 

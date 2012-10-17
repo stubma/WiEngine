@@ -344,60 +344,6 @@ void wyNode::removeChild(wyNode* child, bool cleanup) {
 	m_childrenChanging = false;
 }
 
-void wyNode::draw() {
-#if ANDROID
-	// if java layer implemention is set, callback
-	if(m_jVirtualMethods != NULL && g_mid_INodeVirtualMethods_jDraw != 0) {
-		JNIEnv* env = getEnv();
-		env->CallVoidMethod(m_jVirtualMethods, g_mid_INodeVirtualMethods_jDraw);
-	}
-#endif
-}
-
-void wyNode::visit() {
-	if(!m_visible)
-		return;
-
-	// should push matrix to avoid disturb current matrix
-	kmGLPushMatrix();
-
-	// if grid is set, prepare grid
-	// if not, transform self
-	bool hasGrid = m_grid != NULL && m_grid->isActive();
-	if(hasGrid) {
-		m_grid->beforeDraw();
-	} else {
-		transform();
-	}
-
-	// draw children whose z order is less than zero
-	for(int i = 0; i < m_children->num; i++) {
-		wyNode* n = (wyNode*)wyArrayGet(m_children, i);
-		if(n->m_zOrder < 0)
-			n->visit();
-		else
-			break;
-	}
-
-	// draw self
-	draw();
-
-	// draw children whose z order is larger than zero
-	for(int i = 0; i < m_children->num; i++) {
-		wyNode* n = (wyNode*)wyArrayGet(m_children, i);
-		if(n->m_zOrder >= 0)
-			n->visit();
-	}
-
-	// if grid is set, end grid
-	if(hasGrid) {
-		m_grid->afterDraw(this);
-	}
-
-	// pop matrix
-	kmGLPopMatrix();
-}
-
 void wyNode::transform() {
 	// get node to parent matrix
 	kmMat4 worldMatrix;
@@ -566,10 +512,14 @@ wyNode::~wyNode() {
 			gActionManager->removePhysicsNode(this);
 	}
 
+	// release render pairs
+	for(vector<RenderPair>::iterator iter = m_renderPairs->begin(); iter != m_renderPairs->end(); iter++) {
+		wyObjectRelease(iter->material);
+		wyObjectRelease(iter->mesh);
+	}
+	WYDELETE(m_renderPairs);
+
 	// release members
-	wyObjectRelease(m_tex);
-	wyObjectRelease(m_mesh);
-	wyObjectRelease(m_material);
 	wyObjectRelease(m_camera);
 	wyObjectRelease(m_grid);
 	wyObjectRelease(m_downSelector);
@@ -1080,10 +1030,7 @@ wyNode::wyNode() :
 		m_grid(NULL),
 		m_camera(NULL),
 		m_timers(NULL),
-		m_material(NULL),
-		m_mesh(NULL),
-		m_lodLevel(0),
-		m_tex(NULL),
+		m_renderPairs(WYNEW vector<RenderPair>()),
 		m_color(wyc4bWhite),
 		m_meshColorNeedUpdate(false),
 		m_materialNeedUpdate(false),
@@ -1734,45 +1681,109 @@ void wyNode::setUserData(wyUserData& ud) {
 	memcpy(&m_data, &ud, sizeof(wyUserData));
 }
 
-void wyNode::setTexture(wyTexture2D* tex) {
-	wyObjectRetain(tex);
-	wyObjectRelease(m_tex);
-	m_tex = tex;
+void wyNode::setTexture(wyTexture2D* tex, int index) {
+	// get material at given index
+	wyMaterial* m = getMaterial(index);
+	if(!m)
+		return;
+
+	// get texture parameter, if none, create
+	wyMaterialParameter* mp = m->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(!mp) {
+		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], tex);
+		m->addParameter(p);
+	} else {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		mtp->setTexture(tex);
+	}
 
 	// flag update
-	setNeedUpdateMaterial(true);
 	setNeedUpdateMesh(true);
 }
 
-void wyNode::setMesh(wyMesh* mesh, int index) {
-	wyObjectRetain(mesh);
-	wyObjectRelease(m_mesh);
-	m_mesh = mesh;
+wyTexture2D* wyNode::getTexture(int index) {
+	// get material at given index
+	wyMaterial* m = getMaterial(index);
+	if(!m)
+		return NULL;
+
+	// get texture parameter
+	wyMaterialParameter* mp = m->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(mp) {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		return mtp->getTexture();
+	} else {
+		return NULL;
+	}
 }
 
-void wyNode::setMaterial(wyMaterial* m, int index) {
-	wyObjectRetain(m);
-	wyObjectRelease(m_material);
-	m_material = m;
+wyMesh* wyNode::getMesh(int index) {
+	// check index
+	if(index < 0 || index >= m_renderPairs->size()) {
+		LOGW("wyNode::getMesh, index is out of range");
+		return NULL;
+	}
+
+	RenderPair& p = m_renderPairs->at(index);
+	return p.mesh;
+}
+
+wyMaterial* wyNode::getMaterial(int index) {
+	// check index
+	if(index < 0 || index >= m_renderPairs->size()) {
+		LOGW("wyNode::getMaterial, index is out of range");
+		return NULL;
+	}
+
+	RenderPair& p = m_renderPairs->at(index);
+	return p.material;
+}
+
+int wyNode::getLodLevel(int index) {
+	// check index
+	if(index < 0 || index >= m_renderPairs->size()) {
+		LOGW("wyNode::getLodLevel, index is out of range");
+		return 0;
+	}
+
+	RenderPair& p = m_renderPairs->at(index);
+	return p.lod;
 }
 
 void wyNode::setLodLevel(int level, int index) {
-	if(!m_mesh) {
-		LOGW("wyNode::setLodLevel: no mesh is bound for this node so no LOD level is available");
+	// check index
+	if(index < 0 || index >= m_renderPairs->size()) {
+		LOGW("wyNode::setLodLevel: index is out of range");
 		return;
 	}
 
-	if(m_mesh->getNumberOfLodLevel() == 0) {
+	// check mesh levels
+	RenderPair& p = m_renderPairs->at(index);
+	wyMesh* mesh = p.mesh;
+	if(mesh->getNumberOfLodLevel() == 0) {
 		LOGW("wyNode::setLodLevel: no LOD data set on geometry mesh");
 		return;
 	}
 
-	if(level < 0 || level >= m_mesh->getNumberOfLodLevel()) {
+	// validate destination level
+	if(level < 0 || level >= mesh->getNumberOfLodLevel()) {
 		LOGW("wyNode::setLodLevel: level %d is not valid");
 		return;
 	}
 
-	m_lodLevel = level;
+	// set it
+	p.lod = level;
+}
+
+void wyNode::addRenderPair(wyMaterial* material, wyMesh* mesh) {
+	RenderPair p = {
+			material,
+			mesh,
+			0
+	};
+	m_renderPairs->push_back(p);
+	wyObjectRetain(material);
+	wyObjectRetain(mesh);
 }
 
 wyRenderQueue::Bucket wyNode::getQueueBucket() {
@@ -1806,7 +1817,7 @@ void wyNode::setColor(wyColor4B color) {
 }
 
 bool wyNode::isDither() {
-	if(getMaterialCount() > 0) {
+	if(getRenderPairCount() > 0) {
 		wyTechnique* tech = getMaterial(0)->getTechnique();
 		wyRenderState* rs = tech->getRenderState();
 		return rs->ditherEnabled;
@@ -1816,7 +1827,7 @@ bool wyNode::isDither() {
 }
 
 void wyNode::setDither(bool flag) {
-	int count = getMaterialCount();
+	int count = getRenderPairCount();
     for(int i = 0; i < count; i++) {
 		wyTechnique* tech = getMaterial(i)->getTechnique();
 		wyRenderState* rs = tech->getRenderState();
@@ -1825,7 +1836,7 @@ void wyNode::setDither(bool flag) {
 }
 
 wyRenderState::BlendMode wyNode::getBlendMode() {
-	if(getMaterialCount() > 0) {
+	if(getRenderPairCount() > 0) {
 		wyTechnique* tech = getMaterial(0)->getTechnique();
 		wyRenderState* rs = tech->getRenderState();
 		return rs->blendMode;
@@ -1835,7 +1846,7 @@ wyRenderState::BlendMode wyNode::getBlendMode() {
 }
 
 void wyNode::setBlendMode(wyRenderState::BlendMode mode) {
-	int count = getMaterialCount();
+	int count = getRenderPairCount();
     for(int i = 0; i < count; i++) {
 		wyTechnique* tech = getMaterial(i)->getTechnique();
 		wyRenderState* rs = tech->getRenderState();

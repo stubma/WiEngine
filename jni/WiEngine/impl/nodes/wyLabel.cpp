@@ -112,7 +112,8 @@ wyLabel::~wyLabel() {
 }
 
 void wyLabel::setString(const char* text) {
-	if(m_tex == NULL) {
+	wyTexture2D* t = getTexture();
+	if(t == NULL) {
 		if(m_fontPath) {
 			wyTexture2D* tex = wyTexture2D::makeLabel(text == NULL ? "" : text, m_fontSize, m_fontPath, m_isFile, m_lineWidth, m_alignment);
 			setTexture(tex);
@@ -123,11 +124,11 @@ void wyLabel::setString(const char* text) {
 	} else {
 		// set texture again so that the content size will be updated
 		if(m_fontPath) {
-			m_tex->updateLabel(text == NULL ? "" : text, m_fontSize, m_fontPath, m_isFile, m_lineWidth, m_alignment);
+			t->updateLabel(text == NULL ? "" : text, m_fontSize, m_fontPath, m_isFile, m_lineWidth, m_alignment);
 		} else {
-			m_tex->updateLabel(text == NULL ? "" : text, m_fontSize, m_fontStyle, m_fontName, m_lineWidth, m_alignment);
+			t->updateLabel(text == NULL ? "" : text, m_fontSize, m_fontStyle, m_fontName, m_lineWidth, m_alignment);
 		}
-		setTexture(m_tex);
+		setTexture(t);
 	}
 }
 
@@ -180,11 +181,12 @@ void wyLabel::setLineWidth(float lineWidth) {
 }
 
 void wyLabel::update() {
+	wyTexture2D* t = getTexture();
 	if(m_fontPath) {
-		m_tex->updateLabel(getText(), m_fontSize, m_fontPath, m_isFile, m_lineWidth, m_alignment);
+		t->updateLabel(getText(), m_fontSize, m_fontPath, m_isFile, m_lineWidth, m_alignment);
 	} else {
-		m_tex->updateLabel(getText(), m_fontSize, m_fontStyle, m_fontName, m_lineWidth, m_alignment);
+		t->updateLabel(getText(), m_fontSize, m_fontStyle, m_fontName, m_lineWidth, m_alignment);
 	}
 
-	setTexture(m_tex);
+	setTexture(t);
 }

@@ -273,56 +273,53 @@ void wyRenderManager::renderNode(wyNode* g) {
 		m_renderer->pushClipRect(r);
 	}
 
-	// draw this node, can be standard or customized
-	if(g->isSelfDraw()) {
-		// let node draw itself
-		g->draw();
-	} else {
-		// check update flag
-		if(g->isNeedUpdateMaterial()) {
-			g->updateMaterial();
-			g->setNeedUpdateMaterial(false);
+	// check update flag
+	if(g->isNeedUpdateMaterial()) {
+		g->updateMaterial();
+		g->setNeedUpdateMaterial(false);
+	}
+	if(g->isNeedUpdateMesh()) {
+		g->updateMesh();
+		g->setNeedUpdateMesh(false);
+	}
+	if(g->isNeedUpdateMeshColor()) {
+		g->updateMeshColor();
+		g->setNeedUpdateMeshColor(false);
+	}
+
+	// before render notify
+	g->beforeRender();
+
+	// render every material
+	int c = g->getRenderPairCount();
+	for(int i = 0; i < c; i++) {
+		wyMaterial* material = g->getMaterial(i);
+		wyMesh* mesh = g->getMesh(i);
+
+		// get technique and shader programe
+		wyTechnique* tech = material->getTechnique();
+		wyShaderProgram* program = tech->getShaderProgram();
+		if(!tech || !program)
+			continue;
+
+		// apply render state
+		wyRenderState* rs = tech->getRenderState();
+		m_renderer->applyRenderState(rs);
+
+		// update general uniform
+		updateUniformValues(program, g);
+
+		// apply material parameters
+		map<unsigned int, wyMaterialParameter*>* matParams = material->getParameters();
+		for(map<unsigned int, wyMaterialParameter*>::iterator iter = matParams->begin(); iter != matParams->end(); iter++) {
+			iter->second->apply(m_renderer, tech);
 		}
-		if(g->isNeedUpdateMesh()) {
-			g->updateMesh();
-			g->setNeedUpdateMesh(false);
-		}
-		if(g->isNeedUpdateMeshColor()) {
-			g->updateMeshColor();
-			g->setNeedUpdateMeshColor(false);
-		}
 
-		// render every material
-		int mc = g->getMaterialCount();
-		for(int i = 0; i < mc; i++) {
-			wyMaterial* material = g->getMaterial(i);
-			wyMesh* mesh = g->getMesh(i);
+		// enable shader program in renderer
+		m_renderer->setShaderProgram(program);
 
-			// get technique and shader programe
-			wyTechnique* tech = material->getTechnique();
-			wyShaderProgram* program = tech->getShaderProgram();
-			if(!tech || !program)
-				continue;
-
-			// apply render state
-			wyRenderState* rs = tech->getRenderState();
-			m_renderer->applyRenderState(rs);
-
-			// update general uniform
-			updateUniformValues(program, g);
-
-			// apply material parameters
-			map<unsigned int, wyMaterialParameter*>* matParams = material->getParameters();
-			for(map<unsigned int, wyMaterialParameter*>::iterator iter = matParams->begin(); iter != matParams->end(); iter++) {
-				iter->second->apply(m_renderer, tech);
-			}
-
-			// enable shader program in renderer
-			m_renderer->setShaderProgram(program);
-
-			// start to render mesh
-			m_renderer->renderMesh(mesh, g->getLodLevel(i));
-		}
+		// start to render mesh
+		m_renderer->renderMesh(mesh, g->getLodLevel(i));
 	}
 
 	// pop clip

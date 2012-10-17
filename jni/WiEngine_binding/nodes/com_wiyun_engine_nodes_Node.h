@@ -97,14 +97,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_removeChildren
 
 /*
  * Class:     com_wiyun_engine_nodes_Node
- * Method:    draw
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_draw
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_Node
  * Method:    setJavaVirtualMethods
  * Signature: (Lcom/wiyun/engine/nodes/INodeVirtualMethods;)V
  */
@@ -886,14 +878,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_resumeAllTimers__
  */
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_resumeAllTimers__Z
   (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     com_wiyun_engine_nodes_Node
- * Method:    visit
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_visit
-  (JNIEnv *, jobject);
 
 /*
  * Class:     com_wiyun_engine_nodes_Node

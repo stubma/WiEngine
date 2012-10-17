@@ -40,29 +40,29 @@ wyMenuItemSprite* wyMenuItemSprite::make(wyTargetSelector* downSelector, wyTarge
 	return (wyMenuItemSprite*)n->autoRelease();
 }
 
-void wyMenuItemSprite::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-    if (m_enabled) {
-        if (m_selected) {
-        	if(m_selectedState != NULL)
-        		m_selectedState->draw();
-        	else
-        		m_normalState->draw();
-        } else
-        	m_normalState->draw();
-    } else {
-        if (m_disabledState != NULL)
-        	m_disabledState->draw();
-        else
-        	m_normalState->draw();
-    }
-}
+//void wyMenuItemSprite::draw() {
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//    if (m_enabled) {
+//        if (m_selected) {
+//        	if(m_selectedState != NULL)
+//        		m_selectedState->draw();
+//        	else
+//        		m_normalState->draw();
+//        } else
+//        	m_normalState->draw();
+//    } else {
+//        if (m_disabledState != NULL)
+//        	m_disabledState->draw();
+//        else
+//        	m_normalState->draw();
+//    }
+//}
 
 void wyMenuItemSprite::adjustContentSize() {
     if (m_enabled) {

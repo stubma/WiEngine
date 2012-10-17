@@ -149,7 +149,7 @@ public:
     virtual ~wyBladeRibbon();
 
     /// @see wyNode::draw
-    virtual void draw();
+//    virtual void draw();
 
 	/// @see wyNode::getAlpha
 	virtual int getAlpha() { return m_color.a; }

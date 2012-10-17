@@ -37,13 +37,12 @@ wyStripRibbon* wyStripRibbon::make(wyTexture2D* tex, wyColor4B color, float fade
 }
 
 wyStripRibbon::wyStripRibbon(wyTexture2D* tex, wyColor4B color, float fade) : wyRibbon(fade) {
+	// create empty material and mesh
+	addRenderPair(wyMaterial::make(), wyQuadList::make());
+
 	// set texture
 	tex->setAntiAlias(false);
 	setTexture(tex);
-
-	// create empty material and mesh
-	setMaterial(wyMaterial::make());
-	setMesh(wyQuadList::make());
 
 	// set blend mode
 	setBlendMode(wyRenderState::ALPHA);
@@ -53,18 +52,6 @@ wyStripRibbon::wyStripRibbon(wyTexture2D* tex, wyColor4B color, float fade) : wy
 }
 
 wyStripRibbon::~wyStripRibbon() {
-}
-
-void wyStripRibbon::updateMaterial() {
-	// get texture parameter, if none, create
-	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-	if(!mp) {
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
-		m_material->addParameter(p);
-	} else {
-		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-		mtp->setTexture(m_tex);
-	}
 }
 
 void wyStripRibbon::updateMeshColor() {
@@ -90,10 +77,11 @@ void wyStripRibbon::addPoint(wyPoint location) {
 	}
 
 	// get texture info
-	float tW = m_tex->getWidth();
-	float tH = m_tex->getHeight();
-	float texW = tW / m_tex->getPixelWidth();
-	float texH = tH / m_tex->getPixelHeight();
+	wyTexture2D* tex = getTexture();
+	float tW = tex->getWidth();
+	float tH = tex->getHeight();
+	float texW = tW / tex->getPixelWidth();
+	float texH = tH / tex->getPixelHeight();
 
 	// get distance between last location and current location
 	float len = wypDistance(m_lastLocation, location);
@@ -103,7 +91,7 @@ void wyStripRibbon::addPoint(wyPoint location) {
 	float dy = location.y - m_lastLocation.y;
 
 	// get texture end
-	float tLen = len / m_tex->getPixelHeight();
+	float tLen = len / tex->getPixelHeight();
 	float tEnd = m_remaining + tLen;
 
 	// start cut
@@ -142,7 +130,7 @@ void wyStripRibbon::reset() {
 }
 
 void wyStripRibbon::addQuad(wyPoint pre, wyPoint from, wyPoint to, float tStart, float tEnd, float texW) {
-	float ribbonWidth = m_tex->getWidth() * 0.5f;
+	float ribbonWidth = getTexture()->getWidth() * 0.5f;
 	wyPoint sub1 = (pre.x == from.x && pre.y == from.y) ? wypSub(from, to) : wypSub(pre, from);
 	wyPoint sub2 = wypSub(from, to);
 	float r1 = wypToRadian(sub1) + M_PI / 2;

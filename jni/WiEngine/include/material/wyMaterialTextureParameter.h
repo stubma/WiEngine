@@ -36,11 +36,7 @@ class wyTexture2D;
 /**
  * @class wyMaterialTextureParameter
  *
- * \if English
  * Texture parameter for shader
- * \else
- * 用于绑定shader中的贴图参数
- * \endif
  */
 class WIENGINE_API wyMaterialTextureParameter : public wyMaterialParameter {
 private:
@@ -63,21 +59,12 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param uniformName uniform parameter name
 	 * @param tex \link wyTexture2D wyTexture2D\endlink
 	 * @param unit texture unit, default it zero
 	 * @return \link wyMaterialParameter wyMaterialParameter\endif
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param uniformName 材质参数相关的uniform参数名称
-	 * @param tex \link wyTexture2D wyTexture2D\endlink
-	 * @param unit 贴图单元, 缺省是0
-	 * @return \link wyMaterialParameter wyMaterialParameter\endlink
-	 * \endif
 	 */
 	static wyMaterialTextureParameter* make(const char* uniformName, wyTexture2D* tex, int unit = 0);
 
@@ -87,30 +74,25 @@ public:
 	virtual void apply(wyRenderer* r, wyTechnique* tech);
 
 	/**
-	 * \if English
 	 * Get texture unit
 	 *
 	 * @return texture unit
-	 * \else
-	 * 得到贴图单元序号
-	 *
-	 * @return 贴图单元
-	 * \endif
 	 */
 	int getUnit() { return m_unit; }
 
 	/**
-	 * \if English
 	 * Set texture
 	 *
 	 * @param tex \link wyTexture2D wyTexture2D\endlink
-	 * \else
-	 * 设置贴图
-	 *
-	 * @param tex \link wyTexture2D wyTexture2D\endlink
-	 * \endif
 	 */
-	void setTexture(wyTexture2D* tex) { m_tex = tex; }
+	void setTexture(wyTexture2D* tex);
+
+	/**
+	 * Get bounded texture
+	 *
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	wyTexture2D* getTexture() { return m_tex; }
 };
 
 #endif // __wyMaterialTextureParameter_h__

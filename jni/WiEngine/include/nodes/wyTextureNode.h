@@ -125,9 +125,6 @@ public:
 	/// @see wyNode::isGeometry
 	virtual bool isGeometry() { return true; }
 
-	/// @see wyGeometry::updateMaterial
-	virtual void updateMaterial();
-
 	/// @see wyGeometry::updateMesh
 	virtual void updateMesh();
 
@@ -135,7 +132,7 @@ public:
 	virtual void updateMeshColor();
 
 	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
+	virtual void setTexture(wyTexture2D* tex, int index = 0);
 
 	/**
 	 * 指定所使用的贴图区域, 同时改变图片大小为当前贴图区域大小, 单位为像素.

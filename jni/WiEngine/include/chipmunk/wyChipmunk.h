@@ -73,9 +73,6 @@ public:
 
 	static void applyDampedSpring(cpBody* a, cpBody* b, wyPoint anchor1, wyPoint anchor2, float rlen, float k, float dmp, float dt);
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/**
 	 * \if English
 	 * enable debug drawing mode or not

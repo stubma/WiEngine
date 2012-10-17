@@ -113,9 +113,6 @@ public:
 	 */
 	virtual ~wyMenuItemAtlasLabel();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/// @see wyNode::setEnabled
 	virtual void setEnabled(bool enabled);
 

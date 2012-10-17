@@ -112,15 +112,6 @@ wySpriteEx::wySpriteEx(wyTexture2D* pTex, wyZwoptexFrame* f) : wyTextureNode(pTe
 wySpriteEx::~wySpriteEx() {
 }
 
-void wySpriteEx::draw() {
-	// don't draw if in batch mode
-    if(m_useBatchNode)
-        return;
-
-    // call super
-    wyTextureNode::draw();
-}
-
 void wySpriteEx::setAlpha(int alpha) {
 	wyTextureNode::setAlpha(alpha);
 	m_colorDirty = true;

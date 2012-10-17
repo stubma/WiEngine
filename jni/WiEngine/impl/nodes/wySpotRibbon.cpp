@@ -40,13 +40,12 @@ wySpotRibbon* wySpotRibbon::make(wyTexture2D* tex, wyColor4B color, float fade) 
 wySpotRibbon::wySpotRibbon(wyTexture2D* tex, wyColor4B color, float fade) :
 		wyRibbon(fade),
 		m_distance(DP(20)) {
+	// create empty material and mesh
+	addRenderPair(wyMaterial::make(), wyQuadList::make());
+
 	// set texture
 	tex->setAntiAlias(false);
 	setTexture(tex);
-
-	// create empty material and mesh
-	setMaterial(wyMaterial::make());
-	setMesh(wyQuadList::make());
 
 	// set blend mode
 	setBlendMode(wyRenderState::ALPHA);
@@ -56,18 +55,6 @@ wySpotRibbon::wySpotRibbon(wyTexture2D* tex, wyColor4B color, float fade) :
 }
 
 wySpotRibbon::~wySpotRibbon() {
-}
-
-void wySpotRibbon::updateMaterial() {
-	// get texture parameter, if none, create
-	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-	if(!mp) {
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
-		m_material->addParameter(p);
-	} else {
-		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-		mtp->setTexture(m_tex);
-	}
 }
 
 void wySpotRibbon::updateMeshColor() {
@@ -86,10 +73,11 @@ void wySpotRibbon::addPoint(wyPoint location) {
 	}
 
 	// get texture info
-	float tW = m_tex->getWidth();
-	float tH = m_tex->getHeight();
-	float texW = tW / m_tex->getPixelWidth();
-	float texH = tH / m_tex->getPixelHeight();
+	wyTexture2D* tex = getTexture();
+	float tW = tex->getWidth();
+	float tH = tex->getHeight();
+	float texW = tW / tex->getPixelWidth();
+	float texH = tH / tex->getPixelHeight();
 
 	// get distance between last location and current location
 	float len = wypDistance(m_lastLocation, location);

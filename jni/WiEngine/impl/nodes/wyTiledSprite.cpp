@@ -128,8 +128,7 @@ wyTiledSprite::wyTiledSprite(wyTexture2D* tex) :
 		m_spacingX(0),
 		m_spacingY(0) {
 	// create empty material and mesh
-	setMaterial(wyMaterial::make());
-	setMesh(wyQuadList::make());
+	addRenderPair(wyMaterial::make(), wyQuadList::make());
 
 	// set blend mode
 	setBlendMode(wyRenderState::ALPHA);
@@ -198,18 +197,6 @@ void wyTiledSprite::setTileDirection(bool horizontal, bool vertical) {
 	setNeedUpdateMesh(true);
 }
 
-void wyTiledSprite::updateMaterial() {
-	// get texture parameter, if none, create
-	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-	if(!mp) {
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
-		m_material->addParameter(p);
-	} else {
-		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-		mtp->setTexture(m_tex);
-	}
-}
-
 void wyTiledSprite::updateMeshColor() {
 	wyQuadList* quadList = (wyQuadList*)getMesh();
 	quadList->updateColor(m_color);
@@ -217,7 +204,8 @@ void wyTiledSprite::updateMeshColor() {
 
 void wyTiledSprite::updateMesh() {
 	// if no texture, return
-	if(m_tex == NULL)
+	wyTexture2D* tex = getTexture();
+	if(tex == NULL)
 		return;
 
 	// first clear old quads
@@ -227,8 +215,8 @@ void wyTiledSprite::updateMesh() {
 	// get texture info
 	float tW = m_rect.width;
 	float tH = m_rect.height;
-	float tPW = m_tex->getPixelWidth();
-	float tPH = m_tex->getPixelHeight();
+	float tPW = tex->getPixelWidth();
+	float tPH = tex->getPixelHeight();
 
 	// get original tex coords
 	float orgLeft = (2 * m_rect.x + 1) / (2 * tPW);
@@ -444,7 +432,7 @@ void wyTiledSprite::updateMesh() {
 	}
 }
 
-void wyTiledSprite::setTexture(wyTexture2D* tex) {
+void wyTiledSprite::setTexture(wyTexture2D* tex, int index) {
 	wyNode::setTexture(tex);
 
 	// set rect

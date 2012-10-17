@@ -46,8 +46,7 @@ wyNinePatchSprite::wyNinePatchSprite(wyTexture2D* tex, wyRect texRect, wyRect pa
 		m_patchRect(patchRect),
 		m_texRect(wyrZero) {
 	// create empty material and mesh
-	setMaterial(wyMaterial::make());
-	setMesh(wyQuadList::make());
+	addRenderPair(wyMaterial::make(), wyQuadList::make());
 
 	// set blend mode
 	setBlendMode(wyRenderState::ALPHA);
@@ -65,7 +64,7 @@ void wyNinePatchSprite::setTextureRect(wyRect rect) {
 	setContentSize(MAX(m_width, rect.width), MAX(m_height, rect.height));
 }
 
-void wyNinePatchSprite::setTexture(wyTexture2D* tex) {
+void wyNinePatchSprite::setTexture(wyTexture2D* tex, int index) {
 	wyNode::setTexture(tex);
 
 	// sync content size
@@ -103,8 +102,9 @@ void wyNinePatchSprite::updateMesh() {
 	quadList->removeAllQuads();
 
 	// calculate texture borders
-	float texPW = m_tex->getPixelWidth();
-	float texPH = m_tex->getPixelHeight();
+	wyTexture2D* tex = getTexture();
+	float texPW = tex->getPixelWidth();
+	float texPH = tex->getPixelHeight();
 	float texX0 = m_texRect.x / texPW;
 	float texX1 = (m_texRect.x + m_patchRect.x) / texPW;
 	float texX2 = (m_texRect.x + m_patchRect.x + m_patchRect.width) / texPW;
@@ -172,18 +172,6 @@ void wyNinePatchSprite::updateMesh() {
 	wyq2Set(t, texX2, texY12, texX3, texY12, texX2, texY8, texX3, texY8);
 	wyq3Set(v, vX2, vY12, 0, vX3, vY12, 0, vX2, vY8, 0, vX3, vY8, 0);
 	quadList->appendQuad(t, v);
-}
-
-void wyNinePatchSprite::updateMaterial() {
-	// get texture parameter, if none, create
-	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-	if(!mp) {
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
-		m_material->addParameter(p);
-	} else {
-		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-		mtp->setTexture(m_tex);
-	}
 }
 
 void wyNinePatchSprite::updateMeshColor() {

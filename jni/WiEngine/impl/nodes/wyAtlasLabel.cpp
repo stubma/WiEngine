@@ -480,12 +480,11 @@ wyAtlasLabel::wyAtlasLabel(const char* text, wyTexture2D* tex, wyCharMap* map) :
 	m_map = map;
 	m_map->retain();
 
+	// add render pair
+	addRenderPair(wyMaterial::make(), wyQuadList::make());
+
 	// set texture
 	setTexture(tex);
-
-	// create empty material and mesh
-	setMaterial(wyMaterial::make());
-	setMesh(wyQuadList::make());
 
 	// set blend mode
 	setBlendMode(wyRenderState::ALPHA);
@@ -497,18 +496,6 @@ wyAtlasLabel::wyAtlasLabel(const char* text, wyTexture2D* tex, wyCharMap* map) :
 wyAtlasLabel* wyAtlasLabel::make(const char* text, wyTexture2D* tex, wyCharMap* map) {
 	wyAtlasLabel* n = WYNEW wyAtlasLabel(text, tex, map);
 	return (wyAtlasLabel*)n->autoRelease();
-}
-
-void wyAtlasLabel::updateMaterial() {
-	// get texture parameter, if none, create
-	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-	if(!mp) {
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
-		m_material->addParameter(p);
-	} else {
-		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-		mtp->setTexture(m_tex);
-	}
 }
 
 void wyAtlasLabel::updateMesh() {

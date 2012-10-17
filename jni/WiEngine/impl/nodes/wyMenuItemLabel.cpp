@@ -38,9 +38,9 @@ wyMenuItemLabel* wyMenuItemLabel::make(wyTargetSelector* downSelector, wyTargetS
 	return (wyMenuItemLabel*)n->autoRelease();
 }
 
-void wyMenuItemLabel::draw() {
-	m_label->draw();
-}
+//void wyMenuItemLabel::draw() {
+//	m_label->draw();
+//}
 
 void wyMenuItemLabel::setEnabled(bool enabled) {
     if (m_enabled != enabled) {

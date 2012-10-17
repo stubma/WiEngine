@@ -45,12 +45,6 @@ JNIEXPORT jobject JNICALL Java_com_wiyun_engine_nodes_Node_getUserData
 	return node->getJavaData();
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_draw
-  (JNIEnv * env, jobject thiz) {
-	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	node->draw();
-}
-
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetChildren
   (JNIEnv * env, jobject thiz, jintArray array) {
 	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
@@ -66,12 +60,6 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_getChildCount
   (JNIEnv * env, jobject thiz) {
 	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	return node->getChildCount();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_visit
-  (JNIEnv * env, jobject thiz) {
-	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	node->visit();
 }
 
 JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetFirstChild

@@ -533,9 +533,6 @@ public:
 	 */
 	virtual ~wyButton();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/**
 	 * 设置正常状态的\link wyNode wyNode对象指针\endlink
 	 *
@@ -639,9 +636,6 @@ public:
 	 * 析构函数
 	 */
 	virtual ~wyColorLayer();
-
-	/// @see wyNode::draw
-	virtual void draw();
 
 	/// @see wyNode::setContentSize
 	virtual void setContentSize(float w, float h);
@@ -1052,9 +1046,6 @@ public:
 	 * 获得镜像的明亮度
 	 */
 	float getBrightLevelOfMirror() { return m_brightLevelOfMirror; }
-	
-	/// @see wyNode::draw()
-    virtual void draw();
 };
 
 #endif
@@ -2068,9 +2059,6 @@ public:
 	 */
 	virtual ~wyGradientColorLayer();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/// @see wyNode::setContentSize
 	virtual void setContentSize(float w, float h);
 
@@ -2627,9 +2615,6 @@ public:
 	 */
 	virtual ~wyMenuItemAtlasLabel();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/// @see wyNode::setSelected
 	virtual void setSelected(bool selected);
 
@@ -2730,9 +2715,6 @@ public:
 	 * 析构函数
 	 */
 	virtual ~wyMenuItemLabel();
-
-	/// @see wyNode::draw
-	virtual void draw();
 
 	/// @see wyNode::setSelected
 	virtual void setSelected(bool selected);
@@ -2845,9 +2827,6 @@ public:
 	 * 析构函数
 	 */
 	virtual ~wyMenuItemSprite();
-
-	/// @see wyNode::draw
-	virtual void draw();
 
 	/// @see wyNode::draw
 	virtual void setRotation(float rot);
@@ -3335,9 +3314,6 @@ public:
 	 */
 	virtual ~wyNinePatchSprite();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/// @see wyNode::setContentSize
 	virtual void setContentSize(float w, float h);
 
@@ -3420,17 +3396,6 @@ public:
 	 * 静态构造函数
 	 */
 	static wyNode* make();
-
-	/**
-	 * 执行该节点的渲染。子类需要实现这个方法。这个方法调用时，坐标系会被转换到节点
-	 * 自身坐标系，即(0, 0)代表节点左下角
-	 */
-	virtual void draw();
-
-	/**
-	 * 强制渲染当前节点，包括子节点，网格
-	 */
-	virtual void visit();
 
 	/**
 	 * 如果当前坐标系是父坐标系，则调用此方法将坐标转换为节点自身坐标系
@@ -5065,9 +5030,6 @@ public:
 	 */
 	virtual ~wyProgressTimer();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/**
 	 * 设置进度，从0到100
 	 *
@@ -5157,9 +5119,6 @@ public:
 	 * 析构函数
 	 */
 	virtual ~wyRenderTexture();
-
-	/// @see wyNode::draw
-	virtual void draw();
 
 	/// @see wyNode::getAlpha
 	virtual int getAlpha() { return m_color.a; }
@@ -5825,9 +5784,6 @@ public:
 	/// 析构函数
 	virtual ~wySpriteEx();
 
-	/// @see wyNode::draw()
-	virtual void draw();
-
 	/// @see wyNode::addChild(wyNode*, int, int)
 	virtual void addChild(wyNode* child, int z, int tag);
 
@@ -6045,9 +6001,6 @@ public:
 	 * 析构函数
 	 */
 	virtual ~wyTextureNode();
-
-	/// @see wyNode::draw
-	virtual void draw();
 
 	/// @see wyNode::getAlpha
 	virtual int getAlpha() { return m_color.a; }
@@ -6645,9 +6598,6 @@ public:
 	 */
     virtual ~wyStripRibbon();
 
-    /// @see wyNode::draw
-    virtual void draw();
-
 	/// @see wyNode::getTexture
 	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
 
@@ -6729,9 +6679,6 @@ public:
 	 * 析构函数
 	 */
     virtual ~wySpotRibbon();
-
-    /// @see wyNode::draw
-    virtual void draw();
 
 	/// @see wyNode::getTexture
 	virtual wyTexture2D* getTexture() { return m_atlas->getTexture(); }
@@ -6828,9 +6775,6 @@ public:
 	 * 析构函数
 	 */
     virtual ~wyBladeRibbon();
-
-    /// @see wyNode::draw
-    virtual void draw();
 
 	/// @see wyNode::getAlpha
 	virtual int getAlpha() { return m_color.a; }
@@ -6939,9 +6883,6 @@ public:
 	 * 析构函数
 	 */
     virtual ~wyLineRibbon();
-
-    /// @see wyNode::draw
-    virtual void draw();
 
 	/// @see wyNode::getTexture
 	virtual wyTexture2D* getTexture() { return m_tex; }
@@ -7113,9 +7054,6 @@ public:
 	static wyDotPageIndicator* make(wyTexture2D* dot, wyRect dotRect, wyTexture2D* selectedDot, wyRect selectedDotRect);
 
 	virtual ~wyDotPageIndicator();
-
-	/// @see wyNode::draw
-	virtual void draw();
 
 	void setDotSpacing(float spacing) { m_dotSpacing = spacing; }
 	float getDotSpacing() { return m_dotSpacing; }
@@ -7625,9 +7563,6 @@ public:
 	static wyTextBox* make(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode* focused, wyNode* label);
 
 	virtual ~wyTextBox();
-
-	/// @see wyNode::draw
-	virtual void draw();
 
 	/// @see wyNode::onEnter
 	virtual void onEnter();

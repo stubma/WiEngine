@@ -1,6 +1,6 @@
 /*
 ** Lua binding: transitions
-** Generated automatically by tolua++-1.0.92 on Tue Jan 17 15:18:17 2012.
+** Generated automatically by tolua++-1.0.92 on Wed Oct 17 11:05:26 2012.
 */
 
 #ifndef __cplusplus
@@ -3571,37 +3571,6 @@ static int tolua_transitions_wyTransitionScene_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyTransitionScene */
-#ifndef TOLUA_DISABLE_tolua_transitions_wyTransitionScene_draw00
-static int tolua_transitions_wyTransitionScene_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTransitionScene",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTransitionScene* self = (wyTransitionScene*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: onEnter of class  wyTransitionScene */
 #ifndef TOLUA_DISABLE_tolua_transitions_wyTransitionScene_onEnter00
 static int tolua_transitions_wyTransitionScene_onEnter00(lua_State* tolua_S)
@@ -4856,7 +4825,6 @@ TOLUA_API int tolua_transitions_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"wyTransitionScene");
    tolua_function(tolua_S,"make",tolua_transitions_wyTransitionScene_make00);
    tolua_function(tolua_S,"delete",tolua_transitions_wyTransitionScene_delete00);
-   tolua_function(tolua_S,"draw",tolua_transitions_wyTransitionScene_draw00);
    tolua_function(tolua_S,"onEnter",tolua_transitions_wyTransitionScene_onEnter00);
    tolua_function(tolua_S,"onExit",tolua_transitions_wyTransitionScene_onExit00);
    tolua_function(tolua_S,"isTransition",tolua_transitions_wyTransitionScene_isTransition00);

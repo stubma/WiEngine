@@ -40,7 +40,8 @@ void wyRadialCCWTransition::initScenes() {
 	// make screenshot of out scene
 	m_outTexture = wyRenderTexture::make();
 	m_outTexture->beginRender();
-	m_outScene->visit();
+	// TODO gles2
+//	m_outScene->visit();
 	m_outTexture->endRender();
 
 	// create progress timer

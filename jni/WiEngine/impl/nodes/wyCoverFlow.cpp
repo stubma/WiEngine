@@ -806,66 +806,66 @@ void wyCoverFlow::drawMesh(float ratioX, float ratioY) {
 //    }
 }
 
-void wyCoverFlow::draw() {
-    if(m_noDraw) {
-        wyNode::draw();
-        return;
-    }
-
-	// always check viewport update
-	int viewPort[4] = {0};
-	glGetIntegerv(GL_VIEWPORT, viewPort);
-	m_viewPort.x = viewPort[0];
-    m_viewPort.y = viewPort[1];
-    m_viewPort.width = viewPort[2];
-    m_viewPort.height = viewPort[3];
-
-	// vbo has problem in windows, so exlude it in windows platform
-#ifndef WINDOWS
-    if(!m_fVersionGot) {
-        const char* version = (const char*)glGetString(GL_VERSION); 
-        m_fVBOSupported = (strstr(version, "1.1") != NULL);
-        m_fVersionGot = true;
-    }
-#endif
-    
-    initVertices();
-
-	// TODO gles2
-//    // Clears the color and depth buffer
-//    glShadeModel(GL_SMOOTH);
-//	glEnableClientState(GL_VERTEX_ARRAY);
-//	glEnableClientState(GL_COLOR_ARRAY);
-//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//    // get modelview and projection matrix
-//    if(m_isMartixQuerySupported) {
-//        // clear opengl error flag
-//        glGetError();
-//
-//        glGetFloatv(GL_MODELVIEW_MATRIX, (GLfloat*)m_modelViewMatrix);
-//        glGetFloatv(GL_PROJECTION_MATRIX, (GLfloat*)m_projectionMatrix);
-//
-//        if(GL_NO_ERROR != glGetError())
-//            m_isMartixQuerySupported = false;
-//        else
-//            m_isMatrixValid = true;
+//void wyCoverFlow::draw() {
+//    if(m_noDraw) {
+//        wyNode::draw();
+//        return;
 //    }
 //
-//    //do drawing
-//    drawLeftCovers();
-//    drawRightCovers();
-//    drawFrontCover();
-//    
-//	// unbind the vertex buffers as we don't need them bound anymore
-//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//	// always check viewport update
+//	int viewPort[4] = {0};
+//	glGetIntegerv(GL_VIEWPORT, viewPort);
+//	m_viewPort.x = viewPort[0];
+//    m_viewPort.y = viewPort[1];
+//    m_viewPort.width = viewPort[2];
+//    m_viewPort.height = viewPort[3];
 //
-//	glDisableClientState(GL_VERTEX_ARRAY);
-//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//	glDisableClientState(GL_COLOR_ARRAY);
-//    glShadeModel(GL_FLAT);
-}
+//	// vbo has problem in windows, so exlude it in windows platform
+//#ifndef WINDOWS
+//    if(!m_fVersionGot) {
+//        const char* version = (const char*)glGetString(GL_VERSION);
+//        m_fVBOSupported = (strstr(version, "1.1") != NULL);
+//        m_fVersionGot = true;
+//    }
+//#endif
+//    
+//    initVertices();
+//
+//	// TODO gles2
+////    // Clears the color and depth buffer
+////    glShadeModel(GL_SMOOTH);
+////	glEnableClientState(GL_VERTEX_ARRAY);
+////	glEnableClientState(GL_COLOR_ARRAY);
+////	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+////
+////    // get modelview and projection matrix
+////    if(m_isMartixQuerySupported) {
+////        // clear opengl error flag
+////        glGetError();
+////
+////        glGetFloatv(GL_MODELVIEW_MATRIX, (GLfloat*)m_modelViewMatrix);
+////        glGetFloatv(GL_PROJECTION_MATRIX, (GLfloat*)m_projectionMatrix);
+////
+////        if(GL_NO_ERROR != glGetError())
+////            m_isMartixQuerySupported = false;
+////        else
+////            m_isMatrixValid = true;
+////    }
+////
+////    //do drawing
+////    drawLeftCovers();
+////    drawRightCovers();
+////    drawFrontCover();
+////
+////	// unbind the vertex buffers as we don't need them bound anymore
+////	glBindBuffer(GL_ARRAY_BUFFER, 0);
+////	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+////
+////	glDisableClientState(GL_VERTEX_ARRAY);
+////	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+////	glDisableClientState(GL_COLOR_ARRAY);
+////    glShadeModel(GL_FLAT);
+//}
 
 void wyCoverFlow::initVertices() {
 	// this function creates the vertex position, color, normal, and tex coordinate values for one cover.

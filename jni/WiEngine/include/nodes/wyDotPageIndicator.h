@@ -151,9 +151,6 @@ public:
 
 	virtual ~wyDotPageIndicator();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/// set spacing between dot
 	void setDotSpacing(float spacing) { m_dotSpacing = spacing; }
 

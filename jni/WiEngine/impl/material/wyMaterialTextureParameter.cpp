@@ -34,10 +34,13 @@
 wyMaterialTextureParameter::wyMaterialTextureParameter(const char* name, wyShaderVariable::Value& v, wyTexture2D* tex, int unit) :
 		wyMaterialParameter(name, v),
 		m_unit(unit),
-		m_tex(tex) {
+		m_tex(NULL) {
+	m_tex = tex;
+	wyObjectRetain(m_tex);
 }
 
 wyMaterialTextureParameter::~wyMaterialTextureParameter() {
+	wyObjectRelease(m_tex);
 }
 
 wyMaterialTextureParameter* wyMaterialTextureParameter::make(const char* uniformName, wyTexture2D* tex, int unit) {
@@ -50,4 +53,10 @@ wyMaterialTextureParameter* wyMaterialTextureParameter::make(const char* uniform
 void wyMaterialTextureParameter::apply(wyRenderer* r, wyTechnique* tech) {
 	r->setTexture(m_unit, m_tex);
 	tech->updateUniformValue(m_name, m_value);
+}
+
+void wyMaterialTextureParameter::setTexture(wyTexture2D* tex) {
+	wyObjectRetain(tex);
+	wyObjectRelease(m_tex);
+	m_tex = tex;
 }

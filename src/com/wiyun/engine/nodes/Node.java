@@ -356,12 +356,6 @@ public class Node extends BaseWYObject implements IKeyHandler, IMultiTouchHandle
 		nativeConvertToWorldSpaceAR(x, y, p);
 		return p;
 	}
-
-	/**
-	 * 执行该节点的渲染。子类需要实现这个方法。这个方法调用时，坐标系会被转换到节点
-	 * 自身坐标系，即(0, 0)代表节点左下角
-	 */
-	public native final void draw();
 	
 	/**
 	 * 设置java端的虚函数实现
@@ -1277,11 +1271,6 @@ public class Node extends BaseWYObject implements IKeyHandler, IMultiTouchHandle
 		return "<instance of " + this.getClass() + "| Tag = " + getTag() + ">";
 	}
 
-	/**
-	 * 强制渲染当前节点，包括子节点
-	 */
-	public native final void visit();
-	
 	/**
 	 * 如果当前坐标系是父坐标系，则调用此方法将坐标转换为节点自身坐标系
 	 */

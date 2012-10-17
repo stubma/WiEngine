@@ -53,12 +53,14 @@ void wyCrossFadeTransition::postFinish() {
 void wyCrossFadeTransition::initScenes() {
 	m_inTexture = wyRenderTexture::make();
 	m_inTexture->beginRender();
-	m_inScene->visit();
+	// TODO gles2
+//	m_inScene->visit();
 	m_inTexture->endRender();
 
 	m_outTexture = wyRenderTexture::make();
 	m_outTexture->beginRender();
-	m_outScene->visit();
+	// TODO gles2
+//	m_outScene->visit();
 	m_outTexture->endRender();
 
 	m_inTexture->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);

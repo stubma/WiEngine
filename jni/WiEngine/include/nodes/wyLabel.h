@@ -309,7 +309,7 @@ public:
 	 * @return 文字字符串
 	 * \endif
 	 */
-	virtual const char* getText() { return m_tex->getText(); }
+	virtual const char* getText() { return getTexture()->getText(); }
 
 	/**
 	 * \if English

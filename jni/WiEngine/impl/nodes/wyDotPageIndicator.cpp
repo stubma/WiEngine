@@ -95,63 +95,63 @@ void wyDotPageIndicator::updateContentSize() {
 				MAX(m_dotRect.height, m_selectedDotRect.height));
 }
 
-void wyDotPageIndicator::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-//	float dotW = MAX(m_dot->getWidth(), m_selectedDot->getWidth());
-//	float dotH = MAX(m_dot->getHeight(), m_selectedDot->getHeight());
+//void wyDotPageIndicator::draw() {
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+////	float dotW = MAX(m_dot->getWidth(), m_selectedDot->getWidth());
+////	float dotH = MAX(m_dot->getHeight(), m_selectedDot->getHeight());
+////	float x = dotW / 2;
+////	float y = dotH / 2;
+////	for(int i = 0; i < m_pageCount; i++) {
+////		if(m_selectedIndex == i) {
+////			m_selectedDot->draw(x - m_selectedDot->getWidth() / 2,
+////					y - m_selectedDot->getHeight() / 2,
+////					m_selectedDotRect.width,
+////					m_selectedDotRect.height,
+////					false,
+////					false,
+////					m_selectedDotRect);
+////		} else {
+////			m_dot->draw(x - m_dot->getWidth() / 2,
+////					y - m_dot->getHeight() / 2,
+////					m_dotRect.width,
+////					m_dotRect.height,
+////					false,
+////					false,
+////					m_dotRect);
+////		}
+////
+////		x += dotW + m_dotSpacing;
+////	}
+//
+//    float dotW = MAX(m_dotRect.width, m_selectedDotRect.width);
+//	float dotH = MAX(m_dotRect.height, m_selectedDotRect.height);
 //	float x = dotW / 2;
 //	float y = dotH / 2;
 //	for(int i = 0; i < m_pageCount; i++) {
 //		if(m_selectedIndex == i) {
-//			m_selectedDot->draw(x - m_selectedDot->getWidth() / 2,
-//					y - m_selectedDot->getHeight() / 2,
-//					m_selectedDotRect.width,
-//					m_selectedDotRect.height,
-//					false,
-//					false,
-//					m_selectedDotRect);
+//			m_selectedDot->draw(x - m_selectedDotRect.width / 2,
+//                                y - m_selectedDotRect.height / 2,
+//                                m_selectedDotRect.width,
+//                                m_selectedDotRect.height,
+//                                false,
+//                                false,
+//                                m_selectedDotRect);
 //		} else {
-//			m_dot->draw(x - m_dot->getWidth() / 2,
-//					y - m_dot->getHeight() / 2,
-//					m_dotRect.width,
-//					m_dotRect.height,
-//					false,
-//					false,
-//					m_dotRect);
+//			m_dot->draw(x - m_dotRect.width / 2,
+//                        y - m_dotRect.height / 2,
+//                        m_dotRect.width,
+//                        m_dotRect.height,
+//                        false,
+//                        false,
+//                        m_dotRect);
 //		}
 //
 //		x += dotW + m_dotSpacing;
 //	}
-    
-    float dotW = MAX(m_dotRect.width, m_selectedDotRect.width);
-	float dotH = MAX(m_dotRect.height, m_selectedDotRect.height);
-	float x = dotW / 2;
-	float y = dotH / 2;
-	for(int i = 0; i < m_pageCount; i++) {
-		if(m_selectedIndex == i) {
-			m_selectedDot->draw(x - m_selectedDotRect.width / 2,
-                                y - m_selectedDotRect.height / 2,
-                                m_selectedDotRect.width,
-                                m_selectedDotRect.height,
-                                false,
-                                false,
-                                m_selectedDotRect);
-		} else {
-			m_dot->draw(x - m_dotRect.width / 2,
-                        y - m_dotRect.height / 2,
-                        m_dotRect.width,
-                        m_dotRect.height,
-                        false,
-                        false,
-                        m_dotRect);
-		}
-        
-		x += dotW + m_dotSpacing;
-	}
-}
+//}

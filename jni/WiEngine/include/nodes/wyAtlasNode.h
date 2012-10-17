@@ -137,9 +137,6 @@ public:
 	 */
     virtual ~wyAtlasNode();
 
-    /// @see wyNode::updateMaterial
-    virtual void updateMaterial();
-
 	/// @see wyNode::updateMeshColor
 	virtual void updateMeshColor();
 };

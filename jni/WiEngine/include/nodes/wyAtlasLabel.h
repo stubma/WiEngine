@@ -150,9 +150,6 @@ public:
 	/// @see wyNode::isGeometry
 	virtual bool isGeometry() { return true; }
 
-	/// @see wyGeometry::updateMaterial
-	virtual void updateMaterial();
-
 	/// @see wyGeometry::updateMesh
 	virtual void updateMesh();
 

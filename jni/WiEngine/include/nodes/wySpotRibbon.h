@@ -69,9 +69,6 @@ public:
 	/// @see wyNode::isGeometry
 	virtual bool isGeometry() { return true; }
 
-	/// @see wyNode::updateMaterial
-	virtual void updateMaterial();
-
 	/// @see wyNode::updateMeshColor
 	virtual void updateMeshColor();
 

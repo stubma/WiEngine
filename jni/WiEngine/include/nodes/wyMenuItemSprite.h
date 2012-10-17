@@ -129,9 +129,6 @@ public:
 	virtual ~wyMenuItemSprite();
 
 	/// @see wyNode::draw
-	virtual void draw();
-
-	/// @see wyNode::draw
 	virtual void setRotation(float rot);
 
 	/// @see wyNode::setScale

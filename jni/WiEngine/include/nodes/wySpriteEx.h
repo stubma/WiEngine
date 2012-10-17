@@ -162,9 +162,6 @@ public:
 	/// 析构函数
 	virtual ~wySpriteEx();
 
-	/// @see wyNode::draw()
-	virtual void draw();
-
 	/// @see wyNode::addChild(wyNode*, int, int)
 	virtual void addChild(wyNode* child, int z, int tag);
 

@@ -71,27 +71,14 @@ void wyAtlasNode::init(wyTexture2D* tex, int itemWidth, int itemHeight, int capa
 	m_texStepX = m_itemWidth / (float)tex->getPixelWidth();
 	m_texStepY = m_itemHeight / (float)tex->getPixelHeight();
 
+	// add render pair
+	addRenderPair(wyMaterial::make(), wyQuadList::make());
+
 	// set texture
 	setTexture(tex);
 
-	// create empty material and mesh
-	setMaterial(wyMaterial::make());
-	setMesh(wyQuadList::make());
-
 	// set blend mode
 	setBlendMode(wyRenderState::ALPHA);
-}
-
-void wyAtlasNode::updateMaterial() {
-	// get texture parameter, if none, create
-	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-	if(!mp) {
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
-		m_material->addParameter(p);
-	} else {
-		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-		mtp->setTexture(m_tex);
-	}
 }
 
 void wyAtlasNode::updateMeshColor() {

@@ -91,12 +91,6 @@ private:
 	/// the related \link wyBitmapFont wyBitmapFont\endlink object
 	wyBitmapFont* m_font;
 
-	/// material list
-	vector<wyMaterial*>* m_materialList;
-
-	/// mesh list
-	vector<wyQuadList*>* m_meshList;
-
 	/**
 	 * the pixel width of a space character if there is no space bitmap in font.
 	 * default is 6dp
@@ -175,26 +169,11 @@ public:
 	/// @see wyNode::isGeometry
 	virtual bool isGeometry() { return true; }
 
-	/// @see wyGeometry::updateMaterial
-	virtual void updateMaterial();
-
 	/// @see wyGeometry::updateMesh
 	virtual void updateMesh();
 
 	/// @see wyGeometry::updateMeshColor
 	virtual void updateMeshColor();
-
-	/// @see wyNode::getMaterialCount
-	virtual int getMaterialCount() { return m_materialList->size(); }
-
-	/// @see wyNode::getMaterial
-	virtual wyMaterial* getMaterial(int index = 0) { return m_materialList->at(index); }
-
-	/// @see wyNode::getMesh
-	virtual wyMesh* getMesh(int index = 0) { return m_meshList->at(index); }
-
-	/// @see wyNode::getLodLevel
-	virtual int getLodLevel(int index = 0) { return 0; }
 
 	/// @see wyNode::setText
 	virtual void setText(const char* text);

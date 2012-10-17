@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on 08/16/12 16:38:13.
+** Generated automatically by tolua++-1.0.92 on Wed Oct 17 11:04:24 2012.
 */
 
 #ifndef __cplusplus
@@ -2312,37 +2312,6 @@ static int tolua_nodes_wyButton_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyButton */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyButton_draw00
-static int tolua_nodes_wyButton_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyButton",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyButton* self = (wyButton*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: setNormalState of class  wyButton */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyButton_setNormalState00
 static int tolua_nodes_wyButton_setNormalState00(lua_State* tolua_S)
@@ -2694,37 +2663,6 @@ static int tolua_nodes_wyColorLayer_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyColorLayer */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyColorLayer_draw00
-static int tolua_nodes_wyColorLayer_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyColorLayer",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyColorLayer* self = (wyColorLayer*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -4935,37 +4873,6 @@ static int tolua_nodes_wyCoverFlow_getBrightLevelOfMirror00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getBrightLevelOfMirror'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_draw00
-static int tolua_nodes_wyCoverFlow_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -7422,37 +7329,6 @@ static int tolua_nodes_wyGradientColorLayer_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyGradientColorLayer */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyGradientColorLayer_draw00
-static int tolua_nodes_wyGradientColorLayer_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyGradientColorLayer",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyGradientColorLayer* self = (wyGradientColorLayer*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: setContentSize of class  wyGradientColorLayer */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyGradientColorLayer_setContentSize00
 static int tolua_nodes_wyGradientColorLayer_setContentSize00(lua_State* tolua_S)
@@ -9094,37 +8970,6 @@ static int tolua_nodes_wyMenuItemAtlasLabel_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyMenuItemAtlasLabel */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyMenuItemAtlasLabel_draw00
-static int tolua_nodes_wyMenuItemAtlasLabel_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyMenuItemAtlasLabel",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyMenuItemAtlasLabel* self = (wyMenuItemAtlasLabel*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: setSelected of class  wyMenuItemAtlasLabel */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyMenuItemAtlasLabel_setSelected00
 static int tolua_nodes_wyMenuItemAtlasLabel_setSelected00(lua_State* tolua_S)
@@ -9627,37 +9472,6 @@ static int tolua_nodes_wyMenuItemLabel_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyMenuItemLabel */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyMenuItemLabel_draw00
-static int tolua_nodes_wyMenuItemLabel_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyMenuItemLabel",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyMenuItemLabel* self = (wyMenuItemLabel*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -10210,37 +10024,6 @@ static int tolua_nodes_wyMenuItemSprite_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyMenuItemSprite */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyMenuItemSprite_draw00
-static int tolua_nodes_wyMenuItemSprite_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyMenuItemSprite",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyMenuItemSprite* self = (wyMenuItemSprite*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -12117,37 +11900,6 @@ static int tolua_nodes_wyNinePatchSprite_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyNinePatchSprite */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyNinePatchSprite_draw00
-static int tolua_nodes_wyNinePatchSprite_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyNinePatchSprite",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyNinePatchSprite* self = (wyNinePatchSprite*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: setContentSize of class  wyNinePatchSprite */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyNinePatchSprite_setContentSize00
 static int tolua_nodes_wyNinePatchSprite_setContentSize00(lua_State* tolua_S)
@@ -12346,68 +12098,6 @@ static int tolua_nodes_wyNode_make00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyNode */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyNode_draw00
-static int tolua_nodes_wyNode_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyNode* self = (wyNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: visit of class  wyNode */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyNode_visit00
-static int tolua_nodes_wyNode_visit00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyNode* self = (wyNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'visit'", NULL);
-#endif
-  {
-   self->visit();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'visit'.",&tolua_err);
  return 0;
 #endif
 }
@@ -19846,37 +19536,6 @@ static int tolua_nodes_wyProgressTimer_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyProgressTimer */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyProgressTimer_draw00
-static int tolua_nodes_wyProgressTimer_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyProgressTimer",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyProgressTimer* self = (wyProgressTimer*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: setPercentage of class  wyProgressTimer */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyProgressTimer_setPercentage00
 static int tolua_nodes_wyProgressTimer_setPercentage00(lua_State* tolua_S)
@@ -20120,37 +19779,6 @@ static int tolua_nodes_wyRenderTexture_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyRenderTexture */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyRenderTexture_draw00
-static int tolua_nodes_wyRenderTexture_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyRenderTexture",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyRenderTexture* self = (wyRenderTexture*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -22359,37 +21987,6 @@ static int tolua_nodes_wySpriteEx_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wySpriteEx */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySpriteEx_draw00
-static int tolua_nodes_wySpriteEx_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySpriteEx",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySpriteEx* self = (wySpriteEx*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: addChild of class  wySpriteEx */
 #ifndef TOLUA_DISABLE_tolua_nodes_wySpriteEx_addChild00
 static int tolua_nodes_wySpriteEx_addChild00(lua_State* tolua_S)
@@ -23731,37 +23328,6 @@ static int tolua_nodes_wyTextureNode_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyTextureNode */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyTextureNode_draw00
-static int tolua_nodes_wyTextureNode_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureNode* self = (wyTextureNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -26194,37 +25760,6 @@ static int tolua_nodes_wyStripRibbon_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyStripRibbon */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyStripRibbon_draw00
-static int tolua_nodes_wyStripRibbon_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyStripRibbon",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyStripRibbon* self = (wyStripRibbon*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: getTexture of class  wyStripRibbon */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyStripRibbon_getTexture00
 static int tolua_nodes_wyStripRibbon_getTexture00(lua_State* tolua_S)
@@ -26514,37 +26049,6 @@ static int tolua_nodes_wySpotRibbon_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wySpotRibbon */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySpotRibbon_draw00
-static int tolua_nodes_wySpotRibbon_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySpotRibbon",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySpotRibbon* self = (wySpotRibbon*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -26904,37 +26408,6 @@ static int tolua_nodes_wyBladeRibbon_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyBladeRibbon */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyBladeRibbon_draw00
-static int tolua_nodes_wyBladeRibbon_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyBladeRibbon",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyBladeRibbon* self = (wyBladeRibbon*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -27456,37 +26929,6 @@ static int tolua_nodes_wyLineRibbon_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyLineRibbon */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyLineRibbon_draw00
-static int tolua_nodes_wyLineRibbon_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyLineRibbon",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyLineRibbon* self = (wyLineRibbon*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -28120,37 +27562,6 @@ static int tolua_nodes_wyDotPageIndicator_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyDotPageIndicator */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyDotPageIndicator_draw00
-static int tolua_nodes_wyDotPageIndicator_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyDotPageIndicator",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyDotPageIndicator* self = (wyDotPageIndicator*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -30019,37 +29430,6 @@ static int tolua_nodes_wyTextBox_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyTextBox */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyTextBox_draw00
-static int tolua_nodes_wyTextBox_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextBox",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextBox* self = (wyTextBox*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -33235,7 +32615,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyButton_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyButton_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyButton_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyButton_draw00);
    tolua_function(tolua_S,"setNormalState",tolua_nodes_wyButton_setNormalState00);
    tolua_function(tolua_S,"setSelectedState",tolua_nodes_wyButton_setSelectedState00);
    tolua_function(tolua_S,"setDisabledState",tolua_nodes_wyButton_setDisabledState00);
@@ -33255,7 +32634,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyColorLayer_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyColorLayer_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyColorLayer_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyColorLayer_draw00);
    tolua_function(tolua_S,"setContentSize",tolua_nodes_wyColorLayer_setContentSize00);
    tolua_function(tolua_S,"getAlpha",tolua_nodes_wyColorLayer_getAlpha00);
    tolua_function(tolua_S,"setAlpha",tolua_nodes_wyColorLayer_setAlpha00);
@@ -33343,7 +32721,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getHeightFromMirror",tolua_nodes_wyCoverFlow_getHeightFromMirror00);
    tolua_function(tolua_S,"setBrightLevelOfMirror",tolua_nodes_wyCoverFlow_setBrightLevelOfMirror00);
    tolua_function(tolua_S,"getBrightLevelOfMirror",tolua_nodes_wyCoverFlow_getBrightLevelOfMirror00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyCoverFlow_draw00);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"PROJECTION_2D",PROJECTION_2D);
   tolua_constant(tolua_S,"PROJECTION_3D",PROJECTION_3D);
@@ -33453,7 +32830,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setToColor",tolua_nodes_wyGradientColorLayer_setToColor00);
    tolua_function(tolua_S,"getToColor",tolua_nodes_wyGradientColorLayer_getToColor00);
    tolua_function(tolua_S,"delete",tolua_nodes_wyGradientColorLayer_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyGradientColorLayer_draw00);
    tolua_function(tolua_S,"setContentSize",tolua_nodes_wyGradientColorLayer_setContentSize00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
@@ -33548,7 +32924,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyMenuItemAtlasLabel_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyMenuItemAtlasLabel_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyMenuItemAtlasLabel_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyMenuItemAtlasLabel_draw00);
    tolua_function(tolua_S,"setSelected",tolua_nodes_wyMenuItemAtlasLabel_setSelected00);
    tolua_function(tolua_S,"setEnabled",tolua_nodes_wyMenuItemAtlasLabel_setEnabled00);
    tolua_function(tolua_S,"beforeInvoke",tolua_nodes_wyMenuItemAtlasLabel_beforeInvoke00);
@@ -33572,7 +32947,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyMenuItemLabel_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyMenuItemLabel_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyMenuItemLabel_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyMenuItemLabel_draw00);
    tolua_function(tolua_S,"setSelected",tolua_nodes_wyMenuItemLabel_setSelected00);
    tolua_function(tolua_S,"setEnabled",tolua_nodes_wyMenuItemLabel_setEnabled00);
    tolua_function(tolua_S,"beforeInvoke",tolua_nodes_wyMenuItemLabel_beforeInvoke00);
@@ -33597,7 +32971,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyMenuItemSprite_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyMenuItemSprite_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyMenuItemSprite_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyMenuItemSprite_draw00);
    tolua_function(tolua_S,"setRotation",tolua_nodes_wyMenuItemSprite_setRotation00);
    tolua_function(tolua_S,"setScale",tolua_nodes_wyMenuItemSprite_setScale00);
    tolua_function(tolua_S,"setScaleX",tolua_nodes_wyMenuItemSprite_setScaleX00);
@@ -33689,7 +33062,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"make",tolua_nodes_wyNinePatchSprite_make00);
    tolua_function(tolua_S,"make",tolua_nodes_wyNinePatchSprite_make01);
    tolua_function(tolua_S,"delete",tolua_nodes_wyNinePatchSprite_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyNinePatchSprite_draw00);
    tolua_function(tolua_S,"setContentSize",tolua_nodes_wyNinePatchSprite_setContentSize00);
    tolua_function(tolua_S,"getTexture",tolua_nodes_wyNinePatchSprite_getTexture00);
    tolua_function(tolua_S,"setTexture",tolua_nodes_wyNinePatchSprite_setTexture00);
@@ -33700,8 +33072,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"wyNode","wyNode","wyObject",NULL);
   tolua_beginmodule(tolua_S,"wyNode");
    tolua_function(tolua_S,"make",tolua_nodes_wyNode_make00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyNode_draw00);
-   tolua_function(tolua_S,"visit",tolua_nodes_wyNode_visit00);
    tolua_function(tolua_S,"transform",tolua_nodes_wyNode_transform00);
    tolua_function(tolua_S,"transformAncestors",tolua_nodes_wyNode_transformAncestors00);
    tolua_function(tolua_S,"onEnter",tolua_nodes_wyNode_onEnter00);
@@ -33949,7 +33319,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyProgressTimer_new01_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyProgressTimer_new01_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyProgressTimer_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyProgressTimer_draw00);
    tolua_function(tolua_S,"setPercentage",tolua_nodes_wyProgressTimer_setPercentage00);
    tolua_function(tolua_S,"getPercentage",tolua_nodes_wyProgressTimer_getPercentage00);
    tolua_function(tolua_S,"increase",tolua_nodes_wyProgressTimer_increase00);
@@ -33965,7 +33334,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"make",tolua_nodes_wyRenderTexture_make00);
    tolua_function(tolua_S,"make",tolua_nodes_wyRenderTexture_make01);
    tolua_function(tolua_S,"delete",tolua_nodes_wyRenderTexture_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyRenderTexture_draw00);
    tolua_function(tolua_S,"getAlpha",tolua_nodes_wyRenderTexture_getAlpha00);
    tolua_function(tolua_S,"setAlpha",tolua_nodes_wyRenderTexture_setAlpha00);
    tolua_function(tolua_S,"getColor",tolua_nodes_wyRenderTexture_getColor00);
@@ -34092,7 +33460,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wySpriteEx_new03_local);
    tolua_function(tolua_S,".call",tolua_nodes_wySpriteEx_new03_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wySpriteEx_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wySpriteEx_draw00);
    tolua_function(tolua_S,"addChild",tolua_nodes_wySpriteEx_addChild00);
    tolua_function(tolua_S,"setAlpha",tolua_nodes_wySpriteEx_setAlpha00);
    tolua_function(tolua_S,"setColor",tolua_nodes_wySpriteEx_setColor00);
@@ -34160,7 +33527,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyTextureNode_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyTextureNode_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyTextureNode_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyTextureNode_draw00);
    tolua_function(tolua_S,"getAlpha",tolua_nodes_wyTextureNode_getAlpha00);
    tolua_function(tolua_S,"setAlpha",tolua_nodes_wyTextureNode_setAlpha00);
    tolua_function(tolua_S,"getColor",tolua_nodes_wyTextureNode_getColor00);
@@ -34265,7 +33631,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyStripRibbon_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyStripRibbon_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyStripRibbon_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyStripRibbon_draw00);
    tolua_function(tolua_S,"getTexture",tolua_nodes_wyStripRibbon_getTexture00);
    tolua_function(tolua_S,"setTexture",tolua_nodes_wyStripRibbon_setTexture00);
    tolua_function(tolua_S,"update",tolua_nodes_wyStripRibbon_update00);
@@ -34283,7 +33648,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wySpotRibbon_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wySpotRibbon_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wySpotRibbon_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wySpotRibbon_draw00);
    tolua_function(tolua_S,"getTexture",tolua_nodes_wySpotRibbon_getTexture00);
    tolua_function(tolua_S,"setTexture",tolua_nodes_wySpotRibbon_setTexture00);
    tolua_function(tolua_S,"update",tolua_nodes_wySpotRibbon_update00);
@@ -34303,7 +33667,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyBladeRibbon_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyBladeRibbon_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyBladeRibbon_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyBladeRibbon_draw00);
    tolua_function(tolua_S,"getAlpha",tolua_nodes_wyBladeRibbon_getAlpha00);
    tolua_function(tolua_S,"setAlpha",tolua_nodes_wyBladeRibbon_setAlpha00);
    tolua_function(tolua_S,"getColor",tolua_nodes_wyBladeRibbon_getColor00);
@@ -34328,7 +33691,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_nodes_wyLineRibbon_new00_local);
    tolua_function(tolua_S,".call",tolua_nodes_wyLineRibbon_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyLineRibbon_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyLineRibbon_draw00);
    tolua_function(tolua_S,"getTexture",tolua_nodes_wyLineRibbon_getTexture00);
    tolua_function(tolua_S,"setTexture",tolua_nodes_wyLineRibbon_setTexture00);
    tolua_function(tolua_S,"getAlpha",tolua_nodes_wyLineRibbon_getAlpha00);
@@ -34358,7 +33720,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"make",tolua_nodes_wyDotPageIndicator_make00);
    tolua_function(tolua_S,"make",tolua_nodes_wyDotPageIndicator_make01);
    tolua_function(tolua_S,"delete",tolua_nodes_wyDotPageIndicator_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyDotPageIndicator_draw00);
    tolua_function(tolua_S,"setDotSpacing",tolua_nodes_wyDotPageIndicator_setDotSpacing00);
    tolua_function(tolua_S,"getDotSpacing",tolua_nodes_wyDotPageIndicator_getDotSpacing00);
   tolua_endmodule(tolua_S);
@@ -34461,7 +33822,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"wyTextBox");
    tolua_function(tolua_S,"make",tolua_nodes_wyTextBox_make00);
    tolua_function(tolua_S,"delete",tolua_nodes_wyTextBox_delete00);
-   tolua_function(tolua_S,"draw",tolua_nodes_wyTextBox_draw00);
    tolua_function(tolua_S,"onEnter",tolua_nodes_wyTextBox_onEnter00);
    tolua_function(tolua_S,"onExit",tolua_nodes_wyTextBox_onExit00);
    tolua_function(tolua_S,"getText",tolua_nodes_wyTextBox_getText00);

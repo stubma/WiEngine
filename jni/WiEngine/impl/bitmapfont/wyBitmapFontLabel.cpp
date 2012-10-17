@@ -43,24 +43,10 @@ wyBitmapFontLabel::wyBitmapFontLabel(wyBitmapFont* font, const char* text) :
         m_lineSpacing(0),
         m_lineHeight(font->getLineHeight()),
         m_lineWidth(MAX_FLOAT) {
-	// create material and mesh list
-	m_materialList = WYNEW vector<wyMaterial*>();
-	m_meshList = WYNEW vector<wyQuadList*>();
-
-	// create atlas for every page
+	// create render pair for every page
     for(int i = 0; i < m_font->m_textures->num; i++) {
-    	// create material for this texture and add it
-		wyMaterial* m = wyMaterial::make();
-		m->retain();
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D],
-				m_font->getTexture(i));
-		m->addParameter(p);
-		m_materialList->push_back(m);
-
-		// create mesh for material and add
-		wyQuadList* quadList = wyQuadList::make();
-		quadList->retain();
-		m_meshList->push_back(quadList);
+    	addRenderPair(wyMaterial::make(), wyQuadList::make());
+    	setTexture(m_font->getTexture(i), i);
     }
 
     // set text and it will trigger updateContentSize
@@ -75,24 +61,14 @@ wyBitmapFontLabel::~wyBitmapFontLabel() {
     if(m_text) {
     	wyFree((void*)m_text);
     }
-
-    // release materials
-    for(vector<wyMaterial*>::iterator iter = m_materialList->begin(); iter != m_materialList->end(); iter++) {
-    	wyObjectRelease(*iter);
-    }
-    WYDELETE(m_materialList);
-
-    // release meshes
-    for(vector<wyQuadList*>::iterator iter = m_meshList->begin(); iter != m_meshList->end(); iter++) {
-    	wyObjectRelease(*iter);
-    }
-    WYDELETE(m_meshList);
 }
 
 void wyBitmapFontLabel::clearAtlas() {
-    for(vector<wyQuadList*>::iterator iter = m_meshList->begin(); iter != m_meshList->end(); iter++) {
-    	(*iter)->removeAllQuads();
-    }
+	int c = getRenderPairCount();
+	for(int i = 0; i < c; i++) {
+		wyQuadList* ql = (wyQuadList*)getMesh(i);
+		ql->removeAllQuads();
+	}
 }
 
 void wyBitmapFontLabel::setText(const char* text) {
@@ -191,10 +167,6 @@ wyBitmapFontLabel* wyBitmapFontLabel::make(wyBitmapFont* font, const char* text)
     return label;
 }
 
-void wyBitmapFontLabel::updateMaterial() {
-	// nothing for bitmapfont label because bitmap font label doesn't support change texture
-}
-
 void wyBitmapFontLabel::updateMesh() {
 	// remove all quads in all atlas
 	clearAtlas();
@@ -283,7 +255,7 @@ void wyBitmapFontLabel::updateMesh() {
 				currentLineHeight = m_lineHeight > 0 ? m_lineHeight : MAX(currentLineHeight, charHeight + pCi->top);
 
 	            // get atlas
-				wyQuadList* atlas = m_meshList->at(pCi->page);
+				wyQuadList* atlas = (wyQuadList*)getMesh(pCi->page);
 
 	            // get vertex corner
 	            float left = x + lineOffset;
@@ -356,8 +328,10 @@ void wyBitmapFontLabel::updateMesh() {
 	setContentSize(width, y);
 
 	// adjust quad
-	for(vector<wyQuadList*>::iterator iter = m_meshList->begin(); iter != m_meshList->end(); iter++) {
-		(*iter)->translate(0, m_height, 0);
+	int c = getRenderPairCount();
+	for(int i = 0; i < c; i++) {
+		wyQuadList* ql = (wyQuadList*)getMesh(i);
+		ql->translate(0, m_height, 0);
 	}
 	
 	// release
@@ -369,7 +343,9 @@ void wyBitmapFontLabel::updateMesh() {
 }
 
 void wyBitmapFontLabel::updateMeshColor() {
-	for(vector<wyQuadList*>::iterator iter = m_meshList->begin(); iter != m_meshList->end(); iter++) {
-		(*iter)->updateColor(m_color);
+	int c = getRenderPairCount();
+	for(int i = 0; i < c; i++) {
+		wyQuadList* ql = (wyQuadList*)getMesh(i);
+		ql->updateColor(m_color);
 	}
 }

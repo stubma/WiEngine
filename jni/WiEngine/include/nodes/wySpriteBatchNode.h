@@ -116,9 +116,6 @@ public:
 	/// @see wyNode::isVisitable
 	virtual bool isVisitable() { return false; }
 	
-	/// @see wyNode::updateMaterial
-	virtual void updateMaterial();
-
 	/// @see wyNode::updateMesh
 	virtual void updateMesh();
 

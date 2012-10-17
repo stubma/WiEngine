@@ -283,24 +283,24 @@ bool wyBladeRibbon::releaseBlade(wyArray* arr, void* ptr, int index, void* data)
 	return true;
 }
 
-void wyBladeRibbon::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	// draw dying blades
-	for(int i = 0; i < m_dyingBlades->num; i++) {
-		wyBlade* blade = (wyBlade*)wyArrayGet(m_dyingBlades, i);
-		blade->draw();
-	}
-
-	// draw current blade
-	if(m_blade)
-		m_blade->draw();
-}
+//void wyBladeRibbon::draw() {
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//	// draw dying blades
+//	for(int i = 0; i < m_dyingBlades->num; i++) {
+//		wyBlade* blade = (wyBlade*)wyArrayGet(m_dyingBlades, i);
+//		blade->draw();
+//	}
+//
+//	// draw current blade
+//	if(m_blade)
+//		m_blade->draw();
+//}
 
 void wyBladeRibbon::setAlpha(int alpha) {
 	m_color.a = alpha;

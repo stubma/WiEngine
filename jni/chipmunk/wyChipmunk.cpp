@@ -86,16 +86,16 @@ wyChipmunk::~wyChipmunk() {
 	cpSpaceFree(m_space);
 }
 
-void wyChipmunk::draw() {
-	// if no draw flag is set, call wyNode::draw and it
-	// will decide forward drawing to java layer or not
-	if(m_noDraw) {
-		wyNode::draw();
-		return;
-	}
-
-	drawSpace(m_space, &m_options);
-}
+//void wyChipmunk::draw() {
+//	// if no draw flag is set, call wyNode::draw and it
+//	// will decide forward drawing to java layer or not
+//	if(m_noDraw) {
+//		wyNode::draw();
+//		return;
+//	}
+//
+//	drawSpace(m_space, &m_options);
+//}
 
 wyChipmunk* wyChipmunk::make() {
 	wyChipmunk* c = WYNEW wyChipmunk();

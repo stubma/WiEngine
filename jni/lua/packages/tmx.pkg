@@ -725,9 +725,6 @@ public:
 
 	/// 析构函数
 	virtual ~wyTMXLayer();
-
-	/// @see wyNode::draw
-	virtual void draw();
 	
 	/**
 	 * \if English

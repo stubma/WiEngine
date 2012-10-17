@@ -75,6 +75,19 @@ private:
 		int count;
 	};
 
+public:
+	/// render pair info
+	struct RenderPair {
+		/// material
+		wyMaterial* material;
+
+		/// mesh
+		wyMesh* mesh;
+
+		/// level of detail
+		int lod;
+	};
+
 private:
     /// 触摸事件状态
 	wyTouchState m_state;
@@ -243,27 +256,8 @@ protected:
 	/// y aceleration in y axis, in pixels/second
 	float m_accelerationY;
 
-	/// mesh
-	wyMesh* m_mesh;
-
-	/// material
-	wyMaterial* m_material;
-
-	/**
-	 * true means this node has more than one material and so
-	 *
-	 * \note
-	 * Default node implemention only think node has only one material.
-	 * So must override isMultiMaterial to return true and
-	 * override get/setMaterial, get/setMesh and get/setLodLevel method.
-	 */
-	bool m_multiMaterial;
-
-	/// level of detail
-	int m_lodLevel;
-
-	/// texture related to this node
-	wyTexture2D* m_tex;
+	/// render pair list
+	vector<RenderPair>* m_renderPairs;
 
 	/// node color, meaningless for non-geometry node
 	wyColor4B m_color;
@@ -453,27 +447,6 @@ public:
 
 	/// deconstructor
 	virtual ~wyNode();
-
-	/**
-	 * \if English
-	 * Self render method, default is empty. If \c isSelfDraw returns true, then
-	 * this method will be invoked
-	 * \else
-	 * 如果\c isSelfDraw返回true, 那么这个方法将被调用, 在这里可以实现自定义的渲染逻辑
-	 * \endif
-	 */
-	virtual void draw();
-
-	/**
-	 * \if English
-	 * Render this node including child nodes. But it does nothing
-	 * if \c m_visible flag is false
-	 * \else
-	 * 渲染当前节点，包括子节点，网格. 如果\c m_visible为false,
-	 * 则不做任何事
-	 * \endif
-	 */
-	virtual void visit();
 
 	/**
 	 * \if English
@@ -3079,22 +3052,19 @@ public:
 	virtual void setBlendMode(wyRenderState::BlendMode mode);
 
 	/**
-	 * \if English
-	 * Get texture of node
-	 * \else
-	 * 得到当前\link wyTexture2D wyTexture2D对象指针\endlink
-	 * \endif
+	 * Get texture at given index. The index is used to locate render pair
+	 *
+	 * @param index default value is 0
 	 */
-	virtual wyTexture2D* getTexture() { return m_tex; }
+	virtual wyTexture2D* getTexture(int index = 0);
 
 	/**
-	 * \if English
 	 * Set texture of node
-	 * \else
-	 * 设置\link wyTexture2D wyTexture2D对象指针\endlink
-	 * \endif
+	 *
+	 * @param tex texture
+	 * @param index render pair index
 	 */
-	virtual void setTexture(wyTexture2D* tex);
+	virtual void setTexture(wyTexture2D* tex, int index = 0);
 
 	/**
 	 * \if English
@@ -3124,19 +3094,6 @@ public:
 
 	/**
 	 * \if English
-	 * Return true means this node implemented \c draw method to render it. If false,
-	 * \link wyRenderManager wyRenderManager\endlink will render this node. Of course this
-	 * flag is only valid when \c isGeometry returns true
-	 * self
-	 * \else
-	 * 返回true说明这个节点实现了\c draw方法实现自身的渲染. false表示\link wyRenderManager wyRenderManager\endlink
-	 * 会按照标准流程渲染这个节点. 这个标志仅当\c isGeometry返回true是有意义.
-	 * \endif
-	 */
-	virtual bool isSelfDraw() { return false; }
-
-	/**
-	 * \if English
 	 * Is this node visitable. "Visitable" means its children should be visited when
 	 * rendering this node
 	 * \else
@@ -3144,6 +3101,11 @@ public:
 	 * \endif
 	 */
 	virtual bool isVisitable() { return true; }
+
+	/**
+	 * Invoked just before rendering this node
+	 */
+	virtual void beforeRender() {}
 
 	/**
 	 * \if English
@@ -3465,122 +3427,51 @@ public:
 	virtual bool isNeedUpdateMeshColor() { return m_meshColorNeedUpdate; }
 
 	/**
-	 * \if English
-	 * Return count of bounded material
-	 * \else
-	 * 返回该节点关联的材质个数
-	 * \endif
+	 * Return count of bounded material and mesh
 	 */
-	virtual int getMaterialCount() { return 1; }
+	virtual int getRenderPairCount() { return m_renderPairs->size(); }
 
 	/**
-	 * \if English
-	 * True means this node has more than one material bounded
-	 * \else
-	 * 返回true则表示该节点有多张关联材质
-	 * \endif
+	 * Add a render pair. A render pair consists of material and mesh
+	 *
+	 * @param material material
+	 * @param mesh mesh
 	 */
-	bool isMultiMaterial() { return getMaterialCount() > 1; }
+	virtual void addRenderPair(wyMaterial* material, wyMesh* mesh);
 
 	/**
-	 * \if English
-	 * Set mesh
+	 * Get mesh at specified index
 	 *
-	 * @param mesh \link wyMesh wyMesh\endlink
-	 * @param index index of mesh, for node which only has one material, this parameter
-	 * 		is useless. So it is optional and default value is zero.
-	 * \else
-	 * 设置渲染数据
-	 *
-	 * @param mesh \link wyMesh wyMesh\endlink
-     * @param index mesh的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
-     * 		缺省是0
-	 * \endif
-	 */
-	virtual void setMesh(wyMesh* mesh, int index = 0);
-
-	/**
-	 * \if English
-	 * Get mesh
-	 *
-	 * @param index index of mesh, for node which only has one material, this parameter
+	 * @param index index of mesh, for node which only has one render pair, this parameter
 	 * 		is useless. So it is optional and default value is zero.
 	 * @return \link wyMesh wyMesh\endlink
-	 * \else
-	 * 得到渲染数据
-	 *
-     * @param index mesh的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
-     * 		缺省是0
-	 * @return \link wyMesh wyMesh\endlink
-	 * \endif
 	 */
-	virtual wyMesh* getMesh(int index = 0) { return m_mesh; }
+	virtual wyMesh* getMesh(int index = 0);
 
 	/**
-	 * \if English
-	 * Get material
-	 *
-	 * @param m \link wyMaterial wyMaterial\endlink
-	 * @param index index of material, for node which only has one material, this parameter
-	 * 		is useless. So it is optional and default value is zero.
-	 * \else
-	 * 得到材质
-	 *
-	 * @param m \link wyMaterial wyMaterial\endlink
-     * @param index material的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
-     * 		缺省是0
-	 * \endif
-	 */
-	virtual void setMaterial(wyMaterial* m, int index = 0);
-
-	/**
-	 * \if English
 	 * Set material
 	 *
-	 * @param index index of material, for node which only has one material, this parameter
+	 * @param index index of material, for node which only has one render pair, this parameter
 	 * 		is useless. So it is optional and default value is zero.
 	 * @return \link wyMaterial wyMaterial\endlink
-	 * \else
-	 * 设置材质
-	 *
-     * @param index material的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
-     * 		缺省是0
-	 * @return \link wyMaterial wyMaterial\endlink
-	 * \endif
 	 */
-	virtual wyMaterial* getMaterial(int index = 0) { return m_material; }
+	virtual wyMaterial* getMaterial(int index = 0);
 
     /**
-     * \if English
      * Returns the LOD level
      *
-	 * @param index index of mesh, for node which only has one material, this parameter
+	 * @param index index of mesh, for node which only has one render pair, this parameter
 	 * 		is useless. So it is optional and default value is zero.
      * @return the LOD level set
-     * \else
-     * 得到当前的模型精细等级
-     *
-     * @param index mesh的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
-     * 		缺省是0
-     * @return 模型精细等级
-     * \endif
      */
-    virtual int getLodLevel(int index = 0) { return m_lodLevel; }
+    virtual int getLodLevel(int index = 0);
 
     /**
-     * \if English
      * Set the LOD level
      *
      * @param level the LOD level
-	 * @param index index of mesh, for node which only has one material, this parameter
+	 * @param index index of mesh, for node which only has one render pair, this parameter
 	 * 		is useless. So it is optional and default value is zero.
-     * \else
-     * 设置当前的模型精细等级
-     *
-     * @param level 模型精细等级
-     * @param index mesh的索引, 对于只有一个材质的节点来说, 这个参数无用. 所以这个参数是可选的,
-     * 		缺省是0
-     * \endif
      */
     virtual void setLodLevel(int level, int index = 0);
 

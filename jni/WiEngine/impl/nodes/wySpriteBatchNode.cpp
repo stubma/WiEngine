@@ -50,8 +50,7 @@ wySpriteBatchNode::wySpriteBatchNode(wyTexture2D* tex):
 
 void wySpriteBatchNode::init(wyTexture2D* tex) {
 	// create empty material and mesh
-	setMaterial(wyMaterial::make());
-	setMesh(wyQuadList::make());
+	addRenderPair(wyMaterial::make(), wyQuadList::make());
 
 	// set blend mode
 	setBlendMode(wyRenderState::ALPHA);
@@ -64,18 +63,6 @@ void wySpriteBatchNode::init(wyTexture2D* tex) {
 }
 
 wySpriteBatchNode::~wySpriteBatchNode() {
-}
-
-void wySpriteBatchNode::updateMaterial() {
-	// get texture parameter, if none, create
-	wyMaterialParameter* mp = getMaterial()->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-	if(!mp) {
-		wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], m_tex);
-		m_material->addParameter(p);
-	} else {
-		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-		mtp->setTexture(m_tex);
-	}
 }
 
 void wySpriteBatchNode::updateMeshColor() {

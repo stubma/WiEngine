@@ -142,9 +142,6 @@ public:
 	/// @see wyNode::isGeometry
 	virtual bool isGeometry() { return true; }
 
-	/// @see wyNode::updateMaterial
-	virtual void updateMaterial();
-
 	/// @see wyNode::updateMesh
 	virtual void updateMesh();
 
@@ -152,7 +149,7 @@ public:
 	virtual void updateMeshColor();
 
 	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
+	virtual void setTexture(wyTexture2D* tex, int index = 0);
 
 	/**
 	 * \if English

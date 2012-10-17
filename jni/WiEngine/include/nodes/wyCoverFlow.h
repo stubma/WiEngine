@@ -1476,9 +1476,6 @@ public:
 	 * \endif
 	 */
 	float getBrightLevelOfMirror() { return m_brightLevelOfMirror; }
-
-	/// @see wyNode::draw()
-    virtual void draw();
 };
 
 #endif

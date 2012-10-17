@@ -395,12 +395,11 @@ wyLineRibbon::wyLineRibbon(wyTexture2D* tex, wyColor4B color) :
 		m_color(color),
 		m_lineWidth(tex->getHeight()),
 		m_lines(wyArrayNew(20)) {
-	m_tex = tex;
-	m_tex->retain();
+//	m_tex = tex;
+//	m_tex->retain();
 }
 
 wyLineRibbon::~wyLineRibbon() {
-	wyObjectRelease(m_tex);
 	wyArrayEach(m_lines, releaseLine, NULL);
 	wyArrayDestroy(m_lines);
 }
@@ -424,7 +423,7 @@ void wyLineRibbon::addPoint(wyPoint location) {
 	// if first point, new a line
 	if(m_firstPoint) {
 		m_firstPoint = false;
-		line = WYNEW wyLine(m_tex, m_color, m_lineWidth);
+		line = WYNEW wyLine(getTexture(), m_color, m_lineWidth);
 		wyArrayPush(m_lines, line);
 	} else {
 		// get last line
@@ -432,7 +431,7 @@ void wyLineRibbon::addPoint(wyPoint location) {
 
 		// if null, create a new
 		if(!line) {
-			line = WYNEW wyLine(m_tex, m_color, m_lineWidth);
+			line = WYNEW wyLine(getTexture(), m_color, m_lineWidth);
 			wyArrayPush(m_lines, line);
 		}
 	}
@@ -446,12 +445,6 @@ void wyLineRibbon::reset() {
 	wyArrayClear(m_lines);
 	m_preLastLocation = m_lastLocation = wypZero;
 	m_firstPoint = true;
-}
-
-void wyLineRibbon::setTexture(wyTexture2D* tex) {
-	wyObjectRetain(tex);
-	wyObjectRelease(m_tex);
-	m_tex = tex;
 }
 
 wyColor3B wyLineRibbon::getColor() {
@@ -476,40 +469,40 @@ void wyLineRibbon::setColor(wyColor4B color) {
 	m_color.a = color.a;
 }
 
-void wyLineRibbon::draw() {
-	// TODO gles2
-//	// if no draw flag is set, call wyNode::draw and it
-//	// will decide forward drawing to java layer or not
-//	if(m_noDraw) {
-//		wyNode::draw();
-//		return;
-//	}
-//	
-//	// ensure texture object is created
-//	m_tex->load();
-//
-//	// enable state
-//	glEnableClientState(GL_VERTEX_ARRAY);
-//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//	glEnable(GL_TEXTURE_2D);
-//	
-//	// ensure current texture is active
-//	glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
-//	
-//	// draw all lines
-//	for(int i = 0; i < m_lines->num; i++) {
-//		wyLine* line = (wyLine*)wyArrayGet(m_lines, i);
-//		line->draw();
-//	}
-//	
-//	// restore color
-//	glColor4f(1, 1, 1, 1);
-//
-//	// disable state
-//	glDisable(GL_TEXTURE_2D);
-//	glDisableClientState(GL_VERTEX_ARRAY);
-//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-}
+//void wyLineRibbon::draw() {
+//	// TODO gles2
+////	// if no draw flag is set, call wyNode::draw and it
+////	// will decide forward drawing to java layer or not
+////	if(m_noDraw) {
+////		wyNode::draw();
+////		return;
+////	}
+////
+////	// ensure texture object is created
+////	m_tex->load();
+////
+////	// enable state
+////	glEnableClientState(GL_VERTEX_ARRAY);
+////	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+////	glEnable(GL_TEXTURE_2D);
+////
+////	// ensure current texture is active
+////	glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
+////
+////	// draw all lines
+////	for(int i = 0; i < m_lines->num; i++) {
+////		wyLine* line = (wyLine*)wyArrayGet(m_lines, i);
+////		line->draw();
+////	}
+////
+////	// restore color
+////	glColor4f(1, 1, 1, 1);
+////
+////	// disable state
+////	glDisable(GL_TEXTURE_2D);
+////	glDisableClientState(GL_VERTEX_ARRAY);
+////	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//}
 
 float wyLineRibbon::getLineWidth(int index) {
 	if(index < 0 || index >= m_lines->num) {

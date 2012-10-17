@@ -120,14 +120,11 @@ public:
 	/// @see wyNode::setBlendMode
 	virtual void setBlendMode(wyRenderState::BlendMode mode);
 
-	/// @see wyNode::setMaterial
-	virtual void setMaterial(wyMaterial* m, int index = 0);
+	/// @see wyNode::getRenderPairCount
+	virtual int getRenderPairCount();
 
 	/// @see wyNode::getMaterial
 	virtual wyMaterial* getMaterial(int index = 0);
-
-	/// @see wyNode::setMesh
-	virtual void setMesh(wyMesh* mesh, int index = 0);
 
 	/// @see wyNode::getMesh
 	virtual wyMesh* getMesh(int index = 0);

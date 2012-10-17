@@ -44,15 +44,6 @@
  */
 class WIENGINE_API wyLineRibbon : public wyRibbon {
 private:
-	/**
-	 * \if English
-	 * \link wyTexture2D wyTexture2D\endlink
-	 * \else
-	 * 贴图
-	 * \endif
-	 */
-    wyTexture2D* m_tex;
-
     /**
      * \if English
      * to store the lines
@@ -122,15 +113,6 @@ public:
 	 * \endif
 	 */
     virtual ~wyLineRibbon();
-
-    /// @see wyNode::draw
-    virtual void draw();
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_tex; }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
 
 	/// @see wyNode::getAlpha
 	virtual int getAlpha() { return m_color.a; }

@@ -171,22 +171,18 @@ void wyCompoundNode::setBlendMode(wyRenderState::BlendMode mode) {
 	}
 }
 
-void wyCompoundNode::setMaterial(wyMaterial* m, int index) {
-	for(WY_NODE_ITER iter = m_nodes->begin(); iter != m_nodes->end(); iter++) {
-		iter->second->setMaterial(m);
-	}
-}
-
-void wyCompoundNode::setMesh(wyMesh* mesh, int index) {
-	for(WY_NODE_ITER iter = m_nodes->begin(); iter != m_nodes->end(); iter++) {
-		iter->second->setMesh(mesh);
-	}
+int wyCompoundNode::getRenderPairCount() {
+	wyNode* node = getStateNode();
+	if(node)
+		return node->getRenderPairCount();
+	else
+		return 0;
 }
 
 wyMaterial* wyCompoundNode::getMaterial(int index) {
 	wyNode* node = getStateNode();
 	if(node)
-		return node->getMaterial();
+		return node->getMaterial(index);
 	else
 		return NULL;
 }
@@ -194,7 +190,7 @@ wyMaterial* wyCompoundNode::getMaterial(int index) {
 wyMesh* wyCompoundNode::getMesh(int index) {
 	wyNode* node = getStateNode();
 	if(node)
-		return node->getMesh();
+		return node->getMesh(index);
 	else
 		return NULL;
 }

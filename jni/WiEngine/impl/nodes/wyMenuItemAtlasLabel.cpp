@@ -38,9 +38,9 @@ wyMenuItemAtlasLabel* wyMenuItemAtlasLabel::make(wyTargetSelector* downSelector,
 	return (wyMenuItemAtlasLabel*)n->autoRelease();
 }
 
-void wyMenuItemAtlasLabel::draw() {
-	m_label->draw();
-}
+//void wyMenuItemAtlasLabel::draw() {
+//	m_label->draw();
+//}
 
 void wyMenuItemAtlasLabel::setEnabled(bool enabled) {
     if (m_enabled != enabled) {

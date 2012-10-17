@@ -346,13 +346,6 @@ namespace Action {
     	wyHypotrochoidConfig m_circle;
     	wyHypotrochoidConfig m_ellipse;
 
-    	wyMaterial* m_mat1;
-    	wyShape* m_mesh1;
-    	wyMaterial* m_mat2;
-    	wyShape* m_mesh2;
-    	wyMaterial* m_mat3;
-    	wyShape* m_mesh3;
-
 	public:
     	wyHypotrochoidTestLayer() {
     		m_c = wyhcQuad(DP(100), DP(40), DP(100), 0, 720, wyDevice::winWidth / 2, wyDevice::winHeight / 2);
@@ -367,28 +360,23 @@ namespace Action {
     		m_Sprite->setVisible(false);
 
     		// material and mesh for first curve
-            m_mat1 = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_mat1->retain();
-            m_mesh1 = wyShape::make();
-            m_mesh1->buildHypotrochoid(m_c, 100);
-            m_mesh1->updateColor(wyc4bGreen);
-            m_mesh1->retain();
+            wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
+            wyShape* s = wyShape::make();
+            s->buildHypotrochoid(m_c, 100);
+            s->updateColor(wyc4bGreen);
+            addRenderPair(m, s);
 
     		// material and mesh for second curve
-            m_mat2 = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_mat2->retain();
-            m_mesh2 = wyShape::make();
-            m_mesh2->buildHypotrochoid(m_ellipse, 100);
-            m_mesh2->updateColor(wyc4bGreen);
-            m_mesh2->retain();
+            s = wyShape::make();
+            s->buildHypotrochoid(m_ellipse, 100);
+            s->updateColor(wyc4bGreen);
+            addRenderPair(m, s);
 
     		// material and mesh for third curve
-            m_mat3 = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_mat3->retain();
-            m_mesh3 = wyShape::make();
-            m_mesh3->buildHypotrochoid(m_circle, 100);
-            m_mesh3->updateColor(wyc4bGreen);
-            m_mesh3->retain();
+            s = wyShape::make();
+            s->buildHypotrochoid(m_circle, 100);
+            s->updateColor(wyc4bGreen);
+            addRenderPair(m, s);
     	}
 
     	void addTrace(wyHypotrochoidConfig c) {
@@ -409,29 +397,11 @@ namespace Action {
     	}
 
         virtual ~wyHypotrochoidTestLayer() {
-        	m_mat1->release();
-        	m_mesh1->release();
-        	m_mat2->release();
-        	m_mesh2->release();
-        	m_mat3->release();
-        	m_mesh3->release();
         }
 
         virtual bool isGeometry() {
         	return true;
         }
-
-        virtual bool isSelfDraw() {
-        	return true;
-        }
-
-    	virtual void draw() {
-        	// draw curves
-        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_mat1, m_mesh1);
-        	rm->renderMaterial(this, m_mat2, m_mesh2);
-        	rm->renderMaterial(this, m_mat3, m_mesh3);
-		}
 	};
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -439,10 +409,6 @@ namespace Action {
     class wyLagrangeTestLayer : public wyActionTestLayer {
     private:
     	wyLagrangeConfig m_config;
-
-    	wyMaterial* m_mat;
-    	wyShape* m_lineMesh;
-    	wyShape* m_pointMesh;
 
     public:
     	wyLagrangeTestLayer() {
@@ -472,126 +438,87 @@ namespace Action {
             m_Sprite->runAction(action);
 
             // material and mesh for lagrange curve drawing
-            m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_mat->retain();
-            m_lineMesh = wyShape::make();
-            m_lineMesh->buildLagrange(m_config, 30);
-            m_lineMesh->updateColor(wyc4bGreen);
-            m_lineMesh->retain();
+            wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
+            wyShape* s = wyShape::make();
+            s->buildLagrange(m_config, 30);
+            s->updateColor(wyc4bGreen);
+            addRenderPair(m, s);
 
             // mesh for lagrange control points
-            m_pointMesh = wyShape::make();
-            m_pointMesh->retain();
-            m_pointMesh->setPointSize(5);
+            s = wyShape::make();
+            s->setPointSize(5);
             float p[] = {
                     m_config.startX, m_config.startY,
                     m_config.cp1X, m_config.cp1Y,
                     m_config.cp2X, m_config.cp2Y,
                     m_config.endX, m_config.endY
             };
-            m_pointMesh->buildPoints(p, sizeof(p) / sizeof(float));
-            m_pointMesh->updateColor(wyc4bRed);
+            s->buildPoints(p, sizeof(p) / sizeof(float));
+            s->updateColor(wyc4bRed);
+            addRenderPair(m, s);
         }
 
         virtual ~wyLagrangeTestLayer() {
-        	m_mat->release();
-        	m_lineMesh->release();
-        	m_pointMesh->release();
         }
 
         virtual bool isGeometry() {
         	return true;
-        }
-
-        virtual bool isSelfDraw() {
-        	return true;
-        }
-
-        virtual void draw() {
-        	// draw bezier curve
-        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_mat, m_lineMesh);
-
-        	// draw bezier control points
-        	rm->renderMaterial(this, m_mat, m_pointMesh);
         }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     class wyMoveByTestLayer : public wyActionTestLayer {
-    private:
-    	wyMaterial* m_mat;
-    	wyShape* m_lineMesh;
-    	wyShape* m_pointMesh;
-
     public:
         wyMoveByTestLayer() {
         	reorderChild(m_Sprite, -1);
 	        m_Sprite->setPosition(60, wyDevice::winHeight / 2);
 
-	        wyMoveBy* m = wyMoveBy::make(2, wyDevice::winWidth - 120, 0);
-	        m->setPinPoint(DP(100), wyDevice::winHeight - DP(100));
-	        m->setPinAngleDelta(90);
-            wyIntervalAction* t = wySequence::make(m, (wyFiniteTimeAction*)m->reverse(), NULL);
+	        wyMoveBy* mv = wyMoveBy::make(2, wyDevice::winWidth - 120, 0);
+	        mv->setPinPoint(DP(100), wyDevice::winHeight - DP(100));
+	        mv->setPinAngleDelta(90);
+            wyIntervalAction* t = wySequence::make(mv, (wyFiniteTimeAction*)mv->reverse(), NULL);
 
             wyAction* action = wyRepeatForever::make(t);
             m_Sprite->runAction(action);
 
 			// material and mesh for path
-            m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_mat->retain();
+            wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
-			m_lineMesh = wyShape::make();
-			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			m_lineMesh->retain();
-			m_lineMesh->updateColor(wyc4bGreen);
+        	wyShape* s = wyShape::make();
+			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			s->updateColor(wyc4bGreen);
+			addRenderPair(m, s);
 
 			// mesh for points
-			m_pointMesh = wyShape::make();
-			m_pointMesh->retain();
-			m_pointMesh->setPointSize(5);
-			m_pointMesh->buildPoint(DP(100), wyDevice::winHeight - DP(100));
-			m_pointMesh->updateColor(wyc4bRed);
+			s = wyShape::make();
+			s->setPointSize(5);
+			s->buildPoint(DP(100), wyDevice::winHeight - DP(100));
+			s->updateColor(wyc4bRed);
+			addRenderPair(m, s);
         }
 
         virtual ~wyMoveByTestLayer() {
-        	m_mat->release();
-        	m_lineMesh->release();
-        	m_pointMesh->release();
         }
 
         virtual bool isGeometry() {
         	return true;
         }
 
-        virtual bool isSelfDraw() {
-        	return true;
-        }
-
-        virtual void draw() {
+        virtual void beforeRender() {
         	// update dash line
+        	wyShape* s = (wyShape*)getMesh();
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
-			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			m_lineMesh->updateColor(wyc4bGreen);
-
-			// draw
-        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_mat, m_lineMesh);
-        	rm->renderMaterial(this, m_mat, m_pointMesh);
+			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			s->updateColor(wyc4bGreen);
         }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     class wyMoveByAngleTestLayer : public wyActionTestLayer {
-    private:
-    	wyMaterial* m_mat;
-    	wyShape* m_lineMesh;
-    	wyShape* m_pointMesh;
-
     public:
     	wyMoveByAngleTestLayer() {
     		reorderChild(m_Sprite, -1);
@@ -607,48 +534,36 @@ namespace Action {
 			m_Sprite->runAction(action);
 
 			// material and mesh for path
-			m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_mat->retain();
+			wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
-			m_lineMesh = wyShape::make();
-			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			m_lineMesh->retain();
-			m_lineMesh->updateColor(wyc4bGreen);
+			wyShape* s = wyShape::make();
+			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			s->updateColor(wyc4bGreen);
+			addRenderPair(m, s);
 
 			// mesh for points
-			m_pointMesh = wyShape::make();
-			m_pointMesh->retain();
-			m_pointMesh->setPointSize(5);
-			m_pointMesh->buildPoint(DP(100), wyDevice::winHeight - DP(100));
-			m_pointMesh->updateColor(wyc4bRed);
+			s = wyShape::make();
+			s->setPointSize(5);
+			s->buildPoint(DP(100), wyDevice::winHeight - DP(100));
+			s->updateColor(wyc4bRed);
+			addRenderPair(m, s);
 		}
 
         virtual ~wyMoveByAngleTestLayer() {
-        	m_mat->release();
-        	m_lineMesh->release();
-        	m_pointMesh->release();
         }
 
         virtual bool isGeometry() {
         	return true;
         }
 
-        virtual bool isSelfDraw() {
-        	return true;
-        }
-
-        virtual void draw() {
+        virtual void beforeRender() {
         	// update dash line
+        	wyShape* s = (wyShape*)getMesh();
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
-			m_lineMesh->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			m_lineMesh->updateColor(wyc4bGreen);
-
-			// draw
-        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_mat, m_lineMesh);
-        	rm->renderMaterial(this, m_mat, m_pointMesh);
+			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			s->updateColor(wyc4bGreen);
         }
 	};
 
@@ -657,10 +572,6 @@ namespace Action {
     class wyMoveByPathTestLayer : public wyActionTestLayer {
     private:
     	wyMoveByPath* m_path;
-
-    	wyMaterial* m_mat;
-    	wyShape* m_lineMesh;
-    	wyShape* m_pointMesh;
 
     public:
     	wyMoveByPathTestLayer() {
@@ -688,8 +599,7 @@ namespace Action {
 			m_Sprite->runAction(action);
 
 			// material and mesh for path
-			m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_mat->retain();
+			wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
 			float p[] = {
 					DP(30), wyDevice::winHeight / 2,
 					wyDevice::winWidth / 2, wyDevice::winHeight / 2,
@@ -697,38 +607,24 @@ namespace Action {
 					wyDevice::winWidth - DP(30), wyDevice::winHeight - DP(30),
 					wyDevice::winWidth - DP(30), DP(30)
 			};
-			m_lineMesh = wyShape::make();
-			m_lineMesh->buildDashPath(p, sizeof(p) / sizeof(float), 5);
-			m_lineMesh->retain();
-			m_lineMesh->updateColor(wyc4bGreen);
+			wyShape* s = wyShape::make();
+			s->buildDashPath(p, sizeof(p) / sizeof(float), 5);
+			s->updateColor(wyc4bGreen);
+			addRenderPair(m, s);
 
 			// mesh for points
-			m_pointMesh = wyShape::make();
-			m_pointMesh->retain();
-			m_pointMesh->setPointSize(5);
-			m_pointMesh->buildPoints(p, sizeof(p) / sizeof(float));
-			m_pointMesh->updateColor(wyc4bRed);
+			s = wyShape::make();
+			s->setPointSize(5);
+			s->buildPoints(p, sizeof(p) / sizeof(float));
+			s->updateColor(wyc4bRed);
+			addRenderPair(m, s);
 		}
 
         virtual ~wyMoveByPathTestLayer() {
-        	m_mat->release();
-        	m_lineMesh->release();
-        	m_pointMesh->release();
         }
 
         virtual bool isGeometry() {
         	return true;
-        }
-
-        virtual bool isSelfDraw() {
-        	return true;
-        }
-
-        virtual void draw() {
-        	// draw path
-        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_mat, m_lineMesh);
-        	rm->renderMaterial(this, m_mat, m_pointMesh);
         }
 	};
 
@@ -1016,10 +912,6 @@ namespace Action {
     private:
     	wyBezierConfig m_config;
 
-    	wyMaterial* m_mat;
-    	wyShape* m_lineMesh;
-    	wyShape* m_pointMesh;
-
     public:
         wyBezierTestLayer() {
 	        m_Sprite->setPosition(60, wyDevice::winHeight / 2);
@@ -1048,48 +940,31 @@ namespace Action {
             m_Sprite->runAction(action);
 
             // material and mesh for bezier curve drawing
-            m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
-            m_mat->retain();
-            m_lineMesh = wyShape::make();
-            m_lineMesh->buildBezier(m_config, 30);
-            m_lineMesh->updateColor(wyc4bGreen);
-            m_lineMesh->retain();
+            wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
+            wyShape* s = wyShape::make();
+            s->buildBezier(m_config, 30);
+            s->updateColor(wyc4bGreen);
+            addRenderPair(m, s);
 
             // mesh for bezier control points
-            m_pointMesh = wyShape::make();
-            m_pointMesh->retain();
-            m_pointMesh->setPointSize(5);
+            s = wyShape::make();
+            s->setPointSize(5);
             float p[] = {
                     m_config.startX, m_config.startY,
                     m_config.cp1X, m_config.cp1Y,
                     m_config.cp2X, m_config.cp2Y,
                     m_config.endX, m_config.endY
             };
-            m_pointMesh->buildPoints(p, sizeof(p) / sizeof(float));
-            m_pointMesh->updateColor(wyc4bRed);
+            s->buildPoints(p, sizeof(p) / sizeof(float));
+            s->updateColor(wyc4bRed);
+            addRenderPair(m, s);
         }
 
         virtual ~wyBezierTestLayer() {
-        	m_mat->release();
-        	m_lineMesh->release();
-        	m_pointMesh->release();
         }
 
         virtual bool isGeometry() {
         	return true;
-        }
-
-        virtual bool isSelfDraw() {
-        	return true;
-        }
-
-        virtual void draw() {
-        	// draw bezier curve
-        	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-        	rm->renderMaterial(this, m_mat, m_lineMesh);
-
-        	// draw bezier control points
-        	rm->renderMaterial(this, m_mat, m_pointMesh);
         }
     };
     

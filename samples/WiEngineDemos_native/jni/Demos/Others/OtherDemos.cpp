@@ -572,81 +572,62 @@ namespace Other {
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 	class wyDrawPrimitivesTestLayer : public wyLayer {
-	private:
-		wyMaterial* m_mat;
-		wyShape* m_line1;
-		wyShape* m_line2;
-		wyShape* m_point1;
-		wyShape* m_point2;
-		wyShape* m_circle1;
-		wyShape* m_circle2;
-		wyShape* m_circle3;
-		wyShape* m_rect1;
-		wyShape* m_rect2;
-		wyShape* m_poly1;
-		wyShape* m_poly2;
-		wyShape* m_poly3;
-		wyShape* m_bezier1;
-		wyShape* m_bezier2;
-
 	public:
 		wyDrawPrimitivesTestLayer() {
 			wyRotateBy* rotate = wyRotateBy::make(4, -360);
 			runAction(rotate);
 
 			// common material for primitive drawing
-			m_mat = wyMaterial::make(wyShaderManager::PROG_PC);
-			m_mat->retain();
-			m_mat->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
+			wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
 
 			// white line
-			m_line1 = wyShape::make();
-			m_line1->retain();
-			m_line1->buildLine(0, 0, wyDevice::winWidth, wyDevice::winHeight);
+			wyShape* s = wyShape::make();
+			s->buildLine(0, 0, wyDevice::winWidth, wyDevice::winHeight);
+			addRenderPair(m, s);
 
 			// red thick line
-			m_line2 = wyShape::make();
-			m_line2->retain();
-			m_line2->setLineWidth(5);
-			m_line2->buildLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
-			m_line2->updateColor(wyc4bRed);
+			s = wyShape::make();
+			s->setLineWidth(5);
+			s->buildLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
+			s->updateColor(wyc4bRed);
+			addRenderPair(m, s);
 
 			// a big point
-			m_point1 = wyShape::make();
-			m_point1->retain();
-			m_point1->setPointSize(64);
-			m_point1->buildPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-			m_point1->updateColor(wyc4b(0, 0, 255, 127));
+			s = wyShape::make();
+			s->setPointSize(64);
+			s->buildPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
+			s->updateColor(wyc4b(0, 0, 255, 127));
+			addRenderPair(m, s);
 
 			// four small points
 			float points[] = {
 				60, 60, 70, 70, 60, 70, 70, 60
 			};
-			m_point2 = wyShape::make();
-			m_point2->retain();
-			m_point2->setPointSize(4);
-			m_point2->buildPoints(points, sizeof(points) / sizeof(float));
-			m_point2->updateColor(wyc4b(0, 255, 255, 255));
+			s = wyShape::make();
+			s->setPointSize(4);
+			s->buildPoints(points, sizeof(points) / sizeof(float));
+			s->updateColor(wyc4b(0, 255, 255, 255));
+			addRenderPair(m, s);
 
 			// green circle
-			m_circle1 = wyShape::make();
-			m_circle1->retain();
-			m_circle1->setLineWidth(11);
-			m_circle1->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
-			m_circle1->updateColor(wyc4bGreen);
+			s = wyShape::make();
+			s->setLineWidth(11);
+			s->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
+			s->updateColor(wyc4bGreen);
+			addRenderPair(m, s);
 
 			// cyan circle with radius line
-			m_circle2 = wyShape::make();
-			m_circle2->retain();
-			m_circle2->setLineWidth(2);
-			m_circle2->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
-			m_circle2->updateColor(wyc4bCyan);
+			s = wyShape::make();
+			s->setLineWidth(2);
+			s->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
+			s->updateColor(wyc4bCyan);
+			addRenderPair(m, s);
 
 			// solid circle
-			m_circle3 = wyShape::make();
-			m_circle3->retain();
-			m_circle3->buildSolidCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 4, 30, 30);
-			m_circle3->updateColor(wyc4bBlue);
+			s = wyShape::make();
+			s->buildSolidCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 4, 30, 30);
+			s->updateColor(wyc4bBlue);
+			addRenderPair(m, s);
 
 			// rect
 			float rect[] = {
@@ -655,10 +636,10 @@ namespace Other {
 					wyDevice::winWidth / 2 + 50, wyDevice::winHeight / 4 + 30,
 					wyDevice::winWidth / 2 - 50, wyDevice::winHeight / 4 + 30
 			};
-			m_rect1 = wyShape::make();
-			m_rect1->retain();
-			m_rect1->buildRect(rect);
-			m_rect1->updateColor(wyc4bRed);
+			s = wyShape::make();
+			s->buildRect(rect);
+			s->updateColor(wyc4bRed);
+			addRenderPair(m, s);
 
 			// solid rect
 			float rect2[] = {
@@ -667,45 +648,45 @@ namespace Other {
 					wyDevice::winWidth / 2 + 5, wyDevice::winHeight / 4 + 5,
 					wyDevice::winWidth / 2 - 5, wyDevice::winHeight / 4 + 5
 			};
-			m_rect2 = wyShape::make();
-			m_rect2->retain();
-			m_rect2->buildSolidRect(rect2);
-			m_rect2->updateColor(wyc4bRed);
+			s = wyShape::make();
+			s->buildSolidRect(rect2);
+			s->updateColor(wyc4bRed);
+			addRenderPair(m, s);
 
 			// a yellow open poly lines
 			float vertices[] = {
 			      0, 0, 50, 50, 100, 50, 100, 100, 50, 100
 			};
-			m_poly1 = wyShape::make();
-			m_poly1->retain();
-			m_poly1->setLineWidth(10);
-			m_poly1->buildPoly(vertices, sizeof(vertices) / sizeof(float), false);
-			m_poly1->updateColor(wyc4bYellow);
+			s = wyShape::make();
+			s->setLineWidth(10);
+			s->buildPoly(vertices, sizeof(vertices) / sizeof(float), false);
+			s->updateColor(wyc4bYellow);
+			addRenderPair(m, s);
 
 			// a closed poly
 			float vertices2[] = {
 				30, 130, 30, 230, 50, 200
 			};
-			m_poly2 = wyShape::make();
-			m_poly2->retain();
-			m_poly2->setLineWidth(2);
-			m_poly2->buildPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
-			m_poly2->updateColor(wyc4b(255, 0, 255, 255));
+			s = wyShape::make();
+			s->setLineWidth(2);
+			s->buildPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
+			s->updateColor(wyc4b(255, 0, 255, 255));
+			addRenderPair(m, s);
 
 			// solid poly
 			float vertices_fill[] = {
 				400, 400, 500, 400, 500, 500, 400, 500, 350, 450
 			};
-			m_poly3 = wyShape::make();
-			m_poly3->retain();
-			m_poly3->buildSolidPoly(vertices_fill, sizeof(vertices_fill) / sizeof(float));
-			m_poly3->updateColor(wyc4bRed);
+			s = wyShape::make();
+			s->buildSolidPoly(vertices_fill, sizeof(vertices_fill) / sizeof(float));
+			s->updateColor(wyc4bRed);
+			addRenderPair(m, s);
 
 			// quad bezier
 			wyBezierConfig c = wybcQuad(0, wyDevice::winHeight, wyDevice::winWidth / 2, wyDevice::winHeight / 2, wyDevice::winWidth, wyDevice::winHeight);
-			m_bezier1 = wyShape::make();
-			m_bezier1->retain();
-			m_bezier1->buildBezier(c, 50);
+			s = wyShape::make();
+			s->buildBezier(c, 50);
+			addRenderPair(m, s);
 
 			// cubic bezier
 			c = wybcCubic(wyDevice::winWidth / 2,
@@ -716,81 +697,18 @@ namespace Other {
 						  wyDevice::winHeight / 2 - 50,
 						  wyDevice::winWidth,
 						  wyDevice::winHeight / 2);
-			m_bezier2 = wyShape::make();
-			m_bezier2->retain();
-			m_bezier2->buildBezier(c, 100);
+			s = wyShape::make();
+			s->buildBezier(c, 100);
+			addRenderPair(m, s);
+
+			setBlendMode(wyRenderState::ALPHA);
 		}
 		
 		virtual ~wyDrawPrimitivesTestLayer() {
-			m_mat->release();
-			m_line1->release();
-			m_line2->release();
-			m_point1->release();
-			m_point2->release();
-			m_circle1->release();
-			m_circle2->release();
-			m_circle3->release();
-			m_rect1->release();
-			m_rect2->release();
-			m_poly1->release();
-			m_poly2->release();
-			m_poly3->release();
-			m_bezier1->release();
-			m_bezier2->release();
 		}
 
 		virtual bool isGeometry() {
 			return true;
-		}
-
-		virtual bool isSelfDraw() {
-			return true;
-		}
-		
-		virtual void draw() {
-			wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-
-			// white line
-			rm->renderMaterial(this, m_mat, m_line1);
-
-			// red thick line
-			rm->renderMaterial(this, m_mat, m_line2);
-
-			// a big point
-			rm->renderMaterial(this, m_mat, m_point1);
-
-			// four small points
-			rm->renderMaterial(this, m_mat, m_point2);
-
-			// green circle
-			rm->renderMaterial(this, m_mat, m_circle1);
-
-			// cyan circle with radius line
-			rm->renderMaterial(this, m_mat, m_circle2);
-
-			// solid circle
-			rm->renderMaterial(this, m_mat, m_circle3);
-
-			// rect
-			rm->renderMaterial(this, m_mat, m_rect1);
-
-			// solid rect
-			rm->renderMaterial(this, m_mat, m_rect2);
-
-			// yellow open poly lines
-			rm->renderMaterial(this, m_mat, m_poly1);
-
-			// closed poly
-			rm->renderMaterial(this, m_mat, m_poly2);
-
-			// solid poly
-			rm->renderMaterial(this, m_mat, m_poly3);
-
-			// quad bezier
-			rm->renderMaterial(this, m_mat, m_bezier1);
-
-			// cubic bezier
-			rm->renderMaterial(this, m_mat, m_bezier2);
 		}
 	};
 
