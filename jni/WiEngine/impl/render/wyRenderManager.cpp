@@ -203,6 +203,13 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 			kmGLTranslatef(-node->getAnchorX(), -node->getAnchorY(), 0);
 	}
 
+	// push clip rect
+	bool clip = node->hasClipRect();
+	if(clip) {
+		wyRect r = node->getResolvedClipRect();
+		m_renderer->pushClipRect(r);
+	}
+
 	// render children whose z order is less than 0
 	int i = 0;
 	wyArray* children = node->getChildren();
@@ -228,7 +235,7 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 			kmMat4Fill(node->getWorldMatrix(), m.mat);
 
 			// to queue
-			v->getQueue()->addToQueue(node, node->getQueueBucket());
+			renderNode(node);
 		}
 	}
 
@@ -239,6 +246,10 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 			renderScene(child, v);
 		}
 	}
+
+	// pop clip
+	if(clip)
+		m_renderer->popClipRect();
 
 	// pop world matrix
 	kmGLMatrixMode(KM_GL_WORLD);
@@ -266,13 +277,6 @@ void wyRenderManager::clearQueue(wyViewport* v) {
 }
 
 void wyRenderManager::renderNode(wyNode* g) {
-	// push clip rect
-	bool clip = g->hasClipRect();
-	if(clip) {
-		wyRect r = g->getResolvedClipRect();
-		m_renderer->pushClipRect(r);
-	}
-
 	// check update flag
 	if(g->isNeedUpdateMaterial()) {
 		g->updateMaterial();
@@ -324,10 +328,6 @@ void wyRenderManager::renderNode(wyNode* g) {
 
 	// notify render end
 	g->afterRender();
-
-	// pop clip
-	if(clip)
-		m_renderer->popClipRect();
 }
 
 void wyRenderManager::updateUniformValues(wyShaderProgram* p, wyNode* g) {
