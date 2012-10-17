@@ -129,6 +129,12 @@ public:
 	/// @see wyNode::getMesh
 	virtual wyMesh* getMesh(int index = 0);
 
+	/// @see wyNode::getLodLevel
+    virtual int getLodLevel(int index = 0);
+
+	/// @see wyNode::setLodLevel
+    virtual void setLodLevel(int level, int index = 0);
+
 	/// @see wyNode::updateMaterial
 	virtual void updateMaterial();
 

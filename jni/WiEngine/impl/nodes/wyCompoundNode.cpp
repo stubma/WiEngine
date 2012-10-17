@@ -27,6 +27,7 @@
  * THE SOFTWARE.
  */
 #include "wyCompoundNode.h"
+#include "wyLog.h"
 
 wyCompoundNode::wyCompoundNode() {
 	m_nodes = WYNEW WY_NODE_MAP();
@@ -193,6 +194,20 @@ wyMesh* wyCompoundNode::getMesh(int index) {
 		return node->getMesh(index);
 	else
 		return NULL;
+}
+
+int wyCompoundNode::getLodLevel(int index) {
+	wyNode* node = getStateNode();
+	if(node)
+		return node->getLodLevel(index);
+	else
+		return 0;
+}
+
+void wyCompoundNode::setLodLevel(int level, int index) {
+	for(WY_NODE_ITER iter = m_nodes->begin(); iter != m_nodes->end(); iter++) {
+		iter->second->setLodLevel(level, index);
+	}
 }
 
 void wyCompoundNode::updateMaterial() {
