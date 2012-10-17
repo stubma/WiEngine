@@ -1742,7 +1742,7 @@ wyMaterial* wyNode::getMaterial(int index) {
 int wyNode::getLodLevel(int index) {
 	// check index
 	if(index < 0 || index >= m_renderPairs->size()) {
-		LOGW("wyNode::getLodLevel, index is out of range");
+		LOGW("wyNode::getLodLevel, index is out of range: %d", index);
 		return 0;
 	}
 
@@ -1753,7 +1753,7 @@ int wyNode::getLodLevel(int index) {
 void wyNode::setLodLevel(int level, int index) {
 	// check index
 	if(index < 0 || index >= m_renderPairs->size()) {
-		LOGW("wyNode::setLodLevel: index is out of range");
+		LOGW("wyNode::setLodLevel: index is out of range: %d", index);
 		return;
 	}
 
