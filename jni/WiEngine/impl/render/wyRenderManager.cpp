@@ -322,6 +322,9 @@ void wyRenderManager::renderNode(wyNode* g) {
 		m_renderer->renderMesh(mesh, g->getLodLevel(i));
 	}
 
+	// notify render end
+	g->afterRender();
+
 	// pop clip
 	if(clip)
 		m_renderer->popClipRect();

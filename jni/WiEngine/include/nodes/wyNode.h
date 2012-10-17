@@ -3108,6 +3108,11 @@ public:
 	virtual void beforeRender() {}
 
 	/**
+	 * Invoked just after rendering this node
+	 */
+	virtual void afterRender() {}
+
+	/**
 	 * \if English
 	 * Update material
 	 * \else
