@@ -56,6 +56,7 @@ wyGLState* wyGLState::make() {
 void wyGLState::reset() {
 	activeProgram = NULL;
 	cullMode = wyRenderState::NO_CULL;
+	blendMode = wyRenderState::NO_BLEND;
 	colorWriteEnabled = true;
 	depthWriteEnabled = true;
 	depthTestEnabled = false;
