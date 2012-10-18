@@ -883,15 +883,13 @@ namespace Action {
     class wyOrbitCameraFlipXTestLayer : public wyActionTestLayer {
     public:
         wyOrbitCameraFlipXTestLayer() {
-        	m_Sprite->setScale(4);
-
             wyIntervalAction* action = wyOrbitCamera::make(3, 1, 0, 0, 360, 0, 0);
             m_Sprite->runAction(action);
 
         	wySprite* bg = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.background")));
         	bg->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
         	addChildLocked(bg, -1);
-        };
+        }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
