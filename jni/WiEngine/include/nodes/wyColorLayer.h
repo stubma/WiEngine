@@ -61,9 +61,6 @@ public:
 
 	virtual ~wyColorLayer();
 
-	/// @see wyNode::isGeometry
-	virtual bool isGeometry() { return true; }
-
 	/// @see wyNode::updateMesh
 	virtual void updateMesh();
 

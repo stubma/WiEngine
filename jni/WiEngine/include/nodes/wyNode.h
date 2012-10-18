@@ -3081,19 +3081,6 @@ public:
 
 	/**
 	 * \if English
-	 * Is this node a visual element?
-	 *
-	 * @return true means this node is a visual element, a subclass of \link wyGeometry wyGeometry\endlink
-	 * \else
-	 * 这个节点是否是一个可见元素
-	 *
-	 * @return true表示这个节点是一个可见元素, 一个\link wyGeometry wyGeometry\endlink的子类
-	 * \endif
-	 */
-	virtual bool isGeometry() { return false; }
-
-	/**
-	 * \if English
 	 * Is this node visitable. "Visitable" means its children should be visited when
 	 * rendering this node
 	 * \else

@@ -706,10 +706,6 @@ namespace Other {
 		
 		virtual ~wyDrawPrimitivesTestLayer() {
 		}
-
-		virtual bool isGeometry() {
-			return true;
-		}
 	};
 
 	//////////////////////////////////////////////////////////////////////////////////////////
@@ -1590,14 +1586,6 @@ namespace Other {
 			wyTargetSelector* ts = wyTargetSelector::make(this, SEL(wyVerletRopeTestLayer::onUpdateRope));
 			wyTimer* t = wyTimer::make(ts);
 			scheduleLocked(t);
-		}
-		
-		virtual bool isGeometry() {
-			return true;
-		}
-
-		virtual bool isSelfDraw() {
-			return true;
 		}
 
 		virtual ~wyVerletRopeTestLayer() {

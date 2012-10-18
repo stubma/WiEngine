@@ -128,9 +128,6 @@ public:
 	 */
 	virtual ~wyTiledSprite();
 
-	/// @see wyNode::isGeometry
-	virtual bool isGeometry() { return true; }
-
 	/// @see wyNode::setTexture
 	virtual void setTexture(wyTexture2D* tex, int index = 0);
 

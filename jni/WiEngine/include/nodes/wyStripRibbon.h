@@ -74,9 +74,6 @@ public:
 	 */
     virtual ~wyStripRibbon();
 
-	/// @see wyNode::isGeometry
-	virtual bool isGeometry() { return true; }
-
 	/// @see wyNode::updateMeshColor
 	virtual void updateMeshColor();
 

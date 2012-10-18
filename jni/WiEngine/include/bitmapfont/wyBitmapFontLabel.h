@@ -166,9 +166,6 @@ public:
 
 	virtual ~wyBitmapFontLabel();
 
-	/// @see wyNode::isGeometry
-	virtual bool isGeometry() { return true; }
-
 	/// @see wyGeometry::updateMesh
 	virtual void updateMesh();
 

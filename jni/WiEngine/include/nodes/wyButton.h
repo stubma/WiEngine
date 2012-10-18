@@ -125,9 +125,6 @@ public:
 	 */
 	virtual ~wyButton();
 
-	/// @see wyNode::isGeometry
-	virtual bool isGeometry() { return true; }
-
 	/// @see wyNode::setSelected
 	virtual void setSelected(bool selected);
 

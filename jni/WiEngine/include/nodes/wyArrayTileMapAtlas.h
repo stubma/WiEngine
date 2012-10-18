@@ -135,9 +135,6 @@ public:
 	 */
 	void refreshTileValues();
 
-	/// @see wyNode::isGeometry
-	virtual bool isGeometry() { return true; }
-
 	/// @see wyTileMapAtlas::hasTileAt
     virtual bool hasTileAt(int x, int y);
 

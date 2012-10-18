@@ -110,9 +110,6 @@ public:
 	
 	virtual ~wySpriteBatchNode();
 
-	/// @see wyNode::isGeometry
-	virtual bool isGeometry() { return true; }
-
 	/// @see wyNode::isVisitable
 	virtual bool isVisitable() { return false; }
 	

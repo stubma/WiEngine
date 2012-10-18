@@ -147,9 +147,6 @@ public:
 	 */
     virtual ~wyAtlasLabel();
 
-	/// @see wyNode::isGeometry
-	virtual bool isGeometry() { return true; }
-
 	/// @see wyGeometry::updateMesh
 	virtual void updateMesh();
 

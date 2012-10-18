@@ -398,10 +398,6 @@ namespace Action {
 
         virtual ~wyHypotrochoidTestLayer() {
         }
-
-        virtual bool isGeometry() {
-        	return true;
-        }
 	};
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -460,10 +456,6 @@ namespace Action {
 
         virtual ~wyLagrangeTestLayer() {
         }
-
-        virtual bool isGeometry() {
-        	return true;
-        }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -500,10 +492,6 @@ namespace Action {
         }
 
         virtual ~wyMoveByTestLayer() {
-        }
-
-        virtual bool isGeometry() {
-        	return true;
         }
 
         virtual void beforeRender() {
@@ -551,10 +539,6 @@ namespace Action {
 		}
 
         virtual ~wyMoveByAngleTestLayer() {
-        }
-
-        virtual bool isGeometry() {
-        	return true;
         }
 
         virtual void beforeRender() {
@@ -621,10 +605,6 @@ namespace Action {
 		}
 
         virtual ~wyMoveByPathTestLayer() {
-        }
-
-        virtual bool isGeometry() {
-        	return true;
         }
 	};
 
@@ -961,10 +941,6 @@ namespace Action {
         }
 
         virtual ~wyBezierTestLayer() {
-        }
-
-        virtual bool isGeometry() {
-        	return true;
         }
     };
     

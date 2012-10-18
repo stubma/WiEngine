@@ -223,20 +223,13 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 		}
 	}
 
-	// check node type
-	// if geometry, add to render queue
-	// if not, check custom render
-	if(!node->isGeometry()) {
-		// TODO do what if not geometry?
-	} else {
-		// set calculated world matrix to geometry
-		if(!node->isNoDraw()) {
-			kmGLGetMatrix(KM_GL_WORLD, &m);
-			kmMat4Fill(node->getWorldMatrix(), m.mat);
+	// set calculated world matrix to geometry
+	if(!node->isNoDraw()) {
+		kmGLGetMatrix(KM_GL_WORLD, &m);
+		kmMat4Fill(node->getWorldMatrix(), m.mat);
 
-			// to queue
-			renderNode(node);
-		}
+		// to queue
+		renderNode(node);
 	}
 
 	// render children
@@ -278,6 +271,11 @@ void wyRenderManager::clearQueue(wyViewport* v) {
 }
 
 void wyRenderManager::renderNode(wyNode* g) {
+	// directly return if no render pair
+	int c = g->getRenderPairCount();
+	if(c <= 0)
+		return;
+
 	// check update flag
 	if(g->isNeedUpdateMaterial()) {
 		g->updateMaterial();
@@ -296,7 +294,6 @@ void wyRenderManager::renderNode(wyNode* g) {
 	g->beforeRender();
 
 	// render every material
-	int c = g->getRenderPairCount();
 	for(int i = 0; i < c; i++) {
 		wyMaterial* material = g->getMaterial(i);
 		wyMesh* mesh = g->getMesh(i);
