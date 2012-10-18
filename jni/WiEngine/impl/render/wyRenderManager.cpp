@@ -216,7 +216,7 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 	if(node->isVisitable()) {
 		for(; i < children->num; i++) {
 			wyNode* child = (wyNode*)wyArrayGet(children, i);
-			if(child->getZOrder() < 0)
+			if(child->getZOrder() < 0 && node->isChildVisitable(child))
 				renderScene(child, v);
 			else
 				break;
@@ -243,7 +243,8 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 	if(node->isVisitable()) {
 		for(; i < children->num; i++) {
 			wyNode* child = (wyNode*)wyArrayGet(children, i);
-			renderScene(child, v);
+			if(node->isChildVisitable(child))
+				renderScene(child, v);
 		}
 	}
 

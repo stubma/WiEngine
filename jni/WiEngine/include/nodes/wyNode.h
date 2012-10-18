@@ -3103,6 +3103,15 @@ public:
 	virtual bool isVisitable() { return true; }
 
 	/**
+	 * A method can be used to control child visitability. If returns false,
+	 * render manager will render the child. By default, it always returns true.
+	 *
+	 * @param child child node need to be checked
+	 * @return true means this child should be visited, false if you don't want to render this child
+	 */
+	virtual bool isChildVisitable(wyNode* child) { return true; }
+
+	/**
 	 * Invoked just before rendering this node
 	 */
 	virtual void beforeRender() {}

@@ -60,116 +60,38 @@ public:
 	virtual ~wyScrollContainer() {
 	}
 
-	virtual void visit() {
-		// TODO gles2
-//		/*
-//		 * Here we do optimization in drawing scrollable children,
-//		 * child whose rect is outside of wyScrollableLayer is skipped
-//		 * to improve frame rate
-//		 */
-//
-//		// if not visible
-//		if(!m_visible)
-//			return;
-//
-//		// should push matrix to avoid disturb current matrix
-//		glPushMatrix();
-//
-//		// if grid is set, prepare grid
-//		if(m_grid != NULL && m_grid->isActive()) {
-//			m_grid->beforeDraw();
-//			transformAncestors();
-//		}
-//
-//		// transform for myself
-//		transform();
-//
-//		// check clip
-//		if(m_hasClip)
-//			doClip();
-//
-//		// parent is scrollable layer
-//		wyScrollableLayer* sl = (wyScrollableLayer*)m_parent;
-//
-//		// parent size
-//		float pW = m_parent->getWidth();
-//		float pH = m_parent->getHeight();
-//
-//		// draw children whose z order is less than zero
-//		for(int i = 0; i < m_children->num; i++) {
-//			wyNode* n = (wyNode*)wyArrayGet(m_children, i);
-//			if(n->getZOrder() < 0) {
-//				// get child bound relative to scrollable layer
-//				float w = n->getWidth();
-//				float h = n->getHeight();
-//				float x = n->isRelativeAnchorPoint() ? (n->getPositionX() - w * n->getAnchorX()) : n->getPositionX();
-//				float y = n->isRelativeAnchorPoint() ? (n->getPositionY() - h * n->getAnchorY()) : n->getPositionY();
-//				x += m_positionX;
-//				y += m_positionY;
-//
-//				// check bound, if intersected, visit this child
-//				if(x + w > 0 && pW > x && y + h > 0 && pH > y) {
-//					// set flag so it will be notified when it is invisible
-//					wyUserData& ud = n->getUserData();
-//					ud.b = false;
-//
-//					// visit it
-//					n->visit();
-//				} else {
-//					wyUserData& ud = n->getUserData();
-//					if(!ud.b) {
-//						sl->invokeOnScrollableChildNotVisible(n);
-//						ud.b = true;
-//					}
-//				}
-//			} else
-//				break;
-//		}
-//
-//		// draw self
-//		draw();
-//
-//		// draw children whose z order is larger than zero
-//		for(int i = 0; i < m_children->num; i++) {
-//			wyNode* n = (wyNode*)wyArrayGet(m_children, i);
-//			if(n->getZOrder() >= 0) {
-//				// get child bound relative to scrollable layer
-//				float w = n->getWidth();
-//				float h = n->getHeight();
-//				float x = n->isRelativeAnchorPoint() ? (n->getPositionX() - w * n->getAnchorX()) : n->getPositionX();
-//				float y = n->isRelativeAnchorPoint() ? (n->getPositionY() - h * n->getAnchorY()) : n->getPositionY();
-//				x += m_positionX;
-//				y += m_positionY;
-//
-//				// check bound, if intersected, visit this child
-//				if(x + w > 0 && pW > x && y + h > 0 && pH > y) {
-//					// set flag so it will be notified when it is invisible
-//					wyUserData& ud = n->getUserData();
-//					ud.b = false;
-//
-//					// visit it
-//					n->visit();
-//				} else {
-//					wyUserData& ud = n->getUserData();
-//					if(!ud.b) {
-//						sl->invokeOnScrollableChildNotVisible(n);
-//						ud.b = true;
-//					}
-//				}
-//			}
-//		}
-//
-//		// restore
-//		if(m_hasClip)
-//			glDisable(GL_SCISSOR_TEST);
-//
-//		// if grid is set, end grid
-//		if(m_grid != NULL && m_grid->isActive()) {
-//			m_grid->afterDraw(this);
-//		}
-//
-//		// pop matrix
-//		glPopMatrix();
+	virtual bool isChildVisitable(wyNode* child) {
+		// parent is scrollable layer
+		wyScrollableLayer* sl = (wyScrollableLayer*)m_parent;
+
+		// parent size
+		float pW = m_parent->getWidth();
+		float pH = m_parent->getHeight();
+
+		// get child bound relative to scrollable layer
+		float w = child->getWidth();
+		float h = child->getHeight();
+		float x = child->isRelativeAnchorPoint() ? (child->getPositionX() - w * child->getAnchorX()) : child->getPositionX();
+		float y = child->isRelativeAnchorPoint() ? (child->getPositionY() - h * child->getAnchorY()) : child->getPositionY();
+		x += m_positionX;
+		y += m_positionY;
+
+		// check bound, if intersected, visit this child
+		if(x + w > 0 && pW > x && y + h > 0 && pH > y) {
+			// set flag so it will be notified when it is invisible
+			wyUserData& ud = child->getUserData();
+			ud.b = false;
+
+			return true;
+		} else {
+			wyUserData& ud = child->getUserData();
+			if(!ud.b) {
+				sl->invokeOnScrollableChildNotVisible(child);
+				ud.b = true;
+			}
+
+			return false;
+		}
 	}
 };
 
