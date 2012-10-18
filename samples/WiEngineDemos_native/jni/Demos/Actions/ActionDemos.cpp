@@ -612,7 +612,7 @@ namespace Action {
 
     class wyMoveToTestLayer : public wyActionTestLayer {
     public:
-        wyMoveToTestLayer(){
+        wyMoveToTestLayer() {
         	reorderChild(m_Sprite, -1);
 	        m_Sprite->setPosition(60, wyDevice::winHeight / 2);
 
@@ -624,23 +624,31 @@ namespace Action {
 
             wyAction* action = wyRepeatForever::make(t);
             m_Sprite->runAction(action);
+
+			// material and mesh for path
+            wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
+        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	anchor = m_Sprite->nodeToWorldSpace(anchor);
+        	wyShape* s = wyShape::make();
+			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			s->updateColor(wyc4bGreen);
+			addRenderPair(m, s);
+
+			// mesh for points
+			s = wyShape::make();
+			s->setPointSize(5);
+			s->buildPoint(DP(100), wyDevice::winHeight - DP(100));
+			s->updateColor(wyc4bRed);
+			addRenderPair(m, s);
         }
 
-        virtual void draw() {
-			// TODO gles2
-        	//// draw pin point
-        	//glColor4f(1, 0, 0, 1);
-        	//glPointSize(5);
-        	//wyDrawPoint(DP(100), wyDevice::winHeight - DP(100));
-
-        	//// draw anchor point
-        	//wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
-        	//anchor = m_Sprite->nodeToWorldSpace(anchor);
-        	//wyDrawPoint(anchor.x, anchor.y);
-
-        	//// draw line between pin point and anchor point
-        	//glColor4f(0, 1, 0, 1);
-        	//wyDrawDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+        virtual void beforeRender() {
+        	// update dash line
+        	wyShape* s = (wyShape*)getMesh();
+        	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
+        	anchor = m_Sprite->nodeToWorldSpace(anchor);
+			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
+			s->updateColor(wyc4bGreen);
         }
     };
 
