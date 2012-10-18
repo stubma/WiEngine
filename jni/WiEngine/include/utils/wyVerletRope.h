@@ -193,17 +193,19 @@ public:
 	void update(wyPoint a, wyPoint b, float dt);
 
 	/**
-	 * \if English
-	 * Render rope
-	 *
-	 * @param parent the node who invoked draw method
-	 * \else
-	 * 绘制绳子
-	 *
-	 * @param parent 调用draw方法的节点
-	 * \endif
+	 * Update rope mesh
 	 */
-	void draw(wyNode* parent);
+	void updateMesh();
+
+	/**
+	 * Get material
+	 */
+	wyMaterial* getMaterial() { return m_material; }
+
+	/**
+	 * Get mesh
+	 */
+	wyMesh* getMesh();
 
 	/**
 	 * \if English

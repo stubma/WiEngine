@@ -2288,11 +2288,6 @@ public:
 	void update(wyPoint a, wyPoint b, float dt);
 
 	/**
-	 * 绘制绳子
-	 */
-	void draw(wyNode* parent);
-
-	/**
 	 * 获得所有的\link wyVerletStick wyVerletStick\endlink对象
 	 *
 	 * @return 包含所有\link wyVerletStick wyVerletStick对象\endlink 的\link wyArray wyArray对象\endlink

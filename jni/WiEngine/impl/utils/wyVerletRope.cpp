@@ -32,7 +32,6 @@
 #include "wyMaterial.h"
 #include "wyQuadList.h"
 #include "wyDirector.h"
-#include "wyRenderManager.h"
 
 wyVerletRope::wyVerletRope(wyPoint a, wyPoint b, wyTexture2D* tex, size_t length) :
 		m_points(wyArrayNew(16)),
@@ -368,16 +367,16 @@ bool wyVerletRope::isStretched() {
 	return distance > m_length * 1.04f + 1.f;
 }
 
-void wyVerletRope::draw(wyNode* parent) {
+void wyVerletRope::updateMesh() {
 	// update quads
 	if(m_dirty) {
 		updateQuads();
 		m_dirty = false;
 	}
+}
 
-	// apply render state
-	wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-	rm->renderMaterial(parent, m_material, m_mesh);
+wyMesh* wyVerletRope::getMesh() {
+	return m_mesh;
 }
 
 int wyVerletRope::rayCast(wyPoint s, wyPoint e) {

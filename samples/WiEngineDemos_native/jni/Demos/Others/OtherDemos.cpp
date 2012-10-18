@@ -1577,9 +1577,10 @@ namespace Other {
 		
 	public:
 		wyVerletRopeTestLayer() :
-		m_a(wyp(wyDevice::winWidth / 2, wyDevice::winHeight - 100)),
-		m_b(wyp(50, wyDevice::winHeight / 2)) {
+				m_a(wyp(wyDevice::winWidth / 2, wyDevice::winHeight - 100)),
+				m_b(wyp(50, wyDevice::winHeight / 2)) {
 			m_rope = new wyVerletRope(m_a, m_b, wyTexture2D::makePNG(RES("R.drawable.rope")));
+			addRenderPair(m_rope->getMaterial(), m_rope->getMesh());
 			
 			setTouchEnabled(true);
 			
@@ -1592,10 +1593,10 @@ namespace Other {
 			m_rope->release();
 		}
 		
-		virtual void draw() {
-			m_rope->draw(this);
+		virtual void beforeRender() {
+			m_rope->updateMesh();
 		}
-		
+
 		virtual bool touchesBegan(wyMotionEvent& e) {
 			m_b = wyp(e.x[0], e.y[0]);
 			return true;

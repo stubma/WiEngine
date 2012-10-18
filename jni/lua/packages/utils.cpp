@@ -1,6 +1,6 @@
 /*
 ** Lua binding: utils
-** Generated automatically by tolua++-1.0.92 on Wed Oct 10 14:15:49 2012.
+** Generated automatically by tolua++-1.0.92 on Thu Oct 18 13:13:06 2012.
 */
 
 #ifndef __cplusplus
@@ -147,37 +147,36 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"int64_t");
  tolua_usertype(tolua_S,"size_t");
  tolua_usertype(tolua_S,"wyAffineTransform");
- tolua_usertype(tolua_S,"wyRunnable");
+ tolua_usertype(tolua_S,"wyAssetOutputStream");
  tolua_usertype(tolua_S,"wyScroller");
- tolua_usertype(tolua_S,"wyMath");
  tolua_usertype(tolua_S,"wyTargetSelector");
- tolua_usertype(tolua_S,"wyVerletStick");
+ tolua_usertype(tolua_S,"wyMath");
+ tolua_usertype(tolua_S,"wyZwoptexFrame");
  tolua_usertype(tolua_S,"wyImagePickerCallback");
- tolua_usertype(tolua_S,"wySpriteEx");
  tolua_usertype(tolua_S,"wyPoint");
+ tolua_usertype(tolua_S,"wySpriteEx");
  tolua_usertype(tolua_S,"wyZwoptexManager");
  tolua_usertype(tolua_S,"wyZwoptex");
- tolua_usertype(tolua_S,"wyZwoptexFrame");
  tolua_usertype(tolua_S,"char16_t");
  tolua_usertype(tolua_S,"wyObject");
  tolua_usertype(tolua_S,"wyImagePicker");
- tolua_usertype(tolua_S,"wyColor3B");
+ tolua_usertype(tolua_S,"wyVerletStick");
  tolua_usertype(tolua_S,"wyPVRHeader");
  tolua_usertype(tolua_S,"wyUtils");
  tolua_usertype(tolua_S,"wyMotionEvent");
  tolua_usertype(tolua_S,"wyAssetInputStream");
  tolua_usertype(tolua_S,"wyVerletPoint");
- tolua_usertype(tolua_S,"wyArray");
+ tolua_usertype(tolua_S,"wyColor3B");
  tolua_usertype(tolua_S,"wyTexture2D");
- tolua_usertype(tolua_S,"wyAssetOutputStream");
+ tolua_usertype(tolua_S,"wyArray");
  tolua_usertype(tolua_S,"wyQuad2D");
  tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyPVRFormat");
  tolua_usertype(tolua_S,"wyQuad3D");
- tolua_usertype(tolua_S,"wyNode");
- tolua_usertype(tolua_S,"wyTGA");
  tolua_usertype(tolua_S,"wyColor4B");
+ tolua_usertype(tolua_S,"wyTGA");
  tolua_usertype(tolua_S,"wyBezierConfig");
+ tolua_usertype(tolua_S,"wyRunnable");
 }
 
 /* method: make of class  wyAssetOutputStream */
@@ -5724,39 +5723,6 @@ static int tolua_utils_wyVerletRope_update00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyVerletRope */
-#ifndef TOLUA_DISABLE_tolua_utils_wyVerletRope_draw00
-static int tolua_utils_wyVerletRope_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVerletRope",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVerletRope* self = (wyVerletRope*)  tolua_tousertype(tolua_S,1,0);
-  wyNode* parent = ((wyNode*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw(parent);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: getSticks of class  wyVerletRope */
 #ifndef TOLUA_DISABLE_tolua_utils_wyVerletRope_getSticks00
 static int tolua_utils_wyVerletRope_getSticks00(lua_State* tolua_S)
@@ -8677,7 +8643,6 @@ TOLUA_API int tolua_utils_open (lua_State* tolua_S)
    tolua_function(tolua_S,"delete",tolua_utils_wyVerletRope_delete00);
    tolua_function(tolua_S,"reset",tolua_utils_wyVerletRope_reset00);
    tolua_function(tolua_S,"update",tolua_utils_wyVerletRope_update00);
-   tolua_function(tolua_S,"draw",tolua_utils_wyVerletRope_draw00);
    tolua_function(tolua_S,"getSticks",tolua_utils_wyVerletRope_getSticks00);
    tolua_function(tolua_S,"getStickAt",tolua_utils_wyVerletRope_getStickAt00);
    tolua_function(tolua_S,"getStickCount",tolua_utils_wyVerletRope_getStickCount00);

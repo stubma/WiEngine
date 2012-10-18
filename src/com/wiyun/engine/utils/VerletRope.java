@@ -1,7 +1,6 @@
 package com.wiyun.engine.utils;
 
 import com.wiyun.engine.BaseWYObject;
-import com.wiyun.engine.nodes.Node;
 import com.wiyun.engine.opengl.Texture2D;
 import com.wiyun.engine.types.WYColor3B;
 import com.wiyun.engine.types.WYColor4B;
@@ -69,19 +68,6 @@ public class VerletRope extends BaseWYObject {
 	 * @param dt 过去的时间
 	 */
 	public native void update(WYPoint a, WYPoint b, float dt);
-
-	/**
-	 * \if English
-	 * Render rope
-	 *
-	 * @param parent the node who invoked draw method
-	 * \else
-	 * 绘制绳子
-	 *
-	 * @param parent 调用draw方法的节点
-	 * \endif
-	 */
-	public native void draw(Node parent);
 
 	/**
 	 * 获得所有的\link VerletStick VerletStick\endlink对象指针
