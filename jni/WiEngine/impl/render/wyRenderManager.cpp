@@ -165,12 +165,6 @@ void wyRenderManager::renderViewport(wyViewport* v, float delta) {
 	wyNode* root = v->getRoot();
 	renderScene(root, v);
 
-	// render queues
-	flushQueue(v);
-
-	// clear queue
-	clearQueue(v);
-
 	// pop view port clip
 	m_renderer->popClipRect();
 }
