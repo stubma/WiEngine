@@ -414,6 +414,9 @@ private:
 	/// update node world matrix by fetching it from kazmath world matrix stack
 	void syncWorldMatrix();
 
+	/// apply node matrix to top matrix of world matrix stack
+	void applyWorldMatrix();
+
 protected:
 	/// constructor
 	wyNode();

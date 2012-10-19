@@ -34,6 +34,7 @@
 #include "wyNode.h"
 #include "wyTechnique.h"
 #include "wyShaderProgram.h"
+#include "wyBaseGrid.h"
 
 wyRenderManager::wyRenderManager(wyRenderer* renderer) :
 		m_camera(NULL) {
@@ -178,23 +179,12 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 	kmGLMatrixMode(KM_GL_WORLD);
 	kmGLPushMatrix();
 
-	// multiply current node world matrix
-	wyAffineTransform t = node->getTransformMatrix();
-	kmMat4 m;
-	wyaToGL(t, m.mat);
-	m.mat[14] = node->getVertexZ();
-	kmGLMultMatrix(&m);
-
-	// if node has camera, apply it
-	if(node->hasCamera()) {
-		bool translate = node->getAnchorPointX() != 0 || node->getAnchorPointY() != 0;
-		if(translate)
-			kmGLTranslatef(node->getAnchorPointX(), node->getAnchorPointY(), 0);
-
-		kmGLMultMatrix(node->getCamera()->getViewMatrix());
-
-		if(translate)
-			kmGLTranslatef(-node->getAnchorPointX(), -node->getAnchorPointY(), 0);
+	// if node has grid, enable grid
+	// if not, transform node
+	if(node->isGridActive()) {
+		node->getGrid()->beforeDraw();
+	} else {
+		node->applyWorldMatrix();
 	}
 
 	// push clip rect
@@ -234,6 +224,11 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 	// pop clip
 	if(clip)
 		m_renderer->popClipRect();
+
+	// clean grid
+	if(node->isGridActive()) {
+		node->getGrid()->afterDraw(node);
+	}
 
 	// pop world matrix
 	kmGLMatrixMode(KM_GL_WORLD);

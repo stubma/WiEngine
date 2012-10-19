@@ -1834,3 +1834,24 @@ void wyNode::syncWorldMatrix() {
 	kmGLGetMatrix(KM_GL_WORLD, &m);
 	kmMat4Fill(&m_worldMatrix, m.mat);
 }
+
+void wyNode::applyWorldMatrix() {
+	// multiply current node world matrix
+	wyAffineTransform t = getTransformMatrix();
+	kmMat4 m;
+	wyaToGL(t, m.mat);
+	m.mat[14] = m_vertexZ;
+	kmGLMultMatrix(&m);
+
+	// if node has camera, apply it
+	if(hasCamera()) {
+		bool translate = m_anchorPointX != 0 || m_anchorPointY != 0;
+		if(translate)
+			kmGLTranslatef(m_anchorPointX, m_anchorPointY, 0);
+
+		kmGLMultMatrix(getCamera()->getViewMatrix());
+
+		if(translate)
+			kmGLTranslatef(-m_anchorPointX, -m_anchorPointY, 0);
+	}
+}
