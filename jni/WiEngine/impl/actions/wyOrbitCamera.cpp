@@ -68,7 +68,7 @@ void wyOrbitCamera::start(wyNode* target) {
 }
 
 void wyOrbitCamera::update(float t) {
-    float r = (m_radius + m_deltaRadius * t) * m_target->getCamera()->getZEye();
+    float r = (m_radius + m_deltaRadius * t) * wyCamera::getZEye();
     float za = m_radianZ + m_deltaRadianZ * t;
     float xa = m_radianX + m_deltaRadianX * t;
 

@@ -159,6 +159,11 @@ public:
 	static wyCamera* make();
 
 	/**
+	 * Get default z location of eye
+	 */
+	static float getZEye() { return FLT_EPSILON; }
+
+	/**
 	 * \if English
 	 * Restore camera to default position
 	 * \else
@@ -259,15 +264,6 @@ public:
 	 * \endif
 	 */
 	void setPerspective(float fovy, float widthRatio, float heightRatio, float near, float far);
-
-	/**
-	 * \if English
-	 * Get z location of eye
-	 * \else
-	 * 得到相机的z位置
-	 * \endif
-	 */
-	float getZEye() { return m_cameraParams.eye.z; }
 
 	/**
 	 * \if English

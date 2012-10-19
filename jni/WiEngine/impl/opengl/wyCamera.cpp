@@ -80,7 +80,7 @@ void wyCamera::setViewport(float x, float y, float w, float h) {
 
 void wyCamera::restoreCamera() {
 	// use identity
-	kmVec3Fill(&m_cameraParams.eye, 0, 0, FLT_EPSILON);
+	kmVec3Fill(&m_cameraParams.eye, 0, 0, getZEye());
 	kmVec3Fill(&m_cameraParams.center, 0, 0, 0);
 	kmVec3Fill(&m_cameraParams.up, 0, 1, 0);
 	m_cameraParams.relative = false;
