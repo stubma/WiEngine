@@ -192,15 +192,15 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 	kmGLMultMatrix(&m);
 
 	// if node has camera, apply it
-	if(node->hasCamera() && !node->isGridActive()) {
-		bool translate = node->getAnchorX() != 0 || node->getAnchorY() != 0;
+	if(node->hasCamera()) {
+		bool translate = node->getAnchorPointX() != 0 || node->getAnchorPointY() != 0;
 		if(translate)
-			kmGLTranslatef(node->getAnchorX(), node->getAnchorY(), 0);
+			kmGLTranslatef(node->getAnchorPointX(), node->getAnchorPointY(), 0);
 
 		kmGLMultMatrix(node->getCamera()->getViewMatrix());
 
 		if(translate)
-			kmGLTranslatef(-node->getAnchorX(), -node->getAnchorY(), 0);
+			kmGLTranslatef(-node->getAnchorPointX(), -node->getAnchorPointY(), 0);
 	}
 
 	// push clip rect
