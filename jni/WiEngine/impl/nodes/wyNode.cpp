@@ -344,39 +344,6 @@ void wyNode::removeChild(wyNode* child, bool cleanup) {
 	m_childrenChanging = false;
 }
 
-void wyNode::transform() {
-	// get node to parent matrix
-	kmMat4 worldMatrix;
-	updateNodeToParentTransform();
-	wyaToGL(m_transformMatrix, worldMatrix.mat);
-
-	// Update Z vertex manually
-	worldMatrix.mat[14] = m_vertexZ;
-
-	// append node matrix to current module view matrix
-	kmGLMultMatrix(&worldMatrix);
-
-	// if camera is available and grid is not, locate camera
-	// because we calculate matrix already, so need compensate the anchor point loss
-	if(m_camera != NULL) {
-		bool translate = m_anchorPointX != 0 || m_anchorPointY != 0;
-		if(translate)
-			kmGLTranslatef(m_anchorPointX, m_anchorPointY, 0);
-
-		kmGLMultMatrix(m_camera->getViewMatrix());
-
-		if(translate)
-			kmGLTranslatef(-m_anchorPointX, -m_anchorPointY, 0);
-	}
-}
-
-void wyNode::transformAncestors() {
-	if(m_parent != NULL) {
-		m_parent->transformAncestors();
-		m_parent->transform();
-	}
-}
-
 wyRect wyNode::getResolvedClipRect() {
 	// get clip rect relative to base size
 	wyRect r = m_clipRect;

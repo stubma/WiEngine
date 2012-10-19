@@ -3398,16 +3398,6 @@ public:
 	static wyNode* make();
 
 	/**
-	 * 如果当前坐标系是父坐标系，则调用此方法将坐标转换为节点自身坐标系
-	 */
-	virtual void transform();
-
-	/**
-	 * 将坐标系转换到父坐标系
-	 */
-	virtual void transformAncestors();
-
-	/**
 	 * 当节点要变成活动态时，该方法被调用。活动态即节点所属的场景正在运行。
 	 * 该方法由WiEngine内部调用，不需要手动调用
 	 */

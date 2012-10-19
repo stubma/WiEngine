@@ -799,18 +799,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setNoDraw
 	node->setNoDraw(noDraw);
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_transform
-  (JNIEnv * env, jobject thiz) {
-	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	node->transform();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_transformAncestors
-  (JNIEnv * env, jobject thiz) {
-	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	node->transformAncestors();
-}
-
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setTouchPriority
   (JNIEnv * env, jobject thiz, jint p) {
 	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);

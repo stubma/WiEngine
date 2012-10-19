@@ -448,24 +448,6 @@ public:
 	/// deconstructor
 	virtual ~wyNode();
 
-	/**
-	 * \if English
-	 * Transform coordinates from parent space to self space
-	 * \else
-	 * 如果当前坐标系是父坐标系，则调用此方法将坐标转换为节点自身坐标系
-	 * \endif
-	 */
-	virtual void transform();
-
-	/**
-	 * \if English
-	 * Switch to parent coordinate space
-	 * \else
-	 * 将坐标系转换到父坐标系
-	 * \endif
-	 */
-	virtual void transformAncestors();
-
     /**
      * \if English
      * Invoked when node will become active. Active means related scene is running.

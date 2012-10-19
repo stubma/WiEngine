@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Wed Oct 17 11:04:24 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Oct 19 13:29:14 2012.
 */
 
 #ifndef __cplusplus
@@ -12098,68 +12098,6 @@ static int tolua_nodes_wyNode_make00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: transform of class  wyNode */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyNode_transform00
-static int tolua_nodes_wyNode_transform00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyNode* self = (wyNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'transform'", NULL);
-#endif
-  {
-   self->transform();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'transform'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: transformAncestors of class  wyNode */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyNode_transformAncestors00
-static int tolua_nodes_wyNode_transformAncestors00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyNode* self = (wyNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'transformAncestors'", NULL);
-#endif
-  {
-   self->transformAncestors();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'transformAncestors'.",&tolua_err);
  return 0;
 #endif
 }
@@ -33072,8 +33010,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"wyNode","wyNode","wyObject",NULL);
   tolua_beginmodule(tolua_S,"wyNode");
    tolua_function(tolua_S,"make",tolua_nodes_wyNode_make00);
-   tolua_function(tolua_S,"transform",tolua_nodes_wyNode_transform00);
-   tolua_function(tolua_S,"transformAncestors",tolua_nodes_wyNode_transformAncestors00);
    tolua_function(tolua_S,"onEnter",tolua_nodes_wyNode_onEnter00);
    tolua_function(tolua_S,"onExit",tolua_nodes_wyNode_onExit00);
    tolua_function(tolua_S,"onEnterTransitionDidFinish",tolua_nodes_wyNode_onEnterTransitionDidFinish00);

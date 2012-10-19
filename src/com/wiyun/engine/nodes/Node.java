@@ -1270,16 +1270,6 @@ public class Node extends BaseWYObject implements IKeyHandler, IMultiTouchHandle
 	public String toString() {
 		return "<instance of " + this.getClass() + "| Tag = " + getTag() + ">";
 	}
-
-	/**
-	 * 如果当前坐标系是父坐标系，则调用此方法将坐标转换为节点自身坐标系
-	 */
-	public native final void transform();
-	
-	/**
-	 * 将坐标系转换到父坐标系
-	 */
-	public native final void transformAncestors();
 	
 	/**
 	 * 是否接收手势事件

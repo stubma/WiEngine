@@ -881,22 +881,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_resumeAllTimers__Z
 
 /*
  * Class:     com_wiyun_engine_nodes_Node
- * Method:    transform
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_transform
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_Node
- * Method:    transformAncestors
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_transformAncestors
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_Node
  * Method:    isGestureEnabled
  * Signature: ()Z
  */
