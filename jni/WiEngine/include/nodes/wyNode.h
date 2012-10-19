@@ -64,6 +64,7 @@ typedef struct wyNodePositionListener {
  */
 class WIENGINE_API wyNode : public wyObject {
 	friend class wyEventDispatcher;
+	friend class wyRenderManager;
 
 private:
 	/// touch state of a node
@@ -409,6 +410,9 @@ private:
 	 * @return 触摸事件状态
 	 */
 	wyTouchState getTouchState() { return m_state; }
+
+	/// update node world matrix by fetching it from kazmath world matrix stack
+	void syncWorldMatrix();
 
 protected:
 	/// constructor

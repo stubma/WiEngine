@@ -217,12 +217,8 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 		}
 	}
 
-	// set calculated world matrix to geometry
+	// if node noDraw flag is set, don't draw it
 	if(!node->isNoDraw()) {
-		kmGLGetMatrix(KM_GL_WORLD, &m);
-		kmMat4Fill(node->getWorldMatrix(), m.mat);
-
-		// to queue
 		renderNode(node);
 	}
 
@@ -283,6 +279,9 @@ void wyRenderManager::renderNode(wyNode* g) {
 		g->updateMeshColor();
 		g->setNeedUpdateMeshColor(false);
 	}
+
+	// update world matrix
+	g->syncWorldMatrix();
 
 	// before render notify
 	g->beforeRender();
