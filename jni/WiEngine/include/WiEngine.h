@@ -187,7 +187,6 @@
 
 // grid
 #include "wyBaseGrid.h"
-#include "wyGrabber.h"
 #include "wyGrid3D.h"
 #include "wyTiledGrid3D.h"
 
@@ -313,6 +312,7 @@
 #include "wyStatement.h"
 
 // render
+#include "wyFrameBuffer.h"
 #include "wyRenderer.h"
 #include "wyRenderManager.h"
 #include "wyRenderQueue.h"

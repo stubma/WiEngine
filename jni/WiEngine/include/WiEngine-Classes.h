@@ -187,7 +187,6 @@ class wyMappingColorFilter;
 
 // grid
 class wyBaseGrid;
-class wyGrabber;
 class wyGrid3D;
 class wyTiledGrid3D;
 
@@ -314,6 +313,7 @@ class wyResultSet;
 class wyStatement;
 
 // render
+class wyFrameBuffer;
 class wyRenderer;
 class wyRenderManager;
 class wyRenderQueue;

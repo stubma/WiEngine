@@ -36,7 +36,7 @@
 extern wyDirector* gDirector;
 
 wyBaseGrid::~wyBaseGrid() {
-	wyObjectRelease(m_grabber);
+	wyObjectRelease(m_fb);
 	wyFree(m_vertices);
 	wyFree(m_originalVertices);
 	wyFree(m_texCoords);
@@ -56,17 +56,17 @@ wyBaseGrid::wyBaseGrid(float w, float h, int c, int r) :
 		m_texCoords(NULL),
 		m_originalVertices(NULL),
 		m_indices(NULL) {
-	m_grabber = wyGrabber::make(w, h);
-	m_grabber->retain();
+	m_fb = wyFrameBuffer::make(w, h);
+	m_fb->retain();
 }
 
 void wyBaseGrid::beforeDraw() {
-	m_grabber->beforeRender();
+	m_fb->beforeRender();
 }
 
 void wyBaseGrid::afterDraw(wyNode* node) {
 	// TODO gles2
-//	m_grabber->afterRender();
+//	m_fb->afterRender();
 //
 //	// need to recover matrix for blit operation
 //	gDirector->set3DProjection();
@@ -81,7 +81,7 @@ void wyBaseGrid::afterDraw(wyNode* node) {
 //	}
 //
 //    glEnable(GL_TEXTURE_2D);
-//    glBindTexture(GL_TEXTURE_2D, m_grabber->getTexture());
+//    glBindTexture(GL_TEXTURE_2D, m_fb->getTexture());
 //
 //    blit();
 //    glDisable(GL_TEXTURE_2D);

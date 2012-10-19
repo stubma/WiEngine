@@ -1,6 +1,6 @@
 /*
 ** Lua binding: grid
-** Generated automatically by tolua++-1.0.92 on Tue Jul 10 10:51:54 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Oct 19 16:45:34 2012.
 */
 
 #ifndef __cplusplus
@@ -25,16 +25,9 @@ static int tolua_collect_wyVertex3D (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyGrabber (lua_State* tolua_S)
+static int tolua_collect_wyGrid3D (lua_State* tolua_S)
 {
- wyGrabber* self = (wyGrabber*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_GLenum (lua_State* tolua_S)
-{
- GLenum* self = (GLenum*) tolua_tousertype(tolua_S,1,0);
+ wyGrid3D* self = (wyGrid3D*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -42,13 +35,6 @@ static int tolua_collect_GLenum (lua_State* tolua_S)
 static int tolua_collect_wyQuad3D (lua_State* tolua_S)
 {
  wyQuad3D* self = (wyQuad3D*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyGrid3D (lua_State* tolua_S)
-{
- wyGrid3D* self = (wyGrid3D*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -73,15 +59,13 @@ static int tolua_collect_wyBaseGrid (lua_State* tolua_S)
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"wyVertex3D");
- tolua_usertype(tolua_S,"GLenum");
- tolua_usertype(tolua_S,"wyTiledGrid3D");
- tolua_usertype(tolua_S,"wyBaseGrid");
  tolua_usertype(tolua_S,"wyQuad3D");
+ tolua_usertype(tolua_S,"wyDimension");
  tolua_usertype(tolua_S,"wyGrid3D");
  tolua_usertype(tolua_S,"wyNode");
  tolua_usertype(tolua_S,"wyObject");
- tolua_usertype(tolua_S,"wyDimension");
- tolua_usertype(tolua_S,"wyGrabber");
+ tolua_usertype(tolua_S,"wyTiledGrid3D");
+ tolua_usertype(tolua_S,"wyBaseGrid");
 }
 
 /* method: delete of class  wyBaseGrid */
@@ -558,225 +542,6 @@ static int tolua_grid_wyBaseGrid_setGridY00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setGridY'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: make of class  wyGrabber */
-#ifndef TOLUA_DISABLE_tolua_grid_wyGrabber_make00
-static int tolua_grid_wyGrabber_make00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyGrabber",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   wyGrabber* tolua_ret = (wyGrabber*)  wyGrabber::make();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyGrabber");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: make of class  wyGrabber */
-#ifndef TOLUA_DISABLE_tolua_grid_wyGrabber_make01
-static int tolua_grid_wyGrabber_make01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyGrabber",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  int width = ((int)  tolua_tonumber(tolua_S,2,0));
-  int height = ((int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyGrabber* tolua_ret = (wyGrabber*)  wyGrabber::make(width,height);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyGrabber");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_grid_wyGrabber_make00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: delete of class  wyGrabber */
-#ifndef TOLUA_DISABLE_tolua_grid_wyGrabber_delete00
-static int tolua_grid_wyGrabber_delete00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyGrabber",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyGrabber* self = (wyGrabber*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
-#endif
-  Mtolua_delete(self);
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: grab of class  wyGrabber */
-#ifndef TOLUA_DISABLE_tolua_grid_wyGrabber_grab00
-static int tolua_grid_wyGrabber_grab00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyGrabber",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyGrabber* self = (wyGrabber*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'grab'", NULL);
-#endif
-  {
-   GLenum tolua_ret = (GLenum)  self->grab();
-   {
-#ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((GLenum)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"GLenum");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(GLenum));
-     tolua_pushusertype(tolua_S,tolua_obj,"GLenum");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#endif
-   }
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'grab'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: beforeRender of class  wyGrabber */
-#ifndef TOLUA_DISABLE_tolua_grid_wyGrabber_beforeRender00
-static int tolua_grid_wyGrabber_beforeRender00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyGrabber",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyGrabber* self = (wyGrabber*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'beforeRender'", NULL);
-#endif
-  {
-   self->beforeRender();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'beforeRender'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: afterRender of class  wyGrabber */
-#ifndef TOLUA_DISABLE_tolua_grid_wyGrabber_afterRender00
-static int tolua_grid_wyGrabber_afterRender00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyGrabber",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyGrabber* self = (wyGrabber*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'afterRender'", NULL);
-#endif
-  {
-   self->afterRender();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'afterRender'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: releaseBuffer of class  wyGrabber */
-#ifndef TOLUA_DISABLE_tolua_grid_wyGrabber_releaseBuffer00
-static int tolua_grid_wyGrabber_releaseBuffer00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyGrabber",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyGrabber* self = (wyGrabber*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'releaseBuffer'", NULL);
-#endif
-  {
-   self->releaseBuffer();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'releaseBuffer'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1313,20 +1078,6 @@ TOLUA_API int tolua_grid_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getGridY",tolua_grid_wyBaseGrid_getGridY00);
    tolua_function(tolua_S,"setGridX",tolua_grid_wyBaseGrid_setGridX00);
    tolua_function(tolua_S,"setGridY",tolua_grid_wyBaseGrid_setGridY00);
-  tolua_endmodule(tolua_S);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"wyGrabber","wyGrabber","wyObject",tolua_collect_wyGrabber);
-  #else
-  tolua_cclass(tolua_S,"wyGrabber","wyGrabber","wyObject",NULL);
-  #endif
-  tolua_beginmodule(tolua_S,"wyGrabber");
-   tolua_function(tolua_S,"make",tolua_grid_wyGrabber_make00);
-   tolua_function(tolua_S,"make",tolua_grid_wyGrabber_make01);
-   tolua_function(tolua_S,"delete",tolua_grid_wyGrabber_delete00);
-   tolua_function(tolua_S,"grab",tolua_grid_wyGrabber_grab00);
-   tolua_function(tolua_S,"beforeRender",tolua_grid_wyGrabber_beforeRender00);
-   tolua_function(tolua_S,"afterRender",tolua_grid_wyGrabber_afterRender00);
-   tolua_function(tolua_S,"releaseBuffer",tolua_grid_wyGrabber_releaseBuffer00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wyGrid3D","wyGrid3D","wyBaseGrid",tolua_collect_wyGrid3D);

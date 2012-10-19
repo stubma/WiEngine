@@ -26,22 +26,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef __wyGrabber_h__
-#define __wyGrabber_h__
+#ifndef __wyFrameBuffer_h__
+#define __wyFrameBuffer_h__
 
 #include "wyGlobal.h"
 #include "wyObject.h"
 #include "wyTexture2D.h"
 
 /**
- * @class wyGrabber
- * \if English
- * used to grab contents in the frame buffer to a texture object
- * \else
- * 用于抓取缓冲区内容到贴图中
- * \endif
+ * @class wyFrameBuffer
+ *
+ * A frame buffer can be used as a render target
  */
-class WIENGINE_API wyGrabber : public wyObject {
+class WIENGINE_API wyFrameBuffer : public wyObject {
 	friend class wyBaseGrid;
 
 private:
@@ -80,7 +77,7 @@ private:
 
 protected:
 	/// constructor
-	wyGrabber();
+	wyFrameBuffer();
 
 	/**
 	 * Constructor
@@ -88,7 +85,7 @@ protected:
 	 * @param width width in pixels
 	 * @param height height in pixels
 	 */
-	wyGrabber(int width, int height);
+	wyFrameBuffer(int width, int height);
 
 public:
 	/**
@@ -98,7 +95,7 @@ public:
 	 * 创建一个全屏大小的抓取贴图
 	 * \endif
 	 */
-	static wyGrabber* make();
+	static wyFrameBuffer* make();
 
 	/**
 	 * \if English
@@ -113,7 +110,7 @@ public:
 	 * @param height 高度
 	 * \endif
 	 */
-	static wyGrabber* make(int width, int height);
+	static wyFrameBuffer* make(int width, int height);
 
 	/**
 	 * \if English
@@ -122,7 +119,7 @@ public:
 	 * 析构函数
 	 * \endif
 	 */
-	virtual ~wyGrabber();
+	virtual ~wyFrameBuffer();
 
 	/**
 	 * \if English
@@ -174,4 +171,4 @@ public:
 	int getTexture() { return m_texture; }
 };
 
-#endif // __wyGrabber_h__
+#endif // __wyFrameBuffer_h__

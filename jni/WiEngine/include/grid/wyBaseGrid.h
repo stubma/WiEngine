@@ -30,7 +30,7 @@
 #define __wyBaseGrid_h__
 
 #include "wyGlobal.h"
-#include "wyGrabber.h"
+#include "wyFrameBuffer.h"
 #include <stdbool.h>
 
 class wyNode;
@@ -96,12 +96,12 @@ protected:
 
 	/**
 	 * \if English
-	 * used to capture the current screenshot to a texture, see \link wyGrabber wyGrabber\endlink
+	 * used to capture the current screenshot to a texture, see \link wyFrameBuffer wyFrameBuffer\endlink
 	 * \else
-	 * 用于抓取缓冲区内容到贴图中\link wyGrabber wyGrabber对象指针\endlink
+	 * 用于抓取缓冲区内容到贴图中\link wyFrameBuffer wyFrameBuffer对象指针\endlink
 	 * \endif
 	 */
-	wyGrabber* m_grabber;
+	wyFrameBuffer* m_fb;
 
 	// buffers
 	GLfloat* m_vertices;

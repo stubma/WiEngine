@@ -35,7 +35,7 @@
 #include "wyTypes.h"
 
 class wyTextureManager;
-class wyGrabber;
+class wyFrameBuffer;
 class wyGLTexture2D;
 class wyColorFilter;
 
@@ -102,7 +102,7 @@ typedef enum {
  */
 class WIENGINE_API wyTexture2D : public wyObject {
 	friend class wyTextureManager;
-	friend class wyGrabber;
+	friend class wyFrameBuffer;
 
 public:
 	/**

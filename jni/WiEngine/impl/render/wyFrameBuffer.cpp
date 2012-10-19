@@ -28,17 +28,17 @@
  */
 #include <stdlib.h>
 #include "wyGlobal.h"
-#include "wyGrabber.h"
+#include "wyFrameBuffer.h"
 #include "wyTypes.h"
 #include "wyUtils.h"
 #include "wyLog.h"
 #include "wyDirector.h"
 
-wyGrabber::~wyGrabber() {
+wyFrameBuffer::~wyFrameBuffer() {
 	releaseBuffer();
 }
 
-wyGrabber::wyGrabber() :
+wyFrameBuffer::wyFrameBuffer() :
 		m_texture(0),
 		m_texWidth(wyDevice::realWidth),
 		m_texHeight(wyDevice::realHeight),
@@ -48,7 +48,7 @@ wyGrabber::wyGrabber() :
 		m_old_fbo(0) {
 }
 
-wyGrabber::wyGrabber(int width, int height) :
+wyFrameBuffer::wyFrameBuffer(int width, int height) :
 		m_texture(0),
 		m_texWidth(width),
 		m_texHeight(height),
@@ -58,17 +58,17 @@ wyGrabber::wyGrabber(int width, int height) :
 		m_old_fbo(0) {
 }
 
-wyGrabber* wyGrabber::make() {
-	wyGrabber* g = WYNEW wyGrabber();
-	return (wyGrabber*)g->autoRelease();
+wyFrameBuffer* wyFrameBuffer::make() {
+	wyFrameBuffer* g = WYNEW wyFrameBuffer();
+	return (wyFrameBuffer*)g->autoRelease();
 }
 
-wyGrabber* wyGrabber::make(int width, int height) {
-	wyGrabber* g = WYNEW wyGrabber(width, height);
-	return (wyGrabber*)g->autoRelease();
+wyFrameBuffer* wyFrameBuffer::make(int width, int height) {
+	wyFrameBuffer* g = WYNEW wyFrameBuffer(width, height);
+	return (wyFrameBuffer*)g->autoRelease();
 }
 
-GLenum wyGrabber::grab() {
+GLenum wyFrameBuffer::grab() {
 //	if(m_texture == 0) {
 //		// get texture min size, here we need a texture big enough to accommodate a full  physical screen
 //		// realWidth realHeight are the best
@@ -118,7 +118,7 @@ GLenum wyGrabber::grab() {
 	return 0;
 }
 
-void wyGrabber::beforeRender() {
+void wyFrameBuffer::beforeRender() {
 //	// ensure the texture is grabbed
 //	if(m_texture == 0)
 //		grab();
@@ -146,7 +146,7 @@ void wyGrabber::beforeRender() {
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void wyGrabber::afterRender() {
+void wyFrameBuffer::afterRender() {
 	// TODO gles2
 //	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
 //
@@ -154,7 +154,7 @@ void wyGrabber::afterRender() {
 //	glPopMatrix();
 }
 
-void wyGrabber::releaseBuffer() {
+void wyFrameBuffer::releaseBuffer() {
 	// delete custom frame buffer
 	if(m_fbo != 0) {
 		// TODO gles2
