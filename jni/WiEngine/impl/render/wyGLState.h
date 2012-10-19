@@ -37,193 +37,85 @@
 /**
  * @class wyGLState
  *
- * \if English
  * Remember OpenGL state to avoid state switching as more as possible
- * \else
- * 记录OpenGL的状态信息以尽可能的减少状态切换
- * \endif
  */
 class wyGLState : public wyObject {
 public:
-	/**
-	 * \if English
-	 * Current shader program
-	 * \else
-	 * 当前正在使用的shader程序id
-	 * \endif
-	 */
+	/// hold info of a GL frame buffer object
+	struct FrameBuffer {
+		/// base texture
+		GLuint texture;
+
+		/// fbo id
+		GLuint fbo;
+
+		/// old fbo id when this fbo is used
+		GLuint oldFBO;
+	};
+
+public:
+	/// Current shader program
 	wyShaderProgram* activeProgram;
 
-	/**
-	 * \if English
-	 * face culling mode
-	 * \else
-	 * 面裁剪方式
-	 * \endif
-	 */
+	/// face culling mode
 	wyRenderState::CullMode cullMode;
 
-	/**
-	 * \if English
-	 * blending mode
-	 * \else
-	 * 混合模式
-	 * \endif
-	 */
+	/// blending mode
 	wyRenderState::BlendMode blendMode;
 
-	/**
-	 * \if English
-	 * Is color buffer writing enabled or not
-	 * \else
-	 * 颜色缓冲区的写是否打开
-	 * \endif
-	 */
+	/// Is color buffer writing enabled or not
 	bool colorWriteEnabled;
 
-	/**
-	 * \if English
-	 * Is depth buffer writing enabled or not
-	 * \else
-	 * 深度缓冲区的写是否打开
-	 * \endif
-	 */
+	/// Is depth buffer writing enabled or not
 	bool depthWriteEnabled;
 
-	/**
-	 * \if English
-	 * Is depth test enabled
-	 * \else
-	 * 深度测试是否打开
-	 * \endif
-	 */
+	/// Is depth test enabled
 	bool depthTestEnabled;
 
-	/**
-	 * \if English
-	 * is dither enabled
-	 * \else
-	 * 颜色抖动是否打开
-	 * \endif
-	 */
+	/// is dither enabled
 	bool ditherEnabled;
 
-	/**
-	 * \if English
-	 * Clip enabled or not
-	 * \else
-	 * 剪刀测试是否打开
-	 * \endif
-	 */
+	/// Clip enabled or not
 	bool clipEnabled;
 
-	/**
-	 * \if English
-	 * clip rect
-	 * \else
-	 * 裁剪区域
-	 * \endif
-	 */
+	/// clip rect
 	wyRect clipRect;
 
-	/**
-	 * \if English
-	 * Viewport x position
-	 * \else
-	 * 视口x位置
-	 * \endif
-	 */
+	/// Viewport x position
 	float viewportX;
 
-	/**
-	 * \if English
-	 * Viewport y position
-	 * \else
-	 * 视口y位置
-	 * \endif
-	 */
+	/// Viewport y position
 	float viewportY;
 
-	/**
-	 * \if English
-	 * viewport width
-	 * \else
-	 * 视口宽度
-	 * \endif
-	 */
+	/// viewport width
 	float viewportWidth;
 
-	/**
-	 * \if English
-	 * viewport height
-	 * \else
-	 * 视口高度
-	 * \endif
-	 */
+	/// viewport height
 	float viewportHeight;
 
-	/**
-	 * \if English
-	 * Current active texture unit
-	 * \else
-	 * 当前激活的贴图单元
-	 * \endif
-	 */
+	/// Current active texture unit
 	int activeTextureUnit;
 
-	/**
-	 * \if English
-	 * Bound textures for every texture unit
-	 * \else
-	 * 每个贴图单元上绑定的贴图
-	 * \endif
-	 */
+	/// Bound textures for every texture unit
 	GLuint* boundTextures;
 
-	/**
-	 * \if English
-	 * max texture unit allowed
-	 * \else
-	 * 最大允许的贴图单元数
-	 * \endif
-	 */
+	/// max texture unit allowed
 	GLint maxVertexTextureUnits;
 
-	/**
-	 * \if English
-	 * Point size
-	 * \else
-	 * 点大小
-	 * \endif
-	 */
+	/// Point size
 	int pointSize;
 
-	/**
-	 * \if English
-	 * Line width
-	 * \else
-	 * 线宽
-	 * \endif
-	 */
+	/// Line width
 	int lineWidth;
 
-	/**
-	 * \if English
-	 * bound buffers of attributes
-	 * \else
-	 * 属性参数上绑定的缓冲区
-	 * \endif
-	 */
+	/// bound buffers of attributes
 	map<int, wyBuffer*>* attribBoundBuffers;
 
-	/**
-	 * \if English
-	 * is vertex array enabled in an attribute?
-	 * \else
-	 * 记录属性参数上的顶点数据是否打开的哈希表
-	 * \endif
-	 */
+	/// is vertex array enabled in an attribute?
 	map<int, bool>* attribEnableMap;
+
+	/// frame buffer list
+	map<int, FrameBuffer>* frameBuffers;
 
 protected:
 	wyGLState();
@@ -233,43 +125,40 @@ public:
 	virtual ~wyGLState();
 
 	/**
-	 * \if English
 	 * is attribute vertex array enabled
 	 *
 	 * @param loc attribute index
 	 * @return true means attribute vertex array is enabled
-	 * \else
-	 * 是否属性参数的顶点数组已经被打开
-	 *
-	 * @param loc 属性参数在shader中的位置
-	 * @return true表示顶点数组已经打开
-	 * \endif
 	 */
 	bool isAttributeVertexArrayEnabled(int loc);
 
 	/**
-	 * \if English
 	 * Get vertex pointer of an attribute
 	 *
 	 * @param loc attribute index
 	 * @return buffer bound to this attribute, or NULL if none
-	 * \else
-	 * 得到属性参数上绑定的数组指针
-	 *
-	 * @param loc 属性参数在shader中的位置
-	 * @return 绑定在属性上的缓冲区
-	 * \endif
 	 */
 	wyBuffer* getAttributeVertexPointer(int loc);
 
 	/**
-	 * \if English
-	 * Clear cached state
-	 * \else
-	 * 重置缓存的状态
-	 * \endif
+	 * Clear cached state, will reset all state to default value
 	 */
 	void reset();
+
+	/**
+	 * Find frame buffer by id
+	 *
+	 * @param id frame buffer id
+	 * @return frame buffer structure pointer
+	 */
+	FrameBuffer* getFrameBuffer(int fid);
+
+	/**
+	 * Remove a frame buffer entry
+	 *
+	 * @param fid frame buffer id
+	 */
+	void removeFrameBuffer(int fid);
 };
 
 #endif // __wyGLState_h__

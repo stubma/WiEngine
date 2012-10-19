@@ -158,27 +158,17 @@ public:
 	virtual void setShaderProgram(wyShaderProgram* program) = 0;
 
 	/**
-	 * \if English
 	 * Set using a texture
 	 *
 	 * @param unit texture unit
 	 * @param tex texture object
-	 * \else
-	 * 激活一个贴图
-	 *
-	 * @param unit 贴图单元
-	 * @param tex 贴图对象
-	 * \endif
 	 */
 	virtual void setTexture(int unit, wyTexture2D* tex) = 0;
 
-	/**
-	 * \if English
-	 * Invoked when surface is destroyed
-	 * \else
-	 * 在surface被销毁时通知渲染器
-	 * \endif
-	 */
+	/// Invoked when surface is created
+	virtual void onSurfaceCreated() = 0;
+
+	/// Invoked when surface is destroyed
 	virtual void onSurfaceDestroyed() = 0;
 
 	/**
@@ -208,6 +198,37 @@ public:
 	 * \endif
 	 */
 	virtual void applyRenderState(wyRenderState* rs) = 0;
+
+	/**
+	 * Create a frame buffer and returns related texture
+	 *
+	 * @param desiredWidth pixel width of frame buffer
+	 * @param desiredHeight pixel height of frame buffer
+	 * @return frame buffer id, or -1 means creation failed
+	 */
+	virtual int createFrameBuffer(int desiredWidth, int desiredHeight) = 0;
+
+	/**
+	 * Change render target to a frame buffer
+	 *
+	 * @param fid the frame buffer id to which render will switch
+	 */
+	virtual void setFrameBuffer(int fid) = 0;
+
+	/**
+	 * Restore to old frame buffer related with a frame buffer
+	 *
+	 * @param fid the id is NOT the frame buffer we want to restore to, it is the frame buffer
+	 * 		whose oldFBO property should be checked
+	 */
+	virtual void restoreFrameBuffer(int fid) = 0;
+
+	/**
+	 * Destroy frame buffer and release related resources
+	 *
+	 * @param fid id of frame buffer will be released
+	 */
+	virtual void releaseFrameBuffer(int fid) = 0;
 };
 
 #endif // __wyRenderer_h__

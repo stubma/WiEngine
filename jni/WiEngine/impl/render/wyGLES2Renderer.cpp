@@ -29,6 +29,7 @@
 #include "wyGLES2Renderer.h"
 #include "wyGlobal.h"
 #include "wyLog.h"
+#include "wyDirector.h"
 
 wyGLES2Renderer::wyGLES2Renderer() :
 		m_useVBO(false),
@@ -356,6 +357,9 @@ void wyGLES2Renderer::setTexture(int unit, wyTexture2D* tex) {
 	tex->applyParameters();
 }
 
+void wyGLES2Renderer::onSurfaceCreated() {
+}
+
 void wyGLES2Renderer::onSurfaceDestroyed() {
 	m_state->reset();
 }
@@ -520,4 +524,100 @@ GLenum wyGLES2Renderer::bufferFormatToGL(wyBuffer::Format f) {
 		default:
 			return GL_FLOAT;
 	}
+}
+
+int wyGLES2Renderer::createFrameBuffer(int desiredWidth, int desiredHeight) {
+	wyGLState::FrameBuffer fb;
+
+	// get POT size of texture
+	int w = wyMath::getNextPOT(desiredWidth);
+	int h = wyMath::getNextPOT(desiredHeight);
+
+	// create texture
+	glGenTextures(1, (GLuint*)&fb.texture);
+	glBindTexture(GL_TEXTURE_2D, fb.texture);
+
+	// apply texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	// allocate buffer and create texture from it
+	GLvoid* pixels = wyMalloc(sizeof(GLubyte) * w * h * 4);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	wyFree(pixels);
+
+	// if creating texture failed, return 0
+	// if successful, create fbo and bind it with texture
+	if(fb.texture) {
+		// generate a new frame buffer
+		glGenFramebuffers(1, (GLuint*)&fb.fbo);
+
+		// get old frame buffer object
+		glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint*)&fb.oldFBO);
+
+		// bind
+		glBindFramebuffer(GL_FRAMEBUFFER, fb.fbo);
+
+		// associate texture with FBO
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fb.texture, 0);
+
+		// get status
+		GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+
+		// restore old buffer
+		glBindFramebuffer(GL_FRAMEBUFFER, fb.oldFBO);
+
+		// check status, if ok, add to frame buffer list
+		if(status == GL_FRAMEBUFFER_COMPLETE) {
+			(*m_state->frameBuffers)[fb.fbo] = fb;
+			return fb.fbo;
+		} else {
+			return -1;
+		}
+	} else {
+		return -1;
+	}
+}
+
+void wyGLES2Renderer::setFrameBuffer(int fid) {
+	// get frame buffer
+	wyGLState::FrameBuffer* fb = m_state->getFrameBuffer(fid);
+	if(!fb)
+		return;
+
+	// get old frame buffer object
+	glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint*)&fb->oldFBO);
+
+	// bind custom frame buffer
+	glBindFramebuffer(GL_FRAMEBUFFER, fb->fbo);
+}
+
+void wyGLES2Renderer::restoreFrameBuffer(int fid) {
+	// get frame buffer
+	wyGLState::FrameBuffer* fb = m_state->getFrameBuffer(fid);
+	if(!fb)
+		return;
+
+	// to old buffer
+	glBindFramebuffer(GL_FRAMEBUFFER, fb->oldFBO);
+}
+
+void wyGLES2Renderer::releaseFrameBuffer(int fid) {
+	// get frame buffer
+	wyGLState::FrameBuffer* fb = m_state->getFrameBuffer(fid);
+	if(!fb)
+		return;
+
+	// release fbo
+	glDeleteFramebuffers(1, (GLuint*)&fb->fbo);
+
+	// delete texture
+	if(fb->texture != 0 && wyDirector::getInstance()->isSurfaceCreated()) {
+		glDeleteTextures(1, (GLuint*)&fb->texture);
+	}
+
+	// remove entry
+	m_state->removeFrameBuffer(fid);
 }

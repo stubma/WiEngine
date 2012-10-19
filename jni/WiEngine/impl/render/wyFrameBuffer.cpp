@@ -33,29 +33,30 @@
 #include "wyUtils.h"
 #include "wyLog.h"
 #include "wyDirector.h"
+#include "wyRenderManager.h"
+#include "wyRenderer.h"
 
 wyFrameBuffer::~wyFrameBuffer() {
+	m_camera->release();
 	releaseBuffer();
 }
 
 wyFrameBuffer::wyFrameBuffer() :
-		m_texture(0),
+		m_id(-1),
 		m_texWidth(wyDevice::realWidth),
 		m_texHeight(wyDevice::realHeight),
 		m_width(wyDevice::winWidth),
-		m_height(wyDevice::winHeight),
-		m_fbo(0),
-		m_old_fbo(0) {
+		m_height(wyDevice::winHeight) {
+	initCamera();
 }
 
 wyFrameBuffer::wyFrameBuffer(int width, int height) :
-		m_texture(0),
+		m_id(-1),
 		m_texWidth(width),
 		m_texHeight(height),
 		m_width(width),
-		m_height(height),
-		m_fbo(0),
-		m_old_fbo(0) {
+		m_height(height) {
+	initCamera();
 }
 
 wyFrameBuffer* wyFrameBuffer::make() {
@@ -68,106 +69,82 @@ wyFrameBuffer* wyFrameBuffer::make(int width, int height) {
 	return (wyFrameBuffer*)g->autoRelease();
 }
 
-GLenum wyFrameBuffer::grab() {
-//	if(m_texture == 0) {
-//		// get texture min size, here we need a texture big enough to accommodate a full  physical screen
-//		// realWidth realHeight are the best
-//		int w = wyMath::getNextPOT(wyDevice::realWidth);
-//		int h = wyMath::getNextPOT(wyDevice::realHeight);
-//
-//		// create texture
-//		int texture;
-//		glGenTextures(1, (GLuint*)&m_texture);
-//		glBindTexture(GL_TEXTURE_2D, m_texture);
-//
-//		// apply texture parameters
-//		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-//		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-//		glTexParameterx(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-//
-//		// allocate buffer and create texture from it
-//		GLvoid* pixels = wyMalloc(sizeof(GLubyte) * w * h * 4);
-//		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-//		wyFree(pixels);
-//	}
-//
-//	if(m_texture) {
-//		// generate a new frame buffer
-//		glGenFramebuffersOES(1, (GLuint*)&m_fbo);
-//
-//		// get old frame buffer object
-//		glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
-//
-//		// bind
-//		glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
-//
-//		// associate texture with FBO
-//		glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, m_texture, 0);
-//
-//		// get status
-//		GLenum status = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
-//
-//		// restore old buffer
-//		glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
-//
-//		return status;
-//	} else {
-//		return GL_FRAMEBUFFER_UNSUPPORTED_OES;
-//	}
-	return 0;
+void wyFrameBuffer::initCamera() {
+	// create camera
+	m_camera = wyCamera::make();
+	m_camera->retain();
+
+	// set projection and viewport
+	float widthRatio = wyDevice::realWidth / wyDevice::winWidth;
+	float heightRatio = wyDevice::realHeight / wyDevice::winHeight;
+	m_camera->setOrtho(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
+	m_camera->setViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
+}
+
+void wyFrameBuffer::create() {
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+	wyRenderer* r = rm->getRenderer();
+	m_id = r->createFrameBuffer(m_texWidth, m_texHeight);
 }
 
 void wyFrameBuffer::beforeRender() {
-//	// ensure the texture is grabbed
-//	if(m_texture == 0)
-//		grab();
-//
-//	// push matrix
-//	glPushMatrix();
-//
-//	// Calculate the adjustment ratios based on the old and new projections
-//	// Adjust the orthographic propjection and viewport
-//	float widthRatio = wyDevice::realWidth / wyDevice::winWidth;
-//	float heightRatio = wyDevice::realHeight / wyDevice::winHeight;
-//	glOrthof(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
-//
-//	// set viewport to real surface size
-//	glViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
-//
-//	// get old frame buffer object
-//	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint*)&m_old_fbo);
-//
-//	// bind custom frame buffer
-//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_fbo);
-//
-//	// clear custom frame
-//	glClearColor(0, 0, 0, 0);
-//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// ensure the texture is grabbed
+	if(m_id == -1)
+		create();
+
+	// get renderer
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+	wyRenderer* r = rm->getRenderer();
+
+	// push matrix and reset to identity
+	kmGLMatrixMode(KM_GL_PROJECTION);
+	kmGLPushMatrix();
+	kmGLLoadIdentity();
+	kmGLMatrixMode(KM_GL_MODELVIEW);
+	kmGLPushMatrix();
+	kmGLLoadIdentity();
+
+	// update viewport range
+	wyRect vr = m_camera->getViewportRect();
+	r->setViewport(vr.x, vr.y, vr.width, vr.height);
+
+	// multiply camera matrix
+	kmGLMatrixMode(KM_GL_PROJECTION);
+	kmGLMultMatrix(m_camera->getProjectionMatrix());
+	kmGLMatrixMode(KM_GL_MODELVIEW);
+	kmGLMultMatrix(m_camera->getViewMatrix());
+
+	// switch to frame buffer
+	r->setFrameBuffer(m_id);
+
+	// clear custom frame
+	r->clearBuffers(true, true, false);
 }
 
 void wyFrameBuffer::afterRender() {
-	// TODO gles2
-//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_old_fbo);
-//
-//	// pop matrix
-//	glPopMatrix();
+	// get renderer
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+	wyRenderer* r = rm->getRenderer();
+
+	// switch back to old buffer
+	r->restoreFrameBuffer(m_id);
+
+	// pop matrix
+	kmGLMatrixMode(KM_GL_PROJECTION);
+	kmGLPopMatrix();
+	kmGLMatrixMode(KM_GL_MODELVIEW);
+	kmGLPopMatrix();
 }
 
 void wyFrameBuffer::releaseBuffer() {
-	// delete custom frame buffer
-	if(m_fbo != 0) {
-		// TODO gles2
-//		glDeleteFramebuffersOES(1, (GLuint*)&m_fbo);
-		m_fbo = 0;
-	}
+	// get renderer
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+	wyRenderer* r = rm->getRenderer();
 
-	// delete texture
-	if(m_texture != 0 && wyDirector::getInstance()->isSurfaceCreated()) {
-		glDeleteTextures(1, (GLuint*)&m_texture);
-		m_texture = 0;
-	}
-
-	// reset old frame buffer object
-	m_old_fbo = 0;
+	// release it
+	r->releaseFrameBuffer(m_id);
 }

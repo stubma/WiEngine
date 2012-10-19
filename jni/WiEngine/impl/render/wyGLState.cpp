@@ -37,6 +37,7 @@ wyGLState::wyGLState() {
 	// attribute state cache
 	attribBoundBuffers = WYNEW map<int, wyBuffer*>();
 	attribEnableMap = WYNEW map<int, bool>();
+	frameBuffers = WYNEW map<int, FrameBuffer>();
 
 	// ensure state all clear
 	reset();
@@ -46,6 +47,7 @@ wyGLState::~wyGLState() {
 	wyFree(boundTextures);
 	WYDELETE(attribBoundBuffers);
 	WYDELETE(attribEnableMap);
+	WYDELETE(frameBuffers);
 }
 
 wyGLState* wyGLState::make() {
@@ -89,4 +91,19 @@ wyBuffer* wyGLState::getAttributeVertexPointer(int loc) {
 		return NULL;
 	else
 		return iter->second;
+}
+
+wyGLState::FrameBuffer* wyGLState::getFrameBuffer(int fid) {
+	map<int, FrameBuffer>::iterator iter = frameBuffers->find(fid);
+	if(iter == frameBuffers->end())
+		return &iter->second;
+	else
+		return NULL;
+}
+
+void wyGLState::removeFrameBuffer(int fid) {
+	map<int, FrameBuffer>::iterator iter = frameBuffers->find(fid);
+	if(iter != frameBuffers->end()) {
+		frameBuffers->erase(iter);
+	}
 }

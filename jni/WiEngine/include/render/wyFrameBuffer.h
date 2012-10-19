@@ -42,26 +42,11 @@ class WIENGINE_API wyFrameBuffer : public wyObject {
 	friend class wyBaseGrid;
 
 private:
-	/// openGL texture id
-	int m_texture;
+	/// frame buffer id, -1 means invalid
+	int m_id;
 
-	/**
-	 * \if English
-	 * openGL frame buffer object of current frame
-	 * \else
-	 * 用来画当前帧的buffer
-	 * \endif
-	 */
-	int m_fbo;
-
-	/**
-	 * \if English
-	 * openGL frame buffer object of the previous frame
-	 * \else
-	 * 上一帧的buffer
-	 * \endif
-	 */
-	int m_old_fbo;
+	/// camera of this frame buffer
+	wyCamera* m_camera;
 
 	/// width of texture, not POT width
 	float m_texWidth;
@@ -86,6 +71,9 @@ protected:
 	 * @param height height in pixels
 	 */
 	wyFrameBuffer(int width, int height);
+
+	/// init camera
+	void initCamera();
 
 public:
 	/**
@@ -121,14 +109,8 @@ public:
 	 */
 	virtual ~wyFrameBuffer();
 
-	/**
-	 * \if English
-	 * do grabbing
-	 * \else
-	 * 抓取缓冲区内容到贴图中
-	 * \endif
-	 */
-	GLenum grab();
+	/// create frame buffer
+	void create();
 
 	/**
 	 * \if English
@@ -156,19 +138,6 @@ public:
 	 * \endif
 	 */
 	void releaseBuffer();
-
-	/**
-	 * \if English
-	 * get the openGL texture id(usually named texture name in openGL)
-	 *
-	 * @return openGl texture id
-	 * \else
-	 * 获得OpenGL贴图id
-	 *
-	 * @return OpenGL贴图id
-	 * \endif
-	 */
-	int getTexture() { return m_texture; }
 };
 
 #endif // __wyFrameBuffer_h__

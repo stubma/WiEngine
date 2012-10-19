@@ -131,6 +131,9 @@ public:
 	/// @see wyRenderer::setTexture
 	virtual void setTexture(int unit, wyTexture2D* tex);
 
+	/// @see wyRenderer::onSurfaceCreated
+	virtual void onSurfaceCreated();
+
 	/// @see wyRenderer::onSurfaceDestroyed
 	virtual void onSurfaceDestroyed();
 
@@ -139,6 +142,18 @@ public:
 
 	/// @see wyRenderer::applyRenderState
 	virtual void applyRenderState(wyRenderState* rs);
+
+	/// @see wyRenderer::createFrameBuffer
+	virtual int createFrameBuffer(int desiredWidth, int desiredHeight);
+
+	/// @see wyRenderer::setFrameBuffer
+	virtual void setFrameBuffer(int fid);
+
+	/// @see wyRenderer::restoreFrameBuffer
+	virtual void restoreFrameBuffer(int fid);
+
+	/// @see wyRenderer::releaseFrameBuffer
+	virtual void releaseFrameBuffer(int fid);
 };
 
 #endif // __wyGLES2Renderer_h__

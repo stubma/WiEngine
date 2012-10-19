@@ -419,6 +419,9 @@ void wyDirector::onSurfaceCreated() {
 			m_mainViewport->attachRoot(m_runningScene);
 	}
 
+	// notify render about surface created
+	m_renderManager->getRenderer()->onSurfaceCreated();
+
 	// notify listener
 	notifySurfaceCreated();
 }
