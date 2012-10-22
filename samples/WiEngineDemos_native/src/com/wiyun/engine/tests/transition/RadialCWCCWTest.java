@@ -22,7 +22,6 @@
 package com.wiyun.engine.tests.transition;
 
 import com.wiyun.engine.WiEngineTestActivity;
-import com.wiyun.engine.nodes.Director;
 
 public class RadialCWCCWTest extends WiEngineTestActivity {
 	private native void nativeStart();
@@ -30,12 +29,5 @@ public class RadialCWCCWTest extends WiEngineTestActivity {
 	@Override
 	protected void runDemo() {
 		nativeStart();
-	}
-	
-	@Override
-	protected String checkPrecondition() {
-		return Director.getInstance().isExtensionSupported("GL_OES_framebuffer_object")
-			? null
-			: "Your device doesn't support frame buffer object, this demo will not work";
 	}
 }
