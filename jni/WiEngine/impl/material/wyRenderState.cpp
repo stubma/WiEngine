@@ -33,7 +33,7 @@ wyRenderState::wyRenderState() :
 		cullMode(NO_CULL),
 		ditherEnabled(false),
 		depthTestEnabled(false),
-		depthWriteEnabled(true),
+		depthWriteEnabled(false),
 		colorWriteEnabled(true) {
 }
 
@@ -49,5 +49,6 @@ wyRenderState* wyRenderState::make3D() {
 	wyRenderState* rs = new wyRenderState();
 	rs->cullMode = BACK;
 	rs->depthTestEnabled = true;
+	rs->depthWriteEnabled = true;
 	return (wyRenderState*)rs->autoRelease();
 }
