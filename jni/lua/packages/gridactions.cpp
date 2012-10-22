@@ -1,6 +1,6 @@
 /*
 ** Lua binding: gridactions
-** Generated automatically by tolua++-1.0.92 on Sun Sep 25 18:24:12 2011.
+** Generated automatically by tolua++-1.0.92 on Mon Oct 22 11:30:49 2012.
 */
 
 #ifndef __cplusplus
@@ -262,6 +262,7 @@ static int tolua_collect_wyLiquid (lua_State* tolua_S)
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"wyShaky3D");
+ tolua_usertype(tolua_S,"wyGridController");
  tolua_usertype(tolua_S,"wyWaves");
  tolua_usertype(tolua_S,"wyLens3D");
  tolua_usertype(tolua_S,"wyWaves3D");
@@ -281,20 +282,19 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyReuseGrid");
  tolua_usertype(tolua_S,"wyPoint");
  tolua_usertype(tolua_S,"wyRipple3D");
- tolua_usertype(tolua_S,"wyTopLineShrinkOut");
  tolua_usertype(tolua_S,"wyShuffleTiles");
- tolua_usertype(tolua_S,"wyWavesTiles3D");
- tolua_usertype(tolua_S,"wyStopGrid");
- tolua_usertype(tolua_S,"wyTwirl");
- tolua_usertype(tolua_S,"wyTurnOffTiles");
- tolua_usertype(tolua_S,"wyVertex3D");
- tolua_usertype(tolua_S,"wyTile");
- tolua_usertype(tolua_S,"wySuck");
  tolua_usertype(tolua_S,"wyQuad3D");
+ tolua_usertype(tolua_S,"wyStopGrid");
+ tolua_usertype(tolua_S,"wyWavesTiles3D");
+ tolua_usertype(tolua_S,"wyTwirl");
+ tolua_usertype(tolua_S,"wyVertex3D");
+ tolua_usertype(tolua_S,"wyTurnOffTiles");
+ tolua_usertype(tolua_S,"wySuck");
+ tolua_usertype(tolua_S,"wyTopLineShrinkOut");
  tolua_usertype(tolua_S,"wyTopTilesShrinkOut");
  tolua_usertype(tolua_S,"wyBottomTilesShrinkOut");
+ tolua_usertype(tolua_S,"wyTile");
  tolua_usertype(tolua_S,"wyLeftLineShrinkOut");
- tolua_usertype(tolua_S,"wyBaseGrid");
  tolua_usertype(tolua_S,"wyGridFlipX");
  tolua_usertype(tolua_S,"wyPageTurn3D");
  tolua_usertype(tolua_S,"wyShatteredTiles3D");
@@ -816,8 +816,8 @@ static int tolua_gridactions_wyGrid3DAction_makeGrid00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'makeGrid'", NULL);
 #endif
   {
-   wyBaseGrid* tolua_ret = (wyBaseGrid*)  self->makeGrid();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyBaseGrid");
+   wyGridController* tolua_ret = (wyGridController*)  self->makeGrid();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyGridController");
   }
  }
  return 1;
@@ -837,7 +837,7 @@ static int tolua_gridactions_wyGrid3DAction_isGridReusable00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"wyGrid3DAction",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyBaseGrid",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"wyGridController",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -845,7 +845,7 @@ static int tolua_gridactions_wyGrid3DAction_isGridReusable00(lua_State* tolua_S)
 #endif
  {
   wyGrid3DAction* self = (wyGrid3DAction*)  tolua_tousertype(tolua_S,1,0);
-  wyBaseGrid* grid = ((wyBaseGrid*)  tolua_tousertype(tolua_S,2,0));
+  wyGridController* grid = ((wyGridController*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isGridReusable'", NULL);
 #endif
@@ -1034,8 +1034,8 @@ static int tolua_gridactions_wyGridAction_makeGrid00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'makeGrid'", NULL);
 #endif
   {
-   wyBaseGrid* tolua_ret = (wyBaseGrid*)  self->makeGrid();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyBaseGrid");
+   wyGridController* tolua_ret = (wyGridController*)  self->makeGrid();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyGridController");
   }
  }
  return 1;
@@ -1055,7 +1055,7 @@ static int tolua_gridactions_wyGridAction_isGridReusable00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"wyGridAction",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyBaseGrid",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"wyGridController",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -1063,7 +1063,7 @@ static int tolua_gridactions_wyGridAction_isGridReusable00(lua_State* tolua_S)
 #endif
  {
   wyGridAction* self = (wyGridAction*)  tolua_tousertype(tolua_S,1,0);
-  wyBaseGrid* grid = ((wyBaseGrid*)  tolua_tousertype(tolua_S,2,0));
+  wyGridController* grid = ((wyGridController*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isGridReusable'", NULL);
 #endif
@@ -5507,8 +5507,8 @@ static int tolua_gridactions_wyTiledGrid3DAction_makeGrid00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'makeGrid'", NULL);
 #endif
   {
-   wyBaseGrid* tolua_ret = (wyBaseGrid*)  self->makeGrid();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyBaseGrid");
+   wyGridController* tolua_ret = (wyGridController*)  self->makeGrid();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyGridController");
   }
  }
  return 1;
@@ -5528,7 +5528,7 @@ static int tolua_gridactions_wyTiledGrid3DAction_isGridReusable00(lua_State* tol
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"wyTiledGrid3DAction",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyBaseGrid",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"wyGridController",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -5536,7 +5536,7 @@ static int tolua_gridactions_wyTiledGrid3DAction_isGridReusable00(lua_State* tol
 #endif
  {
   wyTiledGrid3DAction* self = (wyTiledGrid3DAction*)  tolua_tousertype(tolua_S,1,0);
-  wyBaseGrid* grid = ((wyBaseGrid*)  tolua_tousertype(tolua_S,2,0));
+  wyGridController* grid = ((wyGridController*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isGridReusable'", NULL);
 #endif

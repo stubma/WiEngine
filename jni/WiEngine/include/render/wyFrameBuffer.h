@@ -39,7 +39,7 @@
  * A frame buffer can be used as a render target
  */
 class WIENGINE_API wyFrameBuffer : public wyObject {
-	friend class wyBaseGrid;
+	friend class wyGridController;
 
 private:
 	/// frame buffer id, -1 means invalid
@@ -47,6 +47,9 @@ private:
 
 	/// camera of this frame buffer
 	wyCamera* m_camera;
+
+	/// material of this frame buffer
+	wyMaterial* m_material;
 
 	/// width of texture, not POT width
 	float m_texWidth;
@@ -77,67 +80,34 @@ protected:
 
 public:
 	/**
-	 * \if English
-	 * Create a texture which is full screen size
-	 * \else
-	 * 创建一个全屏大小的抓取贴图
-	 * \endif
+	 * Create a frame buffer which is full screen size
 	 */
 	static wyFrameBuffer* make();
 
 	/**
-	 * \if English
-	 * Create a texture with specified size
+	 * Create a frame buffer with specified size
 	 *
 	 * @param width width in pixel
 	 * @param height height in pixel
-	 * \else
-	 * 创建一个指定大小的抓取贴图
-	 *
-	 * @param width 宽度
-	 * @param height 高度
-	 * \endif
 	 */
 	static wyFrameBuffer* make(int width, int height);
 
-	/**
-	 * \if English
-	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
-	 */
 	virtual ~wyFrameBuffer();
 
 	/// create frame buffer
 	void create();
 
-	/**
-	 * \if English
-	 * this function is called before openGL rendering is executed
-	 * \else
-	 * 渲染之前调用
-	 * \endif
-	 */
+	/// this function is called before openGL rendering is executed
 	void beforeRender();
 
-	/**
-	 * \if English
-	 * this fuction is called after openGL rending is executed
-	 * \else
-	 * 渲染之后调用
-	 * \endif
-	 */
+	/// this fuction is called after openGL rending is executed
 	void afterRender();
 
-	/**
-	 * \if English
-	 * release the frame buffer
-	 * \else
-	 * 释放缓存
-	 * \endif
-	 */
+	/// release the frame buffer
 	void releaseBuffer();
+
+	/// get material of this frame buffer
+	wyMaterial* getMaterial() { return m_material; }
 };
 
 #endif // __wyFrameBuffer_h__

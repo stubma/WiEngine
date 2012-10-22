@@ -56,7 +56,6 @@ wyTextureNode::wyTextureNode(wyTexture2D* tex) :
 	setBlendMode(wyRenderState::ALPHA);
 
 	// flag update
-	setNeedUpdateMaterial(true);
 	setNeedUpdateMesh(true);
 }
 

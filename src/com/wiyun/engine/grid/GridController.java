@@ -7,15 +7,15 @@ import com.wiyun.engine.types.WYPoint;
 /**
  * 网格的基类。
  */
-public class BaseGrid extends BaseWYObject {
-	public static BaseGrid from(int pointer) {
-		return pointer == 0 ? null : new BaseGrid(pointer);
+public class GridController extends BaseWYObject {
+	public static GridController from(int pointer) {
+		return pointer == 0 ? null : new GridController(pointer);
 	}
 	
-	protected BaseGrid() {
+	protected GridController() {
 	}
 	
-	protected BaseGrid(int pointer) {
+	protected GridController(int pointer) {
 		super(pointer);
 	}
 
@@ -85,11 +85,6 @@ public class BaseGrid extends BaseWYObject {
      * @param add 要增加的重用次数
      */
     public native void addReuseCount(int add);
-    
-    /**
-     * 子类需要实现这个方法来完成网格效果的渲染
-     */
-    public native void blit();
     
     /**
      * 重用网格，子类需要实现这个方法来完成重用逻辑。一般来说就是恢复到初始状态。

@@ -26,54 +26,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include "wyViewport.h"
-#include "wyTypes.h"
-#include "wyUtils.h"
-#include "wyLog.h"
+#include "wyBaseGrid.h"
+#include "wyAttribute.h"
 
-wyViewport::wyViewport(const char* name, wyCamera* camera) :
-		m_name(wyUtils::copy(name)),
-		m_color(wyc4bTransparent),
-		m_enabled(true),
-		m_clearColor(false),
-		m_clearDepth(false),
-		m_clearStencil(false) {
-	m_camera = camera;
-	wyObjectRetain(m_camera);
+wyBaseGrid::wyBaseGrid(float w, float h, int c, int r) :
+		m_gridX(c),
+		m_gridY(r),
+		m_width(w),
+		m_height(h),
+		m_stepWidth(w / c),
+		m_stepHeight(h / r) {
+	// make indices buffer
+	m_indices = wyBuffer::makeShort();
 
-	m_queue = wyRenderQueue::make();
-	m_queue->retain();
+	// set indices buffer as first LOD level
+	setLodLevels(&m_indices, 1);
+
+	// create buffer
+	m_buf = wyBuffer::makeCustom(sizeof(Vertex));
+
+	// connect attribute
+	connectAttribute(wyAttribute::NAME[wyAttribute::POSITION], m_buf, 0, 3);
+	connectAttribute(wyAttribute::NAME[wyAttribute::TEXTURE], m_buf, sizeof(kmVec3), 2);
+	connectAttribute(wyAttribute::NAME[wyAttribute::COLOR], m_buf, sizeof(kmVec3) + sizeof(kmVec2), 4);
 }
 
-wyViewport::~wyViewport() {
-	// free members
-	wyObjectRelease(m_camera);
-	m_queue->release();
-
-	// free name
-	if(m_name)
-		wyFree((void*)m_name);
-}
-
-wyViewport* wyViewport::make(wyCamera* camera) {
-	return make(NULL, camera);
-}
-
-wyViewport* wyViewport::make(const char* name, wyCamera* camera) {
-	wyViewport* v = WYNEW wyViewport(name, camera);
-	return (wyViewport*)v->autoRelease();
-}
-
-void wyViewport::attachRoot(wyNode* root) {
-	m_root = root;
-}
-
-void wyViewport::setClearFlag(bool clearColor, bool clearDepth, bool clearStencil) {
-	m_clearColor = clearColor;
-	m_clearDepth = clearDepth;
-	m_clearStencil = clearStencil;
-}
-
-void wyViewport::setBackgroundColor(wyColor4B color) {
-	m_color = color;
+wyBaseGrid::~wyBaseGrid() {
 }

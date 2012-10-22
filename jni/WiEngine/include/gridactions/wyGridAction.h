@@ -30,7 +30,7 @@
 #define __wyGridAction_h__
 
 #include "wyIntervalAction.h"
-#include "wyBaseGrid.h"
+#include "wyGridController.h"
 
 using namespace std;
 
@@ -111,29 +111,29 @@ public:
 	 * \if English
 	 * to return a grid object, subclass muse implement this method
 	 *
-	 * @return  \link wyBaseGrid wyBaseGrid\endlink
+	 * @return  \link wyGridController wyGridController\endlink
 	 * \else
 	 * 返回一个网格对象，子类需要实现这个方法
 	 *
-	 * @return \link wyBaseGrid wyBaseGrid对象指针\endlink
+	 * @return \link wyGridController wyGridController对象指针\endlink
 	 * \endif
 	 */
-	virtual wyBaseGrid* makeGrid() = 0;
+	virtual wyGridController* makeGrid() = 0;
 
 	/**
 	 * \if English
 	 * check whether the grid can be reused, subclass must implement this method
 	 *
-	 * @param grid \link wyBaseGrid wyBaseGrid\endlink
+	 * @param grid \link wyGridController wyGridController\endlink
 	 * @return true means reusable
 	 * \else
 	 * 检查之前的网格对象是否可以重用
 	 *
-	 * @param grid \link wyBaseGrid wyBaseGrid\endlink
+	 * @param grid \link wyGridController wyGridController\endlink
 	 * @return true表示可以重用
 	 * \endif
 	 */
-	virtual bool isGridReusable(wyBaseGrid* grid) = 0;
+	virtual bool isGridReusable(wyGridController* grid) = 0;
 
 	/// @see wyAction::reverse
 	virtual wyAction* reverse();

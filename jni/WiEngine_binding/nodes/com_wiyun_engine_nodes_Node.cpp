@@ -647,7 +647,7 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setVisible
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setGrid
   (JNIEnv * env, jobject thiz, jobject grid) {
 	wyNode* node = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	node->setGrid((wyBaseGrid*)env->GetIntField(grid, g_fid_BaseObject_mPointer));
+	node->setGrid((wyGridController*)env->GetIntField(grid, g_fid_BaseObject_mPointer));
 }
 
 JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetGrid

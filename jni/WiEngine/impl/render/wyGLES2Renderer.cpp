@@ -33,6 +33,7 @@
 
 wyGLES2Renderer::wyGLES2Renderer() :
 		m_useVBO(false),
+		m_color(wyc4bTransparent),
 		m_clipStack((wyRect*)wyMalloc(10 * sizeof(wyRect))),
 		m_clipStackCount(0),
 		m_clipStackCapacity(10) {
@@ -51,7 +52,12 @@ wyGLES2Renderer* wyGLES2Renderer::make() {
 }
 
 void wyGLES2Renderer::setBackgroundColor(wyColor4B color) {
+	m_color = color;
 	glClearColor(color.r / 255.f, color.g / 255.f, color.b / 255.f, color.a / 255.f);
+}
+
+wyColor4B wyGLES2Renderer::getBackgroundColor() {
+	return m_color;
 }
 
 void wyGLES2Renderer::clearBuffers(bool color, bool depth, bool stencil) {
@@ -579,6 +585,15 @@ int wyGLES2Renderer::createFrameBuffer(int desiredWidth, int desiredHeight) {
 	} else {
 		return -1;
 	}
+}
+
+int wyGLES2Renderer::getFrameBufferTexture(int fid) {
+	// get frame buffer
+	wyGLState::FrameBuffer* fb = m_state->getFrameBuffer(fid);
+	if(!fb)
+		return 0;
+
+	return fb->texture;
 }
 
 void wyGLES2Renderer::setFrameBuffer(int fid) {

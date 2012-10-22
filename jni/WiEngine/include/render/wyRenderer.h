@@ -69,6 +69,13 @@ public:
 	virtual void setBackgroundColor(wyColor4B color) = 0;
 
 	/**
+	 * Get current clear color
+	 *
+	 * @return \link wyColor4B wyColor4B\endlink
+	 */
+	virtual wyColor4B getBackgroundColor() = 0;
+
+	/**
 	 * \if English
 	 * Clear buffer
 	 *
@@ -207,6 +214,14 @@ public:
 	 * @return frame buffer id, or -1 means creation failed
 	 */
 	virtual int createFrameBuffer(int desiredWidth, int desiredHeight) = 0;
+
+	/**
+	 * Get underlying texture of frame buffer
+	 *
+	 * @param fid frame buffer id
+	 * @return texture id
+	 */
+	virtual int getFrameBufferTexture(int fid) = 0;
 
 	/**
 	 * Change render target to a frame buffer

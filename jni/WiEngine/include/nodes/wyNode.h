@@ -64,7 +64,6 @@ typedef struct wyNodePositionListener {
  */
 class WIENGINE_API wyNode : public wyObject {
 	friend class wyEventDispatcher;
-	friend class wyRenderManager;
 
 private:
 	/// touch state of a node
@@ -293,8 +292,8 @@ protected:
 	/// 所有子节点\link wyArray wyArray对象指针\endlink
 	wyArray* m_children;
 
-	/// 网格对象\link wyBaseGrid wyBaseGrid对象指针\endlink
-	wyBaseGrid* m_grid;
+	/// 网格对象\link wyGridController wyGridController对象指针\endlink
+	wyGridController* m_grid;
 
 	/// 相机对象\link wyCamera wyCamera对象指针\endlink
 	wyCamera* m_camera;
@@ -410,12 +409,6 @@ private:
 	 * @return 触摸事件状态
 	 */
 	wyTouchState getTouchState() { return m_state; }
-
-	/// update node world matrix by fetching it from kazmath world matrix stack
-	void syncWorldMatrix();
-
-	/// apply node matrix to top matrix of world matrix stack
-	void applyWorldMatrix();
 
 protected:
 	/// constructor
@@ -1237,14 +1230,14 @@ public:
 	 * \if English
 	 * Set grid object for this node
 	 *
-	 * @param grid \link wyBaseGrid wyBaseGrid\endlink subclass
+	 * @param grid \link wyGridController wyGridController\endlink subclass
 	 * \else
 	 * 设置节点的网格对象
 	 *
-	 * @param grid 网格对象\link wyBaseGrid wyBaseGrid对象指针\endlink
+	 * @param grid 网格对象\link wyGridController wyGridController对象指针\endlink
 	 * \endif
 	 */
-	void setGrid(wyBaseGrid* grid);
+	void setGrid(wyGridController* grid);
 
 	/**
 	 * \if English
@@ -2232,12 +2225,12 @@ public:
 
 	/**
 	 * \if English
-	 * Get attached grid object of node, must be a subclass of \link wyBaseGrid wyBaseGrid\endlink
+	 * Get attached grid object of node, must be a subclass of \link wyGridController wyGridController\endlink
 	 * \else
 	 * 得到节点上绑定的网格对象
 	 * \endif
 	 */
-	wyBaseGrid* getGrid() { return m_grid; }
+	wyGridController* getGrid() { return m_grid; }
 
 	/**
 	 * \if English
@@ -3545,6 +3538,12 @@ public:
 	 * \endif
 	 */
 	wyNode* getTouchCoffin() { return m_touchCoffin; }
+
+	/// apply node matrix to top matrix of world matrix stack
+	void applyWorldMatrix();
+
+	/// update node world matrix by fetching it from kazmath world matrix stack
+	void syncWorldMatrix();
 };
 
 #endif // __wyNode_h__

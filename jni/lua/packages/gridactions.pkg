@@ -170,10 +170,10 @@ public:
 	virtual ~wyGrid3DAction();
 
 	/// @see wyGridAction::makeGrid
-	virtual wyBaseGrid* makeGrid();
+	virtual wyGridController* makeGrid();
 
 	/// @see wyGridAction::getGridClass
-	virtual bool isGridReusable(wyBaseGrid* grid);
+	virtual bool isGridReusable(wyGridController* grid);
 
 	/**
 	 * 获取某位置的顶点坐标
@@ -247,17 +247,17 @@ public:
 	/**
 	 * 返回一个网格对象，子类需要实现这个方法
 	 *
-	 * @return \link wyBaseGrid wyBaseGrid对象指针\endlink
+	 * @return \link wyGridController wyGridController对象指针\endlink
 	 */
-	virtual wyBaseGrid* makeGrid() = 0;
+	virtual wyGridController* makeGrid() = 0;
 
 	/**
 	 * 检查之前的网格对象是否可以重用
 	 *
-	 * @param grid \link wyBaseGrid wyBaseGrid\endlink
+	 * @param grid \link wyGridController wyGridController\endlink
 	 * @return true表示可以重用
 	 */
-	virtual bool isGridReusable(wyBaseGrid* grid) = 0;
+	virtual bool isGridReusable(wyGridController* grid) = 0;
 
 	/// @see wyAction::reverse
 	virtual wyAction* reverse();
@@ -1606,10 +1606,10 @@ public:
 	virtual ~wyTiledGrid3DAction();
 
 	/// @see wyGridAction::makeGrid
-	virtual wyBaseGrid* makeGrid();
+	virtual wyGridController* makeGrid();
 
 	/// @see wyGridAction::getGridClass
-	virtual bool isGridReusable(wyBaseGrid* grid);
+	virtual bool isGridReusable(wyGridController* grid);
 
 	/**
 	 * 得到某个位置的矩形块坐标

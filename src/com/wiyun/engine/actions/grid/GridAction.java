@@ -2,7 +2,7 @@ package com.wiyun.engine.actions.grid;
 
 import com.wiyun.engine.actions.IntervalAction;
 import com.wiyun.engine.actions.ReverseTime;
-import com.wiyun.engine.grid.BaseGrid;
+import com.wiyun.engine.grid.GridController;
 import com.wiyun.engine.types.WYGridSize;
 
 /**
@@ -63,9 +63,9 @@ public abstract class GridAction extends IntervalAction {
 	/**
 	 * 子类需要实现这个方法，返回一个网格对象
 	 * 
-	 * @return {@link BaseGrid}对象
+	 * @return {@link GridController}对象
 	 */
-	public native BaseGrid makeGrid();
+	public native GridController makeGrid();
 
 	@Override
 	public IntervalAction reverse() {

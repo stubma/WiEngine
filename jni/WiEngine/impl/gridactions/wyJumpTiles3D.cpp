@@ -28,6 +28,7 @@
  */
 #include "wyJumpTiles3D.h"
 #include "wyNode.h"
+#include "wyLog.h"
 
 wyAction* wyJumpTiles3D::copy() {
 	return wyJumpTiles3D::make(m_duration, m_gridX, m_gridY, m_amplitude, m_jumps);

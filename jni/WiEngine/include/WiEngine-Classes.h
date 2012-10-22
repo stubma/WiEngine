@@ -186,9 +186,7 @@ class wyLightingColorFilter;
 class wyMappingColorFilter;
 
 // grid
-class wyBaseGrid;
-class wyGrid3D;
-class wyTiledGrid3D;
+class wyGridController;
 
 // grid actions
 class wyBottomLineShrinkOut;
@@ -232,10 +230,13 @@ class wyRenderState;
 class wyTechnique;
 
 // mesh
-class wyShape;
+class wyBaseGrid;
+class wyGrid3D;
 class wyMesh;
 class wyQuadList;
 class wyRectangle;
+class wyShape;
+class wyTiledGrid3D;
 
 // nodes
 class wyActionManager;

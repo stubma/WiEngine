@@ -186,9 +186,7 @@
 #include "wyMappingColorFilter.h"
 
 // grid
-#include "wyBaseGrid.h"
-#include "wyGrid3D.h"
-#include "wyTiledGrid3D.h"
+#include "wyGridController.h"
 
 // grid actions
 #include "wyBottomLineShrinkOut.h"
@@ -232,10 +230,13 @@
 #include "wyTechnique.h"
 
 // mesh
-#include "wyShape.h"
+#include "wyBaseGrid.h"
 #include "wyMesh.h"
+#include "wyGrid3D.h"
 #include "wyQuadList.h"
 #include "wyRectangle.h"
+#include "wyShape.h"
+#include "wyTiledGrid3D.h"
 
 // nodes
 #include "wyActionManager.h"

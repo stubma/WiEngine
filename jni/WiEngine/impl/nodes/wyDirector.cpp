@@ -814,6 +814,7 @@ wyScene* wyDirector::getPreviousScene() {
 
 bool wyDirector::isExtensionSupported(const char* name) {
 	const char* extensions = (const char*)glGetString(GL_EXTENSIONS);
+	LOGD("%s", extensions);
 	return extensions == NULL ? false : (strstr(extensions, name) != NULL);
 }
 

@@ -3789,9 +3789,9 @@ public:
 	/**
 	 * 设置节点的网格对象
 	 *
-	 * @param grid 网格对象\link wyBaseGrid wyBaseGrid对象指针\endlink
+	 * @param grid 网格对象\link wyGridController wyGridController对象指针\endlink
 	 */
-	void setGrid(wyBaseGrid* grid);
+	void setGrid(wyGridController* grid);
 
 	/**
 	 * 添加子节点,方法是线程安全的
@@ -4259,9 +4259,9 @@ public:
 	/**
 	 * 得到节点上绑定的网格对象
 	 *
-	 * @return 网格\link wyBaseGrid wyBaseGrid对象指针\endlink
+	 * @return 网格\link wyGridController wyGridController对象指针\endlink
 	 */
-	wyBaseGrid* getGrid() { return m_grid; }
+	wyGridController* getGrid() { return m_grid; }
 
 	/**
 	 * 得到节点是否可见

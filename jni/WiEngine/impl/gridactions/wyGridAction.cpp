@@ -39,7 +39,7 @@ void wyGridAction::start(wyNode* target) {
 	wyIntervalAction::start(target);
 
 	// can reuse current grid?
-	wyBaseGrid* grid = target->getGrid();
+	wyGridController* grid = target->getGrid();
 	bool canReuse = grid != NULL && grid->isReuseGrid()
 		&& grid->isActive() && grid->getGridX() == m_gridX
 		&& grid->getGridY() == m_gridY && isGridReusable(grid);

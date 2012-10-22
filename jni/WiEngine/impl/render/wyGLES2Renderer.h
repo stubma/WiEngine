@@ -60,6 +60,9 @@ private:
 	/// the capacity of m_clipStack
 	int m_clipStackCapacity;
 
+	/// clear color
+	wyColor4B m_color;
+
 protected:
 	wyGLES2Renderer();
 
@@ -110,6 +113,9 @@ public:
 	/// @see wyRenderer::setBackgroundColor
 	virtual void setBackgroundColor(wyColor4B color);
 
+	/// @see wyRenderer::getBackgroundColor
+	virtual wyColor4B getBackgroundColor();
+
 	/// @see wyRenderer::clearBuffers
 	virtual void clearBuffers(bool color, bool depth, bool stencil);
 
@@ -145,6 +151,9 @@ public:
 
 	/// @see wyRenderer::createFrameBuffer
 	virtual int createFrameBuffer(int desiredWidth, int desiredHeight);
+
+	/// @see wyRenderer::getFrameBufferTexture
+	virtual int getFrameBufferTexture(int fid);
 
 	/// @see wyRenderer::setFrameBuffer
 	virtual void setFrameBuffer(int fid);

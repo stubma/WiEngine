@@ -42,7 +42,7 @@
 #include "wyAnimation.h"
 #include "wyScheduler.h"
 #include "wyCamera.h"
-#include "wyBaseGrid.h"
+#include "wyGridController.h"
 #if ANDROID
 	#include "wyJNI.h"
 #endif
@@ -1167,7 +1167,7 @@ void wyNode::translateChildren(float x, float y) {
 	}
 }
 
-void wyNode::setGrid(wyBaseGrid* grid) {
+void wyNode::setGrid(wyGridController* grid) {
 	wyObjectRetain(grid);
 	wyObjectRelease(m_grid);
 	m_grid = grid;
@@ -1836,6 +1836,9 @@ void wyNode::syncWorldMatrix() {
 }
 
 void wyNode::applyWorldMatrix() {
+	// switch to world stack
+	kmGLMatrixMode(KM_GL_WORLD);
+
 	// multiply current node world matrix
 	wyAffineTransform t = getTransformMatrix();
 	kmMat4 m;

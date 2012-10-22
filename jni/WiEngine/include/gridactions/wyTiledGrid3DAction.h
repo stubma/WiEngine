@@ -69,10 +69,10 @@ public:
 	virtual ~wyTiledGrid3DAction();
 
 	/// @see wyGridAction::makeGrid
-	virtual wyBaseGrid* makeGrid();
+	virtual wyGridController* makeGrid();
 
 	/// @see wyGridAction::getGridClass
-	virtual bool isGridReusable(wyBaseGrid* grid);
+	virtual bool isGridReusable(wyGridController* grid);
 
 	/**
 	 * \if English

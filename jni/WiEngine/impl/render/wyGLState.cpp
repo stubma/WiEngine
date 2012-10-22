@@ -79,23 +79,23 @@ void wyGLState::reset() {
 
 bool wyGLState::isAttributeVertexArrayEnabled(int loc) {
 	map<int, bool>::iterator iter = attribEnableMap->find(loc);
-	if(iter == attribEnableMap->end())
-		return false;
-	else
+	if(iter != attribEnableMap->end())
 		return iter->second;
+	else
+		return false;
 }
 
 wyBuffer* wyGLState::getAttributeVertexPointer(int loc) {
 	map<int, wyBuffer*>::iterator iter = attribBoundBuffers->find(loc);
-	if(iter == attribBoundBuffers->end())
-		return NULL;
-	else
+	if(iter != attribBoundBuffers->end())
 		return iter->second;
+	else
+		return NULL;
 }
 
 wyGLState::FrameBuffer* wyGLState::getFrameBuffer(int fid) {
 	map<int, FrameBuffer>::iterator iter = frameBuffers->find(fid);
-	if(iter == frameBuffers->end())
+	if(iter != frameBuffers->end())
 		return &iter->second;
 	else
 		return NULL;

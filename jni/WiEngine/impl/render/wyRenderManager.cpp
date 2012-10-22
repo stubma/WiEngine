@@ -34,7 +34,8 @@
 #include "wyNode.h"
 #include "wyTechnique.h"
 #include "wyShaderProgram.h"
-#include "wyBaseGrid.h"
+#include "wyGridController.h"
+#include "wyLog.h"
 
 wyRenderManager::wyRenderManager(wyRenderer* renderer) :
 		m_camera(NULL) {

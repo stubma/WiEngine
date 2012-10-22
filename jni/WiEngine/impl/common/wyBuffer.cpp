@@ -103,6 +103,39 @@ void wyBuffer::enlarge(int times) {
 	m_data = wyRealloc(m_data, m_capacity * m_bytePerElement);
 }
 
+void wyBuffer::reserve(int capacity) {
+	if(m_capacity < capacity) {
+		m_capacity = capacity;
+		m_data = wyRealloc(m_data, m_capacity * m_bytePerElement);
+	}
+}
+
+void wyBuffer::copy(wyBuffer* src) {
+	// check data format
+	if(src->getFormat() != m_format) {
+		LOGW("wyBuffer::copy: two buffer has different data format");
+		return;
+	}
+
+	// check element size if element is structure
+	if(m_format == STRUCTURE && m_bytePerElement != src->getBytePerElement()) {
+		LOGW("wyBuffer::copy: two buffer has different structure size");
+		return;
+	}
+
+	// ensure capacity
+	int minCapacity = src->getElementCount();
+	while(m_capacity < minCapacity) {
+		enlarge();
+	}
+
+	// copy data
+	memcpy((char*)m_data, src->getData(), m_bytePerElement * src->getElementCount());
+
+	// update elements
+	m_elements = minCapacity;
+}
+
 void wyBuffer::append(wyBuffer* buf) {
 	// check data format
 	if(buf->getFormat() != m_format) {

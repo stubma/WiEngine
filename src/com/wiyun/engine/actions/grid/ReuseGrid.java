@@ -1,10 +1,10 @@
 package com.wiyun.engine.actions.grid;
 
 import com.wiyun.engine.actions.InstantAction;
-import com.wiyun.engine.grid.BaseGrid;
+import com.wiyun.engine.grid.GridController;
 
 /**
- * 复用网格。{@link BaseGrid}对象可以重复利用，可以节省时间。如果两个效果需要使用网格完成，而网格的大小
+ * 复用网格。{@link GridController}对象可以重复利用，可以节省时间。如果两个效果需要使用网格完成，而网格的大小
  * 没有变化，一般可以复用网格。网格内部有复用次数的计数，这个动作就是增加它的复用次数计数。 
  */
 public class ReuseGrid extends InstantAction {

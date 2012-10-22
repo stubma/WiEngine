@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Fri Oct 19 13:29:14 2012.
+** Generated automatically by tolua++-1.0.92 on Mon Oct 22 11:31:00 2012.
 */
 
 #ifndef __cplusplus
@@ -437,6 +437,7 @@ static int tolua_collect_wyFrame (lua_State* tolua_S)
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"wySprite");
+ tolua_usertype(tolua_S,"wyGridController");
  tolua_usertype(tolua_S,"wySize");
  tolua_usertype(tolua_S,"wyAtlasLabel");
  tolua_usertype(tolua_S,"wyLineRibbon");
@@ -449,7 +450,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyCoverFlow");
  tolua_usertype(tolua_S,"wyDirectorLifecycleListener");
  tolua_usertype(tolua_S,"wyAnimation");
- tolua_usertype(tolua_S,"wyMenuItemLabel");
+ tolua_usertype(tolua_S,"wyScene");
  tolua_usertype(tolua_S,"wyNinePatchSprite");
  tolua_usertype(tolua_S,"wyScrollableLayer");
  tolua_usertype(tolua_S,"wySliderCallback");
@@ -464,7 +465,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyStripRibbon");
  tolua_usertype(tolua_S,"wyMotionEvent");
  tolua_usertype(tolua_S,"wyTexture2D");
- tolua_usertype(tolua_S,"wyBaseGrid");
+ tolua_usertype(tolua_S,"wyTGATileMapAtlas");
  tolua_usertype(tolua_S,"wyRenderTexture");
  tolua_usertype(tolua_S,"wyMultiplexLayer");
  tolua_usertype(tolua_S,"wyMenuItemAtlasLabel");
@@ -479,39 +480,38 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyButton");
  tolua_usertype(tolua_S,"wyGLContext");
  tolua_usertype(tolua_S,"wyVirtualJoystick");
- tolua_usertype(tolua_S,"wyScrollableLayerListener");
  tolua_usertype(tolua_S,"wyAffineTransform");
+ tolua_usertype(tolua_S,"wyScrollableLayerListener");
  tolua_usertype(tolua_S,"wyTextBox");
  tolua_usertype(tolua_S,"wyTextBoxCallback");
  tolua_usertype(tolua_S,"wySlider");
  tolua_usertype(tolua_S,"wyPageControlCallback");
  tolua_usertype(tolua_S,"wyPageControl");
- tolua_usertype(tolua_S,"wyRibbon");
  tolua_usertype(tolua_S,"wyGradientColorLayer");
+ tolua_usertype(tolua_S,"wyRibbon");
  tolua_usertype(tolua_S,"wyDotPageIndicator");
- tolua_usertype(tolua_S,"wyPageIndicator");
  tolua_usertype(tolua_S,"wyAction");
- tolua_usertype(tolua_S,"wyTransitionScene");
+ tolua_usertype(tolua_S,"wyPageIndicator");
  tolua_usertype(tolua_S,"wyTargetSelector");
+ tolua_usertype(tolua_S,"wyTransitionScene");
  tolua_usertype(tolua_S,"wyTileMapAtlas");
  tolua_usertype(tolua_S,"wyTiledSprite");
- tolua_usertype(tolua_S,"wyAtlasNode");
  tolua_usertype(tolua_S,"wyPoint");
  tolua_usertype(tolua_S,"wyCharMap");
- tolua_usertype(tolua_S,"wyTGATileMapAtlas");
+ tolua_usertype(tolua_S,"wyAtlasNode");
+ tolua_usertype(tolua_S,"wyMenuItemLabel");
  tolua_usertype(tolua_S,"wyCover");
- tolua_usertype(tolua_S,"wyResourceDecoder");
  tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyScaleMode");
  tolua_usertype(tolua_S,"wyArrayTileMapAtlas");
+ tolua_usertype(tolua_S,"wyResourceDecoder");
  tolua_usertype(tolua_S,"wyTextureNode");
  tolua_usertype(tolua_S,"wySpriteBatchNode");
  tolua_usertype(tolua_S,"wyMWSprite");
  tolua_usertype(tolua_S,"wyObject");
- tolua_usertype(tolua_S,"wyMenuItem");
  tolua_usertype(tolua_S,"wyTimer");
  tolua_usertype(tolua_S,"wyScheduler");
- tolua_usertype(tolua_S,"wyScene");
+ tolua_usertype(tolua_S,"wyMenuItem");
  tolua_usertype(tolua_S,"wyAnimationCallback");
  tolua_usertype(tolua_S,"wyParallaxNode");
  tolua_usertype(tolua_S,"wyNodePositionListener");
@@ -13847,7 +13847,7 @@ static int tolua_nodes_wyNode_setGrid00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"wyNode",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyBaseGrid",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"wyGridController",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -13855,7 +13855,7 @@ static int tolua_nodes_wyNode_setGrid00(lua_State* tolua_S)
 #endif
  {
   wyNode* self = (wyNode*)  tolua_tousertype(tolua_S,1,0);
-  wyBaseGrid* grid = ((wyBaseGrid*)  tolua_tousertype(tolua_S,2,0));
+  wyGridController* grid = ((wyGridController*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setGrid'", NULL);
 #endif
@@ -16106,8 +16106,8 @@ static int tolua_nodes_wyNode_getGrid00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getGrid'", NULL);
 #endif
   {
-   wyBaseGrid* tolua_ret = (wyBaseGrid*)  self->getGrid();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyBaseGrid");
+   wyGridController* tolua_ret = (wyGridController*)  self->getGrid();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyGridController");
   }
  }
  return 1;

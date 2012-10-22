@@ -33,26 +33,8 @@
 #include "wyGlobal.h"
 #include "wyPrimitives.h"
 
-void wyGrid3D::blit() {
-	// TODO gles2
-//	int n = m_gridX * m_gridY;
-//
-//	glEnableClientState(GL_VERTEX_ARRAY);
-//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//
-//	glVertexPointer(3, GL_FLOAT, 0, m_vertices);
-//	glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
-//	glDrawElements(GL_TRIANGLES, n * 6, GL_UNSIGNED_SHORT, m_indices);
-//
-//	glDisableClientState(GL_VERTEX_ARRAY);
-//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-}
-
 void wyGrid3D::reuse() {
-	if(m_reuseGrid > 0) {
-		memcpy(m_vertices, m_originalVertices, sizeof(wyVertex3D) * (m_gridX + 1) * (m_gridY + 1));
-		m_reuseGrid--;
-	}
+	m_buf->copy(m_backup);
 }
 
 void wyGrid3D::calculateVertexPoints() {
@@ -60,18 +42,14 @@ void wyGrid3D::calculateVertexPoints() {
 	int width = wyMath::getNextPOT(m_width);
 	int height = wyMath::getNextPOT(m_height);
 
-	// allocate buffers
+	// ensure capacity of buffers
 	int numVertex = (m_gridX + 1) * (m_gridY + 1);
-	m_vertices = (GLfloat*)wyCalloc(numVertex, sizeof(wyVertex3D));
-	m_originalVertices = (GLfloat*)wyCalloc(numVertex, sizeof(wyVertex3D));
-	m_texCoords = (GLfloat*)wyCalloc(numVertex * 2, sizeof(GLfloat));
-	m_indices = (GLushort*)wyCalloc(m_gridX * m_gridY * 6, sizeof(GLushort));
+	m_buf->reserve(numVertex);
+	m_indices->reserve(m_gridX * m_gridY * 6);
 
-	// temp buffer
-	int* vIndex = (int*)wyCalloc(4, sizeof(int));
-	wyVertex3D* v = (wyVertex3D*)wyCalloc(4, sizeof(wyVertex3D));
-	int* tIndex = (int*)wyCalloc(4, sizeof(int));
-	wyPoint* t = (wyPoint*)wyCalloc(4, sizeof(wyPoint));
+	// get raw buffer
+	GLushort* indices = (GLushort*)m_indices->getData();
+	Vertex* v = (Vertex*)m_buf->getData();
 
 	for(int x = 0; x < m_gridX; x++) {
 		for(int y = 0; y < m_gridY; y++) {
@@ -91,67 +69,45 @@ void wyGrid3D::calculateVertexPoints() {
 
 			// set indices
 			int start = 6 * idx;
-			m_indices[start++] = a;
-			m_indices[start++] = b;
-			m_indices[start++] = d;
-			m_indices[start++] = b;
-			m_indices[start++] = c;
-			m_indices[start++] = d;
+			indices[start++] = a;
+			indices[start++] = b;
+			indices[start++] = d;
+			indices[start++] = b;
+			indices[start++] = c;
+			indices[start++] = d;
 
-			// get vertex of four corners
-			vIndex[0] = a * 3;
-			vIndex[1] = b * 3;
-			vIndex[2] = c * 3;
-			vIndex[3] = d * 3;
-			v[0].x = x1;
-			v[0].y = y1;
-			v[1].x = x2;
-			v[1].y = y1;
-			v[2].x = x2;
-			v[2].y = y2;
-			v[3].x = x1;
-			v[3].y = y2;
+			// corner 1
+			kmVec3Fill(&v[a].pos, x1, y1, 0);
+			kmVec2Fill(&v[a].tex, x1 / width, y1 / height);
+			kmVec4Fill(&v[a].color, 1, 1, 1, 1);
 
-			// get texture coordinates
-			tIndex[0] = a * 2;
-			tIndex[1] = b * 2;
-			tIndex[2] = c * 2;
-			tIndex[3] = d * 2;
-			t[0].x = x1;
-			t[0].y = y1;
-			t[1].x = x2;
-			t[1].y = y1;
-			t[2].x = x2;
-			t[2].y = y2;
-			t[3].x = x1;
-			t[3].y = y2;
+			// corner 2
+			kmVec3Fill(&v[b].pos, x2, y1, 0);
+			kmVec2Fill(&v[b].tex, x2 / width, y1 / height);
+			kmVec4Fill(&v[b].color, 1, 1, 1, 1);
 
-			// write vertices and text coordinates to buffer
-			for(int i = 0; i < 4; i++) {
-				m_vertices[vIndex[i]] = v[i].x;
-				m_vertices[vIndex[i] + 1] = v[i].y;
-				m_vertices[vIndex[i] + 2] = v[i].z;
+			// corner 3
+			kmVec3Fill(&v[c].pos, x2, y2, 0);
+			kmVec2Fill(&v[c].tex, x2 / width, y2 / height);
+			kmVec4Fill(&v[c].color, 1, 1, 1, 1);
 
-				float x = t[i].x;
-				float y = t[i].y;
-
-				m_texCoords[tIndex[i]] = x / width;
-				m_texCoords[tIndex[i] + 1] = y / height;
-			}
+			// corner 4
+			kmVec3Fill(&v[d].pos, x1, y2, 0);
+			kmVec2Fill(&v[d].tex, x1 / width, y2 / height);
+			kmVec4Fill(&v[d].color, 1, 1, 1, 1);
 		}
 	}
 
-	// free temp buffers
-	wyFree(vIndex);
-	wyFree(v);
-	wyFree(tIndex);
-	wyFree(t);
+	// manually set element count
+	m_buf->setElementCount(numVertex);
+	m_indices->setElementCount(m_gridX * m_gridY * 6);
 
 	// copy vertices to original buffer
-	memcpy(m_originalVertices, m_vertices, sizeof(wyVertex3D) * numVertex);
+	m_backup->copy(m_buf);
 }
 
 wyGrid3D::~wyGrid3D() {
+	m_backup->release();
 }
 
 wyGrid3D* wyGrid3D::make(float w, float h, int c, int r) {
@@ -160,24 +116,31 @@ wyGrid3D* wyGrid3D::make(float w, float h, int c, int r) {
 }
 
 wyGrid3D::wyGrid3D(float w, float h, int c, int r) : wyBaseGrid(w, h, c, r) {
+	// create backup buffer
+	m_backup = wyBuffer::makeCustom(sizeof(Vertex));
+	m_backup->retain();
+
 	calculateVertexPoints();
 }
 
 void wyGrid3D::setVertex(wyDimension pos, wyVertex3D vertex) {
-	int index = (pos.x * (m_gridY + 1) + pos.y) * 3;
-	memcpy(m_vertices + index, &vertex, sizeof(wyVertex3D));
+	int index = pos.x * (m_gridY + 1) + pos.y;
+	Vertex* v = (Vertex*)m_buf->getData();
+	kmVec3Fill(&v[index].pos, vertex.x, vertex.y, vertex.z);
 }
 
 wyVertex3D wyGrid3D::getVertex(wyDimension pos) {
-	int index = (pos.x * (m_gridY + 1) + pos.y) * 3;
-	wyVertex3D v;
-	memcpy(&v, m_vertices + index, sizeof(wyVertex3D));
-	return v;
+	int index = pos.x * (m_gridY + 1) + pos.y;
+	Vertex* v = (Vertex*)m_buf->getData();
+	wyVertex3D ret;
+	memcpy(&ret, &v[index].pos, sizeof(wyVertex3D));
+	return ret;
 }
 
 wyVertex3D wyGrid3D::getOriginalVertex(wyDimension pos) {
-	int index = (pos.x * (m_gridY + 1) + pos.y) * 3;
-	wyVertex3D v;
-	memcpy(&v, m_originalVertices + index, sizeof(wyVertex3D));
-	return v;
+	int index = pos.x * (m_gridY + 1) + pos.y;
+	Vertex* v = (Vertex*)m_backup->getData();
+	wyVertex3D ret;
+	memcpy(&ret, &v[index].pos, sizeof(wyVertex3D));
+	return ret;
 }

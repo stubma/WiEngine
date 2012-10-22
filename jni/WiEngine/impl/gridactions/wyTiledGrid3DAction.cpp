@@ -30,14 +30,15 @@
 #include "wyNode.h"
 #include "wyTiledGrid3D.h"
 #include <typeinfo>
+#include "wyLog.h"
 
-wyBaseGrid* wyTiledGrid3DAction::makeGrid() {
+wyGridController* wyTiledGrid3DAction::makeGrid() {
 	wyNode* t = getTarget();
-	return wyTiledGrid3D::make(t->getWidth(), t->getHeight(), m_gridX, m_gridY);
+	return wyGridController::makeTiled3D(t->getWidth(), t->getHeight(), m_gridX, m_gridY);
 }
 
-bool wyTiledGrid3DAction::isGridReusable(wyBaseGrid* grid) {
-	return typeid(*grid) == typeid(wyTiledGrid3D);
+bool wyTiledGrid3DAction::isGridReusable(wyGridController* grid) {
+	return typeid(*(grid->getMesh())) == typeid(wyTiledGrid3D);
 }
 
 wyTiledGrid3DAction::~wyTiledGrid3DAction() {
@@ -47,16 +48,16 @@ wyTiledGrid3DAction::wyTiledGrid3DAction(float duration, float gridX, float grid
 }
 
 wyQuad3D wyTiledGrid3DAction::getTile(wyDimension pos) {
-	wyTiledGrid3D* grid = (wyTiledGrid3D*)m_target->getGrid();
+	wyTiledGrid3D* grid = (wyTiledGrid3D*)m_target->getGrid()->getMesh();
 	return grid->getTile(pos);
 }
 
 wyQuad3D wyTiledGrid3DAction::getOriginalTile(wyDimension pos) {
-	wyTiledGrid3D* grid = (wyTiledGrid3D*)m_target->getGrid();
+	wyTiledGrid3D* grid = (wyTiledGrid3D*)m_target->getGrid()->getMesh();
 	return grid->getOriginalTile(pos);
 }
 
 void wyTiledGrid3DAction::setTile(wyDimension pos, wyQuad3D coords) {
-	wyTiledGrid3D* grid = (wyTiledGrid3D*)m_target->getGrid();
+	wyTiledGrid3D* grid = (wyTiledGrid3D*)m_target->getGrid()->getMesh();
 	grid->setTile(pos, coords);
 }

@@ -229,6 +229,14 @@ public:
 	void enlarge(int times = 2);
 
 	/**
+	 * Allocate wanted space for this buffer. If this buffer is already larger than the capacity,
+	 * then nothing to do.
+	 *
+	 * @param capacity the minimum capacity we want the buffer has
+	 */
+	void reserve(int capacity);
+
+	/**
 	 * \if English
 	 * Append other buffer to current buffer. Data format of two buffers must be
 	 * matched otherwise nothing will be done. Current buffer will be enlarged if
@@ -436,11 +444,11 @@ public:
 	 * Fill whole buffer with a specified element repeatly. So the element count
 	 * will be set to capacity value
 	 *
-	 * @param data data buffer
+	 * @param data data buffer, the data in buffer must be an element
 	 * \else
 	 * 以同一个元素数据填充缓冲区, 因此缓冲区内的元素个数会被设置成容量
 	 *
-	 * @param data 数据缓冲区
+	 * @param data 数据缓冲区, 里面的数据必须正好是一个元素
 	 * \endif
 	 */
 	void fill(void* data);
@@ -468,6 +476,14 @@ public:
 	 * \endif
 	 */
 	void* elementAt(int index);
+
+	/**
+	 * Copy a buffer data into this buffer. So this buffer will contains same data
+	 * as the source one. The source and destination buffer must have same element type.
+	 *
+	 * @param src source buffer to be copied
+	 */
+	void copy(wyBuffer* src);
 };
 
 #endif // __wyBuffer_h__

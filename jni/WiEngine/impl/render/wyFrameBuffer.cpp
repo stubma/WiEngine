@@ -35,14 +35,17 @@
 #include "wyDirector.h"
 #include "wyRenderManager.h"
 #include "wyRenderer.h"
+#include "wyMaterial.h"
 
 wyFrameBuffer::~wyFrameBuffer() {
 	m_camera->release();
+	wyObjectRelease(m_material);
 	releaseBuffer();
 }
 
 wyFrameBuffer::wyFrameBuffer() :
 		m_id(-1),
+		m_material(NULL),
 		m_texWidth(wyDevice::realWidth),
 		m_texHeight(wyDevice::realHeight),
 		m_width(wyDevice::winWidth),
@@ -52,6 +55,7 @@ wyFrameBuffer::wyFrameBuffer() :
 
 wyFrameBuffer::wyFrameBuffer(int width, int height) :
 		m_id(-1),
+		m_material(NULL),
 		m_texWidth(width),
 		m_texHeight(height),
 		m_width(width),
@@ -75,17 +79,36 @@ void wyFrameBuffer::initCamera() {
 	m_camera->retain();
 
 	// set projection and viewport
-	float widthRatio = wyDevice::realWidth / wyDevice::winWidth;
-	float heightRatio = wyDevice::realHeight / wyDevice::winHeight;
+	float widthRatio = wyDevice::realWidth / m_width;
+	float heightRatio = wyDevice::realHeight / m_height;
 	m_camera->setOrtho(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
-	m_camera->setViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
+	m_camera->setViewport(0, 0, m_texWidth, m_texHeight);
 }
 
 void wyFrameBuffer::create() {
+	// get renderer
 	wyDirector* d = wyDirector::getInstance();
 	wyRenderManager* rm = d->getRenderManager();
 	wyRenderer* r = rm->getRenderer();
+
+	// redirect to renderer
 	m_id = r->createFrameBuffer(m_texWidth, m_texHeight);
+
+	// create material
+	m_material = wyMaterial::make();
+	m_material->retain();
+
+	// set texture
+	int t = r->getFrameBufferTexture(m_id);
+	wyTexture2D* tex = wyTexture2D::makeGL(t, m_texWidth, m_texHeight);
+	wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], tex);
+	m_material->addParameter(p);
+
+	// set blend mode
+	wyRenderState* rs = wyRenderState::make3D();
+	rs->blendMode = wyRenderState::ALPHA;
+	rs->cullMode = wyRenderState::NO_CULL;
+	m_material->getTechnique()->setRenderState(rs);
 }
 
 void wyFrameBuffer::beforeRender() {
@@ -120,7 +143,10 @@ void wyFrameBuffer::beforeRender() {
 	r->setFrameBuffer(m_id);
 
 	// clear custom frame
+	wyColor4B oldColor = r->getBackgroundColor();
+	r->setBackgroundColor(wyc4bTransparent);
 	r->clearBuffers(true, true, false);
+	r->setBackgroundColor(oldColor);
 }
 
 void wyFrameBuffer::afterRender() {
@@ -137,6 +163,9 @@ void wyFrameBuffer::afterRender() {
 	kmGLPopMatrix();
 	kmGLMatrixMode(KM_GL_MODELVIEW);
 	kmGLPopMatrix();
+
+	// restore viewport
+	r->setViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
 }
 
 void wyFrameBuffer::releaseBuffer() {

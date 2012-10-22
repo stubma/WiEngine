@@ -26,71 +26,77 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include "wyBaseGrid.h"
+#include "wyGridController.h"
+#include "wyFrameBuffer.h"
 #include "wyDirector.h"
 #include "wyNode.h"
 #include <stdlib.h>
 #include "wyLog.h"
 #include "wyGlobal.h"
+#include "wyGrid3D.h"
+#include "wyTiledGrid3D.h"
+#include "wyRenderManager.h"
 
 extern wyDirector* gDirector;
 
-wyBaseGrid::~wyBaseGrid() {
+wyGridController::~wyGridController() {
 	wyObjectRelease(m_fb);
-	wyFree(m_vertices);
-	wyFree(m_originalVertices);
-	wyFree(m_texCoords);
-	wyFree(m_indices);
+	wyObjectRelease(m_mesh);
 }
 
-wyBaseGrid::wyBaseGrid(float w, float h, int c, int r) :
-		m_gridX(c),
-		m_gridY(r),
-		m_width(w),
-		m_height(h),
-		m_stepWidth(w / c),
-		m_stepHeight(h / r),
+wyGridController::wyGridController(float w, float h, int c, int r) :
 		m_active(false),
-		m_reuseGrid(0),
-		m_vertices(NULL),
-		m_texCoords(NULL),
-		m_originalVertices(NULL),
-		m_indices(NULL) {
+		m_fb(NULL),
+		m_mesh(NULL),
+		m_reuseGrid(0) {
 	m_fb = wyFrameBuffer::make(w, h);
 	m_fb->retain();
 }
 
-void wyBaseGrid::beforeDraw() {
+wyGridController* wyGridController::make3D(float w, float h, int c, int r) {
+	wyGridController* g = WYNEW wyGridController(w, h, c, r);
+	g->m_mesh = wyGrid3D::make(w, h, c, r);
+	g->m_mesh->retain();
+	return (wyGridController*)g->autoRelease();
+}
+
+wyGridController* wyGridController::makeTiled3D(float w, float h, int c, int r) {
+	wyGridController* g = WYNEW wyGridController(w, h, c, r);
+	g->m_mesh = wyTiledGrid3D::make(w, h, c, r);
+	g->m_mesh->retain();
+	return (wyGridController*)g->autoRelease();
+}
+
+void wyGridController::beforeDraw() {
 	m_fb->beforeRender();
 }
 
-void wyBaseGrid::afterDraw(wyNode* node) {
-	// TODO gles2
-//	m_fb->afterRender();
-//
-//	// need to recover matrix for blit operation
-//	gDirector->set3DProjection();
-//
-//	if(node->hasCamera()) {
-//		wyCamera* camera = node->getCamera();
-//		if(camera->isDirty()) {
-//			glTranslatef(node->getAnchorPointX(), node->getAnchorPointY(), 0);
-//			camera->locate();
-//			glTranslatef(-node->getAnchorPointX(), -node->getAnchorPointY(), 0);
-//		}
-//	}
-//
-//    glEnable(GL_TEXTURE_2D);
-//    glBindTexture(GL_TEXTURE_2D, m_fb->getTexture());
-//
-//    blit();
-//    glDisable(GL_TEXTURE_2D);
+void wyGridController::afterDraw(wyNode* node) {
+	m_fb->afterRender();
+
+	// need transform to this node because afterRender will pop matrix to parent space
+	node->applyWorldMatrix();
+
+	// fetch world matrix from stack
+	node->syncWorldMatrix();
+
+	// render texture of frame buffer
+	blit(node);
 }
 
-void wyBaseGrid::setActive(bool flag) {
-	// TODO gles2
-//	m_active = flag;
-//	if(!m_active) {
-//		gDirector->setProjection(gDirector->getProjection());
-//	}
+void wyGridController::setActive(bool flag) {
+	m_active = flag;
+}
+
+void wyGridController::reuse() {
+	if(m_reuseGrid > 0) {
+		m_mesh->reuse();
+		m_reuseGrid--;
+	}
+}
+
+void wyGridController::blit(wyNode* space) {
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+	rm->renderMaterial(space, m_fb->getMaterial(), m_mesh);
 }

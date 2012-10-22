@@ -31,13 +31,13 @@
 #include "wyGrid3D.h"
 #include <typeinfo>
 
-wyBaseGrid* wyGrid3DAction::makeGrid() {
+wyGridController* wyGrid3DAction::makeGrid() {
 	wyNode* t = getTarget();
-	return wyGrid3D::make(t->getWidth(), t->getHeight(), m_gridX, m_gridY);
+	return wyGridController::make3D(t->getWidth(), t->getHeight(), m_gridX, m_gridY);
 }
 
-bool wyGrid3DAction::isGridReusable(wyBaseGrid* grid) {
-	return typeid(*grid) == typeid(wyGrid3D);
+bool wyGrid3DAction::isGridReusable(wyGridController* grid) {
+	return typeid(*(grid->getMesh())) == typeid(wyGrid3D);
 }
 
 wyGrid3DAction::~wyGrid3DAction() {
@@ -47,16 +47,16 @@ wyGrid3DAction::wyGrid3DAction(float duration, float gridX, float gridY) : wyGri
 }
 
 wyVertex3D wyGrid3DAction::getVertex(wyDimension pos) {
-	wyGrid3D* g = (wyGrid3D*)m_target->getGrid();
+	wyGrid3D* g = (wyGrid3D*)m_target->getGrid()->getMesh();
 	return g->getVertex(pos);
 }
 
 wyVertex3D wyGrid3DAction::getOriginalVertex(wyDimension pos) {
-	wyGrid3D* g = (wyGrid3D*)m_target->getGrid();
+	wyGrid3D* g = (wyGrid3D*)m_target->getGrid()->getMesh();
 	return g->getOriginalVertex(pos);
 }
 
 void wyGrid3DAction::setVertex(wyDimension pos, wyVertex3D vertex) {
-	wyGrid3D* g = (wyGrid3D*)m_target->getGrid();
+	wyGrid3D* g = (wyGrid3D*)m_target->getGrid()->getMesh();
 	g->setVertex(pos, vertex);
 }

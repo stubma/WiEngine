@@ -12,7 +12,7 @@ import com.wiyun.engine.actions.Action;
 import com.wiyun.engine.events.IAccelerometerHandler;
 import com.wiyun.engine.events.IKeyHandler;
 import com.wiyun.engine.events.IMultiTouchHandler;
-import com.wiyun.engine.grid.BaseGrid;
+import com.wiyun.engine.grid.GridController;
 import com.wiyun.engine.opengl.Camera;
 import com.wiyun.engine.opengl.Texture2D;
 import com.wiyun.engine.types.WYColor3B;
@@ -586,10 +586,10 @@ public class Node extends BaseWYObject implements IKeyHandler, IMultiTouchHandle
 	/**
 	 * 得到节点上绑定的网格对象
 	 * 
-	 * @return {@link BaseGrid}
+	 * @return {@link GridController}
 	 */
-	public BaseGrid getGrid() {
-		return BaseGrid.from(nativeGetGrid());
+	public GridController getGrid() {
+		return GridController.from(nativeGetGrid());
 	}
 	
 	private native int nativeGetGrid();
@@ -986,9 +986,9 @@ public class Node extends BaseWYObject implements IKeyHandler, IMultiTouchHandle
 	/**
 	 * 设置节点的网格对象
 	 * 
-	 * @param grid {@link BaseGrid}
+	 * @param grid {@link GridController}
 	 */
-	public native void setGrid(BaseGrid grid);
+	public native void setGrid(GridController grid);
 	
 	/**
 	 * 设置节点的父节点
