@@ -79,10 +79,9 @@ void wyFrameBuffer::initCamera() {
 	m_camera->retain();
 
 	// set projection and viewport
-	float widthRatio = wyDevice::realWidth / m_width;
-	float heightRatio = wyDevice::realHeight / m_height;
+	float widthRatio = wyDevice::winWidth / m_width;
+	float heightRatio = wyDevice::winHeight / m_height;
 	m_camera->setOrtho(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
-	m_camera->setViewport(0, 0, m_texWidth, m_texHeight);
 }
 
 void wyFrameBuffer::create() {
@@ -105,9 +104,8 @@ void wyFrameBuffer::create() {
 	m_material->addParameter(p);
 
 	// set blend mode
-	wyRenderState* rs = wyRenderState::make3D();
+	wyRenderState* rs = wyRenderState::make2D();
 	rs->blendMode = wyRenderState::ALPHA;
-	rs->cullMode = wyRenderState::NO_CULL;
 	m_material->getTechnique()->setRenderState(rs);
 }
 
@@ -128,16 +126,16 @@ void wyFrameBuffer::beforeRender() {
 	kmGLMatrixMode(KM_GL_MODELVIEW);
 	kmGLPushMatrix();
 	kmGLLoadIdentity();
+	kmGLMatrixMode(KM_GL_WORLD);
+	kmGLPushMatrix();
+	kmGLLoadIdentity();
 
 	// update viewport range
-	wyRect vr = m_camera->getViewportRect();
-	r->setViewport(vr.x, vr.y, vr.width, vr.height);
+	r->setViewport(0, 0, m_texWidth, m_texHeight);
 
 	// multiply camera matrix
 	kmGLMatrixMode(KM_GL_PROJECTION);
 	kmGLMultMatrix(m_camera->getProjectionMatrix());
-	kmGLMatrixMode(KM_GL_MODELVIEW);
-	kmGLMultMatrix(m_camera->getViewMatrix());
 
 	// switch to frame buffer
 	r->setFrameBuffer(m_id);
@@ -162,6 +160,8 @@ void wyFrameBuffer::afterRender() {
 	kmGLMatrixMode(KM_GL_PROJECTION);
 	kmGLPopMatrix();
 	kmGLMatrixMode(KM_GL_MODELVIEW);
+	kmGLPopMatrix();
+	kmGLMatrixMode(KM_GL_WORLD);
 	kmGLPopMatrix();
 
 	// restore viewport

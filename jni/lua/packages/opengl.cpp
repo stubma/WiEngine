@@ -1,6 +1,6 @@
 /*
 ** Lua binding: opengl
-** Generated automatically by tolua++-1.0.92 on 08/22/12 14:21:10.
+** Generated automatically by tolua++-1.0.92 on Tue Oct 23 11:31:27 2012.
 */
 
 #ifndef __cplusplus
@@ -664,26 +664,28 @@ static int tolua_opengl_wyCamera_setViewport00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"wyCamera",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
+     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   wyCamera* self = (wyCamera*)  tolua_tousertype(tolua_S,1,0);
-  float x = ((float)  tolua_tonumber(tolua_S,2,0));
-  float y = ((float)  tolua_tonumber(tolua_S,3,0));
-  float w = ((float)  tolua_tonumber(tolua_S,4,0));
-  float h = ((float)  tolua_tonumber(tolua_S,5,0));
+  bool relative = ((bool)  tolua_toboolean(tolua_S,2,0));
+  float x = ((float)  tolua_tonumber(tolua_S,3,0));
+  float y = ((float)  tolua_tonumber(tolua_S,4,0));
+  float w = ((float)  tolua_tonumber(tolua_S,5,0));
+  float h = ((float)  tolua_tonumber(tolua_S,6,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setViewport'", NULL);
 #endif
   {
-   self->setViewport(x,y,w,h);
+   self->setViewport(relative,x,y,w,h);
   }
  }
  return 0;

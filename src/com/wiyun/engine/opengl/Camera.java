@@ -271,21 +271,13 @@ public class Camera extends BaseWYObject {
 	public native void setUseRelativeValue(boolean flag);
 
 	/**
-	 * \if English
 	 * Set viewport relative size
 	 *
+	 * @param relative true means the size is a relative value to real screen size, 0.5 means half size
 	 * @param x relative x value
 	 * @param y relative y value
 	 * @param w relative width
 	 * @param h relative height
-	 * \else
-	 * 设置视口的相对于surface的大小
-	 *
-	 * @param x x相对位置
-	 * @param y y相对位置
-	 * @param w 相对宽度
-	 * @param h 相对高度
-	 * \endif
 	 */
-	public native void setViewport(float x, float y, float w, float h);
+	public native void setViewport(boolean relative, float x, float y, float w, float h);
 }

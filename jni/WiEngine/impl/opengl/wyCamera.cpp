@@ -70,11 +70,12 @@ void wyCamera::setPerspective(float fovy, float widthRatio, float heightRatio, f
 	m_projectionDirty = true;
 }
 
-void wyCamera::setViewport(float x, float y, float w, float h) {
+void wyCamera::setViewport(bool relative, float x, float y, float w, float h) {
 	m_viewportParams.xRatio = x;
 	m_viewportParams.yRatio = y;
 	m_viewportParams.wRatio = w;
 	m_viewportParams.hRatio = h;
+	m_viewportParams.relative = relative;
 	m_viewportDirty = true;
 }
 
@@ -94,7 +95,7 @@ void wyCamera::restoreProjection() {
 }
 
 void wyCamera::restoreViewport() {
-	setViewport(0, 0, 1, 1);
+	setViewport(true, 0, 0, 1, 1);
 }
 
 kmMat4* wyCamera::getViewMatrix() {
@@ -166,10 +167,17 @@ kmMat4* wyCamera::getProjectionMatrix() {
 
 wyRect wyCamera::getViewportRect() {
 	if(m_viewportDirty) {
-		m_viewportRect.x = m_viewportParams.xRatio * wyDevice::realWidth;
-		m_viewportRect.y = m_viewportParams.yRatio * wyDevice::realHeight;
-		m_viewportRect.width = m_viewportParams.wRatio * wyDevice::realWidth;
-		m_viewportRect.height = m_viewportParams.hRatio * wyDevice::realHeight;
+		if(m_viewportParams.relative) {
+			m_viewportRect.x = m_viewportParams.xRatio * wyDevice::realWidth;
+			m_viewportRect.y = m_viewportParams.yRatio * wyDevice::realHeight;
+			m_viewportRect.width = m_viewportParams.wRatio * wyDevice::realWidth;
+			m_viewportRect.height = m_viewportParams.hRatio * wyDevice::realHeight;
+		} else {
+			m_viewportRect.x = m_viewportParams.xRatio;
+			m_viewportRect.y = m_viewportParams.yRatio;
+			m_viewportRect.width = m_viewportParams.wRatio;
+			m_viewportRect.height = m_viewportParams.hRatio;
+		}
 		m_viewportDirty = false;
 	}
 

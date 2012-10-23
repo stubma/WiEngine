@@ -272,7 +272,7 @@ public:
 	 * @param h 相对高度
 	 * \endif
 	 */
-	void setViewport(float x, float y, float w, float h);
+	void setViewport(bool relative, float x, float y, float w, float h);
 };
 
 #endif // __wyCamera_h__
