@@ -322,33 +322,14 @@ public:
 	 * @param text 文字字符串
 	 * \endif
 	 */
-	virtual void setText(const char* text) { setString(text); }
+	virtual void setText(const char* text);
 
 	/**
-	 * \if English
-	 * setter
-	 *
-	 * @param text C string
-	 * \else
-	 * 设置文字字符串
-	 *
-	 * @param text 文字字符串
-	 * \endif
-	 */
-	void setString(const char* text);
-
-	/**
-	 * \if English
-	 * setter
+	 * Set label text with a string resource id
 	 *
 	 * @param resId the resource identifier of the string
-	 * \else
-	 * 通过一个字符串资源id设置标签文字
-	 *
-	 * @param resId 字符串资源id
-	 * \endif
 	 */
-	void setString(int resId);
+	void setText(int resId);
 
 	/**
 	 * \if English

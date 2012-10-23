@@ -1204,14 +1204,14 @@ public:
 		wyPageControlTestLayer* layer = (wyPageControlTestLayer*)data;
 		char buf[64];
 		sprintf(buf, "page clicked: %d", index);
-		layer->m_hint->setString(buf);
+		layer->m_hint->setText(buf);
 	}
 
 	static void onPageChanged(wyPageControl* pageControl, int index, void* data) {
 		wyPageControlTestLayer* layer = (wyPageControlTestLayer*)data;
 		char buf[64];
 		sprintf(buf, "page changed: %d", index);
-		layer->m_hint->setString(buf);
+		layer->m_hint->setText(buf);
 	}
 
 	static void onPagePositionChanged(wyPageControl* pageControl, wyNode* page, float offset, void* data) {

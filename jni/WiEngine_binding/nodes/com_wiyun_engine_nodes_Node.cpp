@@ -1065,3 +1065,19 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setTexture
 	wyTexture2D* t = (wyTexture2D*)env->GetIntField(tex, g_fid_BaseObject_mPointer);
 	node->setTexture(t);
 }
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setText
+  (JNIEnv * env, jobject thiz, jstring text) {
+	wyNode* n = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	const char* t = (const char*)env->GetStringUTFChars(text, NULL);
+	n->setText(t);
+	env->ReleaseStringUTFChars(text, t);
+}
+
+JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_Node_getText
+  (JNIEnv * env, jobject thiz) {
+	wyNode* n = (wyNode*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
+	const char* text = n->getText();
+	jstring s = text == NULL ? NULL : env->NewStringUTF(text);
+	return s;
+}

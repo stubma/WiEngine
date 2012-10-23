@@ -80,27 +80,7 @@ wyButton::wyButton(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode* f
 	setDownSelector(downSelector);
 	setUpSelector(upSelector);
 
-	float width = 0;
-	float height = 0;
-	if (normal != NULL) {
-		width = normal->getWidth();
-		height = normal->getHeight();
-	}
-
-	if (selected != NULL) {
-		width = MAX(selected->getWidth(), width);
-		height = MAX(selected->getHeight(), height);
-	}
-
-	if (disabled != NULL) {
-		width = MAX(disabled->getWidth(), width);
-		height = MAX(disabled->getHeight(), height);
-	}
-	if (focused != NULL) {
-		width = MAX(focused->getWidth(), width);
-		height = MAX(focused->getHeight(), height);
-	}
-	setContentSize(width, height);
+	setContentSizeAsMax();
 	setTouchEnabled(true);
 }
 
@@ -108,26 +88,25 @@ void wyButton::setTexture(wyTexture2D* normal, wyTexture2D* selected, wyTexture2
 	wyNode* normalState = getNode(STATE_NORMAL);
 	if(normal != NULL && normalState != NULL) {
 		normalState->setTexture(normal);
-		setContentSize(MAX(normalState->getWidth(), m_width), MAX(normalState->getHeight(), m_height));
 	}
 
 	wyNode* selectedState = getNode(STATE_SELECTED);
 	if(selected != NULL && selectedState != NULL) {
 		selectedState->setTexture(selected);
-		setContentSize(MAX(selectedState->getWidth(), m_width), MAX(selectedState->getHeight(), m_height));
 	}
 
 	wyNode* disabledState = getNode(STATE_DISABLED);
 	if(disabled != NULL && disabledState != NULL) {
 		disabledState->setTexture(disabled);
-		setContentSize(MAX(disabledState->getWidth(), m_width), MAX(disabledState->getHeight(), m_height));
 	}
 
 	wyNode* focusedState = getNode(STATE_FOCUSED);
 	if(focused != NULL && focusedState != NULL) {
 		focusedState->setTexture(focused);
-		setContentSize(MAX(focusedState->getWidth(), m_width), MAX(focusedState->getHeight(), m_height));
 	}
+
+	// update content size
+	setContentSizeAsMax();
 }
 
 void wyButton::setTextureRect(wyRect* normalRect, wyRect* selectedRect, wyRect* disabledRect, wyRect* focusedRect) {

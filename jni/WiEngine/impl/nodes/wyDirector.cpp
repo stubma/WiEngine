@@ -363,7 +363,7 @@ void wyDirector::showFPS() {
 
 	char buf[20];
 	sprintf(buf, "%.1f", m_frameRate);
-	m_fpsLabel->setString(buf);
+	m_fpsLabel->setText(buf);
 }
 
 void wyDirector::setShowFPS(bool show) {

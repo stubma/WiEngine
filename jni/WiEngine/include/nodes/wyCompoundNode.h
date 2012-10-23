@@ -36,15 +36,10 @@
 #define WY_NODE_ITER WY_NODE_MAP::iterator
 
 /**
- * @class wyCompoundNode
- *
- * \if English
  * wyCompoundNode is a common abstraction for node which consisted of
- * other nodes.
- * \else
- * 组合型节点的抽象实现, 组合型节点指的是本身没有渲染逻辑, 而是通过包含其它节点
- * 来组成一个新的节点
- * \endif
+ * other nodes. Every sub node should have a tag which can be a unique
+ * identifier in compound node. If only one sub node involved, its tag
+ * should be zero.
  */
 class WIENGINE_API wyCompoundNode : public wyNode {
 protected:
@@ -78,6 +73,9 @@ protected:
 	 */
 	virtual int getStateTag() { return 0; }
 
+	/// use max child content size as self content size
+	void setContentSizeAsMax();
+
 public:
 	virtual ~wyCompoundNode();
 
@@ -86,6 +84,12 @@ public:
 
 	/// @see wyNode::onExit
 	virtual void onExit();
+
+	/// @see wyNode::setText
+	virtual void setText(const char* text);
+
+	/// @see wyNode::getText
+	virtual const char* getText();
 
 	/// @see wyNode::setRotation
 	virtual void setRotation(float rot);

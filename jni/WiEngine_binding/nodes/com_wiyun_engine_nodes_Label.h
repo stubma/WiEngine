@@ -25,22 +25,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Label_nativeInit__Ljava_lang_
 
 /*
  * Class:     com_wiyun_engine_nodes_Label
- * Method:    setText
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Label_setText
-  (JNIEnv *, jobject, jstring);
-
-/*
- * Class:     com_wiyun_engine_nodes_Label
- * Method:    getText
- * Signature: ()Ljava/lang/String;
- */
-JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_Label_getText
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_Label
  * Method:    setFontSize
  * Signature: (F)V
  */

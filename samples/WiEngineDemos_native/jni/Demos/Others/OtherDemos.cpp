@@ -1109,17 +1109,17 @@ namespace Other {
 			label2Count = 0;
 			
 			m_Label1 = new wyLabel();
-			m_Label1->setString("Lable1: 0");
+			m_Label1->setText("Lable1: 0");
 			m_Label1->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2 + 80);
 			addChildLocked(m_Label1);
 			
 			m_Label2 = new wyLabel();
-			m_Label2->setString("Lable2: 0");
+			m_Label2->setText("Lable2: 0");
 			m_Label2->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 			addChildLocked(m_Label2);
 			
 			m_Label3 = new wyLabel();
-			m_Label3->setString("Lable3: 0");
+			m_Label3->setText("Lable3: 0");
 			m_Label3->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2 - 80);
 			addChildLocked(m_Label3);
 			
@@ -1148,22 +1148,22 @@ namespace Other {
 			char buf[128];
 			int* count = (int*)data;
 			sprintf(buf, "Label1: %.1f, %d", ts->getDelta(), (*count)++);
-			m_Label1->setString(buf);
+			m_Label1->setText(buf);
 		}
 
 		void updateLabel2(wyTargetSelector* ts, void* data) {
 			char buf[128];
 			int* count = (int*)data;
 			sprintf(buf, "Label2: %.1f, %d", ts->getDelta(), (*count)++);
-			m_Label2->setString(buf);
+			m_Label2->setText(buf);
 		}
 
 		void updateLabel3(wyTargetSelector* ts) {
-			m_Label3->setString("Label3: Once");
+			m_Label3->setText("Label3: Once");
 		}
 
 		virtual bool touchesBegan(wyMotionEvent& e) {
-			m_Label3->setString("Label3:");
+			m_Label3->setText("Label3:");
 			m_Label3->scheduleLocked(timer3);
 			return true;
 		}
@@ -1333,13 +1333,13 @@ namespace Other {
 		void updateLoadHintLabel(int index) {
 			char buf[64];
 			sprintf(buf, "texture loaded: %d/20", index);
-			m_hintLabel->setString(buf);
+			m_hintLabel->setText(buf);
 		}
 		
 		void updateUnloadHintLabel(int index) {
 			char buf[64];
 			sprintf(buf, "texture unloaded: %d/20", index);
-			m_hintLabel->setString(buf);
+			m_hintLabel->setText(buf);
 		}
 		
 		void loadingThreadEntry(wyTargetSelector* sel) {

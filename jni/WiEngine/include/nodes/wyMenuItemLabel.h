@@ -33,84 +33,35 @@
 #include "wyLabel.h"
 
 /**
- * @class wyMenuItemLabel
- * \if English
  * a type of menu item which uses label to construct its content
- * \else
- * 标签菜单项的封装
- * \endif
  */
 class WIENGINE_API wyMenuItemLabel : public wyMenuItem {
 protected:
-	/**
-	 * \if English
-	 * \link wyLabel wyLabel\endlink
-	 * \else
-	 * 标签\link wyLabel wyLabel对象指针\endlink
-	 * \endif
-	 */
-	wyLabel* m_label;
-
-	/**
-	 * \if English
-	 * color of the normal state, \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 正常状态的颜色\link wyColor4B wyColor4B结构\endlink
-	 * \endif
-	 */
+	/// color of the normal state, \link wyColor4B wyColor4B\endlink
 	wyColor4B m_normalColor;
 
-	/**
-	 * \if English
-	 * color of the disabled state, \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 禁用状态的颜色\link wyColor4B wyColor4B结构\endlink
-	 * \endif
-	 */
+	/// color of the disabled state, \link wyColor4B wyColor4B\endlink
 	wyColor4B m_disabledColor;
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param downSelector called back when the item is clicked down, \link wyTargetSelector wyTargetSelector\endlink
 	 * @param upSelector called back when the item is clicked up
 	 * @param label \link wyLabel wyLabel object\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param downSelector 按下菜单项的回调\link wyTargetSelector wyTargetSelector对象指针\endlink
-	 * @param upSelector 松开菜单项的回调\link wyTargetSelector wyTargetSelector对象指针\endlink
-	 * @param label 标签\link wyLabel wyLabel对象指针\endlink
-	 * \endif
 	 */
 	static wyMenuItemLabel* make(wyTargetSelector* downSelector, wyTargetSelector* upSelector, wyLabel* label);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param downSelector called back when the item is clicked down, \link wyTargetSelector wyTargetSelector\endlink
 	 * @param upSelector called back when the item is clicked up
 	 * @param label \link wyLabel wyLabel object\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param downSelector 按下菜单项的回调\link wyTargetSelector wyTargetSelector对象指针\endlink
-	 * @param upSelector 松开菜单项的回调\link wyTargetSelector wyTargetSelector对象指针\endlink
-	 * @param label 标签\link wyLabel wyLabel对象指针\endlink
-	 * \endif
 	 */
 	wyMenuItemLabel(wyTargetSelector* downSelector, wyTargetSelector* upSelector, wyLabel* label);
 
-	/**
-	 * \if English
-	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
-	 */
 	virtual ~wyMenuItemLabel();
 
 	/// @see wyNode::setEnabled
@@ -134,61 +85,31 @@ public:
 	/// @see wyNode::setColor
 	virtual void setColor(wyColor4B color);
 
-	/// @see wyNode::getText
-	virtual const char* getText() { return m_label ? m_label->getText() : NULL; }
-
 	/**
-	 * \if English
 	 * set the \link wyLabel wyLabel object\endlink
-	 * \else
-	 * 设置标签\link wyLabel wyLabel对象指针\endlink
 	 *
-	 * @param label 标签\link wyLabel wyLabel对象指针\endlink
-	 * \endif
+	 * @param label label of the menu item
 	 */
 	void setLabel(wyLabel* label);
 
 	/**
-	 * \if English
 	 * Get label node
-	 * \else
-	 * 得到关联的label节点
-	 * \endif
+	 *
+	 * @return label of this menu item
 	 */
-	wyLabel* getLabel() { return m_label; }
+	wyLabel* getLabel() { return (wyLabel*)getStateNode(); }
 
 	/**
-	 * \if English
-	 * set the displayed string
-	 *
-	 * @param text C string
-	 * \else
-	 * 设置标签显示的字符串
-	 *
-	 * @param text 标签显示的字符串
-	 * \endif
-	 */
-	void setString(const char* text);
-
-	/**
-	 * \if English
 	 * set the color of disabled state
-	 * \else
-	 * 设置禁用时的颜色\link wyColor3B wyColor3B结构\endlink
 	 *
-	 * @param color 禁用时的颜色\link wyColor3B wyColor3B结构\endlink
-	 * \endif
+	 * @param color color of disable state
 	 */
 	void setDisabledColor(wyColor3B color);
 
 	/**
-	 * \if English
 	 * get the color of disabled state
-	 * \else
-	 * 得到禁用时的颜色\link wyColor3B wyColor3B结构\endlink
 	 *
-	 * @return 禁用时的颜色\link wyColor3B wyColor3B结构\endlink
-	 * \endif
+	 * @return color of disable state
 	 */
 	wyColor3B getDisabledColor();
 };

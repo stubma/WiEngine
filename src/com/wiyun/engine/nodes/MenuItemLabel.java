@@ -221,11 +221,4 @@ public class MenuItemLabel extends MenuItem {
     public void setDisabledColor(WYColor3B color) {
     	nativeSetDisabledColor(color.r, color.g, color.b);
     }
-
-    /**
-     * 替换菜单文字
-     * 
-     * @param string 菜单新文字内容
-     */
-    public native void setString(String string);
 }

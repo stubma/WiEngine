@@ -40,6 +40,15 @@ wyCompoundNode::~wyCompoundNode() {
 	WYDELETE(m_nodes);
 }
 
+void wyCompoundNode::setContentSizeAsMax() {
+	float w = 0, h = 0;
+	for(WY_NODE_ITER iter = m_nodes->begin(); iter != m_nodes->end(); iter++) {
+		w = MAX(w, iter->second->getWidth());
+		h = MAX(h, iter->second->getHeight());
+	}
+	setContentSize(w, h);
+}
+
 void wyCompoundNode::registerNode(int tag, wyNode* node, bool asChild) {
 	// basic validation
 	if(!node)
@@ -274,4 +283,21 @@ void wyCompoundNode::setNeedUpdateMeshColor(bool flag) {
 	for(WY_NODE_ITER iter = m_nodes->begin(); iter != m_nodes->end(); iter++) {
 		iter->second->setNeedUpdateMeshColor(flag);
 	}
+}
+
+void wyCompoundNode::setText(const char* text) {
+	for(WY_NODE_ITER iter = m_nodes->begin(); iter != m_nodes->end(); iter++) {
+		iter->second->setText(text);
+	}
+
+	// some node will change content size when text changed, so renew it
+	setContentSizeAsMax();
+}
+
+const char* wyCompoundNode::getText() {
+	wyNode* node = getStateNode();
+	if(node)
+		return node->getText();
+	else
+		return NULL;
 }

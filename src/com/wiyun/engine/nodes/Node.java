@@ -1845,4 +1845,8 @@ public class Node extends BaseWYObject implements IKeyHandler, IMultiTouchHandle
 	 * \endif
 	 */
     public native void setTexture(Texture2D texture);
+    
+	public native void setText(String string);
+	
+	public native String getText();
 }

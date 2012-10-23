@@ -173,10 +173,6 @@ public class Label extends TextureNode {
 	protected void doNativeInit() {
 	}
 	
-	public native void setText(String string);
-	
-	public native String getText();
-	
 	/**
 	 * 设置字体大小
 	 *

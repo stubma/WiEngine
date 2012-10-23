@@ -29,22 +29,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Label_nativeInit__Ljava_lang_
 	label->lazyRelease();
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Label_setText
-  (JNIEnv * env, jobject thiz, jstring text) {
-	wyLabel* label = (wyLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	const char* t = (const char*)env->GetStringUTFChars(text, NULL);
-	label->setString(t);
-	env->ReleaseStringUTFChars(text, t);
-}
-
-JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_Label_getText
-  (JNIEnv * env, jobject thiz) {
-	wyLabel* label = (wyLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	const char* text = label->getText();
-	jstring s = env->NewStringUTF(text);
-	return s;
-}
-
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Label_setFontSize
   (JNIEnv * env, jobject thiz, jfloat fontSize) {
 	wyLabel* label = (wyLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);

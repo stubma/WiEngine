@@ -67,14 +67,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemLabel_nativeGetDisabl
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemLabel_nativeSetDisabledColor
   (JNIEnv *, jobject, jint, jint, jint);
 
-/*
- * Class:     com_wiyun_engine_nodes_MenuItemLabel
- * Method:    setString
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemLabel_setString
-  (JNIEnv *, jobject, jstring);
-
 #ifdef __cplusplus
 }
 #endif

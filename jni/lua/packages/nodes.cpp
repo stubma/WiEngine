@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Mon Oct 22 11:31:00 2012.
+** Generated automatically by tolua++-1.0.92 on Tue Oct 23 16:36:08 2012.
 */
 
 #ifndef __cplusplus
@@ -7653,42 +7653,9 @@ static int tolua_nodes_wyLabel_setText00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setString of class  wyLabel */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyLabel_setString00
-static int tolua_nodes_wyLabel_setString00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyLabel",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyLabel* self = (wyLabel*)  tolua_tousertype(tolua_S,1,0);
-  const char* text = ((const char*)  tolua_tostring(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setString'", NULL);
-#endif
-  {
-   self->setString(text);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setString'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setString of class  wyLabel */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyLabel_setString01
-static int tolua_nodes_wyLabel_setString01(lua_State* tolua_S)
+/* method: setText of class  wyLabel */
+#ifndef TOLUA_DISABLE_tolua_nodes_wyLabel_setText01
+static int tolua_nodes_wyLabel_setText01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -7702,15 +7669,15 @@ static int tolua_nodes_wyLabel_setString01(lua_State* tolua_S)
   wyLabel* self = (wyLabel*)  tolua_tousertype(tolua_S,1,0);
   int resId = ((int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setString'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setText'", NULL);
 #endif
   {
-   self->setString(resId);
+   self->setText(resId);
   }
  }
  return 0;
 tolua_lerror:
- return tolua_nodes_wyLabel_setString00(tolua_S);
+ return tolua_nodes_wyLabel_setText00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -9772,39 +9739,6 @@ static int tolua_nodes_wyMenuItemLabel_setLabel00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setLabel'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setString of class  wyMenuItemLabel */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyMenuItemLabel_setString00
-static int tolua_nodes_wyMenuItemLabel_setString00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyMenuItemLabel",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyMenuItemLabel* self = (wyMenuItemLabel*)  tolua_tousertype(tolua_S,1,0);
-  const char* text = ((const char*)  tolua_tostring(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setString'", NULL);
-#endif
-  {
-   self->setString(text);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setString'.",&tolua_err);
  return 0;
 #endif
 }
@@ -32785,8 +32719,7 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"delete",tolua_nodes_wyLabel_delete00);
    tolua_function(tolua_S,"getText",tolua_nodes_wyLabel_getText00);
    tolua_function(tolua_S,"setText",tolua_nodes_wyLabel_setText00);
-   tolua_function(tolua_S,"setString",tolua_nodes_wyLabel_setString00);
-   tolua_function(tolua_S,"setString",tolua_nodes_wyLabel_setString01);
+   tolua_function(tolua_S,"setText",tolua_nodes_wyLabel_setText01);
    tolua_function(tolua_S,"setFontSize",tolua_nodes_wyLabel_setFontSize00);
    tolua_function(tolua_S,"getFontSize",tolua_nodes_wyLabel_getFontSize00);
    tolua_function(tolua_S,"setFontStyle",tolua_nodes_wyLabel_setFontStyle00);
@@ -32894,7 +32827,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setColor",tolua_nodes_wyMenuItemLabel_setColor00);
    tolua_function(tolua_S,"setColor",tolua_nodes_wyMenuItemLabel_setColor01);
    tolua_function(tolua_S,"setLabel",tolua_nodes_wyMenuItemLabel_setLabel00);
-   tolua_function(tolua_S,"setString",tolua_nodes_wyMenuItemLabel_setString00);
    tolua_function(tolua_S,"setDisabledColor",tolua_nodes_wyMenuItemLabel_setDisabledColor00);
    tolua_function(tolua_S,"getDisabledColor",tolua_nodes_wyMenuItemLabel_getDisabledColor00);
   tolua_endmodule(tolua_S);

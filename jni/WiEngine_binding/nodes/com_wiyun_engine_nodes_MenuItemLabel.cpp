@@ -54,11 +54,3 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemLabel_nativeSetDisabl
 	wyColor3B c = { r, g, b };
 	item->setDisabledColor(c);
 }
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_MenuItemLabel_setString
-  (JNIEnv * env, jobject thiz, jstring text) {
-	wyMenuItemLabel* item = (wyMenuItemLabel*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	const char* t = (const char*)env->GetStringUTFChars(text, NULL);
-	item->setString(t);
-	env->ReleaseStringUTFChars(text, t);
-}

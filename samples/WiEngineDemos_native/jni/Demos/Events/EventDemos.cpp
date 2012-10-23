@@ -459,7 +459,7 @@ namespace Events {
 	public:
 		wyKeyTestLayer(){
 			m_Label = new wyLabel();
-			m_Label->setString("KeyEvent Test");
+			m_Label->setText("KeyEvent Test");
 			m_Label->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 			addChildLocked(m_Label);
 
@@ -474,7 +474,7 @@ namespace Events {
 			char keyStr[256], buf[256];
 			getKeyCodeString(event, keyStr);
 			sprintf(buf, "%s Event Down", keyStr);
-			m_Label->setString(buf);
+			m_Label->setText(buf);
 			
 			// don't handle back key
 			if(event.keyCode == KEYCODE_BACK)
@@ -487,7 +487,7 @@ namespace Events {
 			char keyStr[256], buf[256];
 			getKeyCodeString(event, keyStr);
 			sprintf(buf, "%s Event Up", keyStr);
-			m_Label->setString(buf);
+			m_Label->setText(buf);
 			return wyNode::keyUp(event);
 		}
 		

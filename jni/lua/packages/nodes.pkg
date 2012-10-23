@@ -2227,21 +2227,14 @@ public:
 	 *
 	 * @param text 文字字符串
 	 */
-	virtual void setText(const char* text) { setString(text); }
-
-	/**
-	 * 设置文字字符串
-	 *
-	 * @param text 文字字符串
-	 */
-	void setString(const char* text);
+	virtual void setText(const char* text);
 
 	/**
 	 * 通过一个字符串资源id设置标签文字
 	 *
 	 * @param resId 字符串资源id
 	 */
-	void setString(int resId);
+	void setText(int resId);
 	
 	/**
 	 * 设置字体大小
@@ -2746,13 +2739,6 @@ public:
 	 * @param label 标签\link wyLabel wyLabel对象指针\endlink
 	 */
 	void setLabel(wyLabel* label);
-
-	/**
-	 * 设置标签显示的字符串
-	 *
-	 * @param text 标签显示的字符串
-	 */
-	void setString(const char* text);
 
 	/**
 	 * 设置禁用时的颜色\link wyColor3B wyColor3B结构\endlink

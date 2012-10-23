@@ -111,7 +111,7 @@ wyLabel::~wyLabel() {
 		wyFree((void*)m_fontPath);
 }
 
-void wyLabel::setString(const char* text) {
+void wyLabel::setText(const char* text) {
 	wyTexture2D* t = getTexture();
 	if(t == NULL) {
 		if(m_fontPath) {
@@ -137,9 +137,9 @@ void wyLabel::setAlignment(wyTexture2D::TextAlignment align) {
 	update();
 }
 
-void wyLabel::setString(int resId) {
+void wyLabel::setText(int resId) {
 	const char* text = wyUtils::getString(resId);
-	setString(text);
+	setText(text);
 	wyFree((void*)text);
 }
 

@@ -30,17 +30,12 @@
 #include <stdlib.h>
 
 wyMenuItemLabel::~wyMenuItemLabel() {
-	wyObjectRelease(m_label);
 }
 
 wyMenuItemLabel* wyMenuItemLabel::make(wyTargetSelector* downSelector, wyTargetSelector* upSelector, wyLabel* label) {
 	wyMenuItemLabel* n = WYNEW wyMenuItemLabel(downSelector, upSelector, label);
 	return (wyMenuItemLabel*)n->autoRelease();
 }
-
-//void wyMenuItemLabel::draw() {
-//	m_label->draw();
-//}
 
 void wyMenuItemLabel::setEnabled(bool enabled) {
     if (m_enabled != enabled) {
@@ -50,14 +45,14 @@ void wyMenuItemLabel::setEnabled(bool enabled) {
 				m_disabledColor.g,
 				m_disabledColor.b
 			};
-			m_label->setColor(c);
+			getStateNode()->setColor(c);
         } else {
 			wyColor3B c = {
 				m_normalColor.r,
 				m_normalColor.g,
 				m_normalColor.b
 			};
-			m_label->setColor(c);
+			getStateNode()->setColor(c);
         }
     }
 
@@ -72,7 +67,7 @@ void wyMenuItemLabel::beforeInvoke(wyTargetSelector* ts) {
 }
 
 void wyMenuItemLabel::setAlpha(int alpha) {
-	m_label->setAlpha(alpha);
+	wyMenuItem::setAlpha(alpha);
 
 	// set alpha
 	m_normalColor.a = alpha;
@@ -88,7 +83,7 @@ wyColor3B wyMenuItemLabel::getColor() {
 }
 
 void wyMenuItemLabel::setColor(wyColor3B color) {
-	m_label->setColor(color);
+	wyMenuItem::setColor(color);
 
 	m_normalColor.r = color.r;
 	m_normalColor.g = color.g;
@@ -96,7 +91,7 @@ void wyMenuItemLabel::setColor(wyColor3B color) {
 }
 
 void wyMenuItemLabel::setColor(wyColor4B color) {
-	m_label->setColor(color);
+	wyMenuItem::setColor(color);
 
 	m_normalColor.r = color.r;
 	m_normalColor.g = color.g;
@@ -121,21 +116,12 @@ wyColor3B wyMenuItemLabel::getDisabledColor() {
 
 wyMenuItemLabel::wyMenuItemLabel(wyTargetSelector* downSelector, wyTargetSelector* upSelector, wyLabel* label) :
 		wyMenuItem(downSelector, upSelector),
-		m_label(NULL),
 		m_normalColor(wyc4bWhite),
 		m_disabledColor(wyc4bGray) {
 	setLabel(label);
 }
 
 void wyMenuItemLabel::setLabel(wyLabel* label) {
-	wyObjectRetain(label);
-	wyObjectRelease(m_label);
-	m_label = label;
-
-	setContentSize(label->getWidth(), label->getHeight());
-}
-
-void wyMenuItemLabel::setString(const char* text) {
-	m_label->setString(text);
-	setContentSize(m_label->getWidth(), m_label->getHeight());
+	registerNode(0, label, false);
+	setContentSizeAsMax();
 }

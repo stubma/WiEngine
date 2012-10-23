@@ -1303,6 +1303,22 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_Node_nativeGetTexture
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setTexture
   (JNIEnv *, jobject, jobject);
 
+/*
+ * Class:     com_wiyun_engine_nodes_Label
+ * Method:    setText
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_Node_setText
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     com_wiyun_engine_nodes_Label
+ * Method:    getText
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_Node_getText
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
