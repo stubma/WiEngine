@@ -133,10 +133,10 @@ kmMat4* wyCamera::getProjectionMatrix() {
 		} else {
 			if(m_useOrtho) {
 				kmMat4OrthographicProjection(&m_projectionMatrix,
-						m_orthoParams.leftRatio * wyDevice::realWidth,
-						m_orthoParams.rightRatio * wyDevice::realWidth,
-						m_orthoParams.bottomRatio * wyDevice::realHeight,
-						m_orthoParams.topRatio * wyDevice::realHeight,
+						m_orthoParams.leftRatio * wyDevice::winWidth,
+						m_orthoParams.rightRatio * wyDevice::winWidth,
+						m_orthoParams.bottomRatio * wyDevice::winHeight,
+						m_orthoParams.topRatio * wyDevice::winHeight,
 						m_orthoParams.fnear,
 						m_orthoParams.ffar);
 			} else {

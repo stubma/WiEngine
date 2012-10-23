@@ -81,7 +81,7 @@ void wyFrameBuffer::initCamera() {
 	// set projection and viewport
 	float widthRatio = wyDevice::winWidth / m_width;
 	float heightRatio = wyDevice::winHeight / m_height;
-	m_camera->setOrtho(-1 / widthRatio, 1 / widthRatio, -1 / heightRatio, 1 / heightRatio, -1, 1);
+	m_camera->setOrtho(0, 1 / widthRatio, 0, 1 / heightRatio, -1, 1);
 }
 
 void wyFrameBuffer::create() {
