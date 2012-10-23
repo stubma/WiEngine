@@ -123,5 +123,4 @@ wyMenuItemLabel::wyMenuItemLabel(wyTargetSelector* downSelector, wyTargetSelecto
 
 void wyMenuItemLabel::setLabel(wyLabel* label) {
 	registerNode(0, label, false);
-	setContentSizeAsMax();
 }

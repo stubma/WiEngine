@@ -30,17 +30,12 @@
 #include <stdlib.h>
 
 wyMenuItemAtlasLabel::~wyMenuItemAtlasLabel() {
-	wyObjectRelease(m_label);
 }
 
 wyMenuItemAtlasLabel* wyMenuItemAtlasLabel::make(wyTargetSelector* downSelector, wyTargetSelector* upSelector, wyAtlasLabel* label) {
 	wyMenuItemAtlasLabel* n = WYNEW wyMenuItemAtlasLabel(downSelector, upSelector, label);
 	return (wyMenuItemAtlasLabel*)n->autoRelease();
 }
-
-//void wyMenuItemAtlasLabel::draw() {
-//	m_label->draw();
-//}
 
 void wyMenuItemAtlasLabel::setEnabled(bool enabled) {
     if (m_enabled != enabled) {
@@ -50,14 +45,14 @@ void wyMenuItemAtlasLabel::setEnabled(bool enabled) {
 				m_disabledColor.g,
 				m_disabledColor.b
 			};
-			m_label->setColor(c);
+			getStateNode()->setColor(c);
         } else {
 			wyColor3B c = {
 				m_normalColor.r,
 				m_normalColor.g,
 				m_normalColor.b
 			};
-			m_label->setColor(c);
+			getStateNode()->setColor(c);
         }
     }
 
@@ -72,7 +67,7 @@ void wyMenuItemAtlasLabel::beforeInvoke(wyTargetSelector* ts) {
 }
 
 void wyMenuItemAtlasLabel::setAlpha(int alpha) {
-	m_label->setAlpha(alpha);
+	wyMenuItem::setAlpha(alpha);
 
 	// set alpha
 	m_normalColor.a = alpha;
@@ -88,7 +83,7 @@ wyColor3B wyMenuItemAtlasLabel::getColor() {
 }
 
 void wyMenuItemAtlasLabel::setColor(wyColor3B color) {
-	m_label->setColor(color);
+	wyMenuItem::setColor(color);
 
 	m_normalColor.r = color.r;
 	m_normalColor.g = color.g;
@@ -96,7 +91,7 @@ void wyMenuItemAtlasLabel::setColor(wyColor3B color) {
 }
 
 void wyMenuItemAtlasLabel::setColor(wyColor4B color) {
-	m_label->setColor(color);
+	wyMenuItem::setColor(color);
 
 	m_normalColor.r = color.r;
 	m_normalColor.g = color.g;
@@ -121,16 +116,11 @@ wyColor3B wyMenuItemAtlasLabel::getDisabledColor() {
 
 wyMenuItemAtlasLabel::wyMenuItemAtlasLabel(wyTargetSelector* downSelector, wyTargetSelector* upSelector, wyAtlasLabel* label) :
 		wyMenuItem(downSelector, upSelector),
-		m_label(NULL),
 		m_normalColor(wyc4bWhite),
 		m_disabledColor(wyc4bGray) {
 	setLabel(label);
 }
 
 void wyMenuItemAtlasLabel::setLabel(wyAtlasLabel* label) {
-	wyObjectRetain(label);
-	wyObjectRelease(m_label);
-	m_label = label;
-
-	setContentSize(label->getWidth(), label->getHeight());
+	registerNode(0, label, false);
 }
