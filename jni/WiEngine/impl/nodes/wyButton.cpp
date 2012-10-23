@@ -80,7 +80,6 @@ wyButton::wyButton(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode* f
 	setDownSelector(downSelector);
 	setUpSelector(upSelector);
 
-	setContentSizeAsMax();
 	setTouchEnabled(true);
 }
 

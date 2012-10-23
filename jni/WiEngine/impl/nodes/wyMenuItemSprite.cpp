@@ -29,10 +29,11 @@
 #include "wyMenuItemSprite.h"
 #include <stdlib.h>
 
+#define STATE_NORMAL 1
+#define STATE_SELECTED 2
+#define STATE_DISABLED 3
+
 wyMenuItemSprite::~wyMenuItemSprite() {
-	wyObjectRelease(m_normalState);
-	wyObjectRelease(m_selectedState);
-	wyObjectRelease(m_disabledState);
 }
 
 wyMenuItemSprite* wyMenuItemSprite::make(wyTargetSelector* downSelector, wyTargetSelector* upSelector, wySprite* normal, wySprite* selected, wySprite* disabled) {
@@ -40,151 +41,51 @@ wyMenuItemSprite* wyMenuItemSprite::make(wyTargetSelector* downSelector, wyTarge
 	return (wyMenuItemSprite*)n->autoRelease();
 }
 
-//void wyMenuItemSprite::draw() {
-//	// if no draw flag is set, call wyNode::draw and it
-//	// will decide forward drawing to java layer or not
-//	if(m_noDraw) {
-//		wyNode::draw();
-//		return;
-//	}
-//
-//    if (m_enabled) {
-//        if (m_selected) {
-//        	if(m_selectedState != NULL)
-//        		m_selectedState->draw();
-//        	else
-//        		m_normalState->draw();
-//        } else
-//        	m_normalState->draw();
-//    } else {
-//        if (m_disabledState != NULL)
-//        	m_disabledState->draw();
-//        else
-//        	m_normalState->draw();
-//    }
-//}
-
-void wyMenuItemSprite::adjustContentSize() {
-    if (m_enabled) {
-        if (m_selected) {
-        	if(m_selectedState != NULL)
-        		setContentSize(m_selectedState->getWidth(), m_selectedState->getHeight());
-        	else
-        		setContentSize(m_normalState->getWidth(), m_normalState->getHeight());
-        } else
-        	setContentSize(m_normalState->getWidth(), m_normalState->getHeight());
-    } else {
-        if (m_disabledState != NULL)
-        	setContentSize(m_disabledState->getWidth(), m_disabledState->getHeight());
-        else
-        	setContentSize(m_normalState->getWidth(), m_normalState->getHeight());
-    }
-}
-
-void wyMenuItemSprite::setSelected(bool selected) {
-	wyMenuItem::setSelected(selected);
-	adjustContentSize();
-}
-
-void wyMenuItemSprite::setEnabled(bool enabled) {
-	wyMenuItem::setEnabled(enabled);
-	adjustContentSize();
-}
-
-void wyMenuItemSprite::setAlpha(int alpha) {
-	m_normalState->setAlpha(alpha);
-	if(m_selectedState != NULL)
-		m_selectedState->setAlpha(alpha);
-	if(m_disabledState != NULL)
-		m_disabledState->setAlpha(alpha);
-}
-
-void wyMenuItemSprite::setColor(wyColor3B color) {
-	m_normalState->setColor(color);
-	if(m_selectedState != NULL)
-		m_selectedState->setColor(color);
-	if(m_disabledState != NULL)
-		m_disabledState->setColor(color);
-}
-
-void wyMenuItemSprite::setColor(wyColor4B color) {
-	m_normalState->setColor(color);
-	if(m_selectedState != NULL)
-		m_selectedState->setColor(color);
-	if(m_disabledState != NULL)
-		m_disabledState->setColor(color);
-}
-
-void wyMenuItemSprite::setBlendMode(wyRenderState::BlendMode mode) {
-	m_normalState->setBlendMode(mode);
-	if(m_selectedState != NULL)
-		m_selectedState->setBlendMode(mode);
-	if(m_disabledState != NULL)
-		m_disabledState->setBlendMode(mode);
-}
-
-void wyMenuItemSprite::setRotation(float rot) {
-	wyMenuItem::setRotation(rot);
-	m_normalState->setRotation(rot);
-	if(m_selectedState != NULL)
-		m_selectedState->setRotation(rot);
-	if(m_disabledState != NULL)
-		m_disabledState->setRotation(rot);
-}
-
-void wyMenuItemSprite::setScale(float scale) {
-	wyMenuItem::setScale(scale);
-	m_normalState->setScale(scale);
-	if(m_selectedState != NULL)
-		m_selectedState->setScale(scale);
-	if(m_disabledState != NULL)
-		m_disabledState->setScale(scale);
-}
-
-void wyMenuItemSprite::setScaleX(float scaleX) {
-	wyMenuItem::setScaleX(scaleX);
-	m_normalState->setScaleX(scaleX);
-	if(m_selectedState != NULL)
-		m_selectedState->setScaleX(scaleX);
-	if(m_disabledState != NULL)
-		m_disabledState->setScaleX(scaleX);
-}
-
-void wyMenuItemSprite::setScaleY(float scaleY) {
-	wyMenuItem::setScaleY(scaleY);
-	m_normalState->setScaleY(scaleY);
-	if(m_selectedState != NULL)
-		m_selectedState->setScaleY(scaleY);
-	if(m_disabledState != NULL)
-		m_disabledState->setScaleY(scaleY);
-}
-
 wyMenuItemSprite::wyMenuItemSprite(wyTargetSelector* downSelector, wyTargetSelector* upSelector, wySprite* normal, wySprite* selected, wySprite* disabled) :
-		wyMenuItem(downSelector, upSelector),
-		m_normalState(NULL),
-		m_selectedState(NULL),
-		m_disabledState(NULL) {
+		wyMenuItem(downSelector, upSelector) {
 	setNormalSprite(normal);
 	setSelectedSprite(selected);
 	setDisabledSprite(disabled);
-
-	setContentSize(normal->getWidth(), normal->getHeight());
 }
 
 void wyMenuItemSprite::setNormalSprite(wySprite* normal) {
-	wyObjectRetain(normal);
-	wyObjectRelease(m_normalState);
-	m_normalState = normal;
+	registerNode(STATE_NORMAL, normal, false);
+}
+
+wySprite* wyMenuItemSprite::getNormalSprite() {
+	return (wySprite*)getNode(STATE_NORMAL);
 }
 
 void wyMenuItemSprite::setSelectedSprite(wySprite* selected) {
-	wyObjectRetain(selected);
-	wyObjectRelease(m_selectedState);
-	m_selectedState = selected;
+	registerNode(STATE_SELECTED, selected, false);
+}
+
+wySprite* wyMenuItemSprite::getSelectedSprite() {
+	return (wySprite*)getNode(STATE_SELECTED);
 }
 
 void wyMenuItemSprite::setDisabledSprite(wySprite* disabled) {
-	wyObjectRetain(disabled);
-	wyObjectRelease(m_disabledState);
-	m_disabledState = disabled;
+	registerNode(STATE_DISABLED, disabled, false);
+}
+
+wySprite* wyMenuItemSprite::getDisabledSprite() {
+	return (wySprite*)getNode(STATE_DISABLED);
+}
+
+int wyMenuItemSprite::getStateTag() {
+    if (m_enabled) {
+        if (m_selected) {
+        	if(getNode(STATE_SELECTED) != NULL)
+        		return STATE_SELECTED;
+        	else
+				return STATE_NORMAL;
+        } else {
+			return STATE_NORMAL;
+        }
+    } else {
+        if (getNode(STATE_DISABLED) != NULL)
+        	return STATE_DISABLED;
+        else
+			return STATE_NORMAL;
+    }
 }

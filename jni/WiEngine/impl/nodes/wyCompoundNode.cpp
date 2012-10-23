@@ -70,6 +70,9 @@ void wyCompoundNode::registerNode(int tag, wyNode* node, bool asChild) {
 	// add as child or not?
 	if(asChild)
 		addChildLocked(node);
+
+	// use max child size as content size
+	setContentSizeAsMax();
 }
 
 wyNode* wyCompoundNode::getStateNode() {
