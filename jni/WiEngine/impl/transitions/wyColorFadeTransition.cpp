@@ -48,10 +48,9 @@ void wyColorFadeTransition::postFinish() {
 }
 
 void wyColorFadeTransition::initScenes() {
-    wyColorLayer* cl = WYNEW wyColorLayer(m_fadeColor);
+    wyColorLayer* cl = wyColorLayer::make(m_fadeColor);
     m_inScene->setVisible(false);
     addChildLocked(cl, 2, TAG_FADE_LAYER);
-    wyObjectRelease(cl);
 }
 
 wyNode* wyColorFadeTransition::getInActionTarget() {
