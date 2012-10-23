@@ -78,7 +78,9 @@ void wyGridController::afterDraw(wyNode* node) {
 	node->applyWorldMatrix();
 
 	// render texture of frame buffer
-	blit(node);
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+	rm->renderMaterial(node, m_fb->getMaterial(), m_mesh);
 }
 
 void wyGridController::setActive(bool flag) {
@@ -90,10 +92,4 @@ void wyGridController::reuse() {
 		m_mesh->reuse();
 		m_reuseGrid--;
 	}
-}
-
-void wyGridController::blit(wyNode* space) {
-	wyDirector* d = wyDirector::getInstance();
-	wyRenderManager* rm = d->getRenderManager();
-	rm->renderMaterial(space, m_fb->getMaterial(), m_mesh);
 }

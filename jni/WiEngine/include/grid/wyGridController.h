@@ -89,25 +89,18 @@ public:
 
 	virtual ~wyGridController();
 
-	/**
-	 * Blit the grid effect to the physical screen, in a given node coordinate space
-	 *
-	 * @param space the root coordinate space
-	 */
-	virtual void blit(wyNode* space);
-
 	/// reuse this grid, a common scenario is recover this grid to its initial status
-	virtual void reuse();
+	void reuse();
 
 	/// this function is called before node's draw function is called
-	virtual void beforeDraw();
+	void beforeDraw();
 
 	/**
 	 * this function is called after node is rendered
 	 *
 	 * @param node the target node object which the current grid is applied on, \link wyNode wyNode\endlink
 	 */
-	virtual void afterDraw(wyNode* node);
+	void afterDraw(wyNode* node);
 
 	/**
 	 * add the count how much times the grid can be reused
