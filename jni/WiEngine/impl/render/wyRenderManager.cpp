@@ -163,9 +163,10 @@ void wyRenderManager::renderViewport(wyViewport* v, float delta) {
 		m_renderer->clearBuffers(v->shouldClearColor(), v->shouldClearDepth(), v->shouldClearStencil());
 	}
 
-	// render from root node, and second node
+	// render from root node, and its leaf nodes
+	renderScene(v->getLeftLeaf());
+	renderScene(v->getRightLeaf());
 	renderScene(v->getRoot());
-	renderScene(v->getSecondRoot());
 
 	// pop view port clip
 	m_renderer->popClipRect();

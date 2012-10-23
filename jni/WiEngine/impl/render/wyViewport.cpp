@@ -37,7 +37,8 @@ wyViewport::wyViewport(const char* name, wyCamera* camera) :
 		m_name(wyUtils::copy(name)),
 		m_color(wyc4bTransparent),
 		m_enabled(true),
-		m_secondRoot(NULL),
+		m_leftLeaf(NULL),
+		m_rightLeaf(NULL),
 		m_root(NULL),
 		m_clearColor(false),
 		m_clearDepth(false),
@@ -70,28 +71,32 @@ wyViewport* wyViewport::make(const char* name, wyCamera* camera) {
 
 void wyViewport::attachRoot(wyNode* root) {
 	m_root = root;
-	m_secondRoot = NULL;
+	m_leftLeaf = NULL;
+	m_rightLeaf = NULL;
 }
 
 void wyViewport::attachScene(wyScene* s) {
+	// set root
+	m_root = s;
+
+	// if scene is a transition, we can set leaf nodes
 	if(s) {
-		// if scene is a transition, we can set second root
 		if(s->isTransition()) {
 			wyTransitionScene* ts = (wyTransitionScene*)s;
 			if(ts->shouldInSceneOnTop()) {
-				m_root = ts->getOutScene();
-				m_secondRoot = ts->getInScene();
+				m_leftLeaf = ts->getOutScene();
+				m_rightLeaf = ts->getInScene();
 			} else {
-				m_root = ts->getInScene();
-				m_secondRoot = ts->getOutScene();
+				m_leftLeaf = ts->getInScene();
+				m_rightLeaf = ts->getOutScene();
 			}
 		} else {
-			m_root = s;
-			m_secondRoot = NULL;
+			m_leftLeaf = NULL;
+			m_rightLeaf = NULL;
 		}
 	} else {
-		m_root = NULL;
-		m_secondRoot = NULL;
+		m_leftLeaf = NULL;
+		m_rightLeaf = NULL;
 	}
 }
 

@@ -38,7 +38,8 @@
  * \link wyNode wyNode\endlink. The node it bound is called root of view port.
  * There can be multiple \c wyViewport so rendering can be grouped easily.
  *
- * Viewport can have second root node, this only occurs when switching scene.
+ * Root node can have left and right child, which is known left leaf and right leaf,
+ * that is only used when switching scenes.
  */
 class WIENGINE_API wyViewport : public wyObject {
 private:
@@ -54,8 +55,11 @@ private:
 	/// root node
 	wyNode* m_root;
 
-	/// second root
-	wyNode* m_secondRoot;
+	/// left leaf
+	wyNode* m_leftLeaf;
+
+	/// right leaf
+	wyNode* m_rightLeaf;
 
 	/// true indicating color should be cleared before render
 	bool m_clearColor;
@@ -136,9 +140,14 @@ public:
 	wyNode* getRoot() { return m_root; }
 
 	/**
-	 * Get second root node
+	 * Get left leaf node
 	 */
-	wyNode* getSecondRoot() { return m_secondRoot; }
+	wyNode* getLeftLeaf() { return m_leftLeaf; }
+
+	/**
+	 * Get right leaf node
+	 */
+	wyNode* getRightLeaf() { return m_rightLeaf; }
 
 	/**
 	 * Set clear flag
