@@ -262,9 +262,6 @@ protected:
 	/// node color, meaningless for non-geometry node
 	wyColor4B m_color;
 
-	/// world matrix of this geometry
-	kmMat4 m_worldMatrix;
-
 	/// true means material should be updated
 	bool m_materialNeedUpdate;
 
@@ -3458,20 +3455,6 @@ public:
      */
     virtual void setLodLevel(int level, int index = 0);
 
-    /**
-     * \if English
-     * Get world matrix of this node. This is meaningless if this node
-	 * is not a geometry node
-     *
-     * @return world matrix
-     * \else
-     * 得到这个物体的模型矩阵, 因此只对有模型的节点才有实际意义
-     *
-     * @return 模型矩阵
-     * \endif
-     */
-    virtual kmMat4* getWorldMatrix() { return &m_worldMatrix; }
-
 	/**
 	 * \if English
 	 * Get clip rect which is transformed if relative self flag is true
@@ -3541,9 +3524,6 @@ public:
 
 	/// apply node matrix to top matrix of world matrix stack
 	void applyWorldMatrix();
-
-	/// update node world matrix by fetching it from kazmath world matrix stack
-	void syncWorldMatrix();
 };
 
 #endif // __wyNode_h__

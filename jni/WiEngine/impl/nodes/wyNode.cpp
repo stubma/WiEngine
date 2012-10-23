@@ -1829,12 +1829,6 @@ bool wyNode::isGridActive() {
 	return m_grid != NULL && m_grid->isActive(); 
 }
 
-void wyNode::syncWorldMatrix() {
-	kmMat4 m;
-	kmGLGetMatrix(KM_GL_WORLD, &m);
-	kmMat4Fill(&m_worldMatrix, m.mat);
-}
-
 void wyNode::applyWorldMatrix() {
 	// switch to world stack
 	kmGLMatrixMode(KM_GL_WORLD);

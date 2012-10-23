@@ -276,9 +276,6 @@ void wyRenderManager::renderNode(wyNode* g) {
 		g->setNeedUpdateMeshColor(false);
 	}
 
-	// update world matrix
-	g->syncWorldMatrix();
-
 	// before render notify
 	g->beforeRender();
 
@@ -328,7 +325,7 @@ void wyRenderManager::updateUniformValues(wyShaderProgram* p, wyNode* g) {
 		// check binding type
 		switch(uniform->getBinding()) {
 			case wyUniform::WORLD_MATRIX:
-				kmMat4Fill(&value.m4, g->getWorldMatrix()->mat);
+				kmGLGetMatrix(KM_GL_WORLD, &value.m4);
 				break;
 			case wyUniform::VIEW_MATRIX:
 				kmGLGetMatrix(KM_GL_MODELVIEW, &value.m4);
@@ -338,10 +335,11 @@ void wyRenderManager::updateUniformValues(wyShaderProgram* p, wyNode* g) {
 				break;
 			case wyUniform::WORLD_VIEW_MATRIX:
 			{
-				kmMat4 m;
-				kmGLGetMatrix(KM_GL_MODELVIEW, &m);
-				kmMat4Multiply(&m, &m, g->getWorldMatrix());
-				kmMat4Fill(&value.m4, m.mat);
+				kmMat4 m1, m2;
+				kmGLGetMatrix(KM_GL_MODELVIEW, &m1);
+				kmGLGetMatrix(KM_GL_WORLD, &m2);
+				kmMat4Multiply(&m1, &m1, &m2);
+				kmMat4Fill(&value.m4, m1.mat);
 				break;
 			}
 			case wyUniform::NORMAL_MATRIX:
@@ -353,7 +351,8 @@ void wyRenderManager::updateUniformValues(wyShaderProgram* p, wyNode* g) {
 				kmGLGetMatrix(KM_GL_PROJECTION, &m1);
 				kmGLGetMatrix(KM_GL_MODELVIEW, &m2);
 				kmMat4Multiply(&m1, &m1, &m2);
-				kmMat4Multiply(&m1, &m1, g->getWorldMatrix());
+				kmGLGetMatrix(KM_GL_WORLD, &m2);
+				kmMat4Multiply(&m1, &m1, &m2);
 				kmMat4Fill(&value.m4, m1.mat);
 				break;
 			}

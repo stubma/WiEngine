@@ -77,9 +77,6 @@ void wyGridController::afterDraw(wyNode* node) {
 	// need transform to this node because afterRender will pop matrix to parent space
 	node->applyWorldMatrix();
 
-	// fetch world matrix from stack
-	node->syncWorldMatrix();
-
 	// render texture of frame buffer
 	blit(node);
 }
