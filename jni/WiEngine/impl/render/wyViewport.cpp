@@ -30,11 +30,15 @@
 #include "wyTypes.h"
 #include "wyUtils.h"
 #include "wyLog.h"
+#include "wyRenderQueue.h"
+#include "wyTransitionScene.h"
 
 wyViewport::wyViewport(const char* name, wyCamera* camera) :
 		m_name(wyUtils::copy(name)),
 		m_color(wyc4bTransparent),
 		m_enabled(true),
+		m_secondRoot(NULL),
+		m_root(NULL),
 		m_clearColor(false),
 		m_clearDepth(false),
 		m_clearStencil(false) {
@@ -66,6 +70,29 @@ wyViewport* wyViewport::make(const char* name, wyCamera* camera) {
 
 void wyViewport::attachRoot(wyNode* root) {
 	m_root = root;
+	m_secondRoot = NULL;
+}
+
+void wyViewport::attachScene(wyScene* s) {
+	if(s) {
+		// if scene is a transition, we can set second root
+		if(s->isTransition()) {
+			wyTransitionScene* ts = (wyTransitionScene*)s;
+			if(ts->shouldInSceneOnTop()) {
+				m_root = ts->getOutScene();
+				m_secondRoot = ts->getInScene();
+			} else {
+				m_root = ts->getInScene();
+				m_secondRoot = ts->getOutScene();
+			}
+		} else {
+			m_root = s;
+			m_secondRoot = NULL;
+		}
+	} else {
+		m_root = NULL;
+		m_secondRoot = NULL;
+	}
 }
 
 void wyViewport::setClearFlag(bool clearColor, bool clearDepth, bool clearStencil) {

@@ -72,23 +72,6 @@ wyTransitionScene::~wyTransitionScene() {
 	wyObjectRelease(m_finishSelector);
 }
 
-//void wyTransitionScene::draw() {
-//	// if no draw flag is set, call wyNode::draw and it
-//	// will decide forward drawing to java layer or not
-//	if(m_noDraw) {
-//		wyNode::draw();
-//		return;
-//	}
-//
-//	if (shouldInSceneOnTop()) {
-//		m_outScene->visit();
-//		m_inScene->visit();
-//	} else {
-//		m_inScene->visit();
-//		m_outScene->visit();
-//	}
-//}
-
 void wyTransitionScene::setInScene(wyScene* scene) {
 	if(m_running) {
 		LOGW("Can't call setInScene after transition running");

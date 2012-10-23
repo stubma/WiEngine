@@ -62,13 +62,6 @@ protected:
 
 protected:
 	/**
-	 * 获得是否准备载入的场景在当前场景的上层
-	 *
-	 * @return true为是
-	 */
-	virtual bool shouldInSceneOnTop();
-
-	/**
 	 * 当完成场景切换后调用此方法，可以在子类重载该方法
 	 */
 	virtual void postFinish();
@@ -157,6 +150,13 @@ public:
 
 	/// @see wyScene::isTransition
 	virtual bool isTransition() { return true; }
+
+	/**
+	 * Whether in scene should be on top of out scene
+	 *
+	 * @return true means in scene should be on top of out scene
+	 */
+	virtual bool shouldInSceneOnTop();
 
 	/**
 	 * 当场景切换完成后调用该方法

@@ -163,17 +163,17 @@ void wyRenderManager::renderViewport(wyViewport* v, float delta) {
 		m_renderer->clearBuffers(v->shouldClearColor(), v->shouldClearDepth(), v->shouldClearStencil());
 	}
 
-	// get root node
-	wyNode* root = v->getRoot();
-	renderScene(root, v);
+	// render from root node, and second node
+	renderScene(v->getRoot());
+	renderScene(v->getSecondRoot());
 
 	// pop view port clip
 	m_renderer->popClipRect();
 }
 
-void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
+void wyRenderManager::renderScene(wyNode* node) {
 	// if node is invisible, just return
-	if(!node->isVisible())
+	if(!node || !node->isVisible())
 		return;
 
 	// push world matrix
@@ -202,7 +202,7 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 		for(; i < children->num; i++) {
 			wyNode* child = (wyNode*)wyArrayGet(children, i);
 			if(child->getZOrder() < 0 && node->isChildVisitable(child))
-				renderScene(child, v);
+				renderScene(child);
 			else
 				break;
 		}
@@ -218,7 +218,7 @@ void wyRenderManager::renderScene(wyNode* node, wyViewport* v) {
 		for(; i < children->num; i++) {
 			wyNode* child = (wyNode*)wyArrayGet(children, i);
 			if(node->isChildVisitable(child))
-				renderScene(child, v);
+				renderScene(child);
 		}
 	}
 

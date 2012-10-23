@@ -416,7 +416,7 @@ void wyDirector::onSurfaceCreated() {
 
 		// if running scene is not NULL, attach it to viewport now
 		if(m_runningScene)
-			m_mainViewport->attachRoot(m_runningScene);
+			m_mainViewport->attachScene(m_runningScene);
 	}
 
 	// notify render about surface created
@@ -775,7 +775,7 @@ void wyDirector::setRunningScene(wyScene* scene) {
 
 	// attach to main view port
 	if(m_mainViewport)
-		m_mainViewport->attachRoot(m_runningScene);
+		m_mainViewport->attachScene(m_runningScene);
 }
 
 void wyDirector::setNextScene(wyScene* scene) {
