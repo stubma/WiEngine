@@ -41,6 +41,10 @@
  * 场景切换效果的封装, 是所有场景切换的基类
  */
 class WIENGINE_API wyTransitionScene : public wyScene {
+private:
+	/// flag indicating finish method is already called
+	bool m_finished;
+
 protected:
 	/// 准备载入的\link wyScene wyScene对象指针\endlink
 	wyScene* m_inScene;

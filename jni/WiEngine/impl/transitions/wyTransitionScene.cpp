@@ -42,6 +42,7 @@ extern wyEventDispatcher* gEventDispatcher;
 extern wyScheduler* gScheduler;
 
 wyTransitionScene::wyTransitionScene(float duration, wyScene* inScene) :
+		m_finished(false),
 		m_inScene(NULL),
 		m_outScene(NULL),
 		m_duration(duration),
@@ -171,10 +172,12 @@ void wyTransitionScene::hideOutShowIn(wyTargetSelector* ts) {
 	m_outScene->setVisible(false);
 }
 
-/**
- * Must be called when transition finished
- */
 void wyTransitionScene::finish(wyTargetSelector* ts) {
+	// avoid calling finish more than one time
+	if(m_finished)
+		return;
+	m_finished = true;
+
 	/* clean up */
 	m_inScene->setVisible(true);
 	m_inScene->setPosition(0, 0);
