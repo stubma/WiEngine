@@ -76,6 +76,13 @@ protected:
 	virtual void initScenes();
 
 	/**
+	 * Whether in scene should be on top of out scene
+	 *
+	 * @return true means in scene should be on top of out scene
+	 */
+	virtual bool shouldInSceneOnTop();
+
+	/**
 	 * 返回载入场景效果的\link wyNode wyNode对象指针\endlink
 	 *
 	 * @return 载入场景效果的\link wyNode wyNode对象指针\endlink
@@ -155,12 +162,8 @@ public:
 	/// @see wyScene::isTransition
 	virtual bool isTransition() { return true; }
 
-	/**
-	 * Whether in scene should be on top of out scene
-	 *
-	 * @return true means in scene should be on top of out scene
-	 */
-	virtual bool shouldInSceneOnTop();
+	/// @see wyNode::afterRender
+	virtual void afterRender();
 
 	/**
 	 * 当场景切换完成后调用该方法

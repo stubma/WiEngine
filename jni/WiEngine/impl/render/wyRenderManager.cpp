@@ -163,9 +163,7 @@ void wyRenderManager::renderViewport(wyViewport* v, float delta) {
 		m_renderer->clearBuffers(v->shouldClearColor(), v->shouldClearDepth(), v->shouldClearStencil());
 	}
 
-	// render from root node, and its leaf nodes
-	renderNodeRecursively(v->getLeftLeaf());
-	renderNodeRecursively(v->getRightLeaf());
+	// render from root node
 	renderNodeRecursively(v->getRoot());
 
 	// pop view port clip
@@ -260,8 +258,12 @@ void wyRenderManager::clearQueue(wyViewport* v) {
 void wyRenderManager::renderNode(wyNode* g) {
 	// directly return if no render pair
 	int c = g->getRenderPairCount();
-	if(c <= 0)
+	if(c <= 0) {
+		// still notify render event
+		g->beforeRender();
+		g->afterRender();
 		return;
+	}
 
 	// check update flag
 	if(g->isNeedUpdateMaterial()) {

@@ -37,8 +37,6 @@ wyViewport::wyViewport(const char* name, wyCamera* camera) :
 		m_name(wyUtils::copy(name)),
 		m_color(wyc4bTransparent),
 		m_enabled(true),
-		m_leftLeaf(NULL),
-		m_rightLeaf(NULL),
 		m_root(NULL),
 		m_clearColor(false),
 		m_clearDepth(false),
@@ -71,33 +69,6 @@ wyViewport* wyViewport::make(const char* name, wyCamera* camera) {
 
 void wyViewport::attachRoot(wyNode* root) {
 	m_root = root;
-	m_leftLeaf = NULL;
-	m_rightLeaf = NULL;
-}
-
-void wyViewport::attachScene(wyScene* s) {
-	// set root
-	m_root = s;
-
-	// if scene is a transition, we can set leaf nodes
-	if(s) {
-		if(s->isTransition()) {
-			wyTransitionScene* ts = (wyTransitionScene*)s;
-			if(ts->shouldInSceneOnTop()) {
-				m_leftLeaf = ts->getOutScene();
-				m_rightLeaf = ts->getInScene();
-			} else {
-				m_leftLeaf = ts->getInScene();
-				m_rightLeaf = ts->getOutScene();
-			}
-		} else {
-			m_leftLeaf = NULL;
-			m_rightLeaf = NULL;
-		}
-	} else {
-		m_leftLeaf = NULL;
-		m_rightLeaf = NULL;
-	}
 }
 
 void wyViewport::setClearFlag(bool clearColor, bool clearDepth, bool clearStencil) {

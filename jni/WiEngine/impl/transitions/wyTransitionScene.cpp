@@ -36,6 +36,7 @@
 #include "wyDelayTime.h"
 #include "wyScheduler.h"
 #include "wyCamera.h"
+#include "wyRenderManager.h"
 
 extern wyDirector* gDirector;
 extern wyEventDispatcher* gEventDispatcher;
@@ -71,6 +72,19 @@ wyTransitionScene::~wyTransitionScene() {
 	wyObjectRelease(m_inEase);
 	wyObjectRelease(m_outEase);
 	wyObjectRelease(m_finishSelector);
+}
+
+void wyTransitionScene::afterRender() {
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+
+	if(shouldInSceneOnTop()) {
+		rm->renderNodeRecursively(m_outScene);
+		rm->renderNodeRecursively(m_inScene);
+	} else {
+		rm->renderNodeRecursively(m_inScene);
+		rm->renderNodeRecursively(m_outScene);
+	}
 }
 
 void wyTransitionScene::setInScene(wyScene* scene) {

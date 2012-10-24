@@ -37,9 +37,6 @@
  * \c wyViewport is start point of a render branch and it must be bound with a
  * \link wyNode wyNode\endlink. The node it bound is called root of view port.
  * There can be multiple \c wyViewport so rendering can be grouped easily.
- *
- * Root node can have left and right child, which is known left leaf and right leaf,
- * that is only used when switching scenes.
  */
 class WIENGINE_API wyViewport : public wyObject {
 private:
@@ -54,12 +51,6 @@ private:
 
 	/// root node
 	wyNode* m_root;
-
-	/// left leaf
-	wyNode* m_leftLeaf;
-
-	/// right leaf
-	wyNode* m_rightLeaf;
 
 	/// true indicating color should be cleared before render
 	bool m_clearColor;
@@ -128,26 +119,9 @@ public:
 	void attachRoot(wyNode* root);
 
 	/**
-	 * Attach a scene node to this viewport.
-	 *
-	 * @param s root node of this viewport, it must be a subclass of \link wyScene wyScene\endlink
-	 */
-	void attachScene(wyScene* s);
-
-	/**
 	 * Get root node of this viewport
 	 */
 	wyNode* getRoot() { return m_root; }
-
-	/**
-	 * Get left leaf node
-	 */
-	wyNode* getLeftLeaf() { return m_leftLeaf; }
-
-	/**
-	 * Get right leaf node
-	 */
-	wyNode* getRightLeaf() { return m_rightLeaf; }
 
 	/**
 	 * Set clear flag
