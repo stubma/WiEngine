@@ -164,15 +164,15 @@ void wyRenderManager::renderViewport(wyViewport* v, float delta) {
 	}
 
 	// render from root node, and its leaf nodes
-	renderScene(v->getLeftLeaf());
-	renderScene(v->getRightLeaf());
-	renderScene(v->getRoot());
+	renderNodeRecursively(v->getLeftLeaf());
+	renderNodeRecursively(v->getRightLeaf());
+	renderNodeRecursively(v->getRoot());
 
 	// pop view port clip
 	m_renderer->popClipRect();
 }
 
-void wyRenderManager::renderScene(wyNode* node) {
+void wyRenderManager::renderNodeRecursively(wyNode* node) {
 	// if node is invisible, just return
 	if(!node || !node->isVisible())
 		return;
@@ -203,7 +203,7 @@ void wyRenderManager::renderScene(wyNode* node) {
 		for(; i < children->num; i++) {
 			wyNode* child = (wyNode*)wyArrayGet(children, i);
 			if(child->getZOrder() < 0 && node->isChildVisitable(child))
-				renderScene(child);
+				renderNodeRecursively(child);
 			else
 				break;
 		}
@@ -219,7 +219,7 @@ void wyRenderManager::renderScene(wyNode* node) {
 		for(; i < children->num; i++) {
 			wyNode* child = (wyNode*)wyArrayGet(children, i);
 			if(node->isChildVisitable(child))
-				renderScene(child);
+				renderNodeRecursively(child);
 		}
 	}
 

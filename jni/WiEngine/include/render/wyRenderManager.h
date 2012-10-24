@@ -153,7 +153,7 @@ public:
 	 *
 	 * @param node start node, generally it is the root node of viewport
 	 */
-	void renderScene(wyNode* node);
+	void renderNodeRecursively(wyNode* node);
 
 	/**
 	 * Get renderer currently used
