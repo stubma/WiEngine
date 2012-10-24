@@ -67,7 +67,6 @@ wyTextureManager::~wyTextureManager() {
 wyTextureManager::wyTextureManager() :
 		m_textureCount(0),
 		m_nextLabelId(LABEL_ID_START),
-		m_nextGLId(GL_ID_START),
 		m_texturePixelFormat(WY_TEXTURE_PIXEL_FORMAT_RGBA8888),
 		m_textures((wyGLTexture2D**)wyCalloc(1000, sizeof(wyGLTexture2D*))),
 		m_textureHash(WYNEW map<unsigned int, wyTextureHash>()) {
@@ -1146,7 +1145,7 @@ wyTexture2D* wyTextureManager::makeLabel(const char* text, float fontSize, wyFon
 }
 
 wyTexture2D* wyTextureManager::makeGL(int texture, int w, int h) {
-	const char* hash = hashForNum(m_nextGLId++);
+	const char* hash = hashForNum(GL_ID_START + texture);
 	unsigned int hashInt = wyUtils::strHash(hash);
 	wyTextureHash texHash;
 	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
@@ -1157,6 +1156,7 @@ wyTexture2D* wyTextureManager::makeGL(int texture, int w, int h) {
 		texHash.source = SOURCE_OPENGL;
 		texHash.md5 = hash;
 		texHash.handle = nextHandle();
+		texHash.gp.ref = 1;
 
 		// create real texture
 		wyGLTexture2D* glTex = wyGLTexture2D::makeGL(texture, w, h);
@@ -1166,7 +1166,10 @@ wyTexture2D* wyTextureManager::makeGL(int texture, int w, int h) {
 		// insert hash
 		(*m_textureHash)[hashInt] = texHash;
 	} else {
+		// increase reference
 		texHash = iter->second;
+		texHash.gp.ref++;
+
         wyFree((void*) hash);
     }
 
@@ -1261,6 +1264,27 @@ void wyTextureManager::releaseClonedTexture(int sourceHandle, bool removeHandle)
 void wyTextureManager::removeTexture(wyTexture2D* tex, bool removeHandle) {
 	if(tex == NULL)
 		return;
+
+	/*
+	 * for opengl source texture, must check reference count
+	 * in wyTexture2D deconstructor, removeTexture will be invoked when source is opengl,
+	 * so we won't miss it
+	 */
+	if(tex->m_source == SOURCE_OPENGL) {
+		map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(wyUtils::strHash(tex->m_md5));
+		if(iter != m_textureHash->end()) {
+			// decrease reference count
+			wyTextureHash& texHash = iter->second;
+			texHash.gp.ref--;
+
+			// if reference count still larger than 0, no need process
+			if(texHash.gp.ref > 0)
+				return;
+		} else {
+			// if no texture hash found, no need process
+			return;
+		}
+	}
 
 	// release real texture
 	int handle = tex->m_handle;

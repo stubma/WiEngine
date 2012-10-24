@@ -98,15 +98,21 @@ void wyFrameBuffer::create() {
 	m_material->retain();
 
 	// set texture
-	int t = r->getFrameBufferTexture(m_id);
-	wyTexture2D* tex = wyTexture2D::makeGL(t, m_texWidth, m_texHeight);
-	wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], tex);
+	wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], createTexture());
 	m_material->addParameter(p);
 
 	// set blend mode
 	wyRenderState* rs = wyRenderState::make2D();
 	rs->blendMode = wyRenderState::ALPHA;
 	m_material->getTechnique()->setRenderState(rs);
+}
+
+wyTexture2D* wyFrameBuffer::createTexture() {
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+	wyRenderer* r = rm->getRenderer();
+	int t = r->getFrameBufferTexture(m_id);
+	return wyTexture2D::makeGL(t, m_texWidth, m_texHeight);
 }
 
 void wyFrameBuffer::beforeRender() {
@@ -141,10 +147,7 @@ void wyFrameBuffer::beforeRender() {
 	r->setFrameBuffer(m_id);
 
 	// clear custom frame
-	wyColor4B oldColor = r->getBackgroundColor();
-	r->setBackgroundColor(wyc4bTransparent);
-	r->clearBuffers(true, true, false);
-	r->setBackgroundColor(oldColor);
+	clearBuffer(wyc4bTransparent);
 }
 
 void wyFrameBuffer::afterRender() {
@@ -168,6 +171,19 @@ void wyFrameBuffer::afterRender() {
 	r->setViewport(0, 0, wyDevice::realWidth, wyDevice::realHeight);
 }
 
+void wyFrameBuffer::clearBuffer(wyColor4B c) {
+	// get renderer
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+	wyRenderer* r = rm->getRenderer();
+
+	// clear
+	wyColor4B oldColor = r->getBackgroundColor();
+	r->setBackgroundColor(c);
+	r->clearBuffers(true, true, false);
+	r->setBackgroundColor(oldColor);
+}
+
 void wyFrameBuffer::releaseBuffer() {
 	// get renderer
 	wyDirector* d = wyDirector::getInstance();
@@ -175,5 +191,5 @@ void wyFrameBuffer::releaseBuffer() {
 	wyRenderer* r = rm->getRenderer();
 
 	// release it
-	r->releaseFrameBuffer(m_id);
+	r->releaseFrameBuffer(m_id, false);
 }

@@ -103,11 +103,25 @@ public:
 	/// this fuction is called after openGL rending is executed
 	void afterRender();
 
+	/**
+	 * clear buffer color and depth
+	 *
+	 * @param c clear color
+	 */
+	void clearBuffer(wyColor4B c);
+
 	/// release the frame buffer
 	void releaseBuffer();
 
 	/// get material of this frame buffer
 	wyMaterial* getMaterial() { return m_material; }
+
+	/**
+	 * Get \link wyTexture2D wyTexture2D\endlink object from frame buffer texture
+	 *
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	wyTexture2D* createTexture();
 };
 
 #endif // __wyFrameBuffer_h__

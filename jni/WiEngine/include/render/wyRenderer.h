@@ -242,8 +242,9 @@ public:
 	 * Destroy frame buffer and release related resources
 	 *
 	 * @param fid id of frame buffer will be released
+	 * @param releaseTexture true means the base texture should also be released
 	 */
-	virtual void releaseFrameBuffer(int fid) = 0;
+	virtual void releaseFrameBuffer(int fid, bool releaseTexture) = 0;
 };
 
 #endif // __wyRenderer_h__

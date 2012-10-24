@@ -619,7 +619,7 @@ void wyGLES2Renderer::restoreFrameBuffer(int fid) {
 	glBindFramebuffer(GL_FRAMEBUFFER, fb->oldFBO);
 }
 
-void wyGLES2Renderer::releaseFrameBuffer(int fid) {
+void wyGLES2Renderer::releaseFrameBuffer(int fid, bool releaseTexture) {
 	// get frame buffer
 	wyGLState::FrameBuffer* fb = m_state->getFrameBuffer(fid);
 	if(!fb)
@@ -629,7 +629,7 @@ void wyGLES2Renderer::releaseFrameBuffer(int fid) {
 	glDeleteFramebuffers(1, (GLuint*)&fb->fbo);
 
 	// delete texture
-	if(fb->texture != 0 && wyDirector::getInstance()->isSurfaceCreated()) {
+	if(releaseTexture && fb->texture != 0 && wyDirector::getInstance()->isSurfaceCreated()) {
 		glDeleteTextures(1, (GLuint*)&fb->texture);
 	}
 

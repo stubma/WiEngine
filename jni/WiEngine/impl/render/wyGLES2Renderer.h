@@ -162,7 +162,7 @@ public:
 	virtual void restoreFrameBuffer(int fid);
 
 	/// @see wyRenderer::releaseFrameBuffer
-	virtual void releaseFrameBuffer(int fid);
+	virtual void releaseFrameBuffer(int fid, bool releaseTexture);
 };
 
 #endif // __wyGLES2Renderer_h__

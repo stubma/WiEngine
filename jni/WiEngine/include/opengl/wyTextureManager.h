@@ -84,6 +84,12 @@ private:
 				int width;
 				int height;
 			} dp;
+
+			// created from opengl texture id
+			struct {
+				/// how many wyTexture2D objects refer it
+				int ref;
+			} gp;
 		};
 
 		/// 创建类型
@@ -135,9 +141,6 @@ private:
 
 	/// 下一个label的id
 	int m_nextLabelId;
-
-	/// 下一个opengl贴图的id
-	int m_nextGLId;
 
 	/// 缺省贴图格式, 设置合适的贴图格式可以提高渲染速度, 缺省格式是RGBA8888
 	wyTexturePixelFormat m_texturePixelFormat;
