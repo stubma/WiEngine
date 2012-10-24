@@ -71,7 +71,9 @@ void wyTextureNode::releaseAnimation(int id, wyAnimation* anim) {
 void wyTextureNode::updateMesh() {
 	// update texture to mesh
 	wyRectangle* rect = (wyRectangle*)getMesh();
-	rect->updateForTexture(getTexture(),
+	wyTexture2D* tex = getTexture();
+	rect->updateForTexture(tex->getPixelWidth(),
+			tex->getPixelHeight(),
 			m_autoFit ? 0 : m_pointLeftBottom.x,
 			m_autoFit ? 0 : m_pointLeftBottom.y,
 			m_autoFit ? m_width : (m_rotatedZwoptex ? m_texRect.height : m_texRect.width),

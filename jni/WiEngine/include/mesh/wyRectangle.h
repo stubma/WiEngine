@@ -31,16 +31,9 @@
 
 #include "wyMesh.h"
 #include "wyGlobal.h"
-#include "wyTexture2D.h"
 
 /**
- * @class wyRectangle
- *
- * \if English
  * Rectangle in 2D
- * \else
- * 2D的矩形网孔
- * \endif
  */
 class WIENGINE_API wyRectangle : public wyMesh {
 protected:
@@ -48,15 +41,9 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Create a nothing rectangle mesh
 	 *
 	 * @return \link wyRectangle wyRectangle\endlink
-	 * \else
-	 * 创建一个2d的矩形网格
-	 *
-	 * @return \link wyRectangle wyRectangle\endlink
-	 * \endif
 	 */
 	static wyRectangle* make();
 
@@ -66,48 +53,28 @@ public:
 	virtual int getElementCount() { return 4; }
 
 	/**
-	 * \if English
-	 * Update mesh data for a texture 2d object
+	 * Update mesh data base don texture size
 	 *
-	 * @param tex \link wyTexture2D wyTexture2D\endlink
+	 * @param texPixelWidth opengl texture pixel width, should be a POT value
+	 * @param texPixelHeight opengl texture pixel height, should be a POT value
 	 * @param x render x position
 	 * @param y render y position
 	 * @param width render width
 	 * @param height render height
-	 * @param sourceWidth original width of texture
-	 * @param sourceHeight original height of texture
+	 * @param sourceWidth original width of image
+	 * @param sourceHeight original height of image
 	 * @param flipX true means need flip texture in x axis
 	 * @param flipY true means need flip texture in y axis
-	 * @param texRect texture rect if \c tex is a atlas texture, or just tex rect
-	 * @param rotate90 true means texture need to be rotated 90 degress counter-clockwise
-	 * \else
-	 * 根据一个贴图对象更新网格数据
-	 *
-	 * @param x x位置
-	 * @param y y位置
-	 * @param width 渲染宽度，单位像素
-	 * @param height 渲染高度，单位像素
-	 * @param sourceWidth 图片的原始宽度
-	 * @param sourceHeight 图片的原始高度
-	 * @param flipX true表示渲染时要在x方向翻转图片
-	 * @param flipY true表示渲染时要在y方向翻转图片
-	 * @param texRect 贴图区域
-	 * @param rotate90 true表示贴图需要逆时针渲染90度
-	 * \endif
+	 * @param texRect the rect area in texture you want to draw, usually used for atlas texture rendering
+	 * @param rotate90 true means texture need to be rotated 90 degrees, counter-clockwise
 	 */
-	void updateForTexture(wyTexture2D* tex, float x, float y, float width, float height,
+	void updateForTexture(float texPixelWidth, float texPixelHeight, float x, float y, float width, float height,
 			float sourceWidth, float sourceHeight, bool flipX, bool flipY, wyRect texRect, bool rotate90);
 
 	/**
-	 * \if English
 	 * Update color info
 	 *
 	 * @param color \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 更新颜色信息
-	 *
-	 * @param color \link wyColor4B wyColor4B\endlink
-	 * \endif
 	 */
 	void updateColor(wyColor4B color);
 };

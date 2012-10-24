@@ -63,12 +63,8 @@ void wyRectangle::updateColor(wyColor4B color) {
 		kmVec4Fill(&data[i].color, color.r / 255.f, color.g / 255.f, color.b / 255.f, color.a / 255.f);
 }
 
-void wyRectangle::updateForTexture(wyTexture2D* tex, float x, float y, float width, float height,
+void wyRectangle::updateForTexture(float texPixelWidth, float texPixelHeight, float x, float y, float width, float height,
 		float sourceWidth, float sourceHeight, bool flipX, bool flipY, wyRect texRect, bool rotate90) {
-	// basic check
-	if(!tex)
-		return;
-
 	// get buffer
 	wyBuffer* buf = getFirstConnectedBuffer();
 	Vertex* data = (Vertex*)buf->getData();
@@ -81,15 +77,11 @@ void wyRectangle::updateForTexture(wyTexture2D* tex, float x, float y, float wid
 		width + x, height + y, 0.0f
 	};
 
-	// texture size
-	float texW = tex->getPixelWidth();
-	float texH = tex->getPixelHeight();
-
 	// get texture coordination
-    float left = (2 * texRect.x + 1) / (2 * texW);
-    float right = left + (texRect.width * 2 - 2) / (2 * texW);
-    float top = (2 * texRect.y + 1) / (2 * texH);
-    float bottom = top + (texRect.height * 2 - 2) / (2 * texH);
+    float left = (2 * texRect.x + 1) / (2 * texPixelWidth);
+    float right = left + (texRect.width * 2 - 2) / (2 * texPixelWidth);
+    float top = (2 * texRect.y + 1) / (2 * texPixelHeight);
+    float bottom = top + (texRect.height * 2 - 2) / (2 * texPixelHeight);
     float texCoords[] = {
 		left, bottom,
 		right, bottom,
