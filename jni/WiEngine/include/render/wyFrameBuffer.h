@@ -122,6 +122,12 @@ public:
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
 	wyTexture2D* createTexture();
+
+	/// get frame buffer effect width
+	float getWidth() { return m_texWidth; }
+
+	/// get frame buffer effect height
+	float getHeight() { return m_texHeight; }
 };
 
 #endif // __wyFrameBuffer_h__

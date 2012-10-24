@@ -57,62 +57,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_RenderTexture_clear
 
 /*
  * Class:     com_wiyun_engine_nodes_RenderTexture
- * Method:    getBlendFuncSrc
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_RenderTexture_getBlendFuncSrc
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_RenderTexture
- * Method:    getBlendFuncDst
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_RenderTexture_getBlendFuncDst
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_RenderTexture
- * Method:    nativeSetBlendFunc
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_RenderTexture_nativeSetBlendFunc
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_RenderTexture
- * Method:    getAlpha
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_nodes_RenderTexture_getAlpha
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_RenderTexture
- * Method:    setAlpha
- * Signature: (I)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_RenderTexture_setAlpha
-  (JNIEnv *, jobject, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_RenderTexture
- * Method:    nativeGetColor
- * Signature: (Lcom/wiyun/engine/types/WYColor3B;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_RenderTexture_nativeGetColor
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_RenderTexture
- * Method:    nativeSetColor
- * Signature: (III)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_RenderTexture_nativeSetColor
-  (JNIEnv *, jobject, jint, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_nodes_RenderTexture
  * Method:    nativeCreateTexture
  * Signature: ()I
  */

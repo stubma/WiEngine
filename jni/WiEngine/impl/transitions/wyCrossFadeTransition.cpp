@@ -32,6 +32,8 @@
 #include "wyCallFunc.h"
 #include "wyFadeOut.h"
 #include "wyFadeIn.h"
+#include "wyDirector.h"
+#include "wyRenderManager.h"
 
 wyCrossFadeTransition* wyCrossFadeTransition::make(float duration, wyScene* inScene) {
 	wyCrossFadeTransition* t = WYNEW wyCrossFadeTransition(duration, inScene);
@@ -51,23 +53,29 @@ void wyCrossFadeTransition::postFinish() {
 }
 
 void wyCrossFadeTransition::initScenes() {
+	// get render manager
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+
+	// render in scene to texture
 	m_inTexture = wyRenderTexture::make();
 	m_inTexture->beginRender();
-	// TODO gles2
-//	m_inScene->visit();
+	rm->renderNodeRecursively(m_inScene);
 	m_inTexture->endRender();
 
+	// render out scene to texture
 	m_outTexture = wyRenderTexture::make();
 	m_outTexture->beginRender();
-	// TODO gles2
-//	m_outScene->visit();
+	rm->renderNodeRecursively(m_outScene);
 	m_outTexture->endRender();
 
+	// add render texture as child
 	m_inTexture->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 	m_outTexture->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 	addChildLocked(m_inTexture);
 	addChildLocked(m_outTexture);
 
+	// hide in and out scene
 	m_inScene->setVisible(false);
 	m_outScene->setVisible(false);
 }

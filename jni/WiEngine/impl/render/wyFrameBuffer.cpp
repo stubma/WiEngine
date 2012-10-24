@@ -39,7 +39,7 @@
 
 wyFrameBuffer::~wyFrameBuffer() {
 	m_camera->release();
-	wyObjectRelease(m_material);
+	m_material->release();
 	releaseBuffer();
 }
 
@@ -61,6 +61,10 @@ wyFrameBuffer::wyFrameBuffer(int width, int height) :
 		m_width(width),
 		m_height(height) {
 	initCamera();
+
+	// create material
+	m_material = wyMaterial::make();
+	m_material->retain();
 }
 
 wyFrameBuffer* wyFrameBuffer::make() {
@@ -92,10 +96,6 @@ void wyFrameBuffer::create() {
 
 	// redirect to renderer
 	m_id = r->createFrameBuffer(m_texWidth, m_texHeight);
-
-	// create material
-	m_material = wyMaterial::make();
-	m_material->retain();
 
 	// set texture
 	wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], createTexture());
