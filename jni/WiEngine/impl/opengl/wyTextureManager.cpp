@@ -1147,10 +1147,11 @@ wyTexture2D* wyTextureManager::makeLabel(const char* text, float fontSize, wyFon
 wyTexture2D* wyTextureManager::makeGL(int texture, int w, int h) {
 	const char* hash = hashForNum(GL_ID_START + texture);
 	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
+	wyTextureHash* pHash;
 	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
 	if(iter == m_textureHash->end()) {
 		// create hash
+		wyTextureHash texHash;
 		memset(&texHash, 0, sizeof(wyTextureHash));
 		texHash.type = CT_OPENGL;
 		texHash.source = SOURCE_OPENGL;
@@ -1165,19 +1166,22 @@ wyTexture2D* wyTextureManager::makeGL(int texture, int w, int h) {
 
 		// insert hash
 		(*m_textureHash)[hashInt] = texHash;
+
+		// get pointer
+		pHash = &texHash;
 	} else {
 		// increase reference
-		texHash = iter->second;
-		texHash.gp.ref++;
+		pHash = &iter->second;
+		pHash->gp.ref++;
 
-        wyFree((void*) hash);
+        wyFree((void*)hash);
     }
 
 	// create texture proxy and return
 	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
+	tex->m_handle = pHash->handle;
+	tex->m_md5 = pHash->md5;
+	tex->m_source = pHash->source;
 	return (wyTexture2D*)tex->autoRelease();
 }
 
