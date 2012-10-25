@@ -6,6 +6,26 @@ enum wyTexture2D::TextAlignment {
 	wyTexture2D::RIGHT
 };
 
+enum wyProgress::Style {
+		/// sector in counter-clockwise
+		wyProgress::RADIAL_CCW = 1,
+
+		/// sector in clockwise
+		wyProgress::RADIAL_CW,
+
+		/// horizontal bar from left to right
+		wyProgress::HORIZONTAL_BAR_LR,
+
+		/// horizontal bar from right to left
+		wyProgress::HORIZONTAL_BAR_RL,
+
+		/// vertical bar from bottom to top
+		wyProgress::VERTICAL_BAR_BT,
+
+		/// vertical bar from top to bottom
+		wyProgress::VERTICAL_BAR_TB
+};
+
 enum wyFontStyle {
 	/// 正常字体
     NORMAL = 0,
@@ -4925,43 +4945,6 @@ public:
 
 
 /**
- * @typedef wyProgressTimerStyle
- *
- * 进度条样式
- */
-typedef enum {
-	/**
-	 * 扇形，逆时针
-	 */
-	RADIAL_CCW = 1,
-
-	/**
-	 * 扇形，顺时针
-	 */
-	RADIAL_CW,
-
-	/**
-	 * 水平条形，从左到右
-	 */
-	HORIZONTAL_BAR_LR,
-
-	/**
-	 * 水平条形，从右到左
-	 */
-	HORIZONTAL_BAR_RL,
-
-	/**
-	 * 垂直条形，从下到上
-	 */
-	VERTICAL_BAR_BT,
-
-	/**
-	 * 垂直条形，从上到下
-	 */
-	VERTICAL_BAR_TB
-} wyProgressTimerStyle;
-
-/**
  * @class wyProgressTimer
  *
  * 进度条节点对象，可以包装任意图片对象，实现只显示百分之0到100的效果。
@@ -4984,22 +4967,6 @@ public:
 	 * @param sprite \link wySprite wySprite\endlink 指针
 	 */
 	static wyProgressTimer* make(wySprite* sprite);
-
-	/**
-	 * 构造函数, 通过一个\link wyTexture2D wyTexture2D\endlink 对象构造一个
-	 * 进度条，通过这种方式构造的进度条将使用这个贴图的完整大小.
-	 *
-	 * @param tex 贴图\link wyTexture2D wyTexture2D对象指针\endlink
-	 */
-	wyProgressTimer(wyTexture2D* tex);
-
-	/**
-	 * 构造函数, 通过一个\link wySprite wySprite\endlink 构造一个进度条.
-	 * 进度条可能只使用相关贴图的一部分，因为sprite也许是个图片集贴图。
-	 *
-	 * @param sprite \link wySprite wySprite\endlink 指针
-	 */
-	wyProgressTimer(wySprite* sprite);
 
 	/**
 	 * 析构函数
@@ -5039,7 +5006,7 @@ public:
 	 *
 	 * @param style 样式
 	 */
-	void setStyle(wyProgressTimerStyle style);
+	void setStyle(wyProgress::Style style);
 };
 
 #endif // __wyProgressTimer_h__

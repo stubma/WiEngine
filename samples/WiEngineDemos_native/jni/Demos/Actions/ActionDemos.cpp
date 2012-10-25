@@ -792,7 +792,7 @@ namespace Action {
     public:
         wyProgressByTestLayer(){
         	wyProgressTimer* left = wyProgressTimer::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
-            left->setStyle(RADIAL_CW);
+            left->setStyle(wyProgress::RADIAL_CW);
         	left->setPosition(100, wyDevice::winHeight / 2);
         	wyProgressBy* action = wyProgressBy::make(2, 100);
         	addChildLocked(left);
@@ -806,7 +806,7 @@ namespace Action {
     		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
     		wySprite* sprite = wySprite::make(tex, wyUtils::resolveRect(wyr(x, y, ITEM_WIDTH, ITEM_HEIGHT)));
     		wyProgressTimer* right = wyProgressTimer::make(sprite);
-            right->setStyle(VERTICAL_BAR_BT);
+            right->setStyle(wyProgress::VERTICAL_BAR_BT);
         	right->setPosition(wyDevice::winWidth - 100, wyDevice::winHeight / 2);
         	action = wyProgressBy::make(2, 100);
         	addChildLocked(right);
@@ -824,7 +824,7 @@ namespace Action {
     public:
         wyProgressToTestLayer(){
         	wyProgressTimer* left = wyProgressTimer::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
-            left->setStyle(RADIAL_CW);
+            left->setStyle(wyProgress::RADIAL_CW);
         	left->setPosition(100, wyDevice::winHeight / 2);
         	wyProgressTo* action = wyProgressTo::make(2, 0, 100);
         	wyRepeatForever* r = wyRepeatForever::make(action);
@@ -839,7 +839,7 @@ namespace Action {
     		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
     		wySprite* sprite = wySprite::make(tex, wyUtils::resolveRect(wyr(x, y, ITEM_WIDTH, ITEM_HEIGHT)));
     		wyProgressTimer* right = wyProgressTimer::make(sprite);
-            right->setStyle(VERTICAL_BAR_BT);
+            right->setStyle(wyProgress::VERTICAL_BAR_BT);
         	right->setPosition(wyDevice::winWidth - 100, wyDevice::winHeight / 2);
         	action = wyProgressTo::make(2, 0, 100);
         	r = wyRepeatForever::make(action);

@@ -117,6 +117,13 @@ public:
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
 	wyTexture2D* createTexture();
+
+	/**
+	 * Create a sprite from render texture
+	 *
+	 * @return \link wySprite wySprite\endlink
+	 */
+	wySprite* createSprite();
 };
 
 #endif // __wyRenderTexture_h__

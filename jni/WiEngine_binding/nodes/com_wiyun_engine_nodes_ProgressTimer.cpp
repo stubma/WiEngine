@@ -6,17 +6,19 @@ extern jfieldID g_fid_BaseObject_mPointer;
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_ProgressTimer_nativeInit__Lcom_wiyun_engine_opengl_Texture2D_2
   (JNIEnv * env, jobject thiz, jobject texture) {
 	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(texture, g_fid_BaseObject_mPointer);
-	wyProgressTimer* timer = WYNEW wyProgressTimer(tex);
+	wyProgressTimer* timer = wyProgressTimer::make(tex);
 	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)timer);
-	wyObjectLazyRelease(timer);
+	timer->retain();
+	timer->lazyRelease();
 }
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_ProgressTimer_nativeInit__Lcom_wiyun_engine_nodes_Sprite_2
   (JNIEnv * env, jobject thiz, jobject sprite) {
 	wySprite* s = (wySprite*)env->GetIntField(sprite, g_fid_BaseObject_mPointer);
-	wyProgressTimer* timer = WYNEW wyProgressTimer(s);
+	wyProgressTimer* timer = wyProgressTimer::make(s);
 	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)timer);
-	wyObjectLazyRelease(timer);
+	timer->retain();
+	timer->lazyRelease();
 }
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_ProgressTimer_setPercentage
@@ -41,5 +43,5 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_ProgressTimer_setSprite
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_ProgressTimer_setStyle
   (JNIEnv * env, jobject thiz, jint style) {
 	wyProgressTimer* timer = (wyProgressTimer*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	timer->setStyle((wyProgressTimerStyle)style);
+	timer->setStyle((wyProgress::Style)style);
 }

@@ -1753,6 +1753,26 @@ void wyNode::addRenderPair(wyMaterial* material, wyMesh* mesh) {
 	wyObjectRetain(mesh);
 }
 
+void wyNode::clearRenderPairs() {
+	for(vector<RenderPair>::iterator iter = m_renderPairs->begin(); iter != m_renderPairs->end(); iter++) {
+		wyObjectRelease(iter->material);
+		wyObjectRelease(iter->mesh);
+	}
+	m_renderPairs->clear();
+}
+
+void wyNode::replaceMaterial(wyMaterial* material, int index) {
+	// validate
+	if(index < 0 || index >= m_renderPairs->size())
+		return;
+
+	// replace
+	RenderPair& rp = m_renderPairs->at(index);
+	wyObjectRetain(material);
+	wyObjectRelease(rp.material);
+	rp.material = material;
+}
+
 wyRenderQueue::Bucket wyNode::getQueueBucket() {
     if (m_queueBucket != wyRenderQueue::INHERIT_BUCKET) {
         return m_queueBucket;

@@ -30,6 +30,7 @@
 #include "wyTypes.h"
 #include "wyUtils.h"
 #include "wyLog.h"
+#include "wyProgress.h"
 
 #if ANDROID
 #include "wyUtils_android.h"
@@ -85,7 +86,7 @@ wySlider::wySlider(wySprite* bg, wySprite* bar, wySprite* thumb, bool vertical) 
 	// add timer
 	m_progressTimer->setAnchor(0.5f, 0.5f);
 	m_progressTimer->setPosition(w / 2, h / 2);
-	m_progressTimer->setStyle(m_vertical ? VERTICAL_BAR_BT : HORIZONTAL_BAR_LR);
+	m_progressTimer->setStyle(m_vertical ? wyProgress::VERTICAL_BAR_BT : wyProgress::HORIZONTAL_BAR_LR);
 	addChildLocked(m_progressTimer);
 
 	// add thumb

@@ -2947,14 +2947,11 @@ public:
 
 	/* IRGB */
 
-	/**
-	 * \if English
-	 * Get node color
-	 * \else
-	 * 得到当前颜色
-	 * \endif
-	 */
+	/// Get node color in 3B format
 	virtual wyColor3B getColor() { return wyc4b2c3b(m_color); }
+
+	/// get colro in 4B format
+	virtual wyColor4B getColor4B() { return m_color; }
 
 	/**
 	 * \if English
@@ -3418,6 +3415,17 @@ public:
 	 * @param mesh mesh
 	 */
 	virtual void addRenderPair(wyMaterial* material, wyMesh* mesh);
+
+	/// remove all render pairs
+	virtual void clearRenderPairs();
+
+	/**
+	 * Replace material of render pair at given index
+	 *
+	 * @param material new material
+	 * @param index render pair index
+	 */
+	virtual void replaceMaterial(wyMaterial* material, int index = 0);
 
 	/**
 	 * Get mesh at specified index

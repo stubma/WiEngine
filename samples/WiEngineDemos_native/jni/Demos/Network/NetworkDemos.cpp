@@ -73,11 +73,10 @@ namespace Network {
 		}
         
         void createProgressTimer() {
-            m_progressTimer = new wyProgressTimer(wyTexture2D::makePNG(RES("R.drawable.bar")));
+            m_progressTimer = wyProgressTimer::make(wyTexture2D::makePNG(RES("R.drawable.bar")));
             m_progressTimer->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-            m_progressTimer->setStyle(HORIZONTAL_BAR_LR);
+            m_progressTimer->setStyle(wyProgress::HORIZONTAL_BAR_LR);
             addChildLocked(m_progressTimer);
-            m_progressTimer->release();
         }
         
         void deleteProgressTimer() {

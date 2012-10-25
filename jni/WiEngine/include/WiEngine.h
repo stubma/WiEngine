@@ -230,6 +230,7 @@
 #include "wyTechnique.h"
 
 // mesh
+#include "wyProgress.h"
 #include "wyBaseGrid.h"
 #include "wyMesh.h"
 #include "wyGrid3D.h"

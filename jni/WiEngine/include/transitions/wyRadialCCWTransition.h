@@ -30,8 +30,8 @@
 #define __wyRadialCCWTransition_h__
 
 #include "wyTransitionScene.h"
-#include "wyRenderTexture.h"
 #include "wyProgressTimer.h"
+#include "wyProgress.h"
 
 /**
  * @class wyRadialCCWTransition
@@ -40,9 +40,6 @@
  */
 class WIENGINE_API wyRadialCCWTransition : public wyTransitionScene {
 private:
-	/// 保存旧场景的内容
-	wyRenderTexture* m_outTexture;
-
 	/// progress timer used to contains out texture
 	wyProgressTimer* m_progressTimer;
 
@@ -64,7 +61,7 @@ protected:
 	 *
 	 * @return progress timer的类型
 	 */
-	virtual wyProgressTimerStyle getRadialType();
+	virtual wyProgress::Style getRadialType();
 
 	/// @see wyTransitionScene::getOutActionTarget
 	virtual wyNode* getOutActionTarget() { return m_progressTimer; }

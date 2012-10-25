@@ -30,6 +30,9 @@
 #include "wyProgressBy.h"
 #include "wyCallFunc.h"
 #include "wySequence.h"
+#include "wyDirector.h"
+#include "wyRenderManager.h"
+#include "wyRenderTexture.h"
 
 wyRadialCCWTransition* wyRadialCCWTransition::make(float duration, wyScene* inScene) {
 	wyRadialCCWTransition* t = WYNEW wyRadialCCWTransition(duration, inScene);
@@ -37,17 +40,17 @@ wyRadialCCWTransition* wyRadialCCWTransition::make(float duration, wyScene* inSc
 }
 
 void wyRadialCCWTransition::initScenes() {
+	wyDirector* d = wyDirector::getInstance();
+	wyRenderManager* rm = d->getRenderManager();
+
 	// make screenshot of out scene
-	m_outTexture = wyRenderTexture::make();
-	m_outTexture->beginRender();
-	// TODO gles2
-//	m_outScene->visit();
-	m_outTexture->endRender();
+	wyRenderTexture* rt = wyRenderTexture::make();
+	rt->beginRender();
+	rm->renderNodeRecursively(m_outScene);
+	rt->endRender();
 
 	// create progress timer
-	wyTexture2D* tex = m_outTexture->createTexture();
-	m_progressTimer = wyProgressTimer::make(tex);
-	m_progressTimer->setContentSize(wyDevice::winWidth, wyDevice::winHeight);
+	m_progressTimer = wyProgressTimer::make(rt->createSprite());
 	m_progressTimer->setStyle(getRadialType());
 	m_progressTimer->setPercentage(100);
 	m_progressTimer->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
@@ -57,12 +60,12 @@ void wyRadialCCWTransition::initScenes() {
 	m_outScene->setVisible(false);
 }
 
-wyProgressTimerStyle wyRadialCCWTransition::getRadialType() {
+wyProgress::Style wyRadialCCWTransition::getRadialType() {
 	/*
 	 * 这个类型是CW, 不是CCW, 因为我们从100开始减到0, 所以要用CW
 	 * 来达到一个CCW的效果
 	 */
-	return RADIAL_CW;
+	return wyProgress::RADIAL_CW;
 }
 
 wyIntervalAction* wyRadialCCWTransition::getOutAction() {
@@ -91,8 +94,7 @@ void wyRadialCCWTransition::postFinish() {
 }
 
 wyRadialCCWTransition::wyRadialCCWTransition(float duration, wyScene* inScene) :
-		wyTransitionScene(duration, inScene),
-		m_outTexture(NULL) {
+		wyTransitionScene(duration, inScene) {
 }
 
 wyRadialCCWTransition::~wyRadialCCWTransition() {

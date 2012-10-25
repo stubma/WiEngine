@@ -1331,13 +1331,13 @@ private:
 public:
 	wyProgressTimerTestLayer() {
 		// 逆时针进度条
-		wyProgressTimer* pt1 = new wyProgressTimer(
+		wyProgressTimer* pt1 = wyProgressTimer::make(
 				wyTexture2D::makePNG(RES("R.drawable.grossini")));
-		pt1->setStyle(RADIAL_CCW);
+		pt1->setStyle(wyProgress::RADIAL_CCW);
 		pt1->setPercentage(75);
 		pt1->setAnchor(0, 0);
 		pt1->setPosition(wyDevice::winWidth / 2 + 30, wyDevice::winHeight / 2);
-		addChildLocked((wyNode*) pt1->autoRelease());
+		addChildLocked(pt1);
 
 		// 使用atlas sprite构造进度条, 顺时针进度条
 		ITEM_WIDTH = 85;
@@ -1347,29 +1347,29 @@ public:
 		float y = (idx / 5) * ITEM_HEIGHT;
 		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
 		wySprite* sprite = wySprite::make(tex, wyUtils::resolveRect(wyr(x, y, ITEM_WIDTH, ITEM_HEIGHT)));
-		wyProgressTimer* pt2 = new wyProgressTimer(sprite);
-		pt2->setStyle(RADIAL_CW);
+		wyProgressTimer* pt2 = wyProgressTimer::make(sprite);
+		pt2->setStyle(wyProgress::RADIAL_CW);
 		pt2->setPercentage(75);
 		pt2->setAnchor(0, 1);
 		pt2->setPosition(wyDevice::winWidth / 2 + 30, wyDevice::winHeight / 2);
-		addChildLocked((wyNode*) pt2->autoRelease());
+		addChildLocked(pt2);
 
 		// 水平形式的进度条
-		wyProgressTimer* pt3 = new wyProgressTimer(
+		wyProgressTimer* pt3 = wyProgressTimer::make(
 				wyTexture2D::makePNG(RES("R.drawable.grossini")));
-		pt3->setStyle(HORIZONTAL_BAR_LR);
+		pt3->setStyle(wyProgress::HORIZONTAL_BAR_LR);
 		pt3->setPercentage(60);
 		pt3->setAnchor(1, 1);
 		pt3->setPosition(wyDevice::winWidth / 2 - 30, wyDevice::winHeight / 2);
-		addChildLocked((wyNode*) pt3->autoRelease());
+		addChildLocked(pt3);
 
 		// 使用atlas sprite构造进度条, 样式为垂直
-		wyProgressTimer* pt4 = new wyProgressTimer(sprite);
-		pt4->setStyle(VERTICAL_BAR_BT);
+		wyProgressTimer* pt4 = wyProgressTimer::make(sprite);
+		pt4->setStyle(wyProgress::VERTICAL_BAR_BT);
 		pt4->setPercentage(75);
 		pt4->setAnchor(1, 0);
 		pt4->setPosition(wyDevice::winWidth / 2 - 30, wyDevice::winHeight / 2);
-		addChildLocked((wyNode*) pt4->autoRelease());
+		addChildLocked(pt4);
 	}
 
 	virtual ~wyProgressTimerTestLayer() {

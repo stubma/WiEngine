@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Tue Oct 23 16:36:08 2012.
+** Generated automatically by tolua++-1.0.92 on Thu Oct 25 11:24:15 2012.
 */
 
 #ifndef __cplusplus
@@ -19267,118 +19267,6 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  wyProgressTimer */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyProgressTimer_new00
-static int tolua_nodes_wyProgressTimer_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyProgressTimer",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyProgressTimer* tolua_ret = (wyProgressTimer*)  Mtolua_new((wyProgressTimer)(tex));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyProgressTimer");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyProgressTimer */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyProgressTimer_new00_local
-static int tolua_nodes_wyProgressTimer_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyProgressTimer",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyProgressTimer* tolua_ret = (wyProgressTimer*)  Mtolua_new((wyProgressTimer)(tex));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyProgressTimer");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wyProgressTimer */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyProgressTimer_new01
-static int tolua_nodes_wyProgressTimer_new01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyProgressTimer",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wySprite",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  wySprite* sprite = ((wySprite*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyProgressTimer* tolua_ret = (wyProgressTimer*)  Mtolua_new((wyProgressTimer)(sprite));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyProgressTimer");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_nodes_wyProgressTimer_new00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyProgressTimer */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyProgressTimer_new01_local
-static int tolua_nodes_wyProgressTimer_new01_local(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyProgressTimer",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wySprite",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  wySprite* sprite = ((wySprite*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyProgressTimer* tolua_ret = (wyProgressTimer*)  Mtolua_new((wyProgressTimer)(sprite));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyProgressTimer");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_nodes_wyProgressTimer_new00_local(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  wyProgressTimer */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyProgressTimer_delete00
 static int tolua_nodes_wyProgressTimer_delete00(lua_State* tolua_S)
@@ -19555,7 +19443,7 @@ static int tolua_nodes_wyProgressTimer_setStyle00(lua_State* tolua_S)
 #endif
  {
   wyProgressTimer* self = (wyProgressTimer*)  tolua_tousertype(tolua_S,1,0);
-  wyProgressTimerStyle style = ((wyProgressTimerStyle) (int)  tolua_tonumber(tolua_S,2,0));
+  wyProgress::Style style = ((wyProgress::Style) (int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setStyle'", NULL);
 #endif
@@ -32384,6 +32272,12 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"wyTexture2D::LEFT",wyTexture2D::LEFT);
   tolua_constant(tolua_S,"wyTexture2D::CENTER",wyTexture2D::CENTER);
   tolua_constant(tolua_S,"wyTexture2D::RIGHT",wyTexture2D::RIGHT);
+  tolua_constant(tolua_S,"wyProgress::RADIAL_CCW",wyProgress::RADIAL_CCW);
+  tolua_constant(tolua_S,"wyProgress::RADIAL_CW",wyProgress::RADIAL_CW);
+  tolua_constant(tolua_S,"wyProgress::HORIZONTAL_BAR_LR",wyProgress::HORIZONTAL_BAR_LR);
+  tolua_constant(tolua_S,"wyProgress::HORIZONTAL_BAR_RL",wyProgress::HORIZONTAL_BAR_RL);
+  tolua_constant(tolua_S,"wyProgress::VERTICAL_BAR_BT",wyProgress::VERTICAL_BAR_BT);
+  tolua_constant(tolua_S,"wyProgress::VERTICAL_BAR_TB",wyProgress::VERTICAL_BAR_TB);
   tolua_constant(tolua_S,"NORMAL",NORMAL);
   tolua_constant(tolua_S,"BOLD",BOLD);
   tolua_constant(tolua_S,"ITALIC",ITALIC);
@@ -33166,12 +33060,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getMaxX",tolua_nodes_wyParallaxNode_getMaxX00);
    tolua_function(tolua_S,"getMaxY",tolua_nodes_wyParallaxNode_getMaxY00);
   tolua_endmodule(tolua_S);
-  tolua_constant(tolua_S,"RADIAL_CCW",RADIAL_CCW);
-  tolua_constant(tolua_S,"RADIAL_CW",RADIAL_CW);
-  tolua_constant(tolua_S,"HORIZONTAL_BAR_LR",HORIZONTAL_BAR_LR);
-  tolua_constant(tolua_S,"HORIZONTAL_BAR_RL",HORIZONTAL_BAR_RL);
-  tolua_constant(tolua_S,"VERTICAL_BAR_BT",VERTICAL_BAR_BT);
-  tolua_constant(tolua_S,"VERTICAL_BAR_TB",VERTICAL_BAR_TB);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wyProgressTimer","wyProgressTimer","wyNode",tolua_collect_wyProgressTimer);
   #else
@@ -33180,12 +33068,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"wyProgressTimer");
    tolua_function(tolua_S,"make",tolua_nodes_wyProgressTimer_make00);
    tolua_function(tolua_S,"make",tolua_nodes_wyProgressTimer_make01);
-   tolua_function(tolua_S,"new",tolua_nodes_wyProgressTimer_new00);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyProgressTimer_new00_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyProgressTimer_new00_local);
-   tolua_function(tolua_S,"new",tolua_nodes_wyProgressTimer_new01);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyProgressTimer_new01_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyProgressTimer_new01_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyProgressTimer_delete00);
    tolua_function(tolua_S,"setPercentage",tolua_nodes_wyProgressTimer_setPercentage00);
    tolua_function(tolua_S,"getPercentage",tolua_nodes_wyProgressTimer_getPercentage00);

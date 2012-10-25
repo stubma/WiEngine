@@ -43,7 +43,7 @@ protected:
 	 *
 	 * @return progress timer的类型
 	 */
-	virtual wyProgressTimerStyle getRadialType() { return RADIAL_CCW; }
+	virtual wyProgress::Style getRadialType() { return wyProgress::RADIAL_CCW; }
 
 public:
 	/**
