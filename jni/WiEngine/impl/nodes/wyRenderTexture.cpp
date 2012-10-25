@@ -34,6 +34,7 @@
 #include "wyRectangle.h"
 #include "wyDirector.h"
 #include "wyFrameBuffer.h"
+#include "wySprite.h"
 
 wyRenderTexture::~wyRenderTexture() {
 	wyObjectRelease(m_fb);
@@ -57,7 +58,7 @@ void wyRenderTexture::init(int width, int height) {
 	int h = wyMath::getNextPOT(height);
 
 	// create frame buffer
-	m_fb = wyFrameBuffer::make(w, h);
+	m_fb = wyFrameBuffer::make(width, height);
 	m_fb->retain();
 
 	// add render pair
@@ -113,6 +114,10 @@ void wyRenderTexture::endRender() {
 
 wyTexture2D* wyRenderTexture::createTexture() {
 	return m_fb->createTexture();
+}
+
+wySprite* wyRenderTexture::createSprite() {
+	return wySprite::make(createTexture(), wyr(0, 0, m_fb->getWidth(), m_fb->getHeight()));
 }
 
 void wyRenderTexture::updateMeshColor() {
