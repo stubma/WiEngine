@@ -74,24 +74,25 @@ public:
         label->setColor(wyc3b(255, 255, 0));
         label->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight - DP(30));
 		addChildLocked(label, 1);
+
+		// add render pair of clip rect bound
+		wyShape* s = wyShape::make();
+		float vertices[] = {
+			50, 50,
+			wyDevice::winWidth - 50, 50,
+			wyDevice::winWidth - 50, wyDevice::winWidth - 50,
+			50, wyDevice::winWidth - 50
+		};
+		s->buildRect(vertices);
+		s->updateColor(wyc4bGreen);
+		wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
+		addRenderPair(m, s);
+
+		// now no viewport, so no draw
+		setNoDraw(true);
 	}
 
 	virtual ~wyTilemapTestLayer() {
-	}
-
-	virtual void draw() {
-		// TODO gles2
-		//if(m_hasViewport) {
-		//	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-		//	glLineWidth(1);
-		//	float vertices[] = {
-		//		50, 50,
-		//		wyDevice::winWidth - 50, 50,
-		//		wyDevice::winWidth - 50, wyDevice::winWidth - 50,
-		//		50, wyDevice::winWidth - 50
-		//	};
-		//	wyDrawPoly(vertices, sizeof(vertices) / sizeof(float), true);
-		//}
 	}
 
 	virtual bool touchesBegan(wyMotionEvent& event) {
@@ -116,10 +117,13 @@ public:
 
 	void onChangeViewport(wyTargetSelector* ts) {
 		m_hasViewport = !m_hasViewport;
-		if(m_hasViewport)
+		if(m_hasViewport) {
 			m_tilemap->setClipRect(wyr(50, 50, wyDevice::winWidth - 100, wyDevice::winWidth - 100));
-		else
+			setNoDraw(false);
+		} else {
 			m_tilemap->clearClipRect();
+			setNoDraw(true);
+		}
 	}
 };
 
