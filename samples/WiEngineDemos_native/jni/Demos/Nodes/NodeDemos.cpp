@@ -77,13 +77,7 @@ public:
 
 		// add render pair of clip rect bound
 		wyShape* s = wyShape::make();
-		float vertices[] = {
-			50, 50,
-			wyDevice::winWidth - 50, 50,
-			wyDevice::winWidth - 50, wyDevice::winWidth - 50,
-			50, wyDevice::winWidth - 50
-		};
-		s->buildRect(vertices);
+		s->buildRect(50, 50, wyDevice::winWidth - 100, wyDevice::winWidth - 100);
 		s->updateColor(wyc4bGreen);
 		wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
 		addRenderPair(m, s);

@@ -135,11 +135,31 @@ public:
 	void buildRect(float* p);
 
 	/**
+	 * Fill mesh with a rectangle
+	 *
+	 * @param x left bottom corner x
+	 * @param y left bottom corner y
+	 * @param w rectangle width
+	 * @param h rectangle height
+	 */
+	void buildRect(float x, float y, float w, float h);
+
+	/**
 	 * Fill mesh with a solid rectangle
 	 *
 	 * @param p must contains 8 floats
 	 */
 	void buildSolidRect(float* p);
+
+	/**
+	 * Fill mesh with a solid rectangle
+	 *
+	 * @param x left bottom corner x
+	 * @param y left bottom corner y
+	 * @param w rectangle width
+	 * @param h rectangle height
+	 */
+	void buildSolidRect(float x, float y, float w, float h);
 
 	/**
 	 * Fill mesh with a poly

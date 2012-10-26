@@ -281,6 +281,38 @@ void wyShape::buildRect(float* p) {
 	m_mode = LINE_STRIP;
 }
 
+void wyShape::buildRect(float x, float y, float w, float h) {
+	// clear
+	m_buf->clear();
+
+	// start
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// left bottom
+	kmVec3Fill(&v.pos, x, y, 0);
+	m_buf->append(&v, 1);
+
+	// right bottom
+	kmVec3Fill(&v.pos, x + w, y, 0);
+	m_buf->append(&v, 1);
+
+	// right top
+	kmVec3Fill(&v.pos, x + w, y + h, 0);
+	m_buf->append(&v, 1);
+
+	// left top
+	kmVec3Fill(&v.pos, x, y + h, 0);
+	m_buf->append(&v, 1);
+
+	// last, left bottom
+	kmVec3Fill(&v.pos, x, y, 0);
+	m_buf->append(&v, 1);
+
+	// mode
+	m_mode = LINE_STRIP;
+}
+
 void wyShape::buildSolidRect(float* p) {
 	// clear
 	m_buf->clear();
@@ -295,8 +327,32 @@ void wyShape::buildSolidRect(float* p) {
 		m_buf->append(&v, 1);
 	}
 
-	// last
-	kmVec3Fill(&v.pos, p[0], p[1], 0);
+	// mode
+	m_mode = TRIANGLE_FAN;
+}
+
+void wyShape::buildSolidRect(float x, float y, float w, float h) {
+	// clear
+	m_buf->clear();
+
+	// start
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// left bottom
+	kmVec3Fill(&v.pos, x, y, 0);
+	m_buf->append(&v, 1);
+
+	// right bottom
+	kmVec3Fill(&v.pos, x + w, y, 0);
+	m_buf->append(&v, 1);
+
+	// right top
+	kmVec3Fill(&v.pos, x + w, y + h, 0);
+	m_buf->append(&v, 1);
+
+	// left top
+	kmVec3Fill(&v.pos, x, y + h, 0);
 	m_buf->append(&v, 1);
 
 	// mode
