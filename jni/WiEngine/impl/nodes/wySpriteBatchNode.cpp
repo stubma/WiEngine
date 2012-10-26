@@ -70,6 +70,10 @@ void wySpriteBatchNode::updateMeshColor() {
 	quadList->updateColor(m_color);
 }
 
+void wySpriteBatchNode::beforeRender() {
+	updateMesh();
+}
+
 void wySpriteBatchNode::updateMesh() {
 	for(int i = 0; i < m_children->num; i++) {
 		wySpriteEx* n = (wySpriteEx*)wyArrayGet(m_children, i);

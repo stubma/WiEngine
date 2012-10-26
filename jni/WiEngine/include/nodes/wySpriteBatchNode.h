@@ -113,6 +113,9 @@ public:
 	/// @see wyNode::isVisitable
 	virtual bool isVisitable() { return false; }
 	
+	/// @see wyNode::beforeRender
+	virtual void beforeRender();
+
 	/// @see wyNode::updateMesh
 	virtual void updateMesh();
 
