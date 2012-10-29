@@ -28,6 +28,7 @@
  */
 #include "wySPX3Sprite.h"
 #include "wySPX3Manager.h"
+#include "wySpriteBatchNode.h"
 #include <stdarg.h>
 
 wySPX3Sprite::wySPX3Sprite() :

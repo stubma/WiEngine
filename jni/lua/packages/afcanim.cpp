@@ -1,6 +1,6 @@
 /*
 ** Lua binding: afcanim
-** Generated automatically by tolua++-1.0.92 on 04/15/12 12:34:21.
+** Generated automatically by tolua++-1.0.92 on Fri Oct 26 15:54:18 2012.
 */
 
 #ifndef __cplusplus
@@ -5961,68 +5961,6 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: visit of class  wyAFCSprite */
-#ifndef TOLUA_DISABLE_tolua_afcanim_wyAFCSprite_visit00
-static int tolua_afcanim_wyAFCSprite_visit00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyAFCSprite",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyAFCSprite* self = (wyAFCSprite*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'visit'", NULL);
-#endif
-  {
-   self->visit();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'visit'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyAFCSprite */
-#ifndef TOLUA_DISABLE_tolua_afcanim_wyAFCSprite_draw00
-static int tolua_afcanim_wyAFCSprite_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyAFCSprite",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyAFCSprite* self = (wyAFCSprite*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: addChild of class  wyAFCSprite */
 #ifndef TOLUA_DISABLE_tolua_afcanim_wyAFCSprite_addChild00
 static int tolua_afcanim_wyAFCSprite_addChild00(lua_State* tolua_S)
@@ -7888,8 +7826,6 @@ TOLUA_API int tolua_afcanim_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getColor",tolua_afcanim_wyAFCSprite_getColor00);
    tolua_function(tolua_S,"setColor",tolua_afcanim_wyAFCSprite_setColor00);
    tolua_function(tolua_S,"setColor",tolua_afcanim_wyAFCSprite_setColor01);
-   tolua_function(tolua_S,"visit",tolua_afcanim_wyAFCSprite_visit00);
-   tolua_function(tolua_S,"draw",tolua_afcanim_wyAFCSprite_draw00);
    tolua_function(tolua_S,"addChild",tolua_afcanim_wyAFCSprite_addChild00);
    tolua_function(tolua_S,"getAnimationAt",tolua_afcanim_wyAFCSprite_getAnimationAt00);
    tolua_function(tolua_S,"getAnimationCount",tolua_afcanim_wyAFCSprite_getAnimationCount00);

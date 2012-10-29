@@ -431,9 +431,22 @@ void wyGLES2Renderer::renderMeshDefault(wyMesh* mesh, int lodLevel) {
 
 	// draw with or without indices
 	if(indices) {
-		glDrawElements(GL_TRIANGLES, indices->getElementCount(), GL_UNSIGNED_SHORT, indices->getData());
+		if(mesh->isReference()) {
+			glDrawElements(GL_TRIANGLES,
+					3 * mesh->getElementCount(),
+					GL_UNSIGNED_SHORT,
+					(char*)indices->getData() + 3 * mesh->getOffset() * indices->getBytePerElement());
+
+		} else {
+			glDrawElements(GL_TRIANGLES,
+					indices->getElementCount(),
+					GL_UNSIGNED_SHORT,
+					indices->getData());
+		}
 	} else {
-		glDrawArrays(meshModeToGL(mesh->getMode()), 0, mesh->getElementCount());
+		glDrawArrays(meshModeToGL(mesh->getMode()),
+				mesh->getOffset(),
+				mesh->getElementCount() - mesh->getOffset());
 	}
 }
 

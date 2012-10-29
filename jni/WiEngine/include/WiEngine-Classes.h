@@ -234,6 +234,7 @@ class wyProgress;
 class wyBaseGrid;
 class wyGrid3D;
 class wyMesh;
+class wyMeshRef;
 class wyQuadList;
 class wyRectangle;
 class wyShape;

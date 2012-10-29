@@ -28,6 +28,7 @@
  */
 #include "wySPXSprite.h"
 #include "wySPXManager.h"
+#include "wySpriteBatchNode.h"
 
 wySPXSprite::wySPXSprite() :
 		m_spx(NULL) {

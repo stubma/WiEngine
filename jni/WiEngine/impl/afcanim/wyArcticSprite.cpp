@@ -28,6 +28,7 @@
  */
 #include "wyArcticSprite.h"
 #include "wyArcticManager.h"
+#include "wySpriteBatchNode.h"
 #include <stdarg.h>
 
 wyArcticSprite::wyArcticSprite() :

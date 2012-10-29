@@ -28,6 +28,7 @@
  */
 #include "wyAuroraSprite.h"
 #include "wyAuroraManager.h"
+#include "wySpriteBatchNode.h"
 #include <stdarg.h>
 
 wyAuroraSprite::wyAuroraSprite() :

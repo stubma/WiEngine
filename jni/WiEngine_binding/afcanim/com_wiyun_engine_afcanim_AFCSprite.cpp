@@ -300,25 +300,6 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_nativeGetClipMapp
 	return (jint)node->getClipMappingByTag(tag);
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_getBlendFuncSrc
-  (JNIEnv * env, jobject thiz) {
-	wyAFCSprite* node = (wyAFCSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return node->getBlendFunc().src;
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_getBlendFuncDst
-  (JNIEnv * env, jobject thiz) {
-	wyAFCSprite* node = (wyAFCSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return node->getBlendFunc().dst;
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_setBlendFunc
-  (JNIEnv * env, jobject thiz, jint src, jint dst) {
-	wyAFCSprite* node = (wyAFCSprite*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyBlendFunc func = { src, dst };
-	node->setBlendFunc(func);
-}
-
 JNIEXPORT void JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_replaceTextures
   (JNIEnv * env, jobject thiz, jobjectArray tex) {
 	jsize len = env->GetArrayLength(tex);

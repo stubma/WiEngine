@@ -256,15 +256,6 @@ void wyRenderManager::clearQueue(wyViewport* v) {
 }
 
 void wyRenderManager::renderNode(wyNode* g) {
-	// directly return if no render pair
-	int c = g->getRenderPairCount();
-	if(c <= 0) {
-		// still notify render event
-		g->beforeRender();
-		g->afterRender();
-		return;
-	}
-
 	// check update flag
 	if(g->isNeedUpdateMaterial()) {
 		g->updateMaterial();
@@ -283,6 +274,7 @@ void wyRenderManager::renderNode(wyNode* g) {
 	g->beforeRender();
 
 	// render every material
+	int c = g->getRenderPairCount();
 	for(int i = 0; i < c; i++) {
 		wyMaterial* material = g->getMaterial(i);
 		wyMesh* mesh = g->getMesh(i);

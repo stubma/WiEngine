@@ -3394,12 +3394,6 @@ public:
 	/// @see wyNode::setColor
 	virtual void setColor(wyColor4B color);
 
-	/// @see wyNode::visit()
-	virtual void visit();
-
-	/// @see wyNode::draw()
-	virtual void draw();
-
 	/// @see wyNode::addChild(wyNode*, int, int)
 	virtual void addChild(wyNode* child, int z, int tag);
 

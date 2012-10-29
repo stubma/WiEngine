@@ -385,30 +385,6 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_nativeGetClipMapp
 
 /*
  * Class:     com_wiyun_engine_afcanim_AFCSprite
- * Method:    getBlendFuncSrc
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_getBlendFuncSrc
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_afcanim_AFCSprite
- * Method:    getBlendFuncDst
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_getBlendFuncDst
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_afcanim_AFCSprite
- * Method:    setBlendFunc
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_afcanim_AFCSprite_setBlendFunc
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_afcanim_AFCSprite
  * Method:    replaceTextures
  * Signature: ([Lcom/wiyun/engine/opengl/Texture2D;)V
  */

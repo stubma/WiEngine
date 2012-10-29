@@ -30,6 +30,7 @@
 #include <stdarg.h>
 #include "wyMWManager.h"
 #include "wyLog.h"
+#include "wySpriteBatchNode.h"
 
 wyMWSprite* wyMWSprite::make(int mwResId, int animIndex, wyTexture2D** tex, int count) {
 	// create mw sprite

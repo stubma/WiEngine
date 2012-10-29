@@ -155,18 +155,6 @@ wyBuffer* wyMesh::getLodLevelBuffer(int lodLevel) {
 	return m_lodLevels->at(lodLevel);
 }
 
-void wyMesh::setIndices(wyBuffer* buffer) {
-	if(!m_lodLevels) {
-		// lazy creation
-		m_lodLevels = WYNEW vector<wyBuffer*>();
-		m_lodLevels->reserve(5);
-
-		// push indices to 0 detail
-		m_lodLevels->push_back(buffer);
-		buffer->retain();
-	}
-}
-
 wyBuffer* wyMesh::getFirstConnectedBuffer() {
 	for(vector<AttributeConnection*>::iterator iter = m_attrConnections->begin(); iter != m_attrConnections->end(); iter++) {
 		if((*iter)->type == wyShaderVariable::INTERLEAVED_BUFFER) {

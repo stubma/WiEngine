@@ -770,19 +770,6 @@ public class AFCSprite extends Node {
 	
 	private native int nativeGetClipMappingByTag(int tag);
 	
-    public WYBlendFunc getBlendFunc() {
-    	return new WYBlendFunc(getBlendFuncSrc(), getBlendFuncDst());
-    }
-    
-    private native int getBlendFuncSrc();
-    private native int getBlendFuncDst();
-    
-    public void setBlendFunc(WYBlendFunc blendFunc) {
-    	setBlendFunc(blendFunc.src, blendFunc.dst);
-    }
-    
-    private native void setBlendFunc(int src, int dst);
-    
 	/**
 	 * \if English
 	 * Replace current textures with another set of textures. You must ensure

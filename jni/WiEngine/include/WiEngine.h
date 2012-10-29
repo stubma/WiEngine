@@ -233,6 +233,7 @@
 #include "wyProgress.h"
 #include "wyBaseGrid.h"
 #include "wyMesh.h"
+#include "wyMeshRef.h"
 #include "wyGrid3D.h"
 #include "wyQuadList.h"
 #include "wyRectangle.h"

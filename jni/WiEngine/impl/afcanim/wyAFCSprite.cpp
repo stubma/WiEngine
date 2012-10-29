@@ -28,7 +28,13 @@
  */
 #include "wyAFCSprite.h"
 #include "wyLog.h"
+#include "wyMaterial.h"
 #include "wyPrimitives.h"
+#include "wySpriteBatchNode.h"
+#include "wyAFCAnimation.h"
+#include "wyAFCFileData.h"
+#include "wyAFCClipMapping.h"
+#include "wyMeshRef.h"
 #include <stdarg.h>
 
 #if ANDROID
@@ -57,9 +63,8 @@ wyAFCSprite::wyAFCSprite() :
 		m_paused(false),
 		m_debugDrawFrameRect(false),
 		m_debugDrawCollisionRect(false),
-		m_color(wyc4bWhite),
-		m_blendFunc(wybfDefault),
 		m_callback(NULL),
+		m_meshRefCache(NULL),
 #if ANDROID
 		m_jCallback(NULL),
 #endif
@@ -68,6 +73,7 @@ wyAFCSprite::wyAFCSprite() :
 		m_flipX(false),
 		m_flipY(false),
 		m_data(NULL) {
+	m_meshRefCache = WYNEW vector<wyMeshRef*>();
 }
 
 wyAFCSprite::~wyAFCSprite() {
@@ -89,6 +95,12 @@ wyAFCSprite::~wyAFCSprite() {
 	wyArrayEach(m_mappingList, releaseObject, NULL);
 	wyArrayDestroy(m_mappingList);
 	wyObjectRelease(m_animationData);
+
+	// release mesh references
+	for(vector<wyMeshRef*>::iterator iter = m_meshRefCache->begin(); iter != m_meshRefCache->end(); iter++) {
+		(*iter)->release();
+	}
+	WYDELETE(m_meshRefCache);
 }
 
 bool wyAFCSprite::releaseObject(wyArray* arr, void* ptr, int index, void* data) {
@@ -140,6 +152,19 @@ void wyAFCSprite::initSpriteFromAnimationData() {
 		wySpriteEx* sprite = WYNEW wySpriteEx();
 		sprite->setColor(m_color);
 		wyArrayPush(m_spriteList, sprite);
+	}
+}
+
+wyMeshRef* wyAFCSprite::getMeshRef() {
+	if(m_meshRefCache->empty()) {
+		wyMeshRef* ref = wyMeshRef::make(NULL);
+		return ref;
+	} else {
+		vector<wyMeshRef*>::iterator iter = m_meshRefCache->begin();
+		wyMeshRef* ref = *iter;
+		m_meshRefCache->erase(iter);
+		ref->autoRelease();
+		return ref;
 	}
 }
 
@@ -223,85 +248,88 @@ void wyAFCSprite::adjustFrameOffset(wyAFCFrame* frameData) {
 	}
 }
 
-void wyAFCSprite::updateColor() {
+void wyAFCSprite::updateMesh() {
+	// update sprite batch node mesh
+	for(int i = 0; i < m_sheetList->num; i++) {
+		wySpriteBatchNode* bn = (wySpriteBatchNode*)wyArrayGet(m_sheetList, i);
+		bn->updateMesh();
+	}
+
+	// clear current render pairs
+	refillRefCache();
+
+	// reset marker of all sheet to zero
+	for(int i = 0; i < m_spriteList->num; i++) {
+		wySpriteEx* sprite = (wySpriteEx*)wyArrayGet(m_spriteList, i);
+		if(sprite->isVisible()) {
+			wySpriteBatchNode* sheet = (wySpriteBatchNode*)sprite->getParent();
+			sheet->setMarker(0);
+		} else {
+			break;
+		}
+	}
+
+	// add render pair based on clip order
+	int numOfQuads = 0;
+	wySpriteBatchNode* lastSheet = NULL;
+	for(int i = 0; i < m_spriteList->num; i++) {
+		wySpriteEx* sprite = (wySpriteEx*)wyArrayGet(m_spriteList, i);
+		if(sprite->isVisible()) {
+			wySpriteBatchNode* sheet = (wySpriteBatchNode*)sprite->getParent();
+			if(sheet != lastSheet) {
+				// populate render pair for last sheet
+				if(numOfQuads != 0) {
+					// add render pair
+					// multiply 2 because rendering with indices will use triangle mode
+					wyMeshRef* ref = getMeshRef();
+					ref->setMesh(lastSheet->getMesh());
+					ref->setOffset(lastSheet->getMarker() * 2);
+					ref->setElementCount(numOfQuads * 2);
+					addRenderPair(lastSheet->getMaterial(), ref);
+
+					// update marker
+					lastSheet->setMarker(lastSheet->getMarker() + numOfQuads);
+				}
+
+				// change last sheet and reset number of quads
+				lastSheet = sheet;
+				numOfQuads = 1;
+			} else {
+				numOfQuads++;
+			}
+		}
+	}
+
+	// add last sheet
+	if(numOfQuads != 0) {
+		// add render pair
+		wyMeshRef* ref = getMeshRef();
+		ref->setMesh(lastSheet->getMesh());
+		ref->setOffset(lastSheet->getMarker() * 2);
+		ref->setElementCount(numOfQuads * 2);
+		addRenderPair(lastSheet->getMaterial(), ref);
+	}
+}
+
+void wyAFCSprite::updateMeshColor() {
 	for(int i = 0; i < m_spriteList->num; i++) {
 		wySpriteEx* sprite = (wySpriteEx*)wyArrayGet(m_spriteList, i);
 		sprite->setColor(m_color);
 	}
-}
 
-void wyAFCSprite::setBlendFunc(wyBlendFunc func) {
-	m_blendFunc = func;
 	for(int i = 0; i < m_sheetList->num; i++) {
 		wySpriteBatchNode* bn = (wySpriteBatchNode*)wyArrayGet(m_sheetList, i);
-		//bn->setBlendFunc(func);
+		bn->updateMesh();
 	}
 }
 
-void wyAFCSprite::setAlpha(int alpha) {
-	m_color.a = alpha;
-	updateColor();
-}
-
-wyColor3B wyAFCSprite::getColor() {
-	wyColor3B c = {
-		m_color.r,
-		m_color.g,
-		m_color.b
-	};
-	return c;
-}
-
-void wyAFCSprite::setColor(wyColor3B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	updateColor();
-}
-
-void wyAFCSprite::setColor(wyColor4B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	m_color.a = color.a;
-	updateColor();
-}
-
-void wyAFCSprite::visit() {
-	// TODO gles2
-//	if(!m_visible)
-//		return;
-//
-//	// should push matrix to avoid disturb current matrix
-//	glPushMatrix();
-//
-//	// if grid is set, prepare grid
-//	if(m_grid != NULL && m_grid->isActive()) {
-//		m_grid->beforeDraw();
-//		transformAncestors();
-//	}
-//
-//	// transform for myself
-//	transform();
-//
-//	// check clip
-//	if(m_hasClip)
-//		doClip();
-//
-//	// draw self
-//	draw();
-//
-//	// restore
-//	if(m_hasClip)
-//		glDisable(GL_SCISSOR_TEST);
-//
-//	// if grid is set, end grid
-//	if(m_grid != NULL && m_grid->isActive()) {
-//		m_grid->afterDraw(this);
-//	}
-//
-//	// pop matrix
-//	glPopMatrix();
+void wyAFCSprite::refillRefCache() {
+	// clear render pair, don't release mesh, just push it back to cache
+	for(vector<RenderPair>::iterator iter = m_renderPairs->begin(); iter != m_renderPairs->end(); iter++) {
+		wyObjectRelease(iter->material);
+		m_meshRefCache->push_back((wyMeshRef*)iter->mesh);
+	}
+	m_renderPairs->clear();
 }
 
 void wyAFCSprite::draw() {
@@ -551,6 +579,9 @@ void wyAFCSprite::setFrameIndex(int index) {
 		wySpriteEx* sprite = (wySpriteEx*) wyArrayGet(m_spriteList, i);
 		sprite->setVisible(false);
 	}
+
+	// flag mesh dirty
+	setNeedUpdateMesh(true);
 }
 
 void wyAFCSprite::setFlipX(bool flipX) {
