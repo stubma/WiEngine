@@ -168,6 +168,9 @@ public:
 	 */
 	virtual Mode getMode() { return m_mode; }
 
+	/// set mesh mode
+	virtual void setMode(Mode m) { m_mode = m; }
+
 	/**
 	 * Get indices buffer of specified level of detail, if lod level is not set then returns
 	 * NULL
