@@ -1,6 +1,6 @@
 /*
 ** Lua binding: particle
-** Generated automatically by tolua++-1.0.92 on Thu Jan 12 22:02:23 2012.
+** Generated automatically by tolua++-1.0.92 on Mon Oct 29 15:21:18 2012.
 */
 
 #ifndef __cplusplus
@@ -17,13 +17,6 @@ TOLUA_API int  tolua_particle_open (lua_State* tolua_S);
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
-
-static int tolua_collect_wyPoint (lua_State* tolua_S)
-{
- wyPoint* self = (wyPoint*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
 
 static int tolua_collect_wyParticleSystem (lua_State* tolua_S)
 {
@@ -46,9 +39,9 @@ static int tolua_collect_wyQuadParticleSystem (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyBlendFunc (lua_State* tolua_S)
+static int tolua_collect_wyPoint (lua_State* tolua_S)
 {
- wyBlendFunc* self = (wyBlendFunc*) tolua_tousertype(tolua_S,1,0);
+ wyPoint* self = (wyPoint*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -58,16 +51,15 @@ static int tolua_collect_wyBlendFunc (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyColor4F");
  tolua_usertype(tolua_S,"wyTexture2D");
- tolua_usertype(tolua_S,"wyQuadParticleSystem");
+ tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyPoint");
- tolua_usertype(tolua_S,"wyPointParticleSystem");
+ tolua_usertype(tolua_S,"wyQuadParticleSystem");
  tolua_usertype(tolua_S,"wyParticleSystem");
  tolua_usertype(tolua_S,"wyNode");
  tolua_usertype(tolua_S,"wyParticle");
- tolua_usertype(tolua_S,"wyBlendFunc");
+ tolua_usertype(tolua_S,"wyPointParticleSystem");
  tolua_usertype(tolua_S,"wyHGEParticleLoader");
  tolua_usertype(tolua_S,"wyParticleLoader");
 }
@@ -765,146 +757,6 @@ static int tolua_particle_wyParticleSystem_setPosition00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getBlendFunc of class  wyParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyParticleSystem_getBlendFunc00
-static int tolua_particle_wyParticleSystem_getBlendFunc00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyParticleSystem",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyParticleSystem* self = (wyParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBlendFunc'", NULL);
-#endif
-  {
-   wyBlendFunc tolua_ret = (wyBlendFunc)  self->getBlendFunc();
-   {
-#ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((wyBlendFunc)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"wyBlendFunc");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(wyBlendFunc));
-     tolua_pushusertype(tolua_S,tolua_obj,"wyBlendFunc");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#endif
-   }
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getBlendFunc'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setBlendFunc of class  wyParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyParticleSystem_setBlendFunc00
-static int tolua_particle_wyParticleSystem_setBlendFunc00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyParticleSystem",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyBlendFunc",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyParticleSystem* self = (wyParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-  wyBlendFunc func = *((wyBlendFunc*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBlendFunc'", NULL);
-#endif
-  {
-   self->setBlendFunc(func);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setBlendFunc'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getTexture of class  wyParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyParticleSystem_getTexture00
-static int tolua_particle_wyParticleSystem_getTexture00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyParticleSystem",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyParticleSystem* self = (wyParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTexture'", NULL);
-#endif
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  self->getTexture();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getTexture'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setTexture of class  wyParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyParticleSystem_setTexture00
-static int tolua_particle_wyParticleSystem_setTexture00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyParticleSystem",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyParticleSystem* self = (wyParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setTexture'", NULL);
-#endif
-  {
-   self->setTexture(tex);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setTexture'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: resetSystem of class  wyParticleSystem */
 #ifndef TOLUA_DISABLE_tolua_particle_wyParticleSystem_resetSystem00
 static int tolua_particle_wyParticleSystem_resetSystem00(lua_State* tolua_S)
@@ -962,71 +814,6 @@ static int tolua_particle_wyParticleSystem_stopSystem00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'stopSystem'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setBlendAdditive of class  wyParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyParticleSystem_setBlendAdditive00
-static int tolua_particle_wyParticleSystem_setBlendAdditive00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyParticleSystem",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyParticleSystem* self = (wyParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-  bool additive = ((bool)  tolua_toboolean(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBlendAdditive'", NULL);
-#endif
-  {
-   self->setBlendAdditive(additive);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setBlendAdditive'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isBlendAdditive of class  wyParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyParticleSystem_isBlendAdditive00
-static int tolua_particle_wyParticleSystem_isBlendAdditive00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyParticleSystem",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyParticleSystem* self = (wyParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isBlendAdditive'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isBlendAdditive();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isBlendAdditive'.",&tolua_err);
  return 0;
 #endif
 }
@@ -2482,14 +2269,8 @@ TOLUA_API int tolua_particle_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"wyParticleSystem");
    tolua_function(tolua_S,"delete",tolua_particle_wyParticleSystem_delete00);
    tolua_function(tolua_S,"setPosition",tolua_particle_wyParticleSystem_setPosition00);
-   tolua_function(tolua_S,"getBlendFunc",tolua_particle_wyParticleSystem_getBlendFunc00);
-   tolua_function(tolua_S,"setBlendFunc",tolua_particle_wyParticleSystem_setBlendFunc00);
-   tolua_function(tolua_S,"getTexture",tolua_particle_wyParticleSystem_getTexture00);
-   tolua_function(tolua_S,"setTexture",tolua_particle_wyParticleSystem_setTexture00);
    tolua_function(tolua_S,"resetSystem",tolua_particle_wyParticleSystem_resetSystem00);
    tolua_function(tolua_S,"stopSystem",tolua_particle_wyParticleSystem_stopSystem00);
-   tolua_function(tolua_S,"setBlendAdditive",tolua_particle_wyParticleSystem_setBlendAdditive00);
-   tolua_function(tolua_S,"isBlendAdditive",tolua_particle_wyParticleSystem_isBlendAdditive00);
    tolua_function(tolua_S,"setParticlePositionVariance",tolua_particle_wyParticleSystem_setParticlePositionVariance00);
    tolua_function(tolua_S,"setDirectionAngleVariance",tolua_particle_wyParticleSystem_setDirectionAngleVariance00);
    tolua_function(tolua_S,"setStartSizeVariance",tolua_particle_wyParticleSystem_setStartSizeVariance00);

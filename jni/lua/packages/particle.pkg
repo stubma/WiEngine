@@ -239,18 +239,6 @@ public:
 	/// @see wyNode::setPosition
 	virtual void setPosition(float x, float y);
 
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_tex; }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
-
 	/**
 	 * 重设粒子系统, 重设后所有粒子的生存时间会被清零，也就相当于所有粒子会在下次
 	 * 更新时清除。
@@ -263,8 +251,6 @@ public:
 	void stopSystem();
 
 	// setters
-	void setBlendAdditive(bool additive);
-	bool isBlendAdditive() { return m_blendFunc.src == GL_SRC_ALPHA && m_blendFunc.dst == GL_ONE; }
 	void setParticlePositionVariance(float baseX, float baseY, float varianceX, float varianceY);
 	void setDirectionAngleVariance(float base, float variance);
 	void setStartSizeVariance(float base, float variance);

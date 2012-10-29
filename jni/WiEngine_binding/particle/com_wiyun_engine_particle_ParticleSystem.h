@@ -217,62 +217,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_ParticleSystem_resetSystem
 
 /*
  * Class:     com_wiyun_engine_particle_ParticleSystem
- * Method:    nativeGetTexture
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_particle_ParticleSystem_nativeGetTexture
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_particle_ParticleSystem
- * Method:    setTexture
- * Signature: (Lcom/wiyun/engine/opengl/Texture2D;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_ParticleSystem_setTexture
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_particle_ParticleSystem
- * Method:    getBlendFuncSrc
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_particle_ParticleSystem_getBlendFuncSrc
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_particle_ParticleSystem
- * Method:    getBlendFuncDst
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_particle_ParticleSystem_getBlendFuncDst
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_particle_ParticleSystem
- * Method:    setBlendFunc
- * Signature: (II)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_ParticleSystem_setBlendFunc
-  (JNIEnv *, jobject, jint, jint);
-
-/*
- * Class:     com_wiyun_engine_particle_ParticleSystem
- * Method:    setBlendAdditive
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_ParticleSystem_setBlendAdditive
-  (JNIEnv *, jobject, jboolean);
-
-/*
- * Class:     com_wiyun_engine_particle_ParticleSystem
- * Method:    isBlendAdditive
- * Signature: ()Z
- */
-JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_particle_ParticleSystem_isBlendAdditive
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_particle_ParticleSystem
  * Method:    getPositionType
  * Signature: ()I
  */

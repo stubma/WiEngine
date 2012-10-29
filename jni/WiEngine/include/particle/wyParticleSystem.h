@@ -212,12 +212,6 @@ protected:
 	/// 本次发射器需要发射的粒子数
 	float m_emitCounter;
 
-	/// 应用在粒子上的贴图
-	wyTexture2D* m_tex;
-
-	/// 渲染模式
-	wyBlendFunc m_blendFunc;
-
 	/// 运动模式，free or grouped
 	wyParticleSystemPositionType m_positionType;
 
@@ -361,18 +355,6 @@ public:
 	/// @see wyNode::setPosition
 	virtual void setPosition(float x, float y);
 
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
-
-	/// @see wyNode::getTexture
-	virtual wyTexture2D* getTexture() { return m_tex; }
-
-	/// @see wyNode::setTexture
-	virtual void setTexture(wyTexture2D* tex);
-
 	/**
 	 * \if English
 	 * Reset particle system so that the particle system will be activated again. Generally
@@ -396,8 +378,6 @@ public:
 	void stopSystem();
 
 	// setters
-	void setBlendAdditive(bool additive);
-	bool isBlendAdditive() { return m_blendFunc.src == GL_SRC_ALPHA && m_blendFunc.dst == GL_ONE; }
 	void setParticlePositionVariance(float baseX, float baseY, float varianceX, float varianceY);
 	void setDirectionAngleVariance(float base, float variance);
 	void setStartSizeVariance(float base, float variance);

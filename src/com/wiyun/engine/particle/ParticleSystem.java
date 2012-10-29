@@ -1,8 +1,6 @@
 package com.wiyun.engine.particle;
 
 import com.wiyun.engine.nodes.Node;
-import com.wiyun.engine.opengl.Texture2D;
-import com.wiyun.engine.types.WYBlendFunc;
 import com.wiyun.engine.types.WYPoint;
 
 /**
@@ -97,30 +95,6 @@ public abstract class ParticleSystem extends Node {
 	public native void stopSystem();
 
 	public native void resetSystem();
-	
-    public Texture2D getTexture() {
-        return Texture2D.from(nativeGetTexture());
-    }
-    
-    private native int nativeGetTexture();
-    public native void setTexture(Texture2D texture);
-    
-    public WYBlendFunc getBlendFunc() {
-    	return new WYBlendFunc(getBlendFuncSrc(), getBlendFuncDst());
-    }
-    
-    private native int getBlendFuncSrc();
-    private native int getBlendFuncDst();
-    
-    public void setBlendFunc(WYBlendFunc blendFunc) {
-    	setBlendFunc(blendFunc.src, blendFunc.dst);
-    }
-    
-    private native void setBlendFunc(int src, int dst);
-
-	public native void setBlendAdditive(boolean additive);
-
-	public native boolean isBlendAdditive();
 	
 	public native int getPositionType();
 

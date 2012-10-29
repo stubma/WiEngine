@@ -140,7 +140,6 @@ wyParticleSystem::~wyParticleSystem() {
 	wyArrayEach(m_particles, releaseParticle, NULL);
 	wyArrayClear(m_particles);
 	wyArrayDestroy(m_particles);
-	wyObjectRelease(m_tex);
 }
 
 void wyParticleSystem::setPosition(float x, float y) {
@@ -156,12 +155,6 @@ void wyParticleSystem::setPosition(float x, float y) {
 		wyNode::setPosition(x, y);
 		m_pendingPosition = false;
 	}
-}
-
-void wyParticleSystem::setTexture(wyTexture2D* tex) {
-	wyObjectRetain(tex);
-	wyObjectRelease(m_tex);
-	m_tex = tex;
 }
 
 wyParticleSystem::wyParticleSystem(int numberOfParticles) :
@@ -192,8 +185,6 @@ wyParticleSystem::wyParticleSystem(int numberOfParticles) :
 		m_particles(wyArrayNew(numberOfParticles)),
 		m_emissionRate(0),
 		m_emitCounter(0),
-		m_tex(NULL),
-		m_blendFunc(wybfDefault),
 		m_positionType(FREE),
 		m_autoRemoveOnFinish(false),
 		m_particleIdx(0),
@@ -378,21 +369,6 @@ void wyParticleSystem::update(wyTargetSelector* ts) {
 	postStep();
 
 	m_updating = false;
-}
-
-void wyParticleSystem::setBlendAdditive(bool additive) {
-	if(additive) {
-		m_blendFunc.src = GL_SRC_ALPHA;
-		m_blendFunc.dst = GL_ONE;
-	} else {
-		if(m_tex != NULL && !m_tex->hasPremultipliedAlpha()) {
-			m_blendFunc.src = GL_SRC_ALPHA;
-			m_blendFunc.dst = GL_ONE_MINUS_SRC_ALPHA;
-		} else {
-			m_blendFunc.src = DEFAULT_BLEND_SRC;
-			m_blendFunc.dst = DEFAULT_BLEND_DST;
-		}
-	}
 }
 
 void wyParticleSystem::setParticlePositionVariance(float baseX, float baseY, float varianceX, float varianceY) {

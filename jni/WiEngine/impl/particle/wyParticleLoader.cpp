@@ -36,6 +36,7 @@
 #include "wyTextureManager.h"
 #include <libxml/parser.h>
 #include "wyGlobal.h"
+#include "wyRenderState.h"
 #if ANDROID
 	#include "wyJNI.h"
 #endif
@@ -417,9 +418,9 @@ wyQuadParticleSystem* wyParticleLoader::load(const char* data, size_t length, fl
 	ps->setEmitterMode(pd->emitterType == 0 ? GRAVITY : RADIUS);
 	ps->setDirectionAngleVariance(pd->angle, pd->angleVariance);
     if(pd->blendAdditive) {
-        ps->setBlendAdditive(pd->blendAdditive);
+    	ps->setBlendMode(wyRenderState::ALPHA_ADDITIVE);
     } else {
-        ps->setBlendFunc(wybf(pd->blendFuncSource, pd->blendFuncDestination));
+    	ps->setBlendMode(wyRenderState::ALPHA);
     }
 	ps->setDuration(pd->duration);
 	ps->setStartColorVariance(

@@ -31,6 +31,7 @@
 #include "wyGlobal.h"
 #include "wyTypes.h"
 #include "wyUtils.h"
+#include "wyRenderState.h"
 
 #define	HGE_BLEND_ALPHABLEND	2
 typedef int hgeSprite;
@@ -126,9 +127,9 @@ wyQuadParticleSystem* wyHGEParticleLoader::doload(const char* data, int particle
 	// additive
 	int blendMode = ((size_t)hgePI->sprite) >> 16;
 	if(HGE_BLEND_ALPHABLEND & blendMode) {
-		ps->setBlendAdditive(false);
+		ps->setBlendMode(wyRenderState::ALPHA);
 	} else {
-		ps->setBlendAdditive(true);
+		ps->setBlendMode(wyRenderState::ALPHA_ADDITIVE);
 	}
 
 	float fSpinVar = wyMath::r2d((hgePI->fSpinEnd - hgePI->fSpinStart) * hgePI->fSpinVar / 2);

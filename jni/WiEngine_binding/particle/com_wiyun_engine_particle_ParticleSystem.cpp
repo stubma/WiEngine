@@ -147,50 +147,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_ParticleSystem_resetSystem
 	ps->resetSystem();
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_particle_ParticleSystem_nativeGetTexture
-  (JNIEnv * env, jobject thiz) {
-	wyParticleSystem* ps = (wyParticleSystem*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return (jint)ps->getTexture();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_ParticleSystem_setTexture
-  (JNIEnv * env, jobject thiz, jobject texture) {
-	wyParticleSystem* ps = (wyParticleSystem*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(texture, g_fid_BaseObject_mPointer);
-	ps->setTexture(tex);
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_particle_ParticleSystem_getBlendFuncSrc
-  (JNIEnv * env, jobject thiz) {
-	wyParticleSystem* ps = (wyParticleSystem*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return ps->getBlendFunc().src;
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_particle_ParticleSystem_getBlendFuncDst
-  (JNIEnv * env, jobject thiz) {
-	wyParticleSystem* ps = (wyParticleSystem*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return ps->getBlendFunc().dst;
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_ParticleSystem_setBlendFunc
-  (JNIEnv * env, jobject thiz, jint src, jint dst) {
-	wyParticleSystem* ps = (wyParticleSystem*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyBlendFunc func = { src, dst };
-	ps->setBlendFunc(func);
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_ParticleSystem_setBlendAdditive
-  (JNIEnv * env, jobject thiz, jboolean additive) {
-	wyParticleSystem* ps = (wyParticleSystem*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	ps->setBlendAdditive(additive);
-}
-
-JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_particle_ParticleSystem_isBlendAdditive
-  (JNIEnv * env, jobject thiz) {
-	wyParticleSystem* ps = (wyParticleSystem*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return ps->isBlendAdditive();
-}
-
 JNIEXPORT jint JNICALL Java_com_wiyun_engine_particle_ParticleSystem_getPositionType
   (JNIEnv * env, jobject thiz) {
 	wyParticleSystem* ps = (wyParticleSystem*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
