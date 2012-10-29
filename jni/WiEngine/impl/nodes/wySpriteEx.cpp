@@ -179,12 +179,12 @@ void wySpriteEx::updateTransform() {
             updateTextureCoords();
 
 		wyQuadList* atlas = (wyQuadList*)m_batchNode->getMesh();
-    	atlas->updateQuad(m_texCoords, m_vertices, m_atlasIndex);
+    	atlas->updateQuad(m_atlasIndex, m_texCoords, m_vertices, m_color);
     }
 
     if(m_colorDirty) {
     	wyQuadList* atlas = (wyQuadList*)m_batchNode->getMesh();
-    	atlas->updateColor(m_color, m_atlasIndex);
+    	atlas->updateColor(m_atlasIndex, m_color);
     }
     
     m_texDirty = m_colorDirty = m_transformDirty = false;

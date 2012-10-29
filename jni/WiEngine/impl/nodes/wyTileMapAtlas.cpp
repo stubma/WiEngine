@@ -86,7 +86,7 @@ void wyTileMapAtlas::updateAtlas(wyPoint pos, int tileValue, int idx) {
 	vertex.tr_z = 0.0f;
 
 	wyQuadList* atlas = (wyQuadList*)getMesh();
-	atlas->updateQuad(texCoord, vertex, idx);
+	atlas->updateQuad(idx, texCoord, vertex);
 }
 
 void wyTileMapAtlas::updateAtlasValues() {

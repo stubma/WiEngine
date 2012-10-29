@@ -86,7 +86,7 @@ void wySpriteBatchNode::addSprite(wySpriteEx* sprite) {
 	if(index >= 0) {
 		sprite->setBatchNode(this);
 		sprite->useBatchNode(true);
-		((wyQuadList*)getMesh())->insertQuad(sprite->m_texCoords, sprite->m_vertices, index);
+		((wyQuadList*)getMesh())->insertQuad(index, sprite->m_texCoords, sprite->m_vertices);
 
 		// child need to be updated, so need update mesh flag should be set
 		setNeedUpdateMesh(true);

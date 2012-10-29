@@ -92,20 +92,20 @@ void wyQuadList::ensureIndicesCapacity() {
 	m_indices->setElementCount(getTotalQuads() * 6);
 }
 
-int wyQuadList::appendQuad(wyQuad2D& quadT, wyQuad3D& quadV) {
+int wyQuadList::appendQuad(wyQuad2D& quadT, wyQuad3D& quadV, wyColor4B c) {
 	int index = getTotalQuads();
-	insertQuad(quadT, quadV, index);
+	insertQuad(index, quadT, quadV, c);
 	return index;
 }
 
-void wyQuadList::putQuad(int index, const wyQuad2D& quadT, const wyQuad3D& quadV, bool update) {
+void wyQuadList::putQuad(int index, const wyQuad2D& quadT, const wyQuad3D& quadV, wyColor4B c, bool update) {
 	Vertex va[4];
 
 	// default color
-	float r = m_color.r / 255.0f;
-	float g = m_color.g / 255.0f;
-	float b = m_color.b / 255.0f;
-	float a = m_color.a / 255.0f;
+	float r = c.r / 255.0f;
+	float g = c.g / 255.0f;
+	float b = c.b / 255.0f;
+	float a = c.a / 255.0f;
 
 	// bottom left
 	Vertex* v = va;
@@ -138,17 +138,26 @@ void wyQuadList::putQuad(int index, const wyQuad2D& quadT, const wyQuad3D& quadV
 		m_buf->insert(va, 4, index * 4);
 }
 
-void wyQuadList::insertQuad(wyQuad2D& quadT, wyQuad3D& quadV, int index) {
+void wyQuadList::insertQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV, wyColor4B c) {
 	// put quad into buffer
-	putQuad(index, quadT, quadV);
+	putQuad(index, quadT, quadV, c);
 
 	// ensure capacity is ok
 	ensureIndicesCapacity();
 }
 
-void wyQuadList::updateQuad(wyQuad2D& quadT, wyQuad3D& quadV, int index) {
+void wyQuadList::updateQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV) {
 	if(index >= 0) {
-		putQuad(index, quadT, quadV, true);
+		putQuad(index, quadT, quadV, m_color, true);
+
+		// ensure capacity is ok
+		ensureIndicesCapacity();
+	}
+}
+
+void wyQuadList::updateQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV, wyColor4B c) {
+	if(index >= 0) {
+		putQuad(index, quadT, quadV, c, true);
 
 		// ensure capacity is ok
 		ensureIndicesCapacity();
@@ -169,7 +178,7 @@ void wyQuadList::removeQuads(int start, int count) {
 	m_indices->setElementCount(getTotalQuads() * 6);
 }
 
-void wyQuadList::updateColor(wyColor4B color, int index) {
+void wyQuadList::updateColor(int index, wyColor4B color) {
 	Vertex* v = (Vertex*)m_buf->getData();
 	v += index * 4;
 	float r = color.r / 255.0f;

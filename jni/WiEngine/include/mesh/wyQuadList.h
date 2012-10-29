@@ -55,8 +55,8 @@ protected:
 	/// ensure indices capacity is ok
 	void ensureIndicesCapacity();
 
-	/// put quad into buffer
-	void putQuad(int index, const wyQuad2D& quadT, const wyQuad3D& quadV, bool update = false);
+	/// put quad into buffer, also update color
+	void putQuad(int index, const wyQuad2D& quadT, const wyQuad3D& quadV, wyColor4B c, bool update = false);
 
 public:
 	virtual ~wyQuadList();
@@ -70,27 +70,39 @@ public:
 	 *
 	 * @param quadT \link wyQuad2D wyQuad2D\endlink
 	 * @param quadV \link wyQuad3D wyQuad3D\endlink
+	 * @param c quad color, default value is white
 	 * @return index of this quad
 	 */
-	int appendQuad(wyQuad2D& quadT, wyQuad3D& quadV);
+	int appendQuad(wyQuad2D& quadT, wyQuad3D& quadV, wyColor4B c = wyc4bWhite);
 
 	/**
 	 * Insert a quad in specified index
 	 *
+	 * @param index index to be inserted at
 	 * @param quadT \link wyQuad2D wyQuad2D\endlink
 	 * @param quadV \link wyQuad3D wyQuad3D\endlink
-	 * @param index index to be inserted at
+	 * @param c quad color, default value is white
 	 */
-	void insertQuad(wyQuad2D& quadT, wyQuad3D& quadV, int index);
+	void insertQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV, wyColor4B c = wyc4bWhite);
 
 	/**
 	 * Update a quad texture and vertices
 	 *
+	 * @param index index to be updated at
 	 * @param quadT \link wyQuad2D wyQuad2D\endlink
 	 * @param quadV \link wyQuad3D wyQuad3D\endlink
-	 * @param index index to be updated at
 	 */
-	void updateQuad(wyQuad2D& quadT, wyQuad3D& quadV, int index);
+	void updateQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV);
+
+	/**
+	 * Update a quad texture and vertices
+	 *
+	 * @param index index to be updated at
+	 * @param quadT \link wyQuad2D wyQuad2D\endlink
+	 * @param quadV \link wyQuad3D wyQuad3D\endlink
+	 * @param c quad color
+	 */
+	void updateQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV, wyColor4B c);
 
 	/**
 	 * Remove quad at specified index
@@ -116,10 +128,10 @@ public:
 	/**
 	 * Update a color of a quadrangle
 	 *
-	 * @param color \link wyColor4B wyColor4B\endlink
 	 * @param index index of quadrangle
+	 * @param color \link wyColor4B wyColor4B\endlink
 	 */
-	void updateColor(wyColor4B color, int index);
+	void updateColor(int index, wyColor4B color);
 
 	/**
 	 * Update color for all quads

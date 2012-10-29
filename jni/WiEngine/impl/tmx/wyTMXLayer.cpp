@@ -297,8 +297,8 @@ void wyTMXLayer::appendTileForGid(int tilesetIndex, int gid, int x, int y) {
 		left, top, vertexZ,
 		right, top, vertexZ
 	};
-	atlas->insertQuad(texCoords, vertex, index);
-	atlas->updateColor(m_color, index);
+	atlas->insertQuad(index, texCoords, vertex);
+	atlas->updateColor(index, m_color);
 }
 
 void wyTMXLayer::parseInternalProperties() {
@@ -512,7 +512,7 @@ void wyTMXLayer::setTileAt(int tilesetIndex, int gid, int x, int y, int z) {
         right, top, vertexZ
     };
     int index = atlas->appendQuad(texCoords, vertex);
-    atlas->updateColor(m_color, index);
+    atlas->updateColor(index, m_color);
     
     // save atlas indices
     m_atlasInfos[z].atlasIndex = index;
@@ -602,7 +602,7 @@ void wyTMXLayer::updateTileAt(int gid, int x, int y) {
                     left, top, vertexZ,
                     right, top, vertexZ
                 };
-                atlas->updateQuad(texCoords, vertex, index);
+                atlas->updateQuad(index, texCoords, vertex);
             }
 
             // save gid
