@@ -6,9 +6,10 @@ extern jfieldID g_fid_BaseObject_mPointer;
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_QuadParticleSystem_nativeInit
   (JNIEnv * env, jobject thiz, jint numberOfParticles) {
-	wyQuadParticleSystem* ps = WYNEW wyQuadParticleSystem(numberOfParticles);
+	wyQuadParticleSystem* ps = wyQuadParticleSystem::make(numberOfParticles);
 	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)ps);
-	wyObjectLazyRelease(ps);
+	ps->retain();
+	ps->lazyRelease();
 }
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_particle_QuadParticleSystem_setTexture

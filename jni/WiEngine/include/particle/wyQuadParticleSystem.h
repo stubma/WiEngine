@@ -30,67 +30,42 @@
 #define __wyQuadParticleSystem_h__
 
 #include "wyParticleSystem.h"
-#include "wyTypes.h"
+#include "WiEngine-Classes.h"
 
 /**
- * @class wyQuadParticleSystem
- *
- * \if English
  * quadrangled particle system, every particle is a quadrangle
- * \else
- * 方块粒子系统
- * \endif
  */
 class WIENGINE_API wyQuadParticleSystem : public wyParticleSystem {
 protected:
-	/// 点的二维坐标数组，每个Quad用4个点表示，每个点用2个GLfloat表示
-	GLfloat* m_vertices;
+	/// texture rect
+	wyRect m_texRect;
 
-	/// 颜色数组，每个点用4个GLfloat表示，格式为RGBA
-	GLfloat* m_colors;
-	
-	/// 贴图坐标数组，每个Quad的贴图用4个点表示，每个点用2个GLfloat表示
-	GLfloat* m_texCoords;
-	
-	/// 索引数组，opengl绘图时每个Quad被分成2个三角形，每个三角形用3个点表示
-	GLushort* m_indices;
+protected:
+	/**
+	 * Constructor
+	 *
+	 * @param numberOfParticles max allowed particle count
+	 */
+	wyQuadParticleSystem(int numberOfParticles);
 
 	/// @see wyParticleSystem::postStep
 	virtual void postStep();
 	
-	/// @see wyParticleSystem::updateQuadWithParticle
-	virtual void updateQuadWithParticle(wyParticle* particle, wyPoint newPosition);
-
-	/**
-	 * 初始化贴图坐标数组，用于opengl画图
-	 *
-	 * @param[in] rect 指定贴图区域
-	 */
-	void initTexCoordsWithRect(wyRect rect);
-	
-	/**
-	 * 计算opengl画图所需索引数组
-	 */
-	void initIndices();
+	/// @see wyParticleSystem::appendParticleQuad
+	virtual void appendParticleQuad(wyParticle* particle, wyPoint newPosition);
 
 public:
 	/**
-	 * \if English
-	 * Constructor
+	 * Create a quadrangled particle system
 	 *
-	 * @param numberOfParticles max allowed particle count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param numberOfParticles 最大允许存在的粒子数量
-	 * \endif
+	 * @param numberOfParticles max number of particles
 	 */
-	wyQuadParticleSystem(int numberOfParticles);
+	static wyQuadParticleSystem* make(int numberOfParticles);
 	
 	virtual ~wyQuadParticleSystem();
 
-	/// @see wyNode::draw
-	virtual void draw();
+	/// @see wyNode::updateMesh
+	virtual void updateMesh();
 
 	/// @see wyNode::setTexture
 	virtual void setTexture(wyTexture2D* tex);

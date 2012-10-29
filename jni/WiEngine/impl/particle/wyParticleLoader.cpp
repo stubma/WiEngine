@@ -414,7 +414,7 @@ wyQuadParticleSystem* wyParticleLoader::load(const char* data, size_t length, fl
 	wyFree(state);
 
 	// create particle system
-	wyQuadParticleSystem* ps = WYNEW wyQuadParticleSystem(pd->maxParticles);
+	wyQuadParticleSystem* ps = wyQuadParticleSystem::make(pd->maxParticles);
 	ps->setEmitterMode(pd->emitterType == 0 ? GRAVITY : RADIUS);
 	ps->setDirectionAngleVariance(pd->angle, pd->angleVariance);
     if(pd->blendAdditive) {
@@ -471,9 +471,9 @@ wyQuadParticleSystem* wyParticleLoader::load(int resId) {
 	size_t len;
 	float scale;
 	char* data = wyUtils::loadRaw(resId, &len, &scale);
-	wyParticleSystem* ps = load(data, len, scale);
+	wyQuadParticleSystem* ps = load(data, len, scale);
 	wyFree(data);
-	return (wyQuadParticleSystem*)ps->autoRelease();
+	return ps;
 }
 
 wyQuadParticleSystem* wyParticleLoader::load(const char* path, bool isFile, float inDensity) {
@@ -483,5 +483,5 @@ wyQuadParticleSystem* wyParticleLoader::load(const char* path, bool isFile, floa
 	char* data = wyUtils::loadRaw(path, isFile, &len);
 	wyQuadParticleSystem* ps = load(data, len, wyDevice::density / inDensity);
 	wyFree(data);
-	return (wyQuadParticleSystem*)ps->autoRelease();
+	return ps;
 }

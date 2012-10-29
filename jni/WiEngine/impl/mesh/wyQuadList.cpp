@@ -226,6 +226,21 @@ void wyQuadList::scale(float x, float y, float z) {
 	}
 }
 
+void wyQuadList::replaceTexCoord(wyQuad2D& t) {
+	Vertex* v = (Vertex*)m_buf->getData();
+	int count = m_buf->getElementCount();
+	for(int i = 0; i < count; i += 4, v += 4) {
+		v[0].tex.x = t.bl_x;
+		v[0].tex.y = t.bl_y;
+		v[1].tex.x = t.br_x;
+		v[1].tex.y = t.br_y;
+		v[2].tex.x = t.tl_x;
+		v[2].tex.y = t.tl_y;
+		v[3].tex.x = t.tr_x;
+		v[3].tex.y = t.tr_y;
+	}
+}
+
 void wyQuadList::reduceAlpha(float delta) {
 	Vertex* v = (Vertex*)m_buf->getData();
 	int count = m_buf->getElementCount();

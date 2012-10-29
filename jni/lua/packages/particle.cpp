@@ -1,6 +1,6 @@
 /*
 ** Lua binding: particle
-** Generated automatically by tolua++-1.0.92 on Mon Oct 29 15:21:18 2012.
+** Generated automatically by tolua++-1.0.92 on Mon Oct 29 17:43:08 2012.
 */
 
 #ifndef __cplusplus
@@ -1912,67 +1912,6 @@ static int tolua_particle_wyParticleSystem_getMaxParticles00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  wyPointParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyPointParticleSystem_new00
-static int tolua_particle_wyPointParticleSystem_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyPointParticleSystem",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int numberOfParticles = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   wyPointParticleSystem* tolua_ret = (wyPointParticleSystem*)  Mtolua_new((wyPointParticleSystem)(numberOfParticles));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyPointParticleSystem");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyPointParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyPointParticleSystem_new00_local
-static int tolua_particle_wyPointParticleSystem_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyPointParticleSystem",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int numberOfParticles = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   wyPointParticleSystem* tolua_ret = (wyPointParticleSystem*)  Mtolua_new((wyPointParticleSystem)(numberOfParticles));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyPointParticleSystem");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  wyPointParticleSystem */
 #ifndef TOLUA_DISABLE_tolua_particle_wyPointParticleSystem_delete00
 static int tolua_particle_wyPointParticleSystem_delete00(lua_State* tolua_S)
@@ -2002,98 +1941,6 @@ static int tolua_particle_wyPointParticleSystem_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: draw of class  wyPointParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyPointParticleSystem_draw00
-static int tolua_particle_wyPointParticleSystem_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyPointParticleSystem",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyPointParticleSystem* self = (wyPointParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wyQuadParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyQuadParticleSystem_new00
-static int tolua_particle_wyQuadParticleSystem_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyQuadParticleSystem",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int numberOfParticles = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   wyQuadParticleSystem* tolua_ret = (wyQuadParticleSystem*)  Mtolua_new((wyQuadParticleSystem)(numberOfParticles));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyQuadParticleSystem");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyQuadParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyQuadParticleSystem_new00_local
-static int tolua_particle_wyQuadParticleSystem_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyQuadParticleSystem",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int numberOfParticles = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   wyQuadParticleSystem* tolua_ret = (wyQuadParticleSystem*)  Mtolua_new((wyQuadParticleSystem)(numberOfParticles));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyQuadParticleSystem");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  wyQuadParticleSystem */
 #ifndef TOLUA_DISABLE_tolua_particle_wyQuadParticleSystem_delete00
 static int tolua_particle_wyQuadParticleSystem_delete00(lua_State* tolua_S)
@@ -2118,37 +1965,6 @@ static int tolua_particle_wyQuadParticleSystem_delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: draw of class  wyQuadParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyQuadParticleSystem_draw00
-static int tolua_particle_wyQuadParticleSystem_draw00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyQuadParticleSystem",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyQuadParticleSystem* self = (wyQuadParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'draw'", NULL);
-#endif
-  {
-   self->draw();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'draw'.",&tolua_err);
  return 0;
 #endif
 }
@@ -2309,11 +2125,7 @@ TOLUA_API int tolua_particle_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"wyPointParticleSystem","wyPointParticleSystem","wyParticleSystem",NULL);
   #endif
   tolua_beginmodule(tolua_S,"wyPointParticleSystem");
-   tolua_function(tolua_S,"new",tolua_particle_wyPointParticleSystem_new00);
-   tolua_function(tolua_S,"new_local",tolua_particle_wyPointParticleSystem_new00_local);
-   tolua_function(tolua_S,".call",tolua_particle_wyPointParticleSystem_new00_local);
    tolua_function(tolua_S,"delete",tolua_particle_wyPointParticleSystem_delete00);
-   tolua_function(tolua_S,"draw",tolua_particle_wyPointParticleSystem_draw00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wyQuadParticleSystem","wyQuadParticleSystem","wyParticleSystem",tolua_collect_wyQuadParticleSystem);
@@ -2321,11 +2133,7 @@ TOLUA_API int tolua_particle_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"wyQuadParticleSystem","wyQuadParticleSystem","wyParticleSystem",NULL);
   #endif
   tolua_beginmodule(tolua_S,"wyQuadParticleSystem");
-   tolua_function(tolua_S,"new",tolua_particle_wyQuadParticleSystem_new00);
-   tolua_function(tolua_S,"new_local",tolua_particle_wyQuadParticleSystem_new00_local);
-   tolua_function(tolua_S,".call",tolua_particle_wyQuadParticleSystem_new00_local);
    tolua_function(tolua_S,"delete",tolua_particle_wyQuadParticleSystem_delete00);
-   tolua_function(tolua_S,"draw",tolua_particle_wyQuadParticleSystem_draw00);
    tolua_function(tolua_S,"setTexture",tolua_particle_wyQuadParticleSystem_setTexture00);
    tolua_function(tolua_S,"setTexture",tolua_particle_wyQuadParticleSystem_setTexture01);
   tolua_endmodule(tolua_S);

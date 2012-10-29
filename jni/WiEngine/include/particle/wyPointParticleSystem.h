@@ -56,8 +56,8 @@ protected:
 	/// @see wyParticleSystem::postStep
 	virtual void postStep();
 	
-	/// @see wyParticleSystem::updateQuadWithParticle
-	virtual void updateQuadWithParticle(wyParticle* particle, wyPoint newPosition);
+	/// @see wyParticleSystem::appendParticleQuad
+	virtual void appendParticleQuad(wyParticle* particle, wyPoint newPosition);
 
 public:
 	/**

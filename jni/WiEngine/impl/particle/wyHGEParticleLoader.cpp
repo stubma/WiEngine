@@ -79,7 +79,7 @@ typedef struct hgeParticleSystemInfo {
 } hgeParticleSystemInfo;
 
 wyQuadParticleSystem* wyHGEParticleLoader::doload(const char* data, int particleCount, wyTexture2D* tex, float resScale) {
-	wyQuadParticleSystem* ps = WYNEW wyQuadParticleSystem(particleCount);
+	wyQuadParticleSystem* ps = wyQuadParticleSystem::make(particleCount);
 	hgeParticleSystemInfo* hgePI = (hgeParticleSystemInfo*)data;
 
 	// duration
@@ -167,7 +167,7 @@ wyQuadParticleSystem* wyHGEParticleLoader::load(int resId, int particleCount, wy
 	}
 	wyQuadParticleSystem* ps = doload(data, particleCount, tex, scale);
 	wyFree(data);
-	return (wyQuadParticleSystem*)ps->autoRelease();
+	return ps;
 }
 
 wyQuadParticleSystem* wyHGEParticleLoader::load(const char* path, int particleCount, wyTexture2D* tex, bool isFile, float inDensity) {
@@ -181,5 +181,5 @@ wyQuadParticleSystem* wyHGEParticleLoader::load(const char* path, int particleCo
 	}
 	wyQuadParticleSystem* ps = doload(data, particleCount, tex, wyDevice::density / inDensity);
 	wyFree(data);
-	return (wyQuadParticleSystem*)ps->autoRelease();
+	return ps;
 }

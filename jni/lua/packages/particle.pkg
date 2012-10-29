@@ -319,23 +319,9 @@ public:
 class wyPointParticleSystem : public wyParticleSystem {
 public:
 	/**
-	 * 构造函数
-	 *
-	 * @param[in] numberOfParticles 粒子数量
-	 */
-	wyPointParticleSystem(int numberOfParticles);
-	
-	/**
 	 * 析构函数
 	 */
 	virtual ~wyPointParticleSystem();
-
-	/**
-	 * 在屏幕上绘制粒子系统的当前帧
-	 * 
-	 * @see wyNode::draw
-	 */
-	virtual void draw();
 };
 
 #endif // __wyPointParticleSystem_h__
@@ -371,23 +357,9 @@ public:
 class wyQuadParticleSystem : public wyParticleSystem {
 public:
 	/**
-	 * 构造函数
-	 *
-	 * @param[in] numberOfParticles 粒子数量
-	 */
-	wyQuadParticleSystem(int numberOfParticles);
-	
-	/**
 	 * 析构函数
 	 */
 	virtual ~wyQuadParticleSystem();
-
-	/**
-	 * 在屏幕上绘制粒子系统的当前帧
-	 * 
-	 * @see wyNode::draw
-	 */
-	virtual void draw();
 
 	/**
 	 * 设置应用于粒子的贴图

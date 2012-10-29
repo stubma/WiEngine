@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "wyLog.h"
+#include "wyQuadList.h"
 
 bool wyParticleSystem::releaseParticle(wyArray* arr, void* ptr, int index, void* data) {
 	wyFree(ptr);
@@ -233,6 +234,9 @@ void wyParticleSystem::update(wyTargetSelector* ts) {
 	float dt = ts->getDelta();
 	m_updating = true;
 
+	// clear mesh
+	((wyQuadList*)getMesh())->removeAllQuads();
+
 	// check pending position
 	// currently we save position because setPosition and update
 	// are running in different thread, so we cache position to avoid flashing
@@ -335,7 +339,7 @@ void wyParticleSystem::update(wyTargetSelector* ts) {
 			} else
 				newPos = p->pos;
 
-			updateQuadWithParticle(p, newPos);
+			appendParticleQuad(p, newPos);
 
 			// update particle counter
 			m_particleIdx++;

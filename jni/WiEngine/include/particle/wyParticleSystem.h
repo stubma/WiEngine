@@ -293,12 +293,12 @@ protected:
 	virtual void postStep() = 0;
 
 	/**
-	 * 粒子更新函数
+	 * append particle quadrangle to buffer
 	 *
-	 * @param particle 待更新的例子
-	 * @param newPosition 粒子的新坐标
+	 * @param particle the particle need to be appended
+	 * @param newPosition new position of this particle
 	 */    
-	virtual void updateQuadWithParticle(wyParticle* particle, wyPoint newPosition) = 0;
+	virtual void appendParticleQuad(wyParticle* particle, wyPoint newPosition) = 0;
 
 	/**
 	 * 判断当前粒子数是否已满

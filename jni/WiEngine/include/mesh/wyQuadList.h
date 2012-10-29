@@ -161,6 +161,13 @@ public:
 	 * @param delta alpha value to be reduced
 	 */
 	void reduceAlpha(float delta);
+
+	/**
+	 * Replace all texture coordinate to given value
+	 *
+	 * @param t the texture coordinate used to fill all vertex
+	 */
+	void replaceTexCoord(wyQuad2D& t);
 };
 
 #endif // __wyQuadList_h__

@@ -42,7 +42,7 @@ namespace Particle {
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
 
 	    	// additive
-	    	setBlendAdditive(true);
+	    	setBlendMode(wyRenderState::ALPHA_ADDITIVE);
 		}
 	};
 
@@ -108,7 +108,7 @@ namespace Particle {
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
 
 	    	// additive
-	    	setBlendAdditive(true);
+	    	setBlendMode(wyRenderState::ALPHA_ADDITIVE);
 		}
 	};
 
@@ -146,9 +146,6 @@ namespace Particle {
 
 	        //set texture
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
-
-	    	// additive
-	    	setBlendAdditive(false);
 		}
 	};
 
@@ -187,7 +184,7 @@ namespace Particle {
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
 
 	    	// additive
-	    	setBlendAdditive(true);
+	    	setBlendMode(wyRenderState::ALPHA_ADDITIVE);
 		}
 	};
 
@@ -226,7 +223,7 @@ namespace Particle {
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
 
 	    	// additive
-	    	setBlendAdditive(true);
+	    	setBlendMode(wyRenderState::ALPHA_ADDITIVE);
 		}
 	};
 
@@ -262,7 +259,7 @@ namespace Particle {
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
 
 	    	// additive
-	    	setBlendAdditive(true);
+	    	setBlendMode(wyRenderState::ALPHA_ADDITIVE);
 		}
 	};
 
@@ -300,9 +297,6 @@ namespace Particle {
 
 	        //set texture
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
-
-	    	// additive
-	    	setBlendAdditive(false);
 		}
 	};
 
@@ -344,9 +338,6 @@ namespace Particle {
 
 	        //set texture
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
-
-	    	// additive
-	    	setBlendAdditive(false);
 		}
 	};
 
@@ -385,7 +376,7 @@ namespace Particle {
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
 
 	    	// additive
-	    	setBlendAdditive(true);
+	    	setBlendMode(wyRenderState::ALPHA_ADDITIVE);
 		}
 	};
 
@@ -426,9 +417,6 @@ namespace Particle {
 
 	        //set texture
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars2")));
-
-	    	// additive
-	    	setBlendAdditive(false);
 		}
 	};
 
@@ -462,9 +450,6 @@ namespace Particle {
 
 	        //set texture
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
-
-	    	// additive
-	    	setBlendAdditive(false);
 		}
 	};
 
@@ -507,9 +492,6 @@ namespace Particle {
 
 	        //set texture
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.snow")));
-
-	    	// additive
-	    	setBlendAdditive(false);
 		}
 	};
 
@@ -546,9 +528,6 @@ namespace Particle {
 
 	        //set texture
 	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
-
-	    	// additive
-	    	setBlendAdditive(false);
 		}
 	};
 
@@ -556,7 +535,7 @@ namespace Particle {
 	public:
 		ParticleSunSystem() : wyQuadParticleSystem(350){
 	        // additive
-	        setBlendAdditive(true);
+	        setBlendMode(wyRenderState::ALPHA_ADDITIVE);
 
 	        // duration
 	        setDuration(PARTICLE_DURATION_INFINITY);

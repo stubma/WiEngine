@@ -32,7 +32,7 @@
 void wyPointParticleSystem::postStep() {
 }
 
-void wyPointParticleSystem::updateQuadWithParticle(wyParticle* particle, wyPoint newPosition) {
+void wyPointParticleSystem::appendParticleQuad(wyParticle* particle, wyPoint newPosition) {
 	int index = m_particleIdx;
 	m_vertices[index * 2] = newPosition.x;
 	m_vertices[index * 2 + 1] = newPosition.y;
