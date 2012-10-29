@@ -57,10 +57,6 @@ wyQuadList* wyQuadList::make() {
 	return (wyQuadList*)ql->autoRelease();
 }
 
-int wyQuadList::getElementCount() {
-	return getTotalQuads();
-}
-
 void wyQuadList::initIndices() {
 	int quads = m_indices->getCapacity() / 6;
 	GLushort* p = (GLushort*)m_indices->getData();
