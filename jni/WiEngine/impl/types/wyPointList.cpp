@@ -57,7 +57,7 @@ void wyPointList::addPoints(wyPointList& plist) {
 		m_buffer = (wyPoint*)wyRealloc(m_buffer, m_capacity * sizeof(wyPoint));
 	}
 
-	memcpy(m_buffer + m_count * sizeof(wyPoint), plist.getBuffer(), plist.getCount() * sizeof(wyPoint));
+	memcpy(m_buffer + m_count, plist.getBuffer(), plist.getCount() * sizeof(wyPoint));
 	m_count += plist.getCount();
 }
 
@@ -72,7 +72,7 @@ void wyPointList::deletePointAt(int index) {
 	if(index == m_count - 1) {
 		m_count--;
 	} else {
-		memmove(m_buffer + index * sizeof(wyPoint), m_buffer + (index + 1) * sizeof(wyPoint), (m_count - index - 1) * sizeof(wyPoint));
+		memmove(m_buffer + index, m_buffer + index + 1, (m_count - index - 1) * sizeof(wyPoint));
 		m_count--;
 	}
 }
