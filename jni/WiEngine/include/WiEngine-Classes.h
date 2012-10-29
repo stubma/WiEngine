@@ -306,7 +306,6 @@ class wyHGEParticleLoader;
 struct wyParticle;
 class wyParticleLoader;
 class wyParticleSystem;
-class wyPointParticleSystem;
 class wyQuadParticleSystem;
 
 // persistence

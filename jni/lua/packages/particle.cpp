@@ -1,6 +1,6 @@
 /*
 ** Lua binding: particle
-** Generated automatically by tolua++-1.0.92 on Mon Oct 29 17:43:08 2012.
+** Generated automatically by tolua++-1.0.92 on Mon Oct 29 18:27:27 2012.
 */
 
 #ifndef __cplusplus
@@ -21,13 +21,6 @@ TOLUA_API int  tolua_particle_open (lua_State* tolua_S);
 static int tolua_collect_wyParticleSystem (lua_State* tolua_S)
 {
  wyParticleSystem* self = (wyParticleSystem*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyPointParticleSystem (lua_State* tolua_S)
-{
- wyPointParticleSystem* self = (wyPointParticleSystem*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -53,13 +46,12 @@ static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"wyColor4F");
  tolua_usertype(tolua_S,"wyTexture2D");
- tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyPoint");
- tolua_usertype(tolua_S,"wyQuadParticleSystem");
  tolua_usertype(tolua_S,"wyParticleSystem");
+ tolua_usertype(tolua_S,"wyQuadParticleSystem");
  tolua_usertype(tolua_S,"wyNode");
  tolua_usertype(tolua_S,"wyParticle");
- tolua_usertype(tolua_S,"wyPointParticleSystem");
+ tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyHGEParticleLoader");
  tolua_usertype(tolua_S,"wyParticleLoader");
 }
@@ -1912,35 +1904,6 @@ static int tolua_particle_wyParticleSystem_getMaxParticles00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: delete of class  wyPointParticleSystem */
-#ifndef TOLUA_DISABLE_tolua_particle_wyPointParticleSystem_delete00
-static int tolua_particle_wyPointParticleSystem_delete00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyPointParticleSystem",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyPointParticleSystem* self = (wyPointParticleSystem*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
-#endif
-  Mtolua_delete(self);
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  wyQuadParticleSystem */
 #ifndef TOLUA_DISABLE_tolua_particle_wyQuadParticleSystem_delete00
 static int tolua_particle_wyQuadParticleSystem_delete00(lua_State* tolua_S)
@@ -2118,14 +2081,6 @@ TOLUA_API int tolua_particle_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setPositionType",tolua_particle_wyParticleSystem_setPositionType00);
    tolua_function(tolua_S,"getParticleCount",tolua_particle_wyParticleSystem_getParticleCount00);
    tolua_function(tolua_S,"getMaxParticles",tolua_particle_wyParticleSystem_getMaxParticles00);
-  tolua_endmodule(tolua_S);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"wyPointParticleSystem","wyPointParticleSystem","wyParticleSystem",tolua_collect_wyPointParticleSystem);
-  #else
-  tolua_cclass(tolua_S,"wyPointParticleSystem","wyPointParticleSystem","wyParticleSystem",NULL);
-  #endif
-  tolua_beginmodule(tolua_S,"wyPointParticleSystem");
-   tolua_function(tolua_S,"delete",tolua_particle_wyPointParticleSystem_delete00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wyQuadParticleSystem","wyQuadParticleSystem","wyParticleSystem",tolua_collect_wyQuadParticleSystem);

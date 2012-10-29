@@ -305,7 +305,6 @@
 #include "wyParticle.h"
 #include "wyParticleLoader.h"
 #include "wyParticleSystem.h"
-#include "wyPointParticleSystem.h"
 #include "wyQuadParticleSystem.h"
 
 // persistence
