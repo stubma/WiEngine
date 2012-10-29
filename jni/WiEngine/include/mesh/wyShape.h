@@ -230,7 +230,7 @@ public:
 	 * @param z point z value
 	 * @param c point color
 	 */
-	void addPoint(float x, float y, float z, wyColor4B c);
+	void addPoint(float x, float y, float z, wyColor4B c = wyc4bWhite);
 };
 
 #endif // __wyShape_h__
