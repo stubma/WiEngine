@@ -42,9 +42,6 @@ private:
 	// tmx tile map
 	wyTMXTileMap* m_map;
 
-	// point buffer
-	wyPointList m_vertices;
-
 protected:
 	wyTMXObjectLayer(wyTMXTileMap* m);
 
@@ -52,8 +49,8 @@ public:
 	virtual ~wyTMXObjectLayer();
 	static wyTMXObjectLayer* make(wyTMXTileMap* m);
 
-	/// @see wyNode::draw
-	virtual void draw();
+	/// @see wyNode::updateMesh
+	virtual void updateMesh();
 };
 
 #endif // __wyTMXObjectLayer_h__

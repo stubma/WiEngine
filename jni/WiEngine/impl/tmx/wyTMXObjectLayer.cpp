@@ -28,9 +28,12 @@
  */
 #include "wyTMXObjectLayer.h"
 #include "wyLog.h"
+#include "wyMaterial.h"
+#include "wyShape.h"
 
 wyTMXObjectLayer::wyTMXObjectLayer(wyTMXTileMap* m) :
 		m_map(m) {
+	setNeedUpdateMesh(true);
 }
 
 wyTMXObjectLayer::~wyTMXObjectLayer() {
@@ -41,7 +44,15 @@ wyTMXObjectLayer* wyTMXObjectLayer::make(wyTMXTileMap* m) {
 	return (wyTMXObjectLayer*)l->autoRelease();
 }
 
-void wyTMXObjectLayer::draw() {
+void wyTMXObjectLayer::updateMesh() {
+	// clear old render pairs
+	clearRenderPairs();
+
+	// common material
+	wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
+
+	// for every object, we push a render pair for it
+	wyPointList vertices;
 	wyMapInfo* mapInfo = m_map->getMapInfo();
 	for(int i = 0; i < mapInfo->objectGroups->num; i++) {
 		wyTMXObjectGroup* group = (wyTMXObjectGroup*)wyArrayGet(mapInfo->objectGroups, i);
@@ -57,40 +68,38 @@ void wyTMXObjectLayer::draw() {
 			bool isClosed = obj->getType() == wyTMXObject::POLYGON;
 
 			// fill vertex buffer
-			m_vertices.clear();
+			vertices.clear();
 			if(isNormal) {
 				// manual add point, remember currently it should be in tmx coordinate space
 				wySize s = obj->getSize();
-				m_vertices.addPoint(0, 0);
-				m_vertices.addPoint(0, s.height);
-				m_vertices.addPoint(s.width, s.height);
-				m_vertices.addPoint(s.width, 0);
-				m_vertices.addPoint(0, 0);
+				vertices.addPoint(0, 0);
+				vertices.addPoint(0, s.height);
+				vertices.addPoint(s.width, s.height);
+				vertices.addPoint(s.width, 0);
+				vertices.addPoint(0, 0);
 			} else {
 				// add points
-				m_vertices.addPoints(obj->getPoints());
+				vertices.addPoints(obj->getPoints());
+
 				// if closed, add first point
 				if(isClosed) {
-					m_vertices.addPoint(obj->getPoints().getPointAt(0));
+					vertices.addPoint(obj->getPoints().getPointAt(0));
 				}
 			}
 
 			// convert all points from tmx space to node space
-			wyPoint* buffer = m_vertices.getBuffer();
-			for(int i = 0; i < m_vertices.getCount(); i++) {
+			wyPoint* buffer = vertices.getBuffer();
+			for(int i = 0; i < vertices.getCount(); i++) {
 				wyPoint p = m_map->tmxToNodeSpace(wyp(buffer[i].x + loc.x, buffer[i].y + loc.y));
 				buffer[i].x = p.x;
 				buffer[i].y = p.y;
 			}
 
-			// TODO gles2
-			// draw lines
-//			glColor4f(0, 1, 0, 1);
-//			glEnableClientState(GL_VERTEX_ARRAY);
-//			glVertexPointer(2, GL_FLOAT, 0, buffer);
-//			glDrawArrays(GL_LINE_STRIP, 0, m_vertices.getCount());
-//			glDisableClientState(GL_VERTEX_ARRAY);
-//			glColor4f(1, 1, 1, 1);
+			// set to mesh
+			wyShape* s = wyShape::make();
+			s->buildPath((float*)buffer, vertices.getCount() * 2);
+			s->updateColor(wyc4bGreen);
+			addRenderPair(m, s);
 		}
 	}
 }

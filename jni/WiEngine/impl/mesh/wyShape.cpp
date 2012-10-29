@@ -512,3 +512,7 @@ void wyShape::addPoint(float x, float y, float z, wyColor4B c) {
 	kmVec3Fill(&v.pos, x, y, z);
 	m_buf->append(&v, 1);
 }
+
+void wyShape::clear() {
+	m_buf->clear();
+}

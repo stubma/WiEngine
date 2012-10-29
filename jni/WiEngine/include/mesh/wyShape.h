@@ -49,6 +49,9 @@ public:
 	/// create a empty instance of wyShape, no vertex
 	static wyShape* make();
 
+	/// clear all vertices
+	void clear();
+
 	/**
 	 * Fill mesh with one point
 	 *
