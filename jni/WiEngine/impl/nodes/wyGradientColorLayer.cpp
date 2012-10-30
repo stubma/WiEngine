@@ -33,8 +33,6 @@
 #include <math.h>
 #include "wyGlobal.h"
 
-extern wyDirector* gDirector;
-
 wyGradientColorLayer* wyGradientColorLayer::make(wyColor4B fromColor, wyColor4B toColor, int degree) {
 	wyGradientColorLayer* n = WYNEW wyGradientColorLayer(fromColor, toColor, degree);
 	return (wyGradientColorLayer*)n->autoRelease();
