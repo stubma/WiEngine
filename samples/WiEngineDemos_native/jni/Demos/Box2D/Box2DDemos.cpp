@@ -4572,10 +4572,8 @@ public:
 		// Ground body
 		{
 			// material for ground
-			wyMaterial* m = wyMaterial::make();
 			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.rope"));
-			wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], tex);
-			m->addParameter(p);
+			wyMaterial* m = wyMaterial::make(tex);
 
 			// create ground body
 			b2BodyDef bd;

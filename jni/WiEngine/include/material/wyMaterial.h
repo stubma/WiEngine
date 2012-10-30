@@ -77,8 +77,26 @@ public:
 	 * Create material instance which use non-default shader program
 	 *
 	 * @param programKey shader program key
+	 * @param material object
 	 */
 	static wyMaterial* make(int programKey);
+
+	/**
+	 * Create material and auto bound a texture to it
+	 *
+	 * @param tex texture object
+	 * @return material object
+	 */
+	static wyMaterial* make(wyTexture2D* tex);
+
+	/**
+	 * Create material instance which use specified program and a texture bounded
+	 *
+	 * @param programKey shader program key
+	 * @param tex texture object
+	 * @param material object
+	 */
+	static wyMaterial* make(int programKey, wyTexture2D* tex);
 
 	virtual ~wyMaterial();
 

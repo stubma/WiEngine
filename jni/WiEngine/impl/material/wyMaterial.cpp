@@ -27,6 +27,7 @@
  * THE SOFTWARE.
  */
 #include "wyMaterial.h"
+#include "wyTexture2D.h"
 
 wyMaterial::wyMaterial(int programKey) :
 		m_programKey(programKey),
@@ -49,6 +50,17 @@ wyMaterial* wyMaterial::make() {
 
 wyMaterial* wyMaterial::make(int programKey) {
 	wyMaterial* m = WYNEW wyMaterial(programKey);
+	return (wyMaterial*)m->autoRelease();
+}
+
+wyMaterial* wyMaterial::make(wyTexture2D* tex) {
+	return make(wyShaderManager::DEFAULT_PROGRAM, tex);
+}
+
+wyMaterial* wyMaterial::make(int programKey, wyTexture2D* tex) {
+	wyMaterial* m = WYNEW wyMaterial(programKey);
+	wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], tex);
+	m->addParameter(p);
 	return (wyMaterial*)m->autoRelease();
 }
 
