@@ -1453,25 +1453,27 @@ public:
 	}
 
 	virtual bool touchesBegan(wyMotionEvent& event) {
-		// TODO gles2
-//		// prepare src image and mask image, blend function must be set
-//		// correctly
-//		wySprite* src = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
-//		src->setAnchor(0, 0);
-//		src->setBlendFunc(wybf(GL_DST_COLOR, GL_ZERO));
-//		wySprite* mask = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.mask")));
-//		mask->setAnchor(0, 0);
-//
-//		// use a rendertexture to combine two images, mask first
-//		wyRenderTexture* rt = wyRenderTexture::make((int)DP(85), (int)DP(121));
-//		rt->beginRender();
-//		mask->visit();
-//		src->visit();
-//		rt->endRender();
-//
-//		// add render texture
-//		rt->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-//		addChildLocked(rt);
+		// prepare src image and mask image, blend function must be set
+		// correctly
+		wySprite* src = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+		src->setAnchor(0, 0);
+		src->setBlendMode(wyRenderState::MODULATE);
+		wySprite* mask = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.mask")));
+		mask->setAnchor(0, 0);
+
+		// get render manager
+		wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
+
+		// use a rendertexture to combine two images, mask first
+		wyRenderTexture* rt = wyRenderTexture::make((int)DP(85), (int)DP(121));
+		rt->beginRender();
+		rm->renderNodeRecursively(mask);
+		rm->renderNodeRecursively(src);
+		rt->endRender();
+
+		// add render texture
+		rt->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
+		addChildLocked(rt);
 
 		return false;
 	}
