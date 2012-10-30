@@ -2,7 +2,6 @@ package com.wiyun.engine.afcanim;
 
 import com.wiyun.engine.nodes.Node;
 import com.wiyun.engine.opengl.Texture2D;
-import com.wiyun.engine.types.WYBlendFunc;
 import com.wiyun.engine.types.WYColor3B;
 import com.wiyun.engine.types.WYPoint;
 import com.wiyun.engine.types.WYRect;
