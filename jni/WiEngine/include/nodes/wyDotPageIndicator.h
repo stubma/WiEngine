@@ -30,37 +30,29 @@
 #define __wyDotPageIndicator_h__
 
 #include "wyPageIndicator.h"
+#include "WiEngine-Classes.h"
 
 /**
- * @class wyDotPageIndicator
- *
- * \if English
  * Dot indicator of page control
- * \else
- * 点状页面指示节点, 最传统的一种页面指示节点. 创建这个节点时, 指定两个图片分别表示页面没选中和
- * 选中的状态.
- * \endif
  */
 class WIENGINE_API wyDotPageIndicator : public wyPageIndicator {
 private:
-	/**
-	 * 页面没有被选中时的图片
-	 */
+	/// material for texture of unselected state
+	wyMaterial* m_dotMaterial;
+
+	/// material for texture of selected state
+	wyMaterial* m_selectedDotMaterial;
+
+	/// dot texture
 	wyTexture2D* m_dot;
 
-	/**
-	 * 如果m_dot是一个图片集, 则表示点图片在图片集中的位置
-	 */
-	wyRect m_dotRect;
-
-	/**
-	 * 页面被选中时的图片
-	 */
+	/// selected dot texture
 	wyTexture2D* m_selectedDot;
 
-	/**
-	 * 如果m_selectedDot是一个图片集, 则表示选中的点图片在图片集中的位置
-	 */
+	/// the rect area used in dot texture
+	wyRect m_dotRect;
+
+	/// the rect area used in selected dot texture
 	wyRect m_selectedDotRect;
 
 	/**
@@ -112,24 +104,15 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * Static creator
 	 *
 	 * @param dot dot texture
 	 * @param selectedDot dot texture for current page
 	 * @return \link wyDotPageIndicator wyDotPageIndicator\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param dot 页面没有被选中时的图片, 不能为NULL
-	 * @param selectedDot 页面被选中时的图片, 不能为NULL
-	 * @return \link wyDotPageIndicator wyDotPageIndicator\endlink
-	 * \endif
 	 */
 	static wyDotPageIndicator* make(wyTexture2D* dot, wyTexture2D* selectedDot);
 
 	/**
-	 * \if English
 	 * Static creator
 	 *
 	 * @param dot dot texture for inactive pages
@@ -137,19 +120,13 @@ public:
 	 * @param selectedDot dot texture for current page
 	 * @param selectedDotRect texture rect when \c selectedDot is an atlas texture
 	 * @return \link wyDotPageIndicator wyDotPageIndicator\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param dot 页面没有被选中时的图片, 不能为NULL
-	 * @param dotRect 如果dot是一个图片集, 则表示点图片在图片集中的位置
-	 * @param selectedDot 页面被选中时的图片, 不能为NULL
-	 * @param selectedDotRect 如果selectedDot是一个图片集, 则表示选中的点图片在图片集中的位置
-	 * @return \link wyDotPageIndicator wyDotPageIndicator\endlink
-	 * \endif
 	 */
 	static wyDotPageIndicator* make(wyTexture2D* dot, wyRect dotRect, wyTexture2D* selectedDot, wyRect selectedDotRect);
 
 	virtual ~wyDotPageIndicator();
+
+	/// @see wyNode::updateMesh
+	virtual void updateMesh();
 
 	/// set spacing between dot
 	void setDotSpacing(float spacing) { m_dotSpacing = spacing; }

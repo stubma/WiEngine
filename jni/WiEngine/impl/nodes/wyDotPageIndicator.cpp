@@ -29,21 +29,43 @@
 #include "wyDotPageIndicator.h"
 #include "wyTypes.h"
 #include "wyUtils.h"
+#include "wyMaterial.h"
+#include "wyRectangle.h"
 
 wyDotPageIndicator::wyDotPageIndicator(wyTexture2D* dot, wyRect dotRect, wyTexture2D* selectedDot, wyRect selectedDotRect) :
 		m_pageCount(0),
 		m_selectedIndex(-1),
 		m_dotSpacing(DP(4)) {
-	m_dot = dot;
 	m_dotRect = dotRect;
-	m_selectedDot = selectedDot;
 	m_selectedDotRect = selectedDotRect;
-
+	m_dot = dot;
 	wyObjectRetain(m_dot);
+	m_selectedDot = selectedDot;
 	wyObjectRetain(m_selectedDot);
+
+	// create dot material
+	m_dotMaterial = wyMaterial::make();
+	wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], dot);
+	m_dotMaterial->addParameter(p);
+	m_dotMaterial->retain();
+
+	// create selected to material
+	m_selectedDotMaterial = wyMaterial::make();
+	p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], selectedDot);
+	m_selectedDotMaterial->addParameter(p);
+	m_selectedDotMaterial->retain();
+
+	/*
+	 * set blend mode, don't call setBlendMode directly because
+	 * we didn't add any render pair yet
+	 */
+	m_dotMaterial->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
+	m_selectedDotMaterial->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
 }
 
 wyDotPageIndicator::~wyDotPageIndicator() {
+	wyObjectRelease(m_dotMaterial);
+	wyObjectRelease(m_selectedDotMaterial);
 	wyObjectRelease(m_dot);
 	wyObjectRelease(m_selectedDot);
 }
@@ -85,6 +107,7 @@ void wyDotPageIndicator::onPageAllRemoved() {
 
 void wyDotPageIndicator::onPageChanged(int index) {
 	m_selectedIndex = index;
+	setNeedUpdateMesh(true);
 }
 
 void wyDotPageIndicator::updateContentSize() {
@@ -95,63 +118,47 @@ void wyDotPageIndicator::updateContentSize() {
 				MAX(m_dotRect.height, m_selectedDotRect.height));
 }
 
-//void wyDotPageIndicator::draw() {
-//	// if no draw flag is set, call wyNode::draw and it
-//	// will decide forward drawing to java layer or not
-//	if(m_noDraw) {
-//		wyNode::draw();
-//		return;
-//	}
-//
-////	float dotW = MAX(m_dot->getWidth(), m_selectedDot->getWidth());
-////	float dotH = MAX(m_dot->getHeight(), m_selectedDot->getHeight());
-////	float x = dotW / 2;
-////	float y = dotH / 2;
-////	for(int i = 0; i < m_pageCount; i++) {
-////		if(m_selectedIndex == i) {
-////			m_selectedDot->draw(x - m_selectedDot->getWidth() / 2,
-////					y - m_selectedDot->getHeight() / 2,
-////					m_selectedDotRect.width,
-////					m_selectedDotRect.height,
-////					false,
-////					false,
-////					m_selectedDotRect);
-////		} else {
-////			m_dot->draw(x - m_dot->getWidth() / 2,
-////					y - m_dot->getHeight() / 2,
-////					m_dotRect.width,
-////					m_dotRect.height,
-////					false,
-////					false,
-////					m_dotRect);
-////		}
-////
-////		x += dotW + m_dotSpacing;
-////	}
-//
-//    float dotW = MAX(m_dotRect.width, m_selectedDotRect.width);
-//	float dotH = MAX(m_dotRect.height, m_selectedDotRect.height);
-//	float x = dotW / 2;
-//	float y = dotH / 2;
-//	for(int i = 0; i < m_pageCount; i++) {
-//		if(m_selectedIndex == i) {
-//			m_selectedDot->draw(x - m_selectedDotRect.width / 2,
-//                                y - m_selectedDotRect.height / 2,
-//                                m_selectedDotRect.width,
-//                                m_selectedDotRect.height,
-//                                false,
-//                                false,
-//                                m_selectedDotRect);
-//		} else {
-//			m_dot->draw(x - m_dotRect.width / 2,
-//                        y - m_dotRect.height / 2,
-//                        m_dotRect.width,
-//                        m_dotRect.height,
-//                        false,
-//                        false,
-//                        m_dotRect);
-//		}
-//
-//		x += dotW + m_dotSpacing;
-//	}
-//}
+void wyDotPageIndicator::updateMesh() {
+	// clear current render pairs
+	clearRenderPairs();
+
+	float dotW = MAX(m_dotRect.width, m_selectedDotRect.width);
+	float dotH = MAX(m_dotRect.height, m_selectedDotRect.height);
+	float x = dotW / 2;
+	float y = dotH / 2;
+	for(int i = 0; i < m_pageCount; i++) {
+		if(m_selectedIndex == i) {
+			wyRectangle* r = wyRectangle::make();
+			r->updateForTexture(m_selectedDot->getPixelWidth(),
+					m_selectedDot->getPixelHeight(),
+					x - m_selectedDotRect.width / 2,
+					y - m_selectedDotRect.height / 2,
+					m_selectedDotRect.width,
+					m_selectedDotRect.height,
+					m_selectedDot->getWidth(),
+					m_selectedDot->getHeight(),
+					false,
+					false,
+					m_selectedDotRect,
+					false);
+			addRenderPair(m_selectedDotMaterial, r);
+		} else {
+			wyRectangle* r = wyRectangle::make();
+			r->updateForTexture(m_dot->getPixelWidth(),
+					m_dot->getPixelHeight(),
+					x - m_dotRect.width / 2,
+					y - m_dotRect.height / 2,
+					m_dotRect.width,
+					m_dotRect.height,
+					m_dot->getWidth(),
+					m_dot->getHeight(),
+					false,
+					false,
+					m_dotRect,
+					false);
+			addRenderPair(m_dotMaterial, r);
+		}
+
+		x += dotW + m_dotSpacing;
+	}
+}
