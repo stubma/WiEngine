@@ -68,8 +68,16 @@ public:
 	 * @param texRect the rect area in texture you want to draw, usually used for atlas texture rendering
 	 * @param rotate90 true means texture need to be rotated 90 degrees, counter-clockwise
 	 */
-	void updateForTexture(float texPixelWidth, float texPixelHeight, float x, float y, float width, float height,
+	void updateMesh(float texPixelWidth, float texPixelHeight, float x, float y, float width, float height,
 			float sourceWidth, float sourceHeight, bool flipX, bool flipY, wyRect texRect, bool rotate90);
+
+	/**
+	 * Update mesh data directly from pre-calculated array
+	 *
+	 * @param vertices vertex data, must contain 12 float number
+	 * @param texCoords texture coordinates, must contain 8 float number
+	 */
+	void updateMesh(float* vertices, float* texCoords);
 
 	/**
 	 * Update color info

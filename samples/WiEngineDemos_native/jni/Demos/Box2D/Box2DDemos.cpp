@@ -4571,12 +4571,19 @@ public:
 
 		// Ground body
 		{
+			// material for ground
+			wyMaterial* m = wyMaterial::make();
+			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.rope"));
+			wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], tex);
+			m->addParameter(p);
+
+			// create ground body
 			b2BodyDef bd;
 			b2Body* ground = world->CreateBody(&bd);
 
+			// create edge shape on ground body
 			float32 x1 = -20.0f;
 			float32 y1 = 2.0f * cosf(x1 / 10.0f * b2_pi);
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.rope"));
 			for (int32 i = 0; i < 80; ++i)
 			{
 				float32 x2 = x1 + 0.5f;
@@ -4585,11 +4592,17 @@ public:
 				b2EdgeShape shape;
 				shape.Set(b2Vec2(x1, y1), b2Vec2(x2, y2));
 				b2Fixture* f = ground->CreateFixture(&shape, 0.0f);
-				// TODO
-//				render->bindTexture(f, tex);
 
 				x1 = x2;
 				y1 = y2;
+
+				// add render pair for this part
+				wyMesh* mesh = wyBox2DMeshBuilder::createMesh(m_box2d,
+						f,
+						tex->getPixelWidth(),
+						tex->getPixelHeight(),
+						wyr(0, 0, tex->getWidth(), tex->getHeight()));
+				m_box2d->addRenderPair(m, mesh);
 			}
 		}
 

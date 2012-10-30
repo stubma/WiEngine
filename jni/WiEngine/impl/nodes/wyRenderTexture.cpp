@@ -63,7 +63,7 @@ void wyRenderTexture::init(int width, int height) {
 
 	// add render pair
 	wyRectangle* mesh = wyRectangle::make();
-	mesh->updateForTexture(w,
+	mesh->updateMesh(w,
 			h,
 			0,
 			0,

@@ -63,12 +63,8 @@ void wyRectangle::updateColor(wyColor4B color) {
 		kmVec4Fill(&data[i].color, color.r / 255.f, color.g / 255.f, color.b / 255.f, color.a / 255.f);
 }
 
-void wyRectangle::updateForTexture(float texPixelWidth, float texPixelHeight, float x, float y, float width, float height,
+void wyRectangle::updateMesh(float texPixelWidth, float texPixelHeight, float x, float y, float width, float height,
 		float sourceWidth, float sourceHeight, bool flipX, bool flipY, wyRect texRect, bool rotate90) {
-	// get buffer
-	wyBuffer* buf = getFirstConnectedBuffer();
-	Vertex* data = (Vertex*)buf->getData();
-
 	// get vertices
 	float vertices[] = {
 		x, y, 0.0f,
@@ -154,6 +150,15 @@ void wyRectangle::updateForTexture(float texPixelWidth, float texPixelHeight, fl
 		wyUtils::swap(vertices, 7, 10);
 		wyUtils::swap(vertices, 8, 11);
 	}
+
+	// update to buffer
+	updateMesh(vertices, texCoords);
+}
+
+void wyRectangle::updateMesh(float* vertices, float* texCoords) {
+	// get buffer
+	wyBuffer* buf = getFirstConnectedBuffer();
+	Vertex* data = (Vertex*)buf->getData();
 
 	// bottom left
 	kmVec3Fill(&data[0].pos, vertices[0], vertices[1], vertices[2]);

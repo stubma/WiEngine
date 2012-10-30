@@ -129,7 +129,7 @@ void wyDotPageIndicator::updateMesh() {
 	for(int i = 0; i < m_pageCount; i++) {
 		if(m_selectedIndex == i) {
 			wyRectangle* r = wyRectangle::make();
-			r->updateForTexture(m_selectedDot->getPixelWidth(),
+			r->updateMesh(m_selectedDot->getPixelWidth(),
 					m_selectedDot->getPixelHeight(),
 					x - m_selectedDotRect.width / 2,
 					y - m_selectedDotRect.height / 2,
@@ -144,7 +144,7 @@ void wyDotPageIndicator::updateMesh() {
 			addRenderPair(m_selectedDotMaterial, r);
 		} else {
 			wyRectangle* r = wyRectangle::make();
-			r->updateForTexture(m_dot->getPixelWidth(),
+			r->updateMesh(m_dot->getPixelWidth(),
 					m_dot->getPixelHeight(),
 					x - m_dotRect.width / 2,
 					y - m_dotRect.height / 2,

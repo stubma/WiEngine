@@ -73,7 +73,7 @@ void wyTextureNode::updateMesh() {
 	wyRectangle* rect = (wyRectangle*)getMesh();
 	wyTexture2D* tex = getTexture();
 	if(tex) {
-		rect->updateForTexture(tex->getPixelWidth(),
+		rect->updateMesh(tex->getPixelWidth(),
 				tex->getPixelHeight(),
 				m_autoFit ? 0 : m_pointLeftBottom.x,
 				m_autoFit ? 0 : m_pointLeftBottom.y,
