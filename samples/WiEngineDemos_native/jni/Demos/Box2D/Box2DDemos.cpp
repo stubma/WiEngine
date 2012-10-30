@@ -4328,17 +4328,24 @@ public:
 		b2World* world = m_box2d->getWorld();
 		m_box2d->setDebugDraw(false);
 
-		// place box2d to center of bottom edge
-		m_box2d->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
+	   /*
+		 place box2d node in bottom left, you can place box2d node anywhere and the position
+		 will affect origin of box2d rendering because wyBox2D is a node and it will perform
+		 translate/rotation/scale before drawing.
+		 */
+		m_box2d->setPosition(0, 0);
 
-		// meter size of screen
+		/*
+		 get meter size of screen. wyDevice saves pixel size of screen, but box2d uses meter so we need convert it
+		 */
 		float meterWidth = m_box2d->pixel2Meter(wyDevice::winWidth);
 		float meterHeight = m_box2d->pixel2Meter(wyDevice::winHeight);
 
-		// border
+		// create border in four sides
 		b2Body* ground = NULL;
 		{
 			b2BodyDef bd;
+			bd.position.Set(meterWidth / 2, meterHeight / 2);
 			ground = world->CreateBody(&bd);
 
 			// bottom edge
@@ -4367,14 +4374,16 @@ public:
 			ground->CreateFixture(&fd);
 		}
 
-		// boxes
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+		/*
+		 now we create ten boxes, DP is macro defined by WiEngine to convert point to pixel,
+		 in iOS, point can be 1 pixel in iPhone/iPad or 2 pixels in iPhone Retain
+		 */
 		float size = DP(32.0f) / 2;
 		float meterSize = m_box2d->pixel2Meter(size);
 		for (int i = 0; i < 10; i++) {
 			b2BodyDef bd;
 			bd.type = b2_dynamicBody;
-			bd.position.Set(frand_unit() * meterWidth / 2, frand_unit() * meterHeight / 2);
+			bd.position.Set(frand() * meterWidth, frand() * meterHeight);
 			bd.linearVelocity = b2Vec2(5 * frand_unit(), 5 * frand_unit());
 			b2Body* body = world->CreateBody(&bd);
 			body->SetTransform(bd.position, frand() * 2 * M_PI);
@@ -4388,20 +4397,44 @@ public:
 			fd.density = 1.0f;
 			b2Fixture* f = body->CreateFixture(&fd);
 
-			// bind texture
-			// TODO
-//			render->bindTexture(f, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+			/*
+			 create a sprite for every box and save it in body data
+			 here we use wySprite, WiEngine also has a wySpriteEx class which is similar with CCSprite.
+			 wySprite is an old implementation but we still keep it for some performance reason.
+			 wySpriteEx can be used with wySpriteBatchNode or independently.
+
+			 To create a wySprite, first we create a wyTexture2D object. It references a resource by a
+			 resource id. Resource id is a concept of Android and WiEngine maps the resource id to iOS resource file
+			 so that the code doesn't need to be changed when compile in iOS.
+			 */
+			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+			wySprite* sprite = wySprite::make(tex,
+											  wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+			const b2Vec2& bodyPos = body->GetPosition();
+			sprite->setPosition(m_box2d->meter2Pixel(bodyPos.x), m_box2d->meter2Pixel(bodyPos.y));
+			sprite->setRotation(wyMath::r2d(-body->GetAngle()));
+			addChildLocked(sprite);
+			body->SetUserData(sprite);
 		}
 
 		// center stick
 		{
+			/*
+			 calculate meter size of stick, based on bar image size
+			 bar image size is 224x15 pixels, we need use point
+			 */
+			float barW = DP(112);
+			float barH = DP(7.5f);
+			float barMW = m_box2d->pixel2Meter(barW);
+			float barMH = m_box2d->pixel2Meter(barH);
+
 			b2BodyDef bd;
 			bd.type = b2_dynamicBody;
-			bd.position.Set(0, 0);
+			bd.position.Set(meterWidth / 2, meterHeight / 2);
 			b2Body* stickBody = world->CreateBody(&bd);
 
 			b2PolygonShape stick;
-			stick.SetAsBox(meterWidth / 4, 0.4f);
+			stick.SetAsBox(barMW, barMH);
 			b2FixtureDef fd;
 			fd.shape = &stick;
 			fd.restitution = 1.0f;
@@ -4416,16 +4449,35 @@ public:
 			jd.localAnchorB = b2Vec2(0, 0);
 			world->CreateJoint(&jd);
 
-			// bind texture
-			tex = wyTexture2D::makePNG(RES("R.drawable.bar"));
-			// TODO
-//			render->bindTexture(f, tex);
+			// bind a bar sprite to it
+			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.bar"));
+			wySprite* sprite = wySprite::make(tex);
+			const b2Vec2& bodyPos = stickBody->GetPosition();
+			sprite->setPosition(m_box2d->meter2Pixel(bodyPos.x), m_box2d->meter2Pixel(bodyPos.y));
+			sprite->setRotation(wyMath::r2d(-stickBody->GetAngle()));
+			addChildLocked(sprite);
+			stickBody->SetUserData(sprite);
 		}
 
 		startUpdateWorld();
 	}
 
 	virtual ~wyTexturedBounceTestLayer() {
+	}
+
+	virtual void updateWorld(float dt) {
+		wyBox2DTestLayer::updateWorld(dt);
+
+        // sync position and angle between sprite and body
+		b2World* world = m_box2d->getWorld();
+        for(b2Body* body = world->GetBodyList(); body != NULL; body = body->GetNext()) {
+            wySprite* sprite = (wySprite*)body->GetUserData();
+            if(sprite != NULL) {
+                const b2Vec2& bodyPos = body->GetPosition();
+                sprite->setPosition(m_box2d->meter2Pixel(bodyPos.x), m_box2d->meter2Pixel(bodyPos.y));
+				sprite->setRotation(wyMath::r2d(-body->GetAngle()));
+            }
+        }
 	}
 };
 
