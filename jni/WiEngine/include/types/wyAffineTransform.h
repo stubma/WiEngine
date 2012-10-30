@@ -158,6 +158,13 @@ static inline wyPoint wyaTransformPoint(wyAffineTransform& t, wyPoint p) {
     return wyp(x * t.a + y * t.c + t.tx, x * t.b + y * t.d + t.ty);
 }
 
+static inline void wyaTransformPoint2(wyAffineTransform& t, float& x, float& y) {
+	float x1 = x * t.a + y * t.c + t.tx;
+	float y1 = x * t.b + y * t.d + t.ty;
+	x = x1;
+	y = y1;
+}
+
 static wyRect wyaTransformRect(wyAffineTransform& t, wyRect r) {
 	wyPoint p[4];
 

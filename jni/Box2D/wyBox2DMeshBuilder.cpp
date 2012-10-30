@@ -68,7 +68,12 @@ wyMesh* wyBox2DMeshBuilder::createEdgeMesh(wyBox2D* box2d, b2Fixture* f, float t
 	float length = box2d->meter2Pixel(v.Length());
 
 	// vertices
-	GLfloat vertices[12];
+	float vertices[12] = {
+			-length / 2, -texRect.height / 2, 0,
+			length / 2, -texRect.height / 2, 0,
+			-length / 2, texRect.height / 2, 0,
+			length / 2, texRect.height / 2, 0
+	};
 
 	// build transform matrix
 	wyAffineTransform t = wyaIdentity;
@@ -76,26 +81,10 @@ wyMesh* wyBox2DMeshBuilder::createEdgeMesh(wyBox2D* box2d, b2Fixture* f, float t
 	wyaRotate(&t, angle + atan(v.y / v.x));
 
 	// transform vertices
-	wyPoint p = wyp(-length / 2, -texRect.height / 2);
-	p = wyaTransformPoint(t, p);
-	vertices[0] = p.x;
-	vertices[1] = p.y;
-	vertices[2] = 0;
-	p = wyp(length / 2, -texRect.height / 2);
-	p = wyaTransformPoint(t, p);
-	vertices[3] = p.x;
-	vertices[4] = p.y;
-	vertices[5] = 0;
-	p = wyp(-length / 2, texRect.height / 2);
-	p = wyaTransformPoint(t, p);
-	vertices[6] = p.x;
-	vertices[7] = p.y;
-	vertices[8] = 0;
-	p = wyp(length / 2, texRect.height / 2);
-	p = wyaTransformPoint(t, p);
-	vertices[9] = p.x;
-	vertices[10] = p.y;
-	vertices[11] = 0;
+	wyaTransformPoint2(t, vertices[0], vertices[1]);
+	wyaTransformPoint2(t, vertices[3], vertices[4]);
+	wyaTransformPoint2(t, vertices[6], vertices[7]);
+	wyaTransformPoint2(t, vertices[9], vertices[10]);
 
 	// build tex coords
 	float left = texRect.x / texPixelWidth;
