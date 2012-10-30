@@ -210,7 +210,7 @@ wyAffineTransform wySpriteEx::getNodeToBatchNodeTransform() {
 
 	for(wyNode* p = m_parent; p != m_batchNode; p = p->getParent()) {
         wyAffineTransform tp = p->getTransformMatrix();
-		wyaConact(&t, &tp);
+		wyaConcat(&t, &tp);
 	}
 
 	return t;

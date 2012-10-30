@@ -1170,7 +1170,7 @@ void wyNode::updateNodeToParentTransform() {
 			// create a skewed coordinate system
 			// apply the skew to the transform
 			wyAffineTransform skew = wya(1.0f, tanf(wyMath::d2r(-m_skewY)), tanf(wyMath::d2r(m_skewX)), 1.0f, 0.0f, 0.0f);
-			wyaConact(&skew, &m_transformMatrix);
+			wyaConcat(&skew, &m_transformMatrix);
 			m_transformMatrix = skew;
 		}
 
@@ -1199,7 +1199,7 @@ wyAffineTransform wyNode::getNodeToWorldTransform() {
 
 	for(wyNode* p = m_parent; p != NULL; p = p->m_parent) {
 		p->updateNodeToParentTransform();
-		wyaConact(&t, &(p->m_transformMatrix));
+		wyaConcat(&t, &(p->m_transformMatrix));
 	}
 
 	return t;
