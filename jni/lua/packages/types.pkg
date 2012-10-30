@@ -56,7 +56,7 @@ static wyRect wyaTransformRect(wyAffineTransform& t, wyRect r);
 
 static void wyaMultiply(wyAffineTransform* t1, wyAffineTransform* t2);
 
-static void wyaConact(wyAffineTransform* t1, wyAffineTransform* t2);
+static void wyaConcat(wyAffineTransform* t1, wyAffineTransform* t2);
 
 
 #endif // __wyAffineTransform_h__

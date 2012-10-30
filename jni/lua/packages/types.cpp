@@ -515,9 +515,9 @@ static int tolua_types_wyaMultiply00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: wyaConact */
-#ifndef TOLUA_DISABLE_tolua_types_wyaConact00
-static int tolua_types_wyaConact00(lua_State* tolua_S)
+/* function: wyaConcat */
+#ifndef TOLUA_DISABLE_tolua_types_wyaConcat00
+static int tolua_types_wyaConcat00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -533,13 +533,13 @@ static int tolua_types_wyaConact00(lua_State* tolua_S)
   wyAffineTransform* t1 = ((wyAffineTransform*)  tolua_tousertype(tolua_S,1,0));
   wyAffineTransform* t2 = ((wyAffineTransform*)  tolua_tousertype(tolua_S,2,0));
   {
-   wyaConact(t1,t2);
+   wyaConcat(t1,t2);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'wyaConact'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'wyaConcat'.",&tolua_err);
  return 0;
 #endif
 }
@@ -5642,7 +5642,7 @@ TOLUA_API int tolua_types_open (lua_State* tolua_S)
   tolua_function(tolua_S,"wyaTransformPoint",tolua_types_wyaTransformPoint00);
   tolua_function(tolua_S,"wyaTransformRect",tolua_types_wyaTransformRect00);
   tolua_function(tolua_S,"wyaMultiply",tolua_types_wyaMultiply00);
-  tolua_function(tolua_S,"wyaConact",tolua_types_wyaConact00);
+  tolua_function(tolua_S,"wyaConcat",tolua_types_wyaConcat00);
   tolua_constant(tolua_S,"DEFAULT_BLEND_SRC",DEFAULT_BLEND_SRC);
   tolua_constant(tolua_S,"DEFAULT_BLEND_DST",DEFAULT_BLEND_DST);
   tolua_variable(tolua_S,"wybfDefault",tolua_get_wybfDefault,NULL);

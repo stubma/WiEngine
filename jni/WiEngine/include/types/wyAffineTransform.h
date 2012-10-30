@@ -205,7 +205,7 @@ static void wyaMultiply(wyAffineTransform* t1, wyAffineTransform* t2) {
     t1->ty = ty1;
 }
 
-static void wyaConact(wyAffineTransform* t1, wyAffineTransform* t2) {
+static void wyaConcat(wyAffineTransform* t1, wyAffineTransform* t2) {
 	wyaMultiply(t1, t2);
 }
 

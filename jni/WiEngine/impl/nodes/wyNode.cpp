@@ -1098,7 +1098,7 @@ void wyNode::updateNodeToParentTransform() {
 		// If skew is needed, apply skew and then anchor point
 		if(needsSkewMatrix) {
 			wyAffineTransform skewMatrix = wya(1.0f, tanf(wyMath::d2r(-m_skewY)), tanf(wyMath::d2r(m_skewX)), 1.0f, 0.0f, 0.0f);
-			wyaConact(&skewMatrix, &m_transformMatrix);
+			wyaConcat(&skewMatrix, &m_transformMatrix);
 			m_transformMatrix = skewMatrix;
 
 			// adjust anchor point
@@ -1125,7 +1125,7 @@ wyAffineTransform wyNode::getNodeToWorldTransform() {
 
 	for(wyNode* p = m_parent; p != NULL; p = p->m_parent) {
 		p->updateNodeToParentTransform();
-		wyaConact(&t, &(p->m_transformMatrix));
+		wyaConcat(&t, &(p->m_transformMatrix));
 	}
 
 	return t;
