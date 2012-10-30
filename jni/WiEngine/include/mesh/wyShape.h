@@ -165,6 +165,20 @@ public:
 	void buildSolidRect(float x, float y, float w, float h);
 
 	/**
+	 * Fill mesh with a solid rect with gradient color
+	 *
+	 * @param x left bottom corner x
+	 * @param y left bottom corner y
+	 * @param w rectangle width
+	 * @param h rectangle height
+	 * @param from from color
+	 * @param to to color
+	 * @param degree the direction of color changing, from 0 to 360. x axis is 0 degree and positive value means
+	 * 		clockwise.
+	 */
+	void buildGradientRect(float x, float y, float w, float h, wyColor4B from, wyColor4B to, int degree);
+
+	/**
 	 * Fill mesh with a poly
 	 *
 	 * @param p poly vertex buff

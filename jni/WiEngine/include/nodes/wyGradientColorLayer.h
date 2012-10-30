@@ -33,200 +33,65 @@
 #include "wyGlobal.h"
 
 /**
- * @class wyGradientColorLayer
- *
- * \if English
  * gradient color layer
- * \else
- * 渐变色显示层的封装
- * \endif
  */
 class WIENGINE_API wyGradientColorLayer : public wyLayer {
 protected:
-	/**
-	 * \if English
-	 * array of opengl vertices
-	 * \else
-	 * opengl顶点
-	 * \endif
-	 */
-	GLfloat* m_vertices;
-
-	/**
-	 * \if English
-	 * array of the original opengl vertices
-	 * \else
-	 * 原始位置opengl顶点，依次为左上，左下，右上，右下
-	 * \endif
-	 */
-	GLfloat* m_originalVertices;
-
-	/**
-	 * \if English
-	 * color measured in opengl
-	 * \else
-	 * opengl颜色
-	 * \endif
-	 */
-	GLubyte* m_colors;
-
-	/**
-	 * \if English
-	 * the start color, \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 起始颜色\link wyColor4B wyColor4B结构\endlink
-	 * \endif
-	 */
+	/// the start color, \link wyColor4B wyColor4B\endlink
 	wyColor4B m_fromColor;
 
-	/**
-	 * \if English
-	 * the end color, \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 结束颜色\link wyColor4B wyColor4B结构\endlink
-	 * \endif
-	 */
+	/// the end color, \link wyColor4B wyColor4B\endlink
 	wyColor4B m_toColor;
 
 	/**
-	 * \if English
-	 * the radiant angle, in degrees, clockwise
-	 * \else
-	 * 渐变角度,0标识从左到右水平变化，大于0为顺时针
-	 * \endif
+	 * the radiant angle, in degrees from 0 to 360. X axis is degree 0 and positive value
+	 * means clockwise
 	 */
 	int m_degree;
 
-private:
-	void updateColor();
-	void updateVertices();
-
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param fromColor the start color, \link wyColor4B wyColor4B\endlink
 	 * @param toColor the end color, \link wyColor4B wyColor4B\endlink
-	 * @param degree the radian angle
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param fromColor 起始颜色\link wyColor4B wyColor4B结构\endlink
-	 * @param toColor 结束颜色\link wyColor4B wyColor4B结构\endlink
-	 * @param degree 渐变角度,0标识从左到右水平变化，大于0为顺时针
-	 * \endif
+	 * @param degree the radian angle, in degrees from 0 to 360. X axis is degree 0 and positive value
+	 * 		means clockwise
 	 */
 	static wyGradientColorLayer* make(wyColor4B fromColor, wyColor4B toColor, int degree);
 
+	virtual ~wyGradientColorLayer();
+
+	/// @see wyNode::updateMesh
+	virtual void updateMesh();
+
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param fromColor the start color, \link wyColor4B wyColor4B\endlink
 	 * @param toColor the end color, \link wyCoclor4B wyColor4B\endlink
-	 * @param degree the radian angle
-	 * \else
-	 * 构造函数
-	 *
-	 * @param fromColor 起始颜色\link wyColor4B wyColor4B结构\endlink
-	 * @param toColor 结束颜色\link wyColor4B wyColor4B结构\endlink
-	 * @param degree 渐变角度,0标识从左到右水平变化，大于0为顺时针
-	 * \endif
+	 * @param degree the radian angle, in degrees from 0 to 360. X axis is degree 0 and positive value
+	 * 		means clockwise
 	 */
 	wyGradientColorLayer(wyColor4B fromColor, wyColor4B toColor, int degree);
 
-	/**
-	 * \if English
-	 * setter
-	 *
-	 * @param degree in degrees, clockwise
-	 * \else
-	 * 设置渐变角度
-	 *
-	 * @param degree 渐变角度
-	 * \endif
-	 */
+	/// set gradient degree
 	void setDegree(int degree);
 
-	/**
-	 * \if English
-	 * getter
-	 * \else
-	 * 得到渐变角度
-	 *
-	 * @return 渐变角度
-	 * \endif
-	 */
+	/// Get gradient degree
 	int getDegree();
 
-	/**
-	 * \if English
-	 * setter
-	 *
-	 * @param color \link wyColor3B wyColor3B\endlink
-	 * \else
-	 * 设置起始颜色
-	 *
-	 * @param color 起始颜色\link wyColor3B wyColor3B结构\endlink
-	 * \endif
-	 */
+	/// set start color
 	void setFromColor(wyColor3B color);
 
-	/**
-	 * \if English
-	 * getter
-	 *
-	 * @return \link wyColor3B wyColor3B\endlink
-	 * \else
-	 * 得到起始颜色
-	 *
-	 * @return 起始颜色\link wyColor3B wyColor3B结构\endlink
-	 * \endif
-	 */
+	/// get start color
 	wyColor3B getFromColor();
 
-	/**
-	 * \if English
-	 * setter
-	 *
-	 * @param color \link wyColor3B wyColor3B\endlink
-	 * \else
-	 * 设置结束颜色
-	 *
-	 * @param color 结束颜色\link wyColor3B wyColor3B结构\endlink
-	 * \endif
-	 */
+	/// set end color
 	void setToColor(wyColor3B color);
 
-	/**
-	 * \if English
-	 * getter
-	 *
-	 * @return \link wyColor3B wyColor3B\endlink
-	 * \else
-	 * 得到结束颜色
-	 *
-	 * @return 结束颜色\link wyColor3B wyColor3B结构\endlink
-	 * \endif
-	 */
+	/// get end color
 	wyColor3B getToColor();
-
-	/**
-	 * \if English
-	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
-	 */
-	virtual ~wyGradientColorLayer();
-
-	/// @see wyNode::draw
-	virtual void draw();
-
-	/// @see wyNode::setContentSize
-	virtual void setContentSize(float w, float h);
-
 };
 
 #endif // __wyGradientColorLayer_h__

@@ -359,6 +359,150 @@ void wyShape::buildSolidRect(float x, float y, float w, float h) {
 	m_mode = TRIANGLE_FAN;
 }
 
+void wyShape::buildGradientRect(float x, float y, float w, float h, wyColor4B from, wyColor4B to, int degree) {
+	// clear
+	m_buf->clear();
+
+	// variables
+	Vertex v;
+	float vertices[8];
+
+	// find degree direction
+	degree %= 360;
+	if (degree < 0) {
+		degree += 360;
+	}
+	int index = degree / 90;
+	degree %= 90;
+
+	// fill vertices based on coarse direction
+	switch (index) {
+		case 0:
+			vertices[0] = x;
+			vertices[1] = y + h;
+			vertices[2] = x;
+			vertices[3] = y;
+			vertices[4] = x + w;
+			vertices[5] = y + h;
+			vertices[6] = x + w;
+			vertices[7] = y;
+			break;
+		case 1:
+			vertices[0] = x + w;
+			vertices[1] = y + h;
+			vertices[2] = x;
+			vertices[3] = y + h;
+			vertices[4] = x + w;
+			vertices[5] = y;
+			vertices[6] = x;
+			vertices[7] = y;
+			break;
+		case 2:
+			vertices[0] = x + w;
+			vertices[1] = y;
+			vertices[2] = x + w;
+			vertices[3] = y + h;
+			vertices[4] = x;
+			vertices[5] = y;
+			vertices[6] = x;
+			vertices[7] = y + h;
+			break;
+		case 3:
+			vertices[0] = x;
+			vertices[1] = y;
+			vertices[2] = x + w;
+			vertices[3] = x;
+			vertices[4] = y;
+			vertices[5] = y + h;
+			vertices[6] = x + w;
+			vertices[7] = y + h;
+			break;
+		default:
+			break;
+	}
+
+	// adjust by degree
+	if (degree != 0) {
+		float radian = wyMath::d2r(degree);
+		float cosRadian = cos(radian);
+		float sinRadian = sin(radian);
+
+		float tmp = w * cosRadian;
+		float x1 = w - tmp * cosRadian;
+		float y1 = tmp * sinRadian;
+
+		tmp = h * cosRadian;
+		float y2 = h - tmp * cosRadian;
+		float x2 = tmp * sinRadian;
+
+		switch (index) {
+			case 0:
+				vertices[0] += x1;
+				vertices[1] += y1;
+				vertices[2] -= x2;
+				vertices[3] += y2;
+				vertices[4] += x2;
+				vertices[5] -= y2;
+				vertices[6] -= x1;
+				vertices[7] -= y1;
+				break;
+			case 1:
+				vertices[0] += x2;
+				vertices[1] -= y2;
+				vertices[2] += x1;
+				vertices[3] += y1;
+				vertices[4] -= x1;
+				vertices[5] -= y1;
+				vertices[6] -= x2;
+				vertices[7] += y2;
+				break;
+			case 2:
+				vertices[0] -= x1;
+				vertices[1] -= y1;
+				vertices[2] += x2;
+				vertices[3] -= y2;
+				vertices[4] -= x2;
+				vertices[5] += y2;
+				vertices[6] += x1;
+				vertices[7] += y1;
+				break;
+			case 3:
+				vertices[0] -= x2;
+				vertices[1] += y2;
+				vertices[2] -= x1;
+				vertices[3] -= y1;
+				vertices[4] += x1;
+				vertices[5] += y1;
+				vertices[6] += x2;
+				vertices[7] -= y2;
+				break;
+			default:
+				break;
+		}
+	}
+
+	// first
+	kmVec3Fill(&v.pos, vertices[0], vertices[1], 0);
+	kmVec4Fill(&v.color, from.r / 255.0f, from.g / 255.0f, from.b / 255.0f, from.a / 255.0f);
+	m_buf->append(&v, 1);
+
+	// second
+	kmVec3Fill(&v.pos, vertices[2], vertices[3], 0);
+	m_buf->append(&v, 1);
+
+	// third
+	kmVec3Fill(&v.pos, vertices[4], vertices[5], 0);
+	kmVec4Fill(&v.color, to.r / 255.0f, to.g / 255.0f, to.b / 255.0f, to.a / 255.0f);
+	m_buf->append(&v, 1);
+
+	// fourth
+	kmVec3Fill(&v.pos, vertices[6], vertices[7], 0);
+	m_buf->append(&v, 1);
+
+	// mode
+	m_mode = TRIANGLE_STRIP;
+}
+
 void wyShape::buildPoly(float* p, size_t length, bool close) {
 	// clear
 	m_buf->clear();
