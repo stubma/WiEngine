@@ -1884,6 +1884,9 @@ public:
 		m_sprite2->runAction(move2);
 		wyRotateBy* rotate2 = wyRotateBy::make(4, wyMath::randMax(360));
 		m_sprite2->runAction(rotate2);
+
+		// clear render pair
+		clearRenderPairs();
 	}
 
 	void checkCollision(wyTargetSelector* ts) {
@@ -1895,20 +1898,26 @@ public:
 		}
 	}
 
-	virtual void draw() {
-		// TODO gles2
-		//if(m_result.pointCount > 0) {
-		//	// draw collision point
-  //      	glColor4f(1, 0, 0, 1);
-  //      	glPointSize(5);
-		//	wyDrawPoints((float*)m_result.points, m_result.pointCount * 2);
+	virtual void beforeRender() {
+		if(m_result.pointCount > 0 && getRenderPairCount() <= 0) {
+			wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
 
-  //      	// draw normal
-		//	wyDrawLine(m_result.points[0].x, m_result.points[0].y,
-		//			   m_result.points[0].x + m_result.normal.x * 50, m_result.points[0].y + m_result.normal.y * 50);
+			// collision point
+			wyShape* s = wyShape::make();
+			s->buildPoints((float*)m_result.points, m_result.pointCount * 2);
+			s->updateColor(wyc4bRed);
+			s->setPointSize(5);
+			addRenderPair(m, s);
 
-  //      	glColor4f(1, 1, 1, 1);
-		//}
+        	// normal
+			s = wyShape::make();
+			s->buildLine(m_result.points[0].x,
+					m_result.points[0].y,
+					m_result.points[0].x + m_result.normal.x * 50,
+					m_result.points[0].y + m_result.normal.y * 50);
+			s->updateColor(wyc4bGreen);
+			addRenderPair(m, s);
+		}
 	}
 
 	virtual bool touchesBegan(wyMotionEvent& e) {
