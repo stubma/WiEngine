@@ -2784,14 +2784,11 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class wyFixtureAnimationTestLayer : public wyBox2DTestLayer {
+class wyBodyAnimationTestLayer : public wyBox2DTestLayer {
 public:
-	wyFixtureAnimationTestLayer() {
+	wyBodyAnimationTestLayer() {
 		b2World* world = m_box2d->getWorld();
 		m_box2d->setDebugDraw(false);
-		wyBox2DRender* render = new wyBox2DRender();
-		m_box2d->setBox2DRender(render);
-		render->release();
 
 		// set gravity
 		world->SetGravity(b2Vec2(0, -10));
@@ -2834,31 +2831,49 @@ public:
 		delete fixDef;
 		fixDef = NULL;
 
+		// add a sprite for animation, its tag is 1000
+		wyUserData ud;
+		ud.p = ball;
+		wySprite* sprite = wySprite::make(NULL);
+		sprite->setUserData(ud);
+		addChildLocked(sprite, 0, 1000);
+
 		// create fixture animation
-		wyFixtureAnimation* anim = wyFixtureAnimation::make(1.f,
-			RES("R.drawable.grossini_dance_01"),
-			RES("R.drawable.grossini_dance_02"),
-			RES("R.drawable.grossini_dance_03"),
-			RES("R.drawable.grossini_dance_04"),
-			RES("R.drawable.grossini_dance_05"),
-			RES("R.drawable.grossini_dance_06"),
-			RES("R.drawable.grossini_dance_07"),
-			RES("R.drawable.grossini_dance_08"),
-			RES("R.drawable.grossini_dance_09"),
-			RES("R.drawable.grossini_dance_10"),
-			RES("R.drawable.grossini_dance_11"),
-			RES("R.drawable.grossini_dance_12"),
-			RES("R.drawable.grossini_dance_13"),
-			RES("R.drawable.grossini_dance_14"),
-			NULL);
-		anim->setLoop(true);
-		anim->start(fixture);
+		wyAnimation* anim = wyAnimation::make(0);
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_01")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_02")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_03")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_04")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_05")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_06")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_07")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_08")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_09")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_10")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_11")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_12")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_13")));
+		anim->addFrame(1.0f, wyTexture2D::makePNG(RES("R.drawable.grossini_dance_14")));
+		wyAnimate* a = wyAnimate::make(anim);
+		wyRepeatForever* rf = wyRepeatForever::make(a);
+		sprite->runAction(rf);
 
 		// start update world
 		startUpdateWorld();
 	}
 
-	virtual ~wyFixtureAnimationTestLayer() {
+	virtual ~wyBodyAnimationTestLayer() {
+	}
+
+	virtual void updateWorld(float dt) {
+		wyBox2DTestLayer::updateWorld(dt);
+
+		// update sprite position
+		wySprite* sprite = (wySprite*)getChildByTagLocked(1000);
+		b2Body* b = (b2Body*)(sprite->getUserData().p);
+        const b2Vec2& bodyPos = b->GetPosition();
+        sprite->setPosition(m_box2d->meter2Pixel(bodyPos.x), m_box2d->meter2Pixel(bodyPos.y));
+		sprite->setRotation(wyMath::r2d(-b->GetAngle()));
 	}
 };
 
@@ -4312,9 +4327,6 @@ public:
 	wyTexturedBounceTestLayer() {
 		b2World* world = m_box2d->getWorld();
 		m_box2d->setDebugDraw(false);
-		wyBox2DRender* render = new wyBox2DRender();
-		m_box2d->setBox2DRender(render);
-		render->release();
 
 		// place box2d to center of bottom edge
 		m_box2d->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
@@ -4377,7 +4389,8 @@ public:
 			b2Fixture* f = body->CreateFixture(&fd);
 
 			// bind texture
-			render->bindTexture(f, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+			// TODO
+//			render->bindTexture(f, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
 		}
 
 		// center stick
@@ -4405,7 +4418,8 @@ public:
 
 			// bind texture
 			tex = wyTexture2D::makePNG(RES("R.drawable.bar"));
-			render->bindTexture(f, tex);
+			// TODO
+//			render->bindTexture(f, tex);
 		}
 
 		startUpdateWorld();
@@ -4427,9 +4441,6 @@ public:
 
 		// set render
 		m_box2d->setDebugDraw(false);
-		wyBox2DRender* render = new wyBox2DRender();
-		m_box2d->setBox2DRender(render);
-		render->release();
 
 		// create body
 		b2Body* body = NULL;
@@ -4457,7 +4468,8 @@ public:
 			b2Fixture* f = body->CreateFixture(&fixDef);
 
 			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.rope"));
-			render->bindTexture(f, tex);
+			// TODO
+//			render->bindTexture(f, tex);
 		}
 
 		// start update world
@@ -4489,9 +4501,6 @@ public:
 		// get world
 		b2World* world = m_box2d->getWorld();
 		m_box2d->setDebugDraw(false);
-		wyBox2DRender* render = new wyBox2DRender();
-		m_box2d->setBox2DRender(render);
-		render->release();
 
 		// set gravity
 		world->SetGravity(b2Vec2(0, -10));
@@ -4515,7 +4524,8 @@ public:
 				b2EdgeShape shape;
 				shape.Set(b2Vec2(x1, y1), b2Vec2(x2, y2));
 				b2Fixture* f = ground->CreateFixture(&shape, 0.0f);
-				render->bindTexture(f, tex);
+				// TODO
+//				render->bindTexture(f, tex);
 
 				x1 = x2;
 				y1 = y2;
@@ -4680,7 +4690,8 @@ public:
 		// bind texture
 		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
 		float size = DP(32.0f) / 2;
-		m_box2d->getBox2DRender()->bindTexture(f, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+		// TODO
+//		m_box2d->getBox2DRender()->bindTexture(f, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
 
 		m_bodyIndex = (m_bodyIndex + 1) % e_maxBodies;
 	}
@@ -4743,8 +4754,6 @@ public:
 		// get world
 		b2World* world = m_box2d->getWorld();
 		m_box2d->setDebugDraw(false);
-		wyBox2DRender* render = new wyBox2DRender();
-		m_box2d->setBox2DRender(render);
 
 		// set gravity
 		world->SetGravity(b2Vec2(0, -10));
@@ -4780,7 +4789,8 @@ public:
 
 			// bind texture
 			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.bar"));
-			render->bindTexture(m_platform, tex);
+			// TODO
+//			render->bindTexture(m_platform, tex);
 		}
 
 		// Actor
@@ -4802,7 +4812,8 @@ public:
 
 			// bind texture
 			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
-			render->bindTexture(m_character, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+			// TODO
+//			render->bindTexture(m_character, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
 		}
 
 		// add a hint label
@@ -4811,7 +4822,6 @@ public:
 		label->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight - DP(60));
 		addChildLocked(label);
 
-		render->release();
 		startUpdateWorld();
 	}
 
@@ -5276,6 +5286,7 @@ using namespace Box2D;
 #endif
 
 DEMO_ENTRY_IMPL(ApplyForceTest);
+DEMO_ENTRY_IMPL(BodyAnimationTest);
 DEMO_ENTRY_IMPL(BodyTypesTest);
 DEMO_ENTRY_IMPL(BounceTest);
 DEMO_ENTRY_IMPL(BreakableTest);
@@ -5292,7 +5303,6 @@ DEMO_ENTRY_IMPL(CompoundShapesTest);
 DEMO_ENTRY_IMPL(ConfinedTest);
 DEMO_ENTRY_IMPL(DominosTest);
 DEMO_ENTRY_IMPL(EdgeShapesTest);
-DEMO_ENTRY_IMPL(FixtureAnimationTest);
 DEMO_ENTRY_IMPL(GearsTest);
 DEMO_ENTRY_IMPL(OneWayTest);
 DEMO_ENTRY_IMPL(PulleysTest);

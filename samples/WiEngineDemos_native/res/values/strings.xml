@@ -155,7 +155,7 @@
     <string name="TMXIsometricTest_desc">演示如何使用等角型TMX地图. TMX是Mac下的瓦片地图编辑器Tiled Qt支持的导出格式, TMX是XML的格式, 它可以记录地图信息并且支持层和对象组. 在地图的形式上, TMX支持正交型, 等角型和六边形. </string>
     <string name="TMXHexagonalTest_desc">演示如何使用六边形TMX地图. TMX是Mac下的瓦片地图编辑器Tiled Qt支持的导出格式, TMX是XML的格式, 它可以记录地图信息并且支持层和对象组. 在地图的形式上, TMX支持正交型, 等角型和六边形. </string>
     <string name="ShapeAnimationTest_desc">演示如何在一个Shape上执行一个动画效果</string>
-    <string name="FixtureAnimationTest_desc">演示如何在一个Fixture上执行一个动画效果</string>
+    <string name="BodyAnimationTest_desc">How to bind a sprite with a body and perform animation on that sprite</string>
     <string name="CallFuncTest_desc">演示如何使用CallFunc动作, 并且可以了解如何使用WiEngine 1.7.1中新增的TargetSelector对象</string>
     <string name="ClipInOutTest_desc">Use ClipIn/ClipOut action to show/hide a node gradually. Not like ProgressBy, ClipIn/ClipOut can be applied to any node or compound node. However, it doesn\'t support radial mode</string>
     <string name="ClipInOutTransitionTest_desc">Use ClipIn/ClipOut action for scene transition</string>

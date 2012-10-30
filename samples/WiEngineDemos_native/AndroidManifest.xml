@@ -1451,10 +1451,10 @@
 				<category android:name="android.intent.category.TEST" />
 			</intent-filter><meta-data android:resource="@string/ShapeAnimationTest_desc" android:name="desc"></meta-data>
 </activity>
-	<activity android:name=".tests.box2d.FixtureAnimationTest" android:label="Box2D/Fixture Animation"><intent-filter>
+	<activity android:name=".tests.box2d.BodyAnimationTest" android:label="Box2D/Body Animation"><intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.TEST" />
-			</intent-filter><meta-data android:resource="@string/FixtureAnimationTest_desc" android:name="desc"></meta-data>
+			</intent-filter><meta-data android:resource="@string/BodyAnimationTest_desc" android:name="desc"></meta-data>
 </activity>
 <activity android:label="Action/Call Function" android:name=".tests.action.CallFuncTest"><intent-filter>
 				<action android:name="android.intent.action.MAIN" />

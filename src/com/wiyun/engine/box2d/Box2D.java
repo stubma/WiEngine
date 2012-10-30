@@ -112,22 +112,4 @@ public class Box2D extends Node {
 	}
 	
 	private native int nativeGetDebugDraw();
-	
-	/**
-	 * 设置box2d渲染器, 缺省的{@link Box2DRender}只会渲染有贴图绑定的物体
-	 * 
-	 * @param render {@link Box2DRender}
-	 */
-	public native void setBox2DRender(Box2DRender render);
-	
-	/**
-	 * 获得设置的box2d渲染器，如果没有设置，则返回null
-	 * 
-	 * @return {@link Box2DRender}
-	 */
-	public Box2DRender getBox2DRender() {
-		return Box2DRender.from(nativeGetBox2DRender());
-	}
-	
-	private native int nativeGetBox2DRender();
 }

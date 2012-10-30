@@ -46,7 +46,6 @@
 #define CLASS_MANIFOLDPOINT "com/wiyun/engine/box2d/collision/ManifoldPoint"
 #define CLASS_AABB "com/wiyun/engine/box2d/collision/AABB"
 #define CLASS_FILTER "com/wiyun/engine/box2d/dynamics/Filter"
-#define CLASS_FIXTUREANIMATION_CALLBACK "com/wiyun/engine/box2d/FixtureAnimation$Callback"
 
 // method id in various interface
 jmethodID g_mid_IQueryCallback_reportFixture;
@@ -109,10 +108,6 @@ jfieldID g_fid_ManifoldPoint_typeB;
 // aabb
 jfieldID g_fid_AABB_lowerBound;
 jfieldID g_fid_AABB_upperBound;
-
-// fixture animation
-jmethodID g_mid_FixtureAnimationCallback_onAnimationEnd;
-jmethodID g_mid_FixtureAnimationCallback_onAnimationAborted;
 
 // CDResult
 jfieldID g_fid_CDResult_pointCount;
@@ -218,11 +213,6 @@ void globalJNIInit() {
 			clazz = env->FindClass(CLASS_AABB);
 			g_fid_AABB_lowerBound = env->GetFieldID(clazz, "lowerBound", "Lcom/wiyun/engine/types/WYPoint;");
 			g_fid_AABB_upperBound = env->GetFieldID(clazz, "upperBound", "Lcom/wiyun/engine/types/WYPoint;");
-			env->DeleteLocalRef(clazz);
-
-			clazz = env->FindClass(CLASS_FIXTUREANIMATION_CALLBACK);
-			g_mid_FixtureAnimationCallback_onAnimationEnd = env->GetMethodID(clazz, "onAnimationEnd", "(I)V");
-			g_mid_FixtureAnimationCallback_onAnimationAborted = env->GetMethodID(clazz, "onAnimationAborted", "(I)V");
 			env->DeleteLocalRef(clazz);
 
 			clazz = env->FindClass(CLASS_CDRESULT);

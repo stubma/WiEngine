@@ -241,8 +241,7 @@ wyBox2D::wyBox2D() :
 		wyNode(),
 		m_world(new b2World(b2Vec2(0, 0))),
 		m_ddImpl(WYNEW wyBox2DDebugDraw()),
-		m_debugDraw(false),
-		m_render(NULL) {
+		m_debugDraw(false) {
 	// default meter pixels
 	setMeterPixels(MIN(wyDevice::winWidth, wyDevice::winHeight) / 20);
 
@@ -255,9 +254,6 @@ wyBox2D::wyBox2D() :
 }
 
 wyBox2D::~wyBox2D() {
-	wyObjectRelease(m_render);
-	m_render = NULL;
-
 	delete m_world;
 	m_world = NULL;
 
@@ -277,8 +273,6 @@ void wyBox2D::draw() {
 //
 //		glDisable(GL_LINE_SMOOTH);
 //		glDisable(GL_POINT_SMOOTH);
-//	} else if(m_render != NULL) {
-//		m_render->drawWorld(this);
 //	}
 }
 
@@ -296,16 +290,4 @@ float wyBox2D::pixel2Meter(float pixel) {
 
 float wyBox2D::meter2Pixel(float meter) {
 	return m_ddImpl->meter2Pixel(meter);
-}
-
-void wyBox2D::setBox2DRender(wyBox2DRender* render) {
-	if(m_render != NULL)
-		m_world->SetDestructionListener(NULL);
-
-	wyObjectRetain(render);
-	wyObjectRelease(m_render);
-	m_render = render;
-
-	if(render != NULL)
-		m_world->SetDestructionListener(render);
 }

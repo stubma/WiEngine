@@ -32,7 +32,6 @@ class b2BlockAllocator;
 class b2Body;
 class b2BroadPhase;
 class b2Fixture;
-class wyFixtureAnimation;
 
 /// This holds contact filtering data.
 struct BOX2D_API b2Filter
@@ -228,10 +227,6 @@ public:
 	void SetJavaUserData(jobject data);
 #endif
 
-	// for animation
-	void ClearAnimation();
-	void SetAnimation(wyFixtureAnimation* anim);
-	
 protected:
 
 	friend class b2Body;
@@ -274,8 +269,6 @@ protected:
 #if ANDROID
 	jobject m_jUserData;
 #endif
-
-	wyFixtureAnimation* m_anim;
 };
 
 inline b2Shape::Type b2Fixture::GetType() const

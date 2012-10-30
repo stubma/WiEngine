@@ -72,18 +72,20 @@ void wyTextureNode::updateMesh() {
 	// update texture to mesh
 	wyRectangle* rect = (wyRectangle*)getMesh();
 	wyTexture2D* tex = getTexture();
-	rect->updateForTexture(tex->getPixelWidth(),
-			tex->getPixelHeight(),
-			m_autoFit ? 0 : m_pointLeftBottom.x,
-			m_autoFit ? 0 : m_pointLeftBottom.y,
-			m_autoFit ? m_width : (m_rotatedZwoptex ? m_texRect.height : m_texRect.width),
-			m_autoFit ? m_height : (m_rotatedZwoptex ? m_texRect.width : m_texRect.height),
-            m_width,
-            m_height,
-			m_flipX,
-			m_flipY,
-			m_texRect,
-			m_rotatedZwoptex);
+	if(tex) {
+		rect->updateForTexture(tex->getPixelWidth(),
+				tex->getPixelHeight(),
+				m_autoFit ? 0 : m_pointLeftBottom.x,
+				m_autoFit ? 0 : m_pointLeftBottom.y,
+				m_autoFit ? m_width : (m_rotatedZwoptex ? m_texRect.height : m_texRect.width),
+				m_autoFit ? m_height : (m_rotatedZwoptex ? m_texRect.width : m_texRect.height),
+	            m_width,
+	            m_height,
+				m_flipX,
+				m_flipY,
+				m_texRect,
+				m_rotatedZwoptex);
+	}
 }
 
 void wyTextureNode::updateMeshColor() {

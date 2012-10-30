@@ -8,5 +8,4 @@ b2Joint, b2JointDef增加了java层user data的引用
 b2World增加了获得block allocator的api, jni需要使用
 b2RopeJoint增加了GetLength(), SetMaxLength()方法
 b2World中增加了对wyBox2D的引用
-b2Fixture增加了设置动画，清除动画的方法
 增加对物理设计工具PhysicsEditor的支持；

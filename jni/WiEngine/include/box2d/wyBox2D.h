@@ -30,62 +30,24 @@
 #define __wyBox2D_h__
 
 #include "wyNode.h"
-#include "wyBox2DRender.h"
-#include "wyFixtureAnimation.h"
 #include <Box2D/Box2D.h>
 
 class wyBox2DDebugDraw;
 
 /**
- * @class wyBox2D
- *
- * \if English
  * encapsulation for box2d. wyBox2D is a node so you can add it to scene. every
  * wyBox2D contains a b2World.
- * \else
- * 对Box2D进行了一个节点形式的封装，wyBox2D是wyNode的子类，因此可以被添加到场景中。
- * 一个wyBox2D对应于一个b2World对象.
- * \endif
  */
 class BOX2D_API wyBox2D : public wyNode {
 private:
-	/**
-	 * \if English
-	 * the world contained by wyBox2D node
-	 * \else
-	 * Box2D的World对象
-	 * \endif
-	 */
+	/// the world contained by wyBox2D node
 	b2World* m_world;
 
-	/**
-	 * \if English
-	 * implementation of b2Draw, enabled when \c m_debugDraw set to true
-	 * \else
-	 * b2Draw实现, 仅用于debug draw模式
-	 * \endif
-	 */
+	/// implementation of b2Draw, enabled when \c m_debugDraw set to true
 	wyBox2DDebugDraw* m_ddImpl;
 
-	/**
-	 * \if English
-	 * true indicating using debug render mode
-	 * \else
-	 * true表示使用debug draw模式渲染World
-	 * \endif
-	 */
+	/// true indicating using debug render mode
 	bool m_debugDraw;
-
-	/**
-	 * \if English
-	 * render of non debug mode, supporting binding texture to a fixture. you can use it
-	 * or do drawing yourself, it is mainly used for simple scenario and it is not good for
-	 * complicated world.
-	 * \else
-	 * Box2D的非调试模式渲染器
-	 * \endif
-	 */
-	wyBox2DRender* m_render;
 
 public:
 	static wyBox2D* make();
@@ -196,32 +158,6 @@ public:
 	 * \endif
 	 */
 	b2Draw* getDebugDrawImpl() { return (b2Draw*)m_ddImpl; }
-
-	/**
-	 * \if English
-	 * set a custom box2d render, must be a subclass of wyBox2DRender
-	 *
-	 * @param render \link wyBox2DRender wyBox2DRender\endlink
-	 * \else
-	 * 设置使用缺省的Box2D渲染器
-	 *
-	 * @param render \link wyBox2DRender wyBox2DRender\endlink
-	 * \endif
-	 */
-	void setBox2DRender(wyBox2DRender* render);
-
-	/**
-	 * \if English
-	 * get current box2d render, or NULL if none
-	 *
-	 * @return \link wyBox2DRender wyBox2DRender\endlink
-	 * \else
-	 * 获得当前的Box2D渲染器, 如果没有设置，返回NULL
-	 *
-	 * @return \link wyBox2DRender wyBox2DRender\endlink
-	 * \endif
-	 */
-	wyBox2DRender* getBox2DRender() { return m_render; }
 };
 
 #endif // __wyBox2D_h__

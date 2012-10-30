@@ -59,16 +59,3 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_box2d_Box2D_nativeGetDebugDraw
 	wyBox2D* box2d = (wyBox2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	return (jint)box2d->getDebugDrawImpl();
 }
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_box2d_Box2D_setBox2DRender
-  (JNIEnv * env, jobject thiz, jobject render) {
-	wyBox2D* box2d = (wyBox2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyBox2DRender* r = (wyBox2DRender*)env->GetIntField(render, g_fid_BaseObject_mPointer);
-	box2d->setBox2DRender(r);
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_box2d_Box2D_nativeGetBox2DRender
-  (JNIEnv * env, jobject thiz) {
-	wyBox2D* box2d = (wyBox2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return (jint)box2d->getBox2DRender();
-}

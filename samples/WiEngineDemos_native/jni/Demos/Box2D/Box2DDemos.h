@@ -11,6 +11,7 @@ extern "C" {
 #endif
 
 DEMO_ENTRY(box2d, ApplyForceTest);
+DEMO_ENTRY(box2d, BodyAnimationTest);
 DEMO_ENTRY(box2d, BodyTypesTest);
 DEMO_ENTRY(box2d, BounceTest);
 DEMO_ENTRY(box2d, BreakableTest);
@@ -27,7 +28,6 @@ DEMO_ENTRY(box2d, CompoundShapesTest);
 DEMO_ENTRY(box2d, ConfinedTest);
 DEMO_ENTRY(box2d, DominosTest);
 DEMO_ENTRY(box2d, EdgeShapesTest);
-DEMO_ENTRY(box2d, FixtureAnimationTest);
 DEMO_ENTRY(box2d, GearsTest);
 DEMO_ENTRY(box2d, OneWayTest);
 DEMO_ENTRY(box2d, PulleysTest);

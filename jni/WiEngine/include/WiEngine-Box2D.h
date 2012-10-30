@@ -36,8 +36,6 @@
 
 #include "wyBox2D.h"
 #include "wyBox2DPELoader.h"
-#include "wyBox2DRender.h"
 #include "wyBox2DCollisionDetector.h"
-#include "wyFixtureAnimation.h"
 
 #endif // __WiEngine_Box2D_h__

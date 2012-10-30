@@ -23,7 +23,7 @@ package com.wiyun.engine.tests.box2d;
 
 import com.wiyun.engine.WiEngineTestActivity;
 
-public class FixtureAnimationTest extends WiEngineTestActivity {
+public class BodyAnimationTest extends WiEngineTestActivity {
 	private native void nativeStart();
 
 	@Override

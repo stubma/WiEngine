@@ -26,7 +26,6 @@
 #include <Box2D/Collision/b2BroadPhase.h>
 #include <Box2D/Collision/b2Collision.h>
 #include <Box2D/Common/b2BlockAllocator.h>
-#include "wyFixtureAnimation.h"
 #if ANDROID
 	#include "wyUtils_android.h"
 #endif
@@ -54,23 +53,9 @@ b2Fixture::b2Fixture()
 	m_proxyCount = 0;
 	m_shape = NULL;
 	m_density = 0.0f;
-	m_anim = NULL;
 }
 
 b2Fixture::~b2Fixture() {
-}
-
-void b2Fixture::ClearAnimation() {
-	if(m_anim != NULL) {
-		m_anim->stop();
-		m_anim = NULL;
-	}
-}
-
-void b2Fixture::SetAnimation(wyFixtureAnimation* anim) {
-	wyObjectRetain(anim);
-	wyObjectRelease(m_anim);
-	m_anim = anim;
 }
 
 void b2Fixture::Create(b2BlockAllocator* allocator, b2Body* body, const b2FixtureDef* def)
@@ -109,9 +94,6 @@ void b2Fixture::Destroy(b2BlockAllocator* allocator)
 {
 	// The proxies must be destroyed before calling this.
 	b2Assert(m_proxyCount == 0);
-
-	// clear animation
-	ClearAnimation();
 
 #if ANDROID
 	// destroy java user data

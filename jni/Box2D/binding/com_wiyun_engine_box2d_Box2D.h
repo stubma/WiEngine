@@ -79,22 +79,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_box2d_Box2D_setMeterPixels
 JNIEXPORT jint JNICALL Java_com_wiyun_engine_box2d_Box2D_nativeGetDebugDraw
   (JNIEnv *, jobject);
 
-/*
- * Class:     com_wiyun_engine_box2d_Box2D
- * Method:    setBox2DRender
- * Signature: (Lcom/wiyun/engine/box2d/Box2DRender;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_box2d_Box2D_setBox2DRender
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_box2d_Box2D
- * Method:    nativeGetBox2DRender
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_box2d_Box2D_nativeGetBox2DRender
-  (JNIEnv *, jobject);
-
 #ifdef __cplusplus
 }
 #endif
