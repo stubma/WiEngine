@@ -1763,6 +1763,14 @@ void wyNode::removeRenderPair(wyRenderPairSelector* sel, void* data) {
 	}
 }
 
+wyMesh* wyNode::getMeshByTag(int tag) {
+	for(vector<RenderPair>::iterator iter = m_renderPairs->begin(); iter != m_renderPairs->end(); iter++) {
+		if(iter->mesh->getTag() == tag)
+			return iter->mesh;
+	}
+	return NULL;
+}
+
 void wyNode::clearRenderPairs() {
 	for(vector<RenderPair>::iterator iter = m_renderPairs->begin(); iter != m_renderPairs->end(); iter++) {
 		wyObjectRelease(iter->material);

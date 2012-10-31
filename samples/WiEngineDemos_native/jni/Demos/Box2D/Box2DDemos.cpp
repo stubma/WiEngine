@@ -4988,8 +4988,13 @@ public:
 
 			// bind texture
 			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.bar"));
-			// TODO
-//			render->bindTexture(m_platform, tex);
+			wyMaterial* m = wyMaterial::make(tex);
+			wyMesh* mesh = wyBox2DMeshBuilder::createMesh(m_box2d,
+					m_platform,
+					tex->getPixelWidth(),
+					tex->getPixelHeight(),
+					wyr(0, 0, tex->getWidth(), tex->getHeight()));
+			m_box2d->addRenderPair(m, mesh);
 		}
 
 		// Actor
@@ -5011,8 +5016,17 @@ public:
 
 			// bind texture
 			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
-			// TODO
-//			render->bindTexture(m_character, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+			wyMaterial* m = wyMaterial::make(tex);
+			wyMesh* mesh = wyBox2DMeshBuilder::createMesh(m_box2d,
+					m_character,
+					tex->getPixelWidth(),
+					tex->getPixelHeight(),
+					wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+			mesh->setTag(1000);
+			wyUserData ud;
+			ud.p = m_character;
+			mesh->setUserData(ud);
+			m_box2d->addRenderPair(m, mesh);
 		}
 
 		// add a hint label
@@ -5021,10 +5035,22 @@ public:
 		label->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight - DP(60));
 		addChildLocked(label);
 
+		// set box2d render mode
+		m_box2d->setBlendMode(wyRenderState::ALPHA);
+
 		startUpdateWorld();
 	}
 
 	virtual ~wyTexturedOneWayTestLayer() {
+	}
+
+	virtual void updateWorld(float dt) {
+		wyBox2DTestLayer::updateWorld(dt);
+
+		wyMesh* mesh = m_box2d->getMeshByTag(1000);
+		wyBox2DMeshBuilder::updateMesh(mesh,
+				m_box2d,
+				(b2Fixture*)mesh->getUserData().p);
 	}
 
 	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {

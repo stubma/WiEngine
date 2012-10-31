@@ -3440,6 +3440,14 @@ public:
 	 */
 	virtual void removeRenderPair(wyRenderPairSelector* sel, void* data);
 
+	/**
+	 * Find a mesh by tag, it only returns first mesh matched
+	 *
+	 * @param tag tag of mesh
+	 * @return mesh object, or NULL if no match
+	 */
+	virtual wyMesh* getMeshByTag(int tag);
+
 	/// remove all render pairs
 	virtual void clearRenderPairs();
 
