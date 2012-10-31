@@ -623,6 +623,22 @@ void wyShape::buildSolidCircle(float centerX, float centerY, float r, int segmen
 	m_mode = TRIANGLE_FAN;
 }
 
+void wyShape::buildCustom2D(float* vertices, float* texCoords, int vertexCount, Mode mode) {
+	// vertex
+	Vertex v;
+	kmVec4Fill(&v.color, 1, 1, 1, 1);
+
+	// fill
+	for(int i = 0; i < vertexCount; i++) {
+		kmVec3Fill(&v.pos, vertices[i * 2], vertices[i * 2 + 1], 0);
+		kmVec2Fill(&v.tex, texCoords[i * 2], texCoords[i * 2 + 1]);
+		m_buf->append(&v, 1);
+	}
+
+	// set mode
+	m_mode = mode;
+}
+
 void wyShape::updateColor(wyColor4B color) {
 	// color
 	float r = color.r / 255.0f;

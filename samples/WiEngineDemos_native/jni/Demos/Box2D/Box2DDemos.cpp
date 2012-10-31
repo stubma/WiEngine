@@ -4493,6 +4493,13 @@ public:
 ////////////////////////////////////////////////////////////////////////
 
 class wyTexturedChainShapeTestLayer : public wyBox2DTestLayer {
+private:
+	/// rope texture
+	wyTexture2D* m_ropeTex;
+
+	// fixture
+	b2Fixture* m_fixture;
+
 public:
 	wyTexturedChainShapeTestLayer() {
 		b2World* world = m_box2d->getWorld();
@@ -4526,11 +4533,16 @@ public:
 			ls->CreateLoop(vertices, 5);
 			b2FixtureDef fixDef;
 			fixDef.shape = ls;
-			b2Fixture* f = body->CreateFixture(&fixDef);
+			m_fixture = body->CreateFixture(&fixDef);
 
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.rope"));
-			// TODO
-//			render->bindTexture(f, tex);
+			m_ropeTex = wyTexture2D::makePNG(RES("R.drawable.rope"));
+			wyMaterial* m = wyMaterial::make(m_ropeTex);
+			wyMesh* mesh = wyBox2DMeshBuilder::createMesh(m_box2d,
+					m_fixture,
+					m_ropeTex->getPixelWidth(),
+					m_ropeTex->getPixelHeight(),
+					wyr(0, 0, m_ropeTex->getWidth(), m_ropeTex->getHeight()));
+			m_box2d->addRenderPair(m, mesh);
 		}
 
 		// start update world
@@ -4538,6 +4550,19 @@ public:
 	}
 
 	virtual ~wyTexturedChainShapeTestLayer() {
+	}
+
+	virtual void updateWorld(float dt) {
+		wyBox2DTestLayer::updateWorld(dt);
+
+		// update mesh
+		wyMesh* mesh = m_box2d->getMesh();
+		wyBox2DMeshBuilder::updateMesh(mesh,
+				m_box2d,
+				m_fixture,
+				m_ropeTex->getPixelWidth(),
+				m_ropeTex->getPixelHeight(),
+				wyr(0, 0, m_ropeTex->getWidth(), m_ropeTex->getHeight()));
 	}
 };
 
@@ -4557,8 +4582,18 @@ private:
 
 	float32 m_angle;
 
+	// block texture and material
+	wyTexture2D* m_blockTex;
+	wyMaterial* m_blockMat;
+
 public:
 	wyTexturedEdgeShapesTestLayer() {
+		// init
+		m_blockTex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+		m_blockTex->retain();
+		m_blockMat = wyMaterial::make(m_blockTex);
+		m_blockMat->retain();
+
 		// get world
 		b2World* world = m_box2d->getWorld();
 		m_box2d->setDebugDraw(false);
@@ -4678,6 +4713,8 @@ public:
 	}
 
 	virtual ~wyTexturedEdgeShapesTestLayer() {
+		m_blockTex->release();
+		m_blockMat->release();
 	}
 
 	virtual void updateWorld(float delta) {
@@ -4759,13 +4796,16 @@ public:
 			f = m_bodies[m_bodyIndex]->CreateFixture(&fd);
 		}
 
-		// bind texture
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
-		float size = DP(32.0f) / 2;
-		// TODO
-//		m_box2d->getBox2DRender()->bindTexture(f, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
-
 		m_bodyIndex = (m_bodyIndex + 1) % e_maxBodies;
+
+		// bind texture
+		float size = DP(32.0f) / 2;
+		wyMesh* mesh = wyBox2DMeshBuilder::createMesh(m_box2d,
+				f,
+				m_blockTex->getPixelWidth(),
+				m_blockTex->getPixelHeight(),
+				wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+		m_box2d->addRenderPair(m_blockMat, mesh);
 	}
 
 	void DestroyBody()

@@ -217,6 +217,16 @@ public:
 	 */
 	void buildSolidCircle(float centerX, float centerY, float r, int segments);
 
+	/**
+	 * Fill mesh with a custom shape and its vertices and texture coordinates is already populated
+	 *
+	 * @param vertices vertex array, every 2 elements is a vertex
+	 * @param texCoords texture coordinate array
+	 * @param vertexCount vertex count
+	 * @param mode mesh mode
+	 */
+	void buildCustom2D(float* vertices, float* texCoords, int vertexCount, Mode mode);
+
 	virtual ~wyShape();
 
 	/// @see wyMesh::getElementCount()

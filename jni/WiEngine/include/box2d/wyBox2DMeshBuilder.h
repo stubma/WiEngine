@@ -40,50 +40,50 @@ private:
 	/**
 	 * Create a mesh object from a fixture
 	 *
+	 * @param mesh mesh to be updated
 	 * @param box2d related box2d node
 	 * @param f box2d fixture object, the fixture must has edge shape
 	 * @param texPixelWidth related texture pixel width, it should be a POT size
 	 * @param texPixelHeight related texture pixel height, it should be a POT size
 	 * @param texRect rect area in texture, for non-altas texture, it should be same as texture effect size.
-	 * @return \link wyMesh wyMesh\endlink
 	 */
-	static wyMesh* createEdgeMesh(wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect);
+	static void updateEdgeMesh(wyRectangle* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect);
 
 	/**
 	 * Create a mesh object from a fixture
 	 *
+	 * @param mesh mesh to be updated
 	 * @param box2d related box2d node
 	 * @param f box2d fixture object, the fixture must has chain shape
 	 * @param texPixelWidth related texture pixel width, it should be a POT size
 	 * @param texPixelHeight related texture pixel height, it should be a POT size
 	 * @param texRect rect area in texture, for non-altas texture, it should be same as texture effect size.
-	 * @return \link wyMesh wyMesh\endlink
 	 */
-	static wyMesh* createChainMesh(wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect);
+	static void updateChainMesh(wyQuadList* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect);
 
 	/**
 	 * Create a mesh object from a fixture
 	 *
+	 * @param mesh mesh to be updated
 	 * @param box2d related box2d node
 	 * @param f box2d fixture object, the fixture must has polygon shape
 	 * @param texPixelWidth related texture pixel width, it should be a POT size
 	 * @param texPixelHeight related texture pixel height, it should be a POT size
 	 * @param texRect rect area in texture, for non-altas texture, it should be same as texture effect size.
-	 * @return \link wyMesh wyMesh\endlink
 	 */
-	static wyMesh* createPolygonMesh(wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect);
+	static void updatePolygonMesh(wyShape* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect);
 
 	/**
 	 * Create a mesh object from a fixture
 	 *
+	 * @param mesh mesh to be updated
 	 * @param box2d related box2d node
 	 * @param f box2d fixture object, the fixture must has circle shape
 	 * @param texPixelWidth related texture pixel width, it should be a POT size
 	 * @param texPixelHeight related texture pixel height, it should be a POT size
 	 * @param texRect rect area in texture, for non-altas texture, it should be same as texture effect size.
-	 * @return \link wyMesh wyMesh\endlink
 	 */
-	static wyMesh* createCircleMesh(wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect);
+	static void updateCircleMesh(wyShape* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect);
 
 public:
 	/**
@@ -97,6 +97,19 @@ public:
 	 * @return \link wyMesh wyMesh\endlink
 	 */
 	static wyMesh* createMesh(wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect texRect);
+
+	/**
+	 * Update a mesh object which is created by \c createMesh before
+	 *
+	 * @param mesh the mesh need to be updated. \c updateMesh will cast it to subclass type but it won't check type.
+	 * 		So you should ensure the mesh has right type
+	 * @param box2d related box2d node
+	 * @param f box2d fixture object
+	 * @param texPixelWidth related texture pixel width, it should be a POT size
+	 * @param texPixelHeight related texture pixel height, it should be a POT size
+	 * @param texRect rect area in texture, for non-altas texture, it should be same as texture effect size.
+	 */
+	static void updateMesh(wyMesh* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect texRect);
 };
 
 #endif // __wyBox2DMeshBuilder_h__
