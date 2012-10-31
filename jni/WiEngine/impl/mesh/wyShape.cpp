@@ -646,7 +646,7 @@ void wyShape::buildCustom2D(float* vertices, float* texCoords, int vertexCount, 
 void wyShape::updateVertices(float* vertices, int vertexCount, int updateStart) {
 	Vertex* v = (Vertex*)m_buf->getData();
 	int currentCount = m_buf->getElementCount();
-	int min = MIN(currentCount, vertexCount);
+	int min = MIN(currentCount, updateStart + vertexCount);
 	v += updateStart;
 	for(int i = updateStart; i < min; i++, v++) {
 		kmVec3Fill(&v[0].pos, vertices[i * 2], vertices[i * 2 + 1], 0);
