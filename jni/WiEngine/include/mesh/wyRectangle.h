@@ -75,7 +75,8 @@ public:
 	 * Update mesh data directly from pre-calculated array
 	 *
 	 * @param vertices vertex data, must contain 12 float number
-	 * @param texCoords texture coordinates, must contain 8 float number
+	 * @param texCoords texture coordinates, must contain 8 float number. It can be NULL and
+	 * 		NULL means texture coordinates will not be touched
 	 */
 	void updateMesh(float* vertices, float* texCoords);
 

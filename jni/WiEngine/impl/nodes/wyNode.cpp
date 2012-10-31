@@ -1753,6 +1753,16 @@ void wyNode::addRenderPair(wyMaterial* material, wyMesh* mesh) {
 	wyObjectRetain(mesh);
 }
 
+void wyNode::removeRenderPair(wyRenderPairSelector* sel, void* data) {
+	for(vector<RenderPair>::iterator iter = m_renderPairs->begin(); iter != m_renderPairs->end();) {
+		if(sel->selectRenderPair(iter->material, iter->mesh, data)) {
+			iter = m_renderPairs->erase(iter);
+		} else {
+			iter++;
+		}
+	}
+}
+
 void wyNode::clearRenderPairs() {
 	for(vector<RenderPair>::iterator iter = m_renderPairs->begin(); iter != m_renderPairs->end(); iter++) {
 		wyObjectRelease(iter->material);

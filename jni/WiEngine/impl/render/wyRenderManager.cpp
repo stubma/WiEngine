@@ -279,6 +279,10 @@ void wyRenderManager::renderNode(wyNode* g) {
 		wyMaterial* material = g->getMaterial(i);
 		wyMesh* mesh = g->getMesh(i);
 
+		// is mesh skip flag set?
+		if(mesh->shouldSkip())
+			continue;
+
 		// get technique and shader programe
 		wyTechnique* tech = material->getTechnique();
 		wyShaderProgram* program = tech->getShaderProgram();

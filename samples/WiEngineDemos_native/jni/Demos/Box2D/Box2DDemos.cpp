@@ -4568,7 +4568,7 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-class wyTexturedEdgeShapesTestLayer : public wyBox2DTestLayer {
+class wyTexturedEdgeShapesTestLayer : public wyBox2DTestLayer, public wyRenderPairSelector {
 private:
 	enum
 	{
@@ -4709,6 +4709,27 @@ public:
 		label->setPosition(DP(240), wyDevice::winHeight - DP(30));
 		addChildLocked(label, 1);
 
+		// some render pair for showing ray
+		wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
+
+		// hit point
+		wyShape* s = wyShape::make();
+		s->setPointSize(5);
+		s->setTag(1001);
+		s->setSkip(true);
+		m_box2d->addRenderPair(m, s);
+
+		// ray
+		s = wyShape::make();
+		s->setTag(1002);
+		m_box2d->addRenderPair(m, s);
+
+		// arrow head
+		s = wyShape::make();
+		s->setTag(1003);
+		s->setSkip(true);
+		m_box2d->addRenderPair(m, s);
+
 		startUpdateWorld();
 	}
 
@@ -4720,36 +4741,83 @@ public:
 	virtual void updateWorld(float delta) {
 		wyBox2DTestLayer::updateWorld(delta);
 
+		// prepare ray cast
 		float32 L = 25.0f;
 		b2Vec2 point1(0.0f, 10.0f);
 		b2Vec2 d(L * cosf(m_angle), -L * b2Abs(sinf(m_angle)));
 		b2Vec2 point2 = point1 + d;
 
+		// perform ray cast testing
 		EdgeShapesCallback callback;
-
 		m_box2d->getWorld()->RayCast(&callback, point1, point2);
 
-		// TODO gles2
-		//glPushMatrix();
-		//{
-		//	m_box2d->transformAncestors();
-		//	m_box2d->transform();
-
-		//	b2Draw* dd = m_box2d->getDebugDrawImpl();
-		//	if(callback.m_fixture) {
-		//		dd->DrawPoint(callback.m_point, 5.0f, b2Color(0.4f, 0.9f, 0.4f));
-
-		//		dd->DrawSegment(point1, callback.m_point, b2Color(0.8f, 0.8f, 0.8f));
-
-		//		b2Vec2 head = callback.m_point + 0.5f * callback.m_normal;
-		//		dd->DrawSegment(callback.m_point, head, b2Color(0.9f, 0.9f, 0.4f));
-		//	} else {
-		//		dd->DrawSegment(point1, point2, b2Color(0.8f, 0.8f, 0.8f));
-		//	}
-		//}
-		//glPopMatrix();
-
+		// change ray angle
 		m_angle += 0.25f * b2_pi / 180.0f;
+
+		// update fixture mesh
+		float size = DP(32.0f) / 2;
+		int count = m_box2d->getRenderPairCount();
+		for(int i = 0; i < count; i++) {
+			wyMesh* mesh = m_box2d->getMesh(i);
+			switch(mesh->getTag()) {
+				case 1000: // block
+				{
+					b2Fixture* f = (b2Fixture*)mesh->getUserData().p;
+					wyBox2DMeshBuilder::updateMesh(mesh, m_box2d, f);
+					break;
+				}
+				case 1001: // hit point
+				{
+					b2Draw* dd = m_box2d->getDebugDrawImpl();
+					wyShape* s = (wyShape*)mesh;
+					if(callback.m_fixture) {
+						s->setSkip(false);
+						s->buildPoint(m_box2d->meter2Pixel(callback.m_point.x),
+								m_box2d->meter2Pixel(callback.m_point.y));
+						s->updateColor(wyc4b(0.4f * 255, 0.9f * 255, 0.4f * 255, 255));
+					} else {
+						s->setSkip(true);
+					}
+					break;
+				}
+				case 1002: // ray
+				{
+					b2Draw* dd = m_box2d->getDebugDrawImpl();
+					wyShape* s = (wyShape*)mesh;
+					if(callback.m_fixture) {
+						s->buildLine(m_box2d->meter2Pixel(point1.x),
+								m_box2d->meter2Pixel(point1.y),
+								m_box2d->meter2Pixel(callback.m_point.x),
+								m_box2d->meter2Pixel(callback.m_point.y));
+						s->updateColor(wyc4b(0.8f * 255, 0.8f * 255, 0.8f * 255, 255));
+					} else {
+						s->buildLine(m_box2d->meter2Pixel(point1.x),
+								m_box2d->meter2Pixel(point1.y),
+								m_box2d->meter2Pixel(point2.x),
+								m_box2d->meter2Pixel(point2.y));
+						s->updateColor(wyc4b(0.8f * 255, 0.8f * 255, 0.8f * 255, 255));
+					}
+					break;
+				}
+				case 1003: // arrow head
+				{
+					b2Draw* dd = m_box2d->getDebugDrawImpl();
+					wyShape* s = (wyShape*)mesh;
+					if(callback.m_fixture) {
+						s->setSkip(false);
+						b2Vec2 head = callback.m_point + 0.5f * callback.m_normal;
+						s->buildLine(m_box2d->meter2Pixel(callback.m_point.x),
+								m_box2d->meter2Pixel(callback.m_point.y),
+								m_box2d->meter2Pixel(head.x),
+								m_box2d->meter2Pixel(head.y));
+						s->updateColor(wyc4b(0.9f * 255, 0.9f * 255, 0.4f * 255, 255));
+					} else {
+						s->setSkip(true);
+					}
+					break;
+				}
+			}
+		}
 	}
 
 	void Create(int32 index)
@@ -4805,6 +4873,10 @@ public:
 				m_blockTex->getPixelWidth(),
 				m_blockTex->getPixelHeight(),
 				wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
+		mesh->setTag(1000);
+		wyUserData ud;
+		ud.p = f;
+		mesh->setUserData(ud);
 		m_box2d->addRenderPair(m_blockMat, mesh);
 	}
 
@@ -4814,10 +4886,25 @@ public:
 		{
 			if (m_bodies[i] != NULL)
 			{
+				// delete render pair bound to its fixtures
+				for(b2Fixture* f = m_bodies[i]->GetFixtureList(); f != NULL; f = f->GetNext()) {
+					m_box2d->removeRenderPair(this, f);
+				}
+
+				// delete body
 				m_box2d->getWorld()->DestroyBody(m_bodies[i]);
 				m_bodies[i] = NULL;
+
 				return;
 			}
+		}
+	}
+
+	virtual bool selectRenderPair(wyMaterial* mat, wyMesh* mesh, void* data) {
+		if(mesh->getTag() == 1000 && mesh->getUserData().p == data) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

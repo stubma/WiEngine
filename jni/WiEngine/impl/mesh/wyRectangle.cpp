@@ -162,17 +162,21 @@ void wyRectangle::updateMesh(float* vertices, float* texCoords) {
 
 	// bottom left
 	kmVec3Fill(&data[0].pos, vertices[0], vertices[1], vertices[2]);
-	kmVec2Fill(&data[0].tex, texCoords[0], texCoords[1]);
+	if(texCoords)
+		kmVec2Fill(&data[0].tex, texCoords[0], texCoords[1]);
 
 	// bottom right
 	kmVec3Fill(&data[1].pos, vertices[3], vertices[4], vertices[5]);
-	kmVec2Fill(&data[1].tex, texCoords[2], texCoords[3]);
+	if(texCoords)
+		kmVec2Fill(&data[1].tex, texCoords[2], texCoords[3]);
 
 	// top left
 	kmVec3Fill(&data[2].pos, vertices[6], vertices[7], vertices[8]);
-	kmVec2Fill(&data[2].tex, texCoords[4], texCoords[5]);
+	if(texCoords)
+		kmVec2Fill(&data[2].tex, texCoords[4], texCoords[5]);
 
 	// top right
 	kmVec3Fill(&data[3].pos, vertices[9], vertices[10], vertices[11]);
-	kmVec2Fill(&data[3].tex, texCoords[6], texCoords[7]);
+	if(texCoords)
+		kmVec2Fill(&data[3].tex, texCoords[6], texCoords[7]);
 }

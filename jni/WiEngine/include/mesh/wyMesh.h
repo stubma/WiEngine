@@ -131,6 +131,27 @@ protected:
 	/// line width of line mesh
 	float m_lineWidth;
 
+	/**
+	 * mesh tag, just like node tag, it can be used as an identifier of mesh.
+	 * tag is not need to be unique. default value is -1
+	 */
+	int m_tag;
+
+	/// custom data attached to this mesh, just like node user data
+	wyUserData m_data;
+
+	/// true means skip rendering this mesh
+	bool m_skip;
+
+	/// related texture pixel width
+	float m_texPixelWidth;
+
+	/// related texture pixel height
+	float m_texPixelHeight;
+
+	/// related texture altas rect
+	wyRect m_texRect;
+
 private:
 	static void releaseAttributeConnection(AttributeConnection* conn);
 
@@ -284,6 +305,55 @@ public:
 	 * This method is intended to be overrided by subclass and used internally.
 	 */
 	virtual int getOffset() { return 0; }
+
+	/**
+	 * Set user data in this mesh, if user data is a pointer, wyMesh won't release
+	 * it
+	 *
+	 * @param ud \link wyUserData wyUserData\endlink
+	 */
+	void setUserData(wyUserData& ud);
+
+	/**
+	 * Get user data reference
+	 *
+	 * @return reference of user data, you can change it
+	 */
+	wyUserData& getUserData() { return m_data; }
+
+	/**
+	 * Set node tag. Tag is an integer and -1 is default.
+	 */
+	void setTag(int tag) { m_tag = tag; }
+
+	/**
+	 * Get mesh tag
+	 */
+	int getTag() { return m_tag; }
+
+	/// is this mesh should be skipped when rendering related node?
+	bool shouldSkip() { return m_skip; }
+
+	/// set skip flag of mesh
+	void setSkip(bool flag) { m_skip = flag; }
+
+	/// get texture pixel width
+	float getTexPixelWidth() { return m_texPixelWidth; }
+
+	/// set texture pixel width
+	void setTexPixelWidth(float w) { m_texPixelWidth = w; }
+
+	/// get texture pixel height
+	float getTexPixelHeight() { return m_texPixelHeight; }
+
+	/// set texture pixel height
+	void setTexPixelHeight(float h) { m_texPixelHeight = h; }
+
+	/// get texture rect
+	wyRect getTextureRect() { return m_texRect; }
+
+	/// set texture rect
+	void setTextureRect(wyRect r) { m_texRect = r; }
 };
 
 #endif // __wyMesh_h__

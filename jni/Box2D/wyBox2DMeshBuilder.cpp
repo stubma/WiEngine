@@ -139,7 +139,51 @@ void wyBox2DMeshBuilder::updateEdgeMesh(wyRectangle* mesh, wyBox2D* box2d, b2Fix
 	};
 
 	// update mesh
+	mesh->setTextureRect(texRect);
 	mesh->updateMesh(vertices, texCoords);
+}
+
+void wyBox2DMeshBuilder::updateEdgeMesh(wyRectangle* mesh, wyBox2D* box2d, b2Fixture* f) {
+	// get shape and body
+	b2EdgeShape* edge = (b2EdgeShape*)f->GetShape();
+	b2Body* body = f->GetBody();
+
+	// get rotation angle in degree
+	const b2Transform& xf = body->GetTransform();
+	float angle = xf.q.GetAngle();
+	b2Vec2 v = edge->m_vertex1;
+	v -= edge->m_vertex2;
+
+	// get middle point
+	b2Vec2 middle = edge->m_vertex1;
+	middle += edge->m_vertex2;
+	middle *= 0.5f;
+
+	// get length in pixel
+	float length = box2d->meter2Pixel(v.Length());
+
+	// vertices
+	wyRect texRect = mesh->getTextureRect();
+	float vertices[12] = {
+			-length / 2, -texRect.height / 2, 0,
+			length / 2, -texRect.height / 2, 0,
+			-length / 2, texRect.height / 2, 0,
+			length / 2, texRect.height / 2, 0
+	};
+
+	// build transform matrix
+	wyAffineTransform t = wyaIdentity;
+	wyaTranslate(&t, box2d->meter2Pixel(middle.x), box2d->meter2Pixel(middle.y));
+	wyaRotate(&t, angle + atan(v.y / v.x));
+
+	// transform vertices
+	wyaTransformPoint2(t, vertices[0], vertices[1]);
+	wyaTransformPoint2(t, vertices[3], vertices[4]);
+	wyaTransformPoint2(t, vertices[6], vertices[7]);
+	wyaTransformPoint2(t, vertices[9], vertices[10]);
+
+	// update mesh, don't update texture coordinates
+	mesh->updateMesh(vertices, NULL);
 }
 
 void wyBox2DMeshBuilder::updateChainMesh(wyQuadList* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect) {
@@ -153,6 +197,9 @@ void wyBox2DMeshBuilder::updateChainMesh(wyQuadList* mesh, wyBox2D* box2d, b2Fix
 
 	// clear
 	mesh->removeAllQuads();
+
+	// save texture rect
+	mesh->setTextureRect(texRect);
 
 	// create quad for every edge
 	for(int i = 0; i < count; i++) {
@@ -215,6 +262,67 @@ void wyBox2DMeshBuilder::updateChainMesh(wyQuadList* mesh, wyBox2D* box2d, b2Fix
 	}
 }
 
+void wyBox2DMeshBuilder::updateChainMesh(wyQuadList* mesh, wyBox2D* box2d, b2Fixture* f) {
+	// get something
+	b2ChainShape* chain = (b2ChainShape*)f->GetShape();
+	b2Body* body = f->GetBody();
+	const b2Transform& xf = body->GetTransform();
+	int count = chain->m_count;
+	const b2Vec2* vertices = chain->m_vertices;
+	float angle = xf.q.GetAngle();
+
+	// get saved texture rect
+	wyRect texRect = mesh->getTextureRect();
+
+	// create quad for every edge
+	for(int i = 0; i < count; i++) {
+		// get angle of edge, atan returns in [-PI/2, PI/2]
+		b2Vec2 v1 = vertices[i];
+		b2Vec2 v2 = (i == count - 1) ? vertices[0] : vertices[i + 1];
+		b2Vec2 v = v1;
+		v -= v2;
+		float slop = atan(v.y / v.x);
+
+		// get a matrix can rotate edge to horizontal
+		b2Mat22 m = b2Mat22(-slop);
+
+		// get endpoints of edge after rotated
+		b2Vec2 mv1 = b2Mul(m, v1);
+		b2Vec2 mv2 = b2Mul(m, v2);
+
+		// get edge length
+		float length = v.Length();
+
+		// get distance from origin to this edge
+		float u = (-mv1.x * (mv2.x - mv1.x) + -mv1.y * (mv2.y - mv1.y)) / length / length;
+		b2Vec2 intersect = b2Vec2(mv1.x + u * (mv2.x - mv1.x), mv1.y + u * (mv2.y - mv1.y));
+		float distance = box2d->meter2Pixel(intersect.Length());
+		bool above = intersect.y > 0;
+
+		// original vertices
+		wyQuad3D vertices = {
+			box2d->meter2Pixel(mv1.x), -texRect.height / 2 + (above ? distance : -distance), 0,
+			box2d->meter2Pixel(mv2.x), -texRect.height / 2 + (above ? distance : -distance), 0,
+			box2d->meter2Pixel(mv1.x), texRect.height / 2 + (above ? distance : -distance), 0,
+			box2d->meter2Pixel(mv2.x), texRect.height / 2 + (above ? distance : -distance), 0
+		};
+
+		// build transform matrix
+		wyAffineTransform t = wyaIdentity;
+		wyaTranslate(&t, box2d->meter2Pixel(xf.p.x), box2d->meter2Pixel(xf.p.y));
+		wyaRotate(&t, angle + slop);
+
+		// transform vertices
+		wyaTransformPoint2(t, vertices.bl_x, vertices.bl_y);
+		wyaTransformPoint2(t, vertices.br_x, vertices.br_y);
+		wyaTransformPoint2(t, vertices.tl_x, vertices.tl_y);
+		wyaTransformPoint2(t, vertices.tr_x, vertices.tr_y);
+
+		// append quad
+		mesh->updateQuad(i, vertices);
+	}
+}
+
 void wyBox2DMeshBuilder::updatePolygonMesh(wyShape* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect) {
 	// get polygon and transform, compute aabb
 	b2PolygonShape* poly = (b2PolygonShape*)f->GetShape();
@@ -255,6 +363,39 @@ void wyBox2DMeshBuilder::updatePolygonMesh(wyShape* mesh, wyBox2D* box2d, b2Fixt
 	// free
 	free(v);
 	free(t);
+}
+
+void wyBox2DMeshBuilder::updatePolygonMesh(wyShape* mesh, wyBox2D* box2d, b2Fixture* f) {
+	// get polygon and transform, compute aabb
+	b2PolygonShape* poly = (b2PolygonShape*)f->GetShape();
+	b2Body* body = f->GetBody();
+	const b2Transform& xf = body->GetTransform();
+	b2AABB aabb;
+	poly->ComputeAABB(&aabb, b2Transform_identity, 0);
+	float shapeW = aabb.upperBound.x - aabb.lowerBound.x;
+	float shapeH = aabb.upperBound.y - aabb.lowerBound.y;
+
+	// create vertex and texture array
+	int count = poly->m_count;
+	float* v = (float*)malloc(count * 2 * sizeof(float));
+
+	// build transform matrix
+	wyAffineTransform tf = wyaIdentity;
+	wyaTranslate(&tf, box2d->meter2Pixel(xf.p.x), box2d->meter2Pixel(xf.p.y));
+	wyaRotate(&tf, xf.q.GetAngle());
+
+	// fill array
+	for (int i = 0; i < count; i++) {
+		v[2 * i] = box2d->meter2Pixel(poly->m_vertices[i].x);
+		v[2 * i + 1] = box2d->meter2Pixel(poly->m_vertices[i].y);
+		wyaTransformPoint2(tf, v[2 * i], v[2 * i + 1]);
+	}
+
+	// build mesh
+	mesh->updateVertices(v, count, 0);
+
+	// free
+	free(v);
 }
 
 void wyBox2DMeshBuilder::updateCircleMesh(wyShape* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect& texRect) {
@@ -301,6 +442,39 @@ void wyBox2DMeshBuilder::updateCircleMesh(wyShape* mesh, wyBox2D* box2d, b2Fixtu
 	mesh->buildCustom2D(vertices, tex, circleVAR_count, wyMesh::TRIANGLE_FAN);
 }
 
+void wyBox2DMeshBuilder::updateCircleMesh(wyShape* mesh, wyBox2D* box2d, b2Fixture* f) {
+	// vertices
+	GLfloat vertices[circleVAR_count * 2];
+	memcpy(vertices, circleVAR, sizeof(circleVAR));
+
+	// get circle center, radius and axis
+	b2CircleShape* circle = (b2CircleShape*)f->GetShape();
+	b2Body* body = f->GetBody();
+	const b2Transform& xf = body->GetTransform();
+	b2Vec2 center = b2Mul(xf, circle->m_p);
+	float32 radius = circle->m_radius;
+	b2Vec2 axis = xf.q.GetXAxis();
+
+	// the axis is (cos, -sin)
+	float angle = acosf(axis.x);
+	if(axis.y < 0)
+		angle = 2 * M_PI - angle;
+
+	// build transform matrix
+	wyAffineTransform t = wyaIdentity;
+	wyaTranslate(&t, box2d->meter2Pixel(center.x), box2d->meter2Pixel(center.y));
+	wyaRotate(&t, angle);
+	wyaScale(&t, box2d->meter2Pixel(radius), box2d->meter2Pixel(radius));
+
+	// transform vertices
+	for(int i = 0; i < circleVAR_count * 2; i += 2) {
+		wyaTransformPoint2(t, vertices[i], vertices[i + 1]);
+	}
+
+	// build mesh
+	mesh->updateVertices(vertices, circleVAR_count, 0);
+}
+
 void wyBox2DMeshBuilder::updateMesh(wyMesh* mesh, wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect texRect) {
 	switch(f->GetType()) {
 		case b2Shape::e_circle:
@@ -316,7 +490,27 @@ void wyBox2DMeshBuilder::updateMesh(wyMesh* mesh, wyBox2D* box2d, b2Fixture* f, 
 			updatePolygonMesh((wyShape*)mesh, box2d, f, texPixelWidth, texPixelHeight, texRect);
 			break;
 		default:
-			LOGW("wyBox2DMeshBuilder::createMesh: Unknown fixture shape type: %d", f->GetType());
+			LOGW("wyBox2DMeshBuilder::updateMesh: Unknown fixture shape type: %d", f->GetType());
+			break;
+	}
+}
+
+void wyBox2DMeshBuilder::updateMesh(wyMesh* mesh, wyBox2D* box2d, b2Fixture* f) {
+	switch(f->GetType()) {
+		case b2Shape::e_circle:
+			updateCircleMesh((wyShape*)mesh, box2d, f);
+			break;
+		case b2Shape::e_edge:
+			updateEdgeMesh((wyRectangle*)mesh, box2d, f);
+			break;
+		case b2Shape::e_chain:
+			updateChainMesh((wyQuadList*)mesh, box2d, f);
+			break;
+		case b2Shape::e_polygon:
+			updatePolygonMesh((wyShape*)mesh, box2d, f);
+			break;
+		default:
+			LOGW("wyBox2DMeshBuilder::updateMesh: Unknown fixture shape type: %d", f->GetType());
 			break;
 	}
 }

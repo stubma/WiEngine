@@ -227,6 +227,16 @@ public:
 	 */
 	void buildCustom2D(float* vertices, float* texCoords, int vertexCount, Mode mode);
 
+	/**
+	 * Only update vertices data. If vertex data in buffer exceeds current, extra part will not be updated
+	 * into mesh
+	 *
+	 * @param vertices vertex data array, every 2 elements is a vertex
+	 * @param vertexCount vertex count
+	 * @param updateStart start index of first vertex
+	 */
+	void updateVertices(float* vertices, int vertexCount, int updateStart);
+
 	virtual ~wyShape();
 
 	/// @see wyMesh::getElementCount()

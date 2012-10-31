@@ -95,6 +95,14 @@ public:
 	void updateQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV);
 
 	/**
+	 * Only update quad vertices
+	 *
+	 * @param index index of quadrangle to be updated
+	 * @param quadV \link wyQuad3D wyQuad3D\endlink
+	 */
+	void updateQuad(int index, wyQuad3D& quadV);
+
+	/**
 	 * Update a quad texture and vertices
 	 *
 	 * @param index index to be updated at

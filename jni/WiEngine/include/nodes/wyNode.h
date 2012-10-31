@@ -58,6 +58,22 @@ typedef struct wyNodePositionListener {
 } wyNodePositionListener;
 
 /**
+ * An interface used to match render pair
+ */
+class WIENGINE_API wyRenderPairSelector {
+public:
+	/**
+	 * Compare render pair
+	 *
+	 * @param mat material
+	 * @param mesh mesh
+	 * @param data extra data passed in by caller
+	 * @return true means this render pair matched
+	 */
+	virtual bool selectRenderPair(wyMaterial* mat, wyMesh* mesh, void* data) = 0;
+};
+
+/**
  * @class wyNode
  *
  * 节点对象的封装,是所有节点的基类
@@ -3415,6 +3431,14 @@ public:
 	 * @param mesh mesh
 	 */
 	virtual void addRenderPair(wyMaterial* material, wyMesh* mesh);
+
+	/**
+	 * Remove a render pair which is matched by selector
+	 *
+	 * @param sel custom selector used to select render pair
+	 * @param data extra data will be passed to selector
+	 */
+	virtual void removeRenderPair(wyRenderPairSelector* sel, void* data);
 
 	/// remove all render pairs
 	virtual void clearRenderPairs();

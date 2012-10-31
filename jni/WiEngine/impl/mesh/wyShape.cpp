@@ -643,6 +643,15 @@ void wyShape::buildCustom2D(float* vertices, float* texCoords, int vertexCount, 
 	m_mode = mode;
 }
 
+void wyShape::updateVertices(float* vertices, int vertexCount, int updateStart) {
+	Vertex* v = (Vertex*)m_buf->getData();
+	int currentCount = m_buf->getElementCount();
+	int min = MIN(currentCount, vertexCount);
+	for(int i = 0; i < min; i++, v++) {
+		kmVec3Fill(&v[0].pos, vertices[i * 2], vertices[i * 2 + 1], 0);
+	}
+}
+
 void wyShape::updateColor(wyColor4B color) {
 	// color
 	float r = color.r / 255.0f;

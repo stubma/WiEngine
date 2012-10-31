@@ -151,6 +151,18 @@ void wyQuadList::updateQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV) {
 	}
 }
 
+void wyQuadList::updateQuad(int index, wyQuad3D& quadV) {
+	if(index >= 0 && index < getTotalQuads()) {
+		Vertex* v = (Vertex*)m_buf->getData();
+		v += index * 4;
+
+		kmVec3Fill(&v[0].pos, quadV.bl_x, quadV.bl_y, quadV.bl_z);
+		kmVec3Fill(&v[1].pos, quadV.br_x, quadV.br_y, quadV.br_z);
+		kmVec3Fill(&v[2].pos, quadV.tl_x, quadV.tl_y, quadV.tl_z);
+		kmVec3Fill(&v[3].pos, quadV.tr_x, quadV.tr_y, quadV.tr_z);
+	}
+}
+
 void wyQuadList::updateQuad(int index, wyQuad2D& quadT, wyQuad3D& quadV, wyColor4B c) {
 	if(index >= 0) {
 		putQuad(index, quadT, quadV, c, true);
