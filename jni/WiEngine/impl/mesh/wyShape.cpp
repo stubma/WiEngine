@@ -39,6 +39,7 @@ wyShape::wyShape() {
 
 	// connect attribute
 	connectAttribute(wyAttribute::NAME[wyAttribute::POSITION], m_buf, 0, 3);
+	connectAttribute(wyAttribute::NAME[wyAttribute::TEXTURE], m_buf, sizeof(kmVec3), 2);
 	connectAttribute(wyAttribute::NAME[wyAttribute::COLOR], m_buf, sizeof(kmVec3) + sizeof(kmVec2), 4);
 }
 
@@ -624,6 +625,9 @@ void wyShape::buildSolidCircle(float centerX, float centerY, float r, int segmen
 }
 
 void wyShape::buildCustom2D(float* vertices, float* texCoords, int vertexCount, Mode mode) {
+	// clear
+	m_buf->clear();
+
 	// vertex
 	Vertex v;
 	kmVec4Fill(&v.color, 1, 1, 1, 1);
