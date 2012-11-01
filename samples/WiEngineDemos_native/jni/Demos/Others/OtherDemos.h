@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-DEMO_ENTRY(other, AlphaTestTest);
 DEMO_ENTRY(other, AStarTest);
 DEMO_ENTRY(other, ColorFilterTest);
 DEMO_ENTRY(other, DrawPrimitivesTest);

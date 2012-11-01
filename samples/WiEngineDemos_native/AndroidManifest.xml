@@ -42,6 +42,7 @@
 		<meta-data android:name="Persistence_desc" android:resource="@string/persistence_desc"></meta-data>
 		<meta-data android:name="IAP_desc" android:resource="@string/iap_desc"></meta-data>
 		<meta-data android:name="Performance_desc" android:resource="@string/performance_desc"></meta-data>
+		<meta-data android:name="Shader_desc" android:resource="@string/shader_desc"></meta-data>
 		
 		<activity android:label="@string/app_name" android:name="WiEngineDemos">
 			<intent-filter>
@@ -1359,7 +1360,7 @@
 				<category android:name="android.intent.category.TEST" />
 			</intent-filter><meta-data android:name="desc" android:resource="@string/HGETest_desc"></meta-data>
 </activity>
-<activity android:name=".tests.other.AlphaTestTest" android:label="Other/Alpha Test"><intent-filter>
+<activity android:name=".tests.shader.AlphaTestTest" android:label="Shader/Alpha Test"><intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.TEST" />
             </intent-filter><meta-data android:name="desc" android:resource="@string/AlphaTestTest_desc"></meta-data>

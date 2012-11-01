@@ -21,6 +21,7 @@
     <string name="persistence_desc">Persistence is an important thing for game data saving and loading. WiEngine supports accessing persistent data in preference or database</string>
     <string name="iap_desc">In-App Purchase is important for game profit but integrating IAP for a cross-platform game may be a little troublesome. WiEngine provides an universal IAP interface to simplify IAP integration work</string>
     <string name="performance_desc">Test performance of WiEngine in your device</string>
+    <string name="shader_desc">How to use custom shader to implement cool effect</string>
     
     <!-- activity description -->
     <string name="MenuTest_desc">How to create menu node and response events</string>
@@ -230,7 +231,7 @@
 	<string name="SuckTransitionTest_desc">Use suck effect in transition</string>
 	<string name="ArcticTest_desc">Arctic is an animation editor derived from AuroraGT. WiEngine supports its export format and this demos how to use it.</string>
 	<string name="Box2DCollisionDetectionTest_desc">Do collision detection but no need to establish world. WiEngine has a wyBox2DCollisionDetection class which encapsulate Box2D collision detection and exposes a simple API based on node architecture</string>
-	<string name="AlphaTestTest_desc">How to use alpha test to hide part of an sprite</string>
+	<string name="AlphaTestTest_desc">Use shader to implement alpha test feature to hide part of an sprite</string>
 	<string name="AuroraGTTest_desc">How to load animation designed by AuroraGT editor. AuroraGT is an game tool designed by GameLoft</string>
 	<string name="ClipMappingAuroraGTTest_desc">How to apply clip mapping to animation so that the animation can be easily customized. This demo creates clip mapping from AuroraGT module mapping file</string>
 	<string name="ResourceDecoderTest_desc">Encode your resource to protect them from decompilation. To use an encoded resource in WiEngine, install a resource decoder using wyDirector::setResourceDecoder. Note: Resource Decoder doesn\'t support audio resources.</string>

@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wiyun.engine.tests.other;
+package com.wiyun.engine.tests.shader;
 
 import com.wiyun.engine.WiEngineTestActivity;
 
