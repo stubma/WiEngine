@@ -6,7 +6,6 @@
 	<property name="version" value="3.10.2"/>
 	<property name="build" value="bin/classes"/>
 	<property name="lib.name" value="WiEngine.jar"/>
-	<property name="lib.chipmunk.name" value="WiEngine-chipmunk.jar"/>
 	<property name="lib.box2d.name" value="WiEngine-box2d.jar"/>
 	<property name="lib.lua.name" value="WiEngine-lua.jar"/>
 	<property name="lib.iap.name" value="WiEngine-iap.jar"/>
@@ -63,7 +62,6 @@
 		
 		<!-- build jar -->
 		<antcall target="jar-core"/>
-		<antcall target="jar-chipmunk"/>
 		<antcall target="jar-box2d"/>
 		<antcall target="jar-lua"/>
 		<antcall target="jar-iap"/>
@@ -86,7 +84,6 @@
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
 				<exclude name="Box2D/binding/**"/>
-				<exclude name="chipmunk/binding/**"/>
 				<exclude name="libcurl/lib/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
@@ -160,7 +157,6 @@
 			excludes="${sdk.package.path}/R*.class,
 				${sdk.package.path}/BuildConfig*.class
 				${sdk.package.path}/Base*.class,
-				${sdk.package.path}/chipmunk/*.class,
 				${sdk.package.path}/box2d/**/*.class,
 				${sdk.package.path}/lua/*.class,
 				${sdk.package.path}/events/*.class,
@@ -193,17 +189,6 @@
 				${sdk.package.path}/utils/VideoPlayingActivity*.class,
 				${sdk.package.path}/utils/PrefUtil*.class,
 				${sdk.package.path}/utils/TargetSelector*.class"/>
-	</target>
-
-	<!-- build WiEngine-chipmunk.jar file -->
-	<target name="jar-chipmunk">
-		<mkdir dir="${wiengine.library.dir}/libs" />
-
-		<!-- make wiengine chipmunk jar -->
-		<jar 
-			destfile="${wiengine.library.dir}/libs/${lib.chipmunk.name}"
-			basedir="${build}"
-			includes="${sdk.package.path}/chipmunk/*.class"/>
 	</target>
 
 	<!-- build WiEngine-box2d.jar file -->
