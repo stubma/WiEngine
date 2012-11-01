@@ -59,6 +59,8 @@ GLuint wyShaderLoader::load(const char* src, GLenum type) {
 			glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
 			LOGE("wyShaderLoader::load: Error compiling shader: %s", infoLog);
 			free(infoLog);
+		} else {
+			LOGE("wyShaderLoader::load: failed to compile shader, but no info log. Source: %s", src);
 		}
 		glDeleteShader(shader);
 		shader = 0;
