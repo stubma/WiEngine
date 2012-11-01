@@ -47,7 +47,7 @@ public:
 			wyLayer(),
 			m_mouseJoint(NULL),
 			m_stepCount(0) {
-		m_box2d = new wyBox2D();
+		m_box2d = wyBox2D::make();
 		m_box2d->setDebugDraw(true);
 		addChildLocked(m_box2d);
 
@@ -58,8 +58,6 @@ public:
 	}
 
 	virtual ~wyBox2DTestLayer() {
-		m_box2d->release();
-		m_box2d = NULL;
 	}
 
 	virtual void updateWorld(float dt) {
@@ -3107,12 +3105,11 @@ public:
 	    setTouchEnabled(true);
 
 	    m_bodyLoader = new wyBox2DPELoader(RES("R.raw.shapedefs_box2d"));
-	    m_box2d = new wyBox2D();
+	    m_box2d = wyBox2D::make();
 	    m_box2d->setMeterPixels(m_bodyLoader->getMeterPixels());
 	    m_box2d->setDebugDraw(false);
 
 	    m_box2d->getWorld()->SetGravity(b2Vec2(0, -10.0));
-	    m_box2d->autoRelease();
 
 	    b2BodyDef bd;
 	    bd.type = b2_staticBody;

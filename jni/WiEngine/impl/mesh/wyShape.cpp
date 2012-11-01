@@ -167,7 +167,7 @@ void wyShape::buildHypotrochoid(wyHypotrochoidConfig& c, int segments) {
 	m_mode = LINE_STRIP;
 }
 
-void wyShape::buildPath(float* points, size_t length) {
+void wyShape::buildPath(float* points, int vertexCount) {
 	// clear
 	m_buf->clear();
 
@@ -176,8 +176,8 @@ void wyShape::buildPath(float* points, size_t length) {
 	kmVec4Fill(&v.color, 1, 1, 1, 1);
 
 	// fill every vertex
-	for(size_t i = 0; i < length; i += 2) {
-		kmVec3Fill(&v.pos, points[i], points[i + 1], 0);
+	for(size_t i = 0; i < vertexCount; i++) {
+		kmVec3Fill(&v.pos, points[i * 2], points[i * 2 + 1], 0);
 		m_buf->append(&v, 1);
 	}
 
@@ -666,6 +666,14 @@ void wyShape::updateColor(wyColor4B color) {
 	int c = m_buf->getElementCount();
 	for(int i = 0; i < c; i++) {
 		kmVec4Fill(&v[i].color, r, g, b, a);
+	}
+}
+
+void wyShape::updateColor(wyColor4F color) {
+	Vertex* v = (Vertex*)m_buf->getData();
+	int c = m_buf->getElementCount();
+	for(int i = 0; i < c; i++) {
+		kmVec4Fill(&v[i].color, color.r, color.g, color.b, color.a);
 	}
 }
 

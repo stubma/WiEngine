@@ -31,6 +31,8 @@
 
 #include <Box2D/Box2D.h>
 
+class wyBox2D;
+
 /**
  * Debug draw interface implementation
  */
@@ -39,8 +41,12 @@ private:
 	/// how many pixels for one meter in box2d, by default we treat short edge of screen as 20 meters
 	float m_meterPixels;
 
+	/// box2d node
+	wyBox2D* m_box2d;
+
 public:
-	wyBox2DDebugDraw();
+	wyBox2DDebugDraw(wyBox2D* box2d);
+
 	virtual ~wyBox2DDebugDraw() {}
 
 	/// Draw a closed polygon provided in CCW order.

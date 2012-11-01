@@ -106,9 +106,9 @@ public:
 	 * Fill mesh with many connected lines
 	 *
 	 * @param points the point coordinates, in order (x, y), (x, y), ...
-	 * @param length count of float in \c points buffer, should be point count * 2
+	 * @param vertexCount count of vertex
 	 */
-	void buildPath(float* points, size_t length);
+	void buildPath(float* points, int vertexCount);
 
 	/**
 	 * Fill mesh with dash lines
@@ -243,11 +243,18 @@ public:
 	virtual int getElementCount();
 
 	/**
-	 * Update color info
+	 * Update color of all vertices
 	 *
 	 * @param color \link wyColor4B wyColor4B\endlink
 	 */
 	void updateColor(wyColor4B color);
+
+	/**
+	 * update color of all vertices
+	 *
+	 * @param color \link wyColor4F wyColor4F\endlink
+	 */
+	void updateColor(wyColor4F color);
 
 	/**
 	 * Update one vertex

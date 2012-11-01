@@ -42,8 +42,11 @@ wyBox2D* wyBox2D::make() {
 wyBox2D::wyBox2D() :
 		wyNode(),
 		m_world(new b2World(b2Vec2(0, 0))),
-		m_ddImpl(WYNEW wyBox2DDebugDraw()),
+		m_ddImpl(NULL),
 		m_debugDraw(false) {
+	// create debug draw
+	m_ddImpl = WYNEW wyBox2DDebugDraw(this);
+
 	// default meter pixels
 	setMeterPixels(MIN(wyDevice::winWidth, wyDevice::winHeight) / 20);
 
@@ -61,6 +64,11 @@ wyBox2D::~wyBox2D() {
 
 	WYDELETE(m_ddImpl);
 	m_ddImpl = NULL;
+}
+
+void wyBox2D::beforeRender() {
+	clearRenderPairs();
+	m_world->DrawDebugData();
 }
 
 float wyBox2D::getMeterPixels() {

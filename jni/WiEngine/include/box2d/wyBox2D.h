@@ -60,6 +60,9 @@ public:
 	/// deconstructor
 	virtual ~wyBox2D();
 
+	/// @see wyNode::beforeRender
+	virtual void beforeRender();
+
 	/**
 	 * get world object pointer, the world object is created when wyBox2D created
 	 *

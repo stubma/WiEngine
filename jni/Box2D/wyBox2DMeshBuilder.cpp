@@ -43,19 +43,6 @@ static const GLfloat circleVAR[] = { 0.0000f, 0.0000f,
 };
 static const int circleVAR_count = sizeof(circleVAR) / sizeof(GLfloat) / 2;
 
-static const GLfloat pillVAR[] = {
-	0.0000f, 1.0000f, 0.2588f, 0.9659f, 0.5000f,
-	0.8660f, 0.7071f, 0.7071f, 0.8660f, 0.5000f, 0.9659f, 0.2588f, 1.0000f,
-	0.0000f, 0.9659f, -0.2588f, 0.8660f, -0.5000f, 0.7071f, -0.7071f,
-	0.5000f, -0.8660f, 0.2588f, -0.9659f, 0.0000f, -1.0000f,
-
-	0.0000f, -1.0000f, -0.2588f, -0.9659f, -0.5000f, -0.8660f, -0.7071f,
-	-0.7071f, -0.8660f, -0.5000f, -0.9659f, -0.2588f, -1.0000f, -0.0000f,
-	-0.9659f, 0.2588f, -0.8660f, 0.5000f, -0.7071f, 0.7071f, -0.5000f,
-	0.8660f, -0.2588f, 0.9659f, 0.0000f, 1.0000f
-};
-static const int pillVAR_count = sizeof(pillVAR) / sizeof(GLfloat) / 2;
-
 wyMesh* wyBox2DMeshBuilder::createMesh(wyBox2D* box2d, b2Fixture* f, float texPixelWidth, float texPixelHeight, wyRect texRect) {
 	switch(f->GetType()) {
 		case b2Shape::e_circle:
