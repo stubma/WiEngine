@@ -49,113 +49,72 @@ private:
 	/// true indicating using debug render mode
 	bool m_debugDraw;
 
-public:
-	static wyBox2D* make();
+protected:
+	/// constructor
 	wyBox2D();
+
+public:
+	/// create a box2d node
+	static wyBox2D* make();
+
+	/// deconstructor
 	virtual ~wyBox2D();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
 	/**
-	 * \if English
 	 * get world object pointer, the world object is created when wyBox2D created
 	 *
 	 * @return b2World pointer
-	 * \else
-	 * 得到世界对象指针，世界对象在wyBox2D对象初始化时被创建
-	 *
-	 * @return b2World对象指针
-	 * \endif
 	 */
 	b2World* getWorld() { return m_world; }
 
 	/**
-	 * \if English
 	 * get flag of debug draw
 	 *
 	 * @return debug flag of debug draw, true means debug draw is enabled
-	 * \else
-	 * 得到是否是debug draw模式的标志
-	 *
-	 * @return debug draw模式的标志, true表示是debug draw模式
-	 * \endif
 	 */
 	bool isDebugDraw() { return m_debugDraw; }
 
 	/**
-	 * \if English
 	 * set using debug draw or not
 	 *
 	 * @param flag true means debug draw should be used
-	 * \else
-	 * 设置是否debug draw. Debug draw模式下使用简单的线条和色块渲染物体。
-	 *
-	 * @param flag true表示使用debug draw
-	 * \endif
 	 */
 	void setDebugDraw(bool flag) { m_debugDraw = flag; }
 
 	/**
-	 * \if English
 	 * according to current scale rate, convert pixel to meter
 	 *
 	 * @param pixel pixel
 	 * @return meter
-	 * \else
-	 * 根据当前的box2d放缩比例，把像素数转换成米数
-	 *
-	 * @param pixel 像素数
-	 * @return 米数
-	 * \endif
 	 */
 	float pixel2Meter(float pixel);
 
 	/**
-	 * \if English
 	 * according to current scale rate, convert meter to pixel
 	 *
 	 * @param meter mter
 	 * @return pixel
-	 * \else
-	 * 根据当前的box2d放缩比例, 把米数转换成像素数
-	 *
-	 * @param meter 米数
-	 * @return 像素数
-	 * \endif
 	 */
 	float meter2Pixel(float meter);
 
 	/**
-	 * 得到1米对应的像素数
+	 * Get pixels in one meter
 	 *
-	 * @return 1米对应的像素数
+	 * @return pixels in one meter
 	 */
 	float getMeterPixels();
 
 	/**
-	 * \if English
 	 * set how many pixels one meter stands for
 	 *
 	 * @param mp pixels for one meter
-	 * \else
-	 * 设置1米对应的像素数
-	 *
-	 * @param mp 1米对应的像素数
-	 * \endif
 	 */
 	void setMeterPixels(float mp);
 
 	/**
-	 * \if English
 	 * get b2Draw implementation pointer
 	 *
 	 * @return b2Draw implementation
-	 * \else
-	 * 得到b2Draw接口的实现类指针
-	 *
-	 * @return b2Draw接口的实现, 这个接口是由Box2D定义的
-	 * \endif
 	 */
 	b2Draw* getDebugDrawImpl() { return (b2Draw*)m_ddImpl; }
 };

@@ -63,21 +63,6 @@ wyBox2D::~wyBox2D() {
 	m_ddImpl = NULL;
 }
 
-void wyBox2D::draw() {
-	// TODO gles2
-//	if(m_debugDraw) {
-//		glEnable(GL_LINE_SMOOTH);
-//		glEnable(GL_POINT_SMOOTH);
-//		glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
-//		glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
-//
-//		m_world->DrawDebugData();
-//
-//		glDisable(GL_LINE_SMOOTH);
-//		glDisable(GL_POINT_SMOOTH);
-//	}
-}
-
 float wyBox2D::getMeterPixels() {
 	return m_ddImpl->getMeterPixels();
 }
