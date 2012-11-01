@@ -3433,12 +3433,19 @@ public:
 	virtual void addRenderPair(wyMaterial* material, wyMesh* mesh);
 
 	/**
-	 * Remove a render pair which is matched by selector
+	 * Remove render pairs which are matched by selector
 	 *
 	 * @param sel custom selector used to select render pair
 	 * @param data extra data will be passed to selector
 	 */
-	virtual void removeRenderPair(wyRenderPairSelector* sel, void* data);
+	virtual void removeRenderPairs(wyRenderPairSelector* sel, void* data);
+
+	/**
+	 * Remove render pairs whose tag is same as given one
+	 *
+	 * @param tag tag
+	 */
+	virtual void removeRenderPairsByTag(int tag);
 
 	/**
 	 * Find a mesh by tag, it only returns first mesh matched

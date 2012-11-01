@@ -67,8 +67,10 @@ wyBox2D::~wyBox2D() {
 }
 
 void wyBox2D::beforeRender() {
-	clearRenderPairs();
-	m_world->DrawDebugData();
+	if(m_debugDraw) {
+		removeRenderPairsByTag(-1);
+		m_world->DrawDebugData();
+	}
 }
 
 float wyBox2D::getMeterPixels() {
