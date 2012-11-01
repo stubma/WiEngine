@@ -101,15 +101,4 @@ public class Box2D extends Node {
 	 * @param mp 1米对应的像素数
 	 */
 	public native void setMeterPixels(float mp);
-	
-	/**
-	 * 得到底层DebugDraw的实现
-	 * 
-	 * @return {@link DebugDraw}
-	 */
-	public DebugDraw getDebugDraw() {
-		return DebugDraw.from(nativeGetDebugDraw());
-	}
-	
-	private native int nativeGetDebugDraw();
 }

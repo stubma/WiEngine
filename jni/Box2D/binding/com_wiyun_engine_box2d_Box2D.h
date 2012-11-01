@@ -71,14 +71,6 @@ JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_box2d_Box2D_getMeterPixels
 JNIEXPORT void JNICALL Java_com_wiyun_engine_box2d_Box2D_setMeterPixels
   (JNIEnv *, jobject, jfloat);
 
-/*
- * Class:     com_wiyun_engine_box2d_Box2D
- * Method:    nativeGetDebugDraw
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_box2d_Box2D_nativeGetDebugDraw
-  (JNIEnv *, jobject);
-
 #ifdef __cplusplus
 }
 #endif

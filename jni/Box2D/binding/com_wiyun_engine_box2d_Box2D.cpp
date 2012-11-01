@@ -53,9 +53,3 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_box2d_Box2D_setMeterPixels
 	wyBox2D* box2d = (wyBox2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	box2d->setMeterPixels(mp);
 }
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_box2d_Box2D_nativeGetDebugDraw
-  (JNIEnv * env, jobject thiz) {
-	wyBox2D* box2d = (wyBox2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	return (jint)box2d->getDebugDrawImpl();
-}
