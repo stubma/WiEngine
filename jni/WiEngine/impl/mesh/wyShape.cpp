@@ -635,7 +635,8 @@ void wyShape::buildCustom2D(float* vertices, float* texCoords, int vertexCount, 
 	// fill
 	for(int i = 0; i < vertexCount; i++) {
 		kmVec3Fill(&v.pos, vertices[i * 2], vertices[i * 2 + 1], 0);
-		kmVec2Fill(&v.tex, texCoords[i * 2], texCoords[i * 2 + 1]);
+		if(texCoords)
+			kmVec2Fill(&v.tex, texCoords[i * 2], texCoords[i * 2 + 1]);
 		m_buf->append(&v, 1);
 	}
 

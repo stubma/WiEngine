@@ -221,7 +221,7 @@ public:
 	 * Fill mesh with a custom shape and its vertices and texture coordinates is already populated
 	 *
 	 * @param vertices vertex array, every 2 elements is a vertex
-	 * @param texCoords texture coordinate array
+	 * @param texCoords texture coordinate array, can be NULL if no texture info
 	 * @param vertexCount vertex count
 	 * @param mode mesh mode
 	 */
