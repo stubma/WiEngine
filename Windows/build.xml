@@ -213,7 +213,6 @@
 	        <fileset dir="Release">
 	            <include name="lib*.dll"/>
 	            <include name="libbox2d.lib"/>
-	            <include name="libchipmunk.lib"/>
 	            <include name="libjson.lib"/>
 	            <include name="liblua.lib"/>
 	            <include name="libwiengine.lib"/>
@@ -242,7 +241,6 @@
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
 				<exclude name="Box2D/binding/**"/>
-				<exclude name="chipmunk/binding/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
 				<exclude name="libnsbmp/**"/>

@@ -57,10 +57,10 @@
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Lua\LuaDemos.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Chipmunk\ChipmunkDemos.cpp">
+    <ClCompile Include="Demo\WiEngineApp.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="Demo\WiEngineApp.cpp">
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Shader\ShaderDemos.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,10 +116,10 @@
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Lua\LuaDemos.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Chipmunk\ChipmunkDemos.h">
+    <ClInclude Include="Demo\WiEngineApp.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="Demo\WiEngineApp.h">
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Shader\ShaderDemos.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

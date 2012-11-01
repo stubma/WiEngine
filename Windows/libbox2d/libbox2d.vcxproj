@@ -70,12 +70,12 @@
     <ClInclude Include="..\..\jni\Box2D\Dynamics\Joints\b2RopeJoint.h" />
     <ClInclude Include="..\..\jni\Box2D\Dynamics\Joints\b2WeldJoint.h" />
     <ClInclude Include="..\..\jni\Box2D\Dynamics\Joints\b2WheelJoint.h" />
+    <ClInclude Include="..\..\jni\Box2D\wyBox2DDebugDraw.h" />
     <ClInclude Include="..\..\jni\Box2D\wyJNI.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2D.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2DCollisionDetector.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2DMeshBuilder.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2DPELoader.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2DRender.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyFixtureAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\jni\Box2D\Collision\b2BroadPhase.cpp" />
@@ -130,10 +130,10 @@
     <ClCompile Include="..\..\jni\Box2D\Dynamics\Joints\b2WheelJoint.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2D.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2DCollisionDetector.cpp" />
+    <ClCompile Include="..\..\jni\Box2D\wyBox2DDebugDraw.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2DInit.cpp" />
+    <ClCompile Include="..\..\jni\Box2D\wyBox2DMeshBuilder.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2DPELoader.cpp" />
-    <ClCompile Include="..\..\jni\Box2D\wyBox2DRender.cpp" />
-    <ClCompile Include="..\..\jni\Box2D\wyFixtureAnimation.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DF17E696-5188-4116-AC4A-8B7FA613D4DB}</ProjectGuid>

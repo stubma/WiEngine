@@ -107,7 +107,6 @@ function AddCustomConfig(proj, strProjectName)
     try {
         // component options
         var useBox2D = wizard.FindSymbol("OPTION_BOX2D");
-        var useChipmunk = wizard.FindSymbol("OPTION_CHIPMUNK");
         var useWiSound = wizard.FindSymbol("OPTION_WISOUND");
         var useWiNetwork = wizard.FindSymbol("OPTION_WINETWORK");
         var useLua = wizard.FindSymbol("OPTION_LUA");
@@ -132,9 +131,7 @@ function AddCustomConfig(proj, strProjectName)
 		CLTool.RuntimeLibrary = runtimeLibraryOption.rtMultiThreadedDebugDLL;
 
 		// set include dir
-		var includes = "WiEngine\\headers\\chipmunk; \
-            WiEngine\\headers\\chipmunk\\constraints; \
-            WiEngine\\headers; \
+		var includes = "WiEngine\\headers; \
             WiEngine\\headers\\libxml2\\include; \
             WiEngine\\headers\\lua; \
             WiEngine\\headers\\lua\\tolua++; \
@@ -161,9 +158,7 @@ function AddCustomConfig(proj, strProjectName)
             WiEngine\\headers\\WiEngine\\include\\events; \
             WiEngine\\headers\\WiEngine\\include\\easeactions; \
             WiEngine\\headers\\WiEngine\\include\\dialog; \
-            WiEngine\\headers\\WiEngine\\include\\designer; \
             WiEngine\\headers\\WiEngine\\include\\common; \
-            WiEngine\\headers\\WiEngine\\include\\chipmunk; \
             WiEngine\\headers\\WiEngine\\include\\box2d; \
             WiEngine\\headers\\WiEngine\\include\\bitmapfont; \
             WiEngine\\headers\\WiEngine\\include\\astar; \
@@ -181,8 +176,6 @@ function AddCustomConfig(proj, strProjectName)
         LinkTool.AdditionalDependencies = "libwiengine.lib libxml2.lib " + LinkTool.AdditionalDependencies;
         if (useBox2D)
             LinkTool.AdditionalDependencies = "libbox2d.lib " + LinkTool.AdditionalDependencies;
-        if (useChipmunk)
-            LinkTool.AdditionalDependencies = "libchipmunk.lib " + LinkTool.AdditionalDependencies;
         if (useWiSound)
             LinkTool.AdditionalDependencies = "libwisound.lib " + LinkTool.AdditionalDependencies;
         if (useWiNetwork)
@@ -226,8 +219,6 @@ function AddCustomConfig(proj, strProjectName)
 		LinkTool.AdditionalDependencies = "libwiengine.lib libxml2.lib " + LinkTool.AdditionalDependencies;
 		if (useBox2D)
 		    LinkTool.AdditionalDependencies = "libbox2d.lib " + LinkTool.AdditionalDependencies;
-		if (useChipmunk)
-		    LinkTool.AdditionalDependencies = "libchipmunk.lib " + LinkTool.AdditionalDependencies;
 		if (useWiSound)
 		    LinkTool.AdditionalDependencies = "libwisound.lib " + LinkTool.AdditionalDependencies;
 		if (useWiNetwork)

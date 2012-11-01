@@ -29,7 +29,6 @@
 #include "wyAFCSprite.h"
 #include "wyLog.h"
 #include "wyMaterial.h"
-#include "wyPrimitives.h"
 #include "wySpriteBatchNode.h"
 #include "wyAFCAnimation.h"
 #include "wyAFCFileData.h"

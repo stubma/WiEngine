@@ -16,9 +16,6 @@
     <Filter Include="common">
       <UniqueIdentifier>{14dc66f1-ec11-44ef-9fec-87346f94d0ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="designer">
-      <UniqueIdentifier>{755e00c5-e4b7-4826-9a46-2f4fe220c587}</UniqueIdentifier>
-    </Filter>
     <Filter Include="dialog">
       <UniqueIdentifier>{04f36df2-9e47-49f9-82d1-9322f5f29b08}</UniqueIdentifier>
     </Filter>
@@ -399,18 +396,6 @@
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyDevice.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\designer\wySDSpriteManager.h">
-      <Filter>designer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\designer\wyUDLayer.h">
-      <Filter>designer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\designer\wyDesignerCommon.h">
-      <Filter>designer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\designer\wySDSprite.h">
-      <Filter>designer</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\dialog\wyDialogTransition.h">
       <Filter>dialog</Filter>
     </ClInclude>
@@ -527,18 +512,6 @@
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\filters\wyColorFilter.h">
       <Filter>filters</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGrid3D.h">
-      <Filter>grid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyTiledGrid3D.h">
-      <Filter>grid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyBaseGrid.h">
-      <Filter>grid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGrabber.h">
-      <Filter>grid</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyGridFlipY.h">
       <Filter>gridactions</Filter>
@@ -798,9 +771,6 @@
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyBladeRibbon.h">
       <Filter>nodes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyPrimitives.h">
-      <Filter>opengl</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTexture2D.h">
       <Filter>opengl</Filter>
     </ClInclude>
@@ -812,9 +782,6 @@
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyGLTexture2D.h">
       <Filter>opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\particle\wyPointParticleSystem.h">
-      <Filter>particle</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\particle\wyQuadParticleSystem.h">
       <Filter>particle</Filter>
@@ -1125,9 +1092,6 @@
     <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_TextBox.h">
       <Filter>nodes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes__U.h">
-      <Filter>nodes</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\impl\tmx\wyTMXObjectLayer.h">
       <Filter>tmx</Filter>
     </ClInclude>
@@ -1204,12 +1168,6 @@
     <ClInclude Include="..\..\jni\WiEngine\include\render\wyRenderManager.h">
       <Filter>render</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyRectangle.h">
-      <Filter>mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyMesh.h">
-      <Filter>mesh</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\material\wyRenderState.h">
       <Filter>material</Filter>
     </ClInclude>
@@ -1256,11 +1214,50 @@
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuffer.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyCompoundNode.h">
+      <Filter>nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyRectangle.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyShape.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyTiledGrid3D.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyBaseGrid.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyGrid3D.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyMesh.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyMeshRef.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyProgress.h">
+      <Filter>mesh</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyQuadList.h">
       <Filter>mesh</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyCompoundNode.h">
-      <Filter>nodes</Filter>
+    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGridController.h">
+      <Filter>grid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\render\wyFrameBuffer.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\impl\shader\common_position_color_vsh.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\impl\shader\common_position_color_fsh.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuildConfig.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1555,18 +1552,6 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\common\wyAutoReleasePool.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wySDSprite.cpp">
-      <Filter>designer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wySDSpriteManager.cpp">
-      <Filter>designer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wyUDLayer.cpp">
-      <Filter>designer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wyDesignerCommon.cpp">
-      <Filter>designer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\dialog\wyDialogPopupTransition.cpp">
       <Filter>dialog</Filter>
     </ClCompile>
@@ -1683,18 +1668,6 @@
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\filters\wyColorMatrix.cpp">
       <Filter>filters</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGrid3D.cpp">
-      <Filter>grid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyTiledGrid3D.cpp">
-      <Filter>grid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyBaseGrid.cpp">
-      <Filter>grid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGrabber.cpp">
-      <Filter>grid</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyGridAction.cpp">
       <Filter>gridactions</Filter>
@@ -1945,14 +1918,8 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyVirtualJoystick.cpp">
       <Filter>nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes__U.cpp">
-      <Filter>nodes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_Director.cpp">
       <Filter>nodes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyPrimitives.cpp">
-      <Filter>opengl</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTexture2D.cpp">
       <Filter>opengl</Filter>
@@ -1970,9 +1937,6 @@
       <Filter>particle</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyParticleSystem.cpp">
-      <Filter>particle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyPointParticleSystem.cpp">
       <Filter>particle</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyQuadParticleSystem.cpp">
@@ -2287,12 +2251,6 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\material\wyRenderState.cpp">
       <Filter>material</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyRectangle.cpp">
-      <Filter>mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyMesh.cpp">
-      <Filter>mesh</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\render\wyRenderManager.cpp">
       <Filter>render</Filter>
     </ClCompile>
@@ -2335,11 +2293,41 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\common\wyBuffer.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyCompoundNode.cpp">
+      <Filter>nodes</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyQuadList.cpp">
       <Filter>mesh</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyCompoundNode.cpp">
-      <Filter>nodes</Filter>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyRectangle.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyShape.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyTiledGrid3D.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyBaseGrid.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyGrid3D.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyMesh.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyMeshRef.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyProgress.cpp">
+      <Filter>mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGridController.cpp">
+      <Filter>grid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\render\wyFrameBuffer.cpp">
+      <Filter>render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,11 +4,9 @@
 #include "WiEngineDemos.h"
 #include "WiEngine.h"
 #include "WiEngineApp.h"
-#include "wyPrimitives.h"
 #include "common.h"
 #include "Actions/ActionDemos.h"
 #include "Box2D/Box2DDemos.h"
-#include "Chipmunk/ChipmunkDemos.h"
 #include "Ease/EaseActionDemos.h"
 #include "Events/EventDemos.h"
 #include "GridActions/GridActionDemos.h"
@@ -19,6 +17,7 @@
 #include "Particles/ParticleDemos.h"
 #include "Performance/PerformanceDemos.h"
 #include "Persistence/PersistenceDemos.h"
+#include "Shader/ShaderDemos.h"
 #include "Sound/SoundDemos.h"
 #include "Transition/TransitionDemos.h"
 
@@ -89,7 +88,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(box2d, ConfinedTest),
 		DEMO_ENTRY_NAME(box2d, DominosTest),
 		DEMO_ENTRY_NAME(box2d, EdgeShapesTest),
-		DEMO_ENTRY_NAME(box2d, FixtureAnimationTest),
 		DEMO_ENTRY_NAME(box2d, GearsTest),
 		DEMO_ENTRY_NAME(box2d, OneWayTest),
         DEMO_ENTRY_NAME(box2d, PhysicsEditorTest),
@@ -109,32 +107,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(box2d, VaryingFrictionTest),
 		DEMO_ENTRY_NAME(box2d, VaryingRestitutionTest),
 		DEMO_ENTRY_NAME(box2d, WebTest),
-	},
-	{
-		DEMO_ENTRY_NAME(chipmunk, BodyDraggingTest),
-		DEMO_ENTRY_NAME(chipmunk, BounceTest),
-		DEMO_ENTRY_NAME(chipmunk, JointsTest),
-		DEMO_ENTRY_NAME(chipmunk, LogoSmashTest),
-		DEMO_ENTRY_NAME(chipmunk, MagnetsElectricTest),
-		DEMO_ENTRY_NAME(chipmunk, OneWayTest),
-        DEMO_ENTRY_NAME(chipmunk, PhysicsEditorTest),
-		DEMO_ENTRY_NAME(chipmunk, PlanetTest),
-		DEMO_ENTRY_NAME(chipmunk, PlayerTest),
-		DEMO_ENTRY_NAME(chipmunk, PlinkTest),
-		DEMO_ENTRY_NAME(chipmunk, PumpTest),
-		DEMO_ENTRY_NAME(chipmunk, PyramidStackTest),
-		DEMO_ENTRY_NAME(chipmunk, PyramidToppleTest),
-		DEMO_ENTRY_NAME(chipmunk, QueryTest),
-		DEMO_ENTRY_NAME(chipmunk, SensorTest),
-		DEMO_ENTRY_NAME(chipmunk, ShapeAnimationTest),
-		DEMO_ENTRY_NAME(chipmunk, SimpleTest),
-		DEMO_ENTRY_NAME(chipmunk, SpringTest),
-		DEMO_ENTRY_NAME(chipmunk, TankTest),
-		DEMO_ENTRY_NAME(chipmunk, TexturedBounceTest),
-		DEMO_ENTRY_NAME(chipmunk, TexturedOneWayTest),
-		DEMO_ENTRY_NAME(chipmunk, TheoJansenTest),
-		DEMO_ENTRY_NAME(chipmunk, TumbleTest),
-		DEMO_ENTRY_NAME(chipmunk, UnsafeOpsTest),
 	},
 	{
 		DEMO_ENTRY_NAME(ease, EaseBackInOutTest),
@@ -245,7 +217,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(node, VirtualJoystickTest),
 	},
 	{
-        DEMO_ENTRY_NAME(other, AlphaTestTest),
 		DEMO_ENTRY_NAME(other, AStarTest),
 		DEMO_ENTRY_NAME(other, ColorFilterTest),
 		DEMO_ENTRY_NAME(other, DrawPrimitivesTest),
@@ -295,6 +266,9 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(persistence, PreferenceTest),
 		DEMO_ENTRY_NAME(persistence, SQLFileTest),
 		DEMO_ENTRY_NAME(persistence, TransactionTest),
+	},
+	{
+		DEMO_ENTRY_NAME(shader, AlphaTestTest),
 	},
 	{
 		DEMO_ENTRY_NAME(sound, MP3Test),

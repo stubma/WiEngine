@@ -31,7 +31,6 @@
 #include "wyUtils.h"
 #include "wyLog.h"
 #include "wyGlobal.h"
-#include "wyPrimitives.h"
 
 void wyGrid3D::reuse() {
 	m_buf->copy(m_backup);

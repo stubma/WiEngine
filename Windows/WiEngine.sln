@@ -48,8 +48,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libwisound", "libwisound\li
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liblua", "liblua\liblua.vcxproj", "{9AAFD680-72B3-490D-8B81-263A20F2CCE8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libchipmunk", "libchipmunk\libchipmunk.vcxproj", "{4C005BEC-040B-4981-B023-860DD3C4BDAF}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PocoFoundation", "PocoFoundation\PocoFoundation.vcxproj", "{D8EBA2CB-CD4B-4CE6-A896-23B71C8149AB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PocoNet", "PocoNet\PocoNet.vcxproj", "{9810E544-3425-4400-B196-D6002934BED7}"
@@ -266,16 +264,6 @@ Global
 		{9AAFD680-72B3-490D-8B81-263A20F2CCE8}.Release|Win32.ActiveCfg = Release|Win32
 		{9AAFD680-72B3-490D-8B81-263A20F2CCE8}.Release|Win32.Build.0 = Release|Win32
 		{9AAFD680-72B3-490D-8B81-263A20F2CCE8}.Release|x86.ActiveCfg = Release|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Debug|Win32.Build.0 = Debug|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Debug|x86.ActiveCfg = Debug|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Release|Win32.ActiveCfg = Release|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Release|Win32.Build.0 = Release|Win32
-		{4C005BEC-040B-4981-B023-860DD3C4BDAF}.Release|x86.ActiveCfg = Release|Win32
 		{D8EBA2CB-CD4B-4CE6-A896-23B71C8149AB}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{D8EBA2CB-CD4B-4CE6-A896-23B71C8149AB}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{D8EBA2CB-CD4B-4CE6-A896-23B71C8149AB}.Debug|Win32.ActiveCfg = Debug|Win32

@@ -14,9 +14,6 @@
     <ProjectReference Include="libbox2d\libbox2d.vcxproj">
       <Project>{df17e696-5188-4116-ac4a-8b7fa613d4db}</Project>
     </ProjectReference>
-    <ProjectReference Include="libchipmunk\libchipmunk.vcxproj">
-      <Project>{4c005bec-040b-4981-b023-860dd3c4bdaf}</Project>
-    </ProjectReference>
     <ProjectReference Include="libjson\libjson.vcxproj">
       <Project>{9f501aff-2c19-4993-a801-9182d4d01efa}</Project>
     </ProjectReference>
@@ -36,7 +33,6 @@
   <ItemGroup>
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.cpp" />
-    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Chipmunk\ChipmunkDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\common.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.cpp" />
@@ -48,6 +44,7 @@
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Particles\ParticleDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Performance\PerformanceDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Persistence\PersistenceDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Shader\ShaderDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Sound\SoundDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Transition\TransitionDemos.cpp" />
     <ClCompile Include="Demo\dllmain.cpp" />
@@ -57,7 +54,6 @@
   <ItemGroup>
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.h" />
-    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Chipmunk\ChipmunkDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\common.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.h" />
@@ -70,6 +66,7 @@
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Particles\ParticleDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Performance\PerformanceDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Persistence\PersistenceDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Shader\ShaderDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Sound\SoundDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Transition\TransitionDemos.h" />
     <ClInclude Include="Demo\WiEngineApp.h" />

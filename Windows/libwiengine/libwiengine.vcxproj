@@ -45,7 +45,6 @@
     <ClInclude Include="..\..\jni\WiEngine\impl\events\com_wiyun_engine_events_EventDispatcher.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_Director.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_TextBox.h" />
-    <ClInclude Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes__U.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\resource.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyAndroidStrings.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyAssetInputStream_win.h" />
@@ -59,6 +58,8 @@
     <ClInclude Include="..\..\jni\WiEngine\impl\platform\windows\wyUtils_win.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\render\wyGLES2Renderer.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\render\wyGLState.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\shader\common_position_color_fsh.h" />
+    <ClInclude Include="..\..\jni\WiEngine\impl\shader\common_position_color_vsh.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\shader\common_position_texture_color_fsh.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\shader\common_position_texture_color_vsh.h" />
     <ClInclude Include="..\..\jni\WiEngine\impl\tmx\wyTMXObjectLayer.h" />
@@ -160,16 +161,13 @@
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyArray.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyAutoReleasePool.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuffer.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuildConfig.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyDevice.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyGlobal.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyHashSet.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyMemory.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyObject.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyThread.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\designer\wyDesignerCommon.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\designer\wySDSprite.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\designer\wySDSpriteManager.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\designer\wyUDLayer.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\dialog\wyDialog.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\dialog\wyDialogPopupTransition.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\dialog\wyDialogTransition.h" />
@@ -241,18 +239,21 @@
     <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyWaves.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyWaves3D.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyWavesTiles3D.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyBaseGrid.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGrabber.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGrid3D.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyTiledGrid3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGridController.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\material\wyMaterial.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\material\wyMaterialParameter.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\material\wyMaterialTextureParameter.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\material\wyRenderState.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\material\wyTechnique.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyBaseGrid.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyGrid3D.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyMesh.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyMeshRef.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyProgress.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyQuadList.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyRectangle.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyShape.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\mesh\wyTiledGrid3D.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTGlobal.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTMemoryFileSystem.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTResourceFile.h" />
@@ -311,14 +312,12 @@
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyVirtualJoystick.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyCamera.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyGLTexture2D.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyPrimitives.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTexture2D.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\opengl\wyTextureManager.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\particle\wyHGEParticleLoader.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\particle\wyParticle.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\particle\wyParticleLoader.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\particle\wyParticleSystem.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\particle\wyPointParticleSystem.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\particle\wyQuadParticleSystem.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\persistence\wyDatabase.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\persistence\wyPrefs.h" />
@@ -337,6 +336,7 @@
     <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\unistd.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\wyGestureRecognizerListener.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\wyWinGLView.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\render\wyFrameBuffer.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\render\wyRenderer.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\render\wyRenderManager.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\render\wyRenderQueue.h" />
@@ -531,10 +531,6 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\common\wyMemory.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\common\wyObject.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\common\wyThread.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wyDesignerCommon.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wySDSprite.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wySDSpriteManager.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\designer\wyUDLayer.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\dialog\wyDialog.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\dialog\wyDialogPopupTransition.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\dialog\wyDialogTransition.cpp" />
@@ -606,23 +602,25 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyWaves.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyWaves3D.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyWavesTiles3D.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyBaseGrid.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGrabber.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGrid3D.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyTiledGrid3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGridController.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\material\wyMaterial.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\material\wyMaterialParameter.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\material\wyMaterialTextureParameter.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\material\wyRenderState.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\material\wyTechnique.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyBaseGrid.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyGrid3D.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyMesh.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyMeshRef.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyProgress.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyQuadList.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyRectangle.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyShape.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\mesh\wyTiledGrid3D.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\mfs\PVRTResourceFile.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\mfs\PVRTString.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_Director.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_TextBox.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes__U.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyActionManager.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyAnimation.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyArrayTileMapAtlas.cpp" />
@@ -675,14 +673,12 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyVirtualJoystick.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyCamera.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyGLTexture2D.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyPrimitives.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTexture2D.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\opengl\wyTextureManager.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyHGEParticleLoader.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyParticle.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyParticleLoader.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyParticleSystem.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyPointParticleSystem.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\particle\wyQuadParticleSystem.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\persistence\wyDatabase.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\persistence\wyResultSet.cpp" />
@@ -703,6 +699,7 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyThread_win.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyUtils_win.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyWinGLView.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\render\wyFrameBuffer.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\render\wyGLES2Renderer.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\render\wyGLState.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\render\wyRenderer.cpp" />
@@ -835,7 +832,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWIENGINE_EXPORTS;_CRT_SECURE_NO_WARNINGS;GL_GLEXT_PROTOTYPES;WY_CFLAG_OPTIMIZE_MATH;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWIENGINE_EXPORTS;_CRT_SECURE_NO_WARNINGS;GL_GLEXT_PROTOTYPES;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\jni\kazmath\include;..\..\jni\WiEngine\include;..\..\jni\WiEngine\include\material;..\..\jni\WiEngine\include\mesh;..\..\jni\WiEngine\impl\render;..\..\jni\WiEngine\include\render;..\..\jni\WiEngine\include\shader;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819;4244;4018;4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -862,7 +859,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWIENGINE_EXPORTS;_CRT_SECURE_NO_WARNINGS;GL_GLEXT_PROTOTYPES;WY_CFLAG_OPTIMIZE_MATH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWIENGINE_EXPORTS;_CRT_SECURE_NO_WARNINGS;GL_GLEXT_PROTOTYPES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

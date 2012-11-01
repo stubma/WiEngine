@@ -296,7 +296,6 @@
 // opengl
 #include "wyCamera.h"
 #include "wyGLTexture2D.h"
-#include "wyPrimitives.h"
 #include "wyTexture2D.h"
 #include "wyTextureManager.h"
 

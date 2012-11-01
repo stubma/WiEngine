@@ -27,7 +27,6 @@
  * THE SOFTWARE.
  */
 #include "wyBox2D.h"
-#include "wyPrimitives.h"
 #include "wyLog.h"
 #include "wyGlobal.h"
 #include "wyBox2DDebugDraw.h"

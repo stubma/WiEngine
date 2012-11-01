@@ -398,7 +398,7 @@ static int tolua_set_wyLayerInfo_tiles(lua_State* tolua_S)
   if (!tolua_isuserdata(tolua_S,2,0,&tolua_err))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->tiles = ((void*)  tolua_touserdata(tolua_S,2,0))
+  self->tiles = ((int*)  tolua_touserdata(tolua_S,2,0))
 ;
  return 0;
 }

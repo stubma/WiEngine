@@ -179,16 +179,14 @@
     <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2D.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2DCollisionDetector.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2DPELoader.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2DRender.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyFixtureAnimation.h" />
+    <ClInclude Include="..\..\jni\Box2D\wyBox2DDebugDraw.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\box2d\wyBox2DMeshBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\jni\Box2D\wyBox2D.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2DCollisionDetector.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2DInit.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2DPELoader.cpp" />
-    <ClCompile Include="..\..\jni\Box2D\wyBox2DRender.cpp" />
-    <ClCompile Include="..\..\jni\Box2D\wyFixtureAnimation.cpp" />
     <ClCompile Include="..\..\jni\Box2D\Collision\b2BroadPhase.cpp">
       <Filter>Collision</Filter>
     </ClCompile>
@@ -339,5 +337,7 @@
     <ClCompile Include="..\..\jni\Box2D\Dynamics\Joints\b2DistanceJoint.cpp">
       <Filter>Dynamics\Joints</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\jni\Box2D\wyBox2DDebugDraw.cpp" />
+    <ClCompile Include="..\..\jni\Box2D\wyBox2DMeshBuilder.cpp" />
   </ItemGroup>
 </Project>
