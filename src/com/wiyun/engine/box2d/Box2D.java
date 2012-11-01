@@ -1,7 +1,6 @@
 package com.wiyun.engine.box2d;
 
 import com.wiyun.engine.box2d.dynamics.World;
-import com.wiyun.engine.chipmunk.Chipmunk;
 import com.wiyun.engine.nodes.Node;
 
 /**

@@ -30,7 +30,6 @@
 		<meta-data android:name="Node_desc" android:resource="@string/node_desc"></meta-data>
 		<meta-data android:name="Action_desc" android:resource="@string/action_desc"></meta-data>
 		<meta-data android:name="Box2D_desc" android:resource="@string/box2d_desc"></meta-data>
-		<meta-data android:name="Chipmunk_desc" android:resource="@string/chipmunk_desc"></meta-data>
 		<meta-data android:name="Ease_Action_desc" android:resource="@string/ease_action_desc"></meta-data>
 		<meta-data android:name="Grid_Action_desc" android:resource="@string/grid_action_desc"></meta-data>
 		<meta-data android:name="Events_desc" android:resource="@string/events_desc"></meta-data>
@@ -1195,156 +1194,6 @@
 			<meta-data android:resource="@string/AnimationTest_desc"
 				android:name="desc"></meta-data>
 		</activity>
-		<activity android:label="Chipmunk/Bounce" android:name=".tests.chipmunk.BounceTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/BounceTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:name=".tests.chipmunk.OneWayTest"
-			android:label="Chipmunk/One Way">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/OneWayTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Planet" android:name=".tests.chipmunk.PlanetTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/PlanetTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Player" android:name=".tests.chipmunk.PlayerTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/PlayerTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Pyramid Stack"
-			android:name=".tests.chipmunk.PyramidStackTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/PyramidStackTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Pyramid Topple"
-			android:name=".tests.chipmunk.PyramidToppleTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/PyramidToppleTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Plink" android:name=".tests.chipmunk.PlinkTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/PlinkTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Pump" android:name=".tests.chipmunk.PumpTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/PumpTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Joints" android:name=".tests.chipmunk.JointsTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/JointsTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Logo Smash" android:name=".tests.chipmunk.LogoSmashTest" no_ios="true">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/LogoSmashTest_desc"
-				android:name="desc"></meta-data>
-			<meta-data android:value="true" android:name="no_android"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Query" android:name=".tests.chipmunk.QueryTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/QueryTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-
-		<activity android:name=".tests.chipmunk.SensorTest"
-			android:label="Chipmunk/Sensor">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:name="desc" android:resource="@string/SensorTest_desc"></meta-data>
-		</activity>
-
-		<activity android:name=".tests.chipmunk.SimpleTest"
-			android:label="Chipmunk/Simple">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:name="desc" android:resource="@string/SimpleTest_desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Spring" android:name=".tests.chipmunk.SpringTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/SpringTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Tank" android:name=".tests.chipmunk.TankTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/TankTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Theo Jansen" android:name=".tests.chipmunk.TheoJansenTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/TheoJansenTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Tumble" android:name=".tests.chipmunk.TumbleTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/TumbleTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
-		<activity android:label="Chipmunk/Unsafe Ops" android:name=".tests.chipmunk.UnsafeOpsTest">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/UnsafeOpsTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
 		<activity android:name=".tests.node.ButtonTest"
 			android:label="Node/Button">
 			<intent-filter>
@@ -1372,24 +1221,6 @@
 			<meta-data android:resource="@string/AtlasButtonTest_desc"
 				android:name="desc"></meta-data>
 		</activity>
-
-		<activity android:name=".tests.chipmunk.TexturedBounceTest"
-			android:label="Chipmunk/Textured Bounce">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:name="desc" android:resource="@string/TexturedBounceTest_desc"></meta-data>
-		</activity>
-		<activity android:name=".tests.chipmunk.TexturedOneWayTest"
-			android:label="Chipmunk/Textured One Way">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/TexturedOneWayTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
 		<activity android:name=".tests.other.ZwoptexTest" android:label="Other/Zwoptex">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -1409,15 +1240,6 @@
             <meta-data android:resource="@string/TransparentDrawPrimitivesTest_desc"
                 android:name="desc"></meta-data>
         </activity>
-		<activity android:name=".tests.chipmunk.BodyDraggingTest"
-			android:label="Chipmunk/Body Dragging">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:resource="@string/BodyDraggingTest_desc"
-				android:name="desc"></meta-data>
-		</activity>
 		<activity android:name=".tests.node.TMXOrthogonalTest"
 			android:label="Node/TMX Tile Map (Orthogonal)">
 			<intent-filter>
@@ -1446,11 +1268,6 @@
 			<meta-data android:resource="@string/TMXHexagonalTest_desc"
 				android:name="desc"></meta-data>
 		</activity>
-	<activity android:name=".tests.chipmunk.ShapeAnimationTest" android:label="Chipmunk/Shape Animation"><intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter><meta-data android:resource="@string/ShapeAnimationTest_desc" android:name="desc"></meta-data>
-</activity>
 	<activity android:name=".tests.box2d.BodyAnimationTest" android:label="Box2D/Body Animation"><intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.TEST" />
@@ -1561,16 +1378,6 @@
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.TEST" />
 			</intent-filter><meta-data android:name="desc" android:resource="@string/MemoryFileSystemTest_desc"></meta-data>
-</activity>
-<activity android:name=".tests.chipmunk.MagnetsElectricTest" android:label="Chipmunk/Magnets Electric"><intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter><meta-data android:resource="@string/MagnetsElectricTest_desc" android:name="desc"></meta-data>
-</activity>
-<activity android:name=".tests.chipmunk.PhysicsEditorTest" android:label="Chipmunk/Physics Editor"><intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter><meta-data android:resource="@string/PhysicsEditorTest_desc" android:name="desc"></meta-data>
 </activity>
 <activity android:name=".tests.sound.MP3Test" android:label="Sound/Play MP3"><intent-filter>
 				<action android:name="android.intent.action.MAIN" />

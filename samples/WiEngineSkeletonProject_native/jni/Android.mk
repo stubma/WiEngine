@@ -17,13 +17,11 @@ endef
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wiengineskeleton
-LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv2 -lwiengine -llua -lchipmunk -lwisound -lbox2d -ljson -liap -lwinetwork
+LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv2 -lwiengine -llua -lwisound -lbox2d -ljson -liap -lwinetwork
 LOCAL_CFLAGS += -Wno-psabi
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 	$(LOCAL_PATH)/../../../jni \
 	$(LOCAL_PATH)/../../../jni/kazmath/include \
-	$(LOCAL_PATH)/../../../jni/chipmunk \
-	$(LOCAL_PATH)/../../../jni/chipmunk/constraints \
 	$(LOCAL_PATH)/../../../jni/lua \
 	$(LOCAL_PATH)/../../../jni/libcurl/include \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include \
