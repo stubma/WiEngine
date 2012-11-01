@@ -49,5 +49,5 @@ wyMaterialParameter* wyMaterialParameter::make(const char* name, wyShaderVariabl
 }
 
 void wyMaterialParameter::apply(wyRenderer* r, wyTechnique* tech) {
-
+	tech->updateUniformValue(m_name, m_value);
 }
