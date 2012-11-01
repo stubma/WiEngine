@@ -51,8 +51,8 @@ wyMaterialTextureParameter* wyMaterialTextureParameter::make(const char* uniform
 }
 
 void wyMaterialTextureParameter::apply(wyRenderer* r, wyTechnique* tech) {
+	wyMaterialParameter::apply(r, tech);
 	r->setTexture(m_unit, m_tex);
-	tech->updateUniformValue(m_name, m_value);
 }
 
 void wyMaterialTextureParameter::setTexture(wyTexture2D* tex) {
