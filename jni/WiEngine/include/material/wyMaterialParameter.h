@@ -36,13 +36,7 @@ class wyTechnique;
 class wyRenderer;
 
 /**
- * @class wyMaterialParameter
- *
- * \if English
  * Material parameter which will be bound to shader uniform
- * \else
- * 材质参数, 将会绑定到shader的uniform参数
- * \endif
  */
 class WIENGINE_API wyMaterialParameter : public wyObject {
 protected:
@@ -63,64 +57,45 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param uniformName uniform parameter name
 	 * @param v value of uniform
 	 * @return \link wyMaterialParameter wyMaterialParameter\endif
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param uniformName 材质参数相关的uniform参数名称
-	 * @param v uniform参数的值
-	 * @return \link wyMaterialParameter wyMaterialParameter\endlink
-	 * \endif
 	 */
 	static wyMaterialParameter* make(const char* uniformName, wyShaderVariable::Value& v);
 
 	virtual ~wyMaterialParameter();
 
 	/**
-	 * \if English
 	 * Apply this parameter to a technique
 	 *
 	 * @param r \link wyRenderer wyRenderer\endlink
 	 * @param tech \link wyTechnique wyTechnique\endlink
-	 * \else
-	 * 用特定的技术去实现这个参数
-	 *
-	 * @param r \link wyRenderer wyRenderer\endlink
-	 * @param tech \link wyTechnique wyTechnique\endlink
-	 * \endif
 	 */
 	virtual void apply(wyRenderer* r, wyTechnique* tech);
 
 	/**
-	 * \if English
 	 * Get parameter name, the name must be same as someone in shader
 	 *
 	 * @return parameter name
-	 * \else
-	 * 得到参数名, 参数名称应该和shader中的参数名称相同
-	 *
-	 * @return 参数名
-	 * \endif
 	 */
 	const char* getName() { return m_name; }
 
 	/**
-	 * \if English
 	 * Get parameter value
 	 *
 	 * @return parameter value
-	 * \else
-	 * 得到参数值
-	 *
-	 * @return 参数值
-	 * \endif
 	 */
 	wyShaderVariable::Value& getValue() { return m_value; }
+
+	/**
+	 * Set parameter value. You must ensure the value has proper content against
+	 * uniform type.
+	 *
+	 * @param v new value
+	 */
+	void setValue(wyShaderVariable::Value v);
 };
 
 #endif // __wyMaterialParameter_h__

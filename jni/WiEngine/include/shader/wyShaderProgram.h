@@ -40,13 +40,7 @@
 #define WY_ATTRIBUTE_ITER WY_ATTRIBUTE_MAP::iterator
 
 /**
- * @class wyShaderProgram
- *
- * \if English
  * shader program
- * \else
- * shader程序
- * \endif
  */
 class WIENGINE_API wyShaderProgram : public wyObject {
 private:
@@ -76,138 +70,75 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param vsh vertex shader object
 	 * @param fsh fragment shader object
 	 * @return \link wyShaderProgram wyShaderProgram\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param vsh 顶点shader
-	 * @param fsh 分片shader
-	 * @return \link wyShaderProgram wyShaderProgram\endlink
-	 * \endif
 	 */
 	static wyShaderProgram* make(wyShader* vsh, wyShader* fsh);
 
 	virtual ~wyShaderProgram();
 
 	/**
-	 * \if English
 	 * Link program, this method should be called after addAttribute
 	 *
 	 * @return true if linking is ok
-	 * \else
-	 * 链接shader程序, 如果想要手动绑定attribute, 则这个方法必须要在\c addAttribute之后
-	 * 调用
-	 *
-	 * @return true表示链接成功
-	 * \endif
 	 */
 	bool link();
 
 	/**
-	 * \if English
 	 * Add an uniform binding to this program
 	 *
 	 * @param type uniform type
 	 * @param name uniform name
 	 * @param binding uniform binding type
-	 * \else
-	 * 给shader程序添加一个uniform绑定
-	 *
-	 * @param type uniform参数类型
-	 * @param name uniform参数名称
-	 * @param binding uniform绑定类型
-	 * \endif
 	 */
 	void addUniform(wyShaderVariable::Type type, const char* name, wyUniform::Binding binding);
 
 	/**
-	 * \if English
 	 * Add an attribute binding to this program
 	 *
 	 * @param type attribute type
 	 * @param name attribute name
 	 * @param binding attribute binding type
-	 * \else
-	 * 给shader程序添加一个attribute绑定
-	 *
-	 * @param type 属性参数类型
-	 * @param name 属性参数名称
-	 * @param binding attribute绑定类型
-	 * \endif
 	 */
 	void addAttribute(wyShaderVariable::Type type, const char* name, wyAttribute::Binding binding);
 
 	/**
-	 * \if English
 	 * Get program id
 	 *
 	 * @return program id
-	 * \else
-	 * 得到shader程序id
-	 *
-	 * @return 程序id
-	 * \endif
 	 */
 	GLuint getProgram() { return m_program; }
 
 	/**
-	 * \if English
 	 * Get uniform by name
 	 *
 	 * @param name uniform name
 	 * @return \link wyUniform wyUniform\endlink, or NULL if not found
-	 * \else
-	 * 根据名称得到uniform参数对象
-	 *
-	 * @param name uniform参数名称
-	 * @return \link wyUniform wyUniform\endlink, 如果没有则返回NULL
-	 * \endif
 	 */
 	wyUniform* getUniform(const char* name);
 
 	/**
-	 * \if English
 	 * Get uniform map
 	 *
 	 * @return map of all uniforms
-	 * \else
-	 * 得到所有的uniform参数哈希表
-	 *
-	 * @return uniform参数哈希表
-	 * \endif
 	 */
 	WY_UNIFORM_MAP* getUniforms() { return m_uniforms; }
 
 	/**
-	 * \if English
 	 * Get attribute by name
 	 *
 	 * @param name attribute name
 	 * @return \link wyAttribute wyAttribute\endlink, or NULL if not found
-	 * \else
-	 * 根据名称得到属性参数对象
-	 *
-	 * @param name 属性参数名称
-	 * @return \link wyAttribute wyAttribute\endlink, 如果没有则返回NULL
-	 * \endif
 	 */
 	wyAttribute* getAttribute(const char* name);
 
 	/**
-	 * \if English
 	 * Get attribute map
 	 *
 	 * @return map of all attributes
-	 * \else
-	 * 得到所有的attribute参数哈希表
-	 *
-	 * @return attribute参数哈希表
-	 * \endif
 	 */
 	WY_ATTRIBUTE_MAP* getAttributes() { return m_attributes; }
 };

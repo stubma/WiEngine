@@ -42,16 +42,13 @@ wySlider::wySlider(wySprite* bg, wySprite* bar, wySprite* thumb, bool vertical) 
 		m_min(0),
 		m_max(100),
 		m_value(0),
+		m_callback(NULL),
 		m_vertical(vertical),
-		m_data(NULL),
 #if ANDROID
 		m_jCallback(NULL),
 #endif
 		m_showFullBar(false),
 		m_dragging(false) {
-	// init callback
-	memset(&m_callback, 0, sizeof(wySliderCallback));
-
 	// assign
 	m_bg = bg;
 	m_progressTimer = wyProgressTimer::make(bar);
@@ -119,8 +116,8 @@ wySlider* wySlider::make(wySprite* bg, wySprite* bar, wySprite* thumb, bool vert
 }
 
 void wySlider::invokeOnValueChanged() {
-	if(m_callback.onValueChanged != NULL) {
-		m_callback.onValueChanged(this, m_data);
+	if(m_callback) {
+		m_callback->onSliderValueChanged(this);
 	}
 #if ANDROID
 	else if(m_jCallback != NULL) {
@@ -227,14 +224,8 @@ bool wySlider::touchesCancelled(wyMotionEvent& e) {
 	return true;
 }
 
-void wySlider::setCallback(wySliderCallback* callback, void* data) {
-	if(callback == NULL) {
-		memset(&m_callback, 0, sizeof(wySliderCallback));
-		m_data = NULL;
-	} else {
-		memcpy(&m_callback, callback, sizeof(wySliderCallback));
-		m_data = data;
-	}
+void wySlider::setCallback(wySliderCallback* callback) {
+	m_callback = callback;
 }
 
 #if ANDROID

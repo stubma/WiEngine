@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Thu Oct 25 11:24:15 2012.
+** Generated automatically by tolua++-1.0.92 on Thu Nov  1 16:14:13 2012.
 */
 
 #ifndef __cplusplus
@@ -130,13 +130,6 @@ static int tolua_collect_wyGLContext (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyToast (lua_State* tolua_S)
-{
- wyToast* self = (wyToast*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
 static int tolua_collect_wyMenuItem (lua_State* tolua_S)
 {
  wyMenuItem* self = (wyMenuItem*) tolua_tousertype(tolua_S,1,0);
@@ -144,9 +137,9 @@ static int tolua_collect_wyMenuItem (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyVirtualJoystick (lua_State* tolua_S)
+static int tolua_collect_wyToast (lua_State* tolua_S)
 {
- wyVirtualJoystick* self = (wyVirtualJoystick*) tolua_tousertype(tolua_S,1,0);
+ wyToast* self = (wyToast*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -158,9 +151,9 @@ static int tolua_collect_wyNinePatchSprite (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyTextBox (lua_State* tolua_S)
+static int tolua_collect_wyVirtualJoystick (lua_State* tolua_S)
 {
- wyTextBox* self = (wyTextBox*) tolua_tousertype(tolua_S,1,0);
+ wyVirtualJoystick* self = (wyVirtualJoystick*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -172,9 +165,9 @@ static int tolua_collect_wyScrollableLayer (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wySlider (lua_State* tolua_S)
+static int tolua_collect_wyTextBox (lua_State* tolua_S)
 {
- wySlider* self = (wySlider*) tolua_tousertype(tolua_S,1,0);
+ wyTextBox* self = (wyTextBox*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -453,7 +446,6 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyScene");
  tolua_usertype(tolua_S,"wyNinePatchSprite");
  tolua_usertype(tolua_S,"wyScrollableLayer");
- tolua_usertype(tolua_S,"wySliderCallback");
  tolua_usertype(tolua_S,"wyMenu");
  tolua_usertype(tolua_S,"wyDirector");
  tolua_usertype(tolua_S,"wyColor3B");
@@ -479,12 +471,11 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyAnimate");
  tolua_usertype(tolua_S,"wyButton");
  tolua_usertype(tolua_S,"wyGLContext");
- tolua_usertype(tolua_S,"wyVirtualJoystick");
  tolua_usertype(tolua_S,"wyAffineTransform");
+ tolua_usertype(tolua_S,"wyVirtualJoystick");
  tolua_usertype(tolua_S,"wyScrollableLayerListener");
  tolua_usertype(tolua_S,"wyTextBox");
  tolua_usertype(tolua_S,"wyTextBoxCallback");
- tolua_usertype(tolua_S,"wySlider");
  tolua_usertype(tolua_S,"wyPageControlCallback");
  tolua_usertype(tolua_S,"wyPageControl");
  tolua_usertype(tolua_S,"wyGradientColorLayer");
@@ -28527,607 +28518,6 @@ static int tolua_nodes_wyPageControl_setVertical00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: make of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_make00
-static int tolua_nodes_wySlider_make00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wySprite",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wySprite",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,4,"wySprite",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,5,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySprite* bg = ((wySprite*)  tolua_tousertype(tolua_S,2,0));
-  wySprite* bar = ((wySprite*)  tolua_tousertype(tolua_S,3,0));
-  wySprite* thumb = ((wySprite*)  tolua_tousertype(tolua_S,4,0));
-  bool vertical = ((bool)  tolua_toboolean(tolua_S,5,false));
-  {
-   wySlider* tolua_ret = (wySlider*)  wySlider::make(bg,bar,thumb,vertical);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wySlider");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_new00
-static int tolua_nodes_wySlider_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wySprite",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wySprite",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,4,"wySprite",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,5,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySprite* bg = ((wySprite*)  tolua_tousertype(tolua_S,2,0));
-  wySprite* bar = ((wySprite*)  tolua_tousertype(tolua_S,3,0));
-  wySprite* thumb = ((wySprite*)  tolua_tousertype(tolua_S,4,0));
-  bool vertical = ((bool)  tolua_toboolean(tolua_S,5,false));
-  {
-   wySlider* tolua_ret = (wySlider*)  Mtolua_new((wySlider)(bg,bar,thumb,vertical));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wySlider");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_new00_local
-static int tolua_nodes_wySlider_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wySprite",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wySprite",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,4,"wySprite",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,5,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySprite* bg = ((wySprite*)  tolua_tousertype(tolua_S,2,0));
-  wySprite* bar = ((wySprite*)  tolua_tousertype(tolua_S,3,0));
-  wySprite* thumb = ((wySprite*)  tolua_tousertype(tolua_S,4,0));
-  bool vertical = ((bool)  tolua_toboolean(tolua_S,5,false));
-  {
-   wySlider* tolua_ret = (wySlider*)  Mtolua_new((wySlider)(bg,bar,thumb,vertical));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wySlider");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: delete of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_delete00
-static int tolua_nodes_wySlider_delete00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
-#endif
-  Mtolua_delete(self);
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: touchesBegan of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_touchesBegan00
-static int tolua_nodes_wySlider_touchesBegan00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyMotionEvent",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  wyMotionEvent* e = ((wyMotionEvent*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'touchesBegan'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->touchesBegan(*e);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'touchesBegan'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: touchesMoved of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_touchesMoved00
-static int tolua_nodes_wySlider_touchesMoved00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyMotionEvent",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  wyMotionEvent* e = ((wyMotionEvent*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'touchesMoved'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->touchesMoved(*e);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'touchesMoved'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: touchesEnded of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_touchesEnded00
-static int tolua_nodes_wySlider_touchesEnded00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyMotionEvent",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  wyMotionEvent* e = ((wyMotionEvent*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'touchesEnded'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->touchesEnded(*e);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'touchesEnded'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: touchesCancelled of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_touchesCancelled00
-static int tolua_nodes_wySlider_touchesCancelled00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyMotionEvent",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  wyMotionEvent* e = ((wyMotionEvent*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'touchesCancelled'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->touchesCancelled(*e);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'touchesCancelled'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getMin of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_getMin00
-static int tolua_nodes_wySlider_getMin00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMin'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getMin();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getMin'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setMin of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_setMin00
-static int tolua_nodes_wySlider_setMin00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  float min = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMin'", NULL);
-#endif
-  {
-   self->setMin(min);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setMin'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getMax of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_getMax00
-static int tolua_nodes_wySlider_getMax00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMax'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getMax();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getMax'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setMax of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_setMax00
-static int tolua_nodes_wySlider_setMax00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  float max = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMax'", NULL);
-#endif
-  {
-   self->setMax(max);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setMax'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getValue of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_getValue00
-static int tolua_nodes_wySlider_getValue00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getValue'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getValue();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getValue'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setValue of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_setValue00
-static int tolua_nodes_wySlider_setValue00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  float value = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setValue'", NULL);
-#endif
-  {
-   self->setValue(value);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setValue'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isShowFullBar of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_isShowFullBar00
-static int tolua_nodes_wySlider_isShowFullBar00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isShowFullBar'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isShowFullBar();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isShowFullBar'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setShowFullBar of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_setShowFullBar00
-static int tolua_nodes_wySlider_setShowFullBar00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  bool flag = ((bool)  tolua_toboolean(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setShowFullBar'", NULL);
-#endif
-  {
-   self->setShowFullBar(flag);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setShowFullBar'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isVertical of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_isVertical00
-static int tolua_nodes_wySlider_isVertical00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isVertical'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isVertical();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isVertical'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setCallback of class  wySlider */
-#ifndef TOLUA_DISABLE_tolua_nodes_wySlider_setCallback00
-static int tolua_nodes_wySlider_setCallback00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wySlider",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wySliderCallback",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wySlider* self = (wySlider*)  tolua_tousertype(tolua_S,1,0);
-  wySliderCallback* callback = ((wySliderCallback*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setCallback'", NULL);
-#endif
-  {
-   self->setCallback(callback,data);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setCallback'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: make of class  wyTextBox */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyTextBox_make00
 static int tolua_nodes_wyTextBox_make00(lua_State* tolua_S)
@@ -33531,35 +32921,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"wyPageControlCallback","wyPageControlCallback","",NULL);
   tolua_beginmodule(tolua_S,"wyPageControlCallback");
-  tolua_endmodule(tolua_S);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"wySlider","wySlider","wyNode",tolua_collect_wySlider);
-  #else
-  tolua_cclass(tolua_S,"wySlider","wySlider","wyNode",NULL);
-  #endif
-  tolua_beginmodule(tolua_S,"wySlider");
-   tolua_function(tolua_S,"make",tolua_nodes_wySlider_make00);
-   tolua_function(tolua_S,"new",tolua_nodes_wySlider_new00);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wySlider_new00_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wySlider_new00_local);
-   tolua_function(tolua_S,"delete",tolua_nodes_wySlider_delete00);
-   tolua_function(tolua_S,"touchesBegan",tolua_nodes_wySlider_touchesBegan00);
-   tolua_function(tolua_S,"touchesMoved",tolua_nodes_wySlider_touchesMoved00);
-   tolua_function(tolua_S,"touchesEnded",tolua_nodes_wySlider_touchesEnded00);
-   tolua_function(tolua_S,"touchesCancelled",tolua_nodes_wySlider_touchesCancelled00);
-   tolua_function(tolua_S,"getMin",tolua_nodes_wySlider_getMin00);
-   tolua_function(tolua_S,"setMin",tolua_nodes_wySlider_setMin00);
-   tolua_function(tolua_S,"getMax",tolua_nodes_wySlider_getMax00);
-   tolua_function(tolua_S,"setMax",tolua_nodes_wySlider_setMax00);
-   tolua_function(tolua_S,"getValue",tolua_nodes_wySlider_getValue00);
-   tolua_function(tolua_S,"setValue",tolua_nodes_wySlider_setValue00);
-   tolua_function(tolua_S,"isShowFullBar",tolua_nodes_wySlider_isShowFullBar00);
-   tolua_function(tolua_S,"setShowFullBar",tolua_nodes_wySlider_setShowFullBar00);
-   tolua_function(tolua_S,"isVertical",tolua_nodes_wySlider_isVertical00);
-   tolua_function(tolua_S,"setCallback",tolua_nodes_wySlider_setCallback00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"wySliderCallback","wySliderCallback","",NULL);
-  tolua_beginmodule(tolua_S,"wySliderCallback");
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"wyTextBoxCallback","wyTextBoxCallback","",NULL);
   tolua_beginmodule(tolua_S,"wyTextBoxCallback");

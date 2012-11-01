@@ -37,19 +37,17 @@
 class wySlider;
 
 /**
- * @struct wySliderCallback
- *
  * \link wySlider wySlider\endlink的回调接口定义
  */
-typedef struct wySliderCallback {
+class WIENGINE_API wySliderCallback {
+public:
 	/**
-	 * 当slider的值改变时调用
+	 * Invoked when slider value changed
 	 *
-	 * @param slider 相关的\link wySlider wySlider\endlink对象
-	 * @param data 附加数据指针
+	 * @param slider slider object
 	 */
-	void (*onValueChanged)(wySlider* slider, void* data);
-} wySliderCallback;
+	virtual void onSliderValueChanged(wySlider* slider) = 0;
+};
 
 /**
  * @class wySlider
@@ -90,10 +88,7 @@ private:
 	bool m_dragging;
 
 	/// callback
-	wySliderCallback m_callback;
-
-	/// 附加数据指针
-	void* m_data;
+	wySliderCallback* m_callback;
 
 #if ANDROID
 	/// java端callback
@@ -233,9 +228,8 @@ public:
 	 * @param callback \link wySliderCallback wySliderCallback\endlink 结构指针, callback的内容
 	 * 		会被复制，因此\link wySlider wySlider\endlink不会负责释放该指针。如果指针为NULL，表示清
 	 * 		除之前设置的回调
-	 * @param data 附加数据指针, \link wySlider wySlider\endlink不会负责释放该指针
 	 */
-	void setCallback(wySliderCallback* callback, void* data);
+	void setCallback(wySliderCallback* callback);
 
 #if ANDROID
 	/**

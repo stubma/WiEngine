@@ -24,46 +24,45 @@ namespace Shader {
     
 	/////////////////////////////////////////////////////////////////////////////////
 
-	static const GLenum ALPHA_FUNC[] = {
-		GL_NEVER,
-		GL_LESS,
-		GL_LEQUAL,
-		GL_EQUAL,
-		GL_GEQUAL,
-		GL_GREATER,
-		GL_NOTEQUAL
-	};
-
-	static const char* ALPHA_FUNC_TEXT[] = {
-		"NEVER",
-		"LESS",
-		"LEQUAL",
-		"EQUAL",
-		"GEQUAL",
-		"GREATER",
-		"NOTEQUAL"
-	};
-
-	class wyAlphaTestTestLayer : public wyLayer {
+	class wyAlphaTestTestLayer : public wyLayer, public wySliderCallback {
 	private:
 		wySprite* m_sprite;
 		wySlider* m_slider;
 		wyLabel* m_hint;
-		wyBitmapFontLabel* m_funcLabel;
-		GLenum m_alphaFunc;
-
-		int m_currentFunc;
 
 	public:
 		wyAlphaTestTestLayer() {
-			// init member
-			m_currentFunc = 4;
-			m_alphaFunc = ALPHA_FUNC[m_currentFunc];
+			// load custom shader, id is 1
+			wyShaderProgram* p = wyShaderManager::getInstance()->addProgram(1, RES("R.raw.shader_alpha_test_vsh"), RES("R.raw.shader_alpha_test_fsh"));
+			p->addAttribute(wyShaderVariable::VEC4, wyAttribute::NAME[wyAttribute::POSITION], wyAttribute::POSITION);
+			p->addAttribute(wyShaderVariable::VEC4, wyAttribute::NAME[wyAttribute::COLOR], wyAttribute::COLOR);
+			p->addAttribute(wyShaderVariable::VEC2, wyAttribute::NAME[wyAttribute::TEXTURE], wyAttribute::TEXTURE);
+			if(p->link()) {
+				p->addUniform(wyShaderVariable::MAT4,
+						wyUniform::NAME[wyUniform::WORLD_VIEW_PROJECTION_MATRIX],
+						wyUniform::WORLD_VIEW_PROJECTION_MATRIX);
+				p->addUniform(wyShaderVariable::TEXTURE_2D,
+						wyUniform::NAME[wyUniform::TEXTURE_2D],
+						wyUniform::TEXTURE_2D);
+				p->addUniform(wyShaderVariable::FLOAT,
+						"u_alpha",
+						wyUniform::CUSTOM);
+			}
 
 			// create
 			m_sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.alpha_test")));
 			m_sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2 + DP(80));
 			addChildLocked(m_sprite);
+
+			// now get material of sprite and set to custom shader
+			wyMaterial* m = m_sprite->getMaterial();
+			m->getTechnique()->setProgram(1);
+
+			// add an alpha parameter to material
+			wyShaderVariable::Value v;
+			v.f = 0;
+			wyMaterialParameter* mp = wyMaterialParameter::make("u_alpha", v);
+			m->addParameter(mp);
 
 			// create a hint label
 			m_hint = wyLabel::make("drag slider", SP(18));
@@ -78,50 +77,19 @@ namespace Shader {
 			m_slider->setMax(255);
 			m_slider->setShowFullBar(true);
 			m_slider->setPosition(wyDevice::winWidth / 2, DP(50));
-			wySliderCallback callback = {
-				onValueChanged
-			};
-			m_slider->setCallback(&callback, this);
+			m_slider->setCallback(this);
 			addChildLocked(m_slider);
-
-			// alpha func button
-			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			normal->setContentSize(DP(280), DP(44));
-			pressed->setContentSize(DP(280), DP(44));
-			wyButton* button = wyButton::make(normal, pressed, NULL, NULL, NULL,
-											  wyTargetSelector::make(this, SEL(wyAlphaTestTestLayer::onSelectAlphaFunc)));
-			button->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight - DP(30));
-			addChildLocked(button, 1);
-
-			// label for alpha func button
-			wyBitmapFont* font = wyBitmapFont::loadFont(RES("R.raw.bitmapfont"));
-			m_funcLabel = wyBitmapFontLabel::make(font, ALPHA_FUNC_TEXT[4]);
-			m_funcLabel->setColor(wyc3b(255, 255, 0));
-			m_funcLabel->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight - DP(30));
-			addChildLocked(m_funcLabel, 1);
 		}
 
 		virtual ~wyAlphaTestTestLayer() {
 		}
 
-		void onSelectAlphaFunc(wyTargetSelector* ts) {
-			// TODO gles2
-			//m_currentFunc++;
-			//m_currentFunc %= 7;
-			//m_alphaFunc = ALPHA_FUNC[m_currentFunc];
-			//m_funcLabel->setText(ALPHA_FUNC_TEXT[m_currentFunc]);
-			//m_sprite->setAlphaFunc(m_alphaFunc, m_slider->getValue() / 255.f);
-		}
-
-		static void onValueChanged(wySlider* slider, void* data) {
-			// TODO gles2
-			//wyAlphaTestTestLayer* layer = (wyAlphaTestTestLayer*)data;
-			//layer->m_sprite->setAlphaFunc(layer->m_alphaFunc, slider->getValue() / 255.f);
-			//
-			//char buf[8];
-			//sprintf(buf, "%d", (int)slider->getValue());
-			//layer->m_hint->setText(buf);
+		virtual void onSliderValueChanged(wySlider* slider) {
+			wyMaterial* m = m_sprite->getMaterial();
+			wyMaterialParameter* mp = m->getParameter("u_alpha");
+			wyShaderVariable::Value v;
+			v.f = slider->getValue() / 255.0f;
+			mp->setValue(v);
 		}
 	};
 

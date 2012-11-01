@@ -2013,16 +2013,12 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class wySliderTestLayer: public wyLayer {
+class wySliderTestLayer : public wyLayer, public wySliderCallback {
 private:
 	wyLabel* m_hint;
 
 public:
 	wySliderTestLayer() {
-		wySliderCallback callback = {
-				onValueChanged
-		};
-
 		// slider 1
 		wySprite* bar = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.bar")));
 		wySprite* thumb1 = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.thumb")));
@@ -2031,7 +2027,7 @@ public:
 		slider1->setShowFullBar(true);
 		slider1->setAnchor(0, 0);
 		slider1->setPosition(DP(20), wyDevice::winHeight * 2 / 3);
-		slider1->setCallback(&callback, this);
+		slider1->setCallback(this);
 		addChildLocked(slider1);
 		slider1->release();
 
@@ -2041,7 +2037,7 @@ public:
 		slider2->setValue(50);
 		slider2->setAnchor(0, 0);
 		slider2->setPosition(DP(20), wyDevice::winHeight / 3);
-		slider2->setCallback(&callback, this);
+		slider2->setCallback(this);
 		addChildLocked(slider2);
 		slider2->release();
 
@@ -2052,7 +2048,7 @@ public:
 		slider3->setValue(50);
 		slider3->setShowFullBar(true);
 		slider3->setPosition(wyDevice::winWidth - DP(50), wyDevice::winHeight * 3 / 4);
-		slider3->setCallback(&callback, this);
+		slider3->setCallback(this);
 		addChildLocked(slider3);
 		slider3->release();
 
@@ -2061,7 +2057,7 @@ public:
 		wySlider* slider4 = new wySlider(NULL, vbar, thumb4, true);
 		slider4->setValue(50);
 		slider4->setPosition(wyDevice::winWidth - DP(50), wyDevice::winHeight / 4);
-		slider4->setCallback(&callback, this);
+		slider4->setCallback(this);
 		addChildLocked(slider4);
 		slider4->release();
 
@@ -2074,11 +2070,10 @@ public:
 	virtual ~wySliderTestLayer() {
 	}
 
-	static void onValueChanged(wySlider* slider, void* data) {
-		wySliderTestLayer* layer = (wySliderTestLayer*)data;
+	virtual void onSliderValueChanged(wySlider* slider) {
 		char buf[32];
 		sprintf(buf, "%.2f", slider->getValue());
-		layer->m_hint->setText(buf);
+		m_hint->setText(buf);
 	}
 };
 

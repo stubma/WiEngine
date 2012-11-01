@@ -33,15 +33,8 @@
 #include "wyRenderState.h"
 
 /**
- * @class wyTechnique
- *
- * \if English
  * \c wyTechnique represents all settings need to be known when render a geometry. Change
  * it with other instance can achieve different render effect
- * \else
- * \c wyTechnique包含了渲染物体时需要知道的所有设置, 通过切换\c wyTechnique可以达到改变
- * 渲染效果的目的
- * \endif
  */
 class WIENGINE_API wyTechnique : public wyObject {
 protected:
@@ -61,86 +54,55 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param programKey shader program key
 	 * @return \link wyTechnique wyTechnique\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param programKey shader程序id
-	 * @return \link wyTechnique wyTechnique\endlink
-	 * \endif
 	 */
 	static wyTechnique* make(int programKey);
 
 	/**
-	 * \if English
 	 * Create a default technique
 	 *
 	 * @return \link wyTechnique wyTechnique\endlink
-	 * \endif
-	 * 创建一个缺省的渲染技术实例
-	 *
-	 * @return \link wyTechnique wyTechnique\endlink
-	 * \endif
 	 */
 	static wyTechnique* make();
 
 	virtual ~wyTechnique();
 
 	/**
-	 * \if English
+	 * Change shader program of this technique
+	 *
+	 * @param key program key, also known as id, generated when add program to shader manager
+	 */
+	void setProgram(int key) { m_programKey = key; }
+
+	/**
 	 * Get shader program this technique used
 	 *
 	 * @return \link wyShaderProgram wyShaderProgram\endlink
-	 * \else
-	 * 得到当前技术使用的shader程序
-	 *
-	 * @return \link wyShaderProgram wyShaderProgram\endlink
-	 * \endif
 	 */
 	wyShaderProgram* getShaderProgram() { return wyShaderManager::getInstance()->getProgram(m_programKey); }
 
 	/**
-	 * \if English
 	 * Update uniform value by uniform name
 	 *
 	 * @param name name of uniform
 	 * @param v value of uniform
-	 * \else
-	 * 更新一个uniform参数的值
-	 *
-	 * @param name uniform参数的名称
-	 * @param v uniform参数的值
-	 * \endif
 	 */
 	void updateUniformValue(const char* name, wyShaderVariable::Value& v);
 
 	/**
-	 * \if English
 	 * Get render state this technique use
 	 *
 	 * @param \link wyRenderState wyRenderState\endlink
-	 * \else
-	 * 得到渲染状态
-	 *
-	 * @param \link wyRenderState wyRenderState\endlink
-	 * \endif
 	 */
 	wyRenderState* getRenderState();
 
 	/**
-	 * \if English
 	 * Set render state
 	 *
 	 * @param state \link wyRenderState wyRenderState\endlink
-	 * \else
-	 * 设置渲染状态
-	 *
-	 * @param state \link wyRenderState wyRenderState\endlink
-	 * \endif
 	 */
 	void setRenderState(wyRenderState* state);
 };
