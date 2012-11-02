@@ -335,7 +335,6 @@
 				<key>HEADER_SEARCH_PATHS</key>
 				<array>
 					<string>$(SRCROOT)/$(PROJECT_NAME)/WiEngine/headers</string>
-					<string>$(SRCROOT)/$(PROJECT_NAME)/WiEngine/headers/chipmunk</string>
 				</array>
 			</dict>
 			<key>ProductType</key>
