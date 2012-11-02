@@ -505,6 +505,9 @@ void wyAtlasLabel::updateMesh() {
 
 	// setContentSize will set flag to true, so clear it because we already updated mesh
 	setNeedUpdateMesh(false);
+
+	// color need to be updated because all quads are removed and refill
+	setNeedUpdateMeshColor(true);
 }
 
 void wyAtlasLabel::updateMeshColor() {

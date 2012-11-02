@@ -9,9 +9,10 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_AtlasLabel_nativeInit
 	const char* s = (const char*)env->GetStringUTFChars(text, NULL);
 	wyTexture2D* t = (wyTexture2D*)env->GetIntField(tex, g_fid_BaseObject_mPointer);
 	wyCharMap* map = (wyCharMap*)env->GetIntField(charMap, g_fid_BaseObject_mPointer);
-	wyAtlasLabel* label = WYNEW wyAtlasLabel(s, t, map);
+	wyAtlasLabel* label = wyAtlasLabel::make(s, t, map);
 	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)label);
 	env->ReleaseStringUTFChars(text, s);
+	label->retain();
 	label->lazyRelease();
 }
 

@@ -397,15 +397,6 @@ public:
     static wyAtlasLabel* make(const char* text, wyTexture2D* tex, wyCharMap* map);
 
     /**
-   	 * 构造函数
-   	 *
-   	 * @param text utf-8字符串
-   	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-   	 * @param map \link wyCharMap wyCharMap\endlink
-   	 */
-    wyAtlasLabel(const char* text, wyTexture2D* tex, wyCharMap* map);
-
-    /**
 	 * 析构函数
 	 */
     virtual ~wyAtlasLabel();

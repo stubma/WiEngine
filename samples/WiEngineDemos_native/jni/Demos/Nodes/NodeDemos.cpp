@@ -446,18 +446,18 @@ public:
 
 		// The size of the texture should be a power of 2
 		wyTexture2D* texture = wyTexture2D::makePNG(RES("R.drawable.number"));
-		label[0] = new wyAtlasLabel("1", texture, map);
+		label[0] = wyAtlasLabel::make("1", texture, map);
 		label[0]->setAnchor(0, 0);
 		label[0]->setPosition(10, DP(100));
 		addChildLocked(label[0]);
 
-		label[1] = new wyAtlasLabel("1", texture, map);
+		label[1] = wyAtlasLabel::make("1", texture, map);
 		label[1]->setColor(wyc3b(255, 0, 0));
 		label[1]->setAnchor(0, 0);
 		label[1]->setPosition(10, DP(200));
 		addChildLocked(label[1]);
 
-		label[2] = new wyAtlasLabel("1", texture, map);	
+		label[2] = wyAtlasLabel::make("1", texture, map);
 		label[2]->setColor(wyc3b(0, 255, 0));
 		label[2]->setAnchor(0, 0);
 		label[2]->setPosition(10, DP(300));
@@ -483,12 +483,11 @@ public:
     	map->mapChar(wyr(DP(97), DP(1), DP(17), DP(21)), 0xe6938e /* '擎' */, DP(2), DP(1));
 		texture = wyTexture2D::makePNG(RES("R.drawable.bitmapfont"));
 		const char* s = wyUtils::wctoutf8(L"微云 游戏\t引擎微\n云游戏引擎");
-		wyAtlasLabel* chinese = new wyAtlasLabel(s, texture, map);
+		wyAtlasLabel* chinese = wyAtlasLabel::make(s, texture, map);
 		chinese->setAnchor(0, 0);
 		chinese->setPosition(10, DP(350));
 		chinese->setAlignment(wyAtlasLabel::RIGHT);
 		addChildLocked(chinese);
-		chinese->release();
 		wyFree((void*)s);
 
 		wyTimer* timer = new wyTimer(wyTargetSelector::make(this, SEL(wyAtlasLabelTestLayer::onUpdateLabel)));
@@ -497,9 +496,6 @@ public:
 	}
 
 	virtual ~wyAtlasLabelTestLayer() {
-		wyObjectRelease(label[0]);
-		wyObjectRelease(label[1]);
-		wyObjectRelease(label[2]);
 	}
 
 	void onUpdateLabel(wyTargetSelector* ts) {

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Thu Nov  1 16:14:13 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Nov  2 10:33:21 2012.
 */
 
 #ifndef __cplusplus
@@ -1429,75 +1429,6 @@ static int tolua_nodes_wyAtlasLabel_make00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wyAtlasLabel */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyAtlasLabel_new00
-static int tolua_nodes_wyAtlasLabel_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyAtlasLabel",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,4,"wyCharMap",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* text = ((const char*)  tolua_tostring(tolua_S,2,0));
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,3,0));
-  wyCharMap* map = ((wyCharMap*)  tolua_tousertype(tolua_S,4,0));
-  {
-   wyAtlasLabel* tolua_ret = (wyAtlasLabel*)  Mtolua_new((wyAtlasLabel)(text,tex,map));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyAtlasLabel");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyAtlasLabel */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyAtlasLabel_new00_local
-static int tolua_nodes_wyAtlasLabel_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyAtlasLabel",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,4,"wyCharMap",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* text = ((const char*)  tolua_tostring(tolua_S,2,0));
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,3,0));
-  wyCharMap* map = ((wyCharMap*)  tolua_tousertype(tolua_S,4,0));
-  {
-   wyAtlasLabel* tolua_ret = (wyAtlasLabel*)  Mtolua_new((wyAtlasLabel)(text,tex,map));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyAtlasLabel");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
  return 0;
 #endif
 }
@@ -31720,9 +31651,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   #endif
   tolua_beginmodule(tolua_S,"wyAtlasLabel");
    tolua_function(tolua_S,"make",tolua_nodes_wyAtlasLabel_make00);
-   tolua_function(tolua_S,"new",tolua_nodes_wyAtlasLabel_new00);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyAtlasLabel_new00_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyAtlasLabel_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyAtlasLabel_delete00);
    tolua_function(tolua_S,"getText",tolua_nodes_wyAtlasLabel_getText00);
    tolua_function(tolua_S,"setText",tolua_nodes_wyAtlasLabel_setText00);

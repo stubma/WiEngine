@@ -37,48 +37,21 @@
 class wyCharMap;
 
 /**
- * @class wyAtlasLabel
- * \if English
- * Label, characters in this type of label is displayed according what it is defined in a picture.
- * \else
- * 图片集标签的封装,根据文字显示图片中的内容,效果可以实现各种字体
- * \endif
+ * Atlas label. Characters in it are texture area in an atlas texture. The mapping
+ * between character code and texture rect is managed internally. When rendering
+ * a label, character is mapped to texture one by one.
  */
 class WIENGINE_API wyAtlasLabel : public wyNode {
 public:
-	/**
-	 * \if English
-	 * Text alignment
-	 * \else
-	 * 文字的对其方式
-	 * \endif
-	 */
+	/// Text alignment
 	enum Alignment {
-		/**
-		 * \if English
-		 * Left alignment
-		 * \else
-		 * 文字左对齐
-		 * \endif
-		 */
+		/// Left alignment
 		LEFT,
 
-		/**
-		 * \if English
-		 * center alignment
-		 * \else
-		 * 居中对齐
-		 * \endif
-		 */
+		/// center alignment
 		CENTER,
 
-		/**
-		 * \if English
-		 * right alignment
-		 * \else
-		 * 右对齐
-		 * \endif
-		 */
+		/// right alignment
 		RIGHT
 	};
 
@@ -103,48 +76,27 @@ protected:
 	/// text alignment, can be left, center or right
 	Alignment m_alignment;
 
-public:
+protected:
     /**
-     * \if English
-     * factory function, used to create a new instance with autoRelease enabled
-     *
-     * @param text null terminated c string, the string is utf-8 coded
-     * @param tex \link wyTexture2D wyTexture2D\endlink
-     * @param map \link wyCharMap wyCharMap\endlink
-     * \else
-   	 * 静态构造函数
-   	 *
-   	 * @param text utf-8字符串
-   	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-   	 * @param map \link wyCharMap wyCharMap\endlink
-   	 * \endif
-   	 */
-    static wyAtlasLabel* make(const char* text, wyTexture2D* tex, wyCharMap* map);
-
-    /**
-     * \if English
      * constructor
      *
      * @param text null terminated c string, the string is utf-8 coded
      * @param tex \link wyTexture2D wyTexture2D\endlink
      * @param map \link wyCharMap wyCharMap\endlink
-     * \else
-   	 * 构造函数
-   	 *
-   	 * @param text utf-8字符串
-   	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-   	 * @param map \link wyCharMap wyCharMap\endlink
-   	 * \endif
    	 */
     wyAtlasLabel(const char* text, wyTexture2D* tex, wyCharMap* map);
 
+public:
     /**
-     * \if English
-     * destructor
-     * \else
-	 * 析构函数
-	 * \endif
-	 */
+     * factory function, used to create a new instance with autoRelease enabled
+     *
+     * @param text null terminated c string, the string is utf-8 coded
+     * @param tex \link wyTexture2D wyTexture2D\endlink
+     * @param map \link wyCharMap wyCharMap\endlink
+   	 */
+    static wyAtlasLabel* make(const char* text, wyTexture2D* tex, wyCharMap* map);
+
+    /// destructor
     virtual ~wyAtlasLabel();
 
 	/// @see wyGeometry::updateMesh
@@ -160,39 +112,21 @@ public:
 	virtual void setText(const char* text);
 
 	/**
-	 * \if English
 	 * setter, to set the line width. The size of the node will be recalculated.
 	 *
 	 * @param width in pixels, if this value is bigger than the needed width, the needed width will be used
-	 * \else
-	 * 设置行的宽度. 设置后节点的大小将被重新计算，因此节点大小可能会被改变。
-	 *
-	 * @param width 行宽, 如该值大于实际所有文字一行所占宽度，则行宽为实际宽度
-	 * \endif
 	 */
 	void setLineWidth(float width);
 
 	/**
-	 * \if English
 	 * getter, to get the line width
-	 * \else
-	 * 获得行的宽度
-	 *
-	 * @return 行宽
-	 * \endif
 	 */
 	float getLineWidth() { return m_lineWidth; }
 
 	/**
-	 * \if English
 	 * Set text alignment
 	 *
 	 * @param alignment alignment constant
-	 * \else
-	 * 设置文字对齐方式
-	 *
-	 * @param alignment 文字对齐常量
-	 * \endif
 	 * \see wyBitmapFontLabel::LEFT
 	 * \see wyBitmapFontLabel::CENTER
 	 * \see wyBitmapFontLabel::RIGHT
@@ -200,15 +134,9 @@ public:
 	void setAlignment(Alignment alignment);
 
 	/**
-	 * \if English
 	 * Get text alignment
 	 *
 	 * @return text alignment
-	 * \else
-	 * 得到文字对齐方式
-	 *
-	 * @return 文字对齐方式
-	 * \endif
 	 * \see wyBitmapFontLabel::LEFT
 	 * \see wyBitmapFontLabel::CENTER
 	 * \see wyBitmapFontLabel::RIGHT
@@ -216,40 +144,23 @@ public:
 	Alignment getAlignment() { return m_alignment; }
 
 	/**
-	 * \if English
 	 * Get line spacing
 	 *
 	 * @return line spacing, can be negative value
-	 * \else
-	 * 得到行间距
-	 *
-	 * @return 行间距, 可能为负值
-	 * \endif
 	 */
 	float getLineSpacing() { return m_lineSpacing; }
 
 	/**
-	 * \if English
 	 * Set line spacing
 	 *
 	 * @param spacing line spacing, can be negative value
-	 * \else
-	 * 设置行间距
-	 *
-	 * @param spacing 行间距, 可以为负值
-	 * \endif
 	 */
 	void setLineSpacing(float spacing);
 };
 
 /**
- * @class wyCharMap
- * \if English
- * To manage the mapping between a character and its rectangle size, needed by \link wyAtlasLabel wyAtlasLabel\endlink
- * \else
- * 维护一个字符与矩形的映射表，在构造\link wyAtlasLabel wyAtlasLabel\endlink 时，需要
- * 传入该类。
- * \endif
+ * To manage the mapping between a character and its rectangle size, needed
+ * by \link wyAtlasLabel wyAtlasLabel\endlink
  */
 class WIENGINE_API wyCharMap : public wyObject, public wyCharProvider {
 	friend class wyAtlasLabel;
@@ -309,45 +220,26 @@ public:
     virtual float measureText(const char* chars, int length, float spaceWidth, float tabSize);
 
     /**
-     * \if English
      * to map a character to a rectangle
      *
      * @param rect the character's rectangle in the atlas picture
      * @param c the character value
      * @param leftPadding left padding
      * @param rightPadding right padding
-     * \else
-     * 映射矩形和字符
-     *
-     * @param rect 字符图片在图片集中的矩形
-     * @param c 映射到的字符, 用整数表示字符的utf-8编码
-     * @param leftPadding 字符左边应该保留的空隙
-     * @param rightPadding 字符右边应该保留的空隙
-     * \endif
      */
     void mapChar(wyRect rect, int c, float leftPadding = 0, float rightPadding = 0);
 
     /**
-     * \if English
      * to map a character to a  zwoptex frame
      *
      * @param frameName the frame name defined in the zwoptex description file
      * @param c character value
      * @param leftPadding left padding
      * @param rightPadding right padding
-     * \else
-     * 映射矩形和字符
-     *
-     * @param frameName zwoptex中的帧名
-     * @param c 映射到的字符, 用整数表示字符的utf-8编码
-     * @param leftPadding 字符左边应该保留的空隙
-     * @param rightPadding 字符右边应该保留的空隙
-     * \endif
      */
     void mapChar(const char* frameName, int c, float leftPadding = 0, float rightPadding = 0);
 
     /**
-     * \if English
      * to map a character to a zwoptex frame
      *
      * @param zwoptexName the zwoptex name
@@ -355,77 +247,37 @@ public:
      * @param c character value
      * @param leftPadding left padding
      * @param rightPadding right padding
-     * \else
-     * 映射矩形和字符
-     *
-     * @param zwoptexName zwoptex名
-     * @param frameName zwoptex中的帧名
-     * @param c 映射到的字符, 用整数表示字符的utf-8编码
-     * @param leftPadding 字符左边应该保留的空隙
-     * @param rightPadding 字符右边应该保留的空隙
-     * \endif
      */
     void mapChar(const char* zwoptexName, const char* frameName, int c, float leftPadding = 0, float rightPadding = 0);
 
 	/**
-	 * \if English
 	 * to set the width of blank space, in pixels
 	 *
 	 * @param w the width, in pixels
-	 * \else
-	 * 设置一个空格的像素宽度
-	 *
-	 * @param w 空格的像素宽度
-	 * \endif
 	 */
 	void setSpaceWidth(float w) { m_spaceWidth = w; }
 
 	/**
-	 * \if English
 	 * to get the width of blank space
-	 *
-	 * \else
-	 * 得到空格的像素宽度
-	 *
-	 * @return 空格的像素宽度
-	 * \endif
 	 */
 	float getSpaceWidth() { return m_spaceWidth; }
 
 	/**
-	 * \if English
 	 * to set the space count of tab
 	 *
 	 * @param tabSize space count
-	 * \else
-	 * 设置一个制表符代表的空格数目
-	 *
-	 * @param tabSize 一个制表符代表的空格数目
-	 * \endif
 	 */
 	void setTabSize(int tabSize) { m_tabSize = tabSize; }
 
 	/**
-	 * \if English
 	 * to get the space count of tab
-	 * \else
-	 * 得到一个制表符代表的空格数目
-	 *
-	 * @return 一个制表符代表的空格数目
-	 * \endif
 	 */
 	int getTabSize() { return m_tabSize; }
 
 	/**
-	 * \if English
 	 * Return a height for empty line, actually it is the average height of characters
 	 *
 	 * @return height for empty line
-	 * \else
-	 * 得到一个空行的高度, 实际上这是所有字符的平均高度
-	 *
-	 * @return 空行高度
-	 * \endif
 	 */
 	float getEmptyLineHeight() { return m_totalCharHeight / m_charMap->entries; }
 };
