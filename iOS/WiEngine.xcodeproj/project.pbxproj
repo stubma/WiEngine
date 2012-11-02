@@ -1867,7 +1867,6 @@
 		929505FB13A9FB4300A39E68 /* wyBox2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2D.cpp; sourceTree = "<group>"; };
 		929506B313A9FB8700A39E68 /* wyBox2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2D.h; path = ../WiEngine/include/box2d/wyBox2D.h; sourceTree = "<group>"; };
 		92971E31143C768D005FD7C1 /* libbox2d-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libbox2d-Prefix.pch"; path = "pch/libbox2d-Prefix.pch"; sourceTree = "<group>"; };
-		92971E32143C768D005FD7C1 /* libchipmunk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libchipmunk-Prefix.pch"; path = "pch/libchipmunk-Prefix.pch"; sourceTree = "<group>"; };
 		92971E34143C768D005FD7C1 /* libwiengine-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libwiengine-Prefix.pch"; path = "pch/libwiengine-Prefix.pch"; sourceTree = "<group>"; };
 		92971E35143C768D005FD7C1 /* libwisound-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libwisound-Prefix.pch"; path = "pch/libwisound-Prefix.pch"; sourceTree = "<group>"; };
 		92971E36143C76AA005FD7C1 /* WiEngine-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WiEngine-Prefix.pch"; path = "pch/WiEngine-Prefix.pch"; sourceTree = "<group>"; };
@@ -3927,7 +3926,6 @@
 				9265F996134890DC00CBF61F /* WiEngine-Info.plist */,
 				92971E36143C76AA005FD7C1 /* WiEngine-Prefix.pch */,
 				92971E31143C768D005FD7C1 /* libbox2d-Prefix.pch */,
-				92971E32143C768D005FD7C1 /* libchipmunk-Prefix.pch */,
 				92971E34143C768D005FD7C1 /* libwiengine-Prefix.pch */,
 				92971E35143C768D005FD7C1 /* libwisound-Prefix.pch */,
 			);
