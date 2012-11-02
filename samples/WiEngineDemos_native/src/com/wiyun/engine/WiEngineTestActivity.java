@@ -22,7 +22,6 @@ public abstract class WiEngineTestActivity extends Activity implements IDirector
 		System.loadLibrary("xml2");
 		System.loadLibrary("wiengine");
 		System.loadLibrary("lua");
-		System.loadLibrary("chipmunk");
 		System.loadLibrary("box2d");
 		System.loadLibrary("wisound");
 		System.loadLibrary("winetwork");
