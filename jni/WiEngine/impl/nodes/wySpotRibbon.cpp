@@ -31,6 +31,7 @@
 #include "wyUtils.h"
 #include "wyQuadList.h"
 #include "wyMaterial.h"
+#include "wyLog.h"
 
 wySpotRibbon* wySpotRibbon::make(wyTexture2D* tex, wyColor4B color, float fade) {
 	wySpotRibbon* r = WYNEW wySpotRibbon(tex, color, fade);
