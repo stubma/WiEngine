@@ -14,7 +14,6 @@
 		92093723152A94D600645A7A /* wyTMXObjectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92093721152A94D600645A7A /* wyTMXObjectLayer.cpp */; };
 		921F7DA31515A9AA002FA148 /* ActionDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D711515A9AA002FA148 /* ActionDemos.cpp */; };
 		921F7DA41515A9AA002FA148 /* Box2DDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D741515A9AA002FA148 /* Box2DDemos.cpp */; };
-		921F7DA51515A9AA002FA148 /* ChipmunkDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D771515A9AA002FA148 /* ChipmunkDemos.cpp */; };
 		921F7DA61515A9AA002FA148 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D791515A9AA002FA148 /* common.cpp */; };
 		921F7DA71515A9AA002FA148 /* EaseActionDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D7C1515A9AA002FA148 /* EaseActionDemos.cpp */; };
 		921F7DA81515A9AA002FA148 /* EventDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D7F1515A9AA002FA148 /* EventDemos.cpp */; };
@@ -36,6 +35,58 @@
 		922AF22C1480EBF00085D297 /* WYIKPictureTakerDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 922AF22B1480EBF00085D297 /* WYIKPictureTakerDelegate.mm */; };
 		922AF22F1480ED350085D297 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 922AF22E1480ED350085D297 /* Quartz.framework */; };
 		922AF2321480FF410085D297 /* WYIKImageBrowser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 922AF2311480FF410085D297 /* WYIKImageBrowser.mm */; };
+		92322A701643CE98002D0EFE /* ShaderDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A6E1643CE98002D0EFE /* ShaderDemos.cpp */; };
+		92322A731643CF5E002D0EFE /* wyBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A721643CF5E002D0EFE /* wyBuffer.cpp */; };
+		92322A751643CF6E002D0EFE /* wyGridController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A741643CF6E002D0EFE /* wyGridController.cpp */; };
+		92322A791643CF9B002D0EFE /* wyCompoundNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A781643CF9B002D0EFE /* wyCompoundNode.cpp */; };
+		92322AA11643D063002D0EFE /* wyBaseGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A981643D063002D0EFE /* wyBaseGrid.cpp */; };
+		92322AA21643D063002D0EFE /* wyGrid3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A991643D063002D0EFE /* wyGrid3D.cpp */; };
+		92322AA31643D063002D0EFE /* wyMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A9A1643D063002D0EFE /* wyMesh.cpp */; };
+		92322AA41643D063002D0EFE /* wyMeshRef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A9B1643D063002D0EFE /* wyMeshRef.cpp */; };
+		92322AA51643D063002D0EFE /* wyProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A9C1643D063002D0EFE /* wyProgress.cpp */; };
+		92322AA61643D063002D0EFE /* wyQuadList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A9D1643D063002D0EFE /* wyQuadList.cpp */; };
+		92322AA71643D063002D0EFE /* wyRectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A9E1643D063002D0EFE /* wyRectangle.cpp */; };
+		92322AA81643D063002D0EFE /* wyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322A9F1643D063002D0EFE /* wyShape.cpp */; };
+		92322AA91643D063002D0EFE /* wyTiledGrid3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AA01643D063002D0EFE /* wyTiledGrid3D.cpp */; };
+		92322AAF1643D068002D0EFE /* wyMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AAA1643D068002D0EFE /* wyMaterial.cpp */; };
+		92322AB01643D068002D0EFE /* wyMaterialParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AAB1643D068002D0EFE /* wyMaterialParameter.cpp */; };
+		92322AB11643D068002D0EFE /* wyMaterialTextureParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AAC1643D068002D0EFE /* wyMaterialTextureParameter.cpp */; };
+		92322AB21643D068002D0EFE /* wyRenderState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AAD1643D068002D0EFE /* wyRenderState.cpp */; };
+		92322AB31643D068002D0EFE /* wyTechnique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AAE1643D068002D0EFE /* wyTechnique.cpp */; };
+		92322ACF1643D075002D0EFE /* wyAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AC81643D075002D0EFE /* wyAttribute.cpp */; };
+		92322AD01643D075002D0EFE /* wyShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AC91643D075002D0EFE /* wyShader.cpp */; };
+		92322AD11643D075002D0EFE /* wyShaderLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322ACA1643D075002D0EFE /* wyShaderLoader.cpp */; };
+		92322AD21643D075002D0EFE /* wyShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322ACB1643D075002D0EFE /* wyShaderManager.cpp */; };
+		92322AD31643D075002D0EFE /* wyShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322ACC1643D075002D0EFE /* wyShaderProgram.cpp */; };
+		92322AD41643D075002D0EFE /* wyShaderVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322ACD1643D075002D0EFE /* wyShaderVariable.cpp */; };
+		92322AD51643D075002D0EFE /* wyUniform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322ACE1643D075002D0EFE /* wyUniform.cpp */; };
+		92322AE41643D0A5002D0EFE /* wyFrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322ADB1643D0A5002D0EFE /* wyFrameBuffer.cpp */; };
+		92322AE51643D0A5002D0EFE /* wyGLES2Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322ADC1643D0A5002D0EFE /* wyGLES2Renderer.cpp */; };
+		92322AE61643D0A5002D0EFE /* wyGLState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322ADE1643D0A5002D0EFE /* wyGLState.cpp */; };
+		92322AE71643D0A5002D0EFE /* wyRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AE01643D0A5002D0EFE /* wyRenderer.cpp */; };
+		92322AE81643D0A5002D0EFE /* wyRenderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AE11643D0A5002D0EFE /* wyRenderManager.cpp */; };
+		92322AE91643D0A5002D0EFE /* wyRenderQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AE21643D0A5002D0EFE /* wyRenderQueue.cpp */; };
+		92322AEA1643D0A5002D0EFE /* wyViewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AE31643D0A5002D0EFE /* wyViewport.cpp */; };
+		92322AEE1643D11D002D0EFE /* wyBox2DDebugDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AEC1643D11D002D0EFE /* wyBox2DDebugDraw.cpp */; };
+		92322AEF1643D11D002D0EFE /* wyBox2DMeshBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92322AED1643D11D002D0EFE /* wyBox2DMeshBuilder.cpp */; };
+		92322B3E1643D1B8002D0EFE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
+		92322B801643D1D0002D0EFE /* aabb.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B5E1643D1D0002D0EFE /* aabb.c */; };
+		92322B811643D1D0002D0EFE /* cpu-features.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B5F1643D1D0002D0EFE /* cpu-features.c */; };
+		92322B831643D1D0002D0EFE /* mat4stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B621643D1D0002D0EFE /* mat4stack.c */; };
+		92322B841643D1D0002D0EFE /* matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B631643D1D0002D0EFE /* matrix.c */; };
+		92322B851643D1D0002D0EFE /* mat3.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B641643D1D0002D0EFE /* mat3.c */; };
+		92322B861643D1D0002D0EFE /* mat4.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B651643D1D0002D0EFE /* mat4.c */; };
+		92322B871643D1D0002D0EFE /* neon_matrix_impl.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B661643D1D0002D0EFE /* neon_matrix_impl.c */; };
+		92322B881643D1D0002D0EFE /* plane.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B671643D1D0002D0EFE /* plane.c */; };
+		92322B891643D1D0002D0EFE /* quaternion.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B681643D1D0002D0EFE /* quaternion.c */; };
+		92322B8A1643D1D0002D0EFE /* ray2.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B691643D1D0002D0EFE /* ray2.c */; };
+		92322B8B1643D1D0002D0EFE /* triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B6A1643D1D0002D0EFE /* triangle.c */; };
+		92322B8C1643D1D0002D0EFE /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B6B1643D1D0002D0EFE /* utility.c */; };
+		92322B8D1643D1D0002D0EFE /* vec2.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B6C1643D1D0002D0EFE /* vec2.c */; };
+		92322B8E1643D1D0002D0EFE /* vec3.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B6D1643D1D0002D0EFE /* vec3.c */; };
+		92322B8F1643D1D0002D0EFE /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B6E1643D1D0002D0EFE /* vec4.c */; };
+		92322B901643D1D0002D0EFE /* wyLog.c in Sources */ = {isa = PBXBuildFile; fileRef = 92322B6F1643D1D0002D0EFE /* wyLog.c */; };
+		92322B931643D20E002D0EFE /* libkazmath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92322B3D1643D1B8002D0EFE /* libkazmath.a */; };
 		923492D414754CA500046437 /* FontLabelStringDrawing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 923492CB14754CA500046437 /* FontLabelStringDrawing.mm */; };
 		923492D514754CA500046437 /* FontManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 923492CD14754CA500046437 /* FontManager.mm */; };
 		923492D614754CA500046437 /* ZAttributedString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 923492D014754CA500046437 /* ZAttributedString.mm */; };
@@ -98,41 +149,6 @@
 		927EDD7014BFFE47008A847F /* wyWavStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 927EDD6714BFFE47008A847F /* wyWavStream.cpp */; };
 		927EFCF61478BC1600407A1B /* WYGestureRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 927EFCF51478BC1600407A1B /* WYGestureRecognizer.mm */; };
 		928015E41477A6F600806FD3 /* WYNinePatchImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 928015E31477A6F600806FD3 /* WYNinePatchImageView.mm */; };
-		928015EC1477F9B600806FD3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
-		928016911477FA3D00806FD3 /* chipmunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016281477FA3C00806FD3 /* chipmunk.cpp */; };
-		928016971477FA3D00806FD3 /* cpConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280162F1477FA3C00806FD3 /* cpConstraint.cpp */; };
-		928016991477FA3D00806FD3 /* cpDampedRotarySpring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016311477FA3C00806FD3 /* cpDampedRotarySpring.cpp */; };
-		9280169B1477FA3D00806FD3 /* cpDampedSpring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016331477FA3C00806FD3 /* cpDampedSpring.cpp */; };
-		9280169D1477FA3D00806FD3 /* cpGearJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016351477FA3C00806FD3 /* cpGearJoint.cpp */; };
-		9280169F1477FA3D00806FD3 /* cpGrooveJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016371477FA3C00806FD3 /* cpGrooveJoint.cpp */; };
-		928016A11477FA3D00806FD3 /* cpPinJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016391477FA3C00806FD3 /* cpPinJoint.cpp */; };
-		928016A31477FA3D00806FD3 /* cpPivotJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280163B1477FA3C00806FD3 /* cpPivotJoint.cpp */; };
-		928016A51477FA3D00806FD3 /* cpRatchetJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280163D1477FA3C00806FD3 /* cpRatchetJoint.cpp */; };
-		928016A71477FA3D00806FD3 /* cpRotaryLimitJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280163F1477FA3C00806FD3 /* cpRotaryLimitJoint.cpp */; };
-		928016A91477FA3D00806FD3 /* cpSimpleMotor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016411477FA3C00806FD3 /* cpSimpleMotor.cpp */; };
-		928016AB1477FA3D00806FD3 /* cpSlideJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016431477FA3C00806FD3 /* cpSlideJoint.cpp */; };
-		928016AE1477FA3D00806FD3 /* cpArbiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016461477FA3C00806FD3 /* cpArbiter.cpp */; };
-		928016B01477FA3D00806FD3 /* cpArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016481477FA3C00806FD3 /* cpArray.cpp */; };
-		928016B21477FA3D00806FD3 /* cpBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280164A1477FA3C00806FD3 /* cpBB.cpp */; };
-		928016B41477FA3D00806FD3 /* cpBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280164C1477FA3C00806FD3 /* cpBody.cpp */; };
-		928016B61477FA3D00806FD3 /* cpCollision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280164E1477FA3C00806FD3 /* cpCollision.cpp */; };
-		928016B81477FA3D00806FD3 /* cpHashSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016501477FA3C00806FD3 /* cpHashSet.cpp */; };
-		928016BA1477FA3D00806FD3 /* cpPolyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016521477FA3C00806FD3 /* cpPolyShape.cpp */; };
-		928016BC1477FA3D00806FD3 /* cpShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016541477FA3C00806FD3 /* cpShape.cpp */; };
-		928016BE1477FA3D00806FD3 /* cpSpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016561477FA3C00806FD3 /* cpSpace.cpp */; };
-		928016C01477FA3D00806FD3 /* cpSpaceComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016581477FA3C00806FD3 /* cpSpaceComponent.cpp */; };
-		928016C11477FA3D00806FD3 /* cpSpaceHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016591477FA3C00806FD3 /* cpSpaceHash.cpp */; };
-		928016C31477FA3D00806FD3 /* cpSpaceQuery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280165B1477FA3C00806FD3 /* cpSpaceQuery.cpp */; };
-		928016C41477FA3D00806FD3 /* cpSpaceStep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280165C1477FA3C00806FD3 /* cpSpaceStep.cpp */; };
-		928016C51477FA3D00806FD3 /* cpVect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280165D1477FA3C00806FD3 /* cpVect.cpp */; };
-		928016C71477FA3D00806FD3 /* drawSpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9280165F1477FA3C00806FD3 /* drawSpace.cpp */; };
-		928016CA1477FA3D00806FD3 /* wyChipmunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016621477FA3C00806FD3 /* wyChipmunk.cpp */; };
-		928016CB1477FA3D00806FD3 /* wyChipmunkPELoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016631477FA3C00806FD3 /* wyChipmunkPELoader.cpp */; };
-		928016CD1477FA3D00806FD3 /* wyShapeAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928016651477FA3C00806FD3 /* wyShapeAnimation.cpp */; };
-		9280173C1477FDB600806FD3 /* libchipmunk.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 928015EB1477F9B500806FD3 /* libchipmunk.dylib */; };
-		9280173D1477FDC900806FD3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7F53146FC75A004757F9 /* OpenGL.framework */; };
-		9280173E1477FDCB00806FD3 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7F60146FD277004757F9 /* libxml2.dylib */; };
-		9280173F1477FDD000806FD3 /* libwiengine.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D4319146FEA4100267B99 /* libwiengine.dylib */; };
 		9292311414729DAD008EF743 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 9292311314729DAD008EF743 /* icon.icns */; };
 		9292BF7D14E4ECB900ADE7E9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
 		9292BF8714E4ECCA00ADE7E9 /* libwiengine.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D4319146FEA4100267B99 /* libwiengine.dylib */; };
@@ -285,10 +301,6 @@
 		929D442C146FEAB900267B99 /* wyGlowColorFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BA6146FC646004757F9 /* wyGlowColorFilter.cpp */; };
 		929D442D146FEAB900267B99 /* wyLightingColorFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BA7146FC646004757F9 /* wyLightingColorFilter.cpp */; };
 		929D442E146FEAB900267B99 /* wyMappingColorFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BA8146FC646004757F9 /* wyMappingColorFilter.cpp */; };
-		929D4433146FEAB900267B99 /* wyBaseGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BAA146FC646004757F9 /* wyBaseGrid.cpp */; };
-		929D4434146FEAB900267B99 /* wyGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BAB146FC646004757F9 /* wyGrabber.cpp */; };
-		929D4435146FEAB900267B99 /* wyGrid3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BAC146FC646004757F9 /* wyGrid3D.cpp */; };
-		929D4436146FEAB900267B99 /* wyTiledGrid3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BAD146FC646004757F9 /* wyTiledGrid3D.cpp */; };
 		929D4457146FEAB900267B99 /* wyBottomLineShrinkOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BAF146FC646004757F9 /* wyBottomLineShrinkOut.cpp */; };
 		929D4458146FEAB900267B99 /* wyBottomTilesShrinkOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BB0146FC646004757F9 /* wyBottomTilesShrinkOut.cpp */; };
 		929D4459146FEAB900267B99 /* wyGrid3DAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BB1146FC646004757F9 /* wyGrid3DAction.cpp */; };
@@ -371,18 +383,14 @@
 		929D44DD146FEABA00267B99 /* wyTiledSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C01146FC646004757F9 /* wyTiledSprite.cpp */; };
 		929D44DE146FEABA00267B99 /* wyTileMapAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C02146FC646004757F9 /* wyTileMapAtlas.cpp */; };
 		929D44DF146FEABA00267B99 /* wyVirtualJoystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C03146FC646004757F9 /* wyVirtualJoystick.cpp */; };
-		929D44E7146FEABA00267B99 /* glu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C05146FC646004757F9 /* glu.cpp */; };
 		929D44E8146FEABA00267B99 /* wyCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C06146FC646004757F9 /* wyCamera.cpp */; };
 		929D44E9146FEABA00267B99 /* wyGLTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C07146FC646004757F9 /* wyGLTexture2D.cpp */; };
-		929D44EA146FEABA00267B99 /* wyPrimitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C08146FC646004757F9 /* wyPrimitives.cpp */; };
 		929D44EB146FEABA00267B99 /* wyTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C09146FC646004757F9 /* wyTexture2D.cpp */; };
-		929D44EC146FEABA00267B99 /* wyTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C0A146FC646004757F9 /* wyTextureAtlas.cpp */; };
 		929D44ED146FEABA00267B99 /* wyTextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C0B146FC646004757F9 /* wyTextureManager.cpp */; };
 		929D44F4146FEABA00267B99 /* wyHGEParticleLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C0D146FC646004757F9 /* wyHGEParticleLoader.cpp */; };
 		929D44F5146FEABA00267B99 /* wyParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C0E146FC646004757F9 /* wyParticle.cpp */; };
 		929D44F6146FEABA00267B99 /* wyParticleLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C0F146FC646004757F9 /* wyParticleLoader.cpp */; };
 		929D44F7146FEABA00267B99 /* wyParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C10146FC646004757F9 /* wyParticleSystem.cpp */; };
-		929D44F8146FEABA00267B99 /* wyPointParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C11146FC646004757F9 /* wyPointParticleSystem.cpp */; };
 		929D44F9146FEABA00267B99 /* wyQuadParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C12146FC646004757F9 /* wyQuadParticleSystem.cpp */; };
 		929D44FF146FEABA00267B99 /* wyDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C14146FC646004757F9 /* wyDatabase.cpp */; };
 		929D4500146FEABA00267B99 /* wyResultSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C15146FC646004757F9 /* wyResultSet.cpp */; };
@@ -525,8 +533,6 @@
 		929D48E3146FFAE500267B99 /* wyBox2DCollisionDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D480A146FFAE500267B99 /* wyBox2DCollisionDetector.cpp */; };
 		929D48E4146FFAE500267B99 /* wyBox2DInit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D480B146FFAE500267B99 /* wyBox2DInit.cpp */; };
 		929D48E5146FFAE500267B99 /* wyBox2DPELoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D480C146FFAE500267B99 /* wyBox2DPELoader.cpp */; };
-		929D48E6146FFAE500267B99 /* wyBox2DRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D480D146FFAE500267B99 /* wyBox2DRender.cpp */; };
-		929D48E7146FFAE500267B99 /* wyFixtureAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D480E146FFAE500267B99 /* wyFixtureAnimation.cpp */; };
 		929D48ED146FFB1C00267B99 /* libwiengine.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D4319146FEA4100267B99 /* libwiengine.dylib */; };
 		929D48EE146FFB3600267B99 /* libbox2d.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D46EF146FFA4A00267B99 /* libbox2d.dylib */; };
 		929D4947147007B700267B99 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7F53146FC75A004757F9 /* OpenGL.framework */; };
@@ -681,6 +687,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		92322B911643D1F2002D0EFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92322B3C1643D1B8002D0EFE;
+			remoteInfo = libkazmath;
+		};
 		9256760F14CC6CEA005C1787 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
@@ -715,13 +728,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 929D46EE146FFA4A00267B99;
 			remoteInfo = libbox2d;
-		};
-		92BB7BDE1478FF2C00503912 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 928015EA1477F9B500806FD3;
-			remoteInfo = libchipmunk;
 		};
 		92BB7BE01478FF2C00503912 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -778,8 +784,6 @@
 		921F7D721515A9AA002FA148 /* ActionDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionDemos.h; sourceTree = "<group>"; };
 		921F7D741515A9AA002FA148 /* Box2DDemos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Box2DDemos.cpp; sourceTree = "<group>"; };
 		921F7D751515A9AA002FA148 /* Box2DDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2DDemos.h; sourceTree = "<group>"; };
-		921F7D771515A9AA002FA148 /* ChipmunkDemos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChipmunkDemos.cpp; sourceTree = "<group>"; };
-		921F7D781515A9AA002FA148 /* ChipmunkDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChipmunkDemos.h; sourceTree = "<group>"; };
 		921F7D791515A9AA002FA148 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = common.cpp; path = ../../samples/WiEngineDemos_native/jni/Demos/common.cpp; sourceTree = "<group>"; };
 		921F7D7A1515A9AA002FA148 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../../samples/WiEngineDemos_native/jni/Demos/common.h; sourceTree = "<group>"; };
 		921F7D7C1515A9AA002FA148 /* EaseActionDemos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EaseActionDemos.cpp; sourceTree = "<group>"; };
@@ -820,6 +824,112 @@
 		922AF22E1480ED350085D297 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		922AF2301480FF410085D297 /* WYIKImageBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYIKImageBrowser.h; sourceTree = "<group>"; };
 		922AF2311480FF410085D297 /* WYIKImageBrowser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WYIKImageBrowser.mm; sourceTree = "<group>"; };
+		92322A6E1643CE98002D0EFE /* ShaderDemos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderDemos.cpp; sourceTree = "<group>"; };
+		92322A6F1643CE98002D0EFE /* ShaderDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderDemos.h; sourceTree = "<group>"; };
+		92322A711643CF57002D0EFE /* wyBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBuffer.h; path = ../../include/common/wyBuffer.h; sourceTree = "<group>"; };
+		92322A721643CF5E002D0EFE /* wyBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBuffer.cpp; sourceTree = "<group>"; };
+		92322A741643CF6E002D0EFE /* wyGridController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyGridController.cpp; sourceTree = "<group>"; };
+		92322A761643CF75002D0EFE /* wyGridController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGridController.h; path = ../../include/grid/wyGridController.h; sourceTree = "<group>"; };
+		92322A771643CF8A002D0EFE /* wyCompoundNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyCompoundNode.h; path = ../../include/nodes/wyCompoundNode.h; sourceTree = "<group>"; };
+		92322A781643CF9B002D0EFE /* wyCompoundNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyCompoundNode.cpp; sourceTree = "<group>"; };
+		92322A7E1643D045002D0EFE /* wyBaseGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBaseGrid.h; path = ../jni/WiEngine/include/mesh/wyBaseGrid.h; sourceTree = "<group>"; };
+		92322A7F1643D045002D0EFE /* wyGrid3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGrid3D.h; path = ../jni/WiEngine/include/mesh/wyGrid3D.h; sourceTree = "<group>"; };
+		92322A801643D045002D0EFE /* wyMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyMesh.h; path = ../jni/WiEngine/include/mesh/wyMesh.h; sourceTree = "<group>"; };
+		92322A811643D045002D0EFE /* wyMeshRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyMeshRef.h; path = ../jni/WiEngine/include/mesh/wyMeshRef.h; sourceTree = "<group>"; };
+		92322A821643D045002D0EFE /* wyProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyProgress.h; path = ../jni/WiEngine/include/mesh/wyProgress.h; sourceTree = "<group>"; };
+		92322A831643D045002D0EFE /* wyQuadList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyQuadList.h; path = ../jni/WiEngine/include/mesh/wyQuadList.h; sourceTree = "<group>"; };
+		92322A841643D045002D0EFE /* wyRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyRectangle.h; path = ../jni/WiEngine/include/mesh/wyRectangle.h; sourceTree = "<group>"; };
+		92322A851643D045002D0EFE /* wyShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyShape.h; path = ../jni/WiEngine/include/mesh/wyShape.h; sourceTree = "<group>"; };
+		92322A861643D045002D0EFE /* wyTiledGrid3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTiledGrid3D.h; path = ../jni/WiEngine/include/mesh/wyTiledGrid3D.h; sourceTree = "<group>"; };
+		92322A871643D04D002D0EFE /* wyMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyMaterial.h; path = ../jni/WiEngine/include/material/wyMaterial.h; sourceTree = "<group>"; };
+		92322A881643D04D002D0EFE /* wyMaterialParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyMaterialParameter.h; path = ../jni/WiEngine/include/material/wyMaterialParameter.h; sourceTree = "<group>"; };
+		92322A891643D04D002D0EFE /* wyMaterialTextureParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyMaterialTextureParameter.h; path = ../jni/WiEngine/include/material/wyMaterialTextureParameter.h; sourceTree = "<group>"; };
+		92322A8A1643D04D002D0EFE /* wyRenderState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyRenderState.h; path = ../jni/WiEngine/include/material/wyRenderState.h; sourceTree = "<group>"; };
+		92322A8B1643D04D002D0EFE /* wyTechnique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTechnique.h; path = ../jni/WiEngine/include/material/wyTechnique.h; sourceTree = "<group>"; };
+		92322A911643D05B002D0EFE /* wyAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyAttribute.h; path = ../jni/WiEngine/include/shader/wyAttribute.h; sourceTree = "<group>"; };
+		92322A921643D05B002D0EFE /* wyShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyShader.h; path = ../jni/WiEngine/include/shader/wyShader.h; sourceTree = "<group>"; };
+		92322A931643D05B002D0EFE /* wyShaderLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyShaderLoader.h; path = ../jni/WiEngine/include/shader/wyShaderLoader.h; sourceTree = "<group>"; };
+		92322A941643D05B002D0EFE /* wyShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyShaderManager.h; path = ../jni/WiEngine/include/shader/wyShaderManager.h; sourceTree = "<group>"; };
+		92322A951643D05B002D0EFE /* wyShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyShaderProgram.h; path = ../jni/WiEngine/include/shader/wyShaderProgram.h; sourceTree = "<group>"; };
+		92322A961643D05B002D0EFE /* wyShaderVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyShaderVariable.h; path = ../jni/WiEngine/include/shader/wyShaderVariable.h; sourceTree = "<group>"; };
+		92322A971643D05B002D0EFE /* wyUniform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyUniform.h; path = ../jni/WiEngine/include/shader/wyUniform.h; sourceTree = "<group>"; };
+		92322A981643D063002D0EFE /* wyBaseGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyBaseGrid.cpp; path = ../jni/WiEngine/impl/mesh/wyBaseGrid.cpp; sourceTree = "<group>"; };
+		92322A991643D063002D0EFE /* wyGrid3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyGrid3D.cpp; path = ../jni/WiEngine/impl/mesh/wyGrid3D.cpp; sourceTree = "<group>"; };
+		92322A9A1643D063002D0EFE /* wyMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyMesh.cpp; path = ../jni/WiEngine/impl/mesh/wyMesh.cpp; sourceTree = "<group>"; };
+		92322A9B1643D063002D0EFE /* wyMeshRef.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyMeshRef.cpp; path = ../jni/WiEngine/impl/mesh/wyMeshRef.cpp; sourceTree = "<group>"; };
+		92322A9C1643D063002D0EFE /* wyProgress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyProgress.cpp; path = ../jni/WiEngine/impl/mesh/wyProgress.cpp; sourceTree = "<group>"; };
+		92322A9D1643D063002D0EFE /* wyQuadList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyQuadList.cpp; path = ../jni/WiEngine/impl/mesh/wyQuadList.cpp; sourceTree = "<group>"; };
+		92322A9E1643D063002D0EFE /* wyRectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyRectangle.cpp; path = ../jni/WiEngine/impl/mesh/wyRectangle.cpp; sourceTree = "<group>"; };
+		92322A9F1643D063002D0EFE /* wyShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyShape.cpp; path = ../jni/WiEngine/impl/mesh/wyShape.cpp; sourceTree = "<group>"; };
+		92322AA01643D063002D0EFE /* wyTiledGrid3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyTiledGrid3D.cpp; path = ../jni/WiEngine/impl/mesh/wyTiledGrid3D.cpp; sourceTree = "<group>"; };
+		92322AAA1643D068002D0EFE /* wyMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyMaterial.cpp; path = ../jni/WiEngine/impl/material/wyMaterial.cpp; sourceTree = "<group>"; };
+		92322AAB1643D068002D0EFE /* wyMaterialParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyMaterialParameter.cpp; path = ../jni/WiEngine/impl/material/wyMaterialParameter.cpp; sourceTree = "<group>"; };
+		92322AAC1643D068002D0EFE /* wyMaterialTextureParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyMaterialTextureParameter.cpp; path = ../jni/WiEngine/impl/material/wyMaterialTextureParameter.cpp; sourceTree = "<group>"; };
+		92322AAD1643D068002D0EFE /* wyRenderState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyRenderState.cpp; path = ../jni/WiEngine/impl/material/wyRenderState.cpp; sourceTree = "<group>"; };
+		92322AAE1643D068002D0EFE /* wyTechnique.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyTechnique.cpp; path = ../jni/WiEngine/impl/material/wyTechnique.cpp; sourceTree = "<group>"; };
+		92322AC41643D075002D0EFE /* common_position_color_fsh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common_position_color_fsh.h; path = ../jni/WiEngine/impl/shader/common_position_color_fsh.h; sourceTree = "<group>"; };
+		92322AC51643D075002D0EFE /* common_position_color_vsh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common_position_color_vsh.h; path = ../jni/WiEngine/impl/shader/common_position_color_vsh.h; sourceTree = "<group>"; };
+		92322AC61643D075002D0EFE /* common_position_texture_color_fsh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common_position_texture_color_fsh.h; path = ../jni/WiEngine/impl/shader/common_position_texture_color_fsh.h; sourceTree = "<group>"; };
+		92322AC71643D075002D0EFE /* common_position_texture_color_vsh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common_position_texture_color_vsh.h; path = ../jni/WiEngine/impl/shader/common_position_texture_color_vsh.h; sourceTree = "<group>"; };
+		92322AC81643D075002D0EFE /* wyAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyAttribute.cpp; path = ../jni/WiEngine/impl/shader/wyAttribute.cpp; sourceTree = "<group>"; };
+		92322AC91643D075002D0EFE /* wyShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyShader.cpp; path = ../jni/WiEngine/impl/shader/wyShader.cpp; sourceTree = "<group>"; };
+		92322ACA1643D075002D0EFE /* wyShaderLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyShaderLoader.cpp; path = ../jni/WiEngine/impl/shader/wyShaderLoader.cpp; sourceTree = "<group>"; };
+		92322ACB1643D075002D0EFE /* wyShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyShaderManager.cpp; path = ../jni/WiEngine/impl/shader/wyShaderManager.cpp; sourceTree = "<group>"; };
+		92322ACC1643D075002D0EFE /* wyShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyShaderProgram.cpp; path = ../jni/WiEngine/impl/shader/wyShaderProgram.cpp; sourceTree = "<group>"; };
+		92322ACD1643D075002D0EFE /* wyShaderVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyShaderVariable.cpp; path = ../jni/WiEngine/impl/shader/wyShaderVariable.cpp; sourceTree = "<group>"; };
+		92322ACE1643D075002D0EFE /* wyUniform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyUniform.cpp; path = ../jni/WiEngine/impl/shader/wyUniform.cpp; sourceTree = "<group>"; };
+		92322AD61643D097002D0EFE /* wyFrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyFrameBuffer.h; path = ../jni/WiEngine/include/render/wyFrameBuffer.h; sourceTree = "<group>"; };
+		92322AD71643D097002D0EFE /* wyRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyRenderer.h; path = ../jni/WiEngine/include/render/wyRenderer.h; sourceTree = "<group>"; };
+		92322AD81643D097002D0EFE /* wyRenderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyRenderManager.h; path = ../jni/WiEngine/include/render/wyRenderManager.h; sourceTree = "<group>"; };
+		92322AD91643D097002D0EFE /* wyRenderQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyRenderQueue.h; path = ../jni/WiEngine/include/render/wyRenderQueue.h; sourceTree = "<group>"; };
+		92322ADA1643D097002D0EFE /* wyViewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyViewport.h; path = ../jni/WiEngine/include/render/wyViewport.h; sourceTree = "<group>"; };
+		92322ADB1643D0A5002D0EFE /* wyFrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyFrameBuffer.cpp; path = ../jni/WiEngine/impl/render/wyFrameBuffer.cpp; sourceTree = "<group>"; };
+		92322ADC1643D0A5002D0EFE /* wyGLES2Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyGLES2Renderer.cpp; path = ../jni/WiEngine/impl/render/wyGLES2Renderer.cpp; sourceTree = "<group>"; };
+		92322ADD1643D0A5002D0EFE /* wyGLES2Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGLES2Renderer.h; path = ../jni/WiEngine/impl/render/wyGLES2Renderer.h; sourceTree = "<group>"; };
+		92322ADE1643D0A5002D0EFE /* wyGLState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyGLState.cpp; path = ../jni/WiEngine/impl/render/wyGLState.cpp; sourceTree = "<group>"; };
+		92322ADF1643D0A5002D0EFE /* wyGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGLState.h; path = ../jni/WiEngine/impl/render/wyGLState.h; sourceTree = "<group>"; };
+		92322AE01643D0A5002D0EFE /* wyRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyRenderer.cpp; path = ../jni/WiEngine/impl/render/wyRenderer.cpp; sourceTree = "<group>"; };
+		92322AE11643D0A5002D0EFE /* wyRenderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyRenderManager.cpp; path = ../jni/WiEngine/impl/render/wyRenderManager.cpp; sourceTree = "<group>"; };
+		92322AE21643D0A5002D0EFE /* wyRenderQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyRenderQueue.cpp; path = ../jni/WiEngine/impl/render/wyRenderQueue.cpp; sourceTree = "<group>"; };
+		92322AE31643D0A5002D0EFE /* wyViewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyViewport.cpp; path = ../jni/WiEngine/impl/render/wyViewport.cpp; sourceTree = "<group>"; };
+		92322AEB1643D110002D0EFE /* wyBox2DMeshBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2DMeshBuilder.h; path = ../WiEngine/include/box2d/wyBox2DMeshBuilder.h; sourceTree = "<group>"; };
+		92322AEC1643D11D002D0EFE /* wyBox2DDebugDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DDebugDraw.cpp; sourceTree = "<group>"; };
+		92322AED1643D11D002D0EFE /* wyBox2DMeshBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DMeshBuilder.cpp; sourceTree = "<group>"; };
+		92322AF01643D12A002D0EFE /* wyBox2DDebugDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyBox2DDebugDraw.h; sourceTree = "<group>"; };
+		92322B3D1643D1B8002D0EFE /* libkazmath.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libkazmath.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		92322B4C1643D1D0002D0EFE /* aabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb.h; sourceTree = "<group>"; };
+		92322B4E1643D1D0002D0EFE /* mat4stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mat4stack.h; sourceTree = "<group>"; };
+		92322B4F1643D1D0002D0EFE /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		92322B501643D1D0002D0EFE /* kazmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kazmath.h; sourceTree = "<group>"; };
+		92322B511643D1D0002D0EFE /* mat3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mat3.h; sourceTree = "<group>"; };
+		92322B521643D1D0002D0EFE /* mat4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mat4.h; sourceTree = "<group>"; };
+		92322B531643D1D0002D0EFE /* neon_matrix_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = neon_matrix_impl.h; sourceTree = "<group>"; };
+		92322B541643D1D0002D0EFE /* plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
+		92322B551643D1D0002D0EFE /* quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quaternion.h; sourceTree = "<group>"; };
+		92322B561643D1D0002D0EFE /* ray2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ray2.h; sourceTree = "<group>"; };
+		92322B571643D1D0002D0EFE /* triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangle.h; sourceTree = "<group>"; };
+		92322B581643D1D0002D0EFE /* utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
+		92322B591643D1D0002D0EFE /* vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec2.h; sourceTree = "<group>"; };
+		92322B5A1643D1D0002D0EFE /* vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec3.h; sourceTree = "<group>"; };
+		92322B5B1643D1D0002D0EFE /* vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec4.h; sourceTree = "<group>"; };
+		92322B5C1643D1D0002D0EFE /* wyLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyLog.h; sourceTree = "<group>"; };
+		92322B5E1643D1D0002D0EFE /* aabb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aabb.c; sourceTree = "<group>"; };
+		92322B5F1643D1D0002D0EFE /* cpu-features.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "cpu-features.c"; sourceTree = "<group>"; };
+		92322B601643D1D0002D0EFE /* cpu-features.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cpu-features.h"; sourceTree = "<group>"; };
+		92322B621643D1D0002D0EFE /* mat4stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mat4stack.c; sourceTree = "<group>"; };
+		92322B631643D1D0002D0EFE /* matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = matrix.c; sourceTree = "<group>"; };
+		92322B641643D1D0002D0EFE /* mat3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mat3.c; sourceTree = "<group>"; };
+		92322B651643D1D0002D0EFE /* mat4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mat4.c; sourceTree = "<group>"; };
+		92322B661643D1D0002D0EFE /* neon_matrix_impl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = neon_matrix_impl.c; sourceTree = "<group>"; };
+		92322B671643D1D0002D0EFE /* plane.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = plane.c; sourceTree = "<group>"; };
+		92322B681643D1D0002D0EFE /* quaternion.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quaternion.c; sourceTree = "<group>"; };
+		92322B691643D1D0002D0EFE /* ray2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ray2.c; sourceTree = "<group>"; };
+		92322B6A1643D1D0002D0EFE /* triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = triangle.c; sourceTree = "<group>"; };
+		92322B6B1643D1D0002D0EFE /* utility.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utility.c; sourceTree = "<group>"; };
+		92322B6C1643D1D0002D0EFE /* vec2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vec2.c; sourceTree = "<group>"; };
+		92322B6D1643D1D0002D0EFE /* vec3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vec3.c; sourceTree = "<group>"; };
+		92322B6E1643D1D0002D0EFE /* vec4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vec4.c; sourceTree = "<group>"; };
+		92322B6F1643D1D0002D0EFE /* wyLog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wyLog.c; sourceTree = "<group>"; };
 		923492CA14754CA500046437 /* FontLabelStringDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontLabelStringDrawing.h; sourceTree = "<group>"; };
 		923492CB14754CA500046437 /* FontLabelStringDrawing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FontLabelStringDrawing.mm; sourceTree = "<group>"; };
 		923492CC14754CA500046437 /* FontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontManager.h; sourceTree = "<group>"; };
@@ -945,72 +1055,6 @@
 		928015E21477A6F600806FD3 /* WYNinePatchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYNinePatchImageView.h; sourceTree = "<group>"; };
 		928015E31477A6F600806FD3 /* WYNinePatchImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WYNinePatchImageView.mm; sourceTree = "<group>"; };
 		928015E61477CAA100806FD3 /* wyEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyEvents.h; path = ../../include/events/wyEvents.h; sourceTree = "<group>"; };
-		928015EB1477F9B500806FD3 /* libchipmunk.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libchipmunk.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		928015FA1477F9EA00806FD3 /* libchipmunk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libchipmunk-Prefix.pch"; path = "pch/libchipmunk-Prefix.pch"; sourceTree = "<group>"; };
-		928016281477FA3C00806FD3 /* chipmunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chipmunk.cpp; sourceTree = "<group>"; };
-		928016291477FA3C00806FD3 /* chipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk.h; sourceTree = "<group>"; };
-		9280162A1477FA3C00806FD3 /* chipmunk_ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_ffi.h; sourceTree = "<group>"; };
-		9280162B1477FA3C00806FD3 /* chipmunk_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_private.h; sourceTree = "<group>"; };
-		9280162C1477FA3C00806FD3 /* chipmunk_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_types.h; sourceTree = "<group>"; };
-		9280162D1477FA3C00806FD3 /* chipmunk_unsafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_unsafe.h; sourceTree = "<group>"; };
-		9280162F1477FA3C00806FD3 /* cpConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpConstraint.cpp; sourceTree = "<group>"; };
-		928016301477FA3C00806FD3 /* cpConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpConstraint.h; sourceTree = "<group>"; };
-		928016311477FA3C00806FD3 /* cpDampedRotarySpring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpDampedRotarySpring.cpp; sourceTree = "<group>"; };
-		928016321477FA3C00806FD3 /* cpDampedRotarySpring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpDampedRotarySpring.h; sourceTree = "<group>"; };
-		928016331477FA3C00806FD3 /* cpDampedSpring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpDampedSpring.cpp; sourceTree = "<group>"; };
-		928016341477FA3C00806FD3 /* cpDampedSpring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpDampedSpring.h; sourceTree = "<group>"; };
-		928016351477FA3C00806FD3 /* cpGearJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpGearJoint.cpp; sourceTree = "<group>"; };
-		928016361477FA3C00806FD3 /* cpGearJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpGearJoint.h; sourceTree = "<group>"; };
-		928016371477FA3C00806FD3 /* cpGrooveJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpGrooveJoint.cpp; sourceTree = "<group>"; };
-		928016381477FA3C00806FD3 /* cpGrooveJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpGrooveJoint.h; sourceTree = "<group>"; };
-		928016391477FA3C00806FD3 /* cpPinJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpPinJoint.cpp; sourceTree = "<group>"; };
-		9280163A1477FA3C00806FD3 /* cpPinJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpPinJoint.h; sourceTree = "<group>"; };
-		9280163B1477FA3C00806FD3 /* cpPivotJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpPivotJoint.cpp; sourceTree = "<group>"; };
-		9280163C1477FA3C00806FD3 /* cpPivotJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpPivotJoint.h; sourceTree = "<group>"; };
-		9280163D1477FA3C00806FD3 /* cpRatchetJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpRatchetJoint.cpp; sourceTree = "<group>"; };
-		9280163E1477FA3C00806FD3 /* cpRatchetJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpRatchetJoint.h; sourceTree = "<group>"; };
-		9280163F1477FA3C00806FD3 /* cpRotaryLimitJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpRotaryLimitJoint.cpp; sourceTree = "<group>"; };
-		928016401477FA3C00806FD3 /* cpRotaryLimitJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpRotaryLimitJoint.h; sourceTree = "<group>"; };
-		928016411477FA3C00806FD3 /* cpSimpleMotor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpSimpleMotor.cpp; sourceTree = "<group>"; };
-		928016421477FA3C00806FD3 /* cpSimpleMotor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSimpleMotor.h; sourceTree = "<group>"; };
-		928016431477FA3C00806FD3 /* cpSlideJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpSlideJoint.cpp; sourceTree = "<group>"; };
-		928016441477FA3C00806FD3 /* cpSlideJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSlideJoint.h; sourceTree = "<group>"; };
-		928016451477FA3C00806FD3 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
-		928016461477FA3C00806FD3 /* cpArbiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpArbiter.cpp; sourceTree = "<group>"; };
-		928016471477FA3C00806FD3 /* cpArbiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpArbiter.h; sourceTree = "<group>"; };
-		928016481477FA3C00806FD3 /* cpArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpArray.cpp; sourceTree = "<group>"; };
-		928016491477FA3C00806FD3 /* cpArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpArray.h; sourceTree = "<group>"; };
-		9280164A1477FA3C00806FD3 /* cpBB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpBB.cpp; sourceTree = "<group>"; };
-		9280164B1477FA3C00806FD3 /* cpBB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpBB.h; sourceTree = "<group>"; };
-		9280164C1477FA3C00806FD3 /* cpBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpBody.cpp; sourceTree = "<group>"; };
-		9280164D1477FA3C00806FD3 /* cpBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpBody.h; sourceTree = "<group>"; };
-		9280164E1477FA3C00806FD3 /* cpCollision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpCollision.cpp; sourceTree = "<group>"; };
-		9280164F1477FA3C00806FD3 /* cpCollision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpCollision.h; sourceTree = "<group>"; };
-		928016501477FA3C00806FD3 /* cpHashSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpHashSet.cpp; sourceTree = "<group>"; };
-		928016511477FA3C00806FD3 /* cpHashSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpHashSet.h; sourceTree = "<group>"; };
-		928016521477FA3C00806FD3 /* cpPolyShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpPolyShape.cpp; sourceTree = "<group>"; };
-		928016531477FA3C00806FD3 /* cpPolyShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpPolyShape.h; sourceTree = "<group>"; };
-		928016541477FA3C00806FD3 /* cpShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpShape.cpp; sourceTree = "<group>"; };
-		928016551477FA3C00806FD3 /* cpShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpShape.h; sourceTree = "<group>"; };
-		928016561477FA3C00806FD3 /* cpSpace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpSpace.cpp; sourceTree = "<group>"; };
-		928016571477FA3C00806FD3 /* cpSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpace.h; sourceTree = "<group>"; };
-		928016581477FA3C00806FD3 /* cpSpaceComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpSpaceComponent.cpp; sourceTree = "<group>"; };
-		928016591477FA3C00806FD3 /* cpSpaceHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpSpaceHash.cpp; sourceTree = "<group>"; };
-		9280165A1477FA3C00806FD3 /* cpSpaceHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpaceHash.h; sourceTree = "<group>"; };
-		9280165B1477FA3C00806FD3 /* cpSpaceQuery.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpSpaceQuery.cpp; sourceTree = "<group>"; };
-		9280165C1477FA3C00806FD3 /* cpSpaceStep.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpSpaceStep.cpp; sourceTree = "<group>"; };
-		9280165D1477FA3C00806FD3 /* cpVect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpVect.cpp; sourceTree = "<group>"; };
-		9280165E1477FA3C00806FD3 /* cpVect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpVect.h; sourceTree = "<group>"; };
-		9280165F1477FA3C00806FD3 /* drawSpace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drawSpace.cpp; sourceTree = "<group>"; };
-		928016601477FA3C00806FD3 /* drawSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = drawSpace.h; sourceTree = "<group>"; };
-		928016611477FA3C00806FD3 /* prime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prime.h; sourceTree = "<group>"; };
-		928016621477FA3C00806FD3 /* wyChipmunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyChipmunk.cpp; sourceTree = "<group>"; };
-		928016631477FA3C00806FD3 /* wyChipmunkPELoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyChipmunkPELoader.cpp; sourceTree = "<group>"; };
-		928016641477FA3C00806FD3 /* wyJNI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJNI.h; sourceTree = "<group>"; };
-		928016651477FA3C00806FD3 /* wyShapeAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyShapeAnimation.cpp; sourceTree = "<group>"; };
-		928016CE1477FA5700806FD3 /* wyChipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyChipmunk.h; path = ../WiEngine/include/chipmunk/wyChipmunk.h; sourceTree = "<group>"; };
-		928016CF1477FA5700806FD3 /* wyChipmunkPELoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyChipmunkPELoader.h; path = ../WiEngine/include/chipmunk/wyChipmunkPELoader.h; sourceTree = "<group>"; };
-		928016D01477FA5700806FD3 /* wyShapeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyShapeAnimation.h; path = ../WiEngine/include/chipmunk/wyShapeAnimation.h; sourceTree = "<group>"; };
 		9292311314729DAD008EF743 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		9292BF7C14E4ECB900ADE7E9 /* libiap.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libiap.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9292BF8C14E4ED1900ADE7E9 /* com_wiyun_engine_iap_androidmarket_PurchaseObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = com_wiyun_engine_iap_androidmarket_PurchaseObserver.cpp; sourceTree = "<group>"; };
@@ -1173,14 +1217,10 @@
 		929D480A146FFAE500267B99 /* wyBox2DCollisionDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DCollisionDetector.cpp; sourceTree = "<group>"; };
 		929D480B146FFAE500267B99 /* wyBox2DInit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DInit.cpp; sourceTree = "<group>"; };
 		929D480C146FFAE500267B99 /* wyBox2DPELoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DPELoader.cpp; sourceTree = "<group>"; };
-		929D480D146FFAE500267B99 /* wyBox2DRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DRender.cpp; sourceTree = "<group>"; };
-		929D480E146FFAE500267B99 /* wyFixtureAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyFixtureAnimation.cpp; sourceTree = "<group>"; };
 		929D480F146FFAE500267B99 /* wyJNI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJNI.h; sourceTree = "<group>"; };
 		929D48EF146FFBAF00267B99 /* wyBox2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2D.h; path = ../WiEngine/include/box2d/wyBox2D.h; sourceTree = "<group>"; };
 		929D48F0146FFBAF00267B99 /* wyBox2DCollisionDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2DCollisionDetector.h; path = ../WiEngine/include/box2d/wyBox2DCollisionDetector.h; sourceTree = "<group>"; };
 		929D48F1146FFBAF00267B99 /* wyBox2DPELoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2DPELoader.h; path = ../WiEngine/include/box2d/wyBox2DPELoader.h; sourceTree = "<group>"; };
-		929D48F2146FFBAF00267B99 /* wyBox2DRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2DRender.h; path = ../WiEngine/include/box2d/wyBox2DRender.h; sourceTree = "<group>"; };
-		929D48F3146FFBAF00267B99 /* wyFixtureAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyFixtureAnimation.h; path = ../WiEngine/include/box2d/wyFixtureAnimation.h; sourceTree = "<group>"; };
 		929D49551470087200267B99 /* wyTextBox_macosx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTextBox_macosx.cpp; sourceTree = "<group>"; };
 		929D49561470087200267B99 /* wyTextBox_macosx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyTextBox_macosx.h; sourceTree = "<group>"; };
 		92AA64A31622A35E00690000 /* wyBuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBuildConfig.h; path = ../../include/common/wyBuildConfig.h; sourceTree = "<group>"; };
@@ -1520,10 +1560,6 @@
 		92CA7BA6146FC646004757F9 /* wyGlowColorFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyGlowColorFilter.cpp; sourceTree = "<group>"; };
 		92CA7BA7146FC646004757F9 /* wyLightingColorFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyLightingColorFilter.cpp; sourceTree = "<group>"; };
 		92CA7BA8146FC646004757F9 /* wyMappingColorFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyMappingColorFilter.cpp; sourceTree = "<group>"; };
-		92CA7BAA146FC646004757F9 /* wyBaseGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBaseGrid.cpp; sourceTree = "<group>"; };
-		92CA7BAB146FC646004757F9 /* wyGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyGrabber.cpp; sourceTree = "<group>"; };
-		92CA7BAC146FC646004757F9 /* wyGrid3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyGrid3D.cpp; sourceTree = "<group>"; };
-		92CA7BAD146FC646004757F9 /* wyTiledGrid3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTiledGrid3D.cpp; sourceTree = "<group>"; };
 		92CA7BAF146FC646004757F9 /* wyBottomLineShrinkOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBottomLineShrinkOut.cpp; sourceTree = "<group>"; };
 		92CA7BB0146FC646004757F9 /* wyBottomTilesShrinkOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBottomTilesShrinkOut.cpp; sourceTree = "<group>"; };
 		92CA7BB1146FC646004757F9 /* wyGrid3DAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyGrid3DAction.cpp; sourceTree = "<group>"; };
@@ -1606,18 +1642,14 @@
 		92CA7C01146FC646004757F9 /* wyTiledSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTiledSprite.cpp; sourceTree = "<group>"; };
 		92CA7C02146FC646004757F9 /* wyTileMapAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTileMapAtlas.cpp; sourceTree = "<group>"; };
 		92CA7C03146FC646004757F9 /* wyVirtualJoystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyVirtualJoystick.cpp; sourceTree = "<group>"; };
-		92CA7C05146FC646004757F9 /* glu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glu.cpp; sourceTree = "<group>"; };
 		92CA7C06146FC646004757F9 /* wyCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyCamera.cpp; sourceTree = "<group>"; };
 		92CA7C07146FC646004757F9 /* wyGLTexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyGLTexture2D.cpp; sourceTree = "<group>"; };
-		92CA7C08146FC646004757F9 /* wyPrimitives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyPrimitives.cpp; sourceTree = "<group>"; };
 		92CA7C09146FC646004757F9 /* wyTexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTexture2D.cpp; sourceTree = "<group>"; };
-		92CA7C0A146FC646004757F9 /* wyTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTextureAtlas.cpp; sourceTree = "<group>"; };
 		92CA7C0B146FC646004757F9 /* wyTextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTextureManager.cpp; sourceTree = "<group>"; };
 		92CA7C0D146FC646004757F9 /* wyHGEParticleLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyHGEParticleLoader.cpp; sourceTree = "<group>"; };
 		92CA7C0E146FC646004757F9 /* wyParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyParticle.cpp; sourceTree = "<group>"; };
 		92CA7C0F146FC646004757F9 /* wyParticleLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyParticleLoader.cpp; sourceTree = "<group>"; };
 		92CA7C10146FC646004757F9 /* wyParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyParticleSystem.cpp; sourceTree = "<group>"; };
-		92CA7C11146FC646004757F9 /* wyPointParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyPointParticleSystem.cpp; sourceTree = "<group>"; };
 		92CA7C12146FC646004757F9 /* wyQuadParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyQuadParticleSystem.cpp; sourceTree = "<group>"; };
 		92CA7C14146FC646004757F9 /* wyDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyDatabase.cpp; sourceTree = "<group>"; };
 		92CA7C15146FC646004757F9 /* wyResultSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyResultSet.cpp; sourceTree = "<group>"; };
@@ -1692,7 +1724,6 @@
 		92CA7CB2146FC646004757F9 /* wyZwoptex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyZwoptex.cpp; sourceTree = "<group>"; };
 		92CA7CB3146FC647004757F9 /* wyZwoptexManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyZwoptexManager.cpp; sourceTree = "<group>"; };
 		92CA7E0C146FC665004757F9 /* WiEngine-Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WiEngine-Box2D.h"; path = "../jni/WiEngine/include/WiEngine-Box2D.h"; sourceTree = "<group>"; };
-		92CA7E0D146FC665004757F9 /* WiEngine-Chipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WiEngine-Chipmunk.h"; path = "../jni/WiEngine/include/WiEngine-Chipmunk.h"; sourceTree = "<group>"; };
 		92CA7E0E146FC665004757F9 /* WiEngine-Lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WiEngine-Lua.h"; path = "../jni/WiEngine/include/WiEngine-Lua.h"; sourceTree = "<group>"; };
 		92CA7E0F146FC665004757F9 /* WiEngine-Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WiEngine-Network.h"; path = "../jni/WiEngine/include/WiEngine-Network.h"; sourceTree = "<group>"; };
 		92CA7E11146FC665004757F9 /* WiEngine-WiSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WiEngine-WiSound.h"; path = "../jni/WiEngine/include/WiEngine-WiSound.h"; sourceTree = "<group>"; };
@@ -1829,10 +1860,6 @@
 		92CA7E98146FC6A7004757F9 /* wyGlowColorFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGlowColorFilter.h; path = ../../include/filters/wyGlowColorFilter.h; sourceTree = "<group>"; };
 		92CA7E99146FC6A7004757F9 /* wyLightingColorFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyLightingColorFilter.h; path = ../../include/filters/wyLightingColorFilter.h; sourceTree = "<group>"; };
 		92CA7E9A146FC6A7004757F9 /* wyMappingColorFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyMappingColorFilter.h; path = ../../include/filters/wyMappingColorFilter.h; sourceTree = "<group>"; };
-		92CA7E9B146FC6AC004757F9 /* wyBaseGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBaseGrid.h; path = ../../include/grid/wyBaseGrid.h; sourceTree = "<group>"; };
-		92CA7E9C146FC6AC004757F9 /* wyGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGrabber.h; path = ../../include/grid/wyGrabber.h; sourceTree = "<group>"; };
-		92CA7E9D146FC6AC004757F9 /* wyGrid3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGrid3D.h; path = ../../include/grid/wyGrid3D.h; sourceTree = "<group>"; };
-		92CA7E9E146FC6AC004757F9 /* wyTiledGrid3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTiledGrid3D.h; path = ../../include/grid/wyTiledGrid3D.h; sourceTree = "<group>"; };
 		92CA7E9F146FC6B3004757F9 /* wyBottomLineShrinkOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBottomLineShrinkOut.h; path = ../../include/gridactions/wyBottomLineShrinkOut.h; sourceTree = "<group>"; };
 		92CA7EA0146FC6B3004757F9 /* wyBottomTilesShrinkOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBottomTilesShrinkOut.h; path = ../../include/gridactions/wyBottomTilesShrinkOut.h; sourceTree = "<group>"; };
 		92CA7EA1146FC6B3004757F9 /* wyGrid3DAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGrid3DAction.h; path = ../../include/gridactions/wyGrid3DAction.h; sourceTree = "<group>"; };
@@ -1918,18 +1945,14 @@
 		92CA7EF2146FC6C1004757F9 /* wyTiledSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTiledSprite.h; path = ../../include/nodes/wyTiledSprite.h; sourceTree = "<group>"; };
 		92CA7EF3146FC6C1004757F9 /* wyTileMapAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTileMapAtlas.h; path = ../../include/nodes/wyTileMapAtlas.h; sourceTree = "<group>"; };
 		92CA7EF4146FC6C1004757F9 /* wyVirtualJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyVirtualJoystick.h; path = ../../include/nodes/wyVirtualJoystick.h; sourceTree = "<group>"; };
-		92CA7EF5146FC6C7004757F9 /* glu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glu.h; path = ../../include/opengl/glu.h; sourceTree = "<group>"; };
 		92CA7EF6146FC6C7004757F9 /* wyCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyCamera.h; path = ../../include/opengl/wyCamera.h; sourceTree = "<group>"; };
 		92CA7EF7146FC6C7004757F9 /* wyGLTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyGLTexture2D.h; path = ../../include/opengl/wyGLTexture2D.h; sourceTree = "<group>"; };
-		92CA7EF8146FC6C7004757F9 /* wyPrimitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyPrimitives.h; path = ../../include/opengl/wyPrimitives.h; sourceTree = "<group>"; };
 		92CA7EF9146FC6C7004757F9 /* wyTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTexture2D.h; path = ../../include/opengl/wyTexture2D.h; sourceTree = "<group>"; };
-		92CA7EFA146FC6C7004757F9 /* wyTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTextureAtlas.h; path = ../../include/opengl/wyTextureAtlas.h; sourceTree = "<group>"; };
 		92CA7EFB146FC6C7004757F9 /* wyTextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTextureManager.h; path = ../../include/opengl/wyTextureManager.h; sourceTree = "<group>"; };
 		92CA7EFC146FC6CF004757F9 /* wyHGEParticleLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyHGEParticleLoader.h; path = ../../include/particle/wyHGEParticleLoader.h; sourceTree = "<group>"; };
 		92CA7EFD146FC6CF004757F9 /* wyParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyParticle.h; path = ../../include/particle/wyParticle.h; sourceTree = "<group>"; };
 		92CA7EFE146FC6CF004757F9 /* wyParticleLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyParticleLoader.h; path = ../../include/particle/wyParticleLoader.h; sourceTree = "<group>"; };
 		92CA7EFF146FC6CF004757F9 /* wyParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyParticleSystem.h; path = ../../include/particle/wyParticleSystem.h; sourceTree = "<group>"; };
-		92CA7F00146FC6CF004757F9 /* wyPointParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyPointParticleSystem.h; path = ../../include/particle/wyPointParticleSystem.h; sourceTree = "<group>"; };
 		92CA7F01146FC6CF004757F9 /* wyQuadParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyQuadParticleSystem.h; path = ../../include/particle/wyQuadParticleSystem.h; sourceTree = "<group>"; };
 		92CA7F03146FC6D5004757F9 /* wyDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyDatabase.h; path = ../../include/persistence/wyDatabase.h; sourceTree = "<group>"; };
 		92CA7F04146FC6D5004757F9 /* wyPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyPrefs.h; path = ../../include/persistence/wyPrefs.h; sourceTree = "<group>"; };
@@ -2031,6 +2054,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		92322B3A1643D1B8002D0EFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92322B3E1643D1B8002D0EFE /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		925675CB14CC6C17005C1787 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2046,17 +2077,6 @@
 				9256760314CC6C7F005C1787 /* Cocoa.framework in Frameworks */,
 				9256760E14CC6CE0005C1787 /* libwiengine.dylib in Frameworks */,
 				9256760D14CC6CDA005C1787 /* libyajl.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		928015E81477F9B500806FD3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				928015EC1477F9B600806FD3 /* Cocoa.framework in Frameworks */,
-				9280173D1477FDC900806FD3 /* OpenGL.framework in Frameworks */,
-				9280173F1477FDD000806FD3 /* libwiengine.dylib in Frameworks */,
-				9280173E1477FDCB00806FD3 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2077,6 +2097,7 @@
 				929D45F4146FF2C900267B99 /* libsqlite3.dylib in Frameworks */,
 				929D45F5146FF2C900267B99 /* libz.dylib in Frameworks */,
 				929D45F6146FF2C900267B99 /* libxml2.dylib in Frameworks */,
+				92322B931643D20E002D0EFE /* libkazmath.a in Frameworks */,
 				9278E3DF147E772500713AFF /* QTKit.framework in Frameworks */,
 				92BB799F1478D9FC00503912 /* Carbon.framework in Frameworks */,
 				929D431A146FEA4200267B99 /* Cocoa.framework in Frameworks */,
@@ -2155,7 +2176,6 @@
 				9292BFAF14E4ED3700ADE7E9 /* StoreKit.framework in Frameworks */,
 				929D48EE146FFB3600267B99 /* libbox2d.dylib in Frameworks */,
 				929D45EC146FEB4D00267B99 /* libwiengine.dylib in Frameworks */,
-				9280173C1477FDB600806FD3 /* libchipmunk.dylib in Frameworks */,
 				929D494A1470082800267B99 /* libsqlite3.dylib in Frameworks */,
 				92BB7CED14791BC000503912 /* libwisound.dylib in Frameworks */,
 				929D494B1470082800267B99 /* libz.dylib in Frameworks */,
@@ -2205,16 +2225,6 @@
 			);
 			name = Box2D;
 			path = ../../samples/WiEngineDemos_native/jni/Demos/Box2D;
-			sourceTree = "<group>";
-		};
-		921F7D761515A9AA002FA148 /* Chipmunk */ = {
-			isa = PBXGroup;
-			children = (
-				921F7D771515A9AA002FA148 /* ChipmunkDemos.cpp */,
-				921F7D781515A9AA002FA148 /* ChipmunkDemos.h */,
-			);
-			name = Chipmunk;
-			path = ../../samples/WiEngineDemos_native/jni/Demos/Chipmunk;
 			sourceTree = "<group>";
 		};
 		921F7D7B1515A9AA002FA148 /* Ease */ = {
@@ -2346,6 +2356,185 @@
 			);
 			name = Transition;
 			path = ../../samples/WiEngineDemos_native/jni/Demos/Transition;
+			sourceTree = "<group>";
+		};
+		92322A6D1643CE98002D0EFE /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				92322A6E1643CE98002D0EFE /* ShaderDemos.cpp */,
+				92322A6F1643CE98002D0EFE /* ShaderDemos.h */,
+			);
+			name = Shader;
+			path = ../../samples/WiEngineDemos_native/jni/Demos/Shader;
+			sourceTree = "<group>";
+		};
+		92322A7A1643D02A002D0EFE /* mesh */ = {
+			isa = PBXGroup;
+			children = (
+				92322A7E1643D045002D0EFE /* wyBaseGrid.h */,
+				92322A7F1643D045002D0EFE /* wyGrid3D.h */,
+				92322A801643D045002D0EFE /* wyMesh.h */,
+				92322A811643D045002D0EFE /* wyMeshRef.h */,
+				92322A821643D045002D0EFE /* wyProgress.h */,
+				92322A831643D045002D0EFE /* wyQuadList.h */,
+				92322A841643D045002D0EFE /* wyRectangle.h */,
+				92322A851643D045002D0EFE /* wyShape.h */,
+				92322A861643D045002D0EFE /* wyTiledGrid3D.h */,
+				92322A981643D063002D0EFE /* wyBaseGrid.cpp */,
+				92322A991643D063002D0EFE /* wyGrid3D.cpp */,
+				92322A9A1643D063002D0EFE /* wyMesh.cpp */,
+				92322A9B1643D063002D0EFE /* wyMeshRef.cpp */,
+				92322A9C1643D063002D0EFE /* wyProgress.cpp */,
+				92322A9D1643D063002D0EFE /* wyQuadList.cpp */,
+				92322A9E1643D063002D0EFE /* wyRectangle.cpp */,
+				92322A9F1643D063002D0EFE /* wyShape.cpp */,
+				92322AA01643D063002D0EFE /* wyTiledGrid3D.cpp */,
+			);
+			name = mesh;
+			sourceTree = "<group>";
+		};
+		92322A7B1643D02E002D0EFE /* material */ = {
+			isa = PBXGroup;
+			children = (
+				92322A871643D04D002D0EFE /* wyMaterial.h */,
+				92322A881643D04D002D0EFE /* wyMaterialParameter.h */,
+				92322A891643D04D002D0EFE /* wyMaterialTextureParameter.h */,
+				92322A8A1643D04D002D0EFE /* wyRenderState.h */,
+				92322A8B1643D04D002D0EFE /* wyTechnique.h */,
+				92322AAA1643D068002D0EFE /* wyMaterial.cpp */,
+				92322AAB1643D068002D0EFE /* wyMaterialParameter.cpp */,
+				92322AAC1643D068002D0EFE /* wyMaterialTextureParameter.cpp */,
+				92322AAD1643D068002D0EFE /* wyRenderState.cpp */,
+				92322AAE1643D068002D0EFE /* wyTechnique.cpp */,
+			);
+			name = material;
+			sourceTree = "<group>";
+		};
+		92322A7C1643D032002D0EFE /* render */ = {
+			isa = PBXGroup;
+			children = (
+				92322AD61643D097002D0EFE /* wyFrameBuffer.h */,
+				92322AD71643D097002D0EFE /* wyRenderer.h */,
+				92322AD81643D097002D0EFE /* wyRenderManager.h */,
+				92322AD91643D097002D0EFE /* wyRenderQueue.h */,
+				92322ADA1643D097002D0EFE /* wyViewport.h */,
+				92322ADB1643D0A5002D0EFE /* wyFrameBuffer.cpp */,
+				92322ADC1643D0A5002D0EFE /* wyGLES2Renderer.cpp */,
+				92322ADD1643D0A5002D0EFE /* wyGLES2Renderer.h */,
+				92322ADE1643D0A5002D0EFE /* wyGLState.cpp */,
+				92322ADF1643D0A5002D0EFE /* wyGLState.h */,
+				92322AE01643D0A5002D0EFE /* wyRenderer.cpp */,
+				92322AE11643D0A5002D0EFE /* wyRenderManager.cpp */,
+				92322AE21643D0A5002D0EFE /* wyRenderQueue.cpp */,
+				92322AE31643D0A5002D0EFE /* wyViewport.cpp */,
+			);
+			name = render;
+			sourceTree = "<group>";
+		};
+		92322A7D1643D036002D0EFE /* shader */ = {
+			isa = PBXGroup;
+			children = (
+				92322A911643D05B002D0EFE /* wyAttribute.h */,
+				92322A921643D05B002D0EFE /* wyShader.h */,
+				92322A931643D05B002D0EFE /* wyShaderLoader.h */,
+				92322A941643D05B002D0EFE /* wyShaderManager.h */,
+				92322A951643D05B002D0EFE /* wyShaderProgram.h */,
+				92322A961643D05B002D0EFE /* wyShaderVariable.h */,
+				92322A971643D05B002D0EFE /* wyUniform.h */,
+				92322AC41643D075002D0EFE /* common_position_color_fsh.h */,
+				92322AC51643D075002D0EFE /* common_position_color_vsh.h */,
+				92322AC61643D075002D0EFE /* common_position_texture_color_fsh.h */,
+				92322AC71643D075002D0EFE /* common_position_texture_color_vsh.h */,
+				92322AC81643D075002D0EFE /* wyAttribute.cpp */,
+				92322AC91643D075002D0EFE /* wyShader.cpp */,
+				92322ACA1643D075002D0EFE /* wyShaderLoader.cpp */,
+				92322ACB1643D075002D0EFE /* wyShaderManager.cpp */,
+				92322ACC1643D075002D0EFE /* wyShaderProgram.cpp */,
+				92322ACD1643D075002D0EFE /* wyShaderVariable.cpp */,
+				92322ACE1643D075002D0EFE /* wyUniform.cpp */,
+			);
+			name = shader;
+			sourceTree = "<group>";
+		};
+		92322B481643D1D0002D0EFE /* kazmath */ = {
+			isa = PBXGroup;
+			children = (
+				92322B4A1643D1D0002D0EFE /* include */,
+				92322B5D1643D1D0002D0EFE /* src */,
+			);
+			name = kazmath;
+			path = ../jni/kazmath;
+			sourceTree = "<group>";
+		};
+		92322B4A1643D1D0002D0EFE /* include */ = {
+			isa = PBXGroup;
+			children = (
+				92322B4B1643D1D0002D0EFE /* kazmath */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		92322B4B1643D1D0002D0EFE /* kazmath */ = {
+			isa = PBXGroup;
+			children = (
+				92322B4D1643D1D0002D0EFE /* GL */,
+				92322B4C1643D1D0002D0EFE /* aabb.h */,
+				92322B501643D1D0002D0EFE /* kazmath.h */,
+				92322B511643D1D0002D0EFE /* mat3.h */,
+				92322B521643D1D0002D0EFE /* mat4.h */,
+				92322B531643D1D0002D0EFE /* neon_matrix_impl.h */,
+				92322B541643D1D0002D0EFE /* plane.h */,
+				92322B551643D1D0002D0EFE /* quaternion.h */,
+				92322B561643D1D0002D0EFE /* ray2.h */,
+				92322B571643D1D0002D0EFE /* triangle.h */,
+				92322B581643D1D0002D0EFE /* utility.h */,
+				92322B591643D1D0002D0EFE /* vec2.h */,
+				92322B5A1643D1D0002D0EFE /* vec3.h */,
+				92322B5B1643D1D0002D0EFE /* vec4.h */,
+				92322B5C1643D1D0002D0EFE /* wyLog.h */,
+			);
+			path = kazmath;
+			sourceTree = "<group>";
+		};
+		92322B4D1643D1D0002D0EFE /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				92322B4E1643D1D0002D0EFE /* mat4stack.h */,
+				92322B4F1643D1D0002D0EFE /* matrix.h */,
+			);
+			path = GL;
+			sourceTree = "<group>";
+		};
+		92322B5D1643D1D0002D0EFE /* src */ = {
+			isa = PBXGroup;
+			children = (
+				92322B611643D1D0002D0EFE /* GL */,
+				92322B5E1643D1D0002D0EFE /* aabb.c */,
+				92322B5F1643D1D0002D0EFE /* cpu-features.c */,
+				92322B601643D1D0002D0EFE /* cpu-features.h */,
+				92322B641643D1D0002D0EFE /* mat3.c */,
+				92322B651643D1D0002D0EFE /* mat4.c */,
+				92322B661643D1D0002D0EFE /* neon_matrix_impl.c */,
+				92322B671643D1D0002D0EFE /* plane.c */,
+				92322B681643D1D0002D0EFE /* quaternion.c */,
+				92322B691643D1D0002D0EFE /* ray2.c */,
+				92322B6A1643D1D0002D0EFE /* triangle.c */,
+				92322B6B1643D1D0002D0EFE /* utility.c */,
+				92322B6C1643D1D0002D0EFE /* vec2.c */,
+				92322B6D1643D1D0002D0EFE /* vec3.c */,
+				92322B6E1643D1D0002D0EFE /* vec4.c */,
+				92322B6F1643D1D0002D0EFE /* wyLog.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		92322B611643D1D0002D0EFE /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				92322B621643D1D0002D0EFE /* mat4stack.c */,
+				92322B631643D1D0002D0EFE /* matrix.c */,
+			);
+			path = GL;
 			sourceTree = "<group>";
 		};
 		923492C914754CA500046437 /* FontLabel */ = {
@@ -2516,86 +2705,6 @@
 			name = dialog;
 			sourceTree = "<group>";
 		};
-		928015FB1477FA3C00806FD3 /* chipmunk */ = {
-			isa = PBXGroup;
-			children = (
-				9280162E1477FA3C00806FD3 /* constraints */,
-				928016281477FA3C00806FD3 /* chipmunk.cpp */,
-				928016291477FA3C00806FD3 /* chipmunk.h */,
-				9280162A1477FA3C00806FD3 /* chipmunk_ffi.h */,
-				9280162B1477FA3C00806FD3 /* chipmunk_private.h */,
-				9280162C1477FA3C00806FD3 /* chipmunk_types.h */,
-				9280162D1477FA3C00806FD3 /* chipmunk_unsafe.h */,
-				928016461477FA3C00806FD3 /* cpArbiter.cpp */,
-				928016471477FA3C00806FD3 /* cpArbiter.h */,
-				928016481477FA3C00806FD3 /* cpArray.cpp */,
-				928016491477FA3C00806FD3 /* cpArray.h */,
-				9280164A1477FA3C00806FD3 /* cpBB.cpp */,
-				9280164B1477FA3C00806FD3 /* cpBB.h */,
-				9280164C1477FA3C00806FD3 /* cpBody.cpp */,
-				9280164D1477FA3C00806FD3 /* cpBody.h */,
-				9280164E1477FA3C00806FD3 /* cpCollision.cpp */,
-				9280164F1477FA3C00806FD3 /* cpCollision.h */,
-				928016501477FA3C00806FD3 /* cpHashSet.cpp */,
-				928016511477FA3C00806FD3 /* cpHashSet.h */,
-				928016521477FA3C00806FD3 /* cpPolyShape.cpp */,
-				928016531477FA3C00806FD3 /* cpPolyShape.h */,
-				928016541477FA3C00806FD3 /* cpShape.cpp */,
-				928016551477FA3C00806FD3 /* cpShape.h */,
-				928016561477FA3C00806FD3 /* cpSpace.cpp */,
-				928016571477FA3C00806FD3 /* cpSpace.h */,
-				928016581477FA3C00806FD3 /* cpSpaceComponent.cpp */,
-				928016591477FA3C00806FD3 /* cpSpaceHash.cpp */,
-				9280165A1477FA3C00806FD3 /* cpSpaceHash.h */,
-				9280165B1477FA3C00806FD3 /* cpSpaceQuery.cpp */,
-				9280165C1477FA3C00806FD3 /* cpSpaceStep.cpp */,
-				9280165D1477FA3C00806FD3 /* cpVect.cpp */,
-				9280165E1477FA3C00806FD3 /* cpVect.h */,
-				9280165F1477FA3C00806FD3 /* drawSpace.cpp */,
-				928016601477FA3C00806FD3 /* drawSpace.h */,
-				928016611477FA3C00806FD3 /* prime.h */,
-				928016CE1477FA5700806FD3 /* wyChipmunk.h */,
-				928016CF1477FA5700806FD3 /* wyChipmunkPELoader.h */,
-				928016D01477FA5700806FD3 /* wyShapeAnimation.h */,
-				928016621477FA3C00806FD3 /* wyChipmunk.cpp */,
-				928016631477FA3C00806FD3 /* wyChipmunkPELoader.cpp */,
-				928016641477FA3C00806FD3 /* wyJNI.h */,
-				928016651477FA3C00806FD3 /* wyShapeAnimation.cpp */,
-			);
-			name = chipmunk;
-			path = ../jni/chipmunk;
-			sourceTree = "<group>";
-		};
-		9280162E1477FA3C00806FD3 /* constraints */ = {
-			isa = PBXGroup;
-			children = (
-				9280162F1477FA3C00806FD3 /* cpConstraint.cpp */,
-				928016301477FA3C00806FD3 /* cpConstraint.h */,
-				928016311477FA3C00806FD3 /* cpDampedRotarySpring.cpp */,
-				928016321477FA3C00806FD3 /* cpDampedRotarySpring.h */,
-				928016331477FA3C00806FD3 /* cpDampedSpring.cpp */,
-				928016341477FA3C00806FD3 /* cpDampedSpring.h */,
-				928016351477FA3C00806FD3 /* cpGearJoint.cpp */,
-				928016361477FA3C00806FD3 /* cpGearJoint.h */,
-				928016371477FA3C00806FD3 /* cpGrooveJoint.cpp */,
-				928016381477FA3C00806FD3 /* cpGrooveJoint.h */,
-				928016391477FA3C00806FD3 /* cpPinJoint.cpp */,
-				9280163A1477FA3C00806FD3 /* cpPinJoint.h */,
-				9280163B1477FA3C00806FD3 /* cpPivotJoint.cpp */,
-				9280163C1477FA3C00806FD3 /* cpPivotJoint.h */,
-				9280163D1477FA3C00806FD3 /* cpRatchetJoint.cpp */,
-				9280163E1477FA3C00806FD3 /* cpRatchetJoint.h */,
-				9280163F1477FA3C00806FD3 /* cpRotaryLimitJoint.cpp */,
-				928016401477FA3C00806FD3 /* cpRotaryLimitJoint.h */,
-				928016411477FA3C00806FD3 /* cpSimpleMotor.cpp */,
-				928016421477FA3C00806FD3 /* cpSimpleMotor.h */,
-				928016431477FA3C00806FD3 /* cpSlideJoint.cpp */,
-				928016441477FA3C00806FD3 /* cpSlideJoint.h */,
-				928016451477FA3C00806FD3 /* util.h */,
-			);
-			path = constraints;
-			sourceTree = "<group>";
-		};
 		9292BF8814E4ED1900ADE7E9 /* iap */ = {
 			isa = PBXGroup;
 			children = (
@@ -2664,14 +2773,14 @@
 				929D48EF146FFBAF00267B99 /* wyBox2D.h */,
 				929D48F0146FFBAF00267B99 /* wyBox2DCollisionDetector.h */,
 				929D48F1146FFBAF00267B99 /* wyBox2DPELoader.h */,
-				929D48F2146FFBAF00267B99 /* wyBox2DRender.h */,
-				929D48F3146FFBAF00267B99 /* wyFixtureAnimation.h */,
+				92322AEB1643D110002D0EFE /* wyBox2DMeshBuilder.h */,
+				92322AED1643D11D002D0EFE /* wyBox2DMeshBuilder.cpp */,
+				92322AF01643D12A002D0EFE /* wyBox2DDebugDraw.h */,
+				92322AEC1643D11D002D0EFE /* wyBox2DDebugDraw.cpp */,
 				929D4809146FFAE500267B99 /* wyBox2D.cpp */,
 				929D480A146FFAE500267B99 /* wyBox2DCollisionDetector.cpp */,
 				929D480B146FFAE500267B99 /* wyBox2DInit.cpp */,
 				929D480C146FFAE500267B99 /* wyBox2DPELoader.cpp */,
-				929D480D146FFAE500267B99 /* wyBox2DRender.cpp */,
-				929D480E146FFAE500267B99 /* wyFixtureAnimation.cpp */,
 				929D480F146FFAE500267B99 /* wyJNI.h */,
 			);
 			name = Box2D;
@@ -3109,9 +3218,9 @@
 				92CA7964146FAA27004757F9 /* Demo */,
 				92CA7A97146FBDA0004757F9 /* WiEngine */,
 				929D4729146FFAE400267B99 /* Box2D */,
-				928015FB1477FA3C00806FD3 /* chipmunk */,
 				92BB79BD1478FA4A00503912 /* lua */,
 				92BB7C1E14790BDC00503912 /* vorbis */,
+				92322B481643D1D0002D0EFE /* kazmath */,
 				92BB7DE014793EA200503912 /* libmpg123 */,
 				92BB7CC414790CCE00503912 /* WiSound */,
 				9253E6D614FF630E003028B0 /* WiNetwork */,
@@ -3132,7 +3241,6 @@
 				92CA793E146FA9AF004757F9 /* WiEngine.app */,
 				929D4319146FEA4100267B99 /* libwiengine.dylib */,
 				929D46EF146FFA4A00267B99 /* libbox2d.dylib */,
-				928015EB1477F9B500806FD3 /* libchipmunk.dylib */,
 				92BB79AD1478F90B00503912 /* liblua.dylib */,
 				92BB7A8C1478FE6700503912 /* libwinetwork.dylib */,
 				92BB7BF714790A9700503912 /* libwisound.dylib */,
@@ -3141,6 +3249,7 @@
 				925675CE14CC6C17005C1787 /* libyajl.a */,
 				9256760214CC6C7F005C1787 /* libjson.dylib */,
 				9292BF7C14E4ECB900ADE7E9 /* libiap.dylib */,
+				92322B3D1643D1B8002D0EFE /* libkazmath.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3175,7 +3284,6 @@
 			children = (
 				921F7D701515A9AA002FA148 /* Actions */,
 				921F7D731515A9AA002FA148 /* Box2D */,
-				921F7D761515A9AA002FA148 /* Chipmunk */,
 				921F7D7B1515A9AA002FA148 /* Ease */,
 				921F7D7E1515A9AA002FA148 /* Events */,
 				921F7D811515A9AA002FA148 /* GridActions */,
@@ -3187,6 +3295,7 @@
 				921F7D941515A9AA002FA148 /* Particles */,
 				921F7D971515A9AA002FA148 /* Performance */,
 				921F7D9A1515A9AA002FA148 /* Persistence */,
+				92322A6D1643CE98002D0EFE /* Shader */,
 				921F7D9D1515A9AA002FA148 /* Sound */,
 				921F7DA01515A9AA002FA148 /* Transition */,
 				921F7D791515A9AA002FA148 /* common.cpp */,
@@ -3236,7 +3345,6 @@
 				929D4728146FFAA200267B99 /* libbox2d-Prefix.pch */,
 				92BB7C0614790AE200503912 /* libwisound-Prefix.pch */,
 				929D4324146FEA5B00267B99 /* libwiengine-Prefix.pch */,
-				928015FA1477F9EA00806FD3 /* libchipmunk-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3255,18 +3363,21 @@
 				92CA7B9D146FC646004757F9 /* filters */,
 				92CA7BA9146FC646004757F9 /* grid */,
 				92CA7BAE146FC646004757F9 /* gridactions */,
+				92322A7B1643D02E002D0EFE /* material */,
+				92322A7A1643D02A002D0EFE /* mesh */,
 				92CA7BCF146FC646004757F9 /* mfs */,
 				92CA7BD2146FC646004757F9 /* nodes */,
 				92CA7C04146FC646004757F9 /* opengl */,
 				92CA7C0C146FC646004757F9 /* particle */,
 				92CA7C13146FC646004757F9 /* persistence */,
 				92CA7C17146FC646004757F9 /* platform */,
+				92322A7C1643D032002D0EFE /* render */,
+				92322A7D1643D036002D0EFE /* shader */,
 				92CA7C6D146FC646004757F9 /* tmx */,
 				92CA7C75146FC646004757F9 /* transitions */,
 				92CA7C95146FC646004757F9 /* types */,
 				92CA7CA1146FC646004757F9 /* utils */,
 				92CA7E0C146FC665004757F9 /* WiEngine-Box2D.h */,
-				92CA7E0D146FC665004757F9 /* WiEngine-Chipmunk.h */,
 				9264163C14E4F6A500806B38 /* WiEngine-IAP.h */,
 				9256761F14CC6D2B005C1787 /* WiEngine-JSON.h */,
 				92CA7E0E146FC665004757F9 /* WiEngine-Lua.h */,
@@ -3497,6 +3608,7 @@
 			children = (
 				92CA7E6D146FC68D004757F9 /* wyArray.h */,
 				92EFAAFA15271D0100EF9BDC /* wyAutoReleasePool.h */,
+				92322A711643CF57002D0EFE /* wyBuffer.h */,
 				92AA64A31622A35E00690000 /* wyBuildConfig.h */,
 				92CA7E6E146FC68D004757F9 /* wyDevice.h */,
 				92CA7E6F146FC68D004757F9 /* wyGlobal.h */,
@@ -3506,6 +3618,7 @@
 				92CA7E73146FC68D004757F9 /* wyThread.h */,
 				92CA7B78146FC646004757F9 /* wyArray.cpp */,
 				92EFAAF715271CFA00EF9BDC /* wyAutoReleasePool.cpp */,
+				92322A721643CF5E002D0EFE /* wyBuffer.cpp */,
 				92CA7B79146FC646004757F9 /* wyDevice.cpp */,
 				92CA7B7A146FC646004757F9 /* wyGlobal.cpp */,
 				92CA7B7B146FC646004757F9 /* wyHashSet.cpp */,
@@ -3614,14 +3727,8 @@
 		92CA7BA9146FC646004757F9 /* grid */ = {
 			isa = PBXGroup;
 			children = (
-				92CA7E9B146FC6AC004757F9 /* wyBaseGrid.h */,
-				92CA7E9C146FC6AC004757F9 /* wyGrabber.h */,
-				92CA7E9D146FC6AC004757F9 /* wyGrid3D.h */,
-				92CA7E9E146FC6AC004757F9 /* wyTiledGrid3D.h */,
-				92CA7BAA146FC646004757F9 /* wyBaseGrid.cpp */,
-				92CA7BAB146FC646004757F9 /* wyGrabber.cpp */,
-				92CA7BAC146FC646004757F9 /* wyGrid3D.cpp */,
-				92CA7BAD146FC646004757F9 /* wyTiledGrid3D.cpp */,
+				92322A761643CF75002D0EFE /* wyGridController.h */,
+				92322A741643CF6E002D0EFE /* wyGridController.cpp */,
 			);
 			name = grid;
 			path = ../jni/WiEngine/impl/grid;
@@ -3724,6 +3831,7 @@
 				92CA7EC9146FC6C1004757F9 /* wyBladeRibbon.h */,
 				92CA7ECA146FC6C1004757F9 /* wyButton.h */,
 				92CA7ECB146FC6C1004757F9 /* wyColorLayer.h */,
+				92322A771643CF8A002D0EFE /* wyCompoundNode.h */,
 				92CA7ECC146FC6C1004757F9 /* wyCoverFlow.h */,
 				92CA7ECD146FC6C1004757F9 /* wyDirector.h */,
 				92CA7ECE146FC6C1004757F9 /* wyDotPageIndicator.h */,
@@ -3775,6 +3883,7 @@
 				92CA7BD9146FC646004757F9 /* wyBladeRibbon.cpp */,
 				92CA7BDA146FC646004757F9 /* wyButton.cpp */,
 				92CA7BDB146FC646004757F9 /* wyColorLayer.cpp */,
+				92322A781643CF9B002D0EFE /* wyCompoundNode.cpp */,
 				92CA7BDC146FC646004757F9 /* wyCoverFlow.cpp */,
 				92CA7BDD146FC646004757F9 /* wyDirector.cpp */,
 				92CA7BDE146FC646004757F9 /* wyDotPageIndicator.cpp */,
@@ -3824,19 +3933,13 @@
 		92CA7C04146FC646004757F9 /* opengl */ = {
 			isa = PBXGroup;
 			children = (
-				92CA7EF5146FC6C7004757F9 /* glu.h */,
 				92CA7EF6146FC6C7004757F9 /* wyCamera.h */,
 				92CA7EF7146FC6C7004757F9 /* wyGLTexture2D.h */,
-				92CA7EF8146FC6C7004757F9 /* wyPrimitives.h */,
 				92CA7EF9146FC6C7004757F9 /* wyTexture2D.h */,
-				92CA7EFA146FC6C7004757F9 /* wyTextureAtlas.h */,
 				92CA7EFB146FC6C7004757F9 /* wyTextureManager.h */,
-				92CA7C05146FC646004757F9 /* glu.cpp */,
 				92CA7C06146FC646004757F9 /* wyCamera.cpp */,
 				92CA7C07146FC646004757F9 /* wyGLTexture2D.cpp */,
-				92CA7C08146FC646004757F9 /* wyPrimitives.cpp */,
 				92CA7C09146FC646004757F9 /* wyTexture2D.cpp */,
-				92CA7C0A146FC646004757F9 /* wyTextureAtlas.cpp */,
 				92CA7C0B146FC646004757F9 /* wyTextureManager.cpp */,
 			);
 			name = opengl;
@@ -3850,13 +3953,11 @@
 				92CA7EFD146FC6CF004757F9 /* wyParticle.h */,
 				92CA7EFE146FC6CF004757F9 /* wyParticleLoader.h */,
 				92CA7EFF146FC6CF004757F9 /* wyParticleSystem.h */,
-				92CA7F00146FC6CF004757F9 /* wyPointParticleSystem.h */,
 				92CA7F01146FC6CF004757F9 /* wyQuadParticleSystem.h */,
 				92CA7C0D146FC646004757F9 /* wyHGEParticleLoader.cpp */,
 				92CA7C0E146FC646004757F9 /* wyParticle.cpp */,
 				92CA7C0F146FC646004757F9 /* wyParticleLoader.cpp */,
 				92CA7C10146FC646004757F9 /* wyParticleSystem.cpp */,
-				92CA7C11146FC646004757F9 /* wyPointParticleSystem.cpp */,
 				92CA7C12146FC646004757F9 /* wyQuadParticleSystem.cpp */,
 			);
 			name = particle;
@@ -4123,6 +4224,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		92322B3C1643D1B8002D0EFE /* libkazmath */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92322B451643D1B9002D0EFE /* Build configuration list for PBXNativeTarget "libkazmath" */;
+			buildPhases = (
+				92322B391643D1B8002D0EFE /* Sources */,
+				92322B3A1643D1B8002D0EFE /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libkazmath;
+			productName = libkazmath;
+			productReference = 92322B3D1643D1B8002D0EFE /* libkazmath.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		925675CD14CC6C17005C1787 /* libyajl */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 925675DA14CC6C17005C1787 /* Build configuration list for PBXNativeTarget "libyajl" */;
@@ -4156,22 +4273,6 @@
 			productReference = 9256760214CC6C7F005C1787 /* libjson.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		928015EA1477F9B500806FD3 /* libchipmunk */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 928015F71477F9B600806FD3 /* Build configuration list for PBXNativeTarget "libchipmunk" */;
-			buildPhases = (
-				928015E71477F9B500806FD3 /* Sources */,
-				928015E81477F9B500806FD3 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = libchipmunk;
-			productName = libchipmunk;
-			productReference = 928015EB1477F9B500806FD3 /* libchipmunk.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
 		9292BF7B14E4ECB900ADE7E9 /* libiap */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9292BF8414E4ECBA00ADE7E9 /* Build configuration list for PBXNativeTarget "libiap" */;
@@ -4198,6 +4299,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				92322B921643D1F2002D0EFE /* PBXTargetDependency */,
 			);
 			name = libwiengine;
 			productName = libwiengine;
@@ -4317,7 +4419,6 @@
 				9292BFB314E4ED5B00ADE7E9 /* PBXTargetDependency */,
 				9256762114CC6D6E005C1787 /* PBXTargetDependency */,
 				92BB7C6414790C2800503912 /* PBXTargetDependency */,
-				92BB7BDF1478FF2C00503912 /* PBXTargetDependency */,
 				92BB7BE11478FF2C00503912 /* PBXTargetDependency */,
 				92BB7BE31478FF2C00503912 /* PBXTargetDependency */,
 				929D48EA146FFB0F00267B99 /* PBXTargetDependency */,
@@ -4353,7 +4454,6 @@
 				92CA793D146FA9AF004757F9 /* WiEngine */,
 				929D4318146FEA4100267B99 /* libwiengine */,
 				929D46EE146FFA4A00267B99 /* libbox2d */,
-				928015EA1477F9B500806FD3 /* libchipmunk */,
 				92BB79AC1478F90B00503912 /* liblua */,
 				92BB7A8B1478FE6700503912 /* libwinetwork */,
 				92BB7BF614790A9700503912 /* libwisound */,
@@ -4362,6 +4462,7 @@
 				925675CD14CC6C17005C1787 /* libyajl */,
 				9256760114CC6C7F005C1787 /* libjson */,
 				9292BF7B14E4ECB900ADE7E9 /* libiap */,
+				92322B3C1643D1B8002D0EFE /* libkazmath */,
 			);
 		};
 /* End PBXProject section */
@@ -4403,6 +4504,29 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		92322B391643D1B8002D0EFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92322B801643D1D0002D0EFE /* aabb.c in Sources */,
+				92322B811643D1D0002D0EFE /* cpu-features.c in Sources */,
+				92322B831643D1D0002D0EFE /* mat4stack.c in Sources */,
+				92322B841643D1D0002D0EFE /* matrix.c in Sources */,
+				92322B851643D1D0002D0EFE /* mat3.c in Sources */,
+				92322B861643D1D0002D0EFE /* mat4.c in Sources */,
+				92322B871643D1D0002D0EFE /* neon_matrix_impl.c in Sources */,
+				92322B881643D1D0002D0EFE /* plane.c in Sources */,
+				92322B891643D1D0002D0EFE /* quaternion.c in Sources */,
+				92322B8A1643D1D0002D0EFE /* ray2.c in Sources */,
+				92322B8B1643D1D0002D0EFE /* triangle.c in Sources */,
+				92322B8C1643D1D0002D0EFE /* utility.c in Sources */,
+				92322B8D1643D1D0002D0EFE /* vec2.c in Sources */,
+				92322B8E1643D1D0002D0EFE /* vec3.c in Sources */,
+				92322B8F1643D1D0002D0EFE /* vec4.c in Sources */,
+				92322B901643D1D0002D0EFE /* wyLog.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		925675CA14CC6C17005C1787 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4427,43 +4551,6 @@
 				9256761A14CC6CF6005C1787 /* wyJSONObject.cpp in Sources */,
 				9256761B14CC6CF6005C1787 /* wyJSONParser.cpp in Sources */,
 				9256761C14CC6CF6005C1787 /* wyJSONValue.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		928015E71477F9B500806FD3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				928016911477FA3D00806FD3 /* chipmunk.cpp in Sources */,
-				928016971477FA3D00806FD3 /* cpConstraint.cpp in Sources */,
-				928016991477FA3D00806FD3 /* cpDampedRotarySpring.cpp in Sources */,
-				9280169B1477FA3D00806FD3 /* cpDampedSpring.cpp in Sources */,
-				9280169D1477FA3D00806FD3 /* cpGearJoint.cpp in Sources */,
-				9280169F1477FA3D00806FD3 /* cpGrooveJoint.cpp in Sources */,
-				928016A11477FA3D00806FD3 /* cpPinJoint.cpp in Sources */,
-				928016A31477FA3D00806FD3 /* cpPivotJoint.cpp in Sources */,
-				928016A51477FA3D00806FD3 /* cpRatchetJoint.cpp in Sources */,
-				928016A71477FA3D00806FD3 /* cpRotaryLimitJoint.cpp in Sources */,
-				928016A91477FA3D00806FD3 /* cpSimpleMotor.cpp in Sources */,
-				928016AB1477FA3D00806FD3 /* cpSlideJoint.cpp in Sources */,
-				928016AE1477FA3D00806FD3 /* cpArbiter.cpp in Sources */,
-				928016B01477FA3D00806FD3 /* cpArray.cpp in Sources */,
-				928016B21477FA3D00806FD3 /* cpBB.cpp in Sources */,
-				928016B41477FA3D00806FD3 /* cpBody.cpp in Sources */,
-				928016B61477FA3D00806FD3 /* cpCollision.cpp in Sources */,
-				928016B81477FA3D00806FD3 /* cpHashSet.cpp in Sources */,
-				928016BA1477FA3D00806FD3 /* cpPolyShape.cpp in Sources */,
-				928016BC1477FA3D00806FD3 /* cpShape.cpp in Sources */,
-				928016BE1477FA3D00806FD3 /* cpSpace.cpp in Sources */,
-				928016C01477FA3D00806FD3 /* cpSpaceComponent.cpp in Sources */,
-				928016C11477FA3D00806FD3 /* cpSpaceHash.cpp in Sources */,
-				928016C31477FA3D00806FD3 /* cpSpaceQuery.cpp in Sources */,
-				928016C41477FA3D00806FD3 /* cpSpaceStep.cpp in Sources */,
-				928016C51477FA3D00806FD3 /* cpVect.cpp in Sources */,
-				928016C71477FA3D00806FD3 /* drawSpace.cpp in Sources */,
-				928016CA1477FA3D00806FD3 /* wyChipmunk.cpp in Sources */,
-				928016CB1477FA3D00806FD3 /* wyChipmunkPELoader.cpp in Sources */,
-				928016CD1477FA3D00806FD3 /* wyShapeAnimation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4616,10 +4703,6 @@
 				929D442C146FEAB900267B99 /* wyGlowColorFilter.cpp in Sources */,
 				929D442D146FEAB900267B99 /* wyLightingColorFilter.cpp in Sources */,
 				929D442E146FEAB900267B99 /* wyMappingColorFilter.cpp in Sources */,
-				929D4433146FEAB900267B99 /* wyBaseGrid.cpp in Sources */,
-				929D4434146FEAB900267B99 /* wyGrabber.cpp in Sources */,
-				929D4435146FEAB900267B99 /* wyGrid3D.cpp in Sources */,
-				929D4436146FEAB900267B99 /* wyTiledGrid3D.cpp in Sources */,
 				929D4457146FEAB900267B99 /* wyBottomLineShrinkOut.cpp in Sources */,
 				929D4458146FEAB900267B99 /* wyBottomTilesShrinkOut.cpp in Sources */,
 				929D4459146FEAB900267B99 /* wyGrid3DAction.cpp in Sources */,
@@ -4702,18 +4785,14 @@
 				929D44DD146FEABA00267B99 /* wyTiledSprite.cpp in Sources */,
 				929D44DE146FEABA00267B99 /* wyTileMapAtlas.cpp in Sources */,
 				929D44DF146FEABA00267B99 /* wyVirtualJoystick.cpp in Sources */,
-				929D44E7146FEABA00267B99 /* glu.cpp in Sources */,
 				929D44E8146FEABA00267B99 /* wyCamera.cpp in Sources */,
 				929D44E9146FEABA00267B99 /* wyGLTexture2D.cpp in Sources */,
-				929D44EA146FEABA00267B99 /* wyPrimitives.cpp in Sources */,
 				929D44EB146FEABA00267B99 /* wyTexture2D.cpp in Sources */,
-				929D44EC146FEABA00267B99 /* wyTextureAtlas.cpp in Sources */,
 				929D44ED146FEABA00267B99 /* wyTextureManager.cpp in Sources */,
 				929D44F4146FEABA00267B99 /* wyHGEParticleLoader.cpp in Sources */,
 				929D44F5146FEABA00267B99 /* wyParticle.cpp in Sources */,
 				929D44F6146FEABA00267B99 /* wyParticleLoader.cpp in Sources */,
 				929D44F7146FEABA00267B99 /* wyParticleSystem.cpp in Sources */,
-				929D44F8146FEABA00267B99 /* wyPointParticleSystem.cpp in Sources */,
 				929D44F9146FEABA00267B99 /* wyQuadParticleSystem.cpp in Sources */,
 				929D44FF146FEABA00267B99 /* wyDatabase.cpp in Sources */,
 				929D4500146FEABA00267B99 /* wyResultSet.cpp in Sources */,
@@ -4825,6 +4904,37 @@
 				9278E71D1549449100339303 /* wySkewBy.cpp in Sources */,
 				9278E71E1549449100339303 /* wySkewTo.cpp in Sources */,
 				92C92E3F1557E24C00E1B93C /* wyToast.cpp in Sources */,
+				92322A731643CF5E002D0EFE /* wyBuffer.cpp in Sources */,
+				92322A751643CF6E002D0EFE /* wyGridController.cpp in Sources */,
+				92322A791643CF9B002D0EFE /* wyCompoundNode.cpp in Sources */,
+				92322AA11643D063002D0EFE /* wyBaseGrid.cpp in Sources */,
+				92322AA21643D063002D0EFE /* wyGrid3D.cpp in Sources */,
+				92322AA31643D063002D0EFE /* wyMesh.cpp in Sources */,
+				92322AA41643D063002D0EFE /* wyMeshRef.cpp in Sources */,
+				92322AA51643D063002D0EFE /* wyProgress.cpp in Sources */,
+				92322AA61643D063002D0EFE /* wyQuadList.cpp in Sources */,
+				92322AA71643D063002D0EFE /* wyRectangle.cpp in Sources */,
+				92322AA81643D063002D0EFE /* wyShape.cpp in Sources */,
+				92322AA91643D063002D0EFE /* wyTiledGrid3D.cpp in Sources */,
+				92322AAF1643D068002D0EFE /* wyMaterial.cpp in Sources */,
+				92322AB01643D068002D0EFE /* wyMaterialParameter.cpp in Sources */,
+				92322AB11643D068002D0EFE /* wyMaterialTextureParameter.cpp in Sources */,
+				92322AB21643D068002D0EFE /* wyRenderState.cpp in Sources */,
+				92322AB31643D068002D0EFE /* wyTechnique.cpp in Sources */,
+				92322ACF1643D075002D0EFE /* wyAttribute.cpp in Sources */,
+				92322AD01643D075002D0EFE /* wyShader.cpp in Sources */,
+				92322AD11643D075002D0EFE /* wyShaderLoader.cpp in Sources */,
+				92322AD21643D075002D0EFE /* wyShaderManager.cpp in Sources */,
+				92322AD31643D075002D0EFE /* wyShaderProgram.cpp in Sources */,
+				92322AD41643D075002D0EFE /* wyShaderVariable.cpp in Sources */,
+				92322AD51643D075002D0EFE /* wyUniform.cpp in Sources */,
+				92322AE41643D0A5002D0EFE /* wyFrameBuffer.cpp in Sources */,
+				92322AE51643D0A5002D0EFE /* wyGLES2Renderer.cpp in Sources */,
+				92322AE61643D0A5002D0EFE /* wyGLState.cpp in Sources */,
+				92322AE71643D0A5002D0EFE /* wyRenderer.cpp in Sources */,
+				92322AE81643D0A5002D0EFE /* wyRenderManager.cpp in Sources */,
+				92322AE91643D0A5002D0EFE /* wyRenderQueue.cpp in Sources */,
+				92322AEA1643D0A5002D0EFE /* wyViewport.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4886,8 +4996,8 @@
 				929D48E3146FFAE500267B99 /* wyBox2DCollisionDetector.cpp in Sources */,
 				929D48E4146FFAE500267B99 /* wyBox2DInit.cpp in Sources */,
 				929D48E5146FFAE500267B99 /* wyBox2DPELoader.cpp in Sources */,
-				929D48E6146FFAE500267B99 /* wyBox2DRender.cpp in Sources */,
-				929D48E7146FFAE500267B99 /* wyFixtureAnimation.cpp in Sources */,
+				92322AEE1643D11D002D0EFE /* wyBox2DDebugDraw.cpp in Sources */,
+				92322AEF1643D11D002D0EFE /* wyBox2DMeshBuilder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5071,7 +5181,6 @@
 				923D6405147759D900196C55 /* DemoCollectionView.mm in Sources */,
 				921F7DA31515A9AA002FA148 /* ActionDemos.cpp in Sources */,
 				921F7DA41515A9AA002FA148 /* Box2DDemos.cpp in Sources */,
-				921F7DA51515A9AA002FA148 /* ChipmunkDemos.cpp in Sources */,
 				921F7DA61515A9AA002FA148 /* common.cpp in Sources */,
 				921F7DA71515A9AA002FA148 /* EaseActionDemos.cpp in Sources */,
 				921F7DA81515A9AA002FA148 /* EventDemos.cpp in Sources */,
@@ -5086,12 +5195,18 @@
 				921F7DB11515A9AA002FA148 /* PersistenceDemos.cpp in Sources */,
 				921F7DB21515A9AA002FA148 /* SoundDemos.cpp in Sources */,
 				921F7DB31515A9AA002FA148 /* TransitionDemos.cpp in Sources */,
+				92322A701643CE98002D0EFE /* ShaderDemos.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		92322B921643D1F2002D0EFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92322B3C1643D1B8002D0EFE /* libkazmath */;
+			targetProxy = 92322B911643D1F2002D0EFE /* PBXContainerItemProxy */;
+		};
 		9256761014CC6CEA005C1787 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 925675CD14CC6C17005C1787 /* libyajl */;
@@ -5116,11 +5231,6 @@
 			isa = PBXTargetDependency;
 			target = 929D46EE146FFA4A00267B99 /* libbox2d */;
 			targetProxy = 929D48E9146FFB0F00267B99 /* PBXContainerItemProxy */;
-		};
-		92BB7BDF1478FF2C00503912 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 928015EA1477F9B500806FD3 /* libchipmunk */;
-			targetProxy = 92BB7BDE1478FF2C00503912 /* PBXContainerItemProxy */;
 		};
 		92BB7BE11478FF2C00503912 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5162,6 +5272,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		92322B461643D1B9002D0EFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = kazmath;
+			};
+			name = Debug;
+		};
+		92322B471643D1B9002D0EFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = kazmath;
+			};
+			name = Release;
+		};
 		925675DB14CC6C17005C1787 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5208,44 +5334,6 @@
 			};
 			name = Release;
 		};
-		928015F81477F9B600806FD3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pch/libchipmunk-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"${PROJECT_DIR}/../jni/chipmunk",
-					/usr/include/libxml2,
-				);
-				INSTALL_PATH = "@executable_path";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		928015F91477F9B600806FD3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pch/libchipmunk-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"${PROJECT_DIR}/../jni/chipmunk",
-					/usr/include/libxml2,
-				);
-				INSTALL_PATH = "@executable_path";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		9292BF8514E4ECBA00ADE7E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5273,11 +5361,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pch/libwiengine-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					MACOSX,
-					WY_CFLAG_OPTIMIZE_MATH,
-				);
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				GCC_PREPROCESSOR_DEFINITIONS = MACOSX;
 				INSTALL_PATH = "@executable_path";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5291,11 +5375,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pch/libwiengine-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					MACOSX,
-					WY_CFLAG_OPTIMIZE_MATH,
-				);
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				GCC_PREPROCESSOR_DEFINITIONS = MACOSX;
 				INSTALL_PATH = "@executable_path";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5309,10 +5389,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pch/libbox2d-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"${PROJECT_DIR}/../jni",
-					/usr/include/libxml2,
-				);
 				INSTALL_PATH = "@executable_path";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5326,10 +5402,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pch/libbox2d-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"${PROJECT_DIR}/../jni",
-					/usr/include/libxml2,
-				);
 				INSTALL_PATH = "@executable_path";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5346,13 +5418,6 @@
 					"$(inherited)",
 					TOLUA_RELEASE,
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../jni/lua",
-					"$(SRCROOT)/../jni/lua/tolua++",
-					"$(SRCROOT)/../jni/WiEngine/include",
-					"$(SRCROOT)/../jni/WiEngine/include/lua",
-					"$(SRCROOT)/../jni/WiEngine/include/utils",
-				);
 				INSTALL_PATH = "@executable_path";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5367,13 +5432,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOSX,
 					TOLUA_RELEASE,
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../jni/lua",
-					"$(SRCROOT)/../jni/lua/tolua++",
-					"$(SRCROOT)/../jni/WiEngine/include",
-					"$(SRCROOT)/../jni/WiEngine/include/lua",
-					"$(SRCROOT)/../jni/WiEngine/include/utils",
 				);
 				INSTALL_PATH = "@executable_path";
 				OTHER_LDFLAGS = "-ObjC";
@@ -5429,10 +5487,6 @@
 					"$(inherited)",
 					BACKEND_OPENAL,
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../jni/libmpg123",
-					"$(SRCROOT)/../jni/vorbis",
-				);
 				INSTALL_PATH = "@executable_path";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5450,10 +5504,6 @@
 					MACOSX,
 					BACKEND_OPENAL,
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../jni/libmpg123",
-					"$(SRCROOT)/../jni/vorbis",
-				);
 				INSTALL_PATH = "@executable_path";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5468,7 +5518,6 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/vorbis";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = vorbis;
 			};
@@ -5478,7 +5527,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_INPUT_FILETYPE = automatic;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/vorbis";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = vorbis;
 			};
@@ -5498,7 +5546,6 @@
 					OPT_X86_64,
 					REAL_IS_FLOAT,
 				);
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libmpg123";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = mpg123;
 			};
@@ -5518,7 +5565,6 @@
 					OPT_X86_64,
 					REAL_IS_FLOAT,
 				);
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libmpg123";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = mpg123;
 			};
@@ -5527,7 +5573,7 @@
 		92CA795A146FA9B0004757F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -5546,13 +5592,14 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libmpg123 /usr/include/libxml2 $(SRCROOT)/../jni $(SRCROOT)/../jni/lua $(SRCROOT)/../jni/lua/tolua++ $(SRCROOT)/../jni/WiEngine/include $(SRCROOT)/../jni/WiEngine/include/lua $(SRCROOT)/../jni/WiEngine/include/utils $(SRCROOT)/../jni/vorbis $(SRCROOT)/../jni/kazmath/include";
 			};
 			name = Debug;
 		};
 		92CA795B146FA9B0004757F9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -5568,6 +5615,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libmpg123 /usr/include/libxml2 $(SRCROOT)/../jni $(SRCROOT)/../jni/lua $(SRCROOT)/../jni/lua/tolua++ $(SRCROOT)/../jni/WiEngine/include $(SRCROOT)/../jni/WiEngine/include/lua $(SRCROOT)/../jni/WiEngine/include/utils $(SRCROOT)/../jni/vorbis $(SRCROOT)/../jni/kazmath/include";
 			};
 			name = Release;
 		};
@@ -5600,6 +5648,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		92322B451643D1B9002D0EFE /* Build configuration list for PBXNativeTarget "libkazmath" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92322B461643D1B9002D0EFE /* Debug */,
+				92322B471643D1B9002D0EFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		925675DA14CC6C17005C1787 /* Build configuration list for PBXNativeTarget "libyajl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5614,15 +5670,6 @@
 			buildConfigurations = (
 				9256760B14CC6C7F005C1787 /* Debug */,
 				9256760C14CC6C7F005C1787 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		928015F71477F9B600806FD3 /* Build configuration list for PBXNativeTarget "libchipmunk" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				928015F81477F9B600806FD3 /* Debug */,
-				928015F91477F9B600806FD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

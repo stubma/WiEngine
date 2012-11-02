@@ -249,7 +249,6 @@
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
 				<exclude name="Box2D/binding/**"/>
-				<exclude name="chipmunk/binding/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
 				<exclude name="libnsbmp/**"/>
@@ -311,13 +310,6 @@
 			<arg value="-create"/>
 			<arg value="-output"/>
 			<arg value="${dist.libs.dir}/libbox2d.dylib"/>
-		</exec>
-		<exec executable="lipo">
-			<arg value="${build.i386.dir}/Release/libchipmunk.dylib"/>
-			<arg value="${build.x86_64.dir}/Release/libchipmunk.dylib"/>
-			<arg value="-create"/>
-			<arg value="-output"/>
-			<arg value="${dist.libs.dir}/libchipmunk.dylib"/>
 		</exec>
 		<exec executable="lipo">
 			<arg value="${build.i386.dir}/Release/libwisound.dylib"/>

@@ -125,7 +125,6 @@
 					<string>cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/libwiengine.dylib" "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}"
 cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/libwisound.dylib" "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}"
 cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/libbox2d.dylib" "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}"
-cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/libchipmunk.dylib" "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}"
 cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/libwinetwork.dylib" "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}"
 cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/liblua.dylib" "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}"
 cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/libjson.dylib" "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}"
@@ -167,7 +166,6 @@ cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/libiap.dylib" "${BUILT_PRODUCTS_DIR
 				<key>HEADER_SEARCH_PATHS</key>
 				<array>
 					<string>$(SRCROOT)/$(PROJECT_NAME)/WiEngine/headers</string>
-					<string>$(SRCROOT)/$(PROJECT_NAME)/WiEngine/headers/chipmunk</string>
 				</array>
 			</dict>
 			<key>ProductType</key>

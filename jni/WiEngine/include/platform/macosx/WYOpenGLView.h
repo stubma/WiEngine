@@ -47,20 +47,12 @@
 @optional
 
 /**
- * \if English
  * Invoked when frame buffer is created
- * \else
- * 当帧缓冲创建时被调用
- * \endif
  */
 - (void)glView:(WYOpenGLView*)v frameBufferCreatedWithWidth:(int)width height:(int)height;
 
 /**
- * \if English
  * Invoked when glview is destroyed
- * \else
- * 在帧缓冲被销毁时调用
- * \endif
  */
 - (void)glViewFrameBufferDestroyed:(WYOpenGLView*)v;
 
@@ -69,11 +61,7 @@
 @interface WYOpenGLView : NSOpenGLView {
 @private
 	/**
-	 * \if English
 	 * redraw timer
-	 * \else
-	 * 渲染定时器
-	 * \endif
 	 */
 	NSTimer* m_timer;
 	
@@ -81,11 +69,7 @@
 	id<WYOpenGLViewDelegate> m_delegate;
 	
 	/**
-	 * \if English
 	 * Gesture detector
-	 * \else
-	 * 手势事件检测
-	 * \endif
 	 */
 	WYGestureRecognizer* m_gestureRecognizer;
 	
@@ -96,22 +80,16 @@
 @property (nonatomic, assign) id<WYOpenGLViewDelegate> delegate;
 @property (nonatomic, assign) BOOL detectGesture;
 
-/// 开始进行OpenGL渲染
+/// start gl rendering
 - (void)startRender;
 
-/// 停止OpenGL渲染
+/// stop gl rendering
 - (void)stopRender;
 
 /**
- * \if English
  * Enable gesture detecting or not
  *
  * @param flag true means gesture detecting is enabled
- * \else
- * 打开或关闭手势事件检测
- *
- * @param flag true表示打开手势检测
- * \endif
  */
 - (void)setDetectGesture:(BOOL)flag;
 
