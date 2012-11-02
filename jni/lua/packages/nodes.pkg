@@ -6697,15 +6697,6 @@ public:
     static wyBladeRibbon* make(wyTexture2D* tex, wyColor4B color, float fade);
 
     /**
-	 * 构造函数
-	 *
-	 * @param tex 贴图\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @param color 贴图渲染颜色
-	 * @param fade 淡出时间, 传入0表示不淡出一直保持，直到用reset清除
-	 */
-    wyBladeRibbon(wyTexture2D* tex, wyColor4B color, float fade);
-
-    /**
 	 * 析构函数
 	 */
     virtual ~wyBladeRibbon();
@@ -6804,14 +6795,6 @@ public:
 	 * @param color 贴图渲染颜色
 	 */
     static wyLineRibbon* make(wyTexture2D* tex, wyColor4B color);
-
-    /**
-	 * 构造函数
-	 *
-	 * @param tex 贴图\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @param color 贴图渲染颜色
-	 */
-    wyLineRibbon(wyTexture2D* tex, wyColor4B color);
 
     /**
 	 * 析构函数

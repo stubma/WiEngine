@@ -8,8 +8,9 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_BladeRibbon_nativeInit
   (JNIEnv * env, jobject thiz, jobject texture, jobject color, jfloat fade) {
 	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(texture, g_fid_BaseObject_mPointer);
 	wyColor4B c = wyUtils_android::to_wyColor4B( color);
-	wyBladeRibbon* ribbon = WYNEW wyBladeRibbon(tex, c, fade);
+	wyBladeRibbon* ribbon = wyBladeRibbon::make(tex, c, fade);
 	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)ribbon);
+	ribbon->retain();
 	wyObjectLazyRelease(ribbon);
 }
 

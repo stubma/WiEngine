@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Fri Nov  2 10:33:21 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Nov  2 11:24:59 2012.
 */
 
 #ifndef __cplusplus
@@ -25997,75 +25997,6 @@ static int tolua_nodes_wyBladeRibbon_make00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  wyBladeRibbon */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyBladeRibbon_new00
-static int tolua_nodes_wyBladeRibbon_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyBladeRibbon",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"wyColor4B",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  wyColor4B color = *((wyColor4B*)  tolua_tousertype(tolua_S,3,0));
-  float fade = ((float)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyBladeRibbon* tolua_ret = (wyBladeRibbon*)  Mtolua_new((wyBladeRibbon)(tex,color,fade));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyBladeRibbon");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyBladeRibbon */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyBladeRibbon_new00_local
-static int tolua_nodes_wyBladeRibbon_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyBladeRibbon",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"wyColor4B",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  wyColor4B color = *((wyColor4B*)  tolua_tousertype(tolua_S,3,0));
-  float fade = ((float)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyBladeRibbon* tolua_ret = (wyBladeRibbon*)  Mtolua_new((wyBladeRibbon)(tex,color,fade));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyBladeRibbon");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  wyBladeRibbon */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyBladeRibbon_delete00
 static int tolua_nodes_wyBladeRibbon_delete00(lua_State* tolua_S)
@@ -26517,71 +26448,6 @@ static int tolua_nodes_wyLineRibbon_make00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wyLineRibbon */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyLineRibbon_new00
-static int tolua_nodes_wyLineRibbon_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyLineRibbon",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"wyColor4B",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  wyColor4B color = *((wyColor4B*)  tolua_tousertype(tolua_S,3,0));
-  {
-   wyLineRibbon* tolua_ret = (wyLineRibbon*)  Mtolua_new((wyLineRibbon)(tex,color));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyLineRibbon");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyLineRibbon */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyLineRibbon_new00_local
-static int tolua_nodes_wyLineRibbon_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyLineRibbon",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"wyColor4B",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  wyColor4B color = *((wyColor4B*)  tolua_tousertype(tolua_S,3,0));
-  {
-   wyLineRibbon* tolua_ret = (wyLineRibbon*)  Mtolua_new((wyLineRibbon)(tex,color));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyLineRibbon");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
  return 0;
 #endif
 }
@@ -32731,9 +32597,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   #endif
   tolua_beginmodule(tolua_S,"wyBladeRibbon");
    tolua_function(tolua_S,"make",tolua_nodes_wyBladeRibbon_make00);
-   tolua_function(tolua_S,"new",tolua_nodes_wyBladeRibbon_new00);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyBladeRibbon_new00_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyBladeRibbon_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyBladeRibbon_delete00);
    tolua_function(tolua_S,"getAlpha",tolua_nodes_wyBladeRibbon_getAlpha00);
    tolua_function(tolua_S,"setAlpha",tolua_nodes_wyBladeRibbon_setAlpha00);
@@ -32755,9 +32618,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   #endif
   tolua_beginmodule(tolua_S,"wyLineRibbon");
    tolua_function(tolua_S,"make",tolua_nodes_wyLineRibbon_make00);
-   tolua_function(tolua_S,"new",tolua_nodes_wyLineRibbon_new00);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyLineRibbon_new00_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyLineRibbon_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyLineRibbon_delete00);
    tolua_function(tolua_S,"getTexture",tolua_nodes_wyLineRibbon_getTexture00);
    tolua_function(tolua_S,"setTexture",tolua_nodes_wyLineRibbon_setTexture00);

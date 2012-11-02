@@ -30,7 +30,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "wyLog.h"
+#include "wyShape.h"
 #include "wyTexture2D.h"
+#include "wyUniform.h"
+#include "wyMaterial.h"
+#include "wyMaterialTextureParameter.h"
 
 // max distance between adjacent points
 #define MAX_POINT_DISTANCE 5
@@ -41,8 +45,8 @@
  * 刀痕段
  */
 typedef struct wyBlade {
-	/// texture of ribbon, wyBlade doesn't retain it
-	wyTexture2D* m_texture;
+	/// mesh
+	wyShape* m_mesh;
 
 	/// path point list
 	wyPoint* m_path;
@@ -59,9 +63,6 @@ typedef struct wyBlade {
 	/// max point allowed in ribbon
 	int m_maxPointCount;
 
-	/// color used to render
-	wyColor4B m_color;
-
     /// fade out time
     float m_fadeTime;
 
@@ -74,15 +75,17 @@ typedef struct wyBlade {
     /// point already rendered
     int m_drawnPointCount;
 
-	wyBlade(wyTexture2D* tex, wyColor4B color, float fade) :
-			m_texture(tex),
-			m_color(color),
+	wyBlade(float fade) :
 			m_fadeTime(fade),
 			m_delta(0),
 			m_drawnPointCount(0),
 			m_dirty(false),
 			m_pointCount(0),
 			m_maxPointCount(50) {
+		// mesh
+		m_mesh = wyShape::make();
+		m_mesh->retain();
+
 		// allocate buffer
 		m_path = (wyPoint*)wyMalloc(m_maxPointCount * sizeof(wyPoint));
 		m_vertices = (wyPoint*)wyMalloc(2 * m_maxPointCount * sizeof(wyPoint));
@@ -90,7 +93,7 @@ typedef struct wyBlade {
 	}
 
 	~wyBlade() {
-		m_texture = NULL;
+		wyObjectRelease(m_mesh);
 		wyFree(m_path);
 		wyFree(m_vertices);
 		wyFree(m_texCoords);
@@ -138,53 +141,13 @@ typedef struct wyBlade {
 				}
 			}
 		}
+
+		m_dirty = true;
 	}
 
-	void draw() {
-		// TODO gles2
-//		if(m_texture == NULL)
-//			return;
-//
-//		// populate if dirty
-//		if(m_dirty) {
-//			populate();
-//			m_dirty = false;
-//		}
-//
-//		// ensure texture is loaded
-//		m_texture->load();
-//
-//		// enable state
-//		glEnableClientState(GL_VERTEX_ARRAY);
-//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//		glEnable(GL_TEXTURE_2D);
-//
-//		// set color
-//		glColor4f(m_color.r / 255.f, m_color.g / 255.f, m_color.b / 255.f, m_color.a / 255.f);
-//
-//		// bind texture
-//		glBindTexture(GL_TEXTURE_2D, m_texture->getTexture());
-//
-//		// pointer
-//		glVertexPointer(2, GL_FLOAT, 0, m_vertices);
-//		glTexCoordPointer(2, GL_FLOAT, 0, m_texCoords);
-//
-//		// draw
-//		glDrawArrays(GL_TRIANGLE_STRIP, 0, 2 * m_pointCount);
-//		m_drawnPointCount = m_pointCount;
-//
-//		// restore color
-//		glColor4f(1, 1, 1, 1);
-//
-//		// disable state
-//		glDisable(GL_TEXTURE_2D);
-//		glDisableClientState(GL_VERTEX_ARRAY);
-//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	}
-
-	void populate() {
+	void populate(float texHeight) {
 		// get texture height
-		float tH2 = m_texture->getHeight() / 2;
+		float tH2 = texHeight / 2;
 
 		// get height segment step
 		// two points is kept for arrow
@@ -214,6 +177,9 @@ typedef struct wyBlade {
 			// go to next
 			pre = m_path[i];
 		}
+
+		// update to mesh
+		m_mesh->buildCustom2D((float*)m_vertices, (float*)m_texCoords, m_pointCount * 2, wyMesh::TRIANGLE_STRIP);
 	}
 
 	void deletePoint(float delta) {
@@ -224,7 +190,7 @@ typedef struct wyBlade {
 			m_delta -= m_fadeTime * count;
 
 			if(count > 0) {
-				count = MIN(m_drawnPointCount, count);
+				count = MIN(m_pointCount, count);
 				if(count > 0) {
 					memmove(m_path, m_path + count, sizeof(wyPoint) * (m_pointCount - count));
 					m_pointCount -= count;
@@ -253,17 +219,21 @@ wyBladeRibbon* wyBladeRibbon::make(wyTexture2D* tex, wyColor4B color, float fade
 wyBladeRibbon::wyBladeRibbon(wyTexture2D* tex, wyColor4B color, float fade) :
 		wyRibbon(fade),
 		m_blade(NULL),
-		m_color(color),
+		m_bladeMat(NULL),
 		m_maxPointCount(50),
 		m_dyingBlades(wyArrayNew(5)),
-		m_reusableBlades(wyArrayNew(5)),
-		m_texture(NULL) {
+		m_reusableBlades(wyArrayNew(5)) {
 	tex->setAntiAlias(false);
 	setTexture(tex);
+
+	// create material
+	m_bladeMat = wyMaterial::make(tex);
+	m_bladeMat->retain();
+	m_bladeMat->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
 }
 
 wyBladeRibbon::~wyBladeRibbon() {
-	wyObjectRelease(m_texture);
+	wyObjectRelease(m_bladeMat);
 
 	wyArrayEach(m_dyingBlades, releaseBlade, NULL);
 	wyArrayDestroy(m_dyingBlades);
@@ -283,64 +253,63 @@ bool wyBladeRibbon::releaseBlade(wyArray* arr, void* ptr, int index, void* data)
 	return true;
 }
 
-//void wyBladeRibbon::draw() {
-//	// if no draw flag is set, call wyNode::draw and it
-//	// will decide forward drawing to java layer or not
-//	if(m_noDraw) {
-//		wyNode::draw();
-//		return;
-//	}
-//
-//	// draw dying blades
-//	for(int i = 0; i < m_dyingBlades->num; i++) {
-//		wyBlade* blade = (wyBlade*)wyArrayGet(m_dyingBlades, i);
-//		blade->draw();
-//	}
-//
-//	// draw current blade
-//	if(m_blade)
-//		m_blade->draw();
-//}
+void wyBladeRibbon::setTexture(wyTexture2D* tex, int index) {
+	wyNode::setTexture(tex, index);
 
-void wyBladeRibbon::setAlpha(int alpha) {
-	m_color.a = alpha;
-	if(m_blade)
-		m_blade->m_color.a = alpha;
-}
-
-wyColor3B wyBladeRibbon::getColor() {
-	wyColor3B c = {
-		m_color.r,
-		m_color.g,
-		m_color.b
-	};
-	return c;
-}
-
-void wyBladeRibbon::setColor(wyColor3B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	if(m_blade) {
-		m_blade->m_color.r = color.r;
-		m_blade->m_color.g = color.g;
-		m_blade->m_color.b = color.b;
+	// update material
+	if(tex && m_bladeMat) {
+		wyMaterialParameter* mp = m_bladeMat->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+		if(mp) {
+			wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+			mtp->setTexture(tex);
+		}
 	}
 }
 
-void wyBladeRibbon::setColor(wyColor4B color) {
-	m_color = color;
-	if(m_blade)
-		m_blade->m_color = color;
-}
+void wyBladeRibbon::updateMesh() {
+	// clear render pairs first
+	clearRenderPairs();
 
-void wyBladeRibbon::setTexture(wyTexture2D* tex) {
-	wyObjectRetain(tex);
-	wyObjectRelease(m_texture);
-	m_texture = tex;
+	// get texture
+	wyTexture2D* tex = NULL;
+	wyMaterialParameter* mp = m_bladeMat->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(mp) {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		tex = mtp->getTexture();
+	}
+
+	// update dying blade and add render pair
+	for(int i = m_dyingBlades->num - 1; i >= 0; i--) {
+		wyBlade* blade = (wyBlade*)wyArrayGet(m_dyingBlades, i);
+		if(blade->m_dirty) {
+			blade->populate(tex->getHeight());
+			blade->m_dirty = false;
+
+			// need update color because populate will reset mesh
+			blade->m_mesh->updateColor(m_color);
+		}
+
+		// add
+		addRenderPair(m_bladeMat, blade->m_mesh);
+	}
+
+	// update current blade
+	if(m_blade) {
+		if(m_blade->m_dirty) {
+			m_blade->populate(tex->getHeight());
+			m_blade->m_dirty = false;
+
+			// need update color because populate will reset mesh
+			m_blade->m_mesh->updateColor(m_color);
+		}
+
+		// add
+		addRenderPair(m_bladeMat, m_blade->m_mesh);
+	}
 }
 
 void wyBladeRibbon::update(float delta) {
+	// update dying blade
 	for(int i = m_dyingBlades->num - 1; i >= 0; i--) {
 		// delete point in dying blade
 		wyBlade* blade = (wyBlade*)wyArrayGet(m_dyingBlades, i);
@@ -354,8 +323,12 @@ void wyBladeRibbon::update(float delta) {
 		}
 	}
 	
+	// update current blade
 	if(m_blade)
 		m_blade->deletePoint(delta);
+
+	// need upate
+	setNeedUpdateMesh(true);
 }
 
 void wyBladeRibbon::addPoint(wyPoint location) {
@@ -373,7 +346,7 @@ void wyBladeRibbon::addPoint(wyPoint location) {
 		if(m_reusableBlades->num > 0)
 			m_blade = (wyBlade*)wyArrayPop(m_reusableBlades);
 		else {
-			m_blade = WYNEW wyBlade(m_texture, m_color, m_fadeTime);
+			m_blade = WYNEW wyBlade(m_fadeTime);
 			m_blade->setMaxPointCount(m_maxPointCount);
 		}
 	}
@@ -382,13 +355,16 @@ void wyBladeRibbon::addPoint(wyPoint location) {
 	m_blade->addPoint(location);
 	m_firstPoint = false;
 
-	// set flag
-	m_blade->m_dirty = true;
+	// need update
+	setNeedUpdateMesh(true);
 }
 
 void wyBladeRibbon::reset() {
 	if(m_blade) {
 		m_blade->reset();
+
+		// need update
+		setNeedUpdateMesh(true);
 	}
 }
 
