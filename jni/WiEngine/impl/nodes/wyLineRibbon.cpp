@@ -29,7 +29,11 @@
 #include "wyLineRibbon.h"
 #include "wyLog.h"
 #include "wyGlobal.h"
+#include "wyShape.h"
 #include "wyTexture2D.h"
+#include "wyUniform.h"
+#include "wyMaterial.h"
+#include "wyMaterialTextureParameter.h"
 
 /**
  * @typedef wyStraightLine
@@ -53,8 +57,11 @@
  * 7: b的东北点(NE)
  */
 typedef struct wyStraightLine {
+	/// mesh
+	wyShape* m_mesh;
+
 	/// vertices for straight line
-	wyVertex3D m_vertices[8];
+	wyPoint m_vertices[8];
 
 	/// 贴图数组
 	wyPoint m_texCoords[8];
@@ -62,8 +69,18 @@ typedef struct wyStraightLine {
 	/// 贴图
 	wyTexture2D* m_tex;
 
-	wyStraightLine(wyTexture2D* tex) {
+	/// color
+	wyColor4B m_color;
+
+	wyStraightLine(wyTexture2D* tex, wyColor4B color) {
 		m_tex = tex;
+		m_color = color;
+		m_mesh = wyShape::make();
+		m_mesh->retain();
+	}
+
+	~wyStraightLine() {
+		m_mesh->release();
 	}
 
 	/**
@@ -89,49 +106,41 @@ typedef struct wyStraightLine {
 		wyPoint p = wypAdd(start, SW);
 		m_vertices[0].x = p.x;
 		m_vertices[0].y = p.y;
-		m_vertices[0].z = 0;
 
 		// 1
 		p = wypAdd(start, NW);
 		m_vertices[1].x = p.x;
 		m_vertices[1].y = p.y;
-		m_vertices[1].z = 0;
 
 		// 2
 		p = wypAdd(start, S);
 		m_vertices[2].x = p.x;
 		m_vertices[2].y = p.y;
-		m_vertices[2].z = 0;
 
 		// 3
 		p = wypAdd(start, N);
 		m_vertices[3].x = p.x;
 		m_vertices[3].y = p.y;
-		m_vertices[3].z = 0;
 
 		// 4
 		p = wypAdd(end, S);
 		m_vertices[4].x = p.x;
 		m_vertices[4].y = p.y;
-		m_vertices[4].z = 0;
 
 		// 5
 		p = wypAdd(end, N);
 		m_vertices[5].x = p.x;
 		m_vertices[5].y = p.y;
-		m_vertices[5].z = 0;
 
 		// 6
 		p = wypAdd(end, SE);
 		m_vertices[6].x = p.x;
 		m_vertices[6].y = p.y;
-		m_vertices[6].z = 0;
 
 		// 7
 		p = wypAdd(end, NE);
 		m_vertices[7].x = p.x;
 		m_vertices[7].y = p.y;
-		m_vertices[7].z = 0;
 
 		/*
 		 * populate texture coordinates
@@ -168,14 +177,12 @@ typedef struct wyStraightLine {
 			// move 0 to 2
 			m_vertices[0].x = m_vertices[2].x;
 			m_vertices[0].y = m_vertices[2].y;
-			m_vertices[0].z = m_vertices[2].z;
 			m_texCoords[0].x = m_texCoords[2].x;
 			m_texCoords[0].y = m_texCoords[2].y;
 
 			// move 1 to 3
 			m_vertices[1].x = m_vertices[3].x;
 			m_vertices[1].y = m_vertices[3].y;
-			m_vertices[1].z = m_vertices[3].z;
 			m_texCoords[1].x = m_texCoords[3].x;
 			m_texCoords[1].y = m_texCoords[3].y;
 		}
@@ -185,24 +192,19 @@ typedef struct wyStraightLine {
 			// move 6 to 4
 			m_vertices[6].x = m_vertices[4].x;
 			m_vertices[6].y = m_vertices[4].y;
-			m_vertices[6].z = m_vertices[4].z;
 			m_texCoords[6].x = m_texCoords[4].x;
 			m_texCoords[6].y = m_texCoords[4].y;
 			
 			// move 7 to 5
 			m_vertices[7].x = m_vertices[5].x;
 			m_vertices[7].y = m_vertices[5].y;
-			m_vertices[7].z = m_vertices[5].z;
 			m_texCoords[7].x = m_texCoords[5].x;
 			m_texCoords[7].y = m_texCoords[5].y;
 		}
-	}
 
-	void draw() {
-		// TODO gles2
-//		glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)m_vertices);
-//		glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)m_texCoords);
-//		glDrawArrays(GL_TRIANGLE_STRIP, 0, 8);
+		// update to mesh
+		m_mesh->buildCustom2D((float*)m_vertices, (float*)m_texCoords, 8, wyMesh::TRIANGLE_STRIP);
+		m_mesh->updateColor(m_color);
 	}
 } wyStraightLine;
 
@@ -212,6 +214,9 @@ typedef struct wyStraightLine {
  * 代表了一条可以弯曲的线，它有多个直线段组成
  */
 typedef struct wyLine {
+	/// mesh
+	wyShape* m_mesh;
+
 	/// point buffer of line
 	wyPoint* m_points;
 
@@ -221,8 +226,11 @@ typedef struct wyLine {
 	/// capacity of point buffer
 	int m_capacity;
 
+	/// color
+	wyColor4B m_color;
+
 	/// vertices of line joint
-	wyVertex3D* m_jointVertices;
+	wyPoint* m_jointVertices;
 
 	/// texture coordinates of line joint
 	wyPoint* m_jointTexCoords;
@@ -230,15 +238,10 @@ typedef struct wyLine {
 	/// texture
 	wyTexture2D* m_tex;
 
-	/// color
-	wyColor4B m_color;
-
 	/// line width
 	float m_lineWidth;
 
-	/**
-	 * 所有的直线段
-	 */
+	/// all straight lines
 	wyArray* m_straightLines;
 
 	static bool releaseStraightLine(wyArray* arr, void* ptr, int index, void* data) {
@@ -248,17 +251,23 @@ typedef struct wyLine {
 
 	wyLine(wyTexture2D* tex, wyColor4B color, float lineWidth) {
 		m_tex = tex;
+		m_tex->retain();
 		m_pointCount = 0;
 		m_capacity = 20;
-		m_lineWidth = lineWidth;
 		m_color = color;
+		m_lineWidth = lineWidth;
 		m_points = (wyPoint*)wyMalloc(m_capacity * sizeof(wyPoint));
-		m_jointVertices = (wyVertex3D*)wyMalloc(m_capacity * 6 * sizeof(wyVertex3D));
+		m_jointVertices = (wyPoint*)wyMalloc(m_capacity * 6 * sizeof(wyPoint));
 		m_jointTexCoords = (wyPoint*)wyMalloc(m_capacity * 6 * sizeof(wyPoint));
 		m_straightLines = wyArrayNew(m_capacity);
+
+		m_mesh = wyShape::make();
+		m_mesh->retain();
 	}
 
 	~wyLine() {
+		wyObjectRelease(m_tex);
+		wyObjectRelease(m_mesh);
 		wyFree(m_points);
 		wyFree(m_jointVertices);
 		wyFree(m_jointTexCoords);
@@ -266,31 +275,12 @@ typedef struct wyLine {
 		wyArrayDestroy(m_straightLines);
 	}
 
-	void draw() {
-		// TODO gles2
-//		// set color
-//		glColor4f(m_color.r / 255.f, m_color.g / 255.f, m_color.b / 255.f, m_color.a / 255.f);
-//
-//		// draw straight lines
-//		for(int i = 0; i < m_straightLines->num; i++) {
-//			wyStraightLine* sl = (wyStraightLine*)wyArrayGet(m_straightLines, i);
-//			sl->draw();
-//		}
-//
-//		// draw joints
-//		if(m_straightLines->num > 1) {
-//			glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)m_jointVertices);
-//			glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)m_jointTexCoords);
-//			glDrawArrays(GL_TRIANGLES, 0, 6 * (m_straightLines->num - 1));
-//		}
-	}
-
 	void addPoint(wyPoint& loc) {
 		// ensure capacity
 		while(m_pointCount >= m_capacity) {
 			m_capacity *= 2;
 			m_points = (wyPoint*)wyRealloc(m_points, m_capacity * sizeof(wyPoint));
-			m_jointVertices = (wyVertex3D*)wyRealloc(m_jointVertices, m_capacity * 6 * sizeof(wyVertex3D));
+			m_jointVertices = (wyPoint*)wyRealloc(m_jointVertices, m_capacity * 6 * sizeof(wyPoint));
 			m_jointTexCoords = (wyPoint*)wyRealloc(m_jointTexCoords, m_capacity * 6 * sizeof(wyPoint));
 		}
 
@@ -312,7 +302,7 @@ typedef struct wyLine {
 			end = m_points[1];
 			head = true;
 		} else {
-			sl = WYNEW wyStraightLine(m_tex);
+			sl = WYNEW wyStraightLine(m_tex, m_color);
 			wyArrayPush(m_straightLines, sl);
 			lineIndex = m_straightLines->num - 1;
 
@@ -346,13 +336,10 @@ typedef struct wyLine {
 			int pos = lineIndex * 6;
 			m_jointVertices[pos].x = end.x;
 			m_jointVertices[pos].y = end.y;
-			m_jointVertices[pos].z = 0;
 			m_jointVertices[pos + 1].x = prevSL->m_vertices[6].x;
 			m_jointVertices[pos + 1].y = prevSL->m_vertices[6].y;
-			m_jointVertices[pos + 1].z = prevSL->m_vertices[6].z;
 			m_jointVertices[pos + 2].x = sl->m_vertices[0].x;
 			m_jointVertices[pos + 2].y = sl->m_vertices[0].y;
-			m_jointVertices[pos + 2].z = sl->m_vertices[0].z;
 
 			// add joint texture coordinates, first triangle
 			m_jointTexCoords[pos].x = tW_2;
@@ -366,13 +353,10 @@ typedef struct wyLine {
 			pos += 3;
 			m_jointVertices[pos].x = end.x;
 			m_jointVertices[pos].y = end.y;
-			m_jointVertices[pos].z = 0;
 			m_jointVertices[pos + 1].x = prevSL->m_vertices[7].x;
 			m_jointVertices[pos + 1].y = prevSL->m_vertices[7].y;
-			m_jointVertices[pos + 1].z = prevSL->m_vertices[7].z;
 			m_jointVertices[pos + 2].x = sl->m_vertices[1].x;
 			m_jointVertices[pos + 2].y = sl->m_vertices[1].y;
-			m_jointVertices[pos + 2].z = sl->m_vertices[1].z;
 
 			// add joint texture coordinates, second triangle
 			m_jointTexCoords[pos].x = tW_2;
@@ -382,6 +366,10 @@ typedef struct wyLine {
 			m_jointTexCoords[pos + 2].x = tW_2;
 			m_jointTexCoords[pos + 2].y = tH_2;
 		}
+
+		// update mesh
+		m_mesh->buildCustom2D((float*)m_jointVertices, (float*)m_jointTexCoords, 3 * (m_straightLines->num - 1), wyMesh::TRIANGLES);
+		m_mesh->updateColor(m_color);
 	}
 } wyLine;
 
@@ -392,14 +380,18 @@ wyLineRibbon* wyLineRibbon::make(wyTexture2D* tex, wyColor4B color) {
 
 wyLineRibbon::wyLineRibbon(wyTexture2D* tex, wyColor4B color) :
 		wyRibbon(0),
-		m_color(color),
 		m_lineWidth(tex->getHeight()),
 		m_lines(wyArrayNew(20)) {
-//	m_tex = tex;
-//	m_tex->retain();
+	m_lineMat = wyMaterial::make(tex);
+	m_lineMat->retain();
+	m_lineMat->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
+
+	setColor(color);
 }
 
 wyLineRibbon::~wyLineRibbon() {
+	wyObjectRelease(m_lineMat);
+
 	wyArrayEach(m_lines, releaseLine, NULL);
 	wyArrayDestroy(m_lines);
 }
@@ -420,10 +412,18 @@ void wyLineRibbon::addPoint(wyPoint location) {
 	// line to add point
 	wyLine* line = NULL;
 
+	// get texture
+	wyTexture2D* tex = NULL;
+	wyMaterialParameter* mp = m_lineMat->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+	if(mp) {
+		wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+		tex = mtp->getTexture();
+	}
+
 	// if first point, new a line
 	if(m_firstPoint) {
 		m_firstPoint = false;
-		line = WYNEW wyLine(getTexture(), m_color, m_lineWidth);
+		line = WYNEW wyLine(tex, m_color, m_lineWidth);
 		wyArrayPush(m_lines, line);
 	} else {
 		// get last line
@@ -431,13 +431,16 @@ void wyLineRibbon::addPoint(wyPoint location) {
 
 		// if null, create a new
 		if(!line) {
-			line = WYNEW wyLine(getTexture(), m_color, m_lineWidth);
+			line = WYNEW wyLine(tex, m_color, m_lineWidth);
 			wyArrayPush(m_lines, line);
 		}
 	}
 
 	// add point to line
 	line->addPoint(location);
+
+	// need update
+	setNeedUpdateMesh(true);
 }
 
 void wyLineRibbon::reset() {
@@ -445,64 +448,43 @@ void wyLineRibbon::reset() {
 	wyArrayClear(m_lines);
 	m_preLastLocation = m_lastLocation = wypZero;
 	m_firstPoint = true;
+
+	// need update
+	setNeedUpdateMesh(true);
 }
 
-wyColor3B wyLineRibbon::getColor() {
-	wyColor3B c = {
-		m_color.r,
-		m_color.g,
-		m_color.b
-	};
-	return c;
+void wyLineRibbon::setTexture(wyTexture2D* tex, int index) {
+	wyNode::setTexture(tex, index);
+
+	// update material
+	if(tex && m_lineMat) {
+		wyMaterialParameter* mp = m_lineMat->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+		if(mp) {
+			wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+			mtp->setTexture(tex);
+		}
+	}
 }
 
-void wyLineRibbon::setColor(wyColor3B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-}
+void wyLineRibbon::updateMesh() {
+	// clear render pairs first
+	clearRenderPairs();
 
-void wyLineRibbon::setColor(wyColor4B color) {
-	m_color.r = color.r;
-	m_color.g = color.g;
-	m_color.b = color.b;
-	m_color.a = color.a;
-}
+	// add mesh
+	for(int i = 0; i < m_lines->num; i++) {
+		wyLine* line = (wyLine*)wyArrayGet(m_lines, i);
 
-//void wyLineRibbon::draw() {
-//	// TODO gles2
-////	// if no draw flag is set, call wyNode::draw and it
-////	// will decide forward drawing to java layer or not
-////	if(m_noDraw) {
-////		wyNode::draw();
-////		return;
-////	}
-////
-////	// ensure texture object is created
-////	m_tex->load();
-////
-////	// enable state
-////	glEnableClientState(GL_VERTEX_ARRAY);
-////	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-////	glEnable(GL_TEXTURE_2D);
-////
-////	// ensure current texture is active
-////	glBindTexture(GL_TEXTURE_2D, m_tex->getTexture());
-////
-////	// draw all lines
-////	for(int i = 0; i < m_lines->num; i++) {
-////		wyLine* line = (wyLine*)wyArrayGet(m_lines, i);
-////		line->draw();
-////	}
-////
-////	// restore color
-////	glColor4f(1, 1, 1, 1);
-////
-////	// disable state
-////	glDisable(GL_TEXTURE_2D);
-////	glDisableClientState(GL_VERTEX_ARRAY);
-////	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//}
+		// add straight line mesh
+		for(int i = 0; i < line->m_straightLines->num; i++) {
+			wyStraightLine* sl = (wyStraightLine*)wyArrayGet(line->m_straightLines, i);
+			addRenderPair(m_lineMat, sl->m_mesh);
+		}
+
+		// add line mesh
+		if(line->m_straightLines->num > 1)
+			addRenderPair(m_lineMat, line->m_mesh);
+	}
+}
 
 float wyLineRibbon::getLineWidth(int index) {
 	if(index < 0 || index >= m_lines->num) {

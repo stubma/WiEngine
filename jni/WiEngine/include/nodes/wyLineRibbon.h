@@ -30,104 +30,51 @@
 #define __wyLineRibbon_h__
 
 #include "wyRibbon.h"
-#include "wyTypes.h"
-#include "wyArray.h"
+#include "WiEngine-Classes.h"
 
 /**
- * @class wyLineRibbon
- * \if English
- * linear ribbon, with both of its ends smoothed.
+ * Ribbon in same width, and endpoint is round.
  * If the line width is not explicitly specified, the width of the texture will be used.
- * \else
- * 线状连续图形，等宽，头尾有圆角效果
- * \endif
  */
 class WIENGINE_API wyLineRibbon : public wyRibbon {
 private:
-    /**
-     * \if English
-     * to store the lines
-     * \else
-     * 当前所有的线
-     * \endif
-     */
+	/// line material
+	wyMaterial* m_lineMat;
+
+	/// to store the lines
     wyArray* m_lines;
 
-    /**
-     * \if English
-     * color, \link wyColor4B wyColor4B\endlink
-     * \else
-     * 颜色
-     * \endif
-     */
-    wyColor4B m_color;
-
-    /**
-     * \if English
-     * the line width, in pixels
-     * \else
-     * 线宽，单位像素
-     * \endif
-     */
+    /// the line width, in pixels
     float m_lineWidth;
 
 private:
     static bool releaseLine(wyArray* arr, void* ptr, int index, void* data);
 
-public:
+protected:
     /**
-     * \if English
-     * factory function, used to create a new instance with autoRelease enabled
-     *
-     * @param tex \link wyTexture2D wyTexture2D\endlink
-     * @param color \link wyColor4B wyColor4B\endlink
-     * \else
-	 * 静态构造函数
-	 *
-	 * @param tex 贴图\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @param color 贴图渲染颜色
-	 * \endif
-	 */
-    static wyLineRibbon* make(wyTexture2D* tex, wyColor4B color);
-
-    /**
-     * \if English
      * constructor
      *
      * @param tex \link wyTexture2D wyTexture2D\endlink
      * @param color \link wyColor4B wyColor4B\endlink
-     * \else
-	 * 构造函数
-	 *
-	 * @param tex 贴图\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @param color 贴图渲染颜色
-	 * \endif
 	 */
     wyLineRibbon(wyTexture2D* tex, wyColor4B color);
 
+public:
     /**
-     * \if English
-     * destructor
-     * \else
-	 * 析构函数
-	 * \endif
+     * factory function, used to create a new instance with autoRelease enabled
+     *
+     * @param tex \link wyTexture2D wyTexture2D\endlink
+     * @param color \link wyColor4B wyColor4B\endlink
 	 */
+    static wyLineRibbon* make(wyTexture2D* tex, wyColor4B color);
+
     virtual ~wyLineRibbon();
 
-	/// @see wyNode::getAlpha
-	virtual int getAlpha() { return m_color.a; }
+    /// @see wyNode::setTexture
+	virtual void setTexture(wyTexture2D* tex, int index = 0);
 
-	/// @see wyNode::setAlpha
-	virtual void setAlpha(int alpha) { m_color.a = alpha; }
-
-	/// @see wyNode::getColor
-	virtual wyColor3B getColor();
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor3B color);
-
-	/// @see wyNode::setColor
-	virtual void setColor(wyColor4B color);
+	/// @see wyNode::updateMesh
+	virtual void updateMesh();
 
     /// @see wyRibbon::update
 	virtual void update(float delta);
@@ -139,87 +86,46 @@ public:
 	virtual void reset();
 
 	/**
-	 * \if English
-	 * setter
+	 * set line width. If not set, it uses texture height
 	 *
 	 * @param width the line width, in pixels
-	 * \else
-	 * 设置线宽，如果不设置，则缺省为贴图的有效高度. 该设置不影响已经存在的线. 设置之后创建的
-	 * 线将变成该宽度
-	 *
-	 * @param width 线宽, 单位像素
-	 * \endif
 	 */
 	void setLineWidth(float width);
 
 	/**
-	 * \if English
 	 * get the width of a specified line
 	 *
 	 * @param index index of the line
 	 * @return width of the line, in pixels. 0 returned if index is invalid.
-	 * \else
-	 * 得到某条线的宽度
-	 *
-	 * @param index 线的索引
-	 * @return 线的宽度, 单位像素. 如果索引不合法，返回0
-	 * \endif
 	 */
 	float getLineWidth(int index);
 
 	/**
-	 * \if English
 	 * get the color of a specified line
 	 *
 	 * @param index index of the line
 	 * @return \link wyColor4B wyColor4B\endlink
-	 * \else
-	 * 得到某条线的颜色
-	 *
-	 * @param index 线的索引
-	 * @return \link wyColor4B wyColor4B\endlink
-	 * \endif
 	 */
 	wyColor4B getLineColor(int index);
 
 	/**
-	 * \if English
 	 * get the line count
-	 * \else
-	 * 得到线的个数
-	 *
-	 * @return 线段的个数
-	 * \endif
 	 */
 	int getLineCount() { return m_lines->num; }
 
 	/**
-	 * \if English
 	 * get the point count of a specified line
 	 *
 	 * @param index index of the line
 	 * @return the count, 0 if index is invalid.
-	 * \else
-	 * 得到某条线的点个数
-	 *
-	 * @param index 线的索引
-	 * @return 线的点个数. 如果索引不合法，返回0
-	 * \endif
 	 */
 	int getLinePointCount(int index);
 
 	/**
-	 * \if English
 	 * get the array of points of a specified line.
 	 *
 	 * @param index index of the line
 	 * @return array of \link wyPoint wyPoint\endlink, NULL if index is invalid.
-	 * \else
-	 * 得到线的点列表
-	 *
-	 * @param index 线的索引
-	 * @return \link wyPoint wyPoint\endlink指针，调用者不需要负责释放. 如果索引不合法，返回NULL
-	 * \endif
 	 */
 	wyPoint* getLinePointList(int index);
 };

@@ -11,8 +11,9 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_LineRibbon_nativeInit
   (JNIEnv * env, jobject thiz, jobject tex, jobject color) {
 	wyTexture2D* t = (wyTexture2D*)env->GetIntField(tex, g_fid_BaseObject_mPointer);
 	wyColor4B c = wyUtils_android::to_wyColor4B( color);
-	wyLineRibbon* r = WYNEW wyLineRibbon(t, c);
+	wyLineRibbon* r = wyLineRibbon::make(t, c);
 	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)r);
+	r->retain();
 	r->lazyRelease();
 }
 
