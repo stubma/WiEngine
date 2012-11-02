@@ -34,7 +34,6 @@
 #import "common.h"
 #import "ActionDemos.h"
 #import "Box2DDemos.h"
-#import "ChipmunkDemos.h"
 #import "EaseActionDemos.h"
 #import "EventDemos.h"
 #import "GridActionDemos.h"
@@ -46,6 +45,7 @@
 #import "ParticleDemos.h"
 #import "PerformanceDemos.h"
 #import "PersistenceDemos.h"
+#import "ShaderDemos.h"
 #import "SoundDemos.h"
 #import "TransitionDemos.h"
 
@@ -86,6 +86,7 @@ static demoEntryFunc sDemoMap[16][50] = {
 	},
 	{
 		DEMO_ENTRY_NAME(box2d, ApplyForceTest),
+        DEMO_ENTRY_NAME(box2d, BodyAnimationTest),
 		DEMO_ENTRY_NAME(box2d, BodyTypesTest),
 		DEMO_ENTRY_NAME(box2d, BounceTest),
 		DEMO_ENTRY_NAME(box2d, BreakableTest),
@@ -102,7 +103,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(box2d, ConfinedTest),
 		DEMO_ENTRY_NAME(box2d, DominosTest),
 		DEMO_ENTRY_NAME(box2d, EdgeShapesTest),
-		DEMO_ENTRY_NAME(box2d, FixtureAnimationTest),
 		DEMO_ENTRY_NAME(box2d, GearsTest),
 		DEMO_ENTRY_NAME(box2d, OneWayTest),
         DEMO_ENTRY_NAME(box2d, PhysicsEditorTest),
@@ -122,31 +122,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(box2d, VaryingFrictionTest),
 		DEMO_ENTRY_NAME(box2d, VaryingRestitutionTest),
 		DEMO_ENTRY_NAME(box2d, WebTest),
-	},
-	{
-		DEMO_ENTRY_NAME(chipmunk, BodyDraggingTest),
-		DEMO_ENTRY_NAME(chipmunk, BounceTest),
-		DEMO_ENTRY_NAME(chipmunk, JointsTest),
-		DEMO_ENTRY_NAME(chipmunk, MagnetsElectricTest),
-		DEMO_ENTRY_NAME(chipmunk, OneWayTest),
-        DEMO_ENTRY_NAME(chipmunk, PhysicsEditorTest),
-		DEMO_ENTRY_NAME(chipmunk, PlanetTest),
-		DEMO_ENTRY_NAME(chipmunk, PlayerTest),
-		DEMO_ENTRY_NAME(chipmunk, PlinkTest),
-		DEMO_ENTRY_NAME(chipmunk, PumpTest),
-		DEMO_ENTRY_NAME(chipmunk, PyramidStackTest),
-		DEMO_ENTRY_NAME(chipmunk, PyramidToppleTest),
-		DEMO_ENTRY_NAME(chipmunk, QueryTest),
-		DEMO_ENTRY_NAME(chipmunk, SensorTest),
-		DEMO_ENTRY_NAME(chipmunk, ShapeAnimationTest),
-		DEMO_ENTRY_NAME(chipmunk, SimpleTest),
-		DEMO_ENTRY_NAME(chipmunk, SpringTest),
-		DEMO_ENTRY_NAME(chipmunk, TankTest),
-		DEMO_ENTRY_NAME(chipmunk, TexturedBounceTest),
-		DEMO_ENTRY_NAME(chipmunk, TexturedOneWayTest),
-		DEMO_ENTRY_NAME(chipmunk, TheoJansenTest),
-		DEMO_ENTRY_NAME(chipmunk, TumbleTest),
-		DEMO_ENTRY_NAME(chipmunk, UnsafeOpsTest),
 	},
 	{
 		DEMO_ENTRY_NAME(ease, EaseBackInOutTest),
@@ -256,7 +231,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(node, VirtualJoystickTest),
 	},
 	{
-        DEMO_ENTRY_NAME(other, AlphaTestTest),
 		DEMO_ENTRY_NAME(other, AStarTest),
 		DEMO_ENTRY_NAME(other, ColorFilterTest),
 		DEMO_ENTRY_NAME(other, DrawPrimitivesTest),
@@ -270,7 +244,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(other, ResourceDecoderTest),
 		DEMO_ENTRY_NAME(other, SchedulerTest),
 		DEMO_ENTRY_NAME(other, ScreenshotTest),
-		DEMO_ENTRY_NAME(other, TextureAtlasTest),
 		DEMO_ENTRY_NAME(other, TextureLoadUnloadTest),
 		DEMO_ENTRY_NAME(other, VerletRopeTest),
 		DEMO_ENTRY_NAME(other, VideoPlayingTest),
@@ -307,6 +280,9 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(persistence, SQLFileTest),
 		DEMO_ENTRY_NAME(persistence, TransactionTest),
 	},
+    {
+        DEMO_ENTRY_NAME(shader, AlphaTestTest),
+    },
 	{
 		DEMO_ENTRY_NAME(sound, MP3Test),
 		DEMO_ENTRY_NAME(sound, OGGTest),
@@ -419,6 +395,7 @@ static demoEntryFunc sDemoMap[16][50] = {
         NSString* key = [NSString stringWithFormat:@"R.string.%@_desc", [[category lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]];
         const char* cKey = wyUtils::getString(RES([key UTF8String]));
         m_layout.detailTextLabel.text = [NSString stringWithUTF8String:cKey];
+        wyFree((void*)cKey);
 	} else {
 		Activity* act = [[[ManifestXML sharedInstance].demos objectForKey:m_category] objectAtIndex:indexPath.row];
 		m_layout.textLabel.text = act.name;
@@ -426,6 +403,7 @@ static demoEntryFunc sDemoMap[16][50] = {
         NSString* key = [NSString stringWithFormat:@"R.string.%@", act.descKey];
         const char* cKey = wyUtils::getString(RES([key UTF8String]));
         m_layout.detailTextLabel.text = [NSString stringWithUTF8String:cKey];
+        wyFree((void*)cKey);
 	}
 	[m_layout layoutSubviews];
 	return m_layout.textLabel.frame.size.height + m_layout.detailTextLabel.frame.size.height + 4;

@@ -110,7 +110,7 @@ extern wyEventDispatcher* gEventDispatcher;
 									nil];
 	
 	// create context
-	EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+	EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 	if (!context)
 		NSLog(@"Failed to create ES context");
 	else if (![EAGLContext setCurrentContext:context])

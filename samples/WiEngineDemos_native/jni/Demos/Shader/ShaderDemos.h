@@ -1,5 +1,5 @@
-#ifndef __IAPDemos_h__
-#define __IAPDemos_h__
+#ifndef __ShaderDemos_h__
+#define __ShaderDemos_h__
 
 #if ANDROID
 	#include <jni.h>
@@ -16,4 +16,4 @@ DEMO_ENTRY(shader, AlphaTestTest);
 }
 #endif
 
-#endif // __IAPDemos_h__
+#endif // __ShaderDemos_h__

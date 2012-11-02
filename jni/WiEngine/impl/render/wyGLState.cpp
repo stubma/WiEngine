@@ -32,6 +32,8 @@
 wyGLState::wyGLState() {
 	// init bound textures array
 	glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &maxVertexTextureUnits);
+    if(maxVertexTextureUnits == 0)
+        glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxVertexTextureUnits);
 	boundTextures = (GLuint*)wyCalloc(maxVertexTextureUnits, sizeof(GLuint));
 
 	// attribute state cache
