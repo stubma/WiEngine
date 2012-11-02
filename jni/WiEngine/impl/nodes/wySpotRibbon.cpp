@@ -110,7 +110,7 @@ void wySpotRibbon::addPoint(wyPoint location) {
 					p.x + tW / 2, p.y + tH / 2, 0);
 
 			// add to atlas
-			atlas->appendQuad(t, v);
+			atlas->appendQuad(t, v, m_color);
 
 			// adjust
 			m_remaining -= m_distance;

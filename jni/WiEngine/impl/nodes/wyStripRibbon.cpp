@@ -151,5 +151,5 @@ void wyStripRibbon::addQuad(wyPoint pre, wyPoint from, wyPoint to, float tStart,
 	wyq3Set(v, bl.x, bl.y, 0, br.x, br.y, 0, tl.x, tl.y, 0, tr.x, tr.y, 0);
 	wyq2Set(t, 0, tEnd, texW, tEnd, 0, tStart, texW, tStart);
 	wyQuadList* atlas = (wyQuadList*)getMesh();
-	atlas->appendQuad(t, v);
+	atlas->appendQuad(t, v, m_color);
 }
