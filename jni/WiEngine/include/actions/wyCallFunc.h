@@ -33,53 +33,27 @@
 #include "wyInstantAction.h"
 
 /**
- * @class wyCallFunc
- *
- * \if English
  * Call a function specified by \link wyTargetSelector wyTargetSelector\endlink, this
- * action is an instant action so it is done immediately. Method pointed by \link wyTargetSelector wyTargetSelector\endlink
- * must have no arguments
- * \else
- * 节点调用\link wyTargetSelector wyTargetSelector\endlink的动作封装, \link wyTargetSelector wyTargetSelector\endlink指向的
- * 方法不能有参数
- * \endif
+ * action is an instant action so it is done immediately
  */
 class WIENGINE_API wyCallFunc : public wyInstantAction {
 protected:
-	/**
-	 * \if English
-	 * the \link wyTargetSelector wyTargetSelector\endlink object
-	 * \else
-	 * 动作要执行的\link wyTargetSelector wyTargetSelector\endlink对象指针
-	 * \endif
-	 */
+	/// the \link wyTargetSelector wyTargetSelector\endlink object
 	wyTargetSelector* m_targetSelector;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param ts \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param ts 动作要执行的\link wyTargetSelector wyTargetSelector\endlink对象指针
-	 * \endif
 	 */
 	wyCallFunc(wyTargetSelector* ts);
 
 public:
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param ts \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造方法
-	 *
-	 * @param ts 动作要执行的\link wyTargetSelector wyTargetSelector\endlink对象指针
-	 * \endif
 	 */
 	static wyCallFunc* make(wyTargetSelector* ts);
 
@@ -89,15 +63,9 @@ public:
 	virtual wyAction* copy();
 
 	/**
-	 * \if English
 	 * This action doesn't have reverse action, so \c reverse method returns NULL
 	 *
 	 * @return NULL
-	 * \else
-	 * 此动作不支持反转，返回为NULL
-	 *
-	 * @return NULL
-	 * \endif
 	 */
 	virtual wyAction* reverse();
 

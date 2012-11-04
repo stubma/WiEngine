@@ -32,58 +32,22 @@
 #include "wyIntervalAction.h"
 
 /**
- * @class wyClipIn
- *
- * \if English
- * Dynamic change clip rect of node to get an enter animation
- * \else
- * 动态的改变节点的裁剪区域从而得到一个逐渐显示的效果, 类似于愤怒小鸟中的菜单出现效果
- * \endif
+ * enlarge clip rect of node gradually to get an enter animation
  */
 class WIENGINE_API wyClipIn : public wyIntervalAction {
 public:
-	/**
-	 * \if English
-	 * Direction to which clip rect moves
-	 * \else
-	 * 裁剪区域渐变的方向
-	 * \endif
-	 */
+	/// Direction to which clip rect moves
 	enum Direction {
-		/**
-		 * \if English
-		 * clip grows from left to right side
-		 * \else
-		 * 从左边开始显示到右边
-		 * \endif
-		 */
+		/// clip grows from left to right side
 		LEFT_TO_RIGHT,
 
-		/**
-		 * \if English
-		 * clip grows from right to left side
-		 * \else
-		 * 从右边开始显示到左边
-		 * \endif
-		 */
+		/// clip grows from right to left side
 		RIGHT_TO_LEFT,
 
-		/**
-		 * \if English
-		 * clip grows from top to bottom side
-		 * \else
-		 * 从上边开始显示到下边
-		 * \endif
-		 */
+		/// \if English
 		TOP_TO_BOTTOM,
 
-		/**
-		 * \if English
-		 * clip grows from bottom to top side
-		 * \else
-		 * 从下边开始显示到上边
-		 * \endif
-		 */
+		/// clip grows from bottom to top side
 		BOTTOM_TO_TOP
 	};
 
@@ -104,19 +68,11 @@ public:
 	virtual ~wyClipIn();
 
 	/**
-	 * \if English
 	 * Create a clip in action
 	 *
 	 * @param duration action duration in seconds
 	 * @param direction clip grow direction, default is \c BOTTOM_TO_TOP
 	 * @return \link wyClipIn wyClipIn\endlink
-	 * \else
-	 * 创建一个clip in动作
-	 *
-	 * @param duration 动作支持时间, 单位秒
-	 * @param direction 裁剪区域变化的方向, 缺省是从下到上
-	 * @return \link wyClipIn wyClipIn\endlink
-	 * \endif
 	 */
 	static wyClipIn* make(float duration, Direction direction = BOTTOM_TO_TOP);
 

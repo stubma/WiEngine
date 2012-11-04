@@ -33,47 +33,27 @@
 #include "WiEngine-Classes.h"
 
 /**
- * @class wyAnimate
- *
- * \if English
  * Encapsulate animation action, it requires a \link wyAnimation wyAnimation\endlink object which
  * provides frame info
- * \else
- * 动画播放动作的封装
- * \endif
  */
 class WIENGINE_API wyAnimate : public wyIntervalAction {
 protected:
-	/**
-	 * \if English
-	 * \link wyAnimation wyAnimation\endlink pointer
-	 * \else
-	 * 动画 \link wyAnimation wyAnimation\endlink 对象指针
-	 * \endif
-	 */
+	/// \link wyAnimation wyAnimation\endlink pointer
 	wyAnimation* m_anim;
 
 	/**
-	 * \if English
 	 * the original frame before animation started, it will be restored
-	 * if fill after is set to false
-	 * \else
-	 * 起始帧 \link wyFrame wyFrame\endlink 对象指针
-	 * \endif
+	 * if fill after flag is set to false
 	 */
 	wyFrame* m_originFrame;
 
 	/**
-	 * \if English
 	 * false indicating original frame should be restored after animation ended, true means
 	 * keep last frame
-	 * \else
-	 * 动作停止后是否覆盖起始帧，true为覆盖
-	 * \endif
 	 */
 	bool m_fillAfter;
 
-	/// true表示原始帧已经保存过
+	/// true means original frame is saved
 	bool m_originFrameSaved;
 
 protected:
@@ -88,18 +68,11 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static factory method
 	 *
 	 * @param anim \link wyAnimation wyAnimation\endlink pointer
 	 * @param fillAfter false indicating restore to original frame when animation ends, or true
 	 * 		indicating keep last frame, default is false
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param anim 动画\link wyAnimation wyAnimation\endlink 对象指针
-	 * @param fillAfter 动作停止后是否回到sprite的原始图片，true为不回到，false表示回到原来的图片. 缺省是false
-	 * \endif
 	 */
 	static wyAnimate* make(wyAnimation* anim, bool fillAfter = false);
 

@@ -32,56 +32,29 @@
 #include "wyIntervalAction.h"
 
 /**
- * @class wyBlink
- *
- * \if English
  * Blink a node
- * \else
- * 控制节点闪烁动作的封装
- * \endif
  */
 class WIENGINE_API wyBlink : public wyIntervalAction {
 protected:
-	/**
-	 * \if English
-	 * times of blink
-	 * \else
-	 * 节点闪烁的次数
-	 * \endif
-	 */
+	/// times of blink
 	int m_times;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration duration time in second
 	 * @param times times of blink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param times 节点闪烁的次数
-	 * \endif
 	 */
 	wyBlink(float duration, float times);
 
 public:
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param duration duration time in second
 	 * @param times times of blink
 	 * @return \link wyBlink wyBlink\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param times 节点闪烁的次数
-	 * @return \link wyBlink wyBlink\endlink
-	 * \endif
 	 */
 	static wyBlink* make(float duration, float times);
 

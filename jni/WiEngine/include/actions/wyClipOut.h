@@ -32,58 +32,22 @@
 #include "wyIntervalAction.h"
 
 /**
- * @class wyClipOut
- *
- * \if English
- * Dynamic change clip rect of node to get an exit animation
- * \else
- * 动态的改变节点的裁剪区域从而得到一个逐渐隐藏的效果, 类似于愤怒小鸟中的菜单隐藏效果
- * \endif
+ * Reduce change clip rect gradually of node to get an exit animation
  */
 class WIENGINE_API wyClipOut : public wyIntervalAction {
 public:
-	/**
-	 * \if English
-	 * Direction to which clip rect moves
-	 * \else
-	 * 裁剪区域渐变的方向
-	 * \endif
-	 */
+	/// Direction of shrinking clip rect
 	enum Direction {
-		/**
-		 * \if English
-		 * clip shrinks from left to right side
-		 * \else
-		 * 从左边开始隐藏到右边
-		 * \endif
-		 */
+		/// clip shrinks from left to right side
 		LEFT_TO_RIGHT,
 
-		/**
-		 * \if English
-		 * clip shrinks from right to left side
-		 * \else
-		 * 从右边开始隐藏到左边
-		 * \endif
-		 */
+		/// clip shrinks from right to left side
 		RIGHT_TO_LEFT,
 
-		/**
-		 * \if English
-		 * clip shrinks from top to bottom side
-		 * \else
-		 * 从上边开始隐藏到下边
-		 * \endif
-		 */
+		/// clip shrinks from top to bottom side
 		TOP_TO_BOTTOM,
 
-		/**
-		 * \if English
-		 * clip shrinks from bottom to top side
-		 * \else
-		 * 从下边开始隐藏到上边
-		 * \endif
-		 */
+		/// clip shrinks from bottom to top side
 		BOTTOM_TO_TOP
 	};
 
@@ -104,19 +68,11 @@ public:
 	virtual ~wyClipOut();
 
 	/**
-	 * \if English
 	 * Create a clip out action
 	 *
 	 * @param duration action duration in seconds
 	 * @param direction clip shrink direction, default is \c TOP_TO_BOTTOM
 	 * @return \link wyClipOut wyClipOut\endlink
-	 * \else
-	 * 创建一个clip out动作
-	 *
-	 * @param duration 动作支持时间, 单位秒
-	 * @param direction 裁剪区域变化的方向, 缺省是从上到下
-	 * @return \link wyClipOut wyClipOut\endlink
-	 * \endif
 	 */
 	static wyClipOut* make(float duration, Direction direction = TOP_TO_BOTTOM);
 

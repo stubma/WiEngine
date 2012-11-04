@@ -32,26 +32,35 @@
 #include "wyIntervalAction.h"
 
 /**
- * @class wyCameraAction
- *
- * \if English
  * Base class for camera action
- * \else
- * 相机类动作的基类。相机类动作通过移动视点来产生特殊效果
- * \endif
  */
 class WIENGINE_API wyCameraAction : public wyIntervalAction {
 protected:
+	/// camera center x
 	float m_centerX;
+
+	/// camera center y
 	float m_centerY;
+
+	/// camera center z
 	float m_centerZ;
 
+	/// eye x
 	float m_eyeX;
+
+	/// eye y
 	float m_eyeY;
+
+	/// eye z
 	float m_eyeZ;
 
+	/// positive direction x
 	float m_upX;
+
+	/// positive direction y
 	float m_upY;
+
+	/// positive direction z
 	float m_upZ;
 
 protected:
