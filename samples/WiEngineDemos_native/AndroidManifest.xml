@@ -1710,14 +1710,6 @@
 			</intent-filter>
 			<meta-data android:name="desc" android:resource="@string/SpriteExSelfRenderTest_desc"></meta-data>
 		</activity>	
-		<activity android:name=".tests.node.CoverFlowTest"
-			android:label="Node/Cover Flow">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.TEST" />
-			</intent-filter>
-			<meta-data android:name="desc" android:resource="@string/CoverFlowTest_desc"></meta-data>
-		</activity>
 		<activity android:name=".tests.node.DialogTest"
 			android:label="Node/Dialog">
 			<intent-filter>

@@ -2225,71 +2225,6 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class wyCoverFlowTestLayer : public wyNodeTestLayer {
-private:
-    wyCoverFlow* m_coverFlow;
-    wyCover*     m_covers[9];
-
-public:
-	wyCoverFlowTestLayer() {
-		setTouchEnabled(true);
-#if ANDROID
-		setKeyEnabled(true);
-#endif
-
-        int id1 = RES("R.drawable.atlastest");
-        int id2 = RES("R.drawable.test_jpg");
-
-        m_coverFlow = wyCoverFlow::make();
-        m_coverFlow->setAnchor(0.0f, 0.0f);
-        m_coverFlow->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-
-        for(int i = 0; i < 9; ++i) {
-        	if(i % 2 == 0) {
-        		m_covers[i] = wyCover::make(wyTexture2D::makePNG(id1));
-        	} else {
-        		m_covers[i] = wyCover::make(wyTexture2D::makeJPG(id2));
-        	}
-            m_coverFlow->addCover(m_covers[i]);
-        }
-
-        m_covers[4]->setRotateY(0.0f);
-        m_coverFlow->setBlurredBorderWidth(0.1f);
-        m_coverFlow->setFrontCoverSize(wyDevice::winWidth / 3,  wyDevice::winWidth / 3);
-        m_coverFlow->setFrontCenterPosition(0, 50);
-
-        m_coverFlow->showCover(m_covers[4]);
-        addChildLocked(m_coverFlow);
-	}
-
-	virtual ~wyCoverFlowTestLayer() {
-	}
-
-	virtual bool touchesBegan(wyMotionEvent& event) {
-        wyCover* touchedCover = m_coverFlow->getTouchedCover(event.x[0], event.y[0]);
-        if(touchedCover) {
-            int step = abs(m_coverFlow->getIndex(touchedCover) - m_coverFlow->getIndex(m_coverFlow->getFrontCover()));
-            m_coverFlow->showCover(touchedCover, step * 0.3f);
-        }
-		return true;
-	}
-
-	virtual bool keyUp(wyKeyEvent& event) {
-		switch(event.keyCode) {
-			case KEYCODE_DPAD_LEFT:
-				m_coverFlow->moveLeft(0.3f);
-				return true;
-			case KEYCODE_DPAD_RIGHT:
-				m_coverFlow->moveRight(0.3f);
-				return true;
-			default:
-				return false;
-		}
-	}
-};
-
-///////////////////////////////////////////////////////////////////////////////
-
 class wyDialogTestLayer : public wyNodeTestLayer {
 public:
 	wyDialogTestLayer() {
@@ -2693,7 +2628,6 @@ DEMO_ENTRY_IMPL(BitmapFontHGETest);
 DEMO_ENTRY_IMPL(BitmapFontAngelCodeTest);
 DEMO_ENTRY_IMPL(ButtonTest);
 DEMO_ENTRY_IMPL(ClipMappingAuroraGTTest);
-DEMO_ENTRY_IMPL(CoverFlowTest);
 DEMO_ENTRY_IMPL(DialogTest);
 DEMO_ENTRY_IMPL(GradientColorLayerTest);
 DEMO_ENTRY_IMPL(ImageSpriteTest);

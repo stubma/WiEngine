@@ -200,7 +200,6 @@
     <string name="SpriteExSelfRenderTest_desc">演示如何创建不使用BatchNode进行渲染的图片节点</string>    
     <string name="ChainShapeTest_desc">演示如何使用Chain Shape创建一个闭合连接形状</string>
     <string name="TexturedChainShapeTest_desc">演示如何给ChainShape增加贴图绑定</string>
-    <string name="CoverFlowTest_desc">演示如何创建和使用CoverFlow节点</string>
     <string name="DialogTest_desc">wyDialog封装了基本的对话框逻辑和创建对话框的框架, 对话框其实是一个层</string>
 	<string name="PageControlTest_desc">演示如何使用PageControl控件, PageControl是一个横或竖向的滚动控件, 可以添加Node子类作为项目, 其类似于Android的Gallery控件和iPhone的UIPageControl控件</string>
 	<string name="ShakeTest_desc">节点在一个范围内随机运动, 呈现抖动的效果</string>

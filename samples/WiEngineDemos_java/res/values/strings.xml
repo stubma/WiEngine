@@ -201,7 +201,6 @@
     <string name="ChainShapeTest_desc">演示如何使用Chain Shape创建一个闭合连接形状</string>
     <string name="TexturedChainShapeTest_desc">演示如何给ChainShape增加贴图绑定</string>
 	<string name="PageControlTest_desc">演示如何使用PageControl控件, PageControl是一个横或竖向的滚动控件, 可以添加Node子类作为项目, 其类似于Android的Gallery控件和iPhone的UIPageControl控件</string>
-    <string name="CoverFlowTest_desc">演示如何创建和使用CoverFlow节点</string>
     <string name="DialogTest_desc">wyDialog implements dialog basic logic and building process</string>
 	<string name="ShakeTest_desc">节点在一个范围内随机运动, 呈现抖动的效果</string>
     <string name="HGETest_desc">HGE ParticleEd是一个粒子系统设计工具, WiEngine支持从它生成的描述文件中载入粒子效果</string>

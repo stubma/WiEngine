@@ -20,7 +20,6 @@ DEMO_ENTRY(node, BitmapFontAngelCodeTest);
 DEMO_ENTRY(node, BitmapFontHGETest);
 DEMO_ENTRY(node, ButtonTest);
 DEMO_ENTRY(node, ClipMappingAuroraGTTest);
-DEMO_ENTRY(node, CoverFlowTest);
 DEMO_ENTRY(node, DialogTest);
 DEMO_ENTRY(node, ImageSpriteTest);
 DEMO_ENTRY(node, LabelTest);

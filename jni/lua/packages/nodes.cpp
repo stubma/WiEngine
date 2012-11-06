@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Fri Nov  2 11:24:59 2012.
+** Generated automatically by tolua++-1.0.92 on Tue Nov  6 14:58:48 2012.
 */
 
 #ifndef __cplusplus
@@ -88,13 +88,6 @@ static int tolua_collect_wyBladeRibbon (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyCover (lua_State* tolua_S)
-{
- wyCover* self = (wyCover*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
 static int tolua_collect_wySpriteFrame (lua_State* tolua_S)
 {
  wySpriteFrame* self = (wySpriteFrame*) tolua_tousertype(tolua_S,1,0);
@@ -130,16 +123,9 @@ static int tolua_collect_wyGLContext (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyMenuItem (lua_State* tolua_S)
+static int tolua_collect_wyMenuItemLabel (lua_State* tolua_S)
 {
- wyMenuItem* self = (wyMenuItem*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyToast (lua_State* tolua_S)
-{
- wyToast* self = (wyToast*) tolua_tousertype(tolua_S,1,0);
+ wyMenuItemLabel* self = (wyMenuItemLabel*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -151,16 +137,23 @@ static int tolua_collect_wyNinePatchSprite (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyVirtualJoystick (lua_State* tolua_S)
+static int tolua_collect_wyScrollableLayer (lua_State* tolua_S)
 {
- wyVirtualJoystick* self = (wyVirtualJoystick*) tolua_tousertype(tolua_S,1,0);
+ wyScrollableLayer* self = (wyScrollableLayer*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
 
-static int tolua_collect_wyScrollableLayer (lua_State* tolua_S)
+static int tolua_collect_wyToast (lua_State* tolua_S)
 {
- wyScrollableLayer* self = (wyScrollableLayer*) tolua_tousertype(tolua_S,1,0);
+ wyToast* self = (wyToast*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
+static int tolua_collect_wyVirtualJoystick (lua_State* tolua_S)
+{
+ wyVirtualJoystick* self = (wyVirtualJoystick*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -179,6 +172,13 @@ static int tolua_collect_wyPageControl (lua_State* tolua_S)
 	return 0;
 }
 
+static int tolua_collect_wyGradientColorLayer (lua_State* tolua_S)
+{
+ wyGradientColorLayer* self = (wyGradientColorLayer*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
 static int tolua_collect_wyAnimation (lua_State* tolua_S)
 {
  wyAnimation* self = (wyAnimation*) tolua_tousertype(tolua_S,1,0);
@@ -193,23 +193,16 @@ static int tolua_collect_wyDotPageIndicator (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyGradientColorLayer (lua_State* tolua_S)
+static int tolua_collect_wyTextureNode (lua_State* tolua_S)
 {
- wyGradientColorLayer* self = (wyGradientColorLayer*) tolua_tousertype(tolua_S,1,0);
+ wyTextureNode* self = (wyTextureNode*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
 
-static int tolua_collect_wyParallaxNode (lua_State* tolua_S)
+static int tolua_collect_wyCharMap (lua_State* tolua_S)
 {
- wyParallaxNode* self = (wyParallaxNode*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyAffineTransform (lua_State* tolua_S)
-{
- wyAffineTransform* self = (wyAffineTransform*) tolua_tousertype(tolua_S,1,0);
+ wyCharMap* self = (wyCharMap*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -217,20 +210,6 @@ static int tolua_collect_wyAffineTransform (lua_State* tolua_S)
 static int tolua_collect_wyTileMapAtlas (lua_State* tolua_S)
 {
  wyTileMapAtlas* self = (wyTileMapAtlas*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyTiledSprite (lua_State* tolua_S)
-{
- wyTiledSprite* self = (wyTiledSprite*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyDirector (lua_State* tolua_S)
-{
- wyDirector* self = (wyDirector*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -249,9 +228,9 @@ static int tolua_collect_wyLayer (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyTextureNode (lua_State* tolua_S)
+static int tolua_collect_wyTiledSprite (lua_State* tolua_S)
 {
- wyTextureNode* self = (wyTextureNode*) tolua_tousertype(tolua_S,1,0);
+ wyTiledSprite* self = (wyTiledSprite*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -277,9 +256,9 @@ static int tolua_collect_wyMotionStreak (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wySpriteBatchNode (lua_State* tolua_S)
+static int tolua_collect_wyColor3B (lua_State* tolua_S)
 {
- wySpriteBatchNode* self = (wySpriteBatchNode*) tolua_tousertype(tolua_S,1,0);
+ wyColor3B* self = (wyColor3B*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -312,9 +291,9 @@ static int tolua_collect_wyArrayTileMapAtlas (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyVertex3D (lua_State* tolua_S)
+static int tolua_collect_wySpriteBatchNode (lua_State* tolua_S)
 {
- wyVertex3D* self = (wyVertex3D*) tolua_tousertype(tolua_S,1,0);
+ wySpriteBatchNode* self = (wySpriteBatchNode*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -322,6 +301,13 @@ static int tolua_collect_wyVertex3D (lua_State* tolua_S)
 static int tolua_collect_wyStripRibbon (lua_State* tolua_S)
 {
  wyStripRibbon* self = (wyStripRibbon*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
+static int tolua_collect_wyDirector (lua_State* tolua_S)
+{
+ wyDirector* self = (wyDirector*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -336,13 +322,6 @@ static int tolua_collect_wyScene (lua_State* tolua_S)
 static int tolua_collect_wyRibbon (lua_State* tolua_S)
 {
  wyRibbon* self = (wyRibbon*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyColor3B (lua_State* tolua_S)
-{
- wyColor3B* self = (wyColor3B*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -382,16 +361,16 @@ static int tolua_collect_wyMultiplexLayer (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyAtlasNode (lua_State* tolua_S)
+static int tolua_collect_wyAffineTransform (lua_State* tolua_S)
 {
- wyAtlasNode* self = (wyAtlasNode*) tolua_tousertype(tolua_S,1,0);
+ wyAffineTransform* self = (wyAffineTransform*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
 
-static int tolua_collect_wyCoverFlow (lua_State* tolua_S)
+static int tolua_collect_wyParallaxNode (lua_State* tolua_S)
 {
- wyCoverFlow* self = (wyCoverFlow*) tolua_tousertype(tolua_S,1,0);
+ wyParallaxNode* self = (wyParallaxNode*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -403,23 +382,23 @@ static int tolua_collect_wyMenuItemAtlasLabel (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_wyCharMap (lua_State* tolua_S)
-{
- wyCharMap* self = (wyCharMap*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyMenuItemLabel (lua_State* tolua_S)
-{
- wyMenuItemLabel* self = (wyMenuItemLabel*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
 static int tolua_collect_wyFrame (lua_State* tolua_S)
 {
  wyFrame* self = (wyFrame*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
+static int tolua_collect_wyMenuItem (lua_State* tolua_S)
+{
+ wyMenuItem* self = (wyMenuItem*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
+static int tolua_collect_wyAtlasNode (lua_State* tolua_S)
+{
+ wyAtlasNode* self = (wyAtlasNode*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -435,25 +414,23 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyAtlasLabel");
  tolua_usertype(tolua_S,"wyLineRibbon");
  tolua_usertype(tolua_S,"wySpriteEx");
- tolua_usertype(tolua_S,"wyGLSurfaceView");
+ tolua_usertype(tolua_S,"wyAtlasNode");
  tolua_usertype(tolua_S,"wyKeyEvent");
  tolua_usertype(tolua_S,"wySpriteFrame");
  tolua_usertype(tolua_S,"wySpotRibbon");
  tolua_usertype(tolua_S,"wyProgressTimer");
- tolua_usertype(tolua_S,"wyCoverFlow");
  tolua_usertype(tolua_S,"wyDirectorLifecycleListener");
  tolua_usertype(tolua_S,"wyAnimation");
- tolua_usertype(tolua_S,"wyScene");
+ tolua_usertype(tolua_S,"wyMenuItemLabel");
  tolua_usertype(tolua_S,"wyNinePatchSprite");
  tolua_usertype(tolua_S,"wyScrollableLayer");
  tolua_usertype(tolua_S,"wyMenu");
  tolua_usertype(tolua_S,"wyDirector");
  tolua_usertype(tolua_S,"wyColor3B");
- tolua_usertype(tolua_S,"wyActionManager");
+ tolua_usertype(tolua_S,"wyFrame");
  tolua_usertype(tolua_S,"wyMotionStreak");
- tolua_usertype(tolua_S,"wyArray");
+ tolua_usertype(tolua_S,"wyColor4B");
  tolua_usertype(tolua_S,"wyLabel");
- tolua_usertype(tolua_S,"wyVertex3D");
  tolua_usertype(tolua_S,"wyStripRibbon");
  tolua_usertype(tolua_S,"wyMotionEvent");
  tolua_usertype(tolua_S,"wyTexture2D");
@@ -477,40 +454,39 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyTextBox");
  tolua_usertype(tolua_S,"wyTextBoxCallback");
  tolua_usertype(tolua_S,"wyPageControlCallback");
+ tolua_usertype(tolua_S,"wyNodePositionListener");
  tolua_usertype(tolua_S,"wyPageControl");
- tolua_usertype(tolua_S,"wyGradientColorLayer");
- tolua_usertype(tolua_S,"wyRibbon");
- tolua_usertype(tolua_S,"wyDotPageIndicator");
+ tolua_usertype(tolua_S,"wyArray");
  tolua_usertype(tolua_S,"wyAction");
- tolua_usertype(tolua_S,"wyPageIndicator");
+ tolua_usertype(tolua_S,"wyDotPageIndicator");
  tolua_usertype(tolua_S,"wyTargetSelector");
+ tolua_usertype(tolua_S,"wyPageIndicator");
  tolua_usertype(tolua_S,"wyTransitionScene");
- tolua_usertype(tolua_S,"wyTileMapAtlas");
- tolua_usertype(tolua_S,"wyTiledSprite");
+ tolua_usertype(tolua_S,"wyParallaxNode");
  tolua_usertype(tolua_S,"wyPoint");
  tolua_usertype(tolua_S,"wyCharMap");
- tolua_usertype(tolua_S,"wyAtlasNode");
- tolua_usertype(tolua_S,"wyMenuItemLabel");
- tolua_usertype(tolua_S,"wyCover");
+ tolua_usertype(tolua_S,"wyTiledSprite");
+ tolua_usertype(tolua_S,"wyGLSurfaceView");
+ tolua_usertype(tolua_S,"wyResourceDecoder");
  tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyScaleMode");
  tolua_usertype(tolua_S,"wyArrayTileMapAtlas");
- tolua_usertype(tolua_S,"wyResourceDecoder");
+ tolua_usertype(tolua_S,"wyTileMapAtlas");
  tolua_usertype(tolua_S,"wyTextureNode");
+ tolua_usertype(tolua_S,"wyMenuItem");
  tolua_usertype(tolua_S,"wySpriteBatchNode");
  tolua_usertype(tolua_S,"wyMWSprite");
- tolua_usertype(tolua_S,"wyObject");
  tolua_usertype(tolua_S,"wyTimer");
  tolua_usertype(tolua_S,"wyScheduler");
- tolua_usertype(tolua_S,"wyMenuItem");
+ tolua_usertype(tolua_S,"wyObject");
  tolua_usertype(tolua_S,"wyAnimationCallback");
- tolua_usertype(tolua_S,"wyParallaxNode");
- tolua_usertype(tolua_S,"wyNodePositionListener");
- tolua_usertype(tolua_S,"wyLayer");
+ tolua_usertype(tolua_S,"wyScene");
+ tolua_usertype(tolua_S,"wyRibbon");
+ tolua_usertype(tolua_S,"wyGradientColorLayer");
  tolua_usertype(tolua_S,"wyNode");
  tolua_usertype(tolua_S,"wyZwoptexFrame");
- tolua_usertype(tolua_S,"wyFrame");
- tolua_usertype(tolua_S,"wyColor4B");
+ tolua_usertype(tolua_S,"wyLayer");
+ tolua_usertype(tolua_S,"wyActionManager");
 }
 
 /* method: getInstance of class  wyActionManager */
@@ -2790,2013 +2766,6 @@ static int tolua_nodes_wyColorLayer_setColor01(lua_State* tolua_S)
  return 0;
 tolua_lerror:
  return tolua_nodes_wyColorLayer_setColor00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: make of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_make00
-static int tolua_nodes_wyCover_make00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyCover* tolua_ret = (wyCover*)  wyCover::make(tex);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_new00
-static int tolua_nodes_wyCover_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyCover* tolua_ret = (wyCover*)  Mtolua_new((wyCover)(tex));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_new00_local
-static int tolua_nodes_wyCover_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyCover* tolua_ret = (wyCover*)  Mtolua_new((wyCover)(tex));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: delete of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_delete00
-static int tolua_nodes_wyCover_delete00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
-#endif
-  Mtolua_delete(self);
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setPosition of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_setPosition00
-static int tolua_nodes_wyCover_setPosition00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-  float posX = ((float)  tolua_tonumber(tolua_S,2,0));
-  float posY = ((float)  tolua_tonumber(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPosition'", NULL);
-#endif
-  {
-   self->setPosition(posX,posY);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setPosition'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getPosition of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_getPosition00
-static int tolua_nodes_wyCover_getPosition00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPosition'", NULL);
-#endif
-  {
-   wyVertex3D tolua_ret = (wyVertex3D)  self->getPosition();
-   {
-#ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((wyVertex3D)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"wyVertex3D");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(wyVertex3D));
-     tolua_pushusertype(tolua_S,tolua_obj,"wyVertex3D");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#endif
-   }
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getPosition'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setRotateY of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_setRotateY00
-static int tolua_nodes_wyCover_setRotateY00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-  float degree = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRotateY'", NULL);
-#endif
-  {
-   self->setRotateY(degree);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setRotateY'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getRotateY of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_getRotateY00
-static int tolua_nodes_wyCover_getRotateY00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRotateY'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getRotateY();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getRotateY'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setScale of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_setScale00
-static int tolua_nodes_wyCover_setScale00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-  float scale = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setScale'", NULL);
-#endif
-  {
-   self->setScale(scale);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setScale'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getScale of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_getScale00
-static int tolua_nodes_wyCover_getScale00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getScale'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getScale();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getScale'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getTexture of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_getTexture00
-static int tolua_nodes_wyCover_getTexture00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTexture'", NULL);
-#endif
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  self->getTexture();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getTexture'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setTexture of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_setTexture00
-static int tolua_nodes_wyCover_setTexture00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-  wyTexture2D* tex = ((wyTexture2D*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setTexture'", NULL);
-#endif
-  {
-   self->setTexture(tex);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setTexture'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getNext of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_getNext00
-static int tolua_nodes_wyCover_getNext00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNext'", NULL);
-#endif
-  {
-   wyCover* tolua_ret = (wyCover*)  self->getNext();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getNext'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setNext of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_setNext00
-static int tolua_nodes_wyCover_setNext00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-  wyCover* next = ((wyCover*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setNext'", NULL);
-#endif
-  {
-   self->setNext(next);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setNext'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getPrev of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_getPrev00
-static int tolua_nodes_wyCover_getPrev00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPrev'", NULL);
-#endif
-  {
-   wyCover* tolua_ret = (wyCover*)  self->getPrev();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getPrev'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setPrev of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_setPrev00
-static int tolua_nodes_wyCover_setPrev00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-  wyCover* prev = ((wyCover*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPrev'", NULL);
-#endif
-  {
-   self->setPrev(prev);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setPrev'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getAutoUpdate of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_getAutoUpdate00
-static int tolua_nodes_wyCover_getAutoUpdate00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAutoUpdate'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->getAutoUpdate();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getAutoUpdate'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setAutoUpdate of class  wyCover */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCover_setAutoUpdate00
-static int tolua_nodes_wyCover_setAutoUpdate00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCover",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCover* self = (wyCover*)  tolua_tousertype(tolua_S,1,0);
-  bool bEnable = ((bool)  tolua_toboolean(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAutoUpdate'", NULL);
-#endif
-  {
-   self->setAutoUpdate(bEnable);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setAutoUpdate'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: make of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_make00
-static int tolua_nodes_wyCoverFlow_make00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   wyCoverFlow* tolua_ret = (wyCoverFlow*)  wyCoverFlow::make();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCoverFlow");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_new00
-static int tolua_nodes_wyCoverFlow_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   wyCoverFlow* tolua_ret = (wyCoverFlow*)  Mtolua_new((wyCoverFlow)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCoverFlow");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_new00_local
-static int tolua_nodes_wyCoverFlow_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   wyCoverFlow* tolua_ret = (wyCoverFlow*)  Mtolua_new((wyCoverFlow)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCoverFlow");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_new01
-static int tolua_nodes_wyCoverFlow_new01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  {
-   wyCoverFlow* tolua_ret = (wyCoverFlow*)  Mtolua_new((wyCoverFlow)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCoverFlow");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_nodes_wyCoverFlow_new00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_new01_local
-static int tolua_nodes_wyCoverFlow_new01_local(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  {
-   wyCoverFlow* tolua_ret = (wyCoverFlow*)  Mtolua_new((wyCoverFlow)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCoverFlow");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_nodes_wyCoverFlow_new00_local(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: addCover of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_addCover00
-static int tolua_nodes_wyCoverFlow_addCover00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  wyCover* cover = ((wyCover*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addCover'", NULL);
-#endif
-  {
-   self->addCover(cover);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'addCover'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: removeCover of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_removeCover00
-static int tolua_nodes_wyCoverFlow_removeCover00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  wyCover* cover = ((wyCover*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeCover'", NULL);
-#endif
-  {
-   self->removeCover(cover);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeCover'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: insertCoverBefore of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_insertCoverBefore00
-static int tolua_nodes_wyCoverFlow_insertCoverBefore00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyCover",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  wyCover* cover = ((wyCover*)  tolua_tousertype(tolua_S,2,0));
-  wyCover* after = ((wyCover*)  tolua_tousertype(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'insertCoverBefore'", NULL);
-#endif
-  {
-   self->insertCoverBefore(cover,after);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'insertCoverBefore'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getIndex of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getIndex00
-static int tolua_nodes_wyCoverFlow_getIndex00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyCover",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  wyCover* cover = ((wyCover*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getIndex'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getIndex(cover);
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getIndex'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getCoverAt of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getCoverAt00
-static int tolua_nodes_wyCoverFlow_getCoverAt00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  int index = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCoverAt'", NULL);
-#endif
-  {
-   wyCover* tolua_ret = (wyCover*)  self->getCoverAt(index);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getCoverAt'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getCoverList of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getCoverList00
-static int tolua_nodes_wyCoverFlow_getCoverList00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCoverList'", NULL);
-#endif
-  {
-   wyCover* tolua_ret = (wyCover*)  self->getCoverList();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getCoverList'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getFrontCover of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getFrontCover00
-static int tolua_nodes_wyCoverFlow_getFrontCover00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFrontCover'", NULL);
-#endif
-  {
-   wyCover* tolua_ret = (wyCover*)  self->getFrontCover();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getFrontCover'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setFrontCoverSize of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setFrontCoverSize00
-static int tolua_nodes_wyCoverFlow_setFrontCoverSize00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,4,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float width = ((float)  tolua_tonumber(tolua_S,2,0));
-  float height = ((float)  tolua_tonumber(tolua_S,3,0));
-  bool updateOthers = ((bool)  tolua_toboolean(tolua_S,4,true));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFrontCoverSize'", NULL);
-#endif
-  {
-   self->setFrontCoverSize(width,height,updateOthers);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setFrontCoverSize'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setFrontCenterPosition of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setFrontCenterPosition00
-static int tolua_nodes_wyCoverFlow_setFrontCenterPosition00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  int centerX = ((int)  tolua_tonumber(tolua_S,2,0));
-  int centerY = ((int)  tolua_tonumber(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFrontCenterPosition'", NULL);
-#endif
-  {
-   self->setFrontCenterPosition(centerX,centerY);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setFrontCenterPosition'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setCountLeftVisible of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setCountLeftVisible00
-static int tolua_nodes_wyCoverFlow_setCountLeftVisible00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  int count = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setCountLeftVisible'", NULL);
-#endif
-  {
-   self->setCountLeftVisible(count);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setCountLeftVisible'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getCountLeftVisible of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getCountLeftVisible00
-static int tolua_nodes_wyCoverFlow_getCountLeftVisible00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCountLeftVisible'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getCountLeftVisible();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getCountLeftVisible'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setCountRightVisible of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setCountRightVisible00
-static int tolua_nodes_wyCoverFlow_setCountRightVisible00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  int count = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setCountRightVisible'", NULL);
-#endif
-  {
-   self->setCountRightVisible(count);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setCountRightVisible'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getCountRightVisible of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getCountRightVisible00
-static int tolua_nodes_wyCoverFlow_getCountRightVisible00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCountRightVisible'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getCountRightVisible();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getCountRightVisible'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isMirrorEnabled of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_isMirrorEnabled00
-static int tolua_nodes_wyCoverFlow_isMirrorEnabled00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isMirrorEnabled'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isMirrorEnabled();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isMirrorEnabled'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setMirrorEnable of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setMirrorEnable00
-static int tolua_nodes_wyCoverFlow_setMirrorEnable00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  bool bEnable = ((bool)  tolua_toboolean(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMirrorEnable'", NULL);
-#endif
-  {
-   self->setMirrorEnable(bEnable);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setMirrorEnable'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setBlurredBorderWidth of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setBlurredBorderWidth00
-static int tolua_nodes_wyCoverFlow_setBlurredBorderWidth00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float percent = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBlurredBorderWidth'", NULL);
-#endif
-  {
-   self->setBlurredBorderWidth(percent);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setBlurredBorderWidth'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setBlurredBorderWidthInPixels of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setBlurredBorderWidthInPixels00
-static int tolua_nodes_wyCoverFlow_setBlurredBorderWidthInPixels00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  int width = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBlurredBorderWidthInPixels'", NULL);
-#endif
-  {
-   self->setBlurredBorderWidthInPixels(width);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setBlurredBorderWidthInPixels'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setDepthZ of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setDepthZ00
-static int tolua_nodes_wyCoverFlow_setDepthZ00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float z = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDepthZ'", NULL);
-#endif
-  {
-   self->setDepthZ(z);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setDepthZ'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getDepthZ of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getDepthZ00
-static int tolua_nodes_wyCoverFlow_getDepthZ00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDepthZ'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getDepthZ();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getDepthZ'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setFirstLeftOffset of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setFirstLeftOffset00
-static int tolua_nodes_wyCoverFlow_setFirstLeftOffset00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float offset = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFirstLeftOffset'", NULL);
-#endif
-  {
-   self->setFirstLeftOffset(offset);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setFirstLeftOffset'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getFirstLeftOffset of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getFirstLeftOffset00
-static int tolua_nodes_wyCoverFlow_getFirstLeftOffset00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFirstLeftOffset'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getFirstLeftOffset();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getFirstLeftOffset'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setFirstRightOffset of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setFirstRightOffset00
-static int tolua_nodes_wyCoverFlow_setFirstRightOffset00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float offset = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFirstRightOffset'", NULL);
-#endif
-  {
-   self->setFirstRightOffset(offset);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setFirstRightOffset'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getFirstRightOffset of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getFirstRightOffset00
-static int tolua_nodes_wyCoverFlow_getFirstRightOffset00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFirstRightOffset'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getFirstRightOffset();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getFirstRightOffset'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setLeftCoverCenterDelta of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setLeftCoverCenterDelta00
-static int tolua_nodes_wyCoverFlow_setLeftCoverCenterDelta00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float delta = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLeftCoverCenterDelta'", NULL);
-#endif
-  {
-   self->setLeftCoverCenterDelta(delta);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setLeftCoverCenterDelta'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getLeftCoverCenterDelta of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getLeftCoverCenterDelta00
-static int tolua_nodes_wyCoverFlow_getLeftCoverCenterDelta00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLeftCoverCenterDelta'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getLeftCoverCenterDelta();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getLeftCoverCenterDelta'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setRightCoverCenterDelta of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setRightCoverCenterDelta00
-static int tolua_nodes_wyCoverFlow_setRightCoverCenterDelta00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float delta = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRightCoverCenterDelta'", NULL);
-#endif
-  {
-   self->setRightCoverCenterDelta(delta);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setRightCoverCenterDelta'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getRightCoverCenterDelta of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getRightCoverCenterDelta00
-static int tolua_nodes_wyCoverFlow_getRightCoverCenterDelta00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRightCoverCenterDelta'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getRightCoverCenterDelta();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getRightCoverCenterDelta'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setRotateDegreeLeft of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setRotateDegreeLeft00
-static int tolua_nodes_wyCoverFlow_setRotateDegreeLeft00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float degree = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRotateDegreeLeft'", NULL);
-#endif
-  {
-   self->setRotateDegreeLeft(degree);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setRotateDegreeLeft'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getRotateDegreeLeft of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getRotateDegreeLeft00
-static int tolua_nodes_wyCoverFlow_getRotateDegreeLeft00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRotateDegreeLeft'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getRotateDegreeLeft();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getRotateDegreeLeft'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setRotateDegreeRight of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setRotateDegreeRight00
-static int tolua_nodes_wyCoverFlow_setRotateDegreeRight00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float degree = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRotateDegreeRight'", NULL);
-#endif
-  {
-   self->setRotateDegreeRight(degree);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setRotateDegreeRight'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getRotateDegreeRight of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getRotateDegreeRight00
-static int tolua_nodes_wyCoverFlow_getRotateDegreeRight00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRotateDegreeRight'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getRotateDegreeRight();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getRotateDegreeRight'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: showCover of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_showCover00
-static int tolua_nodes_wyCoverFlow_showCover00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyCover",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  wyCover* cover = ((wyCover*)  tolua_tousertype(tolua_S,2,0));
-  float duration = ((float)  tolua_tonumber(tolua_S,3,0.0f));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'showCover'", NULL);
-#endif
-  {
-   self->showCover(cover,duration);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'showCover'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: moveLeft of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_moveLeft00
-static int tolua_nodes_wyCoverFlow_moveLeft00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float duration = ((float)  tolua_tonumber(tolua_S,2,0.0f));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'moveLeft'", NULL);
-#endif
-  {
-   self->moveLeft(duration);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'moveLeft'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: moveRight of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_moveRight00
-static int tolua_nodes_wyCoverFlow_moveRight00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float duration = ((float)  tolua_tonumber(tolua_S,2,0.0f));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'moveRight'", NULL);
-#endif
-  {
-   self->moveRight(duration);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'moveRight'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getTouchedCover of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getTouchedCover00
-static int tolua_nodes_wyCoverFlow_getTouchedCover00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float x = ((float)  tolua_tonumber(tolua_S,2,0));
-  float y = ((float)  tolua_tonumber(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTouchedCover'", NULL);
-#endif
-  {
-   wyCover* tolua_ret = (wyCover*)  self->getTouchedCover(x,y);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCover");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getTouchedCover'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setHeightFromMirror of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setHeightFromMirror00
-static int tolua_nodes_wyCoverFlow_setHeightFromMirror00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float height = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setHeightFromMirror'", NULL);
-#endif
-  {
-   self->setHeightFromMirror(height);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setHeightFromMirror'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getHeightFromMirror of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getHeightFromMirror00
-static int tolua_nodes_wyCoverFlow_getHeightFromMirror00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getHeightFromMirror'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getHeightFromMirror();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getHeightFromMirror'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setBrightLevelOfMirror of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_setBrightLevelOfMirror00
-static int tolua_nodes_wyCoverFlow_setBrightLevelOfMirror00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-  float level = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBrightLevelOfMirror'", NULL);
-#endif
-  {
-   self->setBrightLevelOfMirror(level);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setBrightLevelOfMirror'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getBrightLevelOfMirror of class  wyCoverFlow */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyCoverFlow_getBrightLevelOfMirror00
-static int tolua_nodes_wyCoverFlow_getBrightLevelOfMirror00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyCoverFlow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyCoverFlow* self = (wyCoverFlow*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBrightLevelOfMirror'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getBrightLevelOfMirror();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getBrightLevelOfMirror'.",&tolua_err);
- return 0;
-#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -31590,87 +29559,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getColor",tolua_nodes_wyColorLayer_getColor00);
    tolua_function(tolua_S,"setColor",tolua_nodes_wyColorLayer_setColor00);
    tolua_function(tolua_S,"setColor",tolua_nodes_wyColorLayer_setColor01);
-  tolua_endmodule(tolua_S);
-  tolua_constant(tolua_S,"DEFAULT_DEGREE_LEFT",DEFAULT_DEGREE_LEFT);
-  tolua_constant(tolua_S,"DEFAULT_DEGREE_RIGHT",DEFAULT_DEGREE_RIGHT);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"wyCover","wyCover","wyObject",tolua_collect_wyCover);
-  #else
-  tolua_cclass(tolua_S,"wyCover","wyCover","wyObject",NULL);
-  #endif
-  tolua_beginmodule(tolua_S,"wyCover");
-   tolua_function(tolua_S,"make",tolua_nodes_wyCover_make00);
-   tolua_function(tolua_S,"new",tolua_nodes_wyCover_new00);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyCover_new00_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyCover_new00_local);
-   tolua_function(tolua_S,"delete",tolua_nodes_wyCover_delete00);
-   tolua_function(tolua_S,"setPosition",tolua_nodes_wyCover_setPosition00);
-   tolua_function(tolua_S,"getPosition",tolua_nodes_wyCover_getPosition00);
-   tolua_function(tolua_S,"setRotateY",tolua_nodes_wyCover_setRotateY00);
-   tolua_function(tolua_S,"getRotateY",tolua_nodes_wyCover_getRotateY00);
-   tolua_function(tolua_S,"setScale",tolua_nodes_wyCover_setScale00);
-   tolua_function(tolua_S,"getScale",tolua_nodes_wyCover_getScale00);
-   tolua_function(tolua_S,"getTexture",tolua_nodes_wyCover_getTexture00);
-   tolua_function(tolua_S,"setTexture",tolua_nodes_wyCover_setTexture00);
-   tolua_function(tolua_S,"getNext",tolua_nodes_wyCover_getNext00);
-   tolua_function(tolua_S,"setNext",tolua_nodes_wyCover_setNext00);
-   tolua_function(tolua_S,"getPrev",tolua_nodes_wyCover_getPrev00);
-   tolua_function(tolua_S,"setPrev",tolua_nodes_wyCover_setPrev00);
-   tolua_function(tolua_S,"getAutoUpdate",tolua_nodes_wyCover_getAutoUpdate00);
-   tolua_function(tolua_S,"setAutoUpdate",tolua_nodes_wyCover_setAutoUpdate00);
-  tolua_endmodule(tolua_S);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"wyCoverFlow","wyCoverFlow","wyNode",tolua_collect_wyCoverFlow);
-  #else
-  tolua_cclass(tolua_S,"wyCoverFlow","wyCoverFlow","wyNode",NULL);
-  #endif
-  tolua_beginmodule(tolua_S,"wyCoverFlow");
-   tolua_function(tolua_S,"make",tolua_nodes_wyCoverFlow_make00);
-   tolua_function(tolua_S,"new",tolua_nodes_wyCoverFlow_new00);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyCoverFlow_new00_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyCoverFlow_new00_local);
-   tolua_function(tolua_S,"new",tolua_nodes_wyCoverFlow_new01);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyCoverFlow_new01_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyCoverFlow_new01_local);
-   tolua_function(tolua_S,"addCover",tolua_nodes_wyCoverFlow_addCover00);
-   tolua_function(tolua_S,"removeCover",tolua_nodes_wyCoverFlow_removeCover00);
-   tolua_function(tolua_S,"insertCoverBefore",tolua_nodes_wyCoverFlow_insertCoverBefore00);
-   tolua_function(tolua_S,"getIndex",tolua_nodes_wyCoverFlow_getIndex00);
-   tolua_function(tolua_S,"getCoverAt",tolua_nodes_wyCoverFlow_getCoverAt00);
-   tolua_function(tolua_S,"getCoverList",tolua_nodes_wyCoverFlow_getCoverList00);
-   tolua_function(tolua_S,"getFrontCover",tolua_nodes_wyCoverFlow_getFrontCover00);
-   tolua_function(tolua_S,"setFrontCoverSize",tolua_nodes_wyCoverFlow_setFrontCoverSize00);
-   tolua_function(tolua_S,"setFrontCenterPosition",tolua_nodes_wyCoverFlow_setFrontCenterPosition00);
-   tolua_function(tolua_S,"setCountLeftVisible",tolua_nodes_wyCoverFlow_setCountLeftVisible00);
-   tolua_function(tolua_S,"getCountLeftVisible",tolua_nodes_wyCoverFlow_getCountLeftVisible00);
-   tolua_function(tolua_S,"setCountRightVisible",tolua_nodes_wyCoverFlow_setCountRightVisible00);
-   tolua_function(tolua_S,"getCountRightVisible",tolua_nodes_wyCoverFlow_getCountRightVisible00);
-   tolua_function(tolua_S,"isMirrorEnabled",tolua_nodes_wyCoverFlow_isMirrorEnabled00);
-   tolua_function(tolua_S,"setMirrorEnable",tolua_nodes_wyCoverFlow_setMirrorEnable00);
-   tolua_function(tolua_S,"setBlurredBorderWidth",tolua_nodes_wyCoverFlow_setBlurredBorderWidth00);
-   tolua_function(tolua_S,"setBlurredBorderWidthInPixels",tolua_nodes_wyCoverFlow_setBlurredBorderWidthInPixels00);
-   tolua_function(tolua_S,"setDepthZ",tolua_nodes_wyCoverFlow_setDepthZ00);
-   tolua_function(tolua_S,"getDepthZ",tolua_nodes_wyCoverFlow_getDepthZ00);
-   tolua_function(tolua_S,"setFirstLeftOffset",tolua_nodes_wyCoverFlow_setFirstLeftOffset00);
-   tolua_function(tolua_S,"getFirstLeftOffset",tolua_nodes_wyCoverFlow_getFirstLeftOffset00);
-   tolua_function(tolua_S,"setFirstRightOffset",tolua_nodes_wyCoverFlow_setFirstRightOffset00);
-   tolua_function(tolua_S,"getFirstRightOffset",tolua_nodes_wyCoverFlow_getFirstRightOffset00);
-   tolua_function(tolua_S,"setLeftCoverCenterDelta",tolua_nodes_wyCoverFlow_setLeftCoverCenterDelta00);
-   tolua_function(tolua_S,"getLeftCoverCenterDelta",tolua_nodes_wyCoverFlow_getLeftCoverCenterDelta00);
-   tolua_function(tolua_S,"setRightCoverCenterDelta",tolua_nodes_wyCoverFlow_setRightCoverCenterDelta00);
-   tolua_function(tolua_S,"getRightCoverCenterDelta",tolua_nodes_wyCoverFlow_getRightCoverCenterDelta00);
-   tolua_function(tolua_S,"setRotateDegreeLeft",tolua_nodes_wyCoverFlow_setRotateDegreeLeft00);
-   tolua_function(tolua_S,"getRotateDegreeLeft",tolua_nodes_wyCoverFlow_getRotateDegreeLeft00);
-   tolua_function(tolua_S,"setRotateDegreeRight",tolua_nodes_wyCoverFlow_setRotateDegreeRight00);
-   tolua_function(tolua_S,"getRotateDegreeRight",tolua_nodes_wyCoverFlow_getRotateDegreeRight00);
-   tolua_function(tolua_S,"showCover",tolua_nodes_wyCoverFlow_showCover00);
-   tolua_function(tolua_S,"moveLeft",tolua_nodes_wyCoverFlow_moveLeft00);
-   tolua_function(tolua_S,"moveRight",tolua_nodes_wyCoverFlow_moveRight00);
-   tolua_function(tolua_S,"getTouchedCover",tolua_nodes_wyCoverFlow_getTouchedCover00);
-   tolua_function(tolua_S,"setHeightFromMirror",tolua_nodes_wyCoverFlow_setHeightFromMirror00);
-   tolua_function(tolua_S,"getHeightFromMirror",tolua_nodes_wyCoverFlow_getHeightFromMirror00);
-   tolua_function(tolua_S,"setBrightLevelOfMirror",tolua_nodes_wyCoverFlow_setBrightLevelOfMirror00);
-   tolua_function(tolua_S,"getBrightLevelOfMirror",tolua_nodes_wyCoverFlow_getBrightLevelOfMirror00);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"PROJECTION_2D",PROJECTION_2D);
   tolua_constant(tolua_S,"PROJECTION_3D",PROJECTION_3D);

@@ -193,7 +193,6 @@
     <string name="SpriteExBatchNodeTest_desc">演示如何创建使用BatchNode进行渲染的图片节点</string>
     <string name="SpriteExSelfRenderTest_desc">演示如何创建不使用BatchNode进行渲染的图片节点</string>    
     <string name="MotionWelderTest_desc">Motion Welder是一个动画编辑器, WiEngine支持解析Motion Welder生成的动画文件(*.anu), 示例演示如何使用这一功能</string>    
-    <string name="CoverFlowTest_desc">演示如何创建和使用CoverFlow</string>
     <string name="DialogTest_desc">wyDialog implements dialog basic logic and building process</string>
     <string name="ChainShapeTest_desc">演示如何使用Chain Shape创建一个闭合连接形状</string>
     <string name="TexturedChainShapeTest_desc">演示如何给ChainShape增加贴图绑定</string>     
