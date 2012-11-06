@@ -175,7 +175,6 @@
 				${sdk.package.path}/nodes/Node*.class,
 				${sdk.package.path}/nodes/Scene*.class,
 				${sdk.package.path}/nodes/TextBox*.class,
-				${sdk.package.path}/nodes/_*.class,
 				${sdk.package.path}/types/ICopyable*.class,
 				${sdk.package.path}/types/WYAffineTransform*.class,
 				${sdk.package.path}/types/WYColor3B*.class,
