@@ -199,7 +199,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(node, BitmapFontHGETest),
 		DEMO_ENTRY_NAME(node, ButtonTest),
 		DEMO_ENTRY_NAME(node, ClipMappingAuroraGTTest),
-		DEMO_ENTRY_NAME(node, CoverFlowTest),
         DEMO_ENTRY_NAME(node, DialogTest),
 		DEMO_ENTRY_NAME(node, GradientColorLayerTest),
 		DEMO_ENTRY_NAME(node, ImageSpriteTest),

@@ -1,4 +1,4 @@
-// WiEngineDemos.cpp : ¶¨Òå DLL Ó¦ÓÃ³ÌÐòµÄµ¼³öº¯Êý¡£
+// WiEngineDemos.cpp : ï¿½ï¿½ï¿½ï¿½ DLL Ó¦ï¿½Ã³ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //
 #include <Windows.h>
 #include "WiEngineDemos.h"
@@ -185,7 +185,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(node, BitmapFontHGETest),
 		DEMO_ENTRY_NAME(node, ButtonTest),
 		DEMO_ENTRY_NAME(node, ClipMappingAuroraGTTest),
-		DEMO_ENTRY_NAME(node, CoverFlowTest),
 		DEMO_ENTRY_NAME(node, DialogTest),
 		DEMO_ENTRY_NAME(node, GradientColorLayerTest),
 		DEMO_ENTRY_NAME(node, ImageSpriteTest),
