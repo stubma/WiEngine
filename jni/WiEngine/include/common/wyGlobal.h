@@ -32,7 +32,7 @@
 #include "wyBuildConfig.h"
 
 // WiEngine version
-#define WIENGINE_VERSION "3.10.1"
+#define WIENGINE_VERSION "3.10.2"
 
 // export definition
 #if WINDOWS
