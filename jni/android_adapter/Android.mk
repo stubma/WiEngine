@@ -38,8 +38,6 @@ include $(BUILD_SHARED_LIBRARY)
 # build android adapter layer for jelly bean 
 #################################################################################
 
-ifeq ($(TARGET_ARCH),arm)
-
 include $(CLEAR_VARS)
 LOCAL_MODULE := aal_jellybean
 LOCAL_CFLAGS += -DHONEYCOMB -Wno-psabi
@@ -51,5 +49,3 @@ LOCAL_SRC_FILES := $(call all-cpp-files-under,android_adapter)
 LOCAL_SHARED_LIBRARIES := wiskia
 	
 include $(BUILD_SHARED_LIBRARY)
-
-endif
