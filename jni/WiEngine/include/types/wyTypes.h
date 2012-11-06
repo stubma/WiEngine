@@ -182,10 +182,6 @@ typedef enum {
 	TAG_ARRAY
 } wyPListTag;
 
-// matrix
-typedef float Matrix44[4][4];
-typedef float Matrix14[1][4];
-
 // string type
 typedef unsigned short char16_t;
 typedef unsigned int char32_t;

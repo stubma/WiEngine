@@ -837,15 +837,6 @@ typedef struct wyMotionEvent {
 	int64_t eventTime;
 } wyMotionEvent;
 
-// matrix
-typedef float Matrix44[4][4];
-typedef float Matrix14[1][4];
-
-/// 平台相关的事件类型
-
-/// 双字节unicode字符类型
-
-
 // other includes
 
 #endif // __wyTypes_h__
