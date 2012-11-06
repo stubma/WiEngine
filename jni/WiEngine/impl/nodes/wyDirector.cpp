@@ -168,14 +168,18 @@ wyDirector* wyDirector::getInstanceNoCreate() {
 }
 
 void wyDirector::printUnreleasedObjects() {
+#ifdef WY_CFLAG_MEMORY_TRACKING
 	wyOutputLeakPool();
+#else
+	LOGW("This method is only available when WY_CFLAG_MEMORY_TRACKING flag is on (in wyBuildConfig.h)");
+#endif
 }
 
 void wyDirector::printUnreleasedMemory(bool fullLog) {
 #ifdef WY_CFLAG_MEMORY_TRACKING
 	wyMemoryDumpRecord(fullLog);
 #else
-	LOGW("This method is only available for WiEngine memory debug version");
+	LOGW("This method is only available when WY_CFLAG_MEMORY_TRACKING flag is on (in wyBuildConfig.h)");
 #endif
 }
 
@@ -680,15 +684,15 @@ void wyDirector::commonDestroy() {
 	// now flush all existing auto release pool
 	wyAutoReleasePool::flush();
 
-	// check leak
-	wyOutputLeakPool();
-	wyClearLeakPool();
-
 	// free mutex
 	pthread_mutex_destroy(&gMutex);
 	pthread_mutex_destroy(&gCondMutex);
 	
+	// check leak
 #ifdef WY_CFLAG_MEMORY_TRACKING
+	wyOutputLeakPool();
+	wyClearLeakPool();
+
 	printUnreleasedMemory(true);
 #endif
 }
