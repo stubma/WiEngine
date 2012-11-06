@@ -35,22 +35,11 @@
 #include "wyBuffer.h"
 
 /**
- * @class wyShaderVariable
- *
- * \if English
  * Base class for shader variable
- * \else
- * shader中参数定义的基类
- * \endif
  */
 class WIENGINE_API wyShaderVariable : public wyObject {
 public:
-	/**
-	 * \if English
-	 * Type of shader variables
-	 * \else
-	 * shader中参数的类型
-	 */
+	/// Type of shader variables
 	enum Type {
 		/// boolean
 	    BOOLEAN,
@@ -107,13 +96,7 @@ public:
 	    INTERLEAVED_BUFFER
 	};
 
-	/**
-	 * \if English
-	 * Value of a shader variable, an union so it can used for any type
-	 * \else
-	 * shader参数的值, 使用联合来兼容不同的参数类型
-	 * \endif
-	 */
+	/// Value of a shader variable, an union so it can used for any type
 	union Value {
 		/// boolean
 		bool b;
@@ -197,108 +180,60 @@ public:
 	virtual ~wyShaderVariable();
 
 	/**
-	 * \if English
 	 * Get parameter location in shader
 	 *
 	 * @return location
-	 * \else
-	 * 得到参数在shader中的位置
-	 *
-	 * @return 参数的位置
-	 * \endif
 	 */
 	virtual GLint getLocation() { return m_location; }
 
 	/**
-	 * \if English
 	 * Get name of variable
 	 *
 	 * @return name string, caller should not release it
-	 * \else
-	 * 得到参数名称
-	 *
-	 * @return 名称字符串, 调用者不需要释放
-	 * \endif
 	 */
 	const char* getName() { return m_name; }
 
 	/**
-	 * \if English
 	 * Get type of variable
 	 *
 	 * @return variable type
-	 * \else
-	 * 得到参数类型
-	 *
-	 * @return 参数类型
-	 * \endif
 	 */
 	Type getType() { return m_type; }
 
 	/**
-	 * \if English
 	 * Get shader variable value
 	 *
 	 * @return value
-	 * \else
-	 * 得到当前值
-	 *
-	 * @return 参数值
-	 * \endif
 	 */
 	const Value& getValue() { return m_value; }
 
 	/**
-	 * \if English
 	 * Set shader variable value. If type is array, caller should not release
 	 * array data
 	 *
 	 * @param v value
-	 * \else
-	 * 设置参数值. 如果参数类型是数组, 调用者不用负责释放数组数据
-	 *
-	 * @param v 参数值
-	 * \endif
 	 */
 	void setValue(const Value& v);
 
 	/**
-	 * \if English
 	 * Reset value to zero
-	 * \else
-	 * 把参数值清空为0
-	 * \endif
 	 */
 	void clearValue();
 
 	/**
-	 * \if English
 	 * Is this variable set?
 	 *
 	 * @return true means variable is already set
-	 * \else
-	 * 这个参数是否已被设置
-	 *
-	 * @return true表示这个参数已被设置
-	 * \endif
 	 */
 	bool isSet() { return m_set; }
 
 	/**
-	 * \if English
 	 * True means this variable value should be sync to current program
-	 * \else
-	 * true表示变量值需要更新到shader程序
-	 * \endif
 	 */
 	bool isNeedSync() { return m_needSync; }
 
 	/**
-	 * \if English
 	 * Flag variable need to be set to program
-	 * \else
-	 * 设置该变量值需要更新到shader程序中
-	 * \endif
 	 */
 	void setNeedSync(bool flag) { m_needSync = flag; }
 };
