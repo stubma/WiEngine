@@ -2701,8 +2701,6 @@ public:
 		m_box2d->getWorld()->RayCast(&callback, point1, point2);
 
 		{
-			wyRenderManager* rm = wyDirector::getInstance()->getRenderManager();
-
 			if(callback.m_fixture) {
 				wyShape* hitPointMesh = (wyShape*)m_box2d->getMeshByTag(1002);
 				hitPointMesh->setSkip(false);
