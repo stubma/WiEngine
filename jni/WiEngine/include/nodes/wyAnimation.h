@@ -32,9 +32,6 @@
 #include "wyArray.h"
 #include "wyFrame.h"
 #include "wyTexture2D.h"
-#if ANDROID
-	#include <jni.h>
-#endif
 
 class wyAnimate;
 class wyAnimation;
@@ -129,11 +126,6 @@ private:
 
 	/// \link wyAniamtionCallback wyAnimationCallback\endlink
 	wyAnimationCallback m_callback;
-
-#if ANDROID
-	/// java端回调
-	jobject m_jCallback;
-#endif
 
 	/**
 	 * \if English
@@ -309,21 +301,6 @@ public:
 	 * \endif
 	 */
 	void setCallback(wyAnimationCallback* callback, void* data);
-
-#if ANDROID
-	/**
-	 * \if Englsih
-	 * to set the callback on the java end
-	 *
-	 * @param jCallback a java object
-	 * \else
-	 * 设置java端回调
-	 *
-	 * @param jCallback java回调接口的实现对象
-	 * \endif
-	 */
-	void setCallback(jobject jCallback);
-#endif
 };
 
 #endif //__wyAnimation_h__

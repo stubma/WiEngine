@@ -454,7 +454,7 @@ void wyDirector::onSurfaceChanged(int w, int h) {
 	 * however, we don't create it if in memory debug mode because fps
 	 * label changes constantly and it will print lots of malloc messages
 	 */
-	if(!m_fpsLabel) {
+	if(!m_fpsLabel && m_displayFPS) {
 		// create fps label and make it in GUI bucket
 	    m_fpsLabel = wyLabel::make("00.0", SP(24));
 	    m_fpsLabel->retain();

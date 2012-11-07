@@ -46,16 +46,6 @@
 class wyTextBox_android : public wyTextBox {
 	friend class wyTextBox;
 
-private:
-	/**
-	 * \if English
-	 * edit text callback, but it is defined in java layer so it is a java object
-	 * \else
-	 * 文本编辑框的java端回调对象
-	 * \endif
-	 */
-	jobject m_jCallback;
-
 protected:
 	/**
 	 * \if English
@@ -80,45 +70,11 @@ protected:
 	 */
 	wyTextBox_android(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode* focused, wyNode* label);
 
-	/*
-	 * callback trigger
-	 */
-
-	virtual void notifyOnTextChanged();
-	virtual void notifyOnBeginEditing();
-	virtual void notifyOnEndEditing();
-
 	/// @see wyTextBox::showInputDialog
 	virtual void showInputDialog();
 
 public:
 	virtual ~wyTextBox_android();
-
-	/**
-	 * \if English
-	 * Set java layer callback
-	 *
-	 * @param jcallback java side callback object, NULL means clear current callback
-	 * \else
-	 * 设置文本框的java回调对象
-	 *
-	 * @param jcallback java回调函数对象, 如果为NULL，表示清除现有的callback
-	 * \endif
-	 */
-	void setCallback(jobject jcallback);
-
-	/**
-	 * \if English
-	 * Get java side callback object
-	 *
-	 * @return java side callback object
-	 * \else
-	 * 获得文本框java回调函数对象
-	 *
-	 * @return java回调函数对象
-	 * \endif
-	 */
-	jobject getCallback();
 };
 
 #endif // #if ANDROID

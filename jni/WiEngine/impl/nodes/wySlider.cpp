@@ -32,21 +32,12 @@
 #include "wyLog.h"
 #include "wyProgress.h"
 
-#if ANDROID
-#include "wyUtils_android.h"
-
-extern jmethodID g_mid_ISliderCallback_onSliderValueChanged;
-#endif
-
 wySlider::wySlider(wySprite* bg, wySprite* bar, wySprite* thumb, bool vertical) :
 		m_min(0),
 		m_max(100),
 		m_value(0),
 		m_callback(NULL),
 		m_vertical(vertical),
-#if ANDROID
-		m_jCallback(NULL),
-#endif
 		m_showFullBar(false),
 		m_dragging(false) {
 	// assign
@@ -101,13 +92,6 @@ wySlider::wySlider(wySprite* bg, wySprite* bar, wySprite* thumb, bool vertical) 
 }
 
 wySlider::~wySlider() {
-#if ANDROID
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-#endif
 }
 
 wySlider* wySlider::make(wySprite* bg, wySprite* bar, wySprite* thumb, bool vertical) {
@@ -119,12 +103,6 @@ void wySlider::invokeOnValueChanged() {
 	if(m_callback) {
 		m_callback->onSliderValueChanged(this);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_ISliderCallback_onSliderValueChanged, (jint)this, m_value);
-	}
-#endif
 }
 
 void wySlider::setMin(float min) {
@@ -227,14 +205,3 @@ bool wySlider::touchesCancelled(wyMotionEvent& e) {
 void wySlider::setCallback(wySliderCallback* callback) {
 	m_callback = callback;
 }
-
-#if ANDROID
-void wySlider::setCallback(jobject callback) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jCallback != NULL) {
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-	m_jCallback = env->NewGlobalRef(callback);
-}
-#endif

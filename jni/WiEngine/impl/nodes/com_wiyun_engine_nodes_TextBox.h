@@ -35,35 +35,11 @@ JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getText
 
 /*
  * Class:     com_wiyun_engine_nodes_TextBox
- * Method:    setCallback
- * Signature: (Lcom/wiyun/engine/nodes/TextBox/ITextBoxCallback;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setCallback
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextBox
- * Method:    setTitle
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setTitle
-  (JNIEnv *, jobject, jstring);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextBox
  * Method:    getTitle
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getTitle
   (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextBox
- * Method:    setMessage
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setMessage
-  (JNIEnv *, jobject, jstring);
 
 /*
  * Class:     com_wiyun_engine_nodes_TextBox
@@ -75,14 +51,6 @@ JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getMessage
 
 /*
  * Class:     com_wiyun_engine_nodes_TextBox
- * Method:    setPositiveButton
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setPositiveButton
-  (JNIEnv *, jobject, jstring);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextBox
  * Method:    getPositiveButton
  * Signature: ()Ljava/lang/String;
  */
@@ -91,35 +59,11 @@ JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getPositiveButton
 
 /*
  * Class:     com_wiyun_engine_nodes_TextBox
- * Method:    setNegativeButton
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setNegativeButton
-  (JNIEnv *, jobject, jstring);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextBox
  * Method:    getNegativeButton
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getNegativeButton
   (JNIEnv *, jobject);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextBox
- * Method:    setPadding
- * Signature: (FFFF)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setPadding
-  (JNIEnv *, jobject, jfloat, jfloat, jfloat, jfloat);
-
-/*
- * Class:     com_wiyun_engine_nodes_TextBox
- * Method:    setPassword
- * Signature: (Z)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setPassword
-  (JNIEnv *, jobject, jboolean);
 
 /*
  * Class:     com_wiyun_engine_nodes_TextBox

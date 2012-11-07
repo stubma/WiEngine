@@ -1,7 +1,6 @@
 package net.rbgrn.opengl;
 
 import net.rbgrn.opengl.BaseConfigChooser.ComponentSizeChooser;
-import net.rbgrn.opengl.BaseConfigChooser.SimpleEGLConfigChooser;
 import android.opengl.GLSurfaceView.EGLConfigChooser;
 import android.opengl.GLSurfaceView.EGLContextFactory;
 import android.opengl.GLSurfaceView.EGLWindowSurfaceFactory;
@@ -148,7 +147,7 @@ public class GLWallpaperService extends WallpaperService {
 		public void setRenderer(final Renderer renderer) {
 			this.checkRenderThreadState();
 			if (this.mEGLConfigChooser == null) {
-				this.mEGLConfigChooser = new SimpleEGLConfigChooser(true);
+				this.mEGLConfigChooser = new WYConfigChooser(false);
 			}
 			if (this.mEGLContextFactory == null) {
 				this.mEGLContextFactory = new DefaultContextFactory();
@@ -176,7 +175,7 @@ public class GLWallpaperService extends WallpaperService {
 		}
 
 		public void setEGLConfigChooser(final boolean needDepth) {
-			this.setEGLConfigChooser(new SimpleEGLConfigChooser(needDepth));
+			this.setEGLConfigChooser(new WYConfigChooser(false));
 		}
 
 		public void setEGLConfigChooser(final int redSize, final int greenSize, final int blueSize, final int alphaSize, final int depthSize, final int stencilSize) {

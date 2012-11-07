@@ -33,9 +33,6 @@
 #include "wyArray.h"
 #include "wyScroller.h"
 #include "wyPageIndicator.h"
-#if ANDROID
-	#include <jni.h>
-#endif
 
 class wyPageControl;
 
@@ -172,11 +169,6 @@ private:
 
 	/// 附加数据指针
 	void* m_data;
-
-#if ANDROID
-	/// java层设置的回调
-	jobject m_jCallback;
-#endif
 
 private:
 	static bool releasePage(wyArray* arr, void* ptr, int index, void* data);
@@ -397,15 +389,6 @@ public:
 	 * @param data 附加数据指针, \link wyPageControl wyPageControl\endlink 不会负责释放该指针
 	 */
 	void setCallback(wyPageControlCallback* callback, void* data);
-
-#if ANDROID
-	/**
-	 * 设置java端的回调
-	 *
-	 * @param callback java端实现了回调接口的类
-	 */
-	void setCallback(jobject callback);
-#endif
 
 	/**
 	 * 是否垂直排列页

@@ -316,21 +316,6 @@ namespace Network {
 
 using namespace Network;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(testname) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_network_##testname##_nativeStart \
-		(JNIEnv *, jobject){ \
-			wyLayer* layer = new wy##testname##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _network_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(DownloadImageTest);
-DEMO_ENTRY_IMPL(HttpPostTest);
-DEMO_ENTRY_IMPL(IPQueryTest);
+DEMO_ENTRY_IMPL(network, DownloadImageTest);
+DEMO_ENTRY_IMPL(network, HttpPostTest);
+DEMO_ENTRY_IMPL(network, IPQueryTest);

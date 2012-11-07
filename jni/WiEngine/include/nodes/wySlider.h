@@ -30,9 +30,6 @@
 #define __wySlider_h__
 
 #include "wyProgressTimer.h"
-#if ANDROID
-	#include <jni.h>
-#endif
 
 class wySlider;
 
@@ -89,11 +86,6 @@ private:
 
 	/// callback
 	wySliderCallback* m_callback;
-
-#if ANDROID
-	/// java端callback
-	jobject m_jCallback;
-#endif
 
 private:
 	/**
@@ -230,15 +222,6 @@ public:
 	 * 		除之前设置的回调
 	 */
 	void setCallback(wySliderCallback* callback);
-
-#if ANDROID
-	/**
-	 * 设置java端的回调
-	 *
-	 * @param callback java端实现了回调接口的类
-	 */
-	void setCallback(jobject callback);
-#endif
 };
 
 #endif // __wySlider_h__

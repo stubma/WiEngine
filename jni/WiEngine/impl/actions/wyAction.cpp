@@ -29,38 +29,18 @@
 #include "wyNode.h"
 #include "wyAction.h"
 
-#if ANDROID
-#include "wyJNI.h"
-extern jmethodID g_mid_Action_Callback_onStart;
-extern jmethodID g_mid_Action_Callback_onStop;
-extern jmethodID g_mid_Action_Callback_onUpdate;
-#endif
-
 wyAction::wyAction() :
 		m_target(NULL),
 		m_running(false),
 		m_paused(false),
 		m_tag(WY_ACTION_INVALID_TAG),
 		m_parent(NULL),
-#if ANDROID
-		j_callback(NULL),
-#endif
 		m_data(NULL) {
 	memset(&m_callback, 0, sizeof(wyActionCallback));
 }
 
 wyAction::~wyAction() {
 	wyObjectRelease(m_target);
-
-#if ANDROID
-	if(j_callback != NULL) {
-		JNIEnv* env = getEnv();
-		if(env != NULL) {
-			env->DeleteGlobalRef(j_callback);
-			j_callback = NULL;
-		}
-	}
-#endif
 }
 
 wyAction* wyAction::copy() {
@@ -116,26 +96,6 @@ void wyAction::setCallback(wyActionCallback* callback, void* data) {
 	}
 }
 
-#if ANDROID
-
-void wyAction::setCallback(jobject jcallback) {
-	JNIEnv* env = getEnv();
-	if(j_callback != NULL) {
-		env->DeleteGlobalRef(j_callback);
-		j_callback = NULL;
-	}
-
-	if(jcallback != NULL) {
-		j_callback = env->NewGlobalRef(jcallback);
-	}
-}
-
-jobject wyAction::getCallback() {
-	return j_callback;
-}
-
-#endif // #if ANDROID
-
 void wyAction::setTag(int tag) {
 	m_tag = tag;
 }
@@ -149,39 +109,18 @@ wyNode* wyAction::getTarget() {
 }
 
 void wyAction::invokeOnStart() {
-#if ANDROID
-	if(j_callback != NULL) {
-		JNIEnv* env = getEnv();
-		if(env != NULL)
-			env->CallVoidMethod(j_callback, g_mid_Action_Callback_onStart, (jint)this);
-	} else 
-#endif 
 	if(m_callback.onStart != NULL) {
 		m_callback.onStart(this, m_data);
 	}
 }
 
 void wyAction::invokeOnStop() {
-#if ANDROID
-	if(j_callback != NULL) {
-		JNIEnv* env = getEnv();
-		if(env != NULL)
-			env->CallVoidMethod(j_callback, g_mid_Action_Callback_onStop, (jint)this);
-	} else 
-#endif
 	if(m_callback.onStop != NULL) {
 		m_callback.onStop(this, m_data);
 	}
 }
 
 void wyAction::invokeOnUpdate(float t) {
-#if ANDROID
-	if(j_callback != NULL) {
-		JNIEnv* env = getEnv();
-		if(env != NULL)
-			env->CallVoidMethod(j_callback, g_mid_Action_Callback_onUpdate, (jint)this, t);
-	} else 
-#endif
 	if(m_callback.onUpdate != NULL) {
 		m_callback.onUpdate(this, t, m_data);
 	}

@@ -33,40 +33,12 @@
 @class WYOpenGLView;
 @class WYGestureRecognizer;
 
-/**
- * @protocol WYOpenGLViewDelegate
- *
- * \if English
- * delegate of WYOpenGLView frame buffer event, internal used only
- * \else
- * WYOpenGLView的事件回调, 仅内部使用
- * \endif
- */
-@protocol WYOpenGLViewDelegate
-
-@optional
-
-/**
- * Invoked when frame buffer is created
- */
-- (void)glView:(WYOpenGLView*)v frameBufferCreatedWithWidth:(int)width height:(int)height;
-
-/**
- * Invoked when glview is destroyed
- */
-- (void)glViewFrameBufferDestroyed:(WYOpenGLView*)v;
-
-@end
-
 @interface WYOpenGLView : NSOpenGLView {
 @private
 	/**
 	 * redraw timer
 	 */
 	NSTimer* m_timer;
-	
-	/// delegate
-	id<WYOpenGLViewDelegate> m_delegate;
 	
 	/**
 	 * Gesture detector
@@ -77,7 +49,6 @@
 	BOOL m_detectGesture;
 }
 
-@property (nonatomic, assign) id<WYOpenGLViewDelegate> delegate;
 @property (nonatomic, assign) BOOL detectGesture;
 
 /// start gl rendering

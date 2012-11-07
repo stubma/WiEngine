@@ -62,11 +62,8 @@
 		
 		<!-- build jar -->
 		<antcall target="jar-core"/>
-		<antcall target="jar-box2d"/>
-		<antcall target="jar-lua"/>
 		<antcall target="jar-iap"/>
 		<antcall target="jar-network"/>
-		<antcall target="jar-binding"/>
 	</target>
 	
 	<!-- copy headers -->
@@ -83,14 +80,13 @@
 				<exclude name="expat/**"/>
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
-				<exclude name="Box2D/binding/**"/>
+				<exclude name="kazmath/src/**"/>
 				<exclude name="libcurl/lib/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
 				<exclude name="libnsbmp/**"/>
 				<exclude name="libpng/**"/>
 				<exclude name="libxml2/*.h"/>
-				<exclude name="lua/binding/**"/>
 				<exclude name="openal/**"/>
 				<exclude name="vorbis/**"/>
 				<exclude name="json/**"/>
@@ -98,7 +94,6 @@
 				<exclude name="iap/**"/>
 				<exclude name="sqlite3/**"/>
 				<exclude name="WiEngine/impl/**"/>
-				<exclude name="WiEngine_binding/**"/>
 				<exclude name="WiNetwork/**"/>
 				<exclude name="WiSound/**"/>
 			</fileset>
@@ -114,102 +109,10 @@
 			<!-- wiengine core classes -->
 			<fileset 
 				dir="${build}"
-				includes="${sdk.package.path}/Base*.class,
-					${sdk.package.path}/actions/Action*.class,
-					${sdk.package.path}/actions/IntervalAction*.class,
-					${sdk.package.path}/actions/FiniteTimeAction*.class,
-					${sdk.package.path}/actions/ease/EaseAction*.class,
-					${sdk.package.path}/grid/BaseGrid*.class,
-					${sdk.package.path}/opengl/Camera*.class,
-					${sdk.package.path}/opengl/Texture2D*.class,
-					${sdk.package.path}/opengl/*GLSurfaceView*.class,
-					${sdk.package.path}/nodes/Director*.class,
-					${sdk.package.path}/nodes/Node*.class,
-					${sdk.package.path}/nodes/Scene*.class,
-					${sdk.package.path}/nodes/TextBox*.class,
-					${sdk.package.path}/events/*.class,
-					${sdk.package.path}/sound/*.class,
-					${sdk.package.path}/types/ICopyable*.class,
-					${sdk.package.path}/types/WYAffineTransform*.class,
-					${sdk.package.path}/types/WYColor3B*.class,
-					${sdk.package.path}/types/WYColor4B*.class,
-					${sdk.package.path}/types/WYColor4F*.class,
-					${sdk.package.path}/types/WYPoint*.class,
-					${sdk.package.path}/types/WYRect*.class,
-					${sdk.package.path}/types/WYSize*.class,
-					${sdk.package.path}/utils/ResourceDecoder*.class,
-					${sdk.package.path}/utils/ImagePicker*.class,
-					${sdk.package.path}/utils/VideoPlayingActivity*.class,
-					${sdk.package.path}/utils/PrefUtil*.class,
-					${sdk.package.path}/utils/TargetSelector*.class"/>
+				excludes="${sdk.package.path}/iap/**/*.class,
+					com/android/**/*.class,
+					${sdk.package.path}/network/*.class"/>
 		</jar>
-	</target>
-
-	<!-- build WiEngine-binding.jar file -->
-	<target name="jar-binding">
-		<mkdir dir="${wiengine.library.dir}/libs" />
-
-		<!-- make wiengine java binding jar -->
-		<jar 
-			destfile="${wiengine.library.dir}/libs/${lib.binding.name}"
-			basedir="${build}"
-			includes="${sdk.package.path}/**/*.class"
-			excludes="${sdk.package.path}/R*.class,
-				${sdk.package.path}/BuildConfig*.class
-				${sdk.package.path}/Base*.class,
-				${sdk.package.path}/box2d/**/*.class,
-				${sdk.package.path}/lua/*.class,
-				${sdk.package.path}/events/*.class,
-				${sdk.package.path}/iap/**/*.class,
-				${sdk.package.path}/network/*.class,
-				${sdk.package.path}/sound/*.class,
-				${sdk.package.path}/actions/Action*.class,
-				${sdk.package.path}/actions/IntervalAction*.class,
-				${sdk.package.path}/actions/FiniteTimeAction*.class,
-				${sdk.package.path}/actions/ease/EaseAction*.class,
-				${sdk.package.path}/grid/BaseGrid*.class,
-				${sdk.package.path}/opengl/Camera*.class,
-				${sdk.package.path}/opengl/Texture2D*.class,
-				${sdk.package.path}/opengl/*GLSurfaceView*.class,
-				${sdk.package.path}/nodes/Director*.class,
-				${sdk.package.path}/nodes/Node*.class,
-				${sdk.package.path}/nodes/Scene*.class,
-				${sdk.package.path}/nodes/TextBox*.class,
-				${sdk.package.path}/types/ICopyable*.class,
-				${sdk.package.path}/types/WYAffineTransform*.class,
-				${sdk.package.path}/types/WYColor3B*.class,
-				${sdk.package.path}/types/WYColor4B*.class,
-				${sdk.package.path}/types/WYColor4F*.class,
-				${sdk.package.path}/types/WYPoint*.class,
-				${sdk.package.path}/types/WYRect*.class,
-				${sdk.package.path}/types/WYSize*.class,
-				${sdk.package.path}/utils/ResourceDecoder*.class,
-				${sdk.package.path}/utils/ImagePicker*.class,
-				${sdk.package.path}/utils/VideoPlayingActivity*.class,
-				${sdk.package.path}/utils/PrefUtil*.class,
-				${sdk.package.path}/utils/TargetSelector*.class"/>
-	</target>
-
-	<!-- build WiEngine-box2d.jar file -->
-	<target name="jar-box2d">
-		<mkdir dir="${wiengine.library.dir}/libs" />
-
-		<!-- make wiengine box2d jar -->
-		<jar 
-			destfile="${wiengine.library.dir}/libs/${lib.box2d.name}"
-			basedir="${build}"
-			includes="${sdk.package.path}/box2d/**/*.class"/>
-	</target>
-
-	<!-- build WiEngine-lua.jar file -->
-	<target name="jar-lua">
-		<mkdir dir="${wiengine.library.dir}/libs" />
-
-		<!-- make wiengine lua jar -->
-		<jar 
-			destfile="${wiengine.library.dir}/libs/${lib.lua.name}"
-			basedir="${build}"
-			includes="${sdk.package.path}/lua/*.class"/>
 	</target>
 
 	<!-- build WiEngine-iap.jar file -->
@@ -235,42 +138,6 @@
 			includes="${sdk.package.path}/network/*.class"/>
 	</target>
 
-	<!-- generate javadoc -->
-	<target name="javadoc_chinese">
-		<exec executable="${doxygen}" dir="doxygen">
-			<arg value="javadoc_chinese.cfg"/>
-		</exec>
-		
-		<!-- copy auxiliary resources -->
-		<copy todir="javadoc/html">
-			<fileset dir="doxygen/images">
-				<include name="*.jpg"/>
-				<include name="*.png"/>
-			</fileset>
-		</copy>
-		
-		<!-- ensure debug.txt deleted -->
-		<delete file="doxygen/debug.txt"/>
-	</target>
-
-	<!-- generate javadoc -->
-	<target name="javadoc_english">
-		<exec executable="${doxygen}" dir="doxygen">
-			<arg value="javadoc_english.cfg"/>
-		</exec>
-		
-		<!-- copy auxiliary resources -->
-		<copy todir="javadoc/html">
-			<fileset dir="doxygen/images">
-				<include name="*.jpg"/>
-				<include name="*.png"/>
-			</fileset>
-		</copy>
-		
-		<!-- ensure debug.txt deleted -->
-		<delete file="doxygen/debug.txt"/>
-	</target>
-		
 	<!-- generate cppdoc -->
 	<target name="cppdoc_chinese">
 		<exec executable="${doxygen}" dir="doxygen">

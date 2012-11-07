@@ -37,13 +37,6 @@
 #include "wyShape.h"
 #include <stdarg.h>
 
-#if ANDROID
-#include "wyUtils_android.h"
-
-extern jmethodID g_mid_IAFCSpriteCallback_onAFCAnimationFrameChanged;
-extern jmethodID g_mid_IAFCSpriteCallback_onAFCAnimationEnded;
-#endif
-
 wyAFCSprite::wyAFCSprite() :
 		m_spriteList(wyArrayNew(10)),
 		m_sheetList(wyArrayNew(5)),
@@ -65,9 +58,6 @@ wyAFCSprite::wyAFCSprite() :
 		m_debugDrawCollisionRect(false),
 		m_callback(NULL),
 		m_meshRefCache(NULL),
-#if ANDROID
-		m_jCallback(NULL),
-#endif
 		m_frameOffset(wypZero),
 		m_ignoreFrameOffset(false),
 		m_flipX(false),
@@ -81,13 +71,6 @@ wyAFCSprite::~wyAFCSprite() {
 		wyFree(m_callback);
 		m_callback = NULL;
 	}
-#if ANDROID
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-#endif
 	wyArrayEach(m_spriteList, releaseObject, NULL);
 	wyArrayDestroy(m_spriteList);
 	wyArrayEach(m_sheetList, releaseObject, NULL);
@@ -113,12 +96,6 @@ void wyAFCSprite::invokeOnAFCAnimationFrameChanged() {
 		if(m_callback->onAFCAnimationFrameChanged != NULL)
 			m_callback->onAFCAnimationFrameChanged(this, m_data);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IAFCSpriteCallback_onAFCAnimationFrameChanged, (jint)this);
-	}
-#endif
 }
 
 void wyAFCSprite::invokeOnAFCAnimationEnded() {
@@ -126,12 +103,6 @@ void wyAFCSprite::invokeOnAFCAnimationEnded() {
 		if(m_callback->onAFCAnimationEnded != NULL)
 			m_callback->onAFCAnimationEnded(this, m_data);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IAFCSpriteCallback_onAFCAnimationEnded, (jint)this);
-	}
-#endif
 }
 
 void wyAFCSprite::setAnimationData(wyAFCAnimation* data) {
@@ -649,21 +620,6 @@ void wyAFCSprite::setAFCSpriteCallback(wyAFCSpriteCallback* callback, void* data
 		memcpy(m_callback, callback, sizeof(wyAFCSpriteCallback));
 	}
 }
-
-#if ANDROID
-
-void wyAFCSprite::setAFCSpriteCallback(jobject callback) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jCallback != NULL) {
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-	if(callback != NULL) {
-		m_jCallback = env->NewGlobalRef(callback);
-	}
-}
-
-#endif // #if ANDROID
 
 int wyAFCSprite::getCollisionRectCount() {
 	wyAFCAnimation* anim = getCurrentAnimationData();

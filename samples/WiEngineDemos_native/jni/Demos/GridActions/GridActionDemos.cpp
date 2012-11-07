@@ -283,38 +283,23 @@ namespace Grid_Action {
 
 using namespace Grid_Action;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(testname) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_gridaction_##testname##_nativeStart \
-		(JNIEnv *, jobject){ \
-			wyLayer* layer = new wy##testname##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _gridaction_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(SuckTest);
-DEMO_ENTRY_IMPL(GridFlipXTest);
-DEMO_ENTRY_IMPL(GridFlipYTest);
-DEMO_ENTRY_IMPL(JumpTiles3DTest);
-DEMO_ENTRY_IMPL(Lens3DTest);
-DEMO_ENTRY_IMPL(LineShrinkOutTest);
-DEMO_ENTRY_IMPL(LiquidTest);
-DEMO_ENTRY_IMPL(PageTurn3DTest);
-DEMO_ENTRY_IMPL(Ripple3DTest);
-DEMO_ENTRY_IMPL(Shaky3DTest);
-DEMO_ENTRY_IMPL(ShakyTiles3DTest);
-DEMO_ENTRY_IMPL(ShatterTiles3DTest);
-DEMO_ENTRY_IMPL(ShuffleTilesTest);
-DEMO_ENTRY_IMPL(SplitRowsColsTest);
-DEMO_ENTRY_IMPL(TilesShrinkOutTest);
-DEMO_ENTRY_IMPL(TurnOffTilesTest);
-DEMO_ENTRY_IMPL(TwirlTest);
-DEMO_ENTRY_IMPL(Waves3DTest);
-DEMO_ENTRY_IMPL(WavesTest);
-DEMO_ENTRY_IMPL(WavesTiles3DTest);
+DEMO_ENTRY_IMPL(gridaction, SuckTest);
+DEMO_ENTRY_IMPL(gridaction, GridFlipXTest);
+DEMO_ENTRY_IMPL(gridaction, GridFlipYTest);
+DEMO_ENTRY_IMPL(gridaction, JumpTiles3DTest);
+DEMO_ENTRY_IMPL(gridaction, Lens3DTest);
+DEMO_ENTRY_IMPL(gridaction, LineShrinkOutTest);
+DEMO_ENTRY_IMPL(gridaction, LiquidTest);
+DEMO_ENTRY_IMPL(gridaction, PageTurn3DTest);
+DEMO_ENTRY_IMPL(gridaction, Ripple3DTest);
+DEMO_ENTRY_IMPL(gridaction, Shaky3DTest);
+DEMO_ENTRY_IMPL(gridaction, ShakyTiles3DTest);
+DEMO_ENTRY_IMPL(gridaction, ShatterTiles3DTest);
+DEMO_ENTRY_IMPL(gridaction, ShuffleTilesTest);
+DEMO_ENTRY_IMPL(gridaction, SplitRowsColsTest);
+DEMO_ENTRY_IMPL(gridaction, TilesShrinkOutTest);
+DEMO_ENTRY_IMPL(gridaction, TurnOffTilesTest);
+DEMO_ENTRY_IMPL(gridaction, TwirlTest);
+DEMO_ENTRY_IMPL(gridaction, Waves3DTest);
+DEMO_ENTRY_IMPL(gridaction, WavesTest);
+DEMO_ENTRY_IMPL(gridaction, WavesTiles3DTest);

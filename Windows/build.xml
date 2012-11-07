@@ -26,7 +26,6 @@
 	<property name="dist.headers.dir" value="${dist.dir}/WiEngine/headers"/>
 	<property name="dist.wizards.dir" value="${dist.dir}/wizards"/>
 	<property name="dist.wizards.vs2010.dir" value="${dist.wizards.dir}/vs2010"/>
-	<property name="dist.samples.dir" value="${dist.dir}/samples"/>
 	<property name="dist.zip" location="${dist.dir}/WiEngine_sdk_windows_${version}.zip"/>
 	
 	<!-- make necessary dir -->
@@ -34,7 +33,6 @@
 		<mkdir dir="${dist.libs.dir}"/>
 		<mkdir dir="${dist.headers.dir}"/>
 		<mkdir dir="${dist.wizards.vs2010.dir}"/>
-		<mkdir dir="${dist.samples.dir}"/>
 	</target>
 	
 	<!-- make a full sdk -->
@@ -64,9 +62,6 @@
 		
 		<!-- build WiEngine library folder -->
 		<antcall target="WiEngine_library"/>
-		
-		<!-- build samples -->
-		<antcall target="samples"/>
 		
 		<!-- build wizard -->
 		<antcall target="wizard"/>
@@ -98,68 +93,6 @@
 	            <include name="WiEngine/**"/>
 	        </fileset>
 	    </copy>
-	</target>
-	
-	<!-- make samples -->
-	<target name="samples">
-		<!-- copy base samples -->
-		<copy todir="${dist.samples.dir}">
-			<fileset dir="samples">
-				<exclude name="**/Debug/**"/>
-				<exclude name="**/Release/**"/>
-				<exclude name="**/obj/**"/>
-				<exclude name="**/ipch/**"/>
-				<exclude name="**/*.suo"/>
-				<exclude name="**/*.opensdf"/>
-				<exclude name="**/*.sdf"/>
-				<exclude name="**/*.vcxproj.user"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy WiEngine librarys to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo">
-		    <fileset dir="${dist.dir}">
-		        <include name="WiEngine/**"/>
-		    </fileset>
-		</copy>
-		<copy todir="${dist.samples.dir}/WiEngineSkeletonProject/WiEngineSkeletonProject">
-		    <fileset dir="${dist.dir}">
-		        <include name="WiEngine/**"/>
-		    </fileset>
-		</copy>
-		
-		<!-- copy native demo code to WiEngineDemos -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo" flatten="true">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native/jni">
-		        <include name="**/*.h"/>
-		        <include name="**/*.cpp"/>
-		    </fileset>
-		</copy>
-		
-		<!-- copy resource to WiEngineDemos -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native/res">
-		        <include name="drawable/**"/>
-		        <include name="raw/**"/>
-		    </fileset>
-		</copy>
-		
-		<!-- copy xml to WiEngineDemos -->
-		<copy tofile="${dist.samples.dir}/WiEngineDemos/Demo/values/strings-en.xml">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native/res">
-		        <include name="values/strings.xml"/>
-		    </fileset>
-		</copy>
-		<copy tofile="${dist.samples.dir}/WiEngineDemos/Demo/values/strings-zh.xml">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native/res">
-		        <include name="values-zh/strings.xml"/>
-		    </fileset>
-		</copy>
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo/values">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native">
-		        <include name="AndroidManifest.xml"/>
-		    </fileset>
-		</copy>
 	</target>
 
 	<!-- make distribution package -->
@@ -221,7 +154,7 @@
 	            <include name="libxml2.lib"/>
 	            <include name="libpthread.lib"/>
 	            <include name="libEGL.lib"/>
-	            <include name="libgles_cm.lib"/>
+	            <include name="libGLESv2.lib"/>
 	        </fileset>
 	    </copy>
 	</target>
@@ -240,13 +173,12 @@
 				<exclude name="expat/**"/>
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
-				<exclude name="Box2D/binding/**"/>
+				<exclude name="kazmath/src"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
 				<exclude name="libnsbmp/**"/>
 				<exclude name="libpng/**"/>
 				<exclude name="libxml2/*.h"/>
-				<exclude name="lua/binding/**"/>
 				<exclude name="openal/**"/>
 				<exclude name="vorbis/**"/>
 				<exclude name="json/**"/>
@@ -254,7 +186,6 @@
 				<exclude name="iap/**"/>
 				<exclude name="sqlite3/**"/>
 				<exclude name="WiEngine/impl/**"/>
-				<exclude name="WiEngine_binding/**"/>
 				<exclude name="WiNetwork/**"/>
 				<exclude name="WiSound/**"/>
 			</fileset>

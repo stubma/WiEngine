@@ -32,13 +32,6 @@
 #include "wyTypes.h"
 #include "wyUtils.h"
 
-#if ANDROID
-#include "wyUtils_android.h"
-
-extern jmethodID g_mid_IAnimationCallback_onAnimationFrameChanged;
-extern jmethodID g_mid_IAnimationCallback_onAnimationEnded;
-#endif
-
 wyAnimation* wyAnimation::make(int id) {
 	wyAnimation* a = WYNEW wyAnimation(id);
 	return (wyAnimation*)a->autoRelease();
@@ -50,13 +43,6 @@ bool wyAnimation::releaseFrame(wyArray* arr, void* ptr, int index, void* data) {
 }
 
 wyAnimation::~wyAnimation() {
-#if ANDROID
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-#endif
 	wyArrayEach(m_frames, releaseFrame, NULL);
 	wyArrayClear(m_frames);
 	wyArrayDestroy(m_frames);
@@ -67,9 +53,6 @@ wyAnimation::wyAnimation(int id) :
 		m_id(id),
 		m_frames(wyArrayNew(10)),
 		m_duration(0),
-#if ANDROID
-		m_jCallback(NULL),
-#endif
 		m_data(NULL) {
 	memset(&m_callback, 0, sizeof(wyAnimationCallback));
 }
@@ -95,24 +78,12 @@ void wyAnimation::addFrame(wyFrame* f) {
 }
 
 void wyAnimation::notifyAnimationFrameChanged(int index) {
-#if ANDROID
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IAnimationCallback_onAnimationFrameChanged, (jint)this, index);
-	} else 
-#endif
 	if(m_callback.onAnimationFrameChanged != NULL) {
 		(*m_callback.onAnimationFrameChanged)(this, index, m_data);
 	}
 }
 
 void wyAnimation::notifyAnimationEnded() {
-#if ANDROID
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IAnimationCallback_onAnimationEnded, (jint)this);
-	} else 
-#endif
 	if(m_callback.onAnimationEnded != NULL) {
 		(*m_callback.onAnimationEnded)(this, m_data);
 	}
@@ -127,19 +98,3 @@ void wyAnimation::setCallback(wyAnimationCallback* callback, void* data) {
 		m_data = data;
 	}
 }
-
-#if ANDROID
-
-void wyAnimation::setCallback(jobject jCallback) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jCallback != NULL) {
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-
-	if(jCallback != NULL) {
-		m_jCallback = env->NewGlobalRef(jCallback);
-	}
-}
-
-#endif

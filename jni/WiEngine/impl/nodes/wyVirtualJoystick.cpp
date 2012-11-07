@@ -31,14 +31,6 @@
 #include "wyUtils.h"
 #include "wyLog.h"
 
-#if ANDROID
-#include "wyUtils_android.h"
-
-extern jmethodID g_mid_IVirtualJoystickCallback_onVJNavigationStarted;
-extern jmethodID g_mid_IVirtualJoystickCallback_onVJNavigationEnded;
-extern jmethodID g_mid_IVirtualJoystickCallback_onVJDirectionChanged;
-#endif
-
 wyVirtualJoystick::wyVirtualJoystick(wyNode* bg, wyNode* rocker) :
 		m_eventStyle(VJS_FIVE_DIRECTIONS),
 		m_autoReset(true),
@@ -50,9 +42,6 @@ wyVirtualJoystick::wyVirtualJoystick(wyNode* bg, wyNode* rocker) :
 		m_rockerX(0),
 		m_rockerY(0),
 		m_data(NULL),
-#if ANDROID
-		m_jCallback(NULL),
-#endif
 		m_bg(bg),
 		m_rocker(rocker) {
 	// init callback
@@ -86,13 +75,6 @@ wyVirtualJoystick::wyVirtualJoystick(wyNode* bg, wyNode* rocker) :
 }
 
 wyVirtualJoystick::~wyVirtualJoystick() {
-#if ANDROID
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-#endif
 }
 
 wyVirtualJoystick* wyVirtualJoystick::make(wyNode* bg, wyNode* rocker) {
@@ -270,17 +252,6 @@ void wyVirtualJoystick::setCallback(wyVirtualJoystickCallback* callback, void* d
 	}
 }
 
-#if ANDROID
-void wyVirtualJoystick::setCallback(jobject callback) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jCallback != NULL) {
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-	m_jCallback = env->NewGlobalRef(callback);
-}
-#endif
-
 int wyVirtualJoystick::degree2Direction() {
 	// for five direction
 	static int fiveArray[] = {
@@ -327,24 +298,12 @@ void wyVirtualJoystick::invokeOnVJNavigationStarted() {
 	if(m_callback.onVJNavigationStarted != NULL) {
 		m_callback.onVJNavigationStarted(this, m_data);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IVirtualJoystickCallback_onVJNavigationStarted, (jint)this);
-	}
-#endif
 }
 
 void wyVirtualJoystick::invokeOnVJNavigationEnded() {
 	if(m_callback.onVJNavigationEnded != NULL) {
 		m_callback.onVJNavigationEnded(this, m_data);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IVirtualJoystickCallback_onVJNavigationEnded, (jint)this);
-	}
-#endif
 }
 
 void wyVirtualJoystick::invokeOnVJDirectionChanged() {
@@ -359,10 +318,4 @@ void wyVirtualJoystick::invokeOnVJDirectionChanged(int newDirection) {
 	if(m_callback.onVJDirectionChanged != NULL) {
 		m_callback.onVJDirectionChanged(this, newDirection, m_data);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IVirtualJoystickCallback_onVJDirectionChanged, (jint)this, newDirection);
-	}
-#endif
 }

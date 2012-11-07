@@ -43,11 +43,6 @@ using namespace std;
 
 extern pthread_mutex_t gMutex;
 
-#if ANDROID
-	#include "wyUtils_android.h"
-	extern jmethodID g_mid_BaseWYObject_onTargetSelectorInvoked;
-#endif
-
 // release pools
 static wyArray* sAutoReleasePool = NULL;
 static wyArray* sLazyReleasePool = NULL;
@@ -59,9 +54,6 @@ static wyArray* sLeakPool = NULL;
 
 wyObject::wyObject() : 
         m_retainCount(1),
-#if ANDROID
-        m_jTSConnector(NULL),
-#endif
         m_name(NULL) {
 #ifdef WY_CFLAG_MEMORY_TRACKING
 	if(sLeakPool != NULL)
@@ -79,14 +71,6 @@ wyObject::~wyObject() {
 #ifdef WY_CFLAG_MEMORY_TRACKING
 	if(sLeakPool != NULL)
 		wyArrayDeleteObj(sLeakPool, this, NULL, NULL);
-#endif
-
-#if ANDROID
-	if(m_jTSConnector) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->DeleteGlobalRef(m_jTSConnector);
-		m_jTSConnector = NULL;
-	}
 #endif
 
     if(m_name)
@@ -159,12 +143,6 @@ int wyObject::getRetainCount() {
 }
 
 void wyObject::onTargetSelectorInvoked(wyTargetSelector* ts) {
-#if ANDROID
-	if(m_jTSConnector) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jTSConnector, g_mid_BaseWYObject_onTargetSelectorInvoked, ts->getId(), ts->getDelta());
-	}
-#endif
 }
 
 void wyObject::setName(const char* name) {
@@ -173,22 +151,6 @@ void wyObject::setName(const char* name) {
 
     m_name = wyUtils::copy(name);
 }
-
-#if ANDROID
-
-void wyObject::setJavaTSConnector(jobject c) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jTSConnector) {
-		env->DeleteGlobalRef(m_jTSConnector);
-		m_jTSConnector = NULL;
-	}
-
-	if(c) {
-		m_jTSConnector = env->NewGlobalRef(c);
-	}
-}
-
-#endif // #if ANDROID
 
 #ifdef __cplusplus
 extern "C" {

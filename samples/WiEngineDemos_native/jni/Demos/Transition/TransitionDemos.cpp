@@ -647,41 +647,26 @@ namespace Transition {
 
 using namespace Transition;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_transition_##CLASSNAME##_nativeStart \
-		(JNIEnv *, jobject) { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _transition_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(ClipInOutTest);
-DEMO_ENTRY_IMPL(ColorFadeTest);
-DEMO_ENTRY_IMPL(CrossFadeTest);
-DEMO_ENTRY_IMPL(FlipAngularTest);
-DEMO_ENTRY_IMPL(FlipXTest);
-DEMO_ENTRY_IMPL(FlipYTest);
-DEMO_ENTRY_IMPL(JumpZoomTest);
-DEMO_ENTRY_IMPL(LeftRightPushTest);
-DEMO_ENTRY_IMPL(LeftRightSlideTest);
-DEMO_ENTRY_IMPL(PageTurn3DTest);
-DEMO_ENTRY_IMPL(RadialCWCCWTest);
-DEMO_ENTRY_IMPL(RotateZoomTest);
-DEMO_ENTRY_IMPL(ShrinkGrowTest);
-DEMO_ENTRY_IMPL(ShrinkOutTilesTest);
-DEMO_ENTRY_IMPL(SplitRowsColsTest);
-DEMO_ENTRY_IMPL(SuckTest);
-DEMO_ENTRY_IMPL(TopBottomPushTest);
-DEMO_ENTRY_IMPL(TopBottomSlideTest);
-DEMO_ENTRY_IMPL(TopBottomSlideBounceTest);
-DEMO_ENTRY_IMPL(TurnOffTilesTest);
-DEMO_ENTRY_IMPL(ZoomFlipAngularTest);
-DEMO_ENTRY_IMPL(ZoomFlipXTest);
-DEMO_ENTRY_IMPL(ZoomFlipYTest);
+DEMO_ENTRY_IMPL(transition, ClipInOutTest);
+DEMO_ENTRY_IMPL(transition, ColorFadeTest);
+DEMO_ENTRY_IMPL(transition, CrossFadeTest);
+DEMO_ENTRY_IMPL(transition, FlipAngularTest);
+DEMO_ENTRY_IMPL(transition, FlipXTest);
+DEMO_ENTRY_IMPL(transition, FlipYTest);
+DEMO_ENTRY_IMPL(transition, JumpZoomTest);
+DEMO_ENTRY_IMPL(transition, LeftRightPushTest);
+DEMO_ENTRY_IMPL(transition, LeftRightSlideTest);
+DEMO_ENTRY_IMPL(transition, PageTurn3DTest);
+DEMO_ENTRY_IMPL(transition, RadialCWCCWTest);
+DEMO_ENTRY_IMPL(transition, RotateZoomTest);
+DEMO_ENTRY_IMPL(transition, ShrinkGrowTest);
+DEMO_ENTRY_IMPL(transition, ShrinkOutTilesTest);
+DEMO_ENTRY_IMPL(transition, SplitRowsColsTest);
+DEMO_ENTRY_IMPL(transition, SuckTest);
+DEMO_ENTRY_IMPL(transition, TopBottomPushTest);
+DEMO_ENTRY_IMPL(transition, TopBottomSlideTest);
+DEMO_ENTRY_IMPL(transition, TopBottomSlideBounceTest);
+DEMO_ENTRY_IMPL(transition, TurnOffTilesTest);
+DEMO_ENTRY_IMPL(transition, ZoomFlipAngularTest);
+DEMO_ENTRY_IMPL(transition, ZoomFlipXTest);
+DEMO_ENTRY_IMPL(transition, ZoomFlipYTest);

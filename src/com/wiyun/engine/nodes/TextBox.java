@@ -59,10 +59,6 @@ public class TextBox extends Node {
 		public void onEndEditing(int pointer);
 	}
 	
-	public static TextBox make(Node normalSprite, Node selectedSprite, Node disabledSprite, Node focusedSprite, Node label) {
-		return new TextBox(normalSprite, selectedSprite, disabledSprite, focusedSprite, label);
-	}
-	
 	public static TextBox make(int pointer) {
 		return new TextBox(pointer);
 	}
@@ -71,46 +67,18 @@ public class TextBox extends Node {
 		return pointer == 0 ? null : new TextBox(pointer);
 	}
 	
-	protected TextBox(Node normalSprite, Node selectedSprite, Node disabledSprite, Node focusedSprite, Node label) {
-		nativeInit(normalSprite, selectedSprite, disabledSprite, focusedSprite, label);
-	}
-	
-	private native void nativeInit(Node normalSprite, Node selectedSprite, Node disabledSprite, Node focusedSprite, Node label);
-	
 	protected TextBox(int pointer) {
 		super(pointer);
 	}
 	
-	@Override
-	protected void doNativeInit() {
-	}
-	
-	public native void setText(String string);
-	
 	public native String getText();
 	
-	public native void setCallback(ITextBoxCallback callback);
-	
-	/**
-	 * 设置弹出框的标题
-	 *
-	 * @param title 标题字符串, 这个字符串会被复制，因此方法返回后可以立刻释放
-	 */
-	public native void setTitle(String title);
-
 	/**
 	 * 获得弹出框的标题
 	 *
 	 * @return 弹出框的标题字符串, 调用者不需要负责释放
 	 */
 	public native String getTitle();
-
-	/**
-	 * 设置弹出框的提示
-	 *
-	 * @param msg 提示字符串, 这个字符串会被复制，因此方法返回后可以立刻释放
-	 */
-	public native void setMessage(String msg);
 
 	/**
 	 * 获得弹出框的提示
@@ -120,25 +88,11 @@ public class TextBox extends Node {
 	public native String getMessage();
 
 	/**
-	 * 设置弹出框的确定按钮文字
-	 *
-	 * @param btn 确定按钮文字字符串, 这个字符串会被复制，因此方法返回后可以立刻释放
-	 */
-	public native void setPositiveButton(String btn);
-
-	/**
 	 * 获得弹出框的确定按钮文字
 	 *
 	 * @return 弹出框的确定按钮文字, 调用者不需要负责释放
 	 */
 	public native String getPositiveButton();
-
-	/**
-	 * 设置弹出框的取消按钮文字
-	 *
-	 * @param btn 取消按钮文字字符串, 这个字符串会被复制，因此方法返回后可以立刻释放
-	 */
-	public native void setNegativeButton(String btn);
 
 	/**
 	 * 获得弹出框的取消按钮文字
@@ -147,25 +101,6 @@ public class TextBox extends Node {
 	 */
 	public native String getNegativeButton();
 	
-	/**
-	 * 设置文本框矩形和标签节点之间的空隙. 默认都是0.
-	 *
-	 * @param left 左边间隔
-	 * @param top 上边间隔
-	 * @param right 右边间隔
-	 * @param bottom 下边间隔
-	 */
-	public native void setPadding(float left, float top, float right, float bottom);
-	
-	/**
-	 * \if English
-	 * Set text box as password style
-	 * \else
-	 * 设置文本框为密码输入框
-	 * \endif
-	 */
-	public native void setPassword(boolean flag);
-
 	/**
 	 * \if English
 	 * Is text box a password input?

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.wiyun.engine.livewallpaper" android:versionCode="65" android:versionName="3.10.1" android:installLocation="internalOnly">
+	package="com.wiyun.engine.livewallpaper" android:versionCode="65" android:versionName="3.10.1" android:installLocation="preferExternal">
+	<uses-feature android:glEsVersion="0x00020000" android:required="true"/>
 	<application android:icon="@drawable/icon" android:label="@string/app_name">
 
 		<service android:label="@string/wallpaper_snow" android:name=".WiEngineLiveWallpaperService"
@@ -12,6 +13,6 @@
 				android:resource="@xml/snow" />
 		</service>
 	</application>
-	<uses-sdk android:minSdkVersion="7" />
-	<uses-feature android:name="android.software.live_wallpaper" />
+	<uses-sdk android:minSdkVersion="8" />
+	<uses-feature android:name="android.software.live_wallpaper"/>
 </manifest> 

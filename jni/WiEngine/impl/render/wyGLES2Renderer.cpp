@@ -159,7 +159,11 @@ void wyGLES2Renderer::popClipRect() {
 }
 
 void wyGLES2Renderer::setDepthRange(float start, float end) {
+#ifdef MACOSX
+    glDepthRange(start, end);
+#else
 	glDepthRangef(start, end);
+#endif
 }
 
 void wyGLES2Renderer::applyRenderState(wyRenderState* rs) {

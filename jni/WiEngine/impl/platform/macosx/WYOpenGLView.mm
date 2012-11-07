@@ -72,7 +72,6 @@ extern wyEventDispatcher_macosx* gEventDispatcher;
 
 @implementation WYOpenGLView
 
-@synthesize delegate = m_delegate;
 @synthesize detectGesture = m_detectGesture;
 
 + (NSOpenGLPixelFormat*)getPixelFormat {
@@ -162,6 +161,7 @@ extern wyEventDispatcher_macosx* gEventDispatcher;
 	
 	return [NSString stringWithString:buf];
 }
+
 - (void)prepareOpenGL {
 	// set to vbl sync
     GLint swapInt = 1;
@@ -170,14 +170,6 @@ extern wyEventDispatcher_macosx* gEventDispatcher;
 	// notify director
 	if(gDirector != NULL) {
 		gDirector->onSurfaceCreated();
-		gDirector->onSurfaceChanged(self.frame.size.width, self.frame.size.height);
-		
-		// call delegate
-		if([(id)self.delegate respondsToSelector:@selector(glView:frameBufferCreatedWithWidth:height:)]) {
-			[self.delegate glView:self
-	  frameBufferCreatedWithWidth:self.frame.size.width
-						   height:self.frame.size.height];
-		}
 	}
 	
 	// start render timer
@@ -185,6 +177,15 @@ extern wyEventDispatcher_macosx* gEventDispatcher;
 	
 	// require self as first responder
 	[self.window makeFirstResponder:self];
+}
+
+- (void)reshape {
+    [super reshape];
+    
+    // notify director
+	if(gDirector != NULL) {
+		gDirector->onSurfaceChanged(self.frame.size.width, self.frame.size.height);
+	}
 }
 
 - (void)drawFrame {
@@ -222,11 +223,6 @@ extern wyEventDispatcher_macosx* gEventDispatcher;
 	[self stopRender];
 	[self.window makeFirstResponder:nil];
 	[self removeFromSuperview];
-	
-	// delegate
-	if([(id)self.delegate respondsToSelector:@selector(glViewFrameBufferDestroyed:)]) {
-		[self.delegate glViewFrameBufferDestroyed:self];
-	}
 }
 
 - (BOOL)acceptsFirstResponder {

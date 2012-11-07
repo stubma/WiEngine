@@ -28,6 +28,7 @@
  */
 #import "GLViewController.h"
 #include "wyDirector.h"
+#import "WYOpenGLView.h"
 	
 // global screen config, only available for mac os x or windows
 extern wyScreenConfig gScreenConfig;
@@ -43,7 +44,6 @@ extern wyScreenConfig gScreenConfig;
 		
 		// create opengl view
 		WYOpenGLView* glView = [[[WYOpenGLView alloc] initWithFrame:NSMakeRect(0, 0, gScreenConfig.winWidth, gScreenConfig.winHeight)] autorelease];
-		glView.delegate = self;
 		self.view = glView;
 		
 		/*
@@ -53,25 +53,19 @@ extern wyScreenConfig gScreenConfig;
 //		wyDirector* director = wyDirector::getInstance();
 //		director->setScaleMode(SCALE_MODE_BASE_SIZE_FIT_XY);
 //		director->setBaseSize(320, 480);
+        
+        // execute demo entry
+        m_func();
 	}
 	return self;
 }
 
 - (void)dealloc {
 	WYOpenGLView* glView = (WYOpenGLView*)self.view;
-	glView.delegate = nil;
 	[glView stopRender];
 	[glView.window makeFirstResponder:nil];
 	[self.view removeFromSuperview];
     [super dealloc];
-}
-
-- (void)glView:(WYOpenGLView*)v frameBufferCreatedWithWidth:(int)width height:(int)height {	
-	m_func();
-}
-
-- (void)glViewFrameBufferDestroyed:(WYOpenGLView*)v {
-	[self.appDelegate performSelector:@selector(onBackButtonClicked:) withObject:self];
 }
 
 @end

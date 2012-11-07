@@ -37,39 +37,6 @@
 @class EAGLContext;
 @class WYEAGLView;
 
-/**
- * @protocol WYEAGLViewDelegate
- *
- * \if English
- * delegate of WYEAGLView frame buffer event, internal used only
- * \else
- * WYEAGLView的事件回调, 仅内部使用
- * \endif
- */
-@protocol WYEAGLViewDelegate
-
-@optional
-
-/**
- * \if English
- * Invoked when frame buffer is created
- * \else
- * 当帧缓冲创建时被调用
- * \endif
- */
-- (void)eaglView:(WYEAGLView*)v frameBufferCreatedWithWidth:(int)width height:(int)height;
-
-/**
- * \if English
- * Invoked when frame buffer is destroyed
- * \else
- * 当帧缓冲销毁时被调用
- * \endif
- */
-- (void)eaglViewFrameBufferDestroyed:(WYEAGLView*)v;
-
-@end
-
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
 // The view content is basically an EAGL surface you render your OpenGL scene into.
 // Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
@@ -95,15 +62,11 @@
 	
 	/// true表示手势事件已经开始检测
 	BOOL m_detectGesture;
-	
-	/// delegate
-	id<WYEAGLViewDelegate> m_delegate;
 }
 
 @property (nonatomic, retain) EAGLContext* context;
 @property (nonatomic, retain) CADisplayLink* displayLink;
 @property (nonatomic, assign) NSTimeInterval accelerometerDelay;
-@property (nonatomic, assign) id<WYEAGLViewDelegate> delegate;
 
 /// 开始进行OpenGL渲染
 - (void)startRender;

@@ -55,15 +55,6 @@ protected:
 	/// object name, optional
 	const char* m_name;
 
-#if ANDROID
-	/**
-	 * java端的targetselector事件回调, 用来把native端的target selector事件
-	 * 推送到java端. 目前主要是为了让lua脚本中创建的targetselector可以回调
-	 * 到java端.
-	 */
-	jobject m_jTSConnector;
-#endif
-
 public:
 	/**
 	 * 构造函数
@@ -147,15 +138,6 @@ public:
 	 * 获得对象名
 	 */
 	virtual const char* getName() { return m_name; }
-
-#if ANDROID
-	/**
-	 * 设置java端的target selector事件处理对象
-	 *
-	 * @param c java端的target selector事件处理对象
-	 */
-	void setJavaTSConnector(jobject c);
-#endif // #if ANDROID
 };
 
 #ifdef __cplusplus

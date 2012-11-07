@@ -14,7 +14,6 @@
 		92093723152A94D600645A7A /* wyTMXObjectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92093721152A94D600645A7A /* wyTMXObjectLayer.cpp */; };
 		921F7DA31515A9AA002FA148 /* ActionDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D711515A9AA002FA148 /* ActionDemos.cpp */; };
 		921F7DA41515A9AA002FA148 /* Box2DDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D741515A9AA002FA148 /* Box2DDemos.cpp */; };
-		921F7DA61515A9AA002FA148 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D791515A9AA002FA148 /* common.cpp */; };
 		921F7DA71515A9AA002FA148 /* EaseActionDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D7C1515A9AA002FA148 /* EaseActionDemos.cpp */; };
 		921F7DA81515A9AA002FA148 /* EventDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D7F1515A9AA002FA148 /* EventDemos.cpp */; };
 		921F7DA91515A9AA002FA148 /* GridActionDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D821515A9AA002FA148 /* GridActionDemos.cpp */; };
@@ -181,7 +180,6 @@
 		929D4353146FEAB800267B99 /* wyBlink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B22146FC646004757F9 /* wyBlink.cpp */; };
 		929D4354146FEAB800267B99 /* wyCallFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B23146FC646004757F9 /* wyCallFunc.cpp */; };
 		929D4355146FEAB800267B99 /* wyCameraAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B24146FC646004757F9 /* wyCameraAction.cpp */; };
-		929D4356146FEAB800267B99 /* wyCoverFlowAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B25146FC646004757F9 /* wyCoverFlowAction.cpp */; };
 		929D4357146FEAB800267B99 /* wyDelayTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B26146FC646004757F9 /* wyDelayTime.cpp */; };
 		929D4358146FEAB800267B99 /* wyFadeIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B27146FC646004757F9 /* wyFadeIn.cpp */; };
 		929D4359146FEAB800267B99 /* wyFadeOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7B28146FC646004757F9 /* wyFadeOut.cpp */; };
@@ -343,7 +341,6 @@
 		929D44B5146FEABA00267B99 /* wyBladeRibbon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BD9146FC646004757F9 /* wyBladeRibbon.cpp */; };
 		929D44B6146FEABA00267B99 /* wyButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BDA146FC646004757F9 /* wyButton.cpp */; };
 		929D44B7146FEABA00267B99 /* wyColorLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BDB146FC646004757F9 /* wyColorLayer.cpp */; };
-		929D44B8146FEABA00267B99 /* wyCoverFlow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BDC146FC646004757F9 /* wyCoverFlow.cpp */; };
 		929D44B9146FEABA00267B99 /* wyDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BDD146FC646004757F9 /* wyDirector.cpp */; };
 		929D44BA146FEABA00267B99 /* wyDotPageIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BDE146FC646004757F9 /* wyDotPageIndicator.cpp */; };
 		929D44BB146FEABA00267B99 /* wyFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BDF146FC646004757F9 /* wyFrame.cpp */; };
@@ -784,7 +781,6 @@
 		921F7D721515A9AA002FA148 /* ActionDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionDemos.h; sourceTree = "<group>"; };
 		921F7D741515A9AA002FA148 /* Box2DDemos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Box2DDemos.cpp; sourceTree = "<group>"; };
 		921F7D751515A9AA002FA148 /* Box2DDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2DDemos.h; sourceTree = "<group>"; };
-		921F7D791515A9AA002FA148 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = common.cpp; path = ../../samples/WiEngineDemos_native/jni/Demos/common.cpp; sourceTree = "<group>"; };
 		921F7D7A1515A9AA002FA148 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../../samples/WiEngineDemos_native/jni/Demos/common.h; sourceTree = "<group>"; };
 		921F7D7C1515A9AA002FA148 /* EaseActionDemos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EaseActionDemos.cpp; sourceTree = "<group>"; };
 		921F7D7D1515A9AA002FA148 /* EaseActionDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseActionDemos.h; sourceTree = "<group>"; };
@@ -1440,7 +1436,6 @@
 		92CA7B22146FC646004757F9 /* wyBlink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBlink.cpp; sourceTree = "<group>"; };
 		92CA7B23146FC646004757F9 /* wyCallFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyCallFunc.cpp; sourceTree = "<group>"; };
 		92CA7B24146FC646004757F9 /* wyCameraAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyCameraAction.cpp; sourceTree = "<group>"; };
-		92CA7B25146FC646004757F9 /* wyCoverFlowAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyCoverFlowAction.cpp; sourceTree = "<group>"; };
 		92CA7B26146FC646004757F9 /* wyDelayTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyDelayTime.cpp; sourceTree = "<group>"; };
 		92CA7B27146FC646004757F9 /* wyFadeIn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyFadeIn.cpp; sourceTree = "<group>"; };
 		92CA7B28146FC646004757F9 /* wyFadeOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyFadeOut.cpp; sourceTree = "<group>"; };
@@ -1602,7 +1597,6 @@
 		92CA7BD9146FC646004757F9 /* wyBladeRibbon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBladeRibbon.cpp; sourceTree = "<group>"; };
 		92CA7BDA146FC646004757F9 /* wyButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyButton.cpp; sourceTree = "<group>"; };
 		92CA7BDB146FC646004757F9 /* wyColorLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyColorLayer.cpp; sourceTree = "<group>"; };
-		92CA7BDC146FC646004757F9 /* wyCoverFlow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyCoverFlow.cpp; sourceTree = "<group>"; };
 		92CA7BDD146FC646004757F9 /* wyDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyDirector.cpp; sourceTree = "<group>"; };
 		92CA7BDE146FC646004757F9 /* wyDotPageIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyDotPageIndicator.cpp; sourceTree = "<group>"; };
 		92CA7BDF146FC646004757F9 /* wyFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyFrame.cpp; sourceTree = "<group>"; };
@@ -1734,7 +1728,6 @@
 		92CA7E16146FC66E004757F9 /* wyBlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBlink.h; path = ../../include/actions/wyBlink.h; sourceTree = "<group>"; };
 		92CA7E17146FC66E004757F9 /* wyCallFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyCallFunc.h; path = ../../include/actions/wyCallFunc.h; sourceTree = "<group>"; };
 		92CA7E18146FC66E004757F9 /* wyCameraAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyCameraAction.h; path = ../../include/actions/wyCameraAction.h; sourceTree = "<group>"; };
-		92CA7E19146FC66E004757F9 /* wyCoverFlowAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyCoverFlowAction.h; path = ../../include/actions/wyCoverFlowAction.h; sourceTree = "<group>"; };
 		92CA7E1A146FC66E004757F9 /* wyDelayTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyDelayTime.h; path = ../../include/actions/wyDelayTime.h; sourceTree = "<group>"; };
 		92CA7E1B146FC66E004757F9 /* wyFadeIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyFadeIn.h; path = ../../include/actions/wyFadeIn.h; sourceTree = "<group>"; };
 		92CA7E1C146FC66E004757F9 /* wyFadeOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyFadeOut.h; path = ../../include/actions/wyFadeOut.h; sourceTree = "<group>"; };
@@ -1904,7 +1897,6 @@
 		92CA7EC9146FC6C1004757F9 /* wyBladeRibbon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBladeRibbon.h; path = ../../include/nodes/wyBladeRibbon.h; sourceTree = "<group>"; };
 		92CA7ECA146FC6C1004757F9 /* wyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyButton.h; path = ../../include/nodes/wyButton.h; sourceTree = "<group>"; };
 		92CA7ECB146FC6C1004757F9 /* wyColorLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyColorLayer.h; path = ../../include/nodes/wyColorLayer.h; sourceTree = "<group>"; };
-		92CA7ECC146FC6C1004757F9 /* wyCoverFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyCoverFlow.h; path = ../../include/nodes/wyCoverFlow.h; sourceTree = "<group>"; };
 		92CA7ECD146FC6C1004757F9 /* wyDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyDirector.h; path = ../../include/nodes/wyDirector.h; sourceTree = "<group>"; };
 		92CA7ECE146FC6C1004757F9 /* wyDotPageIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyDotPageIndicator.h; path = ../../include/nodes/wyDotPageIndicator.h; sourceTree = "<group>"; };
 		92CA7ECF146FC6C1004757F9 /* wyFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyFrame.h; path = ../../include/nodes/wyFrame.h; sourceTree = "<group>"; };
@@ -3298,7 +3290,6 @@
 				92322A6D1643CE98002D0EFE /* Shader */,
 				921F7D9D1515A9AA002FA148 /* Sound */,
 				921F7DA01515A9AA002FA148 /* Transition */,
-				921F7D791515A9AA002FA148 /* common.cpp */,
 				921F7D7A1515A9AA002FA148 /* common.h */,
 				92CA7A90146FB3BC004757F9 /* ManifestXML.h */,
 				92CA7A91146FB3BC004757F9 /* ManifestXML.mm */,
@@ -3399,7 +3390,6 @@
 				92CA7E18146FC66E004757F9 /* wyCameraAction.h */,
 				929CBFAA14C5BA620074D3D4 /* wyClipIn.h */,
 				929CBFAB14C5BA620074D3D4 /* wyClipOut.h */,
-				92CA7E19146FC66E004757F9 /* wyCoverFlowAction.h */,
 				92CA7E1A146FC66E004757F9 /* wyDelayTime.h */,
 				92CA7E1B146FC66E004757F9 /* wyFadeIn.h */,
 				92CA7E1C146FC66E004757F9 /* wyFadeOut.h */,
@@ -3446,7 +3436,6 @@
 				92CA7B24146FC646004757F9 /* wyCameraAction.cpp */,
 				929CBFAC14C5BA6C0074D3D4 /* wyClipIn.cpp */,
 				929CBFAD14C5BA6C0074D3D4 /* wyClipOut.cpp */,
-				92CA7B25146FC646004757F9 /* wyCoverFlowAction.cpp */,
 				92CA7B26146FC646004757F9 /* wyDelayTime.cpp */,
 				92CA7B27146FC646004757F9 /* wyFadeIn.cpp */,
 				92CA7B28146FC646004757F9 /* wyFadeOut.cpp */,
@@ -3832,7 +3821,6 @@
 				92CA7ECA146FC6C1004757F9 /* wyButton.h */,
 				92CA7ECB146FC6C1004757F9 /* wyColorLayer.h */,
 				92322A771643CF8A002D0EFE /* wyCompoundNode.h */,
-				92CA7ECC146FC6C1004757F9 /* wyCoverFlow.h */,
 				92CA7ECD146FC6C1004757F9 /* wyDirector.h */,
 				92CA7ECE146FC6C1004757F9 /* wyDotPageIndicator.h */,
 				92CA7ECF146FC6C1004757F9 /* wyFrame.h */,
@@ -3884,7 +3872,6 @@
 				92CA7BDA146FC646004757F9 /* wyButton.cpp */,
 				92CA7BDB146FC646004757F9 /* wyColorLayer.cpp */,
 				92322A781643CF9B002D0EFE /* wyCompoundNode.cpp */,
-				92CA7BDC146FC646004757F9 /* wyCoverFlow.cpp */,
 				92CA7BDD146FC646004757F9 /* wyDirector.cpp */,
 				92CA7BDE146FC646004757F9 /* wyDotPageIndicator.cpp */,
 				92CA7BDF146FC646004757F9 /* wyFrame.cpp */,
@@ -4583,7 +4570,6 @@
 				929D4353146FEAB800267B99 /* wyBlink.cpp in Sources */,
 				929D4354146FEAB800267B99 /* wyCallFunc.cpp in Sources */,
 				929D4355146FEAB800267B99 /* wyCameraAction.cpp in Sources */,
-				929D4356146FEAB800267B99 /* wyCoverFlowAction.cpp in Sources */,
 				929D4357146FEAB800267B99 /* wyDelayTime.cpp in Sources */,
 				929D4358146FEAB800267B99 /* wyFadeIn.cpp in Sources */,
 				929D4359146FEAB800267B99 /* wyFadeOut.cpp in Sources */,
@@ -4745,7 +4731,6 @@
 				929D44B5146FEABA00267B99 /* wyBladeRibbon.cpp in Sources */,
 				929D44B6146FEABA00267B99 /* wyButton.cpp in Sources */,
 				929D44B7146FEABA00267B99 /* wyColorLayer.cpp in Sources */,
-				929D44B8146FEABA00267B99 /* wyCoverFlow.cpp in Sources */,
 				929D44B9146FEABA00267B99 /* wyDirector.cpp in Sources */,
 				929D44BA146FEABA00267B99 /* wyDotPageIndicator.cpp in Sources */,
 				929D44BB146FEABA00267B99 /* wyFrame.cpp in Sources */,
@@ -5181,7 +5166,6 @@
 				923D6405147759D900196C55 /* DemoCollectionView.mm in Sources */,
 				921F7DA31515A9AA002FA148 /* ActionDemos.cpp in Sources */,
 				921F7DA41515A9AA002FA148 /* Box2DDemos.cpp in Sources */,
-				921F7DA61515A9AA002FA148 /* common.cpp in Sources */,
 				921F7DA71515A9AA002FA148 /* EaseActionDemos.cpp in Sources */,
 				921F7DA81515A9AA002FA148 /* EventDemos.cpp in Sources */,
 				921F7DA91515A9AA002FA148 /* GridActionDemos.cpp in Sources */,
@@ -5655,6 +5639,7 @@
 				92322B471643D1B9002D0EFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		925675DA14CC6C17005C1787 /* Build configuration list for PBXNativeTarget "libyajl" */ = {
 			isa = XCConfigurationList;

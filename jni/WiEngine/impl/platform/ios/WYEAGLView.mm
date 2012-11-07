@@ -60,7 +60,6 @@ extern wyEventDispatcher* gEventDispatcher;
 @synthesize context = m_context;
 @synthesize displayLink = m_displayLink;
 @synthesize accelerometerDelay = m_accelerometerDelay;
-@synthesize delegate = m_delegate;
 
 + (Class)layerClass {
     return [CAEAGLLayer class];
@@ -226,13 +225,6 @@ extern wyEventDispatcher* gEventDispatcher;
 			gDirector->onSurfaceCreated();
 			gDirector->onSurfaceChanged(w, h);
 		}
-		
-		// call delegate
-		if([(id)self.delegate respondsToSelector:@selector(eaglView:frameBufferCreatedWithWidth:height:)]) {
-			[self.delegate eaglView:self
-		frameBufferCreatedWithWidth:w
-							 height:h];
-		}
     }
 }
 
@@ -253,11 +245,6 @@ extern wyEventDispatcher* gEventDispatcher;
 		// notify director
 		if(gDirector != NULL)
 			gDirector->onSurfaceDestroyed();
-		
-		// delegate
-		if([(id)self.delegate respondsToSelector:@selector(eaglViewFrameBufferDestroyed:)]) {
-			[self.delegate eaglViewFrameBufferDestroyed:self];
-		}
     }
 }
 

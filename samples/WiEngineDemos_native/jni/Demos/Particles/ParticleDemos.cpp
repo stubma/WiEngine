@@ -581,6 +581,12 @@ namespace Particle {
         	return true;
         }
         
+        virtual void onEnter() {
+        	wyLayer::onEnter();
+
+        	setup();
+        }
+
         void setup() {
 			m_Emitter = createParticleSystem();
 			addChildLocked(m_Emitter);
@@ -642,37 +648,20 @@ namespace Particle {
 
 using namespace Particle;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_particle_##CLASSNAME##_nativeStart \
-		(JNIEnv *env, jobject thiz){ \
-			wyParticleTestLayer* layer = new wy##CLASSNAME##Layer(); \
-			layer->setup(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _particle_##CLASSNAME##Launcher() { \
-			wyParticleTestLayer* layer = new wy##CLASSNAME##Layer(); \
-			layer->setup(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(BigFlowerTest);
-DEMO_ENTRY_IMPL(ExplosionTest);
-DEMO_ENTRY_IMPL(FireTest);
-DEMO_ENTRY_IMPL(FireworkTest);
-DEMO_ENTRY_IMPL(FlowerTest);
-DEMO_ENTRY_IMPL(GalaxyTest);
-DEMO_ENTRY_IMPL(HGETest);
-DEMO_ENTRY_IMPL(MeteorTest);
-DEMO_ENTRY_IMPL(ModernArtTest);
-DEMO_ENTRY_IMPL(ParticleDesignerTest);
-DEMO_ENTRY_IMPL(RainTest);
-DEMO_ENTRY_IMPL(RingTest);
-DEMO_ENTRY_IMPL(RotateFlowerTest);
-DEMO_ENTRY_IMPL(SmokeTest);
-DEMO_ENTRY_IMPL(SnowTest);
-DEMO_ENTRY_IMPL(SpiralTest);
-DEMO_ENTRY_IMPL(SunTest);
+DEMO_ENTRY_IMPL(particle, BigFlowerTest);
+DEMO_ENTRY_IMPL(particle, ExplosionTest);
+DEMO_ENTRY_IMPL(particle, FireTest);
+DEMO_ENTRY_IMPL(particle, FireworkTest);
+DEMO_ENTRY_IMPL(particle, FlowerTest);
+DEMO_ENTRY_IMPL(particle, GalaxyTest);
+DEMO_ENTRY_IMPL(particle, HGETest);
+DEMO_ENTRY_IMPL(particle, MeteorTest);
+DEMO_ENTRY_IMPL(particle, ModernArtTest);
+DEMO_ENTRY_IMPL(particle, ParticleDesignerTest);
+DEMO_ENTRY_IMPL(particle, RainTest);
+DEMO_ENTRY_IMPL(particle, RingTest);
+DEMO_ENTRY_IMPL(particle, RotateFlowerTest);
+DEMO_ENTRY_IMPL(particle, SmokeTest);
+DEMO_ENTRY_IMPL(particle, SnowTest);
+DEMO_ENTRY_IMPL(particle, SpiralTest);
+DEMO_ENTRY_IMPL(particle, SunTest);

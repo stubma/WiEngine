@@ -259,36 +259,21 @@ namespace Ease_Action {
 
 using namespace Ease_Action;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_ease_##CLASSNAME##_nativeStart \
-	(JNIEnv *, jobject){ \
-		wyLayer* layer = new wy##CLASSNAME##Layer(); \
-		runDemo(layer, NULL); \
-		wyObjectRelease(layer); \
-	}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _ease_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(EaseBackInOutTest);
-DEMO_ENTRY_IMPL(EaseBackInTest);
-DEMO_ENTRY_IMPL(EaseBackOutTest);
-DEMO_ENTRY_IMPL(EaseBounceInOutTest);
-DEMO_ENTRY_IMPL(EaseBounceInTest);
-DEMO_ENTRY_IMPL(EaseBounceOutTest);
-DEMO_ENTRY_IMPL(EaseElasticInOutTest);
-DEMO_ENTRY_IMPL(EaseElasticInTest);
-DEMO_ENTRY_IMPL(EaseElasticOutTest);
-DEMO_ENTRY_IMPL(EaseExponentialInOutTest);
-DEMO_ENTRY_IMPL(EaseExponentialInTest);
-DEMO_ENTRY_IMPL(EaseExponentialOutTest);
-DEMO_ENTRY_IMPL(EaseInOutTest);
-DEMO_ENTRY_IMPL(EaseInTest);
-DEMO_ENTRY_IMPL(EaseOutTest);
-DEMO_ENTRY_IMPL(EaseSineInOutTest);
-DEMO_ENTRY_IMPL(EaseSineInTest);
-DEMO_ENTRY_IMPL(EaseSineOutTest);
+DEMO_ENTRY_IMPL(ease, EaseBackInOutTest);
+DEMO_ENTRY_IMPL(ease, EaseBackInTest);
+DEMO_ENTRY_IMPL(ease, EaseBackOutTest);
+DEMO_ENTRY_IMPL(ease, EaseBounceInOutTest);
+DEMO_ENTRY_IMPL(ease, EaseBounceInTest);
+DEMO_ENTRY_IMPL(ease, EaseBounceOutTest);
+DEMO_ENTRY_IMPL(ease, EaseElasticInOutTest);
+DEMO_ENTRY_IMPL(ease, EaseElasticInTest);
+DEMO_ENTRY_IMPL(ease, EaseElasticOutTest);
+DEMO_ENTRY_IMPL(ease, EaseExponentialInOutTest);
+DEMO_ENTRY_IMPL(ease, EaseExponentialInTest);
+DEMO_ENTRY_IMPL(ease, EaseExponentialOutTest);
+DEMO_ENTRY_IMPL(ease, EaseInOutTest);
+DEMO_ENTRY_IMPL(ease, EaseInTest);
+DEMO_ENTRY_IMPL(ease, EaseOutTest);
+DEMO_ENTRY_IMPL(ease, EaseSineInOutTest);
+DEMO_ENTRY_IMPL(ease, EaseSineInTest);
+DEMO_ENTRY_IMPL(ease, EaseSineOutTest);

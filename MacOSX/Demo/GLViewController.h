@@ -28,10 +28,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "WYOpenGLView.h"
 #import "common.h"
 
-@interface GLViewController : NSViewController <WYOpenGLViewDelegate> {	
+@interface GLViewController : NSViewController {
 @private
 	/// demo entry function
 	demoEntryFunc m_func;

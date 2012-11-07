@@ -29,7 +29,6 @@
 	<property name="dist.headers.dir" value="${dist.dir}/WiEngine/headers"/>
 	<property name="dist.templates.dir" value="${dist.dir}/templates"/>
 	<property name="dist.xcode4.templates.dir" value="${dist.dir}/templates/Xcode4"/>
-	<property name="dist.samples.dir" value="${dist.dir}/samples"/>
 	<property name="dist.zip" location="${build.dir}/WiEngine_sdk_macosx_${version}.zip"/>
 	
 	<!-- make necessary dir -->
@@ -37,7 +36,6 @@
 		<mkdir dir="${dist.libs.dir}"/>
 		<mkdir dir="${dist.headers.dir}"/>
 		<mkdir dir="${dist.templates.dir}"/>
-		<mkdir dir="${dist.samples.dir}"/>
 	</target>
 	
 	<!-- make a full sdk -->
@@ -77,9 +75,6 @@
 		<!-- template -->
 		<antcall target="WiEngine_template"/>
 		
-		<!-- build samples -->
-		<antcall target="samples"/>
-		
 		<!-- remove dist/WiEngine -->
 		<delete dir="${dist.dir}/WiEngine"/>
 		
@@ -98,78 +93,6 @@
 		
 		<!-- generate base template -->
 		<antcall target="generate_base_template"/>
-	</target>
-	
-	<!-- make samples -->
-	<target name="samples">
-		<!-- copy base samples -->
-		<copy todir="${dist.samples.dir}">
-			<fileset dir="samples">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy WiEngine library to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/WiEngine">
-			<fileset dir="${dist.dir}/WiEngine">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy base resources to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Resources">
-			<fileset dir="${macosx.dir}/Resources">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		
-		<!-- case base code to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo">
-			<fileset dir="${macosx.dir}/Demo">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy demo code to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo">
-			<fileset dir="${android.native.demo.dir}/jni/Demos">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy assets to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Resources/assets">
-			<fileset dir="${android.native.demo.dir}/assets">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy drawable to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Resources/drawable">
-			<fileset dir="${android.native.demo.dir}/res/drawable">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy raw to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Resources/raw">
-			<fileset dir="${android.native.demo.dir}/res/raw">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		
-		<!-- copy strings.xml to samples -->
-		<copy file="${android.native.demo.dir}/res/values/strings.xml" 
-			tofile="${dist.samples.dir}/WiEngineDemos/Resources/strings-en.xml">
-		</copy>
-		<copy file="${android.native.demo.dir}/res/values-zh/strings.xml" 
-			tofile="${dist.samples.dir}/WiEngineDemos/Resources/strings-zh.xml">
-		</copy>
-		
-		<!-- copy manifest to samples -->
-		<copy file="${android.native.demo.dir}/AndroidManifest.xml" 
-			todir="${dist.samples.dir}/WiEngineDemos/Resources">
-		</copy>
 	</target>
 	
 	<!-- generate base template -->
@@ -248,13 +171,12 @@
 				<exclude name="expat/**"/>
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
-				<exclude name="Box2D/binding/**"/>
+				<exclude name="kazmath/src/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
 				<exclude name="libnsbmp/**"/>
 				<exclude name="libpng/**"/>
 				<exclude name="libxml2/**"/>
-				<exclude name="lua/binding/**"/>
 				<exclude name="openal/**"/>
 				<exclude name="vorbis/**"/>
 				<exclude name="json/**"/>
@@ -262,7 +184,6 @@
 				<exclude name="iap/**"/>
 				<exclude name="sqlite3/**"/>
 				<exclude name="WiEngine/impl/**"/>
-				<exclude name="WiEngine_binding/**"/>
 				<exclude name="WiNetwork/**"/>
 				<exclude name="WiSound/**"/>
 			</fileset>

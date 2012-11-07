@@ -30,9 +30,6 @@
 #define __wyCustomColorFilter_h__
 
 #include "wyColorFilter.h"
-#if ANDROID
-	#include <jni.h>
-#endif
 
 /**
  * @typedef wyColorFilterDelegate
@@ -94,11 +91,6 @@ private:
 	 */
 	void* m_userData;
 
-#if ANDROID
-	/// java端delegate
-	jobject m_jDelegate;
-#endif
-
 protected:
 	/**
 	 * \if English
@@ -152,15 +144,6 @@ public:
 	 * \endif
 	 */
 	void setDelegate(wyColorFilterDelegate* delegate, void* data);
-
-#if ANDROID
-	/**
-	 * 设置java端的代理
-	 *
-	 * @param delegate java端实现了代理接口的类
-	 */
-	void setDelegate(jobject delegate);
-#endif
 };
 
 #endif // __wyCustomColorFilter_h__

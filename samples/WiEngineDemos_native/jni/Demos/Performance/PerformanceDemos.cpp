@@ -199,22 +199,7 @@ namespace Performance {
 
 using namespace Performance;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(testname) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_performance_##testname##_nativeStart \
-		(JNIEnv *, jobject){ \
-			wyLayer* layer = new wy##testname##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _performance_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(BatchRenderSpriteTest);
-DEMO_ENTRY_IMPL(BigTMXTest);
-DEMO_ENTRY_IMPL(RenderSpriteTest);
-DEMO_ENTRY_IMPL(RunActionTest);
+DEMO_ENTRY_IMPL(performance, BatchRenderSpriteTest);
+DEMO_ENTRY_IMPL(performance, BigTMXTest);
+DEMO_ENTRY_IMPL(performance, RenderSpriteTest);
+DEMO_ENTRY_IMPL(performance, RunActionTest);

@@ -48,15 +48,6 @@ class wyDirector_android : public wyDirector {
 private:
 	/**
 	 * \if English
-	 * used to store the listeners created on the java end
-	 * \else
-	 * java端的生命周期监听器
-	 * \endif
-	 */
-	wyArray* m_jLifecycleListeners;
-
-	/**
-	 * \if English
 	 * to mark whether the game still runs when it is put background,
 	 * by default the value is false
 	 * \else
@@ -84,15 +75,6 @@ private:
 	int m_originalMaxFrameRate;
 
 private:
-	static bool j_notifySurfaceCreated(wyArray* arr, void* ptr, int index, void* data);
-	static bool j_notifySurfaceChanged(wyArray* arr, void* ptr, int index, void* data);
-	static bool j_notifySurfaceDestroyed(wyArray* arr, void* ptr, int index, void* data);
-	static bool j_notifyDirectorPaused(wyArray* arr, void* ptr, int index, void* data);
-	static bool j_notifyDirectorResumed(wyArray* arr, void* ptr, int index, void* data);
-	static bool j_notifyDirectorEnded(wyArray* arr, void* ptr, int index, void* data);
-	static bool j_notifyDirectorScreenCaptured(wyArray* arr, void* ptr, int index, void* data);
-	static bool j_releaseListener(wyArray* arr, void* ptr, int index, void* data);
-
 	/// background looper for background running
 	void backgroundLooper(wyTargetSelector* sel);
 
@@ -155,19 +137,6 @@ public:
 
 	/// @see wyDirector::setAccelerometerDelay
 	virtual void setAccelerometerDelay(wySensorDelay delay);
-
-	/**
-	 * \if English
-	 * invoked when add a life cycle listener from the java end
-	 *
-	 * @param l java object implementing IDirectorLifecycleListener interface
-	 * \else
-	 * 添加一个java端的生命周期监听器
-	 *
-	 * @param l java端声明周期监听器，需要是一个实现了IDirectorLifecycleListener接口的对象
-	 * \endif
-	 */
-	void addLifecycleListener(jobject l);
 };
 
 #endif // #if ANDROID

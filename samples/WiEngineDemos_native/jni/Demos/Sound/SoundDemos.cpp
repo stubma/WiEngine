@@ -276,21 +276,6 @@ public:
 
 using namespace Sound;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_sound_##CLASSNAME##_nativeStart \
-		(JNIEnv *env, jobject thiz) { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _sound_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(MP3Test);
-DEMO_ENTRY_IMPL(OGGTest);
-DEMO_ENTRY_IMPL(WAVTest);
+DEMO_ENTRY_IMPL(sound, MP3Test);
+DEMO_ENTRY_IMPL(sound, OGGTest);
+DEMO_ENTRY_IMPL(sound, WAVTest);

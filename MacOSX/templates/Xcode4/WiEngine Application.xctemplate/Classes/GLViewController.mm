@@ -9,9 +9,37 @@
 #import "GLViewController.h"
 #include "wyDirector.h"
 #include "FirstScene.h"
+#include "WYOpenGLView.h"
 
 // global screen config, only available for mac os x or windows
 extern wyScreenConfig gScreenConfig;
+
+// is already started?
+static bool s_started = false;
+
+static void onSurfaceChanged(int w, int h, void* data) {
+	// ensure it is not started multiple times
+	if(!s_started) {
+		s_started = true;
+
+		// run with first scene
+		wyDirector* director = wyDirector::getInstance();
+		wyScene* scene = new FirstScene();
+		director->runWithScene(scene);
+		scene->release();
+	}
+}
+
+// life cycle listener
+static const wyDirectorLifecycleListener s_surfaceLifeCycleListener = {
+	NULL,
+	onSurfaceChanged,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL
+};
 
 @implementation GLViewController 
 
@@ -25,15 +53,20 @@ extern wyScreenConfig gScreenConfig;
 		// create opengl view
 		WYOpenGLView* glView = [[[WYOpenGLView alloc] initWithFrame:NSMakeRect(0, 0, gScreenConfig.winWidth, gScreenConfig.winHeight)] autorelease];
 		glView.autoresizingMask = NSViewNotSizable;
-		glView.delegate = self;
 		self.view = glView;
+		
+		// set showing fps
+		wyDirector* director = wyDirector::getInstance();
+		director->setShowFPS(true);
+
+		// add life cycle listener
+	    director->addLifecycleListener(&s_surfaceLifeCycleListener, NULL);
 		
 		/*
 		 * If you want to run demo in base size mode, uncomment
 		 * following code. To understand what is base size mode, view
 		 * WiYun blog: http://blog.wiyun.com/?p=949
 		 */
-//		wyDirector* director = wyDirector::getInstance();
 //		director->setScaleMode(SCALE_MODE_BASE_SIZE_FIT_XY);
 //		director->setBaseSize(320, 480);
 	}
@@ -42,26 +75,10 @@ extern wyScreenConfig gScreenConfig;
 
 - (void)dealloc {
 	WYOpenGLView* glView = (WYOpenGLView*)self.view;
-	glView.delegate = nil;
 	[glView stopRender];
 	[glView.window makeFirstResponder:nil];
 	[self.view removeFromSuperview];
     [super dealloc];
-}
-
-- (void)glView:(WYOpenGLView*)v frameBufferCreatedWithWidth:(int)width height:(int)height {
-	wyDirector* director = wyDirector::getInstance();
-	if(director->getRunningScene() == NULL) {
-		director->setShowFPS(true);
-		
-		// run with it
-		wyScene* scene = new FirstScene();
-		director->runWithScene(scene);
-		scene->release();	
-	}
-}
-
-- (void)glViewFrameBufferDestroyed:(WYOpenGLView*)v {
 }
 
 @end

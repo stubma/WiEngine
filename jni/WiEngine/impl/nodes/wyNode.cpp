@@ -43,9 +43,6 @@
 #include "wyScheduler.h"
 #include "wyCamera.h"
 #include "wyGridController.h"
-#if ANDROID
-	#include "wyJNI.h"
-#endif
 
 extern pthread_mutex_t gMutex;
 
@@ -53,103 +50,6 @@ extern wyScheduler* gScheduler;
 extern wyEventDispatcher* gEventDispatcher;
 extern wyActionManager* gActionManager;
 extern wyDirector* gDirector;
-
-#if ANDROID
-
-extern jmethodID g_mid_INodeVirtualMethods_jOnEnter;
-extern jmethodID g_mid_INodeVirtualMethods_jOnExit;
-extern jmethodID g_mid_INodeVirtualMethods_jOnEnterTransitionDidFinish;
-extern jmethodID g_mid_INodeVirtualMethods_jDraw;
-extern jmethodID g_mid_IPositionListener_onPositionChanged;
-
-void wyNode::setPositionListener(jobject listener) {
-	JNIEnv* env = getEnv();
-	if(m_jPositionListener != NULL) {
-		env->DeleteGlobalRef(m_jPositionListener);
-		m_jPositionListener = NULL;
-	}
-	
-	m_jPositionListener = env->NewGlobalRef(listener);
-}
-
-void wyNode::setJavaData(jobject data) {
-	JNIEnv* env = getEnv();
-	if(m_dataIsJavaObject) {
-		env->DeleteGlobalRef(m_data.jo);
-		m_dataIsJavaObject = false;
-	}
-	
-	m_dataIsJavaObject = true;
-	m_data.jo = env->NewGlobalRef(data);
-}
-
-void wyNode::setJavaTouchHandler(jobject h) {
-	JNIEnv* env = getEnv();
-	if(m_jTouchHandler != NULL) {
-		env->DeleteGlobalRef(m_jTouchHandler);
-		m_jTouchHandler = NULL;
-	}
-	if(h != NULL) {
-		m_jTouchHandler = env->NewGlobalRef(h);
-	}
-}
-
-void wyNode::setJavaKeyHandler(jobject h) {
-	JNIEnv* env = getEnv();
-	if(m_jKeyHandler != NULL) {
-		env->DeleteGlobalRef(m_jKeyHandler);
-		m_jKeyHandler = NULL;
-	}
-	if(h != NULL) {
-		m_jKeyHandler = env->NewGlobalRef(h);
-	}
-}
-
-void wyNode::setJavaAccelHandler(jobject h) {
-	JNIEnv* env = getEnv();
-	if(m_jAccelHandler != NULL) {
-		env->DeleteGlobalRef(m_jAccelHandler);
-		m_jAccelHandler = NULL;
-	}
-	if(h != NULL) {
-		m_jAccelHandler = env->NewGlobalRef(h);
-	}
-}
-
-void wyNode::setJavaDoubleTapHandler(jobject h) {
-	JNIEnv* env = getEnv();
-	if(m_jDoubleTapHandler != NULL) {
-		env->DeleteGlobalRef(m_jDoubleTapHandler);
-		m_jDoubleTapHandler = NULL;
-	}
-	if(h != NULL) {
-		m_jDoubleTapHandler = env->NewGlobalRef(h);
-	}
-}
-
-void wyNode::setJavaGestureHandler(jobject h) {
-	JNIEnv* env = getEnv();
-	if(m_jGestureHandler != NULL) {
-		env->DeleteGlobalRef(m_jGestureHandler);
-		m_jGestureHandler = NULL;
-	}
-	if(h != NULL) {
-		m_jGestureHandler = env->NewGlobalRef(h);
-	}
-}
-
-void wyNode::setJavaVirtualMethods(jobject h) {
-	JNIEnv* env = getEnv();
-	if(m_jVirtualMethods != NULL) {
-		env->DeleteGlobalRef(m_jVirtualMethods);
-		m_jVirtualMethods = NULL;
-	}
-	if(h != NULL) {
-		m_jVirtualMethods = env->NewGlobalRef(h);
-	}
-}
-
-#endif // #if ANDROID
 
 bool wyNode::activateTimer(wyArray* arr, void* ptr, int index, void* data) {
 	wyTimer* t = (wyTimer*)ptr;
@@ -383,14 +283,6 @@ void wyNode::onEnter() {
 		wyArrayEach(m_children, sOnEnter, NULL);
 		activateTimers();
 		m_running = true;
-
-#if ANDROID
-		// if java layer implemention is set, callback
-		if(m_jVirtualMethods != NULL && g_mid_INodeVirtualMethods_jOnEnter != 0) {
-			JNIEnv* env = getEnv();
-			env->CallVoidMethod(m_jVirtualMethods, g_mid_INodeVirtualMethods_jOnEnter);
-		}
-#endif
 	}
 }
 
@@ -416,27 +308,11 @@ void wyNode::onExit() {
 
 		// make children exit
 		wyArrayEach(m_children, sOnExit, NULL);
-
-#if ANDROID
-		// if java layer implemention is set, callback
-		if(m_jVirtualMethods != NULL && g_mid_INodeVirtualMethods_jOnExit != 0) {
-			JNIEnv* env = getEnv();
-			env->CallVoidMethod(m_jVirtualMethods, g_mid_INodeVirtualMethods_jOnExit);
-		}
-#endif
 	}
 }
 
 void wyNode::onEnterTransitionDidFinish() {
 	wyArrayEach(m_children, sOnEnterTransitionDidFinish, NULL);
-
-#if ANDROID
-	// if java layer implemention is set, callback
-	if(m_jVirtualMethods != NULL && g_mid_INodeVirtualMethods_jOnEnterTransitionDidFinish != 0) {
-		JNIEnv* env = getEnv();
-		env->CallVoidMethod(m_jVirtualMethods, g_mid_INodeVirtualMethods_jOnEnterTransitionDidFinish);
-	}
-#endif
 }
 
 void wyNode::onAttachToParent(wyNode* parent) {
@@ -462,16 +338,6 @@ void wyNode::cleanup() {
 wyNode::~wyNode() {
 	// nullify parent
 	m_parent = NULL;
-
-#if ANDROID
-	// clear handers
-	setJavaVirtualMethods(NULL);
-	setJavaTouchHandler(NULL);
-	setJavaKeyHandler(NULL);
-	setJavaAccelHandler(NULL);
-	setJavaDoubleTapHandler(NULL);
-	setJavaGestureHandler(NULL);
-#endif
 
 	// remove from physics node queue
 	if(m_velocityX != 0 || m_velocityY != 0 || m_accelerationX != 0 || m_accelerationY != 0) {
@@ -504,18 +370,6 @@ wyNode::~wyNode() {
 		wyFree(m_positionListener);
 		m_positionListener = NULL;
 	}
-#if ANDROID
-	if(m_dataIsJavaObject) {
-		JNIEnv* env = getEnv();
-		env->DeleteGlobalRef(m_data.jo);
-		m_dataIsJavaObject = false;
-	}
-	if(m_jPositionListener != NULL) {
-		JNIEnv* env = getEnv();
-		env->DeleteGlobalRef(m_jPositionListener);
-		m_jPositionListener = NULL;
-	}
-#endif
 }
 
 void wyNode::setAnchor(float x, float y) {
@@ -583,12 +437,6 @@ void wyNode::setPosition(float x, float y) {
 	if(m_positionListener != NULL) {
 		m_positionListener->onPositionChanged(this, m_plData);
 	} 
-#if ANDROID
-	else if(m_jPositionListener != NULL) {
-		JNIEnv* env = getEnv();
-		env->CallVoidMethod(m_jPositionListener, g_mid_IPositionListener_onPositionChanged, (jint)this);
-	}
-#endif
 }
 
 void wyNode::setRotation(float rot) {
@@ -1003,16 +851,6 @@ wyNode::wyNode() :
 		m_materialNeedUpdate(false),
 		m_meshNeedUpdate(false),
 		m_touchCoffin(NULL),
-#if ANDROID
-		m_jTouchHandler(NULL),
-		m_jKeyHandler(NULL),
-		m_jAccelHandler(NULL),
-		m_jDoubleTapHandler(NULL),
-		m_jGestureHandler(NULL),
-		m_jVirtualMethods(NULL),
-		m_jPositionListener(NULL),
-		m_dataIsJavaObject(false),
-#endif
 		m_downSelector(NULL),
 		m_upSelector(NULL),
 		m_moveOutSelector(NULL),
@@ -1637,14 +1475,6 @@ bool wyNode::isAncestor(wyNode* node) {
 }
 
 void wyNode::setUserData(wyUserData& ud) {
-#if ANDROID
-	if(m_dataIsJavaObject) {
-		JNIEnv* env = getEnv();
-		env->DeleteGlobalRef(m_data.jo);
-		m_dataIsJavaObject = false;
-	}
-#endif
-
 	memcpy(&m_data, &ud, sizeof(wyUserData));
 }
 

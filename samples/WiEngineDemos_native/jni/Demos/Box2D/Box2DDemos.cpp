@@ -5528,55 +5528,40 @@ public:
 
 using namespace Box2D;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_box2d_##CLASSNAME##_nativeStart \
-		(JNIEnv *, jobject) { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _box2d_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(ApplyForceTest);
-DEMO_ENTRY_IMPL(BodyAnimationTest);
-DEMO_ENTRY_IMPL(BodyTypesTest);
-DEMO_ENTRY_IMPL(BounceTest);
-DEMO_ENTRY_IMPL(BreakableTest);
-DEMO_ENTRY_IMPL(BridgeTest);
-DEMO_ENTRY_IMPL(BulletTest);
-DEMO_ENTRY_IMPL(BuoyancyTest);
-DEMO_ENTRY_IMPL(CantileverTest);
-DEMO_ENTRY_IMPL(CarTest);
-DEMO_ENTRY_IMPL(ChainTest);
-DEMO_ENTRY_IMPL(ChainShapeTest);
-DEMO_ENTRY_IMPL(CollisionDetectionTest);
-DEMO_ENTRY_IMPL(CollisionFilteringTest);
-DEMO_ENTRY_IMPL(CompoundShapesTest);
-DEMO_ENTRY_IMPL(ConfinedTest);
-DEMO_ENTRY_IMPL(DominosTest);
-DEMO_ENTRY_IMPL(EdgeShapesTest);
-DEMO_ENTRY_IMPL(GearsTest);
-DEMO_ENTRY_IMPL(OneWayTest);
-DEMO_ENTRY_IMPL(PulleysTest);
-DEMO_ENTRY_IMPL(PyramidTest);
-DEMO_ENTRY_IMPL(RopeTest);
-DEMO_ENTRY_IMPL(SensorTest);
-DEMO_ENTRY_IMPL(ShapeEditingTest);
-DEMO_ENTRY_IMPL(SliderCrankTest);
-DEMO_ENTRY_IMPL(SphereStackTest);
-DEMO_ENTRY_IMPL(TensorDampingTest);
-DEMO_ENTRY_IMPL(TexturedBounceTest);
-DEMO_ENTRY_IMPL(TexturedEdgeShapesTest);
-DEMO_ENTRY_IMPL(TexturedChainShapeTest);
-DEMO_ENTRY_IMPL(TexturedOneWayTest);
-DEMO_ENTRY_IMPL(VaryingFrictionTest);
-DEMO_ENTRY_IMPL(VaryingRestitutionTest);
-DEMO_ENTRY_IMPL(WebTest);
-DEMO_ENTRY_IMPL(SimpleTest);
-DEMO_ENTRY_IMPL(PhysicsEditorTest);
+DEMO_ENTRY_IMPL(box2d, ApplyForceTest);
+DEMO_ENTRY_IMPL(box2d, BodyAnimationTest);
+DEMO_ENTRY_IMPL(box2d, BodyTypesTest);
+DEMO_ENTRY_IMPL(box2d, BounceTest);
+DEMO_ENTRY_IMPL(box2d, BreakableTest);
+DEMO_ENTRY_IMPL(box2d, BridgeTest);
+DEMO_ENTRY_IMPL(box2d, BulletTest);
+DEMO_ENTRY_IMPL(box2d, BuoyancyTest);
+DEMO_ENTRY_IMPL(box2d, CantileverTest);
+DEMO_ENTRY_IMPL(box2d, CarTest);
+DEMO_ENTRY_IMPL(box2d, ChainTest);
+DEMO_ENTRY_IMPL(box2d, ChainShapeTest);
+DEMO_ENTRY_IMPL(box2d, CollisionDetectionTest);
+DEMO_ENTRY_IMPL(box2d, CollisionFilteringTest);
+DEMO_ENTRY_IMPL(box2d, CompoundShapesTest);
+DEMO_ENTRY_IMPL(box2d, ConfinedTest);
+DEMO_ENTRY_IMPL(box2d, DominosTest);
+DEMO_ENTRY_IMPL(box2d, EdgeShapesTest);
+DEMO_ENTRY_IMPL(box2d, GearsTest);
+DEMO_ENTRY_IMPL(box2d, OneWayTest);
+DEMO_ENTRY_IMPL(box2d, PulleysTest);
+DEMO_ENTRY_IMPL(box2d, PyramidTest);
+DEMO_ENTRY_IMPL(box2d, RopeTest);
+DEMO_ENTRY_IMPL(box2d, SensorTest);
+DEMO_ENTRY_IMPL(box2d, ShapeEditingTest);
+DEMO_ENTRY_IMPL(box2d, SliderCrankTest);
+DEMO_ENTRY_IMPL(box2d, SphereStackTest);
+DEMO_ENTRY_IMPL(box2d, TensorDampingTest);
+DEMO_ENTRY_IMPL(box2d, TexturedBounceTest);
+DEMO_ENTRY_IMPL(box2d, TexturedEdgeShapesTest);
+DEMO_ENTRY_IMPL(box2d, TexturedChainShapeTest);
+DEMO_ENTRY_IMPL(box2d, TexturedOneWayTest);
+DEMO_ENTRY_IMPL(box2d, VaryingFrictionTest);
+DEMO_ENTRY_IMPL(box2d, VaryingRestitutionTest);
+DEMO_ENTRY_IMPL(box2d, WebTest);
+DEMO_ENTRY_IMPL(box2d, SimpleTest);
+DEMO_ENTRY_IMPL(box2d, PhysicsEditorTest);

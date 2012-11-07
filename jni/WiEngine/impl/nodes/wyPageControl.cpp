@@ -34,14 +34,6 @@
 #include "wyEventDispatcher.h"
 #include "wyScheduler.h"
 
-#if ANDROID
-#include "wyUtils_android.h"
-
-extern jmethodID g_mid_IPageControlCallback_onPageClicked;
-extern jmethodID g_mid_IPageControlCallback_onPageChanged;
-extern jmethodID g_mid_IPageControlCallback_onPagePositionChanged;
-#endif
-
 wyPageControl::wyPageControl() :
 		m_pages(wyArrayNew(5)),
 		m_container(NULL),
@@ -54,9 +46,6 @@ wyPageControl::wyPageControl() :
 		m_initialPageIndex(-1),
 		m_indicator(NULL),
 		m_data(NULL),
-#if ANDROID
-		m_jCallback(NULL),
-#endif
 		m_centerY(-1),
 		m_centerX(-1) {
 	// set page control properties
@@ -80,14 +69,6 @@ wyPageControl::wyPageControl() :
 }
 
 wyPageControl::~wyPageControl() {
-#if ANDROID
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-#endif
-
 	m_scroller->release();
 	wyArrayEach(m_pages, releasePage, NULL);
 	wyArrayDestroy(m_pages);
@@ -104,11 +85,7 @@ bool wyPageControl::releasePage(wyArray* arr, void* ptr, int index, void* data) 
 }
 
 void wyPageControl::notifyOnPagePositionChanged() {
-	if(!m_callback.onPagePositionChanged 
-#if ANDROID
-       && !m_jCallback
-#endif
-       )
+	if(!m_callback.onPagePositionChanged )
 		return;
 
 	if(m_vertical) {
@@ -118,16 +95,6 @@ void wyPageControl::notifyOnPagePositionChanged() {
 				m_callback.onPagePositionChanged(this, page,
 						m_container->getPositionY() + page->getOriginY() + page->getHeight() / 2 - m_height / 2, m_data);
 			}
-#if ANDROID
-			else if(m_jCallback != NULL) {
-				JNIEnv* env = wyUtils::getJNIEnv();
-				env->CallVoidMethod(m_jCallback, g_mid_IPageControlCallback_onPagePositionChanged,
-						(jint)this,
-						(jint)page,
-						m_container->getPositionY() + page->getOriginY() + page->getHeight() / 2 - m_height / 2,
-						m_data);
-			}
-#endif
 		}
 	} else {
 		for(int i = 0; i < m_pages->num; i++) {
@@ -136,16 +103,6 @@ void wyPageControl::notifyOnPagePositionChanged() {
 				m_callback.onPagePositionChanged(this, page,
 						m_container->getPositionX() + page->getOriginX() + page->getWidth() / 2 - m_width / 2, m_data);
 			}
-#if ANDROID
-			else if(m_jCallback != NULL) {
-				JNIEnv* env = wyUtils::getJNIEnv();
-				env->CallVoidMethod(m_jCallback, g_mid_IPageControlCallback_onPagePositionChanged,
-						(jint)this,
-						(jint)page,
-						m_container->getPositionX() + page->getOriginX() + page->getWidth() / 2 - m_width / 2,
-						m_data);
-			}
-#endif
 		}
 	}
 }
@@ -184,24 +141,12 @@ void wyPageControl::notifyOnPageChanged() {
 	if(m_callback.onPageChanged != NULL) {
 		m_callback.onPageChanged(this, getBestIndex(), m_data);
 	} 
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IPageControlCallback_onPageChanged, (jint)this, getBestIndex());
-	}
-#endif
 }
 
 void wyPageControl::notifyOnPageClicked(int index) {
 	if(m_callback.onPageClicked != NULL) {
 		m_callback.onPageClicked(this, index, m_data);
 	} 
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IPageControlCallback_onPageClicked, (jint)this, index);
-	}
-#endif
 }
 
 void wyPageControl::setInitialPage(int index) {
@@ -424,17 +369,6 @@ void wyPageControl::setCallback(wyPageControlCallback* callback, void* data) {
 		m_data = data;
 	}
 }
-
-#if ANDROID
-void wyPageControl::setCallback(jobject callback) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jCallback != NULL) {
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-	m_jCallback = env->NewGlobalRef(callback);
-}
-#endif
 
 int wyPageControl::getLeftIndex() {
 	float position = m_vertical ? (m_height / 2 - m_container->getPositionY())

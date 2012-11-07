@@ -45,8 +45,6 @@
 }
 
 - (void)viewDidLoad {
-	((WYEAGLView*)self.view).delegate = self;
-    
     /*
      * If you want to run demo in base size mode, uncomment
      * following code
@@ -54,19 +52,17 @@
 //    wyDirector* director = wyDirector::getInstance();
 //    director->setScaleMode(SCALE_MODE_BASE_SIZE_FIT_XY);
 //    director->setBaseSize(320, 480);
+    
+    // execute demo entry function
+    m_func();
 }
 
 - (void)dealloc {
-	((WYEAGLView*)self.view).delegate = nil;
     [super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return NO;
-}
-
-- (void)eaglView:(WYEAGLView*)v frameBufferCreatedWithWidth:(int)width height:(int)height {	
-	m_func();
 }
 
 - (void)viewWillAppear:(BOOL)animated {

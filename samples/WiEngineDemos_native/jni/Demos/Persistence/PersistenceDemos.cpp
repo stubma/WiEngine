@@ -267,22 +267,7 @@ public:
 
 using namespace Persistence;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_persistence_##CLASSNAME##_nativeStart \
-		(JNIEnv *env, jobject thiz) { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _persistence_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(CreateDatabaseTest);
-DEMO_ENTRY_IMPL(PreferenceTest);
-DEMO_ENTRY_IMPL(SQLFileTest);
-DEMO_ENTRY_IMPL(TransactionTest);
+DEMO_ENTRY_IMPL(persistence, CreateDatabaseTest);
+DEMO_ENTRY_IMPL(persistence, PreferenceTest);
+DEMO_ENTRY_IMPL(persistence, SQLFileTest);
+DEMO_ENTRY_IMPL(persistence, TransactionTest);

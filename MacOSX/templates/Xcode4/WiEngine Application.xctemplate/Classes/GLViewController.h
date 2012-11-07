@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WYOpenGLView.h"
 
-@interface GLViewController : NSViewController <WYOpenGLViewDelegate> {	
+@interface GLViewController : NSViewController {	
 }
 
 @end

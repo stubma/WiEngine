@@ -83,22 +83,7 @@ namespace Lua {
 
 using namespace Lua;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(testname) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_lua_##testname##_nativeStart \
-		(JNIEnv *, jobject){ \
-			wyLayer* layer = new wy##testname##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _lua_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(CreateAnimationTest);
-DEMO_ENTRY_IMPL(CreateButtonTest);
-DEMO_ENTRY_IMPL(CreateLabelTest);
-DEMO_ENTRY_IMPL(SplitWordsTest);
+DEMO_ENTRY_IMPL(lua, CreateAnimationTest);
+DEMO_ENTRY_IMPL(lua, CreateButtonTest);
+DEMO_ENTRY_IMPL(lua, CreateLabelTest);
+DEMO_ENTRY_IMPL(lua, SplitWordsTest);

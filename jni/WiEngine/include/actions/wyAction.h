@@ -97,11 +97,6 @@ protected:
 	/// extra data pointer of action callback
 	void* m_data;
 
-#if ANDROID
-	/// action callback, but it is defined in java layer so it is a java object
-	jobject j_callback;
-#endif
-
 protected:
 	wyAction();
 
@@ -177,24 +172,6 @@ public:
 	 * @param data User data pointer, who allocate it should be responsible for release it
 	 */
 	void setCallback(wyActionCallback* callback, void* data);
-
-#if ANDROID
-	
-	/**
-	 * Set java layer callback
-	 *
-	 * @param jcallback java side callback object, NULL means clear current callback
-	 */
-	void setCallback(jobject jcallback);
-	
-	/**
-	 * Get java side callback object
-	 *
-	 * @return java side callback object
-	 */
-	jobject getCallback();
-	
-#endif // #if ANDROID
 
 	/**
 	 * Set tag for action. A tag can be used as an unique id of action and later

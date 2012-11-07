@@ -44,7 +44,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.wiyun.engine.nodes.Director;
-import com.wiyun.engine.utils.Utilities;
 
 /**
  * Java side network utility class. Only used by native, not public class
@@ -282,7 +281,7 @@ class Network {
 	        InputStream is = response.getEntity().getContent();
 	        for(int i = 0; i != -1; i = is.read(buf))
 	        	baos.write(buf, 0, i);
-	        return Utilities.getUTF8String(baos.toByteArray());
+	        return getUTF8String(baos.toByteArray());
         } catch (Exception e) {
         	return null;
         }
@@ -300,6 +299,34 @@ class Network {
         } catch (Exception e) {
         	return null;
         }
+	}
+	
+	/**
+	 * <p>Get string in UTF-8 encoding</p>
+	 * 
+	 * @param b byte array
+	 * @return string in utf-8 encoding, or empty if the byte array is not encoded
+	 * 		with UTF-8
+	 */
+	public static String getUTF8String(byte[] b) {
+		if(b == null)
+			return "";
+		return getUTF8String(b, 0, b.length);
+	}
+	
+	/**
+	 * <p>Get string in UTF-8 encoding</p>
+	 */
+	public static String getUTF8String(byte[] b, int start, int length) {
+		if(b == null) {
+			return "";
+		} else {
+			try {
+				return new String(b, start, length, "UTF-8");
+			} catch(UnsupportedEncodingException e) {
+				return "";
+			}
+		}
 	}
 	
 	/// get input stream of http body data

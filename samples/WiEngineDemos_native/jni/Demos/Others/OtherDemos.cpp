@@ -1492,38 +1492,23 @@ namespace Other {
 using namespace Other;
 using namespace std;
 
+DEMO_ENTRY_IMPL(other, AStarTest);
+DEMO_ENTRY_IMPL(other, ColorFilterTest);
+DEMO_ENTRY_IMPL(other, DrawPrimitivesTest);
+DEMO_ENTRY_IMPL(other, JsonParseTest);
+DEMO_ENTRY_IMPL(other, MemoryFileSystemTest);
+DEMO_ENTRY_IMPL(other, NodePhysicsTest);
+DEMO_ENTRY_IMPL(other, PauseResumeGameTest);
+DEMO_ENTRY_IMPL(other, PickFromAlbumTest);
+DEMO_ENTRY_IMPL(other, PickFromCameraTest);
+DEMO_ENTRY_IMPL(other, PixelOperationTest);
+DEMO_ENTRY_IMPL(other, ResourceDecoderTest);
+DEMO_ENTRY_IMPL(other, TextureLoadUnloadTest);
 #if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_other_##CLASSNAME##_nativeStart \
-		(JNIEnv *, jobject){ \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _other_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
+	DEMO_ENTRY_IMPL(other, TransparentDrawPrimitivesTest);
 #endif
-
-DEMO_ENTRY_IMPL(AStarTest);
-DEMO_ENTRY_IMPL(ColorFilterTest);
-DEMO_ENTRY_IMPL(DrawPrimitivesTest);
-DEMO_ENTRY_IMPL(JsonParseTest);
-DEMO_ENTRY_IMPL(MemoryFileSystemTest);
-DEMO_ENTRY_IMPL(NodePhysicsTest);
-DEMO_ENTRY_IMPL(PauseResumeGameTest);
-DEMO_ENTRY_IMPL(PickFromAlbumTest);
-DEMO_ENTRY_IMPL(PickFromCameraTest);
-DEMO_ENTRY_IMPL(PixelOperationTest);
-DEMO_ENTRY_IMPL(ResourceDecoderTest);
-DEMO_ENTRY_IMPL(TextureLoadUnloadTest);
-#if ANDROID
-	DEMO_ENTRY_IMPL(TransparentDrawPrimitivesTest);
-#endif
-DEMO_ENTRY_IMPL(SchedulerTest);
-DEMO_ENTRY_IMPL(ScreenshotTest);
-DEMO_ENTRY_IMPL(VerletRopeTest);
-DEMO_ENTRY_IMPL(VideoPlayingTest);
-DEMO_ENTRY_IMPL(ZwoptexTest);
+DEMO_ENTRY_IMPL(other, SchedulerTest);
+DEMO_ENTRY_IMPL(other, ScreenshotTest);
+DEMO_ENTRY_IMPL(other, VerletRopeTest);
+DEMO_ENTRY_IMPL(other, VideoPlayingTest);
+DEMO_ENTRY_IMPL(other, ZwoptexTest);

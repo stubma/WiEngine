@@ -70,30 +70,6 @@ protected:
 	/// @see wyEventDispatcher::processUncommonEvent
 	virtual void processUncommonEvent(wyEvent* e);
 
-	/*
-	 * dispatch
-	 */
-
-	virtual void dispatchAccelerometerChanged(wyNode* node, float accelX, float accelY, float accelZ);
-	virtual bool dispatchKeyDown(wyNode* node, wyPlatformKeyEvent event, wyKeyEvent& ke);
-	virtual bool dispatchKeyUp(wyNode* node, wyPlatformKeyEvent event, wyKeyEvent& ke);
-	virtual bool dispatchKeyMultiple(wyNode* node, wyPlatformKeyEvent event, wyKeyEvent& ke);
-	virtual bool dispatchTouchesBegan(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchTouchesMoved(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchTouchesEnded(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchTouchesCancelled(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchTouchesPointerBegan(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchTouchesPointerEnded(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchOnDoubleTap(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchOnDoubleTapEvent(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchOnSingleTapConfirmed(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchOnDown(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchOnFling(wyNode* node, wyPlatformMotionEvent e1, wyPlatformMotionEvent e2, wyMotionEvent& me1, wyMotionEvent& me2, float velocityX, float velocityY);
-	virtual void dispatchOnLongPress(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchOnScroll(wyNode* node, wyPlatformMotionEvent e1, wyPlatformMotionEvent e2, wyMotionEvent& me1, wyMotionEvent& me2, float distanceX, float distanceY);
-	virtual void dispatchOnShowPress(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-	virtual bool dispatchOnSingleTapUp(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
-
 public:
 	virtual ~wyEventDispatcher_android();
 

@@ -166,6 +166,7 @@ cp "${SRCROOT}/${PROJECT_NAME}/WiEngine/libs/libiap.dylib" "${BUILT_PRODUCTS_DIR
 				<key>HEADER_SEARCH_PATHS</key>
 				<array>
 					<string>$(SRCROOT)/$(PROJECT_NAME)/WiEngine/headers</string>
+					<string>$(SRCROOT)/$(PROJECT_NAME)/WiEngine/headers/kazmath/include</string>
 				</array>
 			</dict>
 			<key>ProductType</key>

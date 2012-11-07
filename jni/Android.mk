@@ -36,12 +36,6 @@ include $(LOCAL_PATH)/skia/Android.mk
 include $(LOCAL_PATH)/WiEngine/Android.mk
 
 ###########################################################
-# build wiengine binding lib
-###########################################################
-
-include $(LOCAL_PATH)/WiEngine_binding/Android.mk
-
-###########################################################
 # build android adapter layer
 ###########################################################
 

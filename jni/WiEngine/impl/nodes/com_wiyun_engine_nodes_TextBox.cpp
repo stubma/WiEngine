@@ -46,34 +46,12 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_nativeInit
 	box->lazyRelease();
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setText
-  (JNIEnv * env, jobject thiz, jstring text) {
-	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	const char* t = (const char*)env->GetStringUTFChars(text, NULL);
-	box->setText(t);
-	env->ReleaseStringUTFChars(text, t);
-}
-
 JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getText
   (JNIEnv * env, jobject thiz) {
 	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	const char* text = box->getText();
 	jstring s = env->NewStringUTF(text);
 	return s;
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setCallback
-  (JNIEnv * env, jobject thiz, jobject callback) {
-	wyTextBox_android* box = (wyTextBox_android*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	box->setCallback(callback);
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setTitle
-  (JNIEnv * env, jobject thiz, jstring title) {
-	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	const char* t = (const char*)env->GetStringUTFChars(title, NULL);
-	box->setTitle(t);
-	env->ReleaseStringUTFChars(title, t);
 }
 
 JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getTitle
@@ -84,28 +62,12 @@ JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getTitle
 	return t;
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setMessage
-  (JNIEnv * env, jobject thiz, jstring msg) {
-	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	const char* t = (const char*)env->GetStringUTFChars(msg, NULL);
-	box->setMessage(t);
-	env->ReleaseStringUTFChars(msg, t);
-}
-
 JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getMessage
   (JNIEnv * env, jobject thiz) {
 	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	const char* m = box->getMessage();
 	jstring t = env->NewStringUTF(m);
 	return t;
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setPositiveButton
-  (JNIEnv * env, jobject thiz, jstring btn) {
-	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	const char* t = (const char*)env->GetStringUTFChars(btn, NULL);
-	box->setPositiveButton(t);
-	env->ReleaseStringUTFChars(btn, t);
 }
 
 JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getPositiveButton
@@ -120,14 +82,6 @@ JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getPositiveButton
 	}
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setNegativeButton
-  (JNIEnv * env, jobject thiz, jstring btn) {
-	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	const char* t = (const char*)env->GetStringUTFChars(btn, NULL);
-	box->setNegativeButton(t);
-	env->ReleaseStringUTFChars(btn, t);
-}
-
 JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getNegativeButton
   (JNIEnv * env, jobject thiz) {
 	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
@@ -138,12 +92,6 @@ JNIEXPORT jstring JNICALL Java_com_wiyun_engine_nodes_TextBox_getNegativeButton
 		jstring t = env->NewStringUTF(m);
 		return t;
 	}
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setPassword
-  (JNIEnv * env, jobject thiz, jboolean flag) {
-	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	box->setPassword(flag);
 }
 
 JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_nodes_TextBox_isPassword
@@ -164,12 +112,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_onCancelButtonClicked
   (JNIEnv * env, jobject thiz) {
 	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	box->onNegativeButtonClicked();
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_setPadding
-  (JNIEnv * env, jobject thiz, jfloat left, jfloat top, jfloat right, jfloat bottom) {
-	wyTextBox* box = (wyTextBox*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	box->setPadding(left, top, right, bottom);
 }
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_TextBox_onTextChanged

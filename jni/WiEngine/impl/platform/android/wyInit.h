@@ -77,6 +77,8 @@
 #define CLASS_INTENT "android/content/Intent"
 #define CLASS_GRAVITY "android/view/Gravity"
 #define CLASS_RUNNABLE "java/lang/Runnable"
+#define CLASS_ACTIVITY "android/app/Activity"
+#define CLASS_ACTIVITYINFO "android/content/pm/ActivityInfo"
 
 #define CLASS_ACTION_CALLBACK "com/wiyun/engine/actions/Action$Callback"
 #define CLASS_WYPOINT "com/wiyun/engine/types/WYPoint"

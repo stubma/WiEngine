@@ -145,19 +145,4 @@ namespace IAP {
 
 using namespace IAP;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(testname) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_iap_##testname##_nativeStart \
-		(JNIEnv *, jobject){ \
-			wyLayer* layer = new wy##testname##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _iap_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(IAPTest);
+DEMO_ENTRY_IMPL(iap, IAPTest);

@@ -189,17 +189,6 @@ private:
 	 */
 	Selector m_sel;
 
-#if ANDROID
-	/**
-	 * \if English
-	 * callback object in java side
-	 * \else
-	 * java层回调对象
-	 * \endif
-	 */
-	jobject m_jTarget;
-#endif
-
 protected:
 	/**
 	 * constructor
@@ -244,21 +233,6 @@ protected:
 	 * @param data void pointer passed to callback function
 	 */
 	wyTargetSelector(wyObject* target, wySEL_p sel, void* data);
-
-#if ANDROID
-	/**
-	 * \if English
-	 * constructor
-	 *
-	 * @param target java layer callback
-	 * \else
-	 * 构造函数
-	 *
-	 * @param target java层回调对象
-	 * \endif
-	 */
-	wyTargetSelector(jobject target);
-#endif
 
 public:
 	/**
@@ -445,21 +419,6 @@ public:
 	 */
 	static wyTargetSelector* make(wyObject* target, wySEL_p sel, void* data);
 
-#if ANDROID
-	/**
-	 * \if English
-	 * static constructor
-	 *
-	 * @param target java layer callback
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param target java层回调对象
-	 * \endif
-	 */
-	static wyTargetSelector* make(jobject target);
-#endif
-
 	virtual ~wyTargetSelector();
 	
 	/**
@@ -505,21 +464,6 @@ public:
 	 * \endif
 	 */
 	wyObject* getTarget() { return m_target; }
-
-#if ANDROID
-	/**
-	 * \if English
-	 * get callback object in java side
-	 *
-	 * @return callback object in java side
-	 * \else
-	 * 获得java层回调对象
-	 *
-	 * @return java层回调对象
-	 * \endif
-	 */
-	jobject getJavaTarget() { return m_jTarget; }
-#endif
 
 	/**
 	 * \if English

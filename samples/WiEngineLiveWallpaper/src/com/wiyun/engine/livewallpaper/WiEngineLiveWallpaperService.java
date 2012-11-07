@@ -7,12 +7,6 @@ import android.view.SurfaceHolder;
 
 import com.wiyun.engine.events.EventDispatcher;
 import com.wiyun.engine.nodes.Director;
-import com.wiyun.engine.nodes.Layer;
-import com.wiyun.engine.nodes.Scene;
-import com.wiyun.engine.nodes.Director.IDirectorLifecycleListener;
-import com.wiyun.engine.particle.ParticleSystem;
-import com.wiyun.engine.types.WYPoint;
-import com.wiyun.engine.types.WYSize;
 
 public class WiEngineLiveWallpaperService extends GLWallpaperService {
 	/*
@@ -22,7 +16,7 @@ public class WiEngineLiveWallpaperService extends GLWallpaperService {
 		System.loadLibrary("wiskia");
 		System.loadLibrary("xml2");
 		System.loadLibrary("wiengine");
-		System.loadLibrary("wiengine_binding");
+		System.loadLibrary("wiengineskeleton");
 	}
 	
 	/**
@@ -68,15 +62,12 @@ public class WiEngineLiveWallpaperService extends GLWallpaperService {
 			
 			// 只有当引用计数为0时才运行
 			if(sRefCount == 0) {
-				// create scene
-				Scene scene = Scene.make();
-				scene.addChild(new MyLayer());
-				
-				// Make the Scene active
-				d.runWithScene(scene);
+				nativeStart();
 			}
 			sRefCount++;
 		}
+		
+		private native void nativeStart();
 		
 		@Override
 		public void onResume() {
@@ -136,71 +127,6 @@ public class WiEngineLiveWallpaperService extends GLWallpaperService {
 	        		}
 	            	break;
 	        }
-		}
-	}
-	
-	static class MyLayer extends Layer implements IDirectorLifecycleListener {
-		private ParticleSystem emitter;
-		private ParticleSystem clickEmitter;
-
-		public MyLayer() {
-			// create particle system
-			emitter = ParticleSnow.make();
-			addChild(emitter);
-			
-			// create click emitter
-			clickEmitter = ParticleFlower.make();
-			clickEmitter.stopSystem();
-			addChild(clickEmitter);
-
-			// set emitter position
-			setEmitterPosition();
-			
-			/*
-			 * 需要监听surface相关事件，以便在surface大小改变时修改粒子释放位置
-			 * surface大小改变一般是发生在屏幕朝向改变时 
-			 */
-			Director.getInstance().addLifecycleListener(this);
-			
-			// enable touch
-			setTouchEnabled(true);
-		}
-
-		private void setEmitterPosition() {
-			if(WYPoint.isEqual(emitter.getCenterOfGravity(), WYPoint.makeZero())) {
-				WYSize s = Director.getInstance().getWindowSize();
-				emitter.setPosition(s.width / 2, s.height);
-			}
-		}
-
-		public void onDirectorEnded() {
-		}
-
-		public void onSurfaceChanged(int w, int h) {
-			emitter.setPosition(w / 2, h);
-		}
-
-		public void onSurfaceCreated() {
-		}
-
-		public void onSurfaceDestroyed() {
-		}
-
-		public void onDirectorPaused() {
-        }
-
-		public void onDirectorResumed() {
-        }
-		
-		public void onDirectorScreenCaptured(String path) {
-		}
-		
-		@Override
-		public boolean wyTouchesBegan(MotionEvent event) {
-			WYPoint loc = Director.getInstance().convertToGL(event.getX(), event.getY());
-			clickEmitter.setPosition(loc);
-			clickEmitter.resetSystem();
-			return false;
 		}
 	}
 }

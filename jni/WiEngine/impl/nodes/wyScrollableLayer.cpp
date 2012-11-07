@@ -37,15 +37,6 @@
 #include <math.h>
 #include "wyScheduler.h"
 
-#if ANDROID
-#include "wyUtils_android.h"
-
-extern jmethodID g_mid_IScrollableLayerCallback_onScrollOffsetChanged;
-extern jmethodID g_mid_IScrollableLayerCallback_onStartFling;
-extern jmethodID g_mid_IScrollableLayerCallback_onEndFling;
-extern jmethodID g_mid_IScrollableLayerCallback_onScrollableChildNotVisible;
-#endif
-
 class wyScrollContainer : public wyLayer {
 public:
 	static wyScrollContainer* make() {
@@ -122,9 +113,6 @@ wyScrollableLayer::wyScrollableLayer(wyColor4B color) :
 		m_noScrollTime(0),
 		m_fadeingOut(false),
 		m_callback(NULL),
-#if ANDROID
-		m_jCallback(NULL),
-#endif
 		m_scroller(WYNEW wyScroller()) {
 	// enable event
 	setTouchEnabled(true);
@@ -141,14 +129,6 @@ wyScrollableLayer::wyScrollableLayer(wyColor4B color) :
 }
 
 wyScrollableLayer::~wyScrollableLayer() {
-#if ANDROID
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-#endif
-
 	m_scroller->release();
 }
 
@@ -513,61 +493,26 @@ void wyScrollableLayer::setVerticalThumb(wyNode* thumb) {
 	}
 }
 
-#if ANDROID
-void wyScrollableLayer::setCallback(jobject callback) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jCallback != NULL) {
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-	m_jCallback = env->NewGlobalRef(callback);
-}
-#endif
-
 void wyScrollableLayer::invokeOnScrollOffsetChanged() {
 	if(m_callback) {
 		m_callback->onScrollOffsetChanged(this);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IScrollableLayerCallback_onScrollOffsetChanged, (jint)this);
-	}
-#endif
 }
 
 void wyScrollableLayer::invokeOnStartFling() {
 	if(m_callback) {
 		m_callback->onStartFling(this);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IScrollableLayerCallback_onStartFling, (jint)this);
-	}
-#endif
 }
 
 void wyScrollableLayer::invokeOnEndFling() {
 	if(m_callback) {
 		m_callback->onEndFling(this);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IScrollableLayerCallback_onEndFling, (jint)this);
-	}
-#endif
 }
 
 void wyScrollableLayer::invokeOnScrollableChildNotVisible(wyNode* child) {
 	if(m_callback) {
 		m_callback->onScrollableChildNotVisible(this, child);
 	}
-#if ANDROID
-	else if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_IScrollableLayerCallback_onScrollableChildNotVisible, (jint)this, (jint)child);
-	}
-#endif
 }

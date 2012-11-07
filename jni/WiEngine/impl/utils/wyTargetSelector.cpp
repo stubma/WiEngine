@@ -29,12 +29,6 @@
 #include "wyTargetSelector.h"
 #include "wyLog.h"
 
-#if ANDROID
-#include "wyJNI.h"
-extern jmethodID g_mid_TargetSelector_setDelta;
-extern jmethodID g_mid_TargetSelector_invoke;
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -48,21 +42,11 @@ bool wyTargetSelectorEquals(wyTargetSelector* ts1, wyTargetSelector* ts2) {
 #endif
 
 wyTargetSelector::~wyTargetSelector() {
-#if ANDROID
-	if(m_jTarget != NULL) {
-		JNIEnv* env = getEnv();
-		env->DeleteGlobalRef(m_jTarget);
-		m_jTarget = NULL;
-	}
-#endif
 	m_target = NULL;
 }
 
 wyTargetSelector::wyTargetSelector(wyObject* callback, int id, ArgValue data) :
 		m_target(callback),
-#if ANDROID
-		m_jTarget(NULL),
-#endif
 		m_id(id) {
 	memcpy(&m_data, &data, sizeof(ArgValue));
 	memset(&m_sel, 0, sizeof(Selector));
@@ -70,9 +54,6 @@ wyTargetSelector::wyTargetSelector(wyObject* callback, int id, ArgValue data) :
 
 wyTargetSelector::wyTargetSelector(wyObject* target, wySEL sel) :
 		m_target(target),
-#if ANDROID
-		m_jTarget(NULL),
-#endif
 		m_id(0) {
 	m_prototype = NONE;
 	memset(&m_data, 0, sizeof(ArgValue));
@@ -82,9 +63,6 @@ wyTargetSelector::wyTargetSelector(wyObject* target, wySEL sel) :
 
 wyTargetSelector::wyTargetSelector(wyObject* target, wySEL_i sel, int data) :
 		m_target(target),
-#if ANDROID
-		m_jTarget(NULL),
-#endif
 		m_id(0) {
 	m_prototype = INT;
 	memset(&m_data, 0, sizeof(ArgValue));
@@ -95,9 +73,6 @@ wyTargetSelector::wyTargetSelector(wyObject* target, wySEL_i sel, int data) :
 
 wyTargetSelector::wyTargetSelector(wyObject* target, wySEL_f sel, float data) :
 		m_target(target),
-	#if ANDROID
-		m_jTarget(NULL),
-	#endif
 		m_id(0) {
 	m_prototype = FLOAT;
 	memset(&m_data, 0, sizeof(ArgValue));
@@ -108,9 +83,6 @@ wyTargetSelector::wyTargetSelector(wyObject* target, wySEL_f sel, float data) :
 
 wyTargetSelector::wyTargetSelector(wyObject* target, wySEL_p sel, void* data) :
 		m_target(target),
-	#if ANDROID
-		m_jTarget(NULL),
-	#endif
 		m_id(0) {
 	m_prototype = PVOID;
 	memset(&m_data, 0, sizeof(ArgValue));
@@ -170,26 +142,6 @@ wyTargetSelector* wyTargetSelector::make(wyObject* target, wySEL_p sel, void* da
 	return (wyTargetSelector*)ts->autoRelease();
 }
 
-#if ANDROID
-
-wyTargetSelector* wyTargetSelector::make(jobject callback) {
-	wyTargetSelector* ts = WYNEW wyTargetSelector(callback);
-	return (wyTargetSelector*)ts->autoRelease();
-}
-
-wyTargetSelector::wyTargetSelector(jobject callback) :
-		m_target(NULL),
-		m_id(0),
-		m_jTarget(NULL) {
-	JNIEnv* env = getEnv();
-	this->m_jTarget = env->NewGlobalRef(callback);
-
-	m_prototype = NONE;
-	memset(&m_data, 0, sizeof(ArgValue));
-	memset(&m_sel, 0, sizeof(Selector));
-}
-#endif
-
 bool wyTargetSelector::operator==(wyTargetSelector& ts) {
 	if(this == &ts)
 		return true;
@@ -202,21 +154,10 @@ bool wyTargetSelector::operator==(wyTargetSelector& ts) {
 			return true;
 	}
 
-#if ANDROID
-	if(getJavaTarget() != NULL && ts.getJavaTarget() != NULL && getEnv()->IsSameObject(getJavaTarget(), ts.getJavaTarget()))
-		return true;
-#endif
-
 	return false;
 }
 
 void wyTargetSelector::setDelta(float delta) {
-#if ANDROID
-	if(m_jTarget != NULL) {
-		JNIEnv* env = getEnv();
-		env->CallVoidMethod(m_jTarget, g_mid_TargetSelector_setDelta, delta);
-	} else 
-#endif
 	if(m_target != NULL) {
 		m_delta = delta;
 	}
@@ -243,10 +184,4 @@ void wyTargetSelector::invoke() {
 			m_target->onTargetSelectorInvoked(this);
 		}
 	} 
-#if ANDROID
-	else if(m_jTarget != NULL) {
-		JNIEnv* env = getEnv();
-		env->CallVoidMethod(m_jTarget, g_mid_TargetSelector_invoke);
-	}
-#endif
 }

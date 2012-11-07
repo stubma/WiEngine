@@ -26,19 +26,87 @@
 #include "WiEngine-Classes.h"
 
 #if ANDROID
-	#define DEMO_ENTRY(pkg, CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_##pkg##_##CLASSNAME##_nativeStart(JNIEnv *, jobject);
+	#define DEMO_ENTRY(PKG, CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_##PKG##_##CLASSNAME##_nativeStart(JNIEnv *, jobject);
 #elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_NAME(pkg, CLASSNAME) _##pkg##_##CLASSNAME##Launcher
-	#define DEMO_ENTRY(pkg, CLASSNAME) void DEMO_ENTRY_NAME(pkg, CLASSNAME)();
+	#define DEMO_ENTRY_NAME(PKG, CLASSNAME) _##PKG##_##CLASSNAME##Launcher
+	#define DEMO_ENTRY(PKG, CLASSNAME) void DEMO_ENTRY_NAME(PKG, CLASSNAME)();
 	typedef void (*demoEntryFunc)();
 #endif
 
-/*
- * Method:    Common Scene Start 
- * Parameter:
- *      scene: the scene will be run
- *      action: the action added to scene before run
- */
-void runDemo(wyLayer*, wyAction* action);
+#if ANDROID
+	#define DEMO_ENTRY_IMPL(PKG, CLASSNAME) \
+		static bool _##PKG##_##CLASSNAME##_started; \
+		\
+		static void _##PKG##_##CLASSNAME##_onSurfaceChanged(int w, int h, void* data) { \
+			if(!_##PKG##_##CLASSNAME##_started) { \
+				_##PKG##_##CLASSNAME##_started = true; \
+				\
+				wyLayer* layer = new wy##CLASSNAME##Layer(); \
+				wyScene* scene = new wyScene(); \
+				scene->addChildLocked(layer); \
+				\
+				wyDirector* director = wyDirector::getInstance(); \
+				director->runWithScene(scene); \
+				\
+				wyObjectRelease(scene); \
+				wyObjectRelease(layer); \
+			} \
+		} \
+		\
+		static const wyDirectorLifecycleListener _##PKG##_##CLASSNAME##_surfaceLifeCycleListener = { \
+			NULL, \
+			_##PKG##_##CLASSNAME##_onSurfaceChanged, \
+			NULL, \
+			NULL, \
+			NULL, \
+			NULL, \
+			NULL \
+		}; \
+		\
+		JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_##PKG##_##CLASSNAME##_nativeStart(JNIEnv *env, jobject thiz) { \
+			_##PKG##_##CLASSNAME##_started = false; \
+			\
+			wyDirector* director = wyDirector::getInstance(); \
+			director->setShowFPS(true); \
+			director->addLifecycleListener(&_##PKG##_##CLASSNAME##_surfaceLifeCycleListener, NULL); \
+		}
+#elif IOS || MACOSX || WINDOWS
+	#define DEMO_ENTRY_IMPL(PKG, CLASSNAME) \
+		static bool _##PKG##_##CLASSNAME##_started; \
+		\
+		static void _##PKG##_##CLASSNAME##_onSurfaceChanged(int w, int h, void* data) { \
+			if(!_##PKG##_##CLASSNAME##_started) { \
+				_##PKG##_##CLASSNAME##_started = true; \
+				\
+				wyLayer* layer = new wy##CLASSNAME##Layer(); \
+				wyScene* scene = new wyScene(); \
+				scene->addChildLocked(layer); \
+				\
+				wyDirector* director = wyDirector::getInstance(); \
+				director->runWithScene(scene); \
+				\
+				wyObjectRelease(scene); \
+				wyObjectRelease(layer); \
+			} \
+		} \
+		\
+		static const wyDirectorLifecycleListener _##PKG##_##CLASSNAME##_surfaceLifeCycleListener = { \
+			NULL, \
+			_##PKG##_##CLASSNAME##_onSurfaceChanged, \
+			NULL, \
+			NULL, \
+			NULL, \
+			NULL, \
+			NULL \
+		}; \
+		\
+		void _##PKG##_##CLASSNAME##Launcher() { \
+			_##PKG##_##CLASSNAME##_started = false; \
+			\
+			wyDirector* director = wyDirector::getInstance(); \
+			director->setShowFPS(true); \
+			director->addLifecycleListener(&_##PKG##_##CLASSNAME##_surfaceLifeCycleListener, NULL); \
+		}
+#endif
 
 #endif // __common_h__

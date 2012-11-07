@@ -176,11 +176,6 @@ private:
 	/// 附加数据指针
 	void* m_data;
 
-#if ANDROID
-	/// java端callback
-	jobject m_jCallback;
-#endif
-
 private:
 	void invokeOnVJNavigationStarted();
 	void invokeOnVJNavigationEnded();
@@ -283,15 +278,6 @@ public:
 	 * @param data 附加数据指针, \link wyVirtualJoystick wyVirtualJoystick\endlink不会负责释放该指针
 	 */
 	void setCallback(wyVirtualJoystickCallback* callback, void* data);
-
-#if ANDROID
-	/**
-	 * 设置java端的回调
-	 *
-	 * @param callback java端实现了回调接口的类
-	 */
-	void setCallback(jobject callback);
-#endif
 };
 
 #endif // __wyVirtualJoystick_h__

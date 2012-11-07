@@ -34,9 +34,6 @@
 
 extern jclass gClass_TextBox;
 extern jmethodID g_mid_TextBox_showInputDialog;
-extern jmethodID g_mid_ITextBoxCallback_onBeginEditing;
-extern jmethodID g_mid_ITextBoxCallback_onEndEditing;
-extern jmethodID g_mid_ITextBoxCallback_onTextChanged;
 
 wyTextBox* wyTextBox::make(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode* focused, wyNode* label) {
 	wyTextBox* n = WYNEW wyTextBox_android(normal, selected, disabled, focused, label);
@@ -44,66 +41,15 @@ wyTextBox* wyTextBox::make(wyNode* normal, wyNode* selected, wyNode* disabled, w
 }
 
 wyTextBox_android::wyTextBox_android(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode* focused, wyNode* label) :
-		wyTextBox(normal, selected, disabled, focused, label),
-		m_jCallback(NULL) {
+		wyTextBox(normal, selected, disabled, focused, label) {
 }
 
 wyTextBox_android::~wyTextBox_android() {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jCallback != NULL) {
-		if(env != NULL) {
-			env->DeleteGlobalRef(m_jCallback);
-			m_jCallback = NULL;
-		}
-	}
 }
 
 void wyTextBox_android::showInputDialog() {
 	JNIEnv* env = wyUtils::getJNIEnv();
 	env->CallStaticVoidMethod(gClass_TextBox, g_mid_TextBox_showInputDialog, (jint)this);
-}
-
-void wyTextBox_android::setCallback(jobject jcallback) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jCallback != NULL) {
-		env->DeleteGlobalRef(m_jCallback);
-		m_jCallback = NULL;
-	}
-
-	if(jcallback != NULL) {
-		m_jCallback = env->NewGlobalRef(jcallback);
-	}
-}
-
-jobject wyTextBox_android::getCallback() {
-	return m_jCallback;
-}
-
-void wyTextBox_android::notifyOnTextChanged() {
-	wyTextBox::notifyOnTextChanged();
-
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_ITextBoxCallback_onTextChanged, (jint)this);
-	}
-}
-
-void wyTextBox_android::notifyOnBeginEditing() {
-	wyTextBox::notifyOnBeginEditing();
-
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_ITextBoxCallback_onBeginEditing, (jint)this);
-	}
-}
-
-void wyTextBox_android::notifyOnEndEditing() {
-	wyTextBox::notifyOnEndEditing();
-
-	if(m_jCallback != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->CallVoidMethod(m_jCallback, g_mid_ITextBoxCallback_onEndEditing, (jint)this);
-	}
 }
 
 #endif // #if ANDROID

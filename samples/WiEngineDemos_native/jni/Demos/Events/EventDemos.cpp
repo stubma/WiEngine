@@ -605,26 +605,11 @@ namespace Events {
 
 using namespace Events;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_event_##CLASSNAME##_nativeStart \
-		(JNIEnv *env, jobject thiz){ \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _event_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(AccelerometerTest);
-DEMO_ENTRY_IMPL(CharacterMoveTest);
-DEMO_ENTRY_IMPL(ClickAndMoveTest);
-DEMO_ENTRY_IMPL(CustomBackTest);
-DEMO_ENTRY_IMPL(DoubleTapTest);
-DEMO_ENTRY_IMPL(GestureTest);
-DEMO_ENTRY_IMPL(KeyTest);
-DEMO_ENTRY_IMPL(MultiTouchTest);
+DEMO_ENTRY_IMPL(event, AccelerometerTest);
+DEMO_ENTRY_IMPL(event, CharacterMoveTest);
+DEMO_ENTRY_IMPL(event, ClickAndMoveTest);
+DEMO_ENTRY_IMPL(event, CustomBackTest);
+DEMO_ENTRY_IMPL(event, DoubleTapTest);
+DEMO_ENTRY_IMPL(event, GestureTest);
+DEMO_ENTRY_IMPL(event, KeyTest);
+DEMO_ENTRY_IMPL(event, MultiTouchTest);

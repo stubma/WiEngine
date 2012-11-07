@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WYEAGLView.h"
 
-@interface GLViewController : UIViewController <WYEAGLViewDelegate> {
+@interface GLViewController : UIViewController {
 }
 
 @end

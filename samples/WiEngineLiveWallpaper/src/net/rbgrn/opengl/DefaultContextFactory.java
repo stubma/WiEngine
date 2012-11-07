@@ -28,8 +28,11 @@ class DefaultContextFactory implements EGLContextFactory {
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
 
+	private int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
 	public EGLContext createContext(final EGL10 egl, final EGLDisplay display, final EGLConfig config) {
-		return egl.eglCreateContext(display, config, EGL10.EGL_NO_CONTEXT, null);
+        int[] attrib_list = { EGL_CONTEXT_CLIENT_VERSION, 2,
+                EGL10.EGL_NONE };
+		return egl.eglCreateContext(display, config, EGL10.EGL_NO_CONTEXT, attrib_list);
 	}
 
 	public void destroyContext(final EGL10 egl, final EGLDisplay display, final EGLContext context) {

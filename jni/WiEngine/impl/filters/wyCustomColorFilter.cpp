@@ -28,29 +28,13 @@
  */
 #include "wyCustomColorFilter.h"
 
-#if ANDROID
-#include "wyUtils_android.h"
-
-extern jmethodID g_mid_IColorFilterDelegate_apply;
-#endif
-
 wyCustomColorFilter::wyCustomColorFilter(wyColorFilterDelegate* delegate, void* userData) :
-#if ANDROID
-		m_jDelegate(NULL),
-#endif
 		m_userData(NULL) {
 	memset(&m_delegate, 0, sizeof(wyColorFilterDelegate));
 	setDelegate(delegate, userData);
 }
 
 wyCustomColorFilter::~wyCustomColorFilter() {
-#if ANDROID
-	if(m_jDelegate != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		env->DeleteGlobalRef(m_jDelegate);
-		m_jDelegate = NULL;
-	}
-#endif
 }
 
 wyCustomColorFilter* wyCustomColorFilter::make(wyColorFilterDelegate* delegate, void* userData) {
@@ -61,18 +45,6 @@ wyCustomColorFilter* wyCustomColorFilter::make(wyColorFilterDelegate* delegate, 
 void wyCustomColorFilter::apply(void* data, int width, int height) {
 	if(m_delegate.apply)
 		m_delegate.apply(data, width, height, m_userData);
-#if ANDROID
-	else if(m_jDelegate != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		jbyteArray array = env->NewByteArray(width * height * 4);
-		env->SetByteArrayRegion(array, 0, width * height * 4, (jbyte*)data);
-		env->CallVoidMethod(m_jDelegate, g_mid_IColorFilterDelegate_apply, array, width, height);
-		jbyte* arrayData = env->GetByteArrayElements(array, NULL);
-		memcpy(data, arrayData, width * height * 4 * sizeof(char));
-		env->ReleaseByteArrayElements(array, arrayData, 0);
-		env->DeleteLocalRef(array);
-	}
-#endif
 }
 
 void wyCustomColorFilter::setDelegate(wyColorFilterDelegate* delegate, void* data) {
@@ -84,14 +56,3 @@ void wyCustomColorFilter::setDelegate(wyColorFilterDelegate* delegate, void* dat
 		m_userData = data;
 	}
 }
-
-#if ANDROID
-void wyCustomColorFilter::setDelegate(jobject delegate) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jDelegate != NULL) {
-		env->DeleteGlobalRef(m_jDelegate);
-		m_jDelegate = NULL;
-	}
-	m_jDelegate = env->NewGlobalRef(delegate);
-}
-#endif

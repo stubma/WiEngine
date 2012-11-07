@@ -31,7 +31,7 @@
 #import "common.h"
 #import "WYEAGLView.h"
 
-@interface GLViewController : UIViewController <WYEAGLViewDelegate> {
+@interface GLViewController : UIViewController {
 @private
 	/// demo entry function
 	demoEntryFunc m_func;

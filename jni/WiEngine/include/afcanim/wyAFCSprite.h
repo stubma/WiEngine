@@ -32,9 +32,6 @@
 #include "wyNode.h"
 #include "wyArray.h"
 #include "WiEngine-Classes.h"
-#if ANDROID
-	#include <jni.h>
-#endif
 
 /**
  * Callback interface of \link wyAFCSprite wyAFCSprite\endlink
@@ -204,11 +201,6 @@ protected:
 	/// callback
 	wyAFCSpriteCallback* m_callback;
 
-#if ANDROID
-	/// callback of java side
-	jobject m_jCallback;
-#endif
-
 	/// extra data pointer of native callback
 	void* m_data;
 
@@ -362,15 +354,6 @@ public:
 	 * @param data extra data pointer
 	 */
 	void setAFCSpriteCallback(wyAFCSpriteCallback* callback, void* data = NULL);
-
-#if ANDROID
-	/**
-	 * Set java side callback, if null, means clear callback
-	 *
-	 * @param callback java side callback object
-	 */
-	void setAFCSpriteCallback(jobject callback);
-#endif
 
 	/**
 	 * Get current animation index. Index starts from 0.

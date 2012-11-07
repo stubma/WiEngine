@@ -1,4 +1,3 @@
-#include "common.h"
 #include "ActionDemos.h"
 #include "WiEngine.h"
 #include <stdio.h>
@@ -955,49 +954,34 @@ namespace Action {
 
 using namespace Action;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_action_##CLASSNAME##_nativeStart \
-		(JNIEnv *env, jobject thiz){ \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _action_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(AnimationTest);
-DEMO_ENTRY_IMPL(AtlasAnimationTest);
-DEMO_ENTRY_IMPL(BezierTest);
-DEMO_ENTRY_IMPL(BlinkTest);
-DEMO_ENTRY_IMPL(CallFuncTest);
-DEMO_ENTRY_IMPL(ClipInOutTest);
-DEMO_ENTRY_IMPL(DelayShowHideTest);
-DEMO_ENTRY_IMPL(FadeInOutTest);
-DEMO_ENTRY_IMPL(FadeToTest);
-DEMO_ENTRY_IMPL(FollowTest);
-DEMO_ENTRY_IMPL(JumpByTest);
-DEMO_ENTRY_IMPL(JumpToTest);
-DEMO_ENTRY_IMPL(HypotrochoidTest);
-DEMO_ENTRY_IMPL(LagrangeTest);
-DEMO_ENTRY_IMPL(MoveByTest);
-DEMO_ENTRY_IMPL(MoveByAngleTest);
-DEMO_ENTRY_IMPL(MoveByPathTest);
-DEMO_ENTRY_IMPL(MoveToTest);
-DEMO_ENTRY_IMPL(OrbitCameraFlipXTest);
-DEMO_ENTRY_IMPL(PauseResumeActionTest);
-DEMO_ENTRY_IMPL(ProgressByTest);
-DEMO_ENTRY_IMPL(ProgressToTest);
-DEMO_ENTRY_IMPL(RotateByTest);
-DEMO_ENTRY_IMPL(RotateToTest);
-DEMO_ENTRY_IMPL(ScaleByTest);
-DEMO_ENTRY_IMPL(ScaleToTest);
-DEMO_ENTRY_IMPL(ShakeTest);
-DEMO_ENTRY_IMPL(SkewByTest);
-DEMO_ENTRY_IMPL(SkewToTest);
-DEMO_ENTRY_IMPL(TintByTest);
-DEMO_ENTRY_IMPL(TintToTest);
+DEMO_ENTRY_IMPL(action, AnimationTest);
+DEMO_ENTRY_IMPL(action, AtlasAnimationTest);
+DEMO_ENTRY_IMPL(action, BezierTest);
+DEMO_ENTRY_IMPL(action, BlinkTest);
+DEMO_ENTRY_IMPL(action, CallFuncTest);
+DEMO_ENTRY_IMPL(action, ClipInOutTest);
+DEMO_ENTRY_IMPL(action, DelayShowHideTest);
+DEMO_ENTRY_IMPL(action, FadeInOutTest);
+DEMO_ENTRY_IMPL(action, FadeToTest);
+DEMO_ENTRY_IMPL(action, FollowTest);
+DEMO_ENTRY_IMPL(action, JumpByTest);
+DEMO_ENTRY_IMPL(action, JumpToTest);
+DEMO_ENTRY_IMPL(action, HypotrochoidTest);
+DEMO_ENTRY_IMPL(action, LagrangeTest);
+DEMO_ENTRY_IMPL(action, MoveByTest);
+DEMO_ENTRY_IMPL(action, MoveByAngleTest);
+DEMO_ENTRY_IMPL(action, MoveByPathTest);
+DEMO_ENTRY_IMPL(action, MoveToTest);
+DEMO_ENTRY_IMPL(action, OrbitCameraFlipXTest);
+DEMO_ENTRY_IMPL(action, PauseResumeActionTest);
+DEMO_ENTRY_IMPL(action, ProgressByTest);
+DEMO_ENTRY_IMPL(action, ProgressToTest);
+DEMO_ENTRY_IMPL(action, RotateByTest);
+DEMO_ENTRY_IMPL(action, RotateToTest);
+DEMO_ENTRY_IMPL(action, ScaleByTest);
+DEMO_ENTRY_IMPL(action, ScaleToTest);
+DEMO_ENTRY_IMPL(action, ShakeTest);
+DEMO_ENTRY_IMPL(action, SkewByTest);
+DEMO_ENTRY_IMPL(action, SkewToTest);
+DEMO_ENTRY_IMPL(action, TintByTest);
+DEMO_ENTRY_IMPL(action, TintToTest);

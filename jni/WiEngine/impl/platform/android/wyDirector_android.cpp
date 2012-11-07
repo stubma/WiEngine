@@ -39,7 +39,6 @@
 #include "wyUtils_android.h"
 #include "wyInit.h"
 #include "wyActionManager.h"
-#include "wyJavaResourceDecoder.h"
 #include "wyScheduler.h"
 
 #ifdef __cplusplus
@@ -64,7 +63,6 @@ extern pthread_mutex_t gCondMutex;
 // other singleton
 extern wyActionManager* gActionManager;
 extern wyScheduler* gScheduler;
-extern wyResourceDecoder* gResDecoder;
 
 /// java virtual machine object
 extern JavaVM* gVM;
@@ -83,13 +81,6 @@ extern jfieldID g_fid_DisplayMetrics_density;
 extern jfieldID g_fid_DisplayMetrics_scaledDensity;
 extern jfieldID g_fid_DisplayMetrics_widthPixels;
 extern jfieldID g_fid_DisplayMetrics_heightPixels;
-extern jmethodID g_mid_IDirectorLifecycleListener_onSurfaceCreated;
-extern jmethodID g_mid_IDirectorLifecycleListener_onSurfaceChanged;
-extern jmethodID g_mid_IDirectorLifecycleListener_onSurfaceDestroyed;
-extern jmethodID g_mid_IDirectorLifecycleListener_onDirectorPaused;
-extern jmethodID g_mid_IDirectorLifecycleListener_onDirectorResumed;
-extern jmethodID g_mid_IDirectorLifecycleListener_onDirectorEnded;
-extern jmethodID g_mid_IDirectorLifecycleListener_onDirectorScreenCaptured;
 extern jmethodID g_mid_View_getTop;
 extern jmethodID g_mid_View_getLeft;
 extern jmethodID g_mid_View_getParent;
@@ -120,8 +111,7 @@ wyDirector* wyDirector::getInstance() {
 wyDirector_android::wyDirector_android() :
 		m_allowBackgroundRunning(false),
 		m_backgroundRunning(false),
-		m_originalMaxFrameRate(0),
-		m_jLifecycleListeners(wyArrayNew(3)) {
+		m_originalMaxFrameRate(0) {
 }
 
 wyDirector_android::~wyDirector_android() {
@@ -149,19 +139,8 @@ wyDirector_android::~wyDirector_android() {
 		}
 	}
 
-	// if resource decoder is set, check whether it is wyJavaResourceDecoder
-	if(gResDecoder) {
-		wyJavaResourceDecoder* jrd = dynamic_cast<wyJavaResourceDecoder*>(gResDecoder);
-		if(jrd)
-			delete jrd;
-	}
-
 	// common destroy
 	commonDestroy();
-
-	// release listener
-	wyArrayEach(m_jLifecycleListeners, j_releaseListener, NULL);
-	wyArrayDestroy(m_jLifecycleListeners);
 
 	// deinit aal
 	if(gAAL.deinit)
@@ -261,14 +240,6 @@ void wyDirector_android::attachInView(wyGLSurfaceView glView) {
 	}
 }
 
-void wyDirector_android::addLifecycleListener(jobject l) {
-	if(l != NULL) {
-		JNIEnv* env = wyUtils::getJNIEnv();
-		jobject listener = env->NewGlobalRef(l);
-		wyArrayPush(m_jLifecycleListeners, listener);
-	}
-}
-
 void wyDirector_android::stopRender() {
 	// call gl view
 	if(m_glView != NULL) {
@@ -310,37 +281,30 @@ void wyDirector_android::setAccelerometerDelay(wySensorDelay delay) {
 
 void wyDirector_android::notifySurfaceCreated() {
 	wyDirector::notifySurfaceCreated();
-	wyArrayEach(m_jLifecycleListeners, j_notifySurfaceCreated, NULL);
 }
 
 void wyDirector_android::notifySurfaceChanged() {
 	wyDirector::notifySurfaceChanged();
-	wyArrayEach(m_jLifecycleListeners, j_notifySurfaceChanged, NULL);
 }
 
 void wyDirector_android::notifySurfaceDestroyed() {
 	wyDirector::notifySurfaceDestroyed();
-	wyArrayEach(m_jLifecycleListeners, j_notifySurfaceDestroyed, NULL);
 }
 
 void wyDirector_android::notifyDirectorPaused() {
 	wyDirector::notifyDirectorPaused();
-	wyArrayEach(m_jLifecycleListeners, j_notifyDirectorPaused, NULL);
 }
 
 void wyDirector_android::notifyDirectorResumed() {
 	wyDirector::notifyDirectorResumed();
-	wyArrayEach(m_jLifecycleListeners, j_notifyDirectorResumed, NULL);
 }
 
 void wyDirector_android::notifyDirectorEnded() {
 	wyDirector::notifyDirectorEnded();
-	wyArrayEach(m_jLifecycleListeners, j_notifyDirectorEnded, NULL);
 }
 
 void wyDirector_android::notifyDirectorScreenCaptured() {
 	wyDirector::notifyDirectorScreenCaptured();
-	wyArrayEach(m_jLifecycleListeners, j_notifyDirectorScreenCaptured, NULL);
 }
 
 void wyDirector_android::setScaleMode(wyScaleMode mode) {
@@ -546,73 +510,6 @@ void wyDirector_android::setupAAL() {
 	    if(gAAL.setContext)
 	    	gAAL.setContext(m_context);
 	}
-}
-
-bool wyDirector_android::j_notifySurfaceCreated(wyArray* arr, void* ptr, int index, void* data) {
-	jobject l = (jobject)ptr;
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(env != NULL)
-		env->CallVoidMethod(l, g_mid_IDirectorLifecycleListener_onSurfaceCreated);
-	return true;
-}
-
-bool wyDirector_android::j_notifySurfaceChanged(wyArray* arr, void* ptr, int index, void* data) {
-	jobject l = (jobject)ptr;
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(env != NULL)
-		env->CallVoidMethod(l, g_mid_IDirectorLifecycleListener_onSurfaceChanged, wyDevice::winWidth, wyDevice::winHeight);
-	return true;
-}
-
-bool wyDirector_android::j_notifySurfaceDestroyed(wyArray* arr, void* ptr, int index, void* data) {
-	jobject l = (jobject)ptr;
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(env != NULL)
-		env->CallVoidMethod(l, g_mid_IDirectorLifecycleListener_onSurfaceDestroyed);
-	return true;
-}
-
-bool wyDirector_android::j_notifyDirectorPaused(wyArray* arr, void* ptr, int index, void* data) {
-	jobject l = (jobject)ptr;
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(env != NULL)
-		env->CallVoidMethod(l, g_mid_IDirectorLifecycleListener_onDirectorPaused);
-	return true;
-}
-
-bool wyDirector_android::j_notifyDirectorResumed(wyArray* arr, void* ptr, int index, void* data) {
-	jobject l = (jobject)ptr;
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(env != NULL)
-		env->CallVoidMethod(l, g_mid_IDirectorLifecycleListener_onDirectorResumed);
-	return true;
-}
-
-bool wyDirector_android::j_notifyDirectorEnded(wyArray* arr, void* ptr, int index, void* data) {
-	jobject l = (jobject)ptr;
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(env != NULL)
-		env->CallVoidMethod(l, g_mid_IDirectorLifecycleListener_onDirectorEnded);
-	return true;
-}
-
-bool wyDirector_android::j_notifyDirectorScreenCaptured(wyArray* arr, void* ptr, int index, void* data) {
-	jobject l = (jobject)ptr;
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(env != NULL) {
-		jstring path = env->NewStringUTF(gDirector->m_screenshotPath);
-		env->CallVoidMethod(l, g_mid_IDirectorLifecycleListener_onDirectorScreenCaptured, path);
-		env->DeleteLocalRef(path);
-	}
-	return true;
-}
-
-bool wyDirector_android::j_releaseListener(wyArray* arr, void* ptr, int index, void* data) {
-	jobject l = (jobject)ptr;
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(env != NULL)
-		env->DeleteGlobalRef(l);
-	return true;
 }
 
 void wyDirector_android::backgroundLooper(wyTargetSelector* sel) {

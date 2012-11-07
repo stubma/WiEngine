@@ -2603,57 +2603,42 @@ public:
 
 using namespace Node;
 
-#if ANDROID
-	#define DEMO_ENTRY_IMPL(CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_node_##CLASSNAME##_nativeStart \
-		(JNIEnv *env, jobject thiz){ \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#elif IOS || MACOSX || WINDOWS
-	#define DEMO_ENTRY_IMPL(CLASSNAME) void _node_##CLASSNAME##Launcher() { \
-			wyLayer* layer = new wy##CLASSNAME##Layer(); \
-			runDemo(layer, NULL); \
-			wyObjectRelease(layer); \
-		}
-#endif
-
-DEMO_ENTRY_IMPL(ArcticTest);
-DEMO_ENTRY_IMPL(ArrayTileMapAtlasTest);
-DEMO_ENTRY_IMPL(AtlasButtonTest);
-DEMO_ENTRY_IMPL(AtlasLabelTest);
-DEMO_ENTRY_IMPL(AtlasSpriteTest);
-DEMO_ENTRY_IMPL(AuroraGTTest);
-DEMO_ENTRY_IMPL(BitmapFontHGETest);
-DEMO_ENTRY_IMPL(BitmapFontAngelCodeTest);
-DEMO_ENTRY_IMPL(ButtonTest);
-DEMO_ENTRY_IMPL(ClipMappingAuroraGTTest);
-DEMO_ENTRY_IMPL(DialogTest);
-DEMO_ENTRY_IMPL(GradientColorLayerTest);
-DEMO_ENTRY_IMPL(ImageSpriteTest);
-DEMO_ENTRY_IMPL(LabelTest);
-DEMO_ENTRY_IMPL(MenuTest);
-DEMO_ENTRY_IMPL(MotionStreakTest);
-DEMO_ENTRY_IMPL(MotionWelderTest);
-DEMO_ENTRY_IMPL(MultiplexLayerTest);
-DEMO_ENTRY_IMPL(NinePatchButtonTest);
-DEMO_ENTRY_IMPL(PageControlTest);
-DEMO_ENTRY_IMPL(ParallaxTest);
-DEMO_ENTRY_IMPL(ProgressTimerTest);
-DEMO_ENTRY_IMPL(PVRSpriteTest);
-DEMO_ENTRY_IMPL(RenderTextureTest);
-DEMO_ENTRY_IMPL(SceneTest);
-DEMO_ENTRY_IMPL(ScrollableLayerTest);
-DEMO_ENTRY_IMPL(SliderTest);
-DEMO_ENTRY_IMPL(SpriteExBatchNodeTest);
-DEMO_ENTRY_IMPL(SpriteExSelfRenderTest);
-DEMO_ENTRY_IMPL(SpriteX2011Test);
-DEMO_ENTRY_IMPL(SpriteXTest);
-DEMO_ENTRY_IMPL(TextBoxTest);
-DEMO_ENTRY_IMPL(TGATileMapAtlasTest);
-DEMO_ENTRY_IMPL(TiledSpriteTest);
-DEMO_ENTRY_IMPL(TMXHexagonalTest);
-DEMO_ENTRY_IMPL(TMXIsometricTest);
-DEMO_ENTRY_IMPL(TMXOrthogonalTest);
-DEMO_ENTRY_IMPL(ToastTest);
-DEMO_ENTRY_IMPL(VirtualJoystickTest);
+DEMO_ENTRY_IMPL(node, ArcticTest);
+DEMO_ENTRY_IMPL(node, ArrayTileMapAtlasTest);
+DEMO_ENTRY_IMPL(node, AtlasButtonTest);
+DEMO_ENTRY_IMPL(node, AtlasLabelTest);
+DEMO_ENTRY_IMPL(node, AtlasSpriteTest);
+DEMO_ENTRY_IMPL(node, AuroraGTTest);
+DEMO_ENTRY_IMPL(node, BitmapFontHGETest);
+DEMO_ENTRY_IMPL(node, BitmapFontAngelCodeTest);
+DEMO_ENTRY_IMPL(node, ButtonTest);
+DEMO_ENTRY_IMPL(node, ClipMappingAuroraGTTest);
+DEMO_ENTRY_IMPL(node, DialogTest);
+DEMO_ENTRY_IMPL(node, GradientColorLayerTest);
+DEMO_ENTRY_IMPL(node, ImageSpriteTest);
+DEMO_ENTRY_IMPL(node, LabelTest);
+DEMO_ENTRY_IMPL(node, MenuTest);
+DEMO_ENTRY_IMPL(node, MotionStreakTest);
+DEMO_ENTRY_IMPL(node, MotionWelderTest);
+DEMO_ENTRY_IMPL(node, MultiplexLayerTest);
+DEMO_ENTRY_IMPL(node, NinePatchButtonTest);
+DEMO_ENTRY_IMPL(node, PageControlTest);
+DEMO_ENTRY_IMPL(node, ParallaxTest);
+DEMO_ENTRY_IMPL(node, ProgressTimerTest);
+DEMO_ENTRY_IMPL(node, PVRSpriteTest);
+DEMO_ENTRY_IMPL(node, RenderTextureTest);
+DEMO_ENTRY_IMPL(node, SceneTest);
+DEMO_ENTRY_IMPL(node, ScrollableLayerTest);
+DEMO_ENTRY_IMPL(node, SliderTest);
+DEMO_ENTRY_IMPL(node, SpriteExBatchNodeTest);
+DEMO_ENTRY_IMPL(node, SpriteExSelfRenderTest);
+DEMO_ENTRY_IMPL(node, SpriteX2011Test);
+DEMO_ENTRY_IMPL(node, SpriteXTest);
+DEMO_ENTRY_IMPL(node, TextBoxTest);
+DEMO_ENTRY_IMPL(node, TGATileMapAtlasTest);
+DEMO_ENTRY_IMPL(node, TiledSpriteTest);
+DEMO_ENTRY_IMPL(node, TMXHexagonalTest);
+DEMO_ENTRY_IMPL(node, TMXIsometricTest);
+DEMO_ENTRY_IMPL(node, TMXOrthogonalTest);
+DEMO_ENTRY_IMPL(node, ToastTest);
+DEMO_ENTRY_IMPL(node, VirtualJoystickTest);

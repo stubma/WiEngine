@@ -128,11 +128,6 @@ private:
 	/// callback
 	wyScrollableLayerListener* m_callback;
 
-#if ANDROID
-	/// java端callback
-	jobject m_jCallback;
-#endif
-
 private:
 	/**
 	 * 重新计算可滚动区域范围
@@ -484,15 +479,6 @@ public:
 	 * 		除之前设置的回调
 	 */
 	void setCallback(wyScrollableLayerListener* callback) { m_callback = callback; }
-
-#if ANDROID
-	/**
-	 * 设置java端的回调
-	 *
-	 * @param callback java端实现了回调接口的类
-	 */
-	void setCallback(jobject callback);
-#endif
 };
 
 #endif // __wyScrollableLayer_h__

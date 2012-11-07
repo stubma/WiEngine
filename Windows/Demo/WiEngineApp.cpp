@@ -216,11 +216,11 @@ void WiEngineApp::runWithEntry(demoEntryFunc func) {
 	// show window
 	showWindow();
 
-	// prepare
-	m_glView->prepare();
-
 	// call entry
 	func();
+
+	// prepare
+	m_glView->prepare();
 
 	// run
 	m_glView->run();
