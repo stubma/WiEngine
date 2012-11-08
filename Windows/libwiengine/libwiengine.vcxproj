@@ -72,7 +72,6 @@
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyCameraAction.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyClipIn.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyClipOut.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyCoverFlowAction.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyDelayTime.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyFadeIn.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyFadeOut.h" />
@@ -267,7 +266,6 @@
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyButton.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyColorLayer.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyCompoundNode.h" />
-    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyCoverFlow.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyDirector.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyDotPageIndicator.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyFrame.h" />
@@ -441,7 +439,6 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyCameraAction.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyClipIn.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyClipOut.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyCoverFlowAction.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyDelayTime.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyFadeIn.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyFadeOut.cpp" />
@@ -630,7 +627,6 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyButton.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyColorLayer.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyCompoundNode.cpp" />
-    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyCoverFlow.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyDirector.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyDotPageIndicator.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyFrame.cpp" />

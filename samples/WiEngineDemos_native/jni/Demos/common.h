@@ -27,7 +27,7 @@
 
 #if ANDROID
 	#define DEMO_ENTRY(PKG, CLASSNAME) JNIEXPORT void JNICALL Java_com_wiyun_engine_tests_##PKG##_##CLASSNAME##_nativeStart(JNIEnv *, jobject);
-#elif IOS || MACOSX || WINDOWS
+#else
 	#define DEMO_ENTRY_NAME(PKG, CLASSNAME) _##PKG##_##CLASSNAME##Launcher
 	#define DEMO_ENTRY(PKG, CLASSNAME) void DEMO_ENTRY_NAME(PKG, CLASSNAME)();
 	typedef void (*demoEntryFunc)();
@@ -70,7 +70,7 @@
 			director->setShowFPS(true); \
 			director->addLifecycleListener(&_##PKG##_##CLASSNAME##_surfaceLifeCycleListener, NULL); \
 		}
-#elif IOS || MACOSX || WINDOWS
+#else
 	#define DEMO_ENTRY_IMPL(PKG, CLASSNAME) \
 		static bool _##PKG##_##CLASSNAME##_started; \
 		\

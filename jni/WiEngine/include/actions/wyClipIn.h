@@ -44,7 +44,7 @@ public:
 		/// clip grows from right to left side
 		RIGHT_TO_LEFT,
 
-		/// \if English
+		/// clip grows from top to bottom
 		TOP_TO_BOTTOM,
 
 		/// clip grows from bottom to top side

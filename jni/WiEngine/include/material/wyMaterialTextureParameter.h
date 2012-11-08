@@ -64,7 +64,7 @@ public:
 	 * @param uniformName uniform parameter name
 	 * @param tex \link wyTexture2D wyTexture2D\endlink
 	 * @param unit texture unit, default it zero
-	 * @return \link wyMaterialParameter wyMaterialParameter\endif
+	 * @return \link wyMaterialParameter wyMaterialParameter\endlink
 	 */
 	static wyMaterialTextureParameter* make(const char* uniformName, wyTexture2D* tex, int unit = 0);
 

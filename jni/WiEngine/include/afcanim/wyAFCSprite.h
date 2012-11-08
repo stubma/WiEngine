@@ -343,7 +343,7 @@ public:
 	 * Get current frame offset. Frame offset is the delta value between current frame and
 	 * first frame.
 	 *
-	 * @param current frame offset
+	 * @return current frame offset
 	 */
 	wyPoint getFrameOffset() { return m_frameOffset; }
 
@@ -456,7 +456,7 @@ public:
 	/**
 	 * Get data of current animation
 	 *
-	 * \node
+	 * \note
 	 * Returned info is auto scaled by WiEngine on the basis of density
 	 *
 	 * @return \link wyAFCAnimation wyAFCAnimation\endlink
@@ -602,7 +602,7 @@ public:
 	 * can be set to NULL.
 	 *
 	 * @param tex texture list, can have NULL in the list
-	 * @param count texture count in \tex
+	 * @param count texture count in \c tex
 	 */
 	void replaceTextures(wyTexture2D** tex, int count);
 };

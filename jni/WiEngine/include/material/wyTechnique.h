@@ -95,7 +95,7 @@ public:
 	/**
 	 * Get render state this technique use
 	 *
-	 * @param \link wyRenderState wyRenderState\endlink
+	 * @return \link wyRenderState wyRenderState\endlink
 	 */
 	wyRenderState* getRenderState();
 

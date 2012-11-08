@@ -68,7 +68,7 @@ public:
 	/**
 	 * set sprite of the normal state
 	 *
-	 * @parm normal \link wySprite wySprite object\endlink
+	 * @param normal \link wySprite wySprite object\endlink
 	 */
 	void setNormalSprite(wySprite* normal);
 

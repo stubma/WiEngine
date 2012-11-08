@@ -6,7 +6,7 @@
 	<!-- for different platform, doxygen path -->
 	<condition 
 		property="doxygen" 
-		value="C:\Software\doxygen\bin\doxygen"
+		value="C:\Develop\doxygen\bin\doxygen"
 		else="/usr/local/bin/doxygen">
 		<and>
 			<os family="windows"/>
@@ -26,13 +26,16 @@
 	<property name="dist.headers.dir" value="${dist.dir}/WiEngine/headers"/>
 	<property name="dist.wizards.dir" value="${dist.dir}/wizards"/>
 	<property name="dist.wizards.vs2010.dir" value="${dist.wizards.dir}/vs2010"/>
+	<property name="dist.samples.dir" value="${dist.dir}/samples"/>
 	<property name="dist.zip" location="${dist.dir}/WiEngine_sdk_windows_${version}.zip"/>
+	<property name="scheme">Debug</property>
 	
 	<!-- make necessary dir -->
 	<target name="setup">
 		<mkdir dir="${dist.libs.dir}"/>
 		<mkdir dir="${dist.headers.dir}"/>
 		<mkdir dir="${dist.wizards.vs2010.dir}"/>
+		<mkdir dir="${dist.samples.dir}"/>
 	</target>
 	
 	<!-- make a full sdk -->
@@ -63,6 +66,9 @@
 		<!-- build WiEngine library folder -->
 		<antcall target="WiEngine_library"/>
 		
+		<!-- build samples -->
+		<antcall target="samples"/>
+
 		<!-- build wizard -->
 		<antcall target="wizard"/>
 		
@@ -72,7 +78,31 @@
 		<!-- pack -->
 		<antcall target="pack"/>
 	</target>
-	
+
+	<!-- make samples -->
+	<target name="samples">
+		<!-- copy base samples -->
+		<copy todir="${dist.samples.dir}">
+			<fileset dir="samples">
+				<exclude name="**/Debug/**"/>
+				<exclude name="**/Release/**"/>
+				<exclude name="**/obj/**"/>
+				<exclude name="**/ipch/**"/>
+				<exclude name="**/*.suo"/>
+				<exclude name="**/*.opensdf"/>
+				<exclude name="**/*.sdf"/>
+				<exclude name="**/*.vcxproj.user"/>
+			</fileset>
+		</copy>
+		
+		<!-- copy WiEngine librarys to samples -->
+		<copy todir="${dist.samples.dir}/WiEngineSkeletonProject/WiEngineSkeletonProject">
+		    <fileset dir="${dist.dir}">
+		        <include name="WiEngine/**"/>
+		    </fileset>
+		</copy>
+	</target>
+ 	
 	<!-- make wizard -->
 	<target name="wizard">
 	    <copy todir="${dist.wizards.vs2010.dir}">
@@ -143,7 +173,7 @@
 	<!-- copy release libs -->
 	<target name="copy_libs">
 	    <copy todir="${dist.libs.dir}">
-	        <fileset dir="Release">
+	        <fileset dir="${scheme}">
 	            <include name="lib*.dll"/>
 	            <include name="libbox2d.lib"/>
 	            <include name="libjson.lib"/>
@@ -173,7 +203,7 @@
 				<exclude name="expat/**"/>
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
-				<exclude name="kazmath/src"/>
+				<exclude name="kazmath/src/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
 				<exclude name="libnsbmp/**"/>

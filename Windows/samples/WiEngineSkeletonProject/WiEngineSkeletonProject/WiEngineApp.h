@@ -2,7 +2,6 @@
 #define __WiEngineApp_h__
 
 #include "wyWinGLView.h"
-#include "wyScene.h"
 
 /**
  * @class WiEngineApp
@@ -71,7 +70,7 @@ public:
 	/**
 	 * Start app main loop with first scene specified
 	 */
-	int runWithScene(wyScene* s);
+	int run();
 
 	/**
 	 * Set windows has menu or not, this method must be called before \c run

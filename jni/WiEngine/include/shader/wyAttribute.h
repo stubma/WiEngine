@@ -32,77 +32,29 @@
 #include "wyShaderVariable.h"
 
 /**
- * @class wyAttribute
- *
- * \if English
- * Attribute argument
- * \else
- * 属性参数
- * \endif
+ * Shader attribute parameter
  */
 class WIENGINE_API wyAttribute : public wyShaderVariable {
 public:
-	/**
-	 * \if English
-	 * attribute parameter binding index
-	 * \else
-	 * 属性参数的绑定位置和含义
-	 * \endif
-	 */
+	/// attribute parameter binding index
 	enum Binding {
-		/**
-		 * \if English
-		 * vertex position
-		 * \else
-		 * 顶点位置
-		 * \endif
-		 */
+		/// vertex position
 		POSITION,
 
-		/**
-		 * \if English
-		 * vertex color
-		 * \else
-		 * 顶点颜色
-		 * \endif
-		 */
+		/// vertex color
 		COLOR,
 
-		/**
-		 * \if English
-		 * vertex texture coordinates
-		 * \else
-		 * 顶点贴图坐标
-		 * \endif
-		 */
+		/// vertex texture coordinates
 		TEXTURE,
 
-		/**
-		 * \if English
-		 * normal coordinates
-		 * \else
-		 * 法线坐标
-		 * \endif
-		 */
+		/// normal coordinates
 		NORMAL,
 
-		/**
-		 * \if English
-		 * Custom attribute which is defined by shader writer
-		 * \else
-		 * 用作其它目的的属性参数
-		 * \endif
-		 */
+		/// Custom attribute which is defined by shader writer
 		CUSTOM
 	};
 
-	/**
-	 * \if English
-	 * Attribute for default attribute binding
-	 * \else
-	 * 预定义的属性参数名称
-	 * \endif
-	 */
+	/// Attribute for default attribute binding
 	static const char* NAME[];
 
 private:
@@ -125,26 +77,16 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param program related shader program id
 	 * @param type variable type
 	 * @param binding attribute binding type
 	 * @return \link wyAttribute wyAttribute\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param program 相关的shader程序id
-	 * @param type 参数类型
-	 * @param binding 属性绑定类型
-	 * @return \link wyAttribute wyAttribute\endlink
-	 * \endif
 	 */
 	static wyAttribute* make(GLuint program, Type type, Binding binding);
 
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param program related shader program id
@@ -152,15 +94,6 @@ public:
 	 * @param name attribute name
 	 * @param binding attribute binding type
 	 * @return \link wyAttribute wyAttribute\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param program 相关的shader程序id
-	 * @param type 参数类型
-	 * @param name 参数名称
-	 * @param binding 属性绑定类型
-	 * @return \link wyAttribute wyAttribute\endlink
-	 * \endif
 	 */
 	static wyAttribute* make(GLuint program, Type type, const char* name, Binding binding);
 
@@ -170,28 +103,16 @@ public:
 	virtual GLint getLocation();
 
 	/**
-	 * \if English
 	 * Get related shader program id
 	 *
 	 * @return shader program id
-	 * \else
-	 * 得到相关的shader程序id
-	 *
-	 * @return shader程序id
-	 * \endif
 	 */
 	GLuint getProgram() { return m_program; }
 
 	/**
-	 * if English
 	 * Get attribute binding type
 	 *
 	 * @return binding type
-	 * \else
-	 * 得到属性参数的绑定含义
-	 *
-	 * @return 属性参数的绑定含义
-	 * \endif
 	 */
 	Binding getBinding() { return m_binding; }
 };

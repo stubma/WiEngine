@@ -69,7 +69,7 @@ public:
 	 * constructor
 	 *
 	 * @param fromColor the start color, \link wyColor4B wyColor4B\endlink
-	 * @param toColor the end color, \link wyCoclor4B wyColor4B\endlink
+	 * @param toColor the end color, \link wyColor4B wyColor4B\endlink
 	 * @param degree the radian angle, in degrees from 0 to 360. X axis is degree 0 and positive value
 	 * 		means clockwise
 	 */

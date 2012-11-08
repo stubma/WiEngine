@@ -55,13 +55,13 @@ public:
 	enum Mode {
         /**
          * A primitive is a single point in space. The size of the points
-         * can be specified with {@link Mesh#setPointSize(float) }.
+         * can be specified with {@link wyMesh#setPointSize(float) }.
          */
         POINTS,
 
         /**
          * A primitive is a line segment. Every two vertices specify
-         * a single line. {@link Mesh#setLineWidth(float) } can be used
+         * a single line. {@link wyMesh#setLineWidth(float) } can be used
          * to set the width of the lines.
          */
         LINES,
@@ -69,15 +69,15 @@ public:
         /**
          * A primitive is a line segment. The first two vertices specify
          * a single line, while subsequent vertices are combined with the
-         * previous vertex to make a line. {@link Mesh#setLineWidth(float) } can
+         * previous vertex to make a line. {@link wyMesh#setLineWidth(float) } can
          * be used to set the width of the lines.
          */
         LINE_STRIP,
 
         /**
-         * Identical to {@link #LineStrip} except that at the end
+         * Identical to {@link #LINE_STRIP} except that at the end
          * the last vertex is connected with the first to form a line.
-         * {@link Mesh#setLineWidth(float) } can be used
+         * {@link wyMesh#setLineWidth(float) } can be used
          * to set the width of the lines.
          */
         LINE_LOOP,
@@ -89,14 +89,14 @@ public:
         TRIANGLES,
 
         /**
-         * Similar to {@link #Triangles}, the first 3 vertices
+         * Similar to {@link #TRIANGLES}, the first 3 vertices
          * specify a triangle, while subsequent vertices are combined with
          * the previous two to form a triangle.
          */
         TRIANGLE_STRIP,
 
         /**
-         * Similar to {@link #Triangles}, the first 3 vertices
+         * Similar to {@link #TRIANGLES}, the first 3 vertices
          * specify a triangle, each 2 subsequent vertices are combined
          * with the very first vertex to make a triangle.
          */

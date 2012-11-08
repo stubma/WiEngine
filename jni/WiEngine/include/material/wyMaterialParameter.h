@@ -61,7 +61,7 @@ public:
 	 *
 	 * @param uniformName uniform parameter name
 	 * @param v value of uniform
-	 * @return \link wyMaterialParameter wyMaterialParameter\endif
+	 * @return \link wyMaterialParameter wyMaterialParameter\endlink
 	 */
 	static wyMaterialParameter* make(const char* uniformName, wyShaderVariable::Value& v);
 

@@ -114,9 +114,6 @@
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyClipOut.h">
       <Filter>actions</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\actions\wyCoverFlowAction.h">
-      <Filter>actions</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyDelayTime.h">
       <Filter>actions</Filter>
     </ClInclude>
@@ -625,9 +622,6 @@
       <Filter>nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyColorLayer.h">
-      <Filter>nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyCoverFlow.h">
       <Filter>nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyDirector.h">
@@ -1282,9 +1276,6 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyClipOut.cpp">
       <Filter>actions</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyCoverFlowAction.cpp">
-      <Filter>actions</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyDelayTime.cpp">
       <Filter>actions</Filter>
     </ClCompile>
@@ -1796,9 +1787,6 @@
       <Filter>nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyColorLayer.cpp">
-      <Filter>nodes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyCoverFlow.cpp">
       <Filter>nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyDirector.cpp">

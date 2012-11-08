@@ -7,6 +7,33 @@
 #include "resource.h"
 #include "FirstScene.h"
 
+// is already started?
+static bool s_started = false;
+
+static void onSurfaceChanged(int w, int h, void* data) {
+	// ensure it is not started multiple times
+	if(!s_started) {
+		s_started = true;
+
+		// run with first scene
+		wyDirector* director = wyDirector::getInstance();
+		wyScene* scene = new FirstScene();
+		director->runWithScene(scene);
+		scene->release();
+	}
+}
+
+// life cycle listener
+static const wyDirectorLifecycleListener s_surfaceLifeCycleListener = {
+	NULL,
+	onSurfaceChanged,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL
+};
+
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
 	// if you want to test against different screen, set screen config here
 //	wyScreenConfig c = { 1.5f, 1.0f, 1200, 600 };
@@ -20,7 +47,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 //	app->setHasMenu(false); 
 
 	// show fps or not?
-	wyDirector::getInstance()->setShowFPS(true);
+	wyDirector* director = wyDirector::getInstance();
+	director->setShowFPS(true);
+
+	// add life cycle listener
+    director->addLifecycleListener(&s_surfaceLifeCycleListener, NULL);
 
 	/*
 	 * If you want to run demo in base size mode, uncomment
@@ -30,12 +61,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 //	wyDirector::getInstance()->setScaleMode(SCALE_MODE_BASE_SIZE_FIT_XY);
 //	wyDirector::getInstance()->setBaseSize(320, 480);
 
-	// create first scene
-	FirstScene* s = new FirstScene();
-	s->autoRelease();
-
 	// start event loop
-	int ret = app->runWithScene(s);
+	int ret = app->run();
 
 	// when event loop returns, delete app instance
 	delete app;
@@ -184,7 +211,6 @@ LRESULT CALLBACK WiEngineApp::appWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
 			wmId = LOWORD(wParam);
 			wmEvent = HIWORD(wParam);
 
-			// ·ÖÎö²Ëµ¥Ñ¡Ôñ:
 			switch(wmId) {
 				case IDM_ABOUT:
 					DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
@@ -266,7 +292,7 @@ void WiEngineApp::computeWindowRectFromClientArea(const DWORD windowStyle, wyRec
 	}
 }
 
-int WiEngineApp::runWithScene(wyScene* s) {
+int WiEngineApp::run() {
 	// load accelerator table
 	HACCEL hAccelTable = LoadAccelerators(GetModuleHandle(NULL), MAKEINTRESOURCE(IDC_WIENGINESKELETONPROJECT));
 
@@ -285,9 +311,6 @@ int WiEngineApp::runWithScene(wyScene* s) {
 
 	// prepare
 	m_glView->prepare();
-
-	// run with first scene
-	wyDirector::getInstance()->runWithScene(s);
 
 	// run
 	return m_glView->run();

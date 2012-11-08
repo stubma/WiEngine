@@ -45,9 +45,6 @@
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Transition\TransitionDemos.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\common.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="Demo\WiEngineDemos.cpp">
       <Filter>src</Filter>
     </ClCompile>

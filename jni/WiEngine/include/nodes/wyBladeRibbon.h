@@ -92,7 +92,7 @@ public:
 	/**
 	 * to be called by the engine, do not call it manually
 	 *
-	 * @param delta, in seconds, time elapsed since last time this function was entered
+	 * @param delta in seconds, time elapsed since last time this function was entered
 	 */
 	virtual void update(float delta);
 

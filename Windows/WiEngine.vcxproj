@@ -33,7 +33,6 @@
   <ItemGroup>
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.cpp" />
-    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\common.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\GridActions\GridActionDemos.cpp" />

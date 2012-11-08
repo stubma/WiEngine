@@ -32,84 +32,33 @@
 #include "wyObject.h"
 
 /**
- * @class wyShader
- *
- * \if English
- * Represent a shader
- * \else
- * 代表了一个shader
- * \endif
+ * Represent a shader, such as fragment shader, vertex shader
  */
 class WIENGINE_API wyShader : public wyObject {
 public:
-	/**
-	 * \if English
-	 * Shader language define
-	 * \else
-	 * shader语言类型
-	 * \endif
-	 */
+	/// Shader language define
 	enum Language {
-		/**
-		 * \if English
-		 * OpenGL shading language
-		 * \else
-		 * OpenGL专用的shading语言
-		 * \endif
-		 */
+		/// OpenGL shading language
 		GLSL,
 
-		/**
-		 * \if English
-		 * for DirectX, high level shading language
-		 * \else
-		 * DirectX专用的shading语言
-		 * \endif
-		 */
+		/// for DirectX, high level shading language
 		HLSL,
 
-		/**
-		 * \if English
-		 * nvidia shading language, for OpenGL and DirectX
-		 * \else
-		 * nvidia定义的可以用于OpenGL和DirectX的shading语言
-		 * \endif
-		 */
+		/// nvidia shading language, for OpenGL and DirectX
 		CG
 	};
 
-	/**
-	 * \if English
-	 * Shader type
-	 * \else
-	 * shader类型
-	 */
+	/// Shader type
 	enum Type {
-        /**
-         * \if English
-         * Control vertex processing. (e.g transform of model to clip space)
-         * \else
-         * 顶点shader
-         * \endif
-         */
+        /// Control vertex processing. (e.g transform of model to clip space)
 		VERTEX,
 
-        /**
-         * \if English
-         * Control fragment rasterization. (e.g color of pixel).
-         * \else
-         * 分片shader
-         * \endif
-         */
+        /// Control fragment rasterization. (e.g color of pixel).
 		FRAGMENT,
 
         /**
-         * \if English
          * Control geometry assembly. (e.g compile a triangle list from input data).
          * Supported after GLSL 1.5
-         * \else
-         * 物体shader, GLSL 1.5之后支持
-         * \endif
          */
 		GEOMETRY
 	};
@@ -135,24 +84,15 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param type shader type
 	 * @param resId resource id of shader file
 	 * @return \link wyShader wyShader\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param type shader类型
-	 * @param resId shader源文件的资源id
-	 * @return \link wyShader wyShader\endlink
-	 * \endif
 	 */
 	static wyShader* make(Type type, int resId);
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param type shader type
@@ -160,90 +100,47 @@ public:
 	 * @param isFile true means \c path is an absolute path in file system, false means \c path
 	 * 		is a relative path under assets
 	 * @return \link wyShader wyShader\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param type shader类型
-	 * @param path shader文件路径
-	 * @param isFile true表示\c path是一个文件系统的绝对路径, false表示\c path是一个assets下的
-	 * 		相对路径
-	 * @return \link wyShader wyShader\endlink
-	 * \endif
 	 */
 	static wyShader* make(Type type, const char* path, bool isFile = false);
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param type shader type
 	 * @param mfsName memory file name of shader file
 	 * @return \link wyShader wyShader\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param type shader类型
-	 * @param mfsName shader文件的内存文件名
-	 * @return \link wyShader wyShader\endlink
-	 * \endif
 	 */
 	static wyShader* makeMemory(Type type, const char* mfsName);
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param type shader type
 	 * @param src shader source
 	 * @return \link wyShader wyShader\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param type shader类型
-	 * @param src shader源代码
-	 * @return \link wyShader wyShader\endlink
-	 * \endif
 	 */
 	static wyShader* makeRaw(Type type, const char* src);
 
 	virtual ~wyShader();
 
 	/**
-	 * \if English
 	 * Get shader type
 	 *
 	 * @return shader type, defined by GL
-	 * \else
-	 * 得到shader类型
-	 *
-	 * @return shader类型
-	 * \endif
 	 */
 	Type getType() { return m_type; }
 
 	/**
-	 * \if English
 	 * Get shader id
 	 *
 	 * @return shader id
-	 * \else
-	 * 得到shader id
-	 *
-	 * @return shader id
-	 * \endif
 	 */
 	GLuint getShader() { return m_shader; }
 
 	/**
-	 * \if English
 	 * Get shader language
 	 *
 	 * @return shader language constant
-	 * \else
-	 * 得到shader语言类型
-	 *
-	 * @return shader语言类型常量
-	 * \endif
 	 */
 	Language getLanguage() { return m_language; }
 };

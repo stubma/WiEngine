@@ -32,13 +32,7 @@
 #include "wyShaderVariable.h"
 
 /**
- * @class wyUniform
- *
- * \if English
- * Uniform argument
- * \else
- * Uniform参数
- * \endif
+ * Shader uniform argument
  */
 class WIENGINE_API wyUniform : public wyShaderVariable {
 public:
@@ -108,26 +102,16 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param program shader program id
 	 * @param type variable type
 	 * @param binding binding type for this uniform
 	 * @return \link wyUniform wyUniform\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param program shader程序id
-	 * @param type 参数类型
-	 * @param binding uniform绑定类型
-	 * @return \link wyUniform wyUniform\endlink
-	 * \endif
 	 */
 	static wyUniform* make(GLuint program, Type type, Binding binding);
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param program shader program id
@@ -135,43 +119,22 @@ public:
 	 * @param name name of uniform
 	 * @param binding binding type for this uniform
 	 * @return \link wyUniform wyUniform\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param program shader程序id
-	 * @param type 参数类型
-	 * @param name uniform参数名称
-	 * @param binding uniform绑定类型
-	 * @return \link wyUniform wyUniform\endlink
-	 * \endif
 	 */
 	static wyUniform* make(GLuint program, Type type, const char* name, Binding binding);
 
 	virtual ~wyUniform();
 
 	/**
-	 * \if English
 	 * Get related shader program id
 	 *
 	 * @return shader program id
-	 * \else
-	 * 得到相关的shader程序id
-	 *
-	 * @return shader程序id
-	 * \endif
 	 */
 	GLuint getProgram() { return m_program; }
 
 	/**
-	 * if English
 	 * Get uniform binding type
 	 *
 	 * @return binding type
-	 * \else
-	 * 得到uniform参数的绑定含义
-	 *
-	 * @return uniform参数的绑定含义
-	 * \endif
 	 */
 	Binding getBinding() { return m_binding; }
 };

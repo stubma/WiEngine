@@ -136,6 +136,7 @@ function AddCustomConfig(proj, strProjectName)
             WiEngine\\headers\\lua; \
             WiEngine\\headers\\lua\\tolua++; \
             WiEngine\\headers\\pthread; \
+            WiEngine\\headers\\kazmath\\include; \
             WiEngine\\headers\\WiEngine\\include; \
             WiEngine\\headers\\WiEngine\\include\\wisound; \
             WiEngine\\headers\\WiEngine\\include\\winetwork; \
@@ -163,6 +164,10 @@ function AddCustomConfig(proj, strProjectName)
             WiEngine\\headers\\WiEngine\\include\\bitmapfont; \
             WiEngine\\headers\\WiEngine\\include\\astar; \
             WiEngine\\headers\\WiEngine\\include\\afcanim; \
+            WiEngine\\headers\\WiEngine\\include\\mesh; \
+            WiEngine\\headers\\WiEngine\\include\\material; \
+            WiEngine\\headers\\WiEngine\\include\\render; \
+            WiEngine\\headers\\WiEngine\\include\\shader; \
             WiEngine\\headers\\WiEngine\\include\\actions;";
         CLTool.AdditionalIncludeDirectories = includes + CLTool.AdditionalIncludeDirectories;
 

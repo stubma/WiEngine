@@ -135,7 +135,7 @@ public:
 	/**
 	 * set angle delta of pin point rotation
 	 *
-	 * @param angle to be added to node rotation
+	 * @param delta angle to be added to node rotation, in degree
 	 */
 	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
 
