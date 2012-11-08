@@ -75,7 +75,7 @@ static void onDirectorEnded(void* data) {
 	wyAudioManager::releaseInstance();
 }
 
-static const wyDirectorLifecycleListener s_surfaceLifeCycleListener = {
+static wyDirectorLifecycleListener s_surfaceLifeCycleListener = {
 	onSurfaceCreated,
 	NULL,
 	onSurfaceDestroyed,

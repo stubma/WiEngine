@@ -53,7 +53,7 @@
 			} \
 		} \
 		\
-		static const wyDirectorLifecycleListener _##PKG##_##CLASSNAME##_surfaceLifeCycleListener = { \
+		static wyDirectorLifecycleListener _##PKG##_##CLASSNAME##_surfaceLifeCycleListener = { \
 			NULL, \
 			_##PKG##_##CLASSNAME##_onSurfaceChanged, \
 			NULL, \
@@ -90,7 +90,7 @@
 			} \
 		} \
 		\
-		static const wyDirectorLifecycleListener _##PKG##_##CLASSNAME##_surfaceLifeCycleListener = { \
+		static wyDirectorLifecycleListener _##PKG##_##CLASSNAME##_surfaceLifeCycleListener = { \
 			NULL, \
 			_##PKG##_##CLASSNAME##_onSurfaceChanged, \
 			NULL, \

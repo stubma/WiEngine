@@ -114,55 +114,6 @@ bool wyDirector::releaseScene(wyArray* arr, void* ptr, int index, void* data) {
 	return true;
 }
 
-bool wyDirector::notifySurfaceCreated(wyArray* arr, void* ptr, int index, void* data) {
-	wyDirectorLifecycleListener* l = (wyDirectorLifecycleListener*)ptr;
-	if(l->onSurfaceCreated != NULL)
-		l->onSurfaceCreated(data);
-	return true;
-}
-
-bool wyDirector::notifySurfaceChanged(wyArray* arr, void* ptr, int index, void* data) {
-	wyDirectorLifecycleListener* l = (wyDirectorLifecycleListener*)ptr;
-	if(l->onSurfaceChanged != NULL)
-		l->onSurfaceChanged(wyDevice::winWidth, wyDevice::winHeight, data);
-	return true;
-}
-
-bool wyDirector::notifySurfaceDestroyed(wyArray* arr, void* ptr, int index, void* data) {
-	wyDirectorLifecycleListener* l = (wyDirectorLifecycleListener*)ptr;
-	if(l->onSurfaceDestroyed != NULL)
-		l->onSurfaceDestroyed(data);
-	return true;
-}
-
-bool wyDirector::notifyDirectorPaused(wyArray* arr, void* ptr, int index, void* data) {
-	wyDirectorLifecycleListener* l = (wyDirectorLifecycleListener*)ptr;
-	if(l->onDirectorPaused != NULL)
-		l->onDirectorPaused(data);
-	return true;
-}
-
-bool wyDirector::notifyDirectorResumed(wyArray* arr, void* ptr, int index, void* data) {
-	wyDirectorLifecycleListener* l = (wyDirectorLifecycleListener*)ptr;
-	if(l->onDirectorResumed != NULL)
-		l->onDirectorResumed(data);
-	return true;
-}
-
-bool wyDirector::notifyDirectorEnded(wyArray* arr, void* ptr, int index, void* data) {
-	wyDirectorLifecycleListener* l = (wyDirectorLifecycleListener*)ptr;
-	if(l->onDirectorEnded != NULL)
-		l->onDirectorEnded(data);
-	return true;
-}
-
-bool wyDirector::notifyDirectorScreenCaptured(wyArray* arr, void* ptr, int index, void* data) {
-	wyDirectorLifecycleListener* l = (wyDirectorLifecycleListener*)ptr;
-	if(l->onDirectorScreenCaptured != NULL)
-		l->onDirectorScreenCaptured(getInstance()->m_screenshotPath, data);
-	return true;
-}
-
 wyDirector* wyDirector::getInstanceNoCreate() {
 	return gDirector;
 }
@@ -216,7 +167,7 @@ wyDirector::wyDirector() :
 		m_runningScene(NULL),
 		m_fpsLabel(NULL),
 		m_scenesStack(NULL),
-		m_lifecycleListeners(wyArrayNew(3)),
+		m_lifecycleListeners(WYNEW vector<wyDirectorLifecycleListener*>()),
 		m_glView(NULL),
 		m_context(NULL),
 		m_lifecycleData(NULL),
@@ -251,31 +202,66 @@ wyDirector::wyDirector() :
 }
 
 void wyDirector::notifySurfaceCreated() {
-	wyArrayEach(m_lifecycleListeners, notifySurfaceCreated, m_lifecycleData);
+	int size = m_lifecycleListeners->size();
+	for(int i = 0; i < size; i++) {
+		wyDirectorLifecycleListener* l = m_lifecycleListeners->at(i);
+		if(l->onSurfaceCreated != NULL)
+			l->onSurfaceCreated(m_lifecycleData);
+	}
 }
 
 void wyDirector::notifySurfaceChanged() {
-	wyArrayEach(m_lifecycleListeners, notifySurfaceChanged, m_lifecycleData);
+	int size = m_lifecycleListeners->size();
+	for(int i = 0; i < size; i++) {
+		wyDirectorLifecycleListener* l = m_lifecycleListeners->at(i);
+		if(l->onSurfaceChanged != NULL)
+			l->onSurfaceChanged(wyDevice::winWidth, wyDevice::winHeight, m_lifecycleData);
+	}
 }
 
 void wyDirector::notifySurfaceDestroyed() {
-	wyArrayEach(m_lifecycleListeners, notifySurfaceDestroyed, m_lifecycleData);
+	int size = m_lifecycleListeners->size();
+	for(int i = 0; i < size; i++) {
+		wyDirectorLifecycleListener* l = m_lifecycleListeners->at(i);
+		if(l->onSurfaceDestroyed != NULL)
+			l->onSurfaceDestroyed(m_lifecycleData);
+	}
 }
 
 void wyDirector::notifyDirectorPaused() {
-	wyArrayEach(m_lifecycleListeners, notifyDirectorPaused, m_lifecycleData);
+	int size = m_lifecycleListeners->size();
+	for(int i = 0; i < size; i++) {
+		wyDirectorLifecycleListener* l = m_lifecycleListeners->at(i);
+		if(l->onDirectorPaused != NULL)
+			l->onDirectorPaused(m_lifecycleData);
+	}
 }
 
 void wyDirector::notifyDirectorResumed() {
-	wyArrayEach(m_lifecycleListeners, notifyDirectorResumed, m_lifecycleData);
+	int size = m_lifecycleListeners->size();
+	for(int i = 0; i < size; i++) {
+		wyDirectorLifecycleListener* l = m_lifecycleListeners->at(i);
+		if(l->onDirectorResumed != NULL)
+			l->onDirectorResumed(m_lifecycleData);
+	}
 }
 
 void wyDirector::notifyDirectorEnded() {
-	wyArrayEach(m_lifecycleListeners, notifyDirectorEnded, m_lifecycleData);
+	int size = m_lifecycleListeners->size();
+	for(int i = 0; i < size; i++) {
+		wyDirectorLifecycleListener* l = m_lifecycleListeners->at(i);
+		if(l->onDirectorEnded != NULL)
+			l->onDirectorEnded(m_lifecycleData);
+	}
 }
 
 void wyDirector::notifyDirectorScreenCaptured() {
-	wyArrayEach(m_lifecycleListeners, notifyDirectorScreenCaptured, m_lifecycleData);
+	int size = m_lifecycleListeners->size();
+	for(int i = 0; i < size; i++) {
+		wyDirectorLifecycleListener* l = m_lifecycleListeners->at(i);
+		if(l->onDirectorScreenCaptured != NULL)
+			l->onDirectorScreenCaptured(m_screenshotPath, m_lifecycleData);
+	}
 }
 
 void wyDirector::setResourceDecoder(wyResourceDecoder* decoder) {
@@ -501,8 +487,8 @@ void wyDirector::onSurfaceDestroyed() {
 	}
 }
 
-void wyDirector::addLifecycleListener(const wyDirectorLifecycleListener* l, void* data) {
-	wyArrayPush(m_lifecycleListeners, (void*)l);
+void wyDirector::addLifecycleListener(wyDirectorLifecycleListener* l, void* data) {
+	m_lifecycleListeners->push_back(l);
 	m_lifecycleData = data;
 }
 
@@ -659,7 +645,7 @@ void wyDirector::commonDestroy() {
 	setNextScene(NULL);
 	wyArrayEach(m_scenesStack, releaseScene, NULL);
 	wyArrayDestroy(m_scenesStack);
-	wyArrayDestroy(m_lifecycleListeners);
+	WYDELETE(m_lifecycleListeners);
 
 	// release render manager
 	wyObjectRelease(m_renderManager);

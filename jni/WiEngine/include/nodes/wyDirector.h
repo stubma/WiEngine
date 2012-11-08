@@ -541,14 +541,8 @@ protected:
 	 */
 	wyArray* m_scenesStack;
 
-	/**
-	 * \if English
-	 * array to store life cycle listeners
-	 * \else
-	 * Director生命周期事件监听器
-	 * \endif
-	 */
-	wyArray* m_lifecycleListeners;
+	/// array to store life cycle listeners
+	vector<wyDirectorLifecycleListener*>* m_lifecycleListeners;
 
 	/**
 	 * \if English
@@ -698,13 +692,6 @@ protected:
 	 */
 
 	static bool releaseScene(wyArray* arr, void* ptr, int index, void* data);
-	static bool notifySurfaceCreated(wyArray* arr, void* ptr, int index, void* data);
-	static bool notifySurfaceChanged(wyArray* arr, void* ptr, int index, void* data);
-	static bool notifySurfaceDestroyed(wyArray* arr, void* ptr, int index, void* data);
-	static bool notifyDirectorPaused(wyArray* arr, void* ptr, int index, void* data);
-	static bool notifyDirectorResumed(wyArray* arr, void* ptr, int index, void* data);
-	static bool notifyDirectorEnded(wyArray* arr, void* ptr, int index, void* data);
-	static bool notifyDirectorScreenCaptured(wyArray* arr, void* ptr, int index, void* data);
 	
 public:
 	/**
@@ -1091,7 +1078,7 @@ public:
 	 * @param data 附加数据指针
 	 * \endif
 	 */
-	void addLifecycleListener(const wyDirectorLifecycleListener* l, void* data);
+	void addLifecycleListener(wyDirectorLifecycleListener* l, void* data);
 
 	/**
 	 * \if English
