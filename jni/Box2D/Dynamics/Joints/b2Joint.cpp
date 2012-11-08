@@ -31,19 +31,8 @@
 #include <Box2D/Dynamics/b2World.h>
 #include <Box2D/Common/b2BlockAllocator.h>
 #include <new>
-#if ANDROID
-	#include "wyUtils_android.h"
-#endif
 
 b2JointDef::~b2JointDef() {
-#if ANDROID
-	// destroy java user data
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(j_userData != NULL) {
-		env->DeleteGlobalRef(j_userData);
-		j_userData = NULL;
-	}
-#endif
 }
 
 b2Joint* b2Joint::Create(const b2JointDef* def, b2BlockAllocator* allocator)
@@ -195,11 +184,6 @@ b2Joint::b2Joint(const b2JointDef* def)
 	m_islandFlag = false;
 	m_userData = def->userData;
 	
-#if ANDROID
-	m_jUserData = NULL;
-	SetJavaUserData(def->j_userData);
-#endif
-
 	m_edgeA.joint = NULL;
 	m_edgeA.other = NULL;
 	m_edgeA.prev = NULL;
@@ -212,29 +196,9 @@ b2Joint::b2Joint(const b2JointDef* def)
 }
 
 b2Joint::~b2Joint() {
-#if ANDROID
-	// destroy java user data
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jUserData != NULL) {
-		env->DeleteGlobalRef(m_jUserData);
-		m_jUserData = NULL;
-	}
-#endif
 }
 
 bool b2Joint::IsActive() const
 {
 	return m_bodyA->IsActive() && m_bodyB->IsActive();
 }
-
-#if ANDROID
-void b2Joint::SetJavaUserData(jobject data) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jUserData != NULL) {
-		env->DeleteGlobalRef(m_jUserData);
-		m_jUserData = NULL;
-	}
-	if(data != NULL)
-		m_jUserData = env->NewGlobalRef(data);
-}
-#endif

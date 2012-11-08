@@ -26,27 +26,13 @@
 #include <Box2D/Collision/b2BroadPhase.h>
 #include <Box2D/Collision/b2Collision.h>
 #include <Box2D/Common/b2BlockAllocator.h>
-#if ANDROID
-	#include "wyUtils_android.h"
-#endif
 
 b2FixtureDef::~b2FixtureDef() {
-#if ANDROID
-	// destroy java user data
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(j_userData != NULL) {
-		env->DeleteGlobalRef(j_userData);
-		j_userData = NULL;
-	}
-#endif
 }
 
 b2Fixture::b2Fixture()
 {
 	m_userData = NULL;
-#if ANDROID
-	m_jUserData = NULL;
-#endif
 	m_body = NULL;
 	m_next = NULL;
 	m_proxies = NULL;
@@ -63,10 +49,6 @@ void b2Fixture::Create(b2BlockAllocator* allocator, b2Body* body, const b2Fixtur
 	m_userData = def->userData;
 	m_friction = def->friction;
 	m_restitution = def->restitution;
-
-#if ANDROID
-	SetJavaUserData(def->j_userData);
-#endif
 
 	m_body = body;
 	m_next = NULL;
@@ -94,15 +76,6 @@ void b2Fixture::Destroy(b2BlockAllocator* allocator)
 {
 	// The proxies must be destroyed before calling this.
 	b2Assert(m_proxyCount == 0);
-
-#if ANDROID
-	// destroy java user data
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jUserData != NULL) {
-		env->DeleteGlobalRef(m_jUserData);
-		m_jUserData = NULL;
-	}
-#endif
 
 	// Free the proxy array.
 	int32 childCount = m_shape->GetChildCount();
@@ -258,18 +231,6 @@ void b2Fixture::SetSensor(bool sensor)
 		m_isSensor = sensor;
 	}
 }
-
-#if ANDROID
-void b2Fixture::SetJavaUserData(jobject data) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jUserData != NULL) {
-		env->DeleteGlobalRef(m_jUserData);
-		m_jUserData = NULL;
-	}
-	if(data != NULL)
-		m_jUserData = env->NewGlobalRef(data);
-}
-#endif
 
 void b2Fixture::Dump(int32 bodyIndex)
 {

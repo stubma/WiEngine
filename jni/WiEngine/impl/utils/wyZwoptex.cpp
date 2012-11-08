@@ -35,9 +35,6 @@
 #include "wyLog.h"
 #include "wyGlobal.h"
 #include <libxml/parser.h>
-#if ANDROID
-	#include "wyJNI.h"
-#endif
 
 // parsing state
 #define READY 0

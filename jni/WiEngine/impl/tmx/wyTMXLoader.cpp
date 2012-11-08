@@ -39,9 +39,6 @@
 #include "wyTileSetInfo.h"
 #include <libxml/parser.h>
 #include "wyGlobal.h"
-#if ANDROID
-	#include "wyJNI.h"
-#endif
 
 #ifdef __cplusplus
 extern "C" {

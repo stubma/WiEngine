@@ -28,8 +28,8 @@
  */
 #include "wyBox2DCollisionDetector.h"
 #include <Box2D/Box2D.h>
-
-extern void globalJNIInit();
+#include "wyTypes.h"
+#include "wyUtils.h"
 
 // reversed for rectangle collision detection
 static b2PolygonShape sRectPoly1;
@@ -96,7 +96,6 @@ typedef struct wyNodeHash {
 wyBox2DCollisionDetector::wyBox2DCollisionDetector() :
 		m_nodeShapes(wyHashSetNew(10, nodeHashEquals, buildNodeHash)),
 		m_meterPixels(DP(16)) {
-	globalJNIInit();
 }
 
 wyBox2DCollisionDetector::~wyBox2DCollisionDetector() {

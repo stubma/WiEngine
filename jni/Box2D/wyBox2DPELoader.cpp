@@ -30,6 +30,8 @@
 #include "wyBox2DPELoader.h"
 #include <libxml/parser.h>
 #include <ctype.h>
+#include "wyTypes.h"
+#include "wyUtils.h"
 
 typedef enum enumState {
 	State_ready,

@@ -22,11 +22,6 @@
 #include <Box2D/Dynamics/b2Body.h>
 #include <Box2D/Collision/b2Collision.h>
 #include <Box2D/Collision/Shapes/b2Shape.h>
-#include "wyTypes.h"
-#include "wyUtils.h"
-#if ANDROID
-	#include <jni.h>
-#endif
 
 class b2BlockAllocator;
 class b2Body;
@@ -65,9 +60,6 @@ struct BOX2D_API b2FixtureDef
 	{
 		shape = NULL;
 		userData = NULL;
-#if ANDROID
-		j_userData = NULL;
-#endif
 		friction = 0.2f;
 		restitution = 0.0f;
 		density = 0.0f;
@@ -98,11 +90,6 @@ struct BOX2D_API b2FixtureDef
 
 	/// Contact filtering data.
 	b2Filter filter;
-
-#if ANDROID
-	/// WiEngine: support to set user data in java layer
-	jobject j_userData;
-#endif
 };
 
 /// This proxy is used internally to connect fixtures to the broad-phase.
@@ -219,14 +206,6 @@ public:
 	/// Dump this fixture to the log file.
 	void Dump(int32 bodyIndex);
 
-#if ANDROID
-	/// Get the user data object that was provided in the body definition.
-	jobject GetJavaUserData() const;
-
-	/// Set the user data. Use this to store your application specific data.
-	void SetJavaUserData(jobject data);
-#endif
-
 protected:
 
 	friend class b2Body;
@@ -265,10 +244,6 @@ protected:
 	bool m_isSensor;
 
 	void* m_userData;
-
-#if ANDROID
-	jobject m_jUserData;
-#endif
 };
 
 inline b2Shape::Type b2Fixture::GetType() const
@@ -300,12 +275,6 @@ inline void* b2Fixture::GetUserData() const
 {
 	return m_userData;
 }
-
-#if ANDROID
-inline jobject b2Fixture::GetJavaUserData() const {
-	return m_jUserData;
-}
-#endif
 
 inline void b2Fixture::SetUserData(void* data)
 {

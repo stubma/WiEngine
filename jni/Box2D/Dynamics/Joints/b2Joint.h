@@ -20,11 +20,6 @@
 #define B2_JOINT_H
 
 #include <Box2D/Common/b2Math.h>
-#include "wyTypes.h"
-#include "wyUtils.h"
-#if ANDROID
-	#include <jni.h>
-#endif
 
 class b2Body;
 class b2Joint;
@@ -81,9 +76,6 @@ struct BOX2D_API b2JointDef
 	{
 		type = e_unknownJoint;
 		userData = NULL;
-#if ANDROID
-		j_userData = NULL;
-#endif
 		bodyA = NULL;
 		bodyB = NULL;
 		collideConnected = false;
@@ -105,11 +97,6 @@ struct BOX2D_API b2JointDef
 
 	/// Set this flag to true if the attached bodies should collide.
 	bool collideConnected;
-
-#if ANDROID
-	/// WiEngine: support to set user data in java layer
-	jobject j_userData;
-#endif
 };
 
 /// The base joint class. Joints are used to constraint two bodies together in
@@ -148,14 +135,6 @@ public:
 
 	/// Set the user data pointer.
 	void SetUserData(void* data);
-
-#if ANDROID
-	/// Get the user data object that was provided in the body definition.
-	jobject GetJavaUserData() const;
-
-	/// Set the user data. Use this to store your application specific data.
-	void SetJavaUserData(jobject data);
-#endif
 
 	/// Short-cut function to determine if either body is inactive.
 	bool IsActive() const;
@@ -200,10 +179,6 @@ protected:
 	bool m_collideConnected;
 
 	void* m_userData;
-	
-#if ANDROID
-	jobject m_jUserData;
-#endif
 };
 
 inline b2JointType b2Joint::GetType() const
@@ -230,12 +205,6 @@ inline const b2Joint* b2Joint::GetNext() const
 {
 	return m_next;
 }
-
-#if ANDROID
-inline jobject b2Joint::GetJavaUserData() const {
-	return m_jUserData;
-}
-#endif
 
 inline void* b2Joint::GetUserData() const
 {

@@ -23,11 +23,6 @@
 #include <Box2D/Collision/Shapes/b2Shape.h>
 #include <Box2D/Controllers/b2Controller.h>
 #include <memory.h>
-#include "wyTypes.h"
-#include "wyUtils.h"
-#if ANDROID
-	#include <jni.h>
-#endif
 
 class b2Fixture;
 class b2Joint;
@@ -60,9 +55,6 @@ struct BOX2D_API b2BodyDef
 	b2BodyDef()
 	{
 		userData = NULL;
-#if ANDROID
-		j_userData = NULL;
-#endif
 		position.Set(0.0f, 0.0f);
 		angle = 0.0f;
 		linearVelocity.Set(0.0f, 0.0f);
@@ -131,11 +123,6 @@ struct BOX2D_API b2BodyDef
 
 	/// Scale the gravity applied to this body.
 	float32 gravityScale;
-	
-#if ANDROID
-	/// WiEngine: support to set user data in java layer
-	jobject j_userData;
-#endif
 };
 
 /// A rigid body. These are created via b2World::CreateBody.
@@ -392,14 +379,6 @@ public:
 	/// Set the user data. Use this to store your application specific data.
 	void SetUserData(void* data);
 
-#if ANDROID
-	/// Get the user data object that was provided in the body definition.
-	jobject GetJavaUserData() const;
-
-	/// Set the user data. Use this to store your application specific data.
-	void SetJavaUserData(jobject data);
-#endif
-
 	/// Get the parent world of this body.
 	b2World* GetWorld();
 	const b2World* GetWorld() const;
@@ -489,10 +468,6 @@ private:
 	float32 m_sleepTime;
 
 	void* m_userData;
-	
-#if ANDROID
-	jobject m_jUserData;
-#endif
 };
 
 inline b2BodyType b2Body::GetType() const
@@ -776,12 +751,6 @@ inline void* b2Body::GetUserData() const
 {
 	return m_userData;
 }
-
-#if ANDROID
-inline jobject b2Body::GetJavaUserData() const {
-	return m_jUserData;
-}
-#endif
 
 inline void b2Body::ApplyForce(const b2Vec2& force, const b2Vec2& point)
 {

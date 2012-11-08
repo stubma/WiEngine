@@ -37,9 +37,6 @@
 #include <libxml/parser.h>
 #include "wyGlobal.h"
 #include "wyRenderState.h"
-#if ANDROID
-	#include "wyJNI.h"
-#endif
 
 #ifdef __cplusplus
 extern "C" {

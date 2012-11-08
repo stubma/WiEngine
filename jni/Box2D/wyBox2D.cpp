@@ -31,8 +31,6 @@
 #include "wyGlobal.h"
 #include "wyBox2DDebugDraw.h"
 
-extern void globalJNIInit();
-
 wyBox2D* wyBox2D::make() {
 	wyBox2D* box2d = WYNEW wyBox2D();
 	return (wyBox2D*)box2d->autoRelease();
@@ -52,9 +50,6 @@ wyBox2D::wyBox2D() :
 	// set debug draw callback
 	m_world->SetDebugDraw(m_ddImpl);
 	m_world->SetBox2D(this);
-
-	// common init for android JNI
-	globalJNIInit();
 }
 
 wyBox2D::~wyBox2D() {

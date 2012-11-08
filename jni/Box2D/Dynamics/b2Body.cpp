@@ -22,26 +22,12 @@
 #include <Box2D/Dynamics/Contacts/b2Contact.h>
 #include <Box2D/Dynamics/Joints/b2Joint.h>
 #include <new>
-#if ANDROID
-	#include "wyUtils_android.h"
-#endif
 
 b2BodyDef::~b2BodyDef() {
-#if ANDROID
-	// destroy java user data
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(j_userData != NULL) {
-		env->DeleteGlobalRef(j_userData);
-		j_userData = NULL;
-	}
-#endif
 }
 
 b2Body::b2Body(const b2BodyDef* bd, b2World* world)
 {
-#if ANDROID
-	m_jUserData = NULL;
-#endif
 	b2Assert(bd->position.IsValid());
 	b2Assert(bd->linearVelocity.IsValid());
 	b2Assert(b2IsValid(bd->angle));
@@ -119,9 +105,6 @@ b2Body::b2Body(const b2BodyDef* bd, b2World* world)
 	m_invI = 0.0f;
 
 	m_userData = bd->userData;
-#if ANDROID
-	SetJavaUserData(bd->j_userData);
-#endif
 
 	m_fixtureList = NULL;
 	m_fixtureCount = 0;
@@ -130,15 +113,6 @@ b2Body::b2Body(const b2BodyDef* bd, b2World* world)
 b2Body::~b2Body()
 {
 	// shapes and joints are destroyed in b2World::Destroy
-
-#if ANDROID
-	// destroy java user data
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jUserData != NULL) {
-		env->DeleteGlobalRef(m_jUserData);
-		m_jUserData = NULL;
-	}
-#endif
 }
 
 void b2Body::SetType(b2BodyType type)
@@ -513,18 +487,6 @@ void b2Body::SetActive(bool flag)
 		m_contactList = NULL;
 	}
 }
-
-#if ANDROID
-void b2Body::SetJavaUserData(jobject data) {
-	JNIEnv* env = wyUtils::getJNIEnv();
-	if(m_jUserData != NULL) {
-		env->DeleteGlobalRef(m_jUserData);
-		m_jUserData = NULL;
-	}
-	if(data != NULL)
-		m_jUserData = env->NewGlobalRef(data);
-}
-#endif
 
 void b2Body::Dump()
 {

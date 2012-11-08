@@ -32,9 +32,6 @@
 #include <stdio.h>
 #include <errno.h>
 #include "wyLog.h"
-#if ANDROID
-	#include "wyJNI.h"
-#endif
 
 void wyTGALoader::loadHeader(wyAssetInputStream* ais, wyTGA* tga) {
 	// skip id length and color map type
