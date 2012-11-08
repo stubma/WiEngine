@@ -414,48 +414,6 @@ bool wyTexture2D::hasPremultipliedAlpha() {
 		return false;
 }
 
-void wyTexture2D::draw(float x, float y) {
-	wyGLTexture2D* tex = gTextureManager->getTexture(this);
-	if(tex)
-		tex->draw(x, y);
-}
-
-void wyTexture2D::draw(float x, float y, bool flipX, bool flipY) {
-	wyGLTexture2D* tex = gTextureManager->getTexture(this);
-	if(tex)
-		tex->draw(x, y, flipX, flipY);
-}
-
-void wyTexture2D::draw(float x, float y, float width, float height) {
-	wyGLTexture2D* tex = gTextureManager->getTexture(this);
-	if(tex)
-		tex->draw(x, y, width, height);
-}
-
-void wyTexture2D::draw(float x, float y, float width, float height, bool flipX, bool flipY) {
-	wyGLTexture2D* tex = gTextureManager->getTexture(this);
-	if(tex)
-		tex->draw(x, y, width, height, flipX, flipY);
-}
-
-void wyTexture2D::draw(float x, float y, float width, float height, bool flipX, bool flipY, wyRect texRect) {
-	wyGLTexture2D* tex = gTextureManager->getTexture(this);
-	if(tex)
-		tex->draw(x, y, width, height, flipX, flipY, texRect);
-}
-
-void wyTexture2D::draw(float x, float y, float width, float height, bool flipX, bool flipY, wyRect texRect, bool rotatedZwoptex) {
-	wyGLTexture2D* tex = gTextureManager->getTexture(this);
-	if(tex)
-		tex->draw(x, y, width, height, flipX, flipY, texRect, rotatedZwoptex);
-}
-
-void wyTexture2D::draw(float x, float y, float width, float height, float sourceWidth, float sourceHeight, bool flipX, bool flipY, wyRect texRect, bool rotatedZwoptex) {
-	wyGLTexture2D* tex = gTextureManager->getTexture(this);
-	if(tex)
-		tex->draw(x, y, width, height, sourceWidth, sourceHeight, flipX, flipY, texRect, rotatedZwoptex);
-}
-
 float wyTexture2D::getWidth() {
 	wyGLTexture2D* tex = gTextureManager->getTexture(this);
 	if(tex)
