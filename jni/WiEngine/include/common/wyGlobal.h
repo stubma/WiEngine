@@ -33,7 +33,7 @@
 #include "WiEngine-Classes.h"
 
 // WiEngine version
-#define WIENGINE_VERSION "3.10.1"
+#define WIENGINE_VERSION "4.0.0"
 
 // export definition
 #if WINDOWS

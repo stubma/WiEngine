@@ -3,7 +3,7 @@
         WiEngine Android SDK Ant build file
     </description>
 
-	<property name="version" value="3.10.2"/>
+	<property name="version" value="4.0.0"/>
 	<property name="build" value="bin/classes"/>
 	<property name="lib.name" value="WiEngine.jar"/>
 	<property name="lib.box2d.name" value="WiEngine-box2d.jar"/>

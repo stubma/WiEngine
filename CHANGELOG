@@ -1,9 +1,22 @@
++++ 4.0.0 +++
+[new] use OpenGL ES 2.0 technique, support shader
+[rev] remove Java API binding, java demos and java skeleton project
+[rev] native demo and live wallpaper demo are updated
+[rev] remove wyCoverFlow
+[rev] remove wyPrimitive
+[rev] remove Chipmunk module
+
 +++ 3.10.2 +++
 [new] add changeBaseSize method to wyDirector, support changing base size at running time
+[new] add deleteClone method in wyTexture2D, add deleteClonedTexture in wyTextureManager
+[new] x86 and mips Android 4.1 are supported
+[rev] add boolean return value to wyTexture2D.switchToClone method
 [fix] a bug introduced in 3.10.1 that may tremble particle system 
 [fix] target selector in iOS wyUtils.showSystemAlertDialog is not triggered
 [fix] logic bug in wyScrollableLayer.addScrollableChild
 [fix] page layout bug when wyPageControl is not full-screen size
+[fix] fix bug #1, can't use bracket to return element because it will be added when it is not found
+[fix] fix bug #3, forget increase iterator in switchToClonedTexture loop
 
 +++ 3.10.1 +++
 [new] wyZwoptexManager增加makeButton方法
