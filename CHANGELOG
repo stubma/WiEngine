@@ -1,7 +1,7 @@
 +++ 4.0.0 +++
 [new] use OpenGL ES 2.0 technique, support shader
 [rev] remove Java API binding, java demos and java skeleton project
-[rev] native demo and live wallpaper demo are updated
+[rev] native demo and live wallpaper demo are updated, added Shader category
 [rev] remove wyCoverFlow
 [rev] remove wyPrimitive
 [rev] remove Chipmunk module
