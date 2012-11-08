@@ -74,22 +74,21 @@ typedef enum {
  *
  * 虚拟摇杆节点的回调接口定义
  */
-typedef struct wyVirtualJoystickCallback {
+class WIENGINE_API wyVirtualJoystickCallback {
+public:
 	/**
 	 * 当用户开始使用虚拟摇杆时触发, 也就相当于虚拟摇杆已经收到了触摸事件
 	 *
 	 * @param vj \link wyVirtualJoystick wyVirtualJoystick\endlink
-	 * @param data 额外数据指针
 	 */
-	void (*onVJNavigationStarted)(wyVirtualJoystick* vj, void* data);
+	virtual void onVirtualJoystickNavigationStarted(wyVirtualJoystick* vj) = 0;
 
 	/**
 	 * 当用户停止使用虚拟摇杆时触发, 也就相当于虚拟摇杆已经收到了触摸结束事件
 	 *
 	 * @param vj \link wyVirtualJoystick wyVirtualJoystick\endlink
-	 * @param data 额外数据指针
 	 */
-	void (*onVJNavigationEnded)(wyVirtualJoystick* vj, void* data);
+	virtual void onVirtualJoystickNavigationEnded(wyVirtualJoystick* vj) = 0;
 
 	/**
 	 * 当方向发生变化时调用
@@ -97,10 +96,9 @@ typedef struct wyVirtualJoystickCallback {
 	 * @param vj \link wyVirtualJoystick wyVirtualJoystick\endlink
 	 * @param newDirection 新的方向, 如果小于0, 则是预先定义的方向常量. 如果在0到359之间, 0表示
 	 * 		正东方向, 以逆时针增大
-	 * @param data 额外数据指针
 	 */
-	void (*onVJDirectionChanged)(wyVirtualJoystick* vj, int newDirection, void* data);
-} wyVirtualJoystickCallback;
+	virtual void onVirtualJoystickDirectionChanged(wyVirtualJoystick* vj, int newDirection) = 0;
+};
 
 /**
  * @class wyVirtualJoystick
@@ -171,10 +169,7 @@ private:
 	float m_rockerY;
 
 	/// callback
-	wyVirtualJoystickCallback m_callback;
-
-	/// 附加数据指针
-	void* m_data;
+	wyVirtualJoystickCallback* m_callback;
 
 private:
 	void invokeOnVJNavigationStarted();
@@ -275,9 +270,8 @@ public:
 	 * @param callback \link wyVirtualJoystickCallback wyVirtualJoystickCallback\endlink 结构指针, callback的内容
 	 * 		会被复制，因此\link wyVirtualJoystick wyVirtualJoystick\endlink不会负责释放该指针。如果指针为NULL，表示清
 	 * 		除之前设置的回调
-	 * @param data 附加数据指针, \link wyVirtualJoystick wyVirtualJoystick\endlink不会负责释放该指针
 	 */
-	void setCallback(wyVirtualJoystickCallback* callback, void* data);
+	void setCallback(wyVirtualJoystickCallback* callback);
 };
 
 #endif // __wyVirtualJoystick_h__

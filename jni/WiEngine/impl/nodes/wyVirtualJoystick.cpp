@@ -41,12 +41,8 @@ wyVirtualJoystick::wyVirtualJoystick(wyNode* bg, wyNode* rocker) :
 		m_direction(VJD_CENTER),
 		m_rockerX(0),
 		m_rockerY(0),
-		m_data(NULL),
 		m_bg(bg),
 		m_rocker(rocker) {
-	// init callback
-	memset(&m_callback, 0, sizeof(wyVirtualJoystickCallback));
-
 	// add bg and rocker
 	if(m_bg)
 		addChildLocked(m_bg);
@@ -242,14 +238,8 @@ bool wyVirtualJoystick::touchesPointerEnded(wyMotionEvent& e) {
 	return wyNode::touchesPointerEnded(e);
 }
 
-void wyVirtualJoystick::setCallback(wyVirtualJoystickCallback* callback, void* data) {
-	if(callback == NULL) {
-		memset(&m_callback, 0, sizeof(wyVirtualJoystickCallback));
-		m_data = NULL;
-	} else {
-		memcpy(&m_callback, callback, sizeof(wyVirtualJoystickCallback));
-		m_data = data;
-	}
+void wyVirtualJoystick::setCallback(wyVirtualJoystickCallback* callback) {
+	m_callback = callback;
 }
 
 int wyVirtualJoystick::degree2Direction() {
@@ -295,14 +285,14 @@ int wyVirtualJoystick::degree2Direction() {
 }
 
 void wyVirtualJoystick::invokeOnVJNavigationStarted() {
-	if(m_callback.onVJNavigationStarted != NULL) {
-		m_callback.onVJNavigationStarted(this, m_data);
+	if(m_callback) {
+		m_callback->onVirtualJoystickNavigationStarted(this);
 	}
 }
 
 void wyVirtualJoystick::invokeOnVJNavigationEnded() {
-	if(m_callback.onVJNavigationEnded != NULL) {
-		m_callback.onVJNavigationEnded(this, m_data);
+	if(m_callback) {
+		m_callback->onVirtualJoystickNavigationEnded(this);
 	}
 }
 
@@ -315,7 +305,7 @@ void wyVirtualJoystick::invokeOnVJDirectionChanged() {
 }
 
 void wyVirtualJoystick::invokeOnVJDirectionChanged(int newDirection) {
-	if(m_callback.onVJDirectionChanged != NULL) {
-		m_callback.onVJDirectionChanged(this, newDirection, m_data);
+	if(m_callback) {
+		m_callback->onVirtualJoystickDirectionChanged(this, newDirection);
 	}
 }

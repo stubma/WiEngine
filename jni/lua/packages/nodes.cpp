@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Thu Nov  8 13:19:50 2012.
+** Generated automatically by tolua++-1.0.92 on Thu Nov  8 17:51:30 2012.
 */
 
 #ifndef __cplusplus
@@ -147,13 +147,6 @@ static int tolua_collect_wyScrollableLayer (lua_State* tolua_S)
 static int tolua_collect_wyToast (lua_State* tolua_S)
 {
  wyToast* self = (wyToast*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_wyVirtualJoystick (lua_State* tolua_S)
-{
- wyVirtualJoystick* self = (wyVirtualJoystick*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -438,7 +431,6 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyRenderTexture");
  tolua_usertype(tolua_S,"wyMultiplexLayer");
  tolua_usertype(tolua_S,"wyMenuItemAtlasLabel");
- tolua_usertype(tolua_S,"wyVirtualJoystickCallback");
  tolua_usertype(tolua_S,"wyMenuItemToggle");
  tolua_usertype(tolua_S,"wyCamera");
  tolua_usertype(tolua_S,"wyToast");
@@ -449,7 +441,6 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyButton");
  tolua_usertype(tolua_S,"wyGLContext");
  tolua_usertype(tolua_S,"wyAffineTransform");
- tolua_usertype(tolua_S,"wyVirtualJoystick");
  tolua_usertype(tolua_S,"wyScrollableLayerListener");
  tolua_usertype(tolua_S,"wyTextBox");
  tolua_usertype(tolua_S,"wyTextBoxCallback");
@@ -3673,7 +3664,7 @@ static int tolua_nodes_wyDirector_addLifecycleListener00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"wyDirector",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"const wyDirectorLifecycleListener",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"wyDirectorLifecycleListener",0,&tolua_err) ||
      !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
@@ -3682,7 +3673,7 @@ static int tolua_nodes_wyDirector_addLifecycleListener00(lua_State* tolua_S)
 #endif
  {
   wyDirector* self = (wyDirector*)  tolua_tousertype(tolua_S,1,0);
-  const wyDirectorLifecycleListener* l = ((const wyDirectorLifecycleListener*)  tolua_tousertype(tolua_S,2,0));
+  wyDirectorLifecycleListener* l = ((wyDirectorLifecycleListener*)  tolua_tousertype(tolua_S,2,0));
   void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addLifecycleListener'", NULL);
@@ -28473,368 +28464,6 @@ static int tolua_nodes_wyScrollableLayer_setCallback00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: make of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_make00
-static int tolua_nodes_wyVirtualJoystick_make00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNode",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyNode* bg = ((wyNode*)  tolua_tousertype(tolua_S,2,0));
-  wyNode* rocker = ((wyNode*)  tolua_tousertype(tolua_S,3,0));
-  {
-   wyVirtualJoystick* tolua_ret = (wyVirtualJoystick*)  wyVirtualJoystick::make(bg,rocker);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyVirtualJoystick");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: delete of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_delete00
-static int tolua_nodes_wyVirtualJoystick_delete00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
-#endif
-  Mtolua_delete(self);
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: touchesBegan of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_touchesBegan00
-static int tolua_nodes_wyVirtualJoystick_touchesBegan00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyMotionEvent",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-  wyMotionEvent* e = ((wyMotionEvent*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'touchesBegan'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->touchesBegan(*e);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'touchesBegan'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: touchesMoved of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_touchesMoved00
-static int tolua_nodes_wyVirtualJoystick_touchesMoved00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyMotionEvent",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-  wyMotionEvent* e = ((wyMotionEvent*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'touchesMoved'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->touchesMoved(*e);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'touchesMoved'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: touchesEnded of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_touchesEnded00
-static int tolua_nodes_wyVirtualJoystick_touchesEnded00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyMotionEvent",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-  wyMotionEvent* e = ((wyMotionEvent*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'touchesEnded'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->touchesEnded(*e);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'touchesEnded'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: touchesCancelled of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_touchesCancelled00
-static int tolua_nodes_wyVirtualJoystick_touchesCancelled00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyMotionEvent",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-  wyMotionEvent* e = ((wyMotionEvent*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'touchesCancelled'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->touchesCancelled(*e);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'touchesCancelled'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getEventStyle of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_getEventStyle00
-static int tolua_nodes_wyVirtualJoystick_getEventStyle00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getEventStyle'", NULL);
-#endif
-  {
-   wyVirtualJoystickEventStyle tolua_ret = (wyVirtualJoystickEventStyle)  self->getEventStyle();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getEventStyle'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setEventStyle of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_setEventStyle00
-static int tolua_nodes_wyVirtualJoystick_setEventStyle00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-  wyVirtualJoystickEventStyle style = ((wyVirtualJoystickEventStyle) (int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setEventStyle'", NULL);
-#endif
-  {
-   self->setEventStyle(style);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setEventStyle'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setAutoReset of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_setAutoReset00
-static int tolua_nodes_wyVirtualJoystick_setAutoReset00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-  bool flag = ((bool)  tolua_toboolean(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAutoReset'", NULL);
-#endif
-  {
-   self->setAutoReset(flag);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setAutoReset'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isAutoReset of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_isAutoReset00
-static int tolua_nodes_wyVirtualJoystick_isAutoReset00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isAutoReset'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isAutoReset();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isAutoReset'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setCallback of class  wyVirtualJoystick */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyVirtualJoystick_setCallback00
-static int tolua_nodes_wyVirtualJoystick_setCallback00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVirtualJoystick",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyVirtualJoystickCallback",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVirtualJoystick* self = (wyVirtualJoystick*)  tolua_tousertype(tolua_S,1,0);
-  wyVirtualJoystickCallback* callback = ((wyVirtualJoystickCallback*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setCallback'", NULL);
-#endif
-  {
-   self->setCallback(callback,data);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setCallback'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  wyToast */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyToast_delete00
 static int tolua_nodes_wyToast_delete00(lua_State* tolua_S)
@@ -30519,39 +30148,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"isAtXEnd",tolua_nodes_wyScrollableLayer_isAtXEnd00);
    tolua_function(tolua_S,"isAtYEnd",tolua_nodes_wyScrollableLayer_isAtYEnd00);
    tolua_function(tolua_S,"setCallback",tolua_nodes_wyScrollableLayer_setCallback00);
-  tolua_endmodule(tolua_S);
-  tolua_constant(tolua_S,"VJD_CENTER",VJD_CENTER);
-  tolua_constant(tolua_S,"VJD_NORTH",VJD_NORTH);
-  tolua_constant(tolua_S,"VJD_SOUTH",VJD_SOUTH);
-  tolua_constant(tolua_S,"VJD_EAST",VJD_EAST);
-  tolua_constant(tolua_S,"VJD_WEST",VJD_WEST);
-  tolua_constant(tolua_S,"VJD_NORTH_EAST",VJD_NORTH_EAST);
-  tolua_constant(tolua_S,"VJD_NORTH_WEST",VJD_NORTH_WEST);
-  tolua_constant(tolua_S,"VJD_SOUTH_EAST",VJD_SOUTH_EAST);
-  tolua_constant(tolua_S,"VJD_SOUTH_WEST",VJD_SOUTH_WEST);
-  tolua_constant(tolua_S,"VJS_FIVE_DIRECTIONS",VJS_FIVE_DIRECTIONS);
-  tolua_constant(tolua_S,"VJS_NINE_DIRECTIONS",VJS_NINE_DIRECTIONS);
-  tolua_constant(tolua_S,"VJS_FULL_DIRECTIONS",VJS_FULL_DIRECTIONS);
-  tolua_cclass(tolua_S,"wyVirtualJoystickCallback","wyVirtualJoystickCallback","",NULL);
-  tolua_beginmodule(tolua_S,"wyVirtualJoystickCallback");
-  tolua_endmodule(tolua_S);
-  #ifdef __cplusplus
-  tolua_cclass(tolua_S,"wyVirtualJoystick","wyVirtualJoystick","wyNode",tolua_collect_wyVirtualJoystick);
-  #else
-  tolua_cclass(tolua_S,"wyVirtualJoystick","wyVirtualJoystick","wyNode",NULL);
-  #endif
-  tolua_beginmodule(tolua_S,"wyVirtualJoystick");
-   tolua_function(tolua_S,"make",tolua_nodes_wyVirtualJoystick_make00);
-   tolua_function(tolua_S,"delete",tolua_nodes_wyVirtualJoystick_delete00);
-   tolua_function(tolua_S,"touchesBegan",tolua_nodes_wyVirtualJoystick_touchesBegan00);
-   tolua_function(tolua_S,"touchesMoved",tolua_nodes_wyVirtualJoystick_touchesMoved00);
-   tolua_function(tolua_S,"touchesEnded",tolua_nodes_wyVirtualJoystick_touchesEnded00);
-   tolua_function(tolua_S,"touchesCancelled",tolua_nodes_wyVirtualJoystick_touchesCancelled00);
-   tolua_function(tolua_S,"getEventStyle",tolua_nodes_wyVirtualJoystick_getEventStyle00);
-   tolua_function(tolua_S,"setEventStyle",tolua_nodes_wyVirtualJoystick_setEventStyle00);
-   tolua_function(tolua_S,"setAutoReset",tolua_nodes_wyVirtualJoystick_setAutoReset00);
-   tolua_function(tolua_S,"isAutoReset",tolua_nodes_wyVirtualJoystick_isAutoReset00);
-   tolua_function(tolua_S,"setCallback",tolua_nodes_wyVirtualJoystick_setCallback00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wyToast","wyToast","wyNode",tolua_collect_wyToast);

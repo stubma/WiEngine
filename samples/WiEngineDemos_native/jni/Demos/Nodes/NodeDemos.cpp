@@ -2472,7 +2472,7 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class wyVirtualJoystickTestLayer : public wyLayer {
+class wyVirtualJoystickTestLayer : public wyLayer, public wyVirtualJoystickCallback {
 private:
 	static const int IDLE = 0;
 	static const int UP = 1;
@@ -2508,12 +2508,7 @@ public:
 		wyVirtualJoystick* vj = wyVirtualJoystick::make(bg, rocker);
 		vj->setAnchor(0, 0);
 		vj->setPosition(DP(20), DP(20));
-		static wyVirtualJoystickCallback callback = {
-			onVJNavigationStarted,
-			onVJNavigationEnded,
-			onVJDirectionChanged
-		};
-		vj->setCallback(&callback, this);
+		vj->setCallback(this);
 		addChildLocked(vj);
 
 		// texture
@@ -2563,37 +2558,34 @@ public:
 		m_spx->setPosition(m_x, m_y);
 	}
 	
-	static void onVJNavigationStarted(wyVirtualJoystick* vj, void* data) {
-		
+	virtual void onVirtualJoystickNavigationStarted(wyVirtualJoystick* vj) {
 	}
 		
-	static void onVJNavigationEnded(wyVirtualJoystick* vj, void* data) {
-		
+	virtual void onVirtualJoystickNavigationEnded(wyVirtualJoystick* vj) {
 	}
 	
-	static void onVJDirectionChanged(wyVirtualJoystick* vj, int newDirection, void* data) {
+	virtual void onVirtualJoystickDirectionChanged(wyVirtualJoystick* vj, int newDirection) {
 		// decide action
-		wyVirtualJoystickTestLayer* layer = (wyVirtualJoystickTestLayer*)data;
 		switch(newDirection) {
 			case VJD_CENTER:
-				layer->m_action = IDLE;
-				layer->m_spx->playAnimation(IDLE_ANIM);
+				m_action = IDLE;
+				m_spx->playAnimation(IDLE_ANIM);
 				break;
 			case VJD_EAST:
-				layer->m_action = RIGHT;
-				layer->m_spx->playAnimation(RIGHT_ANIM);
+				m_action = RIGHT;
+				m_spx->playAnimation(RIGHT_ANIM);
 				break;
 			case VJD_WEST:
-				layer->m_action = LEFT;
-				layer->m_spx->playAnimation(LEFT_ANIM);
+				m_action = LEFT;
+				m_spx->playAnimation(LEFT_ANIM);
 				break;
 			case VJD_NORTH:
-				layer->m_action = UP;
-				layer->m_spx->playAnimation(UP_ANIM);
+				m_action = UP;
+				m_spx->playAnimation(UP_ANIM);
 				break;
 			case VJD_SOUTH:
-				layer->m_action = DOWN;
-				layer->m_spx->playAnimation(DOWN_ANIM);
+				m_action = DOWN;
+				m_spx->playAnimation(DOWN_ANIM);
 				break;
 		}
 	}
