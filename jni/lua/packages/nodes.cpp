@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Tue Nov  6 14:58:48 2012.
+** Generated automatically by tolua++-1.0.92 on Thu Nov  8 13:19:50 2012.
 */
 
 #ifndef __cplusplus
@@ -26681,171 +26681,6 @@ static int tolua_nodes_wyTextBox_setCallback00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setNormalState of class  wyTextBox */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyTextBox_setNormalState00
-static int tolua_nodes_wyTextBox_setNormalState00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextBox",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextBox* self = (wyTextBox*)  tolua_tousertype(tolua_S,1,0);
-  wyNode* normal = ((wyNode*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setNormalState'", NULL);
-#endif
-  {
-   self->setNormalState(normal);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setNormalState'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setSelectedState of class  wyTextBox */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyTextBox_setSelectedState00
-static int tolua_nodes_wyTextBox_setSelectedState00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextBox",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextBox* self = (wyTextBox*)  tolua_tousertype(tolua_S,1,0);
-  wyNode* selected = ((wyNode*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSelectedState'", NULL);
-#endif
-  {
-   self->setSelectedState(selected);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setSelectedState'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setDisabledState of class  wyTextBox */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyTextBox_setDisabledState00
-static int tolua_nodes_wyTextBox_setDisabledState00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextBox",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextBox* self = (wyTextBox*)  tolua_tousertype(tolua_S,1,0);
-  wyNode* disabled = ((wyNode*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDisabledState'", NULL);
-#endif
-  {
-   self->setDisabledState(disabled);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setDisabledState'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setFocusedState of class  wyTextBox */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyTextBox_setFocusedState00
-static int tolua_nodes_wyTextBox_setFocusedState00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextBox",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextBox* self = (wyTextBox*)  tolua_tousertype(tolua_S,1,0);
-  wyNode* focused = ((wyNode*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFocusedState'", NULL);
-#endif
-  {
-   self->setFocusedState(focused);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setFocusedState'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setLabel of class  wyTextBox */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyTextBox_setLabel00
-static int tolua_nodes_wyTextBox_setLabel00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextBox",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextBox* self = (wyTextBox*)  tolua_tousertype(tolua_S,1,0);
-  wyNode* label = ((wyNode*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLabel'", NULL);
-#endif
-  {
-   self->setLabel(label);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setLabel'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: setTitle of class  wyTextBox */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyTextBox_setTitle00
 static int tolua_nodes_wyTextBox_setTitle00(lua_State* tolua_S)
@@ -30619,11 +30454,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getAlpha",tolua_nodes_wyTextBox_getAlpha00);
    tolua_function(tolua_S,"setAlpha",tolua_nodes_wyTextBox_setAlpha00);
    tolua_function(tolua_S,"setCallback",tolua_nodes_wyTextBox_setCallback00);
-   tolua_function(tolua_S,"setNormalState",tolua_nodes_wyTextBox_setNormalState00);
-   tolua_function(tolua_S,"setSelectedState",tolua_nodes_wyTextBox_setSelectedState00);
-   tolua_function(tolua_S,"setDisabledState",tolua_nodes_wyTextBox_setDisabledState00);
-   tolua_function(tolua_S,"setFocusedState",tolua_nodes_wyTextBox_setFocusedState00);
-   tolua_function(tolua_S,"setLabel",tolua_nodes_wyTextBox_setLabel00);
    tolua_function(tolua_S,"setTitle",tolua_nodes_wyTextBox_setTitle00);
    tolua_function(tolua_S,"getTitle",tolua_nodes_wyTextBox_getTitle00);
    tolua_function(tolua_S,"setMessage",tolua_nodes_wyTextBox_setMessage00);

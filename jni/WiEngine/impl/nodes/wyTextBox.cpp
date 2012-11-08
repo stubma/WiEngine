@@ -138,12 +138,27 @@ wyTextBox::wyTextBox(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode*
 	// clear callback
 	memset(&m_callback, 0, sizeof(wyTextBoxCallback));
 
-	// set state and label
-	setNormalState(normal);
-	setSelectedState(selected);
-	setDisabledState(disabled);
-	setFocusedState(focused);
-	setLabel(label);
+	// add state and label as child
+	if(normal) {
+		m_normalState = normal;
+		addChildLocked(normal);
+	}
+	if(selected) {
+		m_selectedState = selected;
+		addChildLocked(selected);
+	}
+	if(disabled) {
+		m_disabledState = disabled;
+		addChildLocked(disabled);
+	}
+	if(focused) {
+		m_focusedState = focused;
+		addChildLocked(focused);
+	}
+	if(label) {
+		m_label = label;
+		addChildLocked(label);
+	}
 
 	// set up selector
 	wyTargetSelector* ts = wyTargetSelector::make(this, SEL(wyTextBox::onShowDialog));
@@ -168,6 +183,24 @@ wyTextBox::wyTextBox(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode*
 		s.height = MAX(focused->getHeight(), s.height);
 	}
 	setContentSize(s.width, s.height);
+
+	// adjust state node position
+	if(m_normalState) {
+		m_normalState->setAnchor(0, 0);
+		m_normalState->setPosition((m_width - m_normalState->getWidth()) / 2, (m_height - m_normalState->getHeight()) / 2);
+	}
+	if(m_selectedState) {
+		m_selectedState->setAnchor(0, 0);
+		m_selectedState->setPosition((m_width - m_selectedState->getWidth()) / 2, (m_height - m_selectedState->getHeight()) / 2);
+	}
+	if(m_disabledState) {
+		m_disabledState->setAnchor(0, 0);
+		m_disabledState->setPosition((m_width - m_disabledState->getWidth()) / 2, (m_height - m_disabledState->getHeight()) / 2);
+	}
+	if(m_focusedState) {
+		m_focusedState->setAnchor(0, 0);
+		m_focusedState->setPosition((m_width - m_focusedState->getWidth()) / 2, (m_height - m_focusedState->getHeight()) / 2);
+	}
 
 	// place label
 	m_label->setAnchor(0, 0);
@@ -196,11 +229,43 @@ wyTextBox::~wyTextBox() {
 	if(m_negativeButton) {
 		wyFree((void*)m_negativeButton);
 	}
-	wyObjectRelease(m_normalState);
-	wyObjectRelease(m_selectedState);
-	wyObjectRelease(m_disabledState);
-	wyObjectRelease(m_focusedState);
-	wyObjectRelease(m_label);
+}
+
+void wyTextBox::beforeRender() {
+	if(m_normalState) {
+		m_normalState->setNoDraw(true);
+	}
+	if(m_selectedState) {
+		m_selectedState->setNoDraw(true);
+	}
+	if(m_disabledState) {
+		m_disabledState->setNoDraw(true);
+	}
+	if(m_focusedState) {
+		m_focusedState->setNoDraw(true);
+	}
+
+	wyNode* node = NULL;
+	if(m_enabled) {
+		if(m_selected) {
+			if(m_selectedState != NULL)
+				node = m_selectedState;
+			else
+				node = m_normalState;
+		} else if(m_focused) {
+			if(m_focusedState != NULL)
+				node = m_focusedState;
+			else
+				node = m_normalState;
+		} else
+			node = m_normalState;
+	} else {
+		if(m_disabledState != NULL)
+			node = m_disabledState;
+		else
+			node = m_normalState;
+	}
+	node->setNoDraw(false);
 }
 
 void wyTextBox::setPadding(float left, float top, float right, float bottom) {
@@ -250,36 +315,6 @@ void wyTextBox::onTextChanged(const char* newText) {
 	wyTextChangedRunnable* r = WYNEW wyTextChangedRunnable(this, newText);
 	wyUtils::runOnGLThread(r);
 	r->release();
-}
-
-void wyTextBox::onEnter() {
-	wyNode::onEnter();
-
-	if(m_normalState)
-		m_normalState->onEnter();
-	if(m_selectedState)
-		m_selectedState->onEnter();
-	if(m_disabledState)
-		m_disabledState->onEnter();
-	if(m_focusedState)
-		m_focusedState->onEnter();
-	if(m_label)
-		m_label->onEnter();
-}
-
-void wyTextBox::onExit() {
-	wyNode::onExit();
-
-	if(m_normalState)
-		m_normalState->onExit();
-	if(m_selectedState)
-		m_selectedState->onExit();
-	if(m_disabledState)
-		m_disabledState->onExit();
-	if(m_focusedState)
-		m_focusedState->onExit();
-	if(m_label)
-		m_label->onExit();
 }
 
 int wyTextBox::getAlpha() {
@@ -381,71 +416,6 @@ void wyTextBox::setCallback(wyTextBoxCallback* callback, void* data) {
 	}
 }
 
-void wyTextBox::draw() {
-	// TODO gles2
-//	// if no draw flag is set, call wyNode::draw and it
-//	// will decide forward drawing to java layer or not
-//	if(m_noDraw) {
-//		wyNode::draw();
-//		return;
-//	}
-//
-//	wyNode* node = NULL;
-//    if (m_enabled) {
-//        if (m_selected) {
-//        	if(m_selectedState != NULL)
-//        		node = m_selectedState;
-//        	else
-//        		node = m_normalState;
-//        } else if (m_focused) {
-//        	if(m_focusedState != NULL)
-//				node = m_focusedState;
-//			else
-//				node = m_normalState;
-//        } else
-//        	node = m_normalState;
-//    } else {
-//        if (m_disabledState != NULL)
-//        	node = m_disabledState;
-//        else
-//        	node = m_normalState;
-//    }
-//
-//    if(node) {
-//    	float dx = (getWidth() - node->getWidth()) / 2;
-//    	float dy = (getHeight() - node->getHeight()) / 2;
-//        glTranslatef(dx, dy, 0);
-//        node->draw();
-//        glTranslatef(-dx, -dy, 0);
-//    }
-//
-//    if(m_label) {
-//    	glTranslatef(m_leftPadding, m_bottomPadding, 0);
-//
-//    	// get rect relative to base size or real size
-//		wyRect bound = getBoundingBoxRelativeToWorld();
-//		wyRect r = wyr(bound.x + m_leftPadding,
-//				bound.y + m_bottomPadding,
-//				m_width - m_rightPadding - m_leftPadding,
-//				m_height - m_topPadding - m_bottomPadding);
-//
-//		// get clip rect relative to real size
-//		if(wyDevice::scaleMode != SCALE_MODE_BY_DENSITY)
-//			r = getBaseSizeClipRect(r);
-//
-//		// clip
-//		if(gDirector)
-//			gDirector->pushClipRect(r);
-//
-//		// draw label
-//    	m_label->draw();
-//
-//    	// cancel clip
-//		if(gDirector)
-//			gDirector->popClipRect();
-//    }
-}
-
 const char* wyTextBox::getText() {
 	return m_text;
 }
@@ -493,36 +463,6 @@ void wyTextBox::notifyOnEndEditing() {
 	if(m_callback.onEndEditing != NULL) {
 		m_callback.onEndEditing(this, m_data);
 	}
-}
-
-void wyTextBox::setNormalState(wyNode* normal) {
-	wyObjectRetain(normal);
-	wyObjectRelease(m_normalState);
-	m_normalState = normal;
-}
-
-void wyTextBox::setSelectedState(wyNode* selected) {
-	wyObjectRetain(selected);
-	wyObjectRelease(m_selectedState);
-	m_selectedState = selected;
-}
-
-void wyTextBox::setDisabledState(wyNode* disabled) {
-	wyObjectRetain(disabled);
-	wyObjectRelease(m_disabledState);
-	m_disabledState = disabled;
-}
-
-void wyTextBox::setFocusedState(wyNode* focused) {
-	wyObjectRetain(focused);
-	wyObjectRelease(m_focusedState);
-	m_focusedState = focused;
-}
-
-void wyTextBox::setLabel(wyNode* label) {
-	wyObjectRetain(label);
-	wyObjectRelease(m_label);
-	m_label = label;
 }
 
 void wyTextBox::setTitle(const char* title) {

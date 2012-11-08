@@ -246,20 +246,14 @@ public:
 
 	virtual ~wyTextBox();
 
-	/// @see wyNode::draw
-	virtual void draw();
-
-	/// @see wyNode::onEnter
-	virtual void onEnter();
-
-	/// @see wyNode::onExit
-	virtual void onExit();
-
 	/// @see wyNode::getText
 	virtual const char* getText();
 
 	/// @see wyNode::setText
 	virtual void setText(const char* text);
+
+	/// @see wyNode::beforeRender
+	virtual void beforeRender();
 
 	/// @see wyNode::getColor
 	virtual wyColor3B getColor();
@@ -291,42 +285,6 @@ public:
 	 * \endif
 	 */
 	void setCallback(wyTextBoxCallback* callback, void* data);
-
-	/**
-	 * 设置正常状态的\link wyNode wyNode对象指针\endlink
-	 *
-	 * @param normal 正常状态的\link wyNode wyNode对象指针\endlink
-	 */
-	void setNormalState(wyNode* normal);
-
-	/**
-	 * 设置选中状态的\link wyNode wyNode对象指针\endlink
-	 *
-	 * @param selected 选中状态的\link wyNode wyNode对象指针\endlink
-	 */
-	void setSelectedState(wyNode* selected);
-
-	/**
-	 * 设置禁用状态的\link wyNode wyNode对象指针\endlink
-	 *
-	 * @param disabled 禁用状态的\link wyNode wyNode对象指针\endlink
-	 */
-	void setDisabledState(wyNode* disabled);
-
-	/**
-	 * 设置获得焦点状态的\link wyNode wyNode对象指针\endlink
-	 *
-	 * @param focused 获得焦点状态的\link wyNode wyNode对象指针\endlink
-	 */
-	void setFocusedState(wyNode* focused);
-
-	/**
-	 * 设置用于显示文字的标签节点
-	 *
-	 * @param label 文字标签节点，只要是WiEngine中支持的标签节点都可以，比如\link wyLabel wyLabel\endlink,
-	 * 		\link wyAtlasLabel wyAtlasLabel\endlink, \link wyBitmapFontLabel wyBitmapFontLabel\endlink等
-	 */
-	void setLabel(wyNode* label);
 
 	/**
 	 * 设置弹出框的标题
