@@ -32,118 +32,57 @@
 #include "wyColorFilter.h"
 
 /**
- * @typedef wyColorFilterDelegate
- *
- * \if English
- * Delegate of color filter apply method
- * \else
- * 滤镜的apply方法代理, 实现这个接口并配合\link wyCustomColorFilter wyCustomColorFilter\endlink使用可以
- * 使用自定义的方法处理图像数据.
- * \endif
+ * Delegate of custom color filter apply method
  */
-typedef struct wyColorFilterDelegate {
+class WIENGINE_API wyColorFilterDelegate {
+public:
 	/**
-	 * \if English
 	 * apply this color filter to some image data
 	 *
+	 * @param f custom filter object
 	 * @param imageData raw data of image which must be RGBA8888 format, it holds transformed result when method returns
 	 * @param width image pixel width, it is the original size before autoscaling
 	 * @param height image pixel height, it is the original size before autoscaling
-	 * @param userData extra user data pointer
-	 * \else
-	 * 对一个图像数据应用自定义的滤镜算法
-	 *
-	 * @param imageData 图像原始数据, 必须是RGBA8888格式, 方法完成后, data中的数据变成转换后的值.
-	 * @param width 图像的像素宽度, 为未自动缩放前的大小
-	 * @param height 图像的像素高度, 为未自动缩放前的大小
-	 * @param userData 额外数据指针
-	 * \endif
 	 */
-	void (*apply)(void* imageData, int width, int height, void* userData);
-} wyColorFilterDelegate;
+	virtual void applyCustomFilter(wyCustomColorFilter* f, void* imageData, int width, int height) = 0;
+};
 
 /**
- * @class wyCustomColorFilter
- *
- * \if English
  * Custom color filter, filter is implemented by setting a delegate
- * \else
- * 自定义的滤镜实现, 通过设置一个回调来让开发者实现滤镜方法
- * \endif
  */
 class WIENGINE_API wyCustomColorFilter : public wyColorFilter {
 private:
-	/**
-	 * \if English
-	 * Delegate of color filter method
-	 * \else
-	 * 滤镜的重定向方法
-	 * \endif
-	 */
-	wyColorFilterDelegate m_delegate;
-
-	/**
-	 * \if English
-	 * User data pointer
-	 * \else
-	 * 额外用户数据指针
-	 * \endif
-	 */
-	void* m_userData;
+	/// Delegate of color filter method
+	wyColorFilterDelegate* m_delegate;
 
 protected:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink
-	 * @param userData extra user data pointer
-	 * \else
-	 * 构造函数
-	 *
-	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink
-	 * @param userData 额外用户数据指针
-	 * \endif
 	 */
-	wyCustomColorFilter(wyColorFilterDelegate* delegate, void* userData);
+	wyCustomColorFilter(wyColorFilterDelegate* delegate);
 
 public:
 	virtual ~wyCustomColorFilter();
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink
-	 * @param userData extra user data pointer
 	 * @return \link wyCustomColorFilter wyCustomColorFilter\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink
-	 * @param userData 额外用户数据指针
-	 * @return \link wyCustomColorFilter wyCustomColorFilter\endlink
-	 * \endif
 	 */
-	static wyCustomColorFilter* make(wyColorFilterDelegate* delegate, void* userData);
+	static wyCustomColorFilter* make(wyColorFilterDelegate* delegate);
 
 	/// @see wyColorFilter::apply
 	virtual void apply(void* data, int width, int height);
 
 	/**
-	 * \if English
 	 * Set delegate
 	 *
 	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink
-	 * @param data extra data pointer
-	 * \else
-	 * 设置代理
-	 *
-	 * @param delegate \link wyColorFilterDelegate wyColorFilterDelegate\endlink 结构指针
-	 * @param data 附加数据指针
-	 * \endif
 	 */
-	void setDelegate(wyColorFilterDelegate* delegate, void* data);
+	void setDelegate(wyColorFilterDelegate* delegate) { m_delegate = delegate; }
 };
 
 #endif // __wyCustomColorFilter_h__

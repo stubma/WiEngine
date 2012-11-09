@@ -223,7 +223,7 @@ namespace Other {
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 
-	class wyColorFilterTestLayer : public wyLayer {
+	class wyColorFilterTestLayer : public wyLayer, public wyColorFilterDelegate {
 		wyTexture2D* m_tex;
 		int m_nextFilter;
 		
@@ -262,7 +262,7 @@ namespace Other {
 		virtual ~wyColorFilterTestLayer() {
 		}
 		
-		static void customApply(void* imageData, int width, int height, void* userData) {
+		virtual void applyCustomFilter(wyCustomColorFilter* f, void* imageData, int width, int height) {
 			// top border
 			unsigned char* p = (unsigned char*)imageData;
 			for(int x = 0; x < width; x++) {
@@ -449,10 +449,7 @@ namespace Other {
 				case 13:
 				{
 					// custom filter delegate
-					static wyColorFilterDelegate filterDelegate = {
-						customApply
-					};
-					wyCustomColorFilter* filter = wyCustomColorFilter::make(&filterDelegate, NULL);
+					wyCustomColorFilter* filter = wyCustomColorFilter::make(this);
 					m_tex->setColorFilter(filter);
 					m_tex->applyFilter();
 					break;

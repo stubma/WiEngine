@@ -28,31 +28,20 @@
  */
 #include "wyCustomColorFilter.h"
 
-wyCustomColorFilter::wyCustomColorFilter(wyColorFilterDelegate* delegate, void* userData) :
-		m_userData(NULL) {
-	memset(&m_delegate, 0, sizeof(wyColorFilterDelegate));
-	setDelegate(delegate, userData);
+wyCustomColorFilter::wyCustomColorFilter(wyColorFilterDelegate* delegate) :
+		m_delegate(NULL) {
+	setDelegate(delegate);
 }
 
 wyCustomColorFilter::~wyCustomColorFilter() {
 }
 
-wyCustomColorFilter* wyCustomColorFilter::make(wyColorFilterDelegate* delegate, void* userData) {
-	wyCustomColorFilter* f = WYNEW wyCustomColorFilter(delegate, userData);
+wyCustomColorFilter* wyCustomColorFilter::make(wyColorFilterDelegate* delegate) {
+	wyCustomColorFilter* f = WYNEW wyCustomColorFilter(delegate);
 	return (wyCustomColorFilter*)f->autoRelease();
 }
 
 void wyCustomColorFilter::apply(void* data, int width, int height) {
-	if(m_delegate.apply)
-		m_delegate.apply(data, width, height, m_userData);
-}
-
-void wyCustomColorFilter::setDelegate(wyColorFilterDelegate* delegate, void* data) {
-	if(delegate == NULL) {
-		memset(&m_delegate, 0, sizeof(wyColorFilterDelegate));
-		m_userData = NULL;
-	} else {
-		memcpy(&m_delegate, delegate, sizeof(wyColorFilterDelegate));
-		m_userData = data;
-	}
+	if(m_delegate)
+		m_delegate->applyCustomFilter(this, data, width, height);
 }

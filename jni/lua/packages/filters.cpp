@@ -1,6 +1,6 @@
 /*
 ** Lua binding: filters
-** Generated automatically by tolua++-1.0.92 on Fri Nov 11 16:56:39 2011.
+** Generated automatically by tolua++-1.0.92 on Fri Nov  9 13:12:01 2012.
 */
 
 #ifndef __cplusplus
@@ -2501,17 +2501,15 @@ static int tolua_filters_wyCustomColorFilter_make00(lua_State* tolua_S)
  if (
      !tolua_isusertable(tolua_S,1,"wyCustomColorFilter",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"wyColorFilterDelegate",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   wyColorFilterDelegate* delegate = ((wyColorFilterDelegate*)  tolua_tousertype(tolua_S,2,0));
-  void* userData = ((void*)  tolua_touserdata(tolua_S,3,0));
   {
-   wyCustomColorFilter* tolua_ret = (wyCustomColorFilter*)  wyCustomColorFilter::make(delegate,userData);
+   wyCustomColorFilter* tolua_ret = (wyCustomColorFilter*)  wyCustomColorFilter::make(delegate);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyCustomColorFilter");
   }
  }
@@ -2570,8 +2568,7 @@ static int tolua_filters_wyCustomColorFilter_setDelegate00(lua_State* tolua_S)
  if (
      !tolua_isusertype(tolua_S,1,"wyCustomColorFilter",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"wyColorFilterDelegate",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -2579,12 +2576,11 @@ static int tolua_filters_wyCustomColorFilter_setDelegate00(lua_State* tolua_S)
  {
   wyCustomColorFilter* self = (wyCustomColorFilter*)  tolua_tousertype(tolua_S,1,0);
   wyColorFilterDelegate* delegate = ((wyColorFilterDelegate*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDelegate'", NULL);
 #endif
   {
-   self->setDelegate(delegate,data);
+   self->setDelegate(delegate);
   }
  }
  return 0;
