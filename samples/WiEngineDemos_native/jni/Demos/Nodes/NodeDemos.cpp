@@ -1148,7 +1148,7 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class wyPageControlTestLayer: public wyLayer {
+class wyPageControlTestLayer: public wyLayer, public wyPageControlCallback {
 private:
 	wyLabel* m_hint;
 
@@ -1161,13 +1161,8 @@ public:
 
 		// page control
 		// call setCallback first so that you won't miss some callback
-		wyPageControl* pageControl = new wyPageControl();
-		wyPageControlCallback callback = {
-				onPageClicked,
-				onPageChanged,
-				onPagePositionChanged
-		};
-		pageControl->setCallback(&callback, this);
+		wyPageControl* pageControl = wyPageControl::make();
+		pageControl->setCallback(this);
 		pageControl->setPageSpacing(DP(80));
 		pageControl->addPage(page1);
 		pageControl->addPage(page2);
@@ -1176,7 +1171,6 @@ public:
 		// 可以设置排列方式为垂直
 		// pageControl->setVertical(true);
 		addChildLocked(pageControl);
-		pageControl->release();
 
 		// set page indicator
 		wyDotPageIndicator* indicator = wyDotPageIndicator::make(
@@ -1194,21 +1188,19 @@ public:
 	virtual ~wyPageControlTestLayer() {
 	}
 
-	static void onPageClicked(wyPageControl* pageControl, int index, void* data) {
-		wyPageControlTestLayer* layer = (wyPageControlTestLayer*)data;
+	virtual void onPageControlPageClicked(wyPageControl* pageControl, int index) {
 		char buf[64];
 		sprintf(buf, "page clicked: %d", index);
-		layer->m_hint->setText(buf);
+		m_hint->setText(buf);
 	}
 
-	static void onPageChanged(wyPageControl* pageControl, int index, void* data) {
-		wyPageControlTestLayer* layer = (wyPageControlTestLayer*)data;
+	virtual void onPageControlPageChanged(wyPageControl* pageControl, int index) {
 		char buf[64];
 		sprintf(buf, "page changed: %d", index);
-		layer->m_hint->setText(buf);
+		m_hint->setText(buf);
 	}
 
-	static void onPagePositionChanged(wyPageControl* pageControl, wyNode* page, float offset, void* data) {
+	virtual void onPageControlPagePositionChanged(wyPageControl* pageControl, wyNode* page, float offset) {
 		float rate = fabs(offset) / (pageControl->getHeight() / 2); // change to wyDevice::winHeight if vertical
 		page->setScale(1 + 1.0f * (1 - MIN(1, rate)));
 		page->setPosition(page->getPositionX(), pageControl->getHeight() / 2 + DP(80) * (1 - MIN(1, rate)));

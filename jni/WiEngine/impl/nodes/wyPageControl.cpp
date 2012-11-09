@@ -45,13 +45,12 @@ wyPageControl::wyPageControl() :
 		m_vertical(false),
 		m_initialPageIndex(-1),
 		m_indicator(NULL),
-		m_data(NULL),
+		m_callback(NULL),
 		m_centerY(-1),
 		m_centerX(-1) {
 	// set page control properties
 	setRelativeAnchorPoint(false);
 	setContentSize(wyDevice::winWidth, wyDevice::winHeight);
-	memset(&m_callback, 0, sizeof(wyPageControlCallback));
 
 	// create container
 	m_container = WYNEW wyLayer();
@@ -85,24 +84,20 @@ bool wyPageControl::releasePage(wyArray* arr, void* ptr, int index, void* data) 
 }
 
 void wyPageControl::notifyOnPagePositionChanged() {
-	if(!m_callback.onPagePositionChanged )
+	if(!m_callback)
 		return;
 
 	if(m_vertical) {
 		for(int i = 0; i < m_pages->num; i++) {
 			wyNode* page = (wyNode*)wyArrayGet(m_pages, i);
-			if(m_callback.onPagePositionChanged != NULL) {
-				m_callback.onPagePositionChanged(this, page,
-						m_container->getPositionY() + page->getOriginY() + page->getHeight() / 2 - m_height / 2, m_data);
-			}
+			m_callback->onPageControlPagePositionChanged(this, page,
+					m_container->getPositionY() + page->getOriginY() + page->getHeight() / 2 - m_height / 2);
 		}
 	} else {
 		for(int i = 0; i < m_pages->num; i++) {
 			wyNode* page = (wyNode*)wyArrayGet(m_pages, i);
-			if(m_callback.onPagePositionChanged != NULL) {
-				m_callback.onPagePositionChanged(this, page,
-						m_container->getPositionX() + page->getOriginX() + page->getWidth() / 2 - m_width / 2, m_data);
-			}
+			m_callback->onPageControlPagePositionChanged(this, page,
+					m_container->getPositionX() + page->getOriginX() + page->getWidth() / 2 - m_width / 2);
 		}
 	}
 }
@@ -138,14 +133,14 @@ void wyPageControl::notifyOnPageChanged() {
 	if(m_indicator)
 		m_indicator->onPageChanged(getBestIndex());
 
-	if(m_callback.onPageChanged != NULL) {
-		m_callback.onPageChanged(this, getBestIndex(), m_data);
+	if(m_callback) {
+		m_callback->onPageControlPageChanged(this, getBestIndex());
 	} 
 }
 
 void wyPageControl::notifyOnPageClicked(int index) {
-	if(m_callback.onPageClicked != NULL) {
-		m_callback.onPageClicked(this, index, m_data);
+	if(m_callback) {
+		m_callback->onPageControlPageClicked(this, index);
 	} 
 }
 
@@ -358,16 +353,6 @@ float wyPageControl::getContainerWidth() {
 
 float wyPageControl::getContainerHeight() {
 	return getPageCenterY(m_pages->num - 1) + m_height / 2;
-}
-
-void wyPageControl::setCallback(wyPageControlCallback* callback, void* data) {
-	if(callback == NULL) {
-		memset(&m_callback, 0, sizeof(wyPageControlCallback));
-		m_data = NULL;
-	} else {
-		memcpy(&m_callback, callback, sizeof(wyPageControlCallback));
-		m_data = data;
-	}
 }
 
 int wyPageControl::getLeftIndex() {

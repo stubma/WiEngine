@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Fri Nov  9 11:22:32 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Nov  9 11:37:08 2012.
 */
 
 #ifndef __cplusplus
@@ -25412,63 +25412,6 @@ static int tolua_nodes_wyPageControl_make00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  wyPageControl */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyPageControl_new00
-static int tolua_nodes_wyPageControl_new00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyPageControl",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   wyPageControl* tolua_ret = (wyPageControl*)  Mtolua_new((wyPageControl)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyPageControl");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: new_local of class  wyPageControl */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyPageControl_new00_local
-static int tolua_nodes_wyPageControl_new00_local(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyPageControl",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   wyPageControl* tolua_ret = (wyPageControl*)  Mtolua_new((wyPageControl)());
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyPageControl");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  wyPageControl */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyPageControl_delete00
 static int tolua_nodes_wyPageControl_delete00(lua_State* tolua_S)
@@ -26145,8 +26088,7 @@ static int tolua_nodes_wyPageControl_setCallback00(lua_State* tolua_S)
  if (
      !tolua_isusertype(tolua_S,1,"wyPageControl",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"wyPageControlCallback",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -26154,12 +26096,11 @@ static int tolua_nodes_wyPageControl_setCallback00(lua_State* tolua_S)
  {
   wyPageControl* self = (wyPageControl*)  tolua_tousertype(tolua_S,1,0);
   wyPageControlCallback* callback = ((wyPageControlCallback*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setCallback'", NULL);
 #endif
   {
-   self->setCallback(callback,data);
+   self->setCallback(callback);
   }
  }
  return 0;
@@ -29992,9 +29933,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
   #endif
   tolua_beginmodule(tolua_S,"wyPageControl");
    tolua_function(tolua_S,"make",tolua_nodes_wyPageControl_make00);
-   tolua_function(tolua_S,"new",tolua_nodes_wyPageControl_new00);
-   tolua_function(tolua_S,"new_local",tolua_nodes_wyPageControl_new00_local);
-   tolua_function(tolua_S,".call",tolua_nodes_wyPageControl_new00_local);
    tolua_function(tolua_S,"delete",tolua_nodes_wyPageControl_delete00);
    tolua_function(tolua_S,"touchesBegan",tolua_nodes_wyPageControl_touchesBegan00);
    tolua_function(tolua_S,"touchesMoved",tolua_nodes_wyPageControl_touchesMoved00);

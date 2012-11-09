@@ -39,45 +39,27 @@ class wyPageControl;
 /**
  * @struct wyPageControlCallback
  *
- * page control的回调方法
+ * page control event callback
  */
-typedef struct wyPageControlCallback {
+class WIENGINE_API wyPageControlCallback {
+public:
 	/**
-	 * \if English
 	 * Invoked when a page is clicked. Clicked page must be current page
 	 *
 	 * @param pageControl \link wyPageControl wyPageControl\endlink
 	 * @param index index of current page, in page list
-	 * @param data extra data pointer
-	 * \else
-	 * 当某页被点击时该方法被调用
-	 *
-	 * @param pageControl 相关的\link wyPageControl wyPageControl\endlink 对象
-	 * @param index 被选中页的索引
-	 * @param data 附加数据指针
-	 * \endif
 	 */
-	void (*onPageClicked)(wyPageControl* pageControl, int index, void* data);
+	virtual void onPageControlPageClicked(wyPageControl* pageControl, int index) = 0;
 
 	/**
-	 * \if English
 	 * Invoked when current page is changed
 	 *
 	 * @param pageControl \link wyPageControl wyPageControl\endlink
 	 * @param index index of current page in page list
-	 * @param data extra data pointer
-	 * \else
-	 * 当前页变化时，该方法被调用
-	 *
-	 * @param pageControl 相关的\link wyPageControl wyPageControl\endlink 对象
-	 * @param index 当前被显示页的索引
-	 * @param data 附加数据指针
-	 * \endif
 	 */
-	void (*onPageChanged)(wyPageControl* pageControl, int index, void* data);
+	virtual void onPageControlPageChanged(wyPageControl* pageControl, int index) = 0;
 
 	/**
-	 * \if English
 	 * Invoked for every page when page control is scrolling
 	 *
 	 * @param pageControl \link wyPageControl wyPageControl\endlink
@@ -85,20 +67,9 @@ typedef struct wyPageControlCallback {
 	 * @param offset offset of page center, the offset is relative to page control node center.
 	 * 		Generally page control's size is same as screen. If you change page control position and size,
 	 * 		pay attention to what this \c offset means
-	 * @param data extra data pointer
-	 * \else
-	 * 当pagecontrol在滚动时, 这个方法会为每一个page调用一次
-	 *
-	 * @param pageControl \link wyPageControl wyPageControl\endlink
-	 * @param page 页的节点对象
-	 * @param offset \c page的中心相对于pagecontrol中心的位置, 负值表示在pagecontrol中心的左边(水平布局时)或者
-	 * 		pagecontrol中心的下边(垂直布局时). 缺省情况下, pagecontrol的大小和屏幕相同, 所以pagecontrol的中心
-	 * 		也就是屏幕的中心. 但是你可能会修改pagecontrol的大小, 这种情况下要注意\c offset的含义.
-	 * @param data 额外数据指针
-	 * \endif
 	 */
-	void (*onPagePositionChanged)(wyPageControl* pageControl, wyNode* page, float offset, void* data);
-} wyPageControlCallback;
+	virtual void onPageControlPagePositionChanged(wyPageControl* pageControl, wyNode* page, float offset) = 0;
+};
 
 /**
  * @class wyPageControl
@@ -164,11 +135,8 @@ private:
 	 */
 	wyPageIndicator* m_indicator;
 
-	/// 回调
-	wyPageControlCallback m_callback;
-
-	/// 附加数据指针
-	void* m_data;
+	/// callback
+	wyPageControlCallback* m_callback;
 
 private:
 	static bool releasePage(wyArray* arr, void* ptr, int index, void* data);
@@ -263,10 +231,12 @@ private:
 	 */
 	void notifyOnPagePositionChanged();
 
+protected:
+	wyPageControl();
+
 public:
 	static wyPageControl* make();
 
-	wyPageControl();
 	virtual ~wyPageControl();
 
 	/// @see wyNode::touchesBegan
@@ -386,9 +356,8 @@ public:
 	 * @param callback \link wyPageControlCallback wyPageControlCallback\endlink 结构指针, callback的内容
 	 * 		会被复制，因此\link wyPageControl wyPageControl\endlink 不会负责释放该指针。如果指针为NULL，表示清
 	 * 		除之前设置的回调
-	 * @param data 附加数据指针, \link wyPageControl wyPageControl\endlink 不会负责释放该指针
 	 */
-	void setCallback(wyPageControlCallback* callback, void* data);
+	void setCallback(wyPageControlCallback* callback) { m_callback = callback; }
 
 	/**
 	 * 是否垂直排列页

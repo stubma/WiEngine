@@ -6693,8 +6693,8 @@ class wyPageControl;
  *
  * page control的回调方法
  */
-typedef struct wyPageControlCallback {
-} wyPageControlCallback;
+class wyPageControlCallback {
+};
 
 /**
  * 类似于iPhone中的PageControl, 提供一个水平滚动的列表. 里面的每一项
@@ -6704,7 +6704,6 @@ class wyPageControl : public wyNode {
 public:
 	static wyPageControl* make();
 
-	wyPageControl();
 	virtual ~wyPageControl();
 
 	/// @see wyNode::touchesBegan
@@ -6829,7 +6828,7 @@ public:
 	 * 		除之前设置的回调
 	 * @param data 附加数据指针, \link wyPageControl wyPageControl\endlink 不会负责释放该指针
 	 */
-	void setCallback(wyPageControlCallback* callback, void* data);
+	void setCallback(wyPageControlCallback* callback);
 
 
 	/**
