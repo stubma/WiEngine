@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Fri Nov  9 11:07:27 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Nov  9 11:22:32 2012.
 */
 
 #ifndef __cplusplus
@@ -445,7 +445,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyTextBox");
  tolua_usertype(tolua_S,"wyTextBoxCallback");
  tolua_usertype(tolua_S,"wyPageControlCallback");
- tolua_usertype(tolua_S,"wyNodePositionListener");
+ tolua_usertype(tolua_S,"wyGradientColorLayer");
  tolua_usertype(tolua_S,"wyPageControl");
  tolua_usertype(tolua_S,"wyArray");
  tolua_usertype(tolua_S,"wyAction");
@@ -453,7 +453,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyTargetSelector");
  tolua_usertype(tolua_S,"wyPageIndicator");
  tolua_usertype(tolua_S,"wyTransitionScene");
- tolua_usertype(tolua_S,"wyParallaxNode");
+ tolua_usertype(tolua_S,"wyNodePositionCallback");
  tolua_usertype(tolua_S,"wyPoint");
  tolua_usertype(tolua_S,"wyCharMap");
  tolua_usertype(tolua_S,"wyTiledSprite");
@@ -473,7 +473,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyAnimationCallback");
  tolua_usertype(tolua_S,"wyScene");
  tolua_usertype(tolua_S,"wyRibbon");
- tolua_usertype(tolua_S,"wyGradientColorLayer");
+ tolua_usertype(tolua_S,"wyParallaxNode");
  tolua_usertype(tolua_S,"wyNode");
  tolua_usertype(tolua_S,"wyZwoptexFrame");
  tolua_usertype(tolua_S,"wyLayer");
@@ -16247,36 +16247,34 @@ static int tolua_nodes_wyNode_getAccelerometerPriority00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setPositionListener of class  wyNode */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyNode_setPositionListener00
-static int tolua_nodes_wyNode_setPositionListener00(lua_State* tolua_S)
+/* method: setPositionCallback of class  wyNode */
+#ifndef TOLUA_DISABLE_tolua_nodes_wyNode_setPositionCallback00
+static int tolua_nodes_wyNode_setPositionCallback00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"wyNode",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNodePositionListener",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isusertype(tolua_S,2,"wyNodePositionCallback",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   wyNode* self = (wyNode*)  tolua_tousertype(tolua_S,1,0);
-  wyNodePositionListener* listener = ((wyNodePositionListener*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
+  wyNodePositionCallback* cb = ((wyNodePositionCallback*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPositionListener'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPositionCallback'", NULL);
 #endif
   {
-   self->setPositionListener(listener,data);
+   self->setPositionCallback(cb);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setPositionListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'setPositionCallback'.",&tolua_err);
  return 0;
 #endif
 }
@@ -16376,41 +16374,6 @@ static int tolua_nodes_wyNode_isMultiTouchClickable00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'isMultiTouchClickable'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: onPositionChanged of class  wyNodePositionListener */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyNodePositionListener_onPositionChanged00
-static int tolua_nodes_wyNodePositionListener_onPositionChanged00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyNodePositionListener",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyNode",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyNodePositionListener* self = (wyNodePositionListener*)  tolua_tousertype(tolua_S,1,0);
-  wyNode* node = ((wyNode*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'onPositionChanged'", NULL);
-#endif
-  {
-   self->onPositionChanged(node,data);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'onPositionChanged'.",&tolua_err);
  return 0;
 #endif
 }
@@ -29367,6 +29330,9 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getTextureRect",tolua_nodes_wyNinePatchSprite_getTextureRect00);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"INVALID_TAG",INVALID_TAG);
+  tolua_cclass(tolua_S,"wyNodePositionCallback","wyNodePositionCallback","",NULL);
+  tolua_beginmodule(tolua_S,"wyNodePositionCallback");
+  tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"wyNode","wyNode","wyObject",NULL);
   tolua_beginmodule(tolua_S,"wyNode");
    tolua_function(tolua_S,"make",tolua_nodes_wyNode_make00);
@@ -29556,14 +29522,10 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getGesturePriority",tolua_nodes_wyNode_getGesturePriority00);
    tolua_function(tolua_S,"getDoubleTapPriority",tolua_nodes_wyNode_getDoubleTapPriority00);
    tolua_function(tolua_S,"getAccelerometerPriority",tolua_nodes_wyNode_getAccelerometerPriority00);
-   tolua_function(tolua_S,"setPositionListener",tolua_nodes_wyNode_setPositionListener00);
+   tolua_function(tolua_S,"setPositionCallback",tolua_nodes_wyNode_setPositionCallback00);
    tolua_function(tolua_S,"isAncestor",tolua_nodes_wyNode_isAncestor00);
    tolua_function(tolua_S,"setMultiTouchClickable",tolua_nodes_wyNode_setMultiTouchClickable00);
    tolua_function(tolua_S,"isMultiTouchClickable",tolua_nodes_wyNode_isMultiTouchClickable00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"wyNodePositionListener","wyNodePositionListener","",NULL);
-  tolua_beginmodule(tolua_S,"wyNodePositionListener");
-   tolua_function(tolua_S,"onPositionChanged",tolua_nodes_wyNodePositionListener_onPositionChanged00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wyParallaxNode","wyParallaxNode","wyNode",tolua_collect_wyParallaxNode);

@@ -366,10 +366,6 @@ wyNode::~wyNode() {
 		wyArrayDestroy(m_timers);
 		m_timers = NULL;
 	}
-	if(m_positionListener != NULL) {
-		wyFree(m_positionListener);
-		m_positionListener = NULL;
-	}
 }
 
 void wyNode::setAnchor(float x, float y) {
@@ -434,8 +430,8 @@ void wyNode::setPosition(float x, float y) {
 	m_positionY = y;
 	setTransformDirty();
 
-	if(m_positionListener != NULL) {
-		m_positionListener->onPositionChanged(this, m_plData);
+	if(m_positionCallback) {
+		m_positionCallback->onNodePositionChanged(this);
 	} 
 }
 
@@ -854,8 +850,7 @@ wyNode::wyNode() :
 		m_downSelector(NULL),
 		m_upSelector(NULL),
 		m_moveOutSelector(NULL),
-		m_positionListener(NULL),
-		m_plData(NULL) {
+		m_positionCallback(NULL) {
 	memset(&m_state, 0, sizeof(wyTouchState));
 	setAnchor(0.5f, 0.5f);
 }
@@ -1401,13 +1396,6 @@ void wyNode::javaRelease(bool includeChildren) {
 			child->javaRelease(true);
 		}
 	}
-}
-
-void wyNode::setPositionListener(wyNodePositionListener* listener, void* data) {
-	if(m_positionListener == NULL)
-		m_positionListener = (wyNodePositionListener*)wyMalloc(sizeof(wyNodePositionListener));
-	m_plData = data;
-	memcpy(m_positionListener, listener, sizeof(wyNodePositionListener));
 }
 
 float wyNode::getOriginX() {

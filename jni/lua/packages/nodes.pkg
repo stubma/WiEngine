@@ -2972,23 +2972,8 @@ public:
 
 #define INVALID_TAG -1
 
-class wyNode;
-
-/**
- * @struct wyNodePositionListener
- *
- * 用来监听节点位置变化的回调接口, 当setPosition方法被调用时, 这个
- * 回掉会被触发
- */
-typedef struct wyNodePositionListener {
-	/**
-	 * 当位置变化时, 该方法被调用
-	 *
-	 * @param node \link wyNode wyNode\endlink
-	 * @param data 附加数据指针
-	 */
-	void (*onPositionChanged)(wyNode* node, void* data);
-} wyNodePositionListener;
+class wyNodePositionCallback {
+};
 
 /**
  * @class wyNode
@@ -4386,12 +4371,11 @@ public:
 	int getAccelerometerPriority() { return m_accelerometerPriority; }
 
 	/**
-	 * 设置位置事件回调接口
+	 * Set position callback
 	 *
-	 * @param listener \link wyNodePositionListener wyNodePositionListener\endlink
-	 * @param data 附加数据指针
+	 * @param cb \link wyNodePositionCallback wyNodePositionCallback\endlink
 	 */
-	void setPositionListener(wyNodePositionListener* listener, void* data);
+	virtual void setPositionCallback(wyNodePositionCallback* cb);
 	
 	/**
 	 * 判断当前节点是否是某个节点的父节点或更高的节点

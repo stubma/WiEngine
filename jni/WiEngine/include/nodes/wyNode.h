@@ -42,20 +42,18 @@
 #define INVALID_TAG -1
 
 /**
- * @struct wyNodePositionListener
- *
- * 用来监听节点位置变化的回调接口, 当setPosition方法被调用时, 这个
- * 回掉会被触发
+ * Used to monitor node position change event
  */
-typedef struct wyNodePositionListener {
+class WIENGINE_API wyNodePositionCallback {
+public:
 	/**
-	 * 当位置变化时, 该方法被调用
+	 * Invoked when node's position is changed. That could be a result
+	 * of \c setPosition or \c translate calling
 	 *
 	 * @param node \link wyNode wyNode\endlink
-	 * @param data 附加数据指针
 	 */
-	void (*onPositionChanged)(wyNode* node, void* data);
-} wyNodePositionListener;
+	virtual void onNodePositionChanged(wyNode* node) = 0;
+};
 
 /**
  * An interface used to match render pair
@@ -323,11 +321,8 @@ protected:
 	/// 移出节点的回调\link wyTargetSelector wyTargetSelector对象指针\endlink
 	wyTargetSelector* m_moveOutSelector;
 
-	/// 节点的位置更改事件回调接口指针
-	wyNodePositionListener* m_positionListener;
-
-	/// 位置更改事件的附加数据指针
-	void* m_plData;
+	/// node position callback
+	wyNodePositionCallback* m_positionCallback;
 	
 	/// touch event should in such node content rect
 	/// it won't be retained by current node
@@ -3081,19 +3076,11 @@ public:
 	int getAccelerometerPriority() { return m_accelerometerPriority; }
 
 	/**
-	 * \if English
-	 * Set position listener
+	 * Set position callback
 	 *
-	 * @param listener \link wyNodePositionListener wyNodePositionListener\endlink
-	 * @param data custom data
-	 * \else
-	 * 设置位置事件回调接口
-	 *
-	 * @param listener \link wyNodePositionListener wyNodePositionListener\endlink
-	 * @param data 附加数据指针
-	 * \endif
+	 * @param cb \link wyNodePositionCallback wyNodePositionCallback\endlink
 	 */
-	virtual void setPositionListener(wyNodePositionListener* listener, void* data);
+	virtual void setPositionCallback(wyNodePositionCallback* cb) { m_positionCallback = cb; }
 
 	/**
 	 * \if English

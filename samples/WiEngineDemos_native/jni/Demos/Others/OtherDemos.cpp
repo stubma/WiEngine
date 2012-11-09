@@ -667,7 +667,7 @@ namespace Other {
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 
-	class wyNodePhysicsTestLayer : public wyLayer {
+	class wyNodePhysicsTestLayer : public wyLayer, public wyNodePositionCallback {
 	private:
 		wyLabel* m_hint;
 		
@@ -676,10 +676,7 @@ namespace Other {
 			wySprite* sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
 			sprite->setVelocity(100, 100);
 			sprite->setAcceleration(100, 100);
-			static wyNodePositionListener listener = {
-				onPositionChanged
-			};
-			sprite->setPositionListener(&listener, this);
+			sprite->setPositionCallback(this);
 			addChildLocked(sprite);
 			
 			// create a hint label
@@ -691,7 +688,7 @@ namespace Other {
 		virtual ~wyNodePhysicsTestLayer() {
 		}
 		
-		static void onPositionChanged(wyNode* node, void* data) {
+		virtual void onNodePositionChanged(wyNode* node) {
 			float px = node->getPositionX();
 			float py = node->getPositionY();
 			if(px > wyDevice::winWidth || py > wyDevice::winHeight) {
@@ -704,8 +701,7 @@ namespace Other {
 			
 			char buf[32];
 			sprintf(buf, "pos: %.1f, %.1f", px, py);
-			wyNodePhysicsTestLayer* layer = (wyNodePhysicsTestLayer*)data;
-			layer->m_hint->setText(buf);
+			m_hint->setText(buf);
 		}
 	};
 
