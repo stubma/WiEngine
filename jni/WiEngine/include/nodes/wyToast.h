@@ -46,7 +46,7 @@ class wyDirector;
  * 为任意类型. 背景节点最好是一个可以拉伸的节点, 比如\link wyNinePatchSprite wyNinePatchSprite\endlink.
  * \endif
  */
-class WIENGINE_API wyToast : public wyNode {
+class WIENGINE_API wyToast : public wyNode, public wyActionCallback {
 	friend class wyDirector;
 
 private:
@@ -97,9 +97,6 @@ private:
 
 	/// true means this toast is shown immediately
 	bool m_immediately;
-
-private:
-	static void onToastFadedOut(wyAction* action, void* data);
 
 protected:
 	/**
@@ -205,6 +202,15 @@ public:
 	 * \endif
 	 */
 	static wyToast* make(const char* text, float duration);
+
+	/// @see wyActonCallback::onActionStart
+	virtual void onActionStart(wyAction* action) {}
+
+	/// @see wyActonCallback::onActionStop
+	virtual void onActionStop(wyAction* action);
+
+	/// @see wyActonCallback::onActionStop
+	virtual void onActionUpdate(wyAction* action, float t) {}
 
 	/**
 	 * \if English

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: utils
-** Generated automatically by tolua++-1.0.92 on Thu Oct 18 13:13:06 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Nov  9 10:47:06 2012.
 */
 
 #ifndef __cplusplus
@@ -6187,71 +6187,6 @@ static int tolua_utils_wyVerletRope_getLength00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getUserData of class  wyVerletRope */
-#ifndef TOLUA_DISABLE_tolua_utils_wyVerletRope_getUserData00
-static int tolua_utils_wyVerletRope_getUserData00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVerletRope",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVerletRope* self = (wyVerletRope*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getUserData'", NULL);
-#endif
-  {
-   void* tolua_ret = (void*)  self->getUserData();
-   tolua_pushuserdata(tolua_S,(void*)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getUserData'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setUserData of class  wyVerletRope */
-#ifndef TOLUA_DISABLE_tolua_utils_wyVerletRope_setUserData00
-static int tolua_utils_wyVerletRope_setUserData00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyVerletRope",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyVerletRope* self = (wyVerletRope*)  tolua_tousertype(tolua_S,1,0);
-  void* data = ((void*)  tolua_touserdata(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setUserData'", NULL);
-#endif
-  {
-   self->setUserData(data);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setUserData'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: subRope of class  wyVerletRope */
 #ifndef TOLUA_DISABLE_tolua_utils_wyVerletRope_subRope00
 static int tolua_utils_wyVerletRope_subRope00(lua_State* tolua_S)
@@ -8657,8 +8592,6 @@ TOLUA_API int tolua_utils_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getAlpha",tolua_utils_wyVerletRope_getAlpha00);
    tolua_function(tolua_S,"setAlpha",tolua_utils_wyVerletRope_setAlpha00);
    tolua_function(tolua_S,"getLength",tolua_utils_wyVerletRope_getLength00);
-   tolua_function(tolua_S,"getUserData",tolua_utils_wyVerletRope_getUserData00);
-   tolua_function(tolua_S,"setUserData",tolua_utils_wyVerletRope_setUserData00);
    tolua_function(tolua_S,"subRope",tolua_utils_wyVerletRope_subRope00);
    tolua_function(tolua_S,"isStretched",tolua_utils_wyVerletRope_isStretched00);
    tolua_function(tolua_S,"changeLength",tolua_utils_wyVerletRope_changeLength00);

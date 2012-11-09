@@ -29,21 +29,30 @@
 #include "wyDialogTransition.h"
 #include "wyDialog.h"
 
+// tag for in & out action
+#define TAG_IN_ACTION 0x10000
+#define TAG_OUT_ACTION 0x10001
+
 wyDialogTransition::wyDialogTransition() {
 }
 
 wyDialogTransition::~wyDialogTransition() {
 }
 
-void wyDialogTransition::onOutActionStopped(wyAction* action, void* data) {
-	wyDialog* dialog = (wyDialog*)data;
-	dialog->getParent()->setEnabled(true);
-	dialog->dismiss(false);
-}
+void wyDialogTransition::onActionStop(wyAction* action) {
+	// the action target is background, whose parent is dialog
+	wyNode* target = action->getTarget();
+	wyDialog* dialog = (wyDialog*)target->getParent();
 
-void wyDialogTransition::onInActionStopped(wyAction* action, void* data) {
-	wyDialog* dialog = (wyDialog*)data;
-	dialog->getParent()->setEnabled(true);
+	switch(action->getTag()) {
+		case TAG_IN_ACTION:
+			dialog->getParent()->setEnabled(true);
+			break;
+		case TAG_OUT_ACTION:
+			dialog->getParent()->setEnabled(true);
+			dialog->dismiss(false);
+			break;
+	}
 }
 
 wyIntervalAction* wyDialogTransition::getInAction() {
@@ -57,12 +66,8 @@ wyIntervalAction* wyDialogTransition::getOutAction() {
 void wyDialogTransition::applyIn(wyDialog* dialog) {
 	wyIntervalAction* a = getInAction();
 	if(a) {
-		wyActionCallback callback = {
-				NULL,
-				onInActionStopped,
-				NULL
-		};
-		a->setCallback(&callback, dialog);
+		a->setTag(TAG_IN_ACTION);
+		a->setCallback(this);
 		dialog->getParent()->setEnabled(false);
 		dialog->getBackground()->runAction(a);
 	}
@@ -71,12 +76,8 @@ void wyDialogTransition::applyIn(wyDialog* dialog) {
 void wyDialogTransition::applyOut(wyDialog* dialog) {
 	wyIntervalAction* a = getOutAction();
 	if(a) {
-		wyActionCallback callback = {
-				NULL,
-				onOutActionStopped,
-				NULL
-		};
-		a->setCallback(&callback, dialog);
+		a->setTag(TAG_OUT_ACTION);
+		a->setCallback(this);
 		dialog->getParent()->setEnabled(false);
 		dialog->getBackground()->runAction(a);
 	} else {

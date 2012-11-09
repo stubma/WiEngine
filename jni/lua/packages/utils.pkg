@@ -2392,18 +2392,6 @@ public:
 	float getLength() { return m_length; }
 
 	/**
-	 * 获得附加数据指针
-	 */
-	void* getUserData() { return m_data; }
-
-	/**
-	 * 设置附加数据指针
-	 *
-	 * @param data 附加数据指针
-	 */
-	void setUserData(void* data) { m_data = data; }
-
-	/**
 	 * 以指定的点索引范围，获得一条绳子的部分，这个部分生成一个新的绳子实例.
 	 * 如果指定的索引范围不合法，则返回NULL
 	 *

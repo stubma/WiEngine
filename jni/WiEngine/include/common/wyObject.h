@@ -36,11 +36,8 @@
 #include "wyMemory.h"
 #include "wyGlobal.h"
 #include "wyDevice.h"
-#if ANDROID
-	#include <jni.h>
-#endif
-
-class wyTargetSelector;
+#include "wyTypes.h"
+#include "WiEngine-Classes.h"
 
 /**
  * @class wyObject
@@ -54,6 +51,9 @@ protected:
 
 	/// object name, optional
 	const char* m_name;
+
+	/// extra data can be set to object
+	wyUserData m_data;
 
 public:
 	/**
@@ -138,6 +138,21 @@ public:
 	 * 获得对象名
 	 */
 	virtual const char* getName() { return m_name; }
+
+	/**
+	 * Set user data in this node, if user data is a pointer, wyNode won't release
+	 * it
+	 *
+	 * @param ud \link wyUserData wyUserData\endlink
+	 */
+	void setUserData(wyUserData& ud);
+
+	/**
+	 * Get user data reference
+	 *
+	 * @return reference of user data, you can change it
+	 */
+	wyUserData& getUserData() { return m_data; }
 };
 
 #ifdef __cplusplus

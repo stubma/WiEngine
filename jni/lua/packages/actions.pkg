@@ -3196,24 +3196,6 @@ public:
 
 #define WY_ACTION_INVALID_TAG -1
 
-class wyAction;
-
-/**
- * @struct wyActionCallback
- *
- * \if English
- * \link wyAction wyAction \endlink callback definition.
- * \else
- * \link wyAction wyAction \endlink 的回调函数结构定义. 通过设置回调, 可以在
- * \link wyAction wyAction \endlink 的执行过程中通过回调了解动作的执行进度, 以及
- * 何时开始, 何时停止.
- * \endif
- */
-typedef struct wyActionCallback {
-} wyActionCallback;
-
-class wyNode;
-
 /**
  * @class wyAction
  *
@@ -3313,23 +3295,6 @@ public:
 	 * \endif
 	 */
 	virtual bool isDone();
-
-	/**
-	 * \if English
-	 * Set callback
-	 *
-	 * @param callback \link wyActionCallback wyActionCallback \endlink structure. NULL means clear current callback.
-	 * @param data User data pointer, who allocate it should be responsible for release it
-	 * \else
-	 * 设置动作执行的回调函数native引用
-	 *
-	 * @param callback 回调函数\link wyActionCallback wyActionCallback \endlink结构, 如果
-	 * 		为NULL, 则表示清除现有的callback
-	 * @param data 附加数据指针，wyAction不会负责释放该指针
-	 * \endif
-	 */
-	void setCallback(wyActionCallback* callback, void* data);
-
 
 	/**
 	 * \if English

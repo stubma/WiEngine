@@ -162,7 +162,7 @@ void wyToast::layout() {
 	}
 }
 
-void wyToast::onToastFadedOut(wyAction* action, void* data) {
+void wyToast::onActionStop(wyAction* action) {
 	// get director
 	wyDirector* d = wyDirector::getInstanceNoCreate();
 	if(!d)
@@ -174,11 +174,10 @@ void wyToast::onToastFadedOut(wyAction* action, void* data) {
 		return;
 
 	// remove toast
-	wyToast* t = (wyToast*)data;
-	s->removeChildLocked(t, true);
+	s->removeChildLocked(this, true);
 
 	// if not immediately mode, need show next
-	if(!t->m_immediately) {
+	if(!m_immediately) {
 		// remove self from queue
 		s_toastQueue->erase(s_toastQueue->begin());
 
@@ -190,7 +189,7 @@ void wyToast::onToastFadedOut(wyAction* action, void* data) {
 	}
 
 	// release self
-	t->autoRelease();
+	autoRelease();
 }
 
 void wyToast::clear() {
@@ -235,12 +234,7 @@ void wyToast::putToScene() {
 	runAction(a);
 
 	// set callback for action, remove background node when done
-	wyActionCallback callback = {
-			NULL,
-			onToastFadedOut,
-			NULL
-	};
-	a->setCallback(&callback, this);
+	a->setCallback(this);
 }
 
 void wyToast::show(bool immediately) {

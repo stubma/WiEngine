@@ -40,8 +40,7 @@ wyVerletRope::wyVerletRope(wyPoint a, wyPoint b, wyTexture2D* tex, size_t length
 		m_antiSagHack(0.0f),
 		m_tex(NULL),
 		m_dirty(true),
-		m_stickLength(0),
-		m_data(NULL) {
+		m_stickLength(0) {
 	// create mesh
 	m_mesh = wyQuadList::make();
 	m_mesh->retain();
@@ -95,8 +94,7 @@ wyVerletRope::wyVerletRope(wyVerletRope* rope, int startPoint, int endPoint) :
 		m_tex(NULL),
 		m_color(wyc4bWhite),
 		m_stickLength(0),
-		m_dirty(true),
-		m_data(NULL) {
+		m_dirty(true) {
 	// create mesh
 	m_mesh = wyQuadList::make();
 	m_mesh->retain();

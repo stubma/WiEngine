@@ -35,8 +35,7 @@ wyAction::wyAction() :
 		m_paused(false),
 		m_tag(WY_ACTION_INVALID_TAG),
 		m_parent(NULL),
-		m_data(NULL) {
-	memset(&m_callback, 0, sizeof(wyActionCallback));
+		m_callback(NULL) {
 }
 
 wyAction::~wyAction() {
@@ -86,16 +85,6 @@ bool wyAction::isDone() {
 	return true;
 }
 
-void wyAction::setCallback(wyActionCallback* callback, void* data) {
-	if(callback == NULL) {
-		memset(&m_callback, 0, sizeof(wyActionCallback));
-		m_data = NULL;
-	} else {
-		memcpy(&m_callback, callback, sizeof(wyActionCallback));
-		m_data = data;
-	}
-}
-
 void wyAction::setTag(int tag) {
 	m_tag = tag;
 }
@@ -109,19 +98,19 @@ wyNode* wyAction::getTarget() {
 }
 
 void wyAction::invokeOnStart() {
-	if(m_callback.onStart != NULL) {
-		m_callback.onStart(this, m_data);
+	if(m_callback) {
+		m_callback->onActionStart(this);
 	}
 }
 
 void wyAction::invokeOnStop() {
-	if(m_callback.onStop != NULL) {
-		m_callback.onStop(this, m_data);
+	if(m_callback) {
+		m_callback->onActionStop(this);
 	}
 }
 
 void wyAction::invokeOnUpdate(float t) {
-	if(m_callback.onUpdate != NULL) {
-		m_callback.onUpdate(this, t, m_data);
+	if(m_callback) {
+		m_callback->onActionUpdate(this, t);
 	}
 }

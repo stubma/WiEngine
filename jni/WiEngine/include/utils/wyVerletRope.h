@@ -74,9 +74,6 @@ private:
 	/// original length of stick
 	float m_stickLength;
 
-	/// extra data pointer
-	void* m_data;
-
 	/// color of rope
 	wyColor4B m_color;
 
@@ -399,32 +396,6 @@ public:
 	 * \endif
 	 */
 	float getLength() { return m_length; }
-
-	/**
-	 * \if English
-	 * Get user data pointer
-	 *
-	 * @return user data pointer
-	 * \else
-	 * 获得附加数据指针
-	 *
-	 * @return 附加数据指针
-	 * \endif
-	 */
-	void* getUserData() { return m_data; }
-
-	/**
-	 * \if English
-	 * Set user data pointer
-	 *
-	 * @param data user data pointer
-	 * \else
-	 * 设置附加数据指针
-	 *
-	 * @param data 附加数据指针
-	 * \endif
-	 */
-	void setUserData(void* data) { m_data = data; }
 
 	/**
 	 * \if English

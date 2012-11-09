@@ -136,7 +136,7 @@ namespace Events {
 	static const int UP = 3;
 	static const int DOWN = 4;
 
-	class wyCharacterMoveTestLayer: public wyColorLayer {
+	class wyCharacterMoveTestLayer: public wyColorLayer, public wyActionCallback {
 	private:
 		int ITEM_WIDTH;
 		int ITEM_HEIGHT;
@@ -209,6 +209,33 @@ namespace Events {
 			wyObjectRelease(m_FaceRight);
 		};
 		
+		virtual void onActionStart(wyAction* action) {
+		}
+
+		virtual void onActionStop(wyAction* action) {
+			m_Player->stopAllActions(false);
+
+			switch(m_LastDirection) {
+				case UP:
+					m_Player->setDisplayFrame(m_FaceUp);
+					break;
+				case DOWN:
+					m_Player->setDisplayFrame(m_FaceDown);
+					break;
+				case LEFT:
+					m_Player->setDisplayFrame(m_FaceLeft);
+					break;
+				case RIGHT:
+					m_Player->setDisplayFrame(m_FaceRight);
+					break;
+			}
+
+			m_LastDirection = NONE;
+		}
+
+		virtual void onActionUpdate(wyAction* action, float t) {
+		}
+
 		virtual bool touchesBegan(wyMotionEvent& event) {
 			wyPoint loc = wyp(event.x[0], event.y[0]);
 			
@@ -269,44 +296,13 @@ namespace Events {
 				// create action
 				wyIntervalAction* move = wyMoveBy::make(duration, deltaX, deltaY);
 				wyIntervalAction* anim = wyAnimate::make(animation, true);
-				wyActionCallback callback = {
-					NULL,
-					onCharacterMoveTestActionDone,
-					NULL
-				};
-				move->setCallback(&callback, this);
+				move->setCallback(this);
 				m_Player->runAction(move);
 				wyRepeatForever* r = wyRepeatForever::make(anim);
 				m_Player->runAction(r);
 			}
 			
 			return true;
-		}
-		
-		static void onCharacterMoveTestActionDone(wyAction* action, void * userData) {
-			wyCharacterMoveTestLayer* layer = (wyCharacterMoveTestLayer*) userData;
-			layer->onPlayerMoveDone();
-		}
-		
-		void onPlayerMoveDone(){
-			m_Player->stopAllActions(false);
-
-			switch(m_LastDirection) {
-				case UP:
-					m_Player->setDisplayFrame(m_FaceUp);
-					break;
-				case DOWN:
-					m_Player->setDisplayFrame(m_FaceDown);
-					break;
-				case LEFT:
-					m_Player->setDisplayFrame(m_FaceLeft);
-					break;
-				case RIGHT:
-					m_Player->setDisplayFrame(m_FaceRight);
-					break;
-			}
-			
-			m_LastDirection = NONE;
 		}
 	};
 	

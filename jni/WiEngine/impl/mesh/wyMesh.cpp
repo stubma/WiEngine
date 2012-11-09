@@ -35,9 +35,6 @@ wyMesh::wyMesh() :
 		m_pointSize(1),
 		m_tag(-1),
 		m_skip(false) {
-	// init member
-	memset(&m_data, 0, sizeof(wyUserData));
-
 	// create buffer array
 	m_attrConnections = WYNEW vector<AttributeConnection*>();
 	m_attrConnections->reserve(5);
@@ -168,8 +165,4 @@ wyBuffer* wyMesh::getFirstConnectedBuffer() {
 	}
 
 	return NULL;
-}
-
-void wyMesh::setUserData(wyUserData& ud) {
-	memcpy(&m_data, &ud, sizeof(wyUserData));
 }

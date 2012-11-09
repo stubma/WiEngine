@@ -42,15 +42,9 @@ class wyDialog;
  * 封装对话框出现, 消失的效果
  * \endif
  */
-class WIENGINE_API wyDialogTransition : public wyObject {
+class WIENGINE_API wyDialogTransition : public wyObject, public wyActionCallback {
 protected:
 	wyDialogTransition();
-
-	/// invoked when out action is stopped
-	static void onOutActionStopped(wyAction* action, void* data);
-
-	/// invoked when in action is stopped
-	static void onInActionStopped(wyAction* action, void* data);
 
 	/**
 	 * Get action which is applied when showing dialog
@@ -94,6 +88,15 @@ public:
 	 * \endif
 	 */
 	virtual void applyOut(wyDialog* dialog);
+
+	/// @see wyActonCallback::onActionStart
+	virtual void onActionStart(wyAction* action) {}
+
+	/// @see wyActonCallback::onActionStop
+	virtual void onActionStop(wyAction* action);
+
+	/// @see wyActonCallback::onActionStop
+	virtual void onActionUpdate(wyAction* action, float t) {}
 };
 
 #endif // __wyDialogTransition_h__

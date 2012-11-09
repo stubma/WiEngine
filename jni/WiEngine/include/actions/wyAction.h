@@ -38,33 +38,31 @@
 /**
  * \link wyAction wyAction\endlink callback definition.
  */
-typedef struct wyActionCallback {
+class WIENGINE_API wyActionCallback {
+public:
 	/**
 	 * Invoked when action is started
 	 *
 	 * @param action \link wyAction wyAction \endlink pointer
-	 * @param data user data pointer
 	 */
-	void (*onStart)(wyAction* action, void* data);
+	virtual void onActionStart(wyAction* action) = 0;
 
 	/**
 	 * Invoked when action is stopped, should call \c isDone to
 	 * check whether action is terminated normally
 	 *
 	 * @param action \link wyAction wyAction \endlink pointer
-	 * @param data user data pointer
 	 */
-	void (*onStop)(wyAction* action, void* data);
+	virtual void onActionStop(wyAction* action) = 0;
 
 	/**
 	 * Invoked every time when \c update method is called
 	 *
 	 * @param action \link wyAction wyAction \endlink pointer
 	 * @param t current time, from 0 to 1. If action's duration is 2 seconds, then 0.5 means 1 second
-	 * @param data user data pointer
 	 */
-	void (*onUpdate)(wyAction* action, float t, void* data);
-} wyActionCallback;
+	virtual void onActionUpdate(wyAction* action, float t) = 0;
+};
 
 /**
  * Base class for all actions
@@ -92,10 +90,7 @@ protected:
 	int m_tag;
 
 	/// action callback
-	wyActionCallback m_callback;
-
-	/// extra data pointer of action callback
-	void* m_data;
+	wyActionCallback* m_callback;
 
 protected:
 	wyAction();
@@ -169,9 +164,8 @@ public:
 	 * Set callback
 	 *
 	 * @param callback \link wyActionCallback wyActionCallback \endlink structure. NULL means clear current callback.
-	 * @param data User data pointer, who allocate it should be responsible for release it
 	 */
-	void setCallback(wyActionCallback* callback, void* data);
+	void setCallback(wyActionCallback* callback) { m_callback = callback; }
 
 	/**
 	 * Set tag for action. A tag can be used as an unique id of action and later

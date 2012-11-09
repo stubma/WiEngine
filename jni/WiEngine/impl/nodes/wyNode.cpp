@@ -856,7 +856,6 @@ wyNode::wyNode() :
 		m_moveOutSelector(NULL),
 		m_positionListener(NULL),
 		m_plData(NULL) {
-	memset(&m_data, 0, sizeof(wyUserData));
 	memset(&m_state, 0, sizeof(wyTouchState));
 	setAnchor(0.5f, 0.5f);
 }
@@ -1472,10 +1471,6 @@ bool wyNode::isAncestor(wyNode* node) {
 		node = node->getParent();
 	}
 	return node->getParent() == this;
-}
-
-void wyNode::setUserData(wyUserData& ud) {
-	memcpy(&m_data, &ud, sizeof(wyUserData));
 }
 
 void wyNode::setTexture(wyTexture2D* tex, int index) {

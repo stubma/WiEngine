@@ -55,6 +55,8 @@ static wyArray* sLeakPool = NULL;
 wyObject::wyObject() : 
         m_retainCount(1),
         m_name(NULL) {
+	memset(&m_data, 0, sizeof(wyUserData));
+
 #ifdef WY_CFLAG_MEMORY_TRACKING
 	if(sLeakPool != NULL)
 		wyArrayPush(sLeakPool, this);
@@ -94,6 +96,10 @@ wyObject* wyObject::retain() {
 #endif
 
 	return this;
+}
+
+void wyObject::setUserData(wyUserData& ud) {
+	memcpy(&m_data, &ud, sizeof(wyUserData));
 }
 
 void wyObject::javaRelease() {

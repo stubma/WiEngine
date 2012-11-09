@@ -323,9 +323,6 @@ protected:
 	/// 移出节点的回调\link wyTargetSelector wyTargetSelector对象指针\endlink
 	wyTargetSelector* m_moveOutSelector;
 
-	/// 节点的附加数据对象
-	wyUserData m_data;
-
 	/// 节点的位置更改事件回调接口指针
 	wyNodePositionListener* m_positionListener;
 
@@ -2572,33 +2569,6 @@ public:
 	 * \endif
 	 */
 	void setNoDraw(bool flag) { m_noDraw = flag; }
-
-	/**
-	 * \if English
-	 * Set user data in this node, if user data is a pointer, wyNode won't release
-	 * it
-	 *
-	 * @param ud \link wyUserData wyUserData\endlink
-	 * \else
-	 * 给当前节点设置自定义的数据, 如果自定义数据是个指针, wyNode不会负责释放
-	 *
-	 * @param ud \link wyUserData wyUserData\endlink
-	 * \endif
-	 */
-	void setUserData(wyUserData& ud);
-
-	/**
-	 * \if English
-	 * Get user data reference
-	 *
-	 * @return reference of user data, you can change it
-	 * \else
-	 * 返回用户数据
-	 *
-	 * @return 用户数据的引用
-	 * \endif
-	 */
-	wyUserData& getUserData() { return m_data; }
 
 	/**
 	 * \if English

@@ -32,7 +32,7 @@ namespace Other {
 	static const int TILE_WIDTH = 32;
 	static const int TILE_HEIGHT = 32;
 	
-	class wyAStarTestLayer : public wyLayer {
+	class wyAStarTestLayer : public wyLayer, public wyActionCallback {
 	private:
 		bool m_isRunning;
 		float m_tile_width;
@@ -64,18 +64,6 @@ namespace Other {
 		static bool releaseNode(wyArray* arr, void* ptr, int index, void* data) {
 			wyObjectRelease((wyObject*) ptr);
 			return true;
-		}
-		
-		static void onMoveEnded(wyAction* action, void* data) {
-			wyAStarTestLayer* layer = (wyAStarTestLayer*) data;
-			if (layer->canRunning()) {
-				if (layer->isEndPosition()) {
-					layer->setStartPosition();
-					layer->runPath();
-				} else {
-					layer->runNextMove();
-				}
-			}
 		}
 		
 	public:
@@ -137,6 +125,23 @@ namespace Other {
 		
 		bool canRunning() { return m_isRunning; }
 		
+		virtual void onActionStart(wyAction* action) {
+		}
+
+		virtual void onActionStop(wyAction* action) {
+			if (canRunning()) {
+				if (isEndPosition()) {
+					setStartPosition();
+					runPath();
+				} else {
+					runNextMove();
+				}
+			}
+		}
+
+		virtual void onActionUpdate(wyAction* action, float t) {
+		}
+
 		void runPath() {
 			m_isRunning = false;
 			m_moveSprite->stopAllActions();
@@ -158,8 +163,7 @@ namespace Other {
 						step->getX() * m_tile_width + m_tile_width / 2,
 						step->getY() * m_tile_height + m_tile_height / 2);
 				wyObjectRelease(step);
-				wyActionCallback moveCallback = { NULL, onMoveEnded, NULL };
-				move->setCallback(&moveCallback, this);
+				move->setCallback(this);
 				m_moveSprite->runAction(move);
 			}
 		}

@@ -137,9 +137,6 @@ protected:
 	 */
 	int m_tag;
 
-	/// custom data attached to this mesh, just like node user data
-	wyUserData m_data;
-
 	/// true means skip rendering this mesh
 	bool m_skip;
 
@@ -305,21 +302,6 @@ public:
 	 * This method is intended to be overrided by subclass and used internally.
 	 */
 	virtual int getOffset() { return 0; }
-
-	/**
-	 * Set user data in this mesh, if user data is a pointer, wyMesh won't release
-	 * it
-	 *
-	 * @param ud \link wyUserData wyUserData\endlink
-	 */
-	void setUserData(wyUserData& ud);
-
-	/**
-	 * Get user data reference
-	 *
-	 * @return reference of user data, you can change it
-	 */
-	wyUserData& getUserData() { return m_data; }
 
 	/**
 	 * Set node tag. Tag is an integer and -1 is default.

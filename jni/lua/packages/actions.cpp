@@ -1,6 +1,6 @@
 /*
 ** Lua binding: actions
-** Generated automatically by tolua++-1.0.92 on Tue Nov  6 14:58:56 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Nov  9 10:22:42 2012.
 */
 
 #ifndef __cplusplus
@@ -315,15 +315,14 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyCameraAction");
  tolua_usertype(tolua_S,"wyAnimation");
  tolua_usertype(tolua_S,"wyBezier");
- tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyProgressBy");
  tolua_usertype(tolua_S,"wyHypotrochoidConfig");
- tolua_usertype(tolua_S,"wySkewBy");
+ tolua_usertype(tolua_S,"wyMoveByPath");
  tolua_usertype(tolua_S,"wyInstantAction");
- tolua_usertype(tolua_S,"wyNode");
- tolua_usertype(tolua_S,"wyActionCallback");
- tolua_usertype(tolua_S,"wyRotateBy");
+ tolua_usertype(tolua_S,"wySkewBy");
  tolua_usertype(tolua_S,"wyObject");
+ tolua_usertype(tolua_S,"wyRotateBy");
+ tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyCallFunc");
  tolua_usertype(tolua_S,"wyFadeTo");
  tolua_usertype(tolua_S,"wyHypotrochoid");
@@ -331,32 +330,32 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyToggleVisibility");
  tolua_usertype(tolua_S,"wyTargetSelector");
  tolua_usertype(tolua_S,"wySkewTo");
- tolua_usertype(tolua_S,"wyMoveByPath");
+ tolua_usertype(tolua_S,"wySpawn");
  tolua_usertype(tolua_S,"wyRotateTo");
  tolua_usertype(tolua_S,"wyPoint");
  tolua_usertype(tolua_S,"wyOrbitCamera");
  tolua_usertype(tolua_S,"wyTintTo");
- tolua_usertype(tolua_S,"wySpeed");
+ tolua_usertype(tolua_S,"wyTintBy");
  tolua_usertype(tolua_S,"wyFiniteTimeAction");
  tolua_usertype(tolua_S,"wyMoveBy");
  tolua_usertype(tolua_S,"wyMoveByAngle");
- tolua_usertype(tolua_S,"wyTintBy");
+ tolua_usertype(tolua_S,"wySpeed");
  tolua_usertype(tolua_S,"wyLagrange");
- tolua_usertype(tolua_S,"wySpawn");
  tolua_usertype(tolua_S,"wyShow");
+ tolua_usertype(tolua_S,"wyShake");
  tolua_usertype(tolua_S,"wyBezierConfig");
  tolua_usertype(tolua_S,"wyBlink");
- tolua_usertype(tolua_S,"wyShake");
  tolua_usertype(tolua_S,"wySequence");
  tolua_usertype(tolua_S,"wyScaleTo");
- tolua_usertype(tolua_S,"wyIntervalAction");
+ tolua_usertype(tolua_S,"wyScaleBy");
+ tolua_usertype(tolua_S,"wyReverseTime");
  tolua_usertype(tolua_S,"wyHide");
  tolua_usertype(tolua_S,"wyFadeIn");
  tolua_usertype(tolua_S,"wyRepeat");
- tolua_usertype(tolua_S,"wyScaleBy");
+ tolua_usertype(tolua_S,"wyNode");
  tolua_usertype(tolua_S,"wyMoveTo");
- tolua_usertype(tolua_S,"wyReverseTime");
  tolua_usertype(tolua_S,"wyRepeatForever");
+ tolua_usertype(tolua_S,"wyIntervalAction");
 }
 
 /* method: make of class  wyAnimate */
@@ -9411,41 +9410,6 @@ static int tolua_actions_wyAction_isDone00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setCallback of class  wyAction */
-#ifndef TOLUA_DISABLE_tolua_actions_wyAction_setCallback00
-static int tolua_actions_wyAction_setCallback00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyAction",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyActionCallback",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyAction* self = (wyAction*)  tolua_tousertype(tolua_S,1,0);
-  wyActionCallback* callback = ((wyActionCallback*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setCallback'", NULL);
-#endif
-  {
-   self->setCallback(callback,data);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setCallback'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: setTag of class  wyAction */
 #ifndef TOLUA_DISABLE_tolua_actions_wyAction_setTag00
 static int tolua_actions_wyAction_setTag00(lua_State* tolua_S)
@@ -10591,7 +10555,6 @@ TOLUA_API int tolua_actions_open (lua_State* tolua_S)
    tolua_function(tolua_S,"step",tolua_actions_wyAction_step00);
    tolua_function(tolua_S,"update",tolua_actions_wyAction_update00);
    tolua_function(tolua_S,"isDone",tolua_actions_wyAction_isDone00);
-   tolua_function(tolua_S,"setCallback",tolua_actions_wyAction_setCallback00);
    tolua_function(tolua_S,"setTag",tolua_actions_wyAction_setTag00);
    tolua_function(tolua_S,"getTag",tolua_actions_wyAction_getTag00);
    tolua_function(tolua_S,"getTarget",tolua_actions_wyAction_getTarget00);
@@ -10599,12 +10562,6 @@ TOLUA_API int tolua_actions_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getParent",tolua_actions_wyAction_getParent00);
    tolua_function(tolua_S,"setParent",tolua_actions_wyAction_setParent00);
    tolua_function(tolua_S,"isPaused",tolua_actions_wyAction_isPaused00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"wyActionCallback","wyActionCallback","",NULL);
-  tolua_beginmodule(tolua_S,"wyActionCallback");
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"wyNode","wyNode","",NULL);
-  tolua_beginmodule(tolua_S,"wyNode");
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wySkewBy","wySkewBy","wyIntervalAction",tolua_collect_wySkewBy);

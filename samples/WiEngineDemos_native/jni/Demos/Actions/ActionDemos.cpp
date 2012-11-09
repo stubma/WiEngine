@@ -171,7 +171,7 @@ namespace Action {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    class wyClipInOutTestLayer : public wyLayer {
+    class wyClipInOutTestLayer : public wyLayer, public wyActionCallback {
     private:
     	bool m_expanded;
     	bool m_toggling;
@@ -195,9 +195,14 @@ namespace Action {
     	virtual ~wyClipInOutTestLayer() {
     	}
 
-    	static void onToggleEnd(wyAction* action, void* data) {
-    		wyClipInOutTestLayer* layer = (wyClipInOutTestLayer*)data;
-    		layer->m_toggling = false;
+    	virtual void onActionStart(wyAction* action) {
+    	}
+
+    	virtual void onActionStop(wyAction* action) {
+    		m_toggling = false;
+    	}
+
+    	virtual void onActionUpdate(wyAction* action, float t) {
     	}
 
     	void onToggle(wyTargetSelector* ts) {
@@ -210,12 +215,7 @@ namespace Action {
 
     			m_sprite->runAction(wyClipOut::make(0.5f, wyClipOut::RIGHT_TO_LEFT));
     			wyRotateBy* rotate = wyRotateBy::make(0.5f, -90);
-    			wyActionCallback callback = {
-    					NULL,
-    					onToggleEnd,
-    					NULL
-    			};
-    			rotate->setCallback(&callback, this);
+    			rotate->setCallback(this);
     			m_button->runAction(rotate);
     		} else {
     			m_expanded = true;
@@ -223,12 +223,7 @@ namespace Action {
 
     			m_sprite->runAction(wyClipIn::make(0.5f, wyClipIn::LEFT_TO_RIGHT));
     			wyRotateBy* rotate = wyRotateBy::make(0.5f, 90);
-    			wyActionCallback callback = {
-    					NULL,
-    					onToggleEnd,
-    					NULL
-    			};
-    			rotate->setCallback(&callback, this);
+    			rotate->setCallback(this);
     			m_button->runAction(rotate);
     		}
     	}
