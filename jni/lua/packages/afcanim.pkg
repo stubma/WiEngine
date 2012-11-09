@@ -3334,8 +3334,8 @@ public:
  * \link wyAFCSprite wyAFCSprite\endlink 的回调定义
  * \endif
  */
-typedef struct wyAFCSpriteCallback {
-} wyAFCSpriteCallback;
+class wyAFCSpriteCallback {
+};
 
 /**
  * @class wyAFCSprite
@@ -3549,7 +3549,7 @@ public:
 	 * @param data 附加数据指针，可选参数，缺省为NULL
 	 * \endif
 	 */
-	void setAFCSpriteCallback(wyAFCSpriteCallback* callback, void* data = NULL);
+	void setAFCSpriteCallback(wyAFCSpriteCallback* callback);
 
 	/**
 	 * \if English

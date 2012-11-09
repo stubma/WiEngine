@@ -61,16 +61,11 @@ wyAFCSprite::wyAFCSprite() :
 		m_frameOffset(wypZero),
 		m_ignoreFrameOffset(false),
 		m_flipX(false),
-		m_flipY(false),
-		m_data(NULL) {
+		m_flipY(false) {
 	m_meshRefCache = WYNEW vector<wyMeshRef*>();
 }
 
 wyAFCSprite::~wyAFCSprite() {
-	if(m_callback != NULL) {
-		wyFree(m_callback);
-		m_callback = NULL;
-	}
 	wyArrayEach(m_spriteList, releaseObject, NULL);
 	wyArrayDestroy(m_spriteList);
 	wyArrayEach(m_sheetList, releaseObject, NULL);
@@ -92,16 +87,14 @@ bool wyAFCSprite::releaseObject(wyArray* arr, void* ptr, int index, void* data) 
 }
 
 void wyAFCSprite::invokeOnAFCAnimationFrameChanged() {
-	if(m_callback != NULL) {
-		if(m_callback->onAFCAnimationFrameChanged != NULL)
-			m_callback->onAFCAnimationFrameChanged(this, m_data);
+	if(m_callback) {
+		m_callback->onAFCSpriteAnimationFrameChanged(this);
 	}
 }
 
 void wyAFCSprite::invokeOnAFCAnimationEnded() {
-	if(m_callback != NULL) {
-		if(m_callback->onAFCAnimationEnded != NULL)
-			m_callback->onAFCAnimationEnded(this, m_data);
+	if(m_callback) {
+		m_callback->onAFCSpriteAnimationEnded(this);
 	}
 }
 
@@ -603,21 +596,6 @@ void wyAFCSprite::setUnitInterval(float interval) {
 			if(m_isTickDelay)
 				m_frameDuration = frameData->getDelay() * m_unitInterval;
 		}
-	}
-}
-
-void wyAFCSprite::setAFCSpriteCallback(wyAFCSpriteCallback* callback, void* data) {
-	if(callback == NULL) {
-		if(m_callback != NULL) {
-			wyFree(m_callback);
-			m_data = NULL;
-			m_callback = NULL;
-		}
-	} else {
-		if(m_callback == NULL)
-			m_callback = (wyAFCSpriteCallback*)wyMalloc(sizeof(wyAFCSpriteCallback));
-		m_data = data;
-		memcpy(m_callback, callback, sizeof(wyAFCSpriteCallback));
 	}
 }
 

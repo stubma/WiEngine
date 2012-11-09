@@ -36,23 +36,22 @@
 /**
  * Callback interface of \link wyAFCSprite wyAFCSprite\endlink
  */
-typedef struct WIENGINE_API wyAFCSpriteCallback {
+class WIENGINE_API wyAFCSpriteCallback {
+public:
 	/**
 	 * Invoked when frame changed
 	 *
 	 * @param sprite \link wyAFCSprite wyAFCSprite\endlink
-	 * @param data extra data pointer
 	 */
-	void (*onAFCAnimationFrameChanged)(wyAFCSprite* sprite, void* data);
+	virtual void onAFCSpriteAnimationFrameChanged(wyAFCSprite* sprite);
 
 	/**
 	 * Invoked when animation ended
 	 *
 	 * @param sprite \link wyAFCSprite wyAFCSprite\endlink
-	 * @param data extra data pointer
 	 */
-	void (*onAFCAnimationEnded)(wyAFCSprite* sprite, void* data);
-} wyAFCSpriteCallback;
+	virtual void onAFCSpriteAnimationEnded(wyAFCSprite* sprite);
+};
 
 /**
  * @class wyAFCSprite
@@ -201,9 +200,6 @@ protected:
 	/// callback
 	wyAFCSpriteCallback* m_callback;
 
-	/// extra data pointer of native callback
-	void* m_data;
-
 private:
 	static bool releaseObject(wyArray* arr, void* ptr, int index, void* data);
 
@@ -351,9 +347,8 @@ public:
 	 * Set animation event callback
 	 *
 	 * @param callback \link wyAFCSpriteCallback wyAFCSpriteCallback\endlink, if NULL, means clear callback
-	 * @param data extra data pointer
 	 */
-	void setAFCSpriteCallback(wyAFCSpriteCallback* callback, void* data = NULL);
+	void setAFCSpriteCallback(wyAFCSpriteCallback* callback) { m_callback = callback; }
 
 	/**
 	 * Get current animation index. Index starts from 0.
