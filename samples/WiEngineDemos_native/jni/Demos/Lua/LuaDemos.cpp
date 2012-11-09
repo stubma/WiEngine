@@ -32,17 +32,16 @@ namespace Lua {
         }
     };
 
-    class wyCreateAnimationTestLayer : public wyLayer {
+    class wyCreateAnimationTestLayer : public wyLayer, public wyAnimationCallback {
     public:
     	wyCreateAnimationTestLayer() {
-            wyAnimationCallback callback = {
-            		onAnimationFrameChanged,
-            		onAnimationEnded
-            };
-
+    		/*
+    		 * Here we must cast "this" to wyAnimationCallback because it use multiple inheritance.
+    		 * So, if directly pass "this" to lua, it will not be translated to wyAnimationCallback type
+    		 */
         	wyLua::init();
         	wyLua::setGlobal("layer", this, "wyLayer");
-        	wyLua::setGlobal("callback", &callback, "wyAnimationCallback");
+        	wyLua::setGlobal("callback", (wyAnimationCallback*)this, "wyAnimationCallback");
         	wyLua::execute(RES("R.raw.create_animation"));
         }
 
@@ -50,14 +49,14 @@ namespace Lua {
 			wyLua::destroy();
         }
 
-    	static void onAnimationFrameChanged(wyAnimation* anim, int index, void* data) {
+    	virtual void onAnimationFrameChanged(wyAnimation* anim, int index) {
     		wyLabel* hint = (wyLabel*)wyLua::getGlobalObject("hint");
     		char buf[64];
     		sprintf(buf, "frame changed: %d", index);
     		hint->setText(buf);
     	}
 
-    	static void onAnimationEnded(wyAnimation* anim, void* data) {
+    	virtual void onAnimationEnded(wyAnimation* anim) {
     		wyLabel* hint = (wyLabel*)wyLua::getGlobalObject("hint");
     		hint->setText("animation ended");
     	}

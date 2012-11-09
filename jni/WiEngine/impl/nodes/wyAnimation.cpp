@@ -53,8 +53,7 @@ wyAnimation::wyAnimation(int id) :
 		m_id(id),
 		m_frames(wyArrayNew(10)),
 		m_duration(0),
-		m_data(NULL) {
-	memset(&m_callback, 0, sizeof(wyAnimationCallback));
+		m_callback(NULL) {
 }
 
 void wyAnimation::addFrame(float frameDuration, wyTexture2D* tex) {
@@ -78,23 +77,13 @@ void wyAnimation::addFrame(wyFrame* f) {
 }
 
 void wyAnimation::notifyAnimationFrameChanged(int index) {
-	if(m_callback.onAnimationFrameChanged != NULL) {
-		(*m_callback.onAnimationFrameChanged)(this, index, m_data);
+	if(m_callback) {
+		m_callback->onAnimationFrameChanged(this, index);
 	}
 }
 
 void wyAnimation::notifyAnimationEnded() {
-	if(m_callback.onAnimationEnded != NULL) {
-		(*m_callback.onAnimationEnded)(this, m_data);
-	}
-}
-
-void wyAnimation::setCallback(wyAnimationCallback* callback, void* data) {
-	if(callback == NULL) {
-		memset(&m_callback, 0, sizeof(wyAnimationCallback));
-		m_data = NULL;
-	} else {
-		memcpy(&m_callback, callback, sizeof(wyAnimationCallback));
-		m_data = data;
+	if(m_callback) {
+		m_callback->onAnimationEnded(this);
 	}
 }

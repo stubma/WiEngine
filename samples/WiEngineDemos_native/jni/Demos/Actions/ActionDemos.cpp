@@ -22,7 +22,7 @@ namespace Action {
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
     
-    class wyAnimationTestLayer : public wyActionTestLayer {
+    class wyAnimationTestLayer : public wyActionTestLayer, public wyAnimationCallback {
     public:
     	wyLabel* m_hint;
 
@@ -35,11 +35,7 @@ namespace Action {
                 sprintf(name, "grossini_dance_%.2d", i + 1);
                 anim->addFrame(0.2f, wyTexture2D::makePNG(wyUtils::getResId(name, "drawable", NULL)));
             }
-            wyAnimationCallback callback = {
-            		onAnimationFrameChanged,
-            		onAnimationEnded
-            };
-            anim->setCallback(&callback, this);
+            anim->setCallback(this);
         
             wyAnimate* a = wyAnimate::make(anim);
             m_Sprite->runAction(a);
@@ -50,22 +46,20 @@ namespace Action {
     		addChildLocked(m_hint);
         }
 
-    	static void onAnimationFrameChanged(wyAnimation* anim, int index, void* data) {
-    		wyAnimationTestLayer* layer = (wyAnimationTestLayer*)data;
+    	virtual void onAnimationFrameChanged(wyAnimation* anim, int index) {
     		char buf[64];
     		sprintf(buf, "frame changed: %d", index);
-    		layer->m_hint->setText(buf);
+    		m_hint->setText(buf);
     	}
 
-    	static void onAnimationEnded(wyAnimation* anim, void* data) {
-    		wyAnimationTestLayer* layer = (wyAnimationTestLayer*)data;
-    		layer->m_hint->setText("animation ended");
+    	virtual void onAnimationEnded(wyAnimation* anim) {
+    		m_hint->setText("animation ended");
     	}
     };
     
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    class wyAtlasAnimationTestLayer : public wyLayer {
+    class wyAtlasAnimationTestLayer : public wyLayer, public wyAnimationCallback {
     private:
 		int ITEM_WIDTH;
 		int ITEM_HEIGHT;
@@ -106,11 +100,7 @@ namespace Action {
             anim->addFrame(0.2f, frameAt(1, 2));
             anim->addFrame(0.2f, frameAt(2, 2));
             anim->addFrame(0.2f, frameAt(3, 2));
-            wyAnimationCallback callback = {
-            		onAnimationFrameChanged,
-            		onAnimationEnded
-            };
-            anim->setCallback(&callback, this);
+            anim->setCallback(this);
             
             wyAnimate* a = wyAnimate::make(anim);
             sprite->runAction(a);
@@ -121,16 +111,14 @@ namespace Action {
     		addChildLocked(m_hint);
         };
 
-    	static void onAnimationFrameChanged(wyAnimation* anim, int index, void* data) {
-    		wyAtlasAnimationTestLayer* layer = (wyAtlasAnimationTestLayer*)data;
+    	virtual void onAnimationFrameChanged(wyAnimation* anim, int index) {
     		char buf[64];
     		sprintf(buf, "frame changed: %d", index);
-    		layer->m_hint->setText(buf);
+    		m_hint->setText(buf);
     	}
 
-    	static void onAnimationEnded(wyAnimation* anim, void* data) {
-    		wyAtlasAnimationTestLayer* layer = (wyAtlasAnimationTestLayer*)data;
-    		layer->m_hint->setText("animation ended");
+    	virtual void onAnimationEnded(wyAnimation* anim) {
+    		m_hint->setText("animation ended");
     	}
     };
     

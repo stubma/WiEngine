@@ -6621,8 +6621,8 @@ class wyAnimation;
  * 自动运行，需要结合\link wyAnimate wyAnimate\endlink 使用时，这些
  * 回调会被\link wyAnimate wyAnimate\endlink 调用。
  */
-typedef struct wyAnimationCallback {
-} wyAnimationCallback;
+class wyAnimationCallback {
+};
 
 /**
  * @class wyAnimation
@@ -6694,7 +6694,7 @@ public:
 	 * @param callback \link wyAnimationCallback wyAnimationCallback\endlink 结构指针
 	 * @param data 额外数据指针
 	 */
-	void setCallback(wyAnimationCallback* callback, void* data);
+	void setCallback(wyAnimationCallback* callback);
 };
 
 #endif //__wyAnimation_h__

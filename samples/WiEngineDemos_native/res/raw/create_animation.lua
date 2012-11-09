@@ -30,7 +30,7 @@ animation:addFrame(0.2, wyTexture2D:makePNG(wyUtils:getResId("R.drawable.grossin
 animation:addFrame(0.2, wyTexture2D:makePNG(wyUtils:getResId("R.drawable.grossini_dance_14")))
 
 -- set animation callback
-animation:setCallback(callback, nil)
+animation:setCallback(callback)
 
 -- create animate
 local animate = wyAnimate:make(animation)
