@@ -6880,8 +6880,8 @@ public:
  * \link wyTextBox wyTextBox\endlink 的回调接口定义
  * \endif
  */
-typedef struct wyTextBoxCallback {
-} wyTextBoxCallback;
+class wyTextBoxCallback {
+};
 
 /**
  * @class wyTextBox
@@ -6957,7 +6957,7 @@ public:
 	 * @param data 附加数据指针，wyTextBox不会负责释放该指针
 	 * \endif
 	 */
-	void setCallback(wyTextBoxCallback* callback, void* data);
+	void setCallback(wyTextBoxCallback* callback);
 
 	/**
 	 * 设置弹出框的标题

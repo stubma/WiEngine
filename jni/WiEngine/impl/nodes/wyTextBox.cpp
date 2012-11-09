@@ -134,10 +134,7 @@ wyTextBox::wyTextBox(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode*
 		m_topPadding(0),
 		m_bottomPadding(0),
 		m_password(false),
-		m_data(NULL) {
-	// clear callback
-	memset(&m_callback, 0, sizeof(wyTextBoxCallback));
-
+		m_callback(NULL) {
 	// add state and label as child
 	if(normal) {
 		m_normalState = normal;
@@ -406,16 +403,6 @@ void wyTextBox::setColor(wyColor4B color) {
 		m_label->setColor(color);
 }
 
-void wyTextBox::setCallback(wyTextBoxCallback* callback, void* data) {
-	if(callback == NULL) {
-		memset(&m_callback, 0, sizeof(wyTextBoxCallback));
-		m_data = NULL;
-	} else {
-		memcpy(&m_callback, callback, sizeof(wyTextBoxCallback));
-		m_data = data;
-	}
-}
-
 const char* wyTextBox::getText() {
 	return m_text;
 }
@@ -448,20 +435,20 @@ void wyTextBox::setText(const char* text) {
 }
 
 void wyTextBox::notifyOnTextChanged() {
-	if(m_callback.onTextChanged != NULL) {
-		m_callback.onTextChanged(this, m_data);
+	if(m_callback) {
+		m_callback->onTextBoxTextChanged(this);
 	}
 }
 
 void wyTextBox::notifyOnBeginEditing() {
-	if(m_callback.onBeginEditing != NULL) {
-		m_callback.onBeginEditing(this, m_data);
+	if(m_callback) {
+		m_callback->onTextBoxBeginEditing(this);
 	}
 }
 
 void wyTextBox::notifyOnEndEditing() {
-	if(m_callback.onEndEditing != NULL) {
-		m_callback.onEndEditing(this, m_data);
+	if(m_callback) {
+		m_callback->onTextBoxEndEditing(this);
 	}
 }
 

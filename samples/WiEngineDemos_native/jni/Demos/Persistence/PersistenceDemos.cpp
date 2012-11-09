@@ -104,7 +104,7 @@ public:
 	}
 };
 
-class wyPreferenceTestLayer : public wyLayer {
+class wyPreferenceTestLayer : public wyLayer, public wyTextBoxCallback {
 public:
 	wyPreferenceTestLayer() {
 		// label for text box
@@ -127,12 +127,7 @@ public:
         box->setPositiveButton("Modify");
         box->setNegativeButton("Oh No!");
         box->setPadding(DP(10), DP(3), DP(10), DP(6));
-        static wyTextBoxCallback callback = {
-        		NULL,
-        		NULL,
-        		onEndEditing
-        };
-        box->setCallback(&callback, this);
+        box->setCallback(this);
         addChildLocked(box);
 
         // label of hint
@@ -150,7 +145,13 @@ public:
 	virtual ~wyPreferenceTestLayer() {
 	}
 
-	static void onEndEditing(wyTextBox* box, void* data) {
+	virtual void onTextBoxTextChanged(wyTextBox* box) {
+	}
+
+	virtual void onTextBoxBeginEditing(wyTextBox* box) {
+	}
+
+	virtual void onTextBoxEndEditing(wyTextBox* box) {
 		wyPrefs::setInt("test.int.pref", atoi(box->getText()));
 	}
 };

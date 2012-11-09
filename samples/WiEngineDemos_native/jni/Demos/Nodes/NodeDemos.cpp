@@ -1663,7 +1663,7 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class wyTextBoxTestLayer: public wyLayer {
+class wyTextBoxTestLayer: public wyLayer, public wyTextBoxCallback {
 public:
 	wyTextBoxTestLayer() {
 		wyLabel* label = wyLabel::make("", SP(22), BOLD, WY_DEFAULT_FONT);
@@ -1687,27 +1687,22 @@ public:
         box->setPadding(DP(10), DP(3), DP(10), DP(6));
         // you can set password style
 //        box->setPassword(true);
-        static wyTextBoxCallback callback = {
-        		onBeginEditing,
-        		onTextChanged,
-        		onEndEditing
-        };
-        box->setCallback(&callback, this);
+        box->setCallback(this);
         addChildLocked(box);
 	}
 
 	virtual ~wyTextBoxTestLayer() {
 	}
 
-	static void onTextChanged(wyTextBox* box, void* data) {
+	virtual void onTextBoxTextChanged(wyTextBox* box) {
 		LOGD("onTextChanged: %s", box->getText());
 	}
 
-	static void onBeginEditing(wyTextBox* box, void* data) {
+	virtual void onTextBoxBeginEditing(wyTextBox* box) {
 		LOGD("onBeginEditing");
 	}
 
-	static void onEndEditing(wyTextBox* box, void* data) {
+	virtual void onTextBoxEndEditing(wyTextBox* box) {
 		LOGD("onEndEditing: %s", box->getText());
 	}
 };

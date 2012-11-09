@@ -37,60 +37,32 @@ class wyPositiveRunnable;
 class wyTextChangedRunnable;
 
 /**
- * @struct wyTextBoxCallback
- *
- * \if English
  * Definition of edit text event callback
- * \else
- * \link wyTextBox wyTextBox\endlink 的回调接口定义
- * \endif
  */
-typedef struct WIENGINE_API wyTextBoxCallback {
+class WIENGINE_API wyTextBoxCallback {
+public:
 	/**
-	 * \if English
 	 * Invoked when start editing, generally when input dialog is shown
 	 *
 	 * @param box related \link wyTextBox wyTextBox\endlink
-	 * @param data extra data pointer
-	 * else
-	 * 开始编辑时调用, 即输入框弹出时被调用
-	 *
-	 * @param box 相关的\link wyTextBox wyTextBox\endlink 对象
-	 * @param data 附加数据指针
-	 * \endif
 	 */
-	void (*onBeginEditing)(wyTextBox* box, void* data);
+	virtual void onTextBoxBeginEditing(wyTextBox* box) = 0;
 
 	/**
-	 * \if English
 	 * Invoked when text changed. All change will be canceled if user click negative button
 	 *
 	 * @param box related \link wyTextBox wyTextBox\endlink
 	 * @param data extra data pointer
-	 * \else
-	 * 文本内容发生变化时被调用, 如果之后用户点击了取消按钮，则这些文本变化都会被取消
-	 *
-	 * @param box 相关的\link wyTextBox wyTextBox\endlink 对象
-	 * @param data 附加数据指针
-	 * \endif
 	 */
-	void (*onTextChanged)(wyTextBox* box, void* data);
+	virtual void onTextBoxTextChanged(wyTextBox* box) = 0;
 
 	/**
-	 * \if English
 	 * Invoked when end editing, no matter user clicks positive or negative button
 	 *
 	 * @param box related \link wyTextBox wyTextBox\endlink
-	 * @param data extra data pointer
-	 * \else
-	 * 结束编辑时调用，不管是点击了确定还是取消按钮，就是调用这个方法
-	 *
-	 * @param box 相关的\link wyTextBox wyTextBox\endlink 对象
-	 * @param data 附加数据指针
-	 * \endif
 	 */
-	void (*onEndEditing)(wyTextBox* box, void* data);
-} wyTextBoxCallback;
+	virtual void onTextBoxEndEditing(wyTextBox* box) = 0;
+};
 
 /**
  * @class wyTextBox
@@ -115,23 +87,8 @@ class WIENGINE_API wyTextBox : public wyNode {
 	friend class wyTextChangedRunnable;
 
 protected:
-	/**
-	 * \if English
-	 * edit text callback
-	 * \else
-	 * 文本编辑框的回调接口
-	 * \endif
-	 */
-	wyTextBoxCallback m_callback;
-
-	/**
-	 * \if English
-	 * extra data pointer of edit text callback
-	 * \else
-	 * callback的附加数据指针
-	 * \endif
-	 */
-	void* m_data;
+	/// edit text callback
+	wyTextBoxCallback* m_callback;
 
 	/// temp variable to save old text
 	const char* m_oldText;
@@ -189,7 +146,6 @@ private:
 
 protected:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param normal normal state node, can not be NULL
@@ -198,16 +154,6 @@ protected:
 	 * @param focused focused state node, can be NULL
 	 * @param label label node used to display text, can be any label node such as \link wyLabel wyLabel\endlink,
 	 * 		\link wyAtlasLabel wyAtlasLabel\endlink, \link wyBitmapFontLabel wyBitmapFontLabel\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param normal 正常状态的\link wyNode wyNode对象指针 \endlink, 不能为NULL
-	 * @param selected 被选中状态的\link wyNode wyNode对象指针 \endlink，可以为NULL
-	 * @param disabled 禁用状态的\link wyNode wyNode对象指针 \endlink，可以为NULL
-	 * @param focused  获得焦点状态的\link wyNode wyNode对象指针 \endlink，可以为NULL
-	 * @param label 文字标签节点，只要是WiEngine中支持的标签节点都可以，比如\link wyLabel wyLabel\endlink,
-	 * 		\link wyAtlasLabel wyAtlasLabel\endlink, \link wyBitmapFontLabel wyBitmapFontLabel\endlink等
-	 * \endif
 	 */
 	wyTextBox(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode* focused, wyNode* label);
 
@@ -271,20 +217,11 @@ public:
 	virtual void setAlpha(int alpha);
 
 	/**
-	 * \if English
 	 * Set callback
 	 *
 	 * @param callback \link wyTextBoxCallback wyTextBoxCallback\endlink structure. NULL means clear current callback.
-	 * @param data User data pointer, who allocate it should be responsible for release it
-	 * \else
-	 * 设置动作执行的回调函数native引用
-	 *
-	 * @param callback 回调函数\link wyTextBoxCallback wyTextBoxCallback\endlink结构, 如果
-	 * 		为NULL, 则表示清除现有的callback
-	 * @param data 附加数据指针，wyTextBox不会负责释放该指针
-	 * \endif
 	 */
-	void setCallback(wyTextBoxCallback* callback, void* data);
+	void setCallback(wyTextBoxCallback* callback) { m_callback = callback; }
 
 	/**
 	 * 设置弹出框的标题
