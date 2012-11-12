@@ -60,48 +60,35 @@ namespace Action {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     class wyAtlasAnimationTestLayer : public wyLayer, public wyAnimationCallback {
-    private:
-		int ITEM_WIDTH;
-		int ITEM_HEIGHT;
-
     public:
 		wyLabel* m_hint;
 
-    private:
-		wyRect frameAt(int x, int y){
-		   return wyr(x * ITEM_WIDTH, y * ITEM_HEIGHT, ITEM_WIDTH, ITEM_HEIGHT);
-		}
-
     public:
         wyAtlasAnimationTestLayer(){
-            // set width and height
-            ITEM_WIDTH = DP(85);
-            ITEM_HEIGHT = DP(121);
-            
-            // add sprite
-            wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
-            wySprite* sprite = wySprite::make(tex, wyr(0, 0, ITEM_WIDTH, ITEM_HEIGHT));
+            // add zwoptex
+        	wyZwoptexManager* zm = wyZwoptexManager::getInstance();
+			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+			zm->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
+
+			// create a sprite from zwoptex
+            wySprite* sprite = zm->makeSprite("grossini_dance_01.png");
             sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
             addChildLocked(sprite);
             
-            // create animation and add it to atlas sprite
+            // create animation and add all atlas texture to animation
+            // because the frame is from zwoptex, we need get sprite frame
+            // and add it to animation
+			char buf[128];
             wyAnimation* anim = wyAnimation::make(0);
-            anim->addFrame(0.2f, frameAt(0, 0));
-            anim->addFrame(0.2f, frameAt(1, 0));
-            anim->addFrame(0.2f, frameAt(2, 0));
-            anim->addFrame(0.2f, frameAt(3, 0));
-            anim->addFrame(0.2f, frameAt(4, 0));
-            anim->addFrame(0.2f, frameAt(0, 1));
-            anim->addFrame(0.2f, frameAt(1, 1));
-            anim->addFrame(0.2f, frameAt(2, 1));
-            anim->addFrame(0.2f, frameAt(3, 1));
-            anim->addFrame(0.2f, frameAt(4, 1));
-            anim->addFrame(0.2f, frameAt(0, 2));
-            anim->addFrame(0.2f, frameAt(1, 2));
-            anim->addFrame(0.2f, frameAt(2, 2));
-            anim->addFrame(0.2f, frameAt(3, 2));
+            for(int i = 1; i <= 14; i++) {
+    			sprintf(buf, "grossini_dance_%02d.png", i);
+    			wySpriteFrame* f = zm->getSpriteFrame(buf);
+    			f->setDuration(0.2f);
+				anim->addFrame(f);
+            }
             anim->setCallback(this);
             
+            // run animate action
             wyAnimate* a = wyAnimate::make(anim);
             sprite->runAction(a);
 
