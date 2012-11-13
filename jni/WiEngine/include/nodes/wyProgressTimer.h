@@ -35,10 +35,13 @@
 #include "wyProgress.h"
 
 /**
- * @class wyProgressTimer
+ * Progress timer node, can be bar style or radial style. The progress timer
+ * has a percentage property which should be between 0 and 100. 
  *
- * 进度条节点对象，可以包装任意图片对象，实现只显示百分之0到100的效果。
- * 进度条的样式可以为条型或者扇形
+ * \note
+ * Progress timer support atlas texture but with one limitation: it doesn't support
+ * border-trimmed texture. So, if you want to set atlas texture to progress timer, the
+ * "trim" option in texture packing software should not be checked
  */
 class WIENGINE_API wyProgressTimer : public wyNode {
 protected:
