@@ -28,6 +28,7 @@
 	<property name="dist.wizards.vs2010.dir" value="${dist.wizards.dir}/vs2010"/>
 	<property name="dist.samples.dir" value="${dist.dir}/samples"/>
 	<property name="dist.zip" location="${dist.dir}/WiEngine_sdk_windows_${version}.zip"/>
+	<property name="scheme">Debug</property>
 	
 	<!-- make necessary dir -->
 	<target name="setup">
@@ -207,10 +208,10 @@
 		<antcall target="copy_libs"/>
 	</target>
 	
-	<!-- copy release libs -->
+	<!-- copy libs -->
 	<target name="copy_libs">
 	    <copy todir="${dist.libs.dir}">
-	        <fileset dir="Release">
+	        <fileset dir="${scheme}">
 	            <include name="lib*.dll"/>
 	            <include name="libbox2d.lib"/>
 	            <include name="libchipmunk.lib"/>
