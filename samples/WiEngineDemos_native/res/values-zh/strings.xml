@@ -230,7 +230,7 @@
     <string name="SuckTransitionTest_desc">使用吸入效果进行场景转换</string>
     <string name="ArcticTest_desc">Arctic是一个派生自AuroraGT的动画编辑器, WiEngine支持它的导出格式. 这些编辑器的架构都类似Motion Welder, 因此WiEngine命名为AFC模式动画, 即Animation, Frame, Clip.</string>
     <string name="Box2DCollisionDetectionTest_desc">在不建立World的情况下进行碰撞检测. WiEngine提供了一个wyBox2DCollisionDetector类, 它隐藏了Box2D的实现细节, 把碰撞检测包装成了一些简单的API, 这些API基于节点架构, 易于使用</string>
-    <string name="AlphaTestTest_desc">用Shader实现alpha测试来控制精灵显示的区域</string>
+    <string name="AlphaTestTest_desc">用Shader实现alpha测试来控制精灵显示的区域, 仅处于演示目的. 实际上alpha测试较拖性能, 一般应避免使用而用alpha混合代替</string>
     <string name="AuroraGTTest_desc">AuroraGT是GameLoft设计的游戏工具, 动画编辑是它的一个功能. WiEngine支持载入AuroraGT的动画导出文件</string>
     <string name="ClipMappingAuroraGTTest_desc">将分片映射规则应用于动画从而得到不同的效果, 这里例子演示如何从AuroraGT导出的Module Mapping文件中创建分片映射规则</string>
     <string name="ResourceDecoderTest_desc">将游戏资源编码可以保护资源文件不被盗用的. 为了让WiEngine能够识别编码的资源, 需要通过Director.setResourceDecoder设置一个解码器实现. 注意: 资源解码器不支持音频资源</string>
