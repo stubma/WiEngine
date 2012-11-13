@@ -528,7 +528,6 @@
 		929D48E0146FFAE500267B99 /* b2WheelJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D4807146FFAE500267B99 /* b2WheelJoint.cpp */; };
 		929D48E2146FFAE500267B99 /* wyBox2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D4809146FFAE500267B99 /* wyBox2D.cpp */; };
 		929D48E3146FFAE500267B99 /* wyBox2DCollisionDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D480A146FFAE500267B99 /* wyBox2DCollisionDetector.cpp */; };
-		929D48E4146FFAE500267B99 /* wyBox2DInit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D480B146FFAE500267B99 /* wyBox2DInit.cpp */; };
 		929D48E5146FFAE500267B99 /* wyBox2DPELoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D480C146FFAE500267B99 /* wyBox2DPELoader.cpp */; };
 		929D48ED146FFB1C00267B99 /* libwiengine.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D4319146FEA4100267B99 /* libwiengine.dylib */; };
 		929D48EE146FFB3600267B99 /* libbox2d.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D46EF146FFA4A00267B99 /* libbox2d.dylib */; };
@@ -1211,9 +1210,7 @@
 		929D4808146FFAE500267B99 /* b2WheelJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2WheelJoint.h; sourceTree = "<group>"; };
 		929D4809146FFAE500267B99 /* wyBox2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2D.cpp; sourceTree = "<group>"; };
 		929D480A146FFAE500267B99 /* wyBox2DCollisionDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DCollisionDetector.cpp; sourceTree = "<group>"; };
-		929D480B146FFAE500267B99 /* wyBox2DInit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DInit.cpp; sourceTree = "<group>"; };
 		929D480C146FFAE500267B99 /* wyBox2DPELoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DPELoader.cpp; sourceTree = "<group>"; };
-		929D480F146FFAE500267B99 /* wyJNI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJNI.h; sourceTree = "<group>"; };
 		929D48EF146FFBAF00267B99 /* wyBox2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2D.h; path = ../WiEngine/include/box2d/wyBox2D.h; sourceTree = "<group>"; };
 		929D48F0146FFBAF00267B99 /* wyBox2DCollisionDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2DCollisionDetector.h; path = ../WiEngine/include/box2d/wyBox2DCollisionDetector.h; sourceTree = "<group>"; };
 		929D48F1146FFBAF00267B99 /* wyBox2DPELoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2DPELoader.h; path = ../WiEngine/include/box2d/wyBox2DPELoader.h; sourceTree = "<group>"; };
@@ -2771,9 +2768,7 @@
 				92322AEC1643D11D002D0EFE /* wyBox2DDebugDraw.cpp */,
 				929D4809146FFAE500267B99 /* wyBox2D.cpp */,
 				929D480A146FFAE500267B99 /* wyBox2DCollisionDetector.cpp */,
-				929D480B146FFAE500267B99 /* wyBox2DInit.cpp */,
 				929D480C146FFAE500267B99 /* wyBox2DPELoader.cpp */,
-				929D480F146FFAE500267B99 /* wyJNI.h */,
 			);
 			name = Box2D;
 			path = ../jni/Box2D;
@@ -4979,7 +4974,6 @@
 				929D48E0146FFAE500267B99 /* b2WheelJoint.cpp in Sources */,
 				929D48E2146FFAE500267B99 /* wyBox2D.cpp in Sources */,
 				929D48E3146FFAE500267B99 /* wyBox2DCollisionDetector.cpp in Sources */,
-				929D48E4146FFAE500267B99 /* wyBox2DInit.cpp in Sources */,
 				929D48E5146FFAE500267B99 /* wyBox2DPELoader.cpp in Sources */,
 				92322AEE1643D11D002D0EFE /* wyBox2DDebugDraw.cpp in Sources */,
 				92322AEF1643D11D002D0EFE /* wyBox2DMeshBuilder.cpp in Sources */,
