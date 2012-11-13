@@ -168,11 +168,14 @@ protected:
 	 */
 	wyRect m_texRect;
 
-	/// the destination render area width
-	float m_renderWidth;
-
-	/// the destination render area height
-	float m_renderHeight;
+    /**
+     * destination render area rectangle, will not be used
+     * if \c m_enableRenderRect flag is false
+     */
+    wyRect m_renderRect;
+    
+    /// flag indicating \c m_renderRect is set
+    bool m_enableRenderRect;
 
 	/// the x offset when render this texture
 	float m_offsetX;
@@ -414,17 +417,17 @@ public:
 	/// set texture rect
 	void setTextureRect(wyRect r) { m_texRect = r; }
 
-	/// set render width expected
-	void setRenderWidth(float w) { m_renderWidth = w; }
+	/// set render rect expected
+	void setRenderRect(wyRect r) { m_renderRect = r; }
 
-	/// get render width expected
-	float setRenderWidth() { return m_renderWidth; }
-
-	/// set render height expected
-	void setRenderHeight(float h) { m_renderHeight = h; }
-
-	/// get render height expected
-	float getRenderHeight() { return m_renderHeight; }
+	/// get render rect
+	wyRect getRenderRect() { return m_renderRect; }
+    
+    /// enable render rect or not
+    void setEnableRenderRect(bool flag) { m_enableRenderRect = flag; }
+    
+    /// is render rect enabled or not
+    bool isEnableRenderRect() { return m_enableRenderRect; }
 
 	/// set render offset x
 	void setOffsetX(float x) { m_offsetX = x; }

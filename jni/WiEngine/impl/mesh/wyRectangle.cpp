@@ -64,18 +64,28 @@ void wyRectangle::updateColor4B(wyColor4B color) {
 }
 
 void wyRectangle::update() {
-    // calculate offset
-	float sw = m_texSourceWidth == 0 ? m_texRect.width : m_texSourceWidth;
-	float sh = m_texSourceHeight == 0 ? m_texRect.height : m_texSourceHeight;
-    float x = (sw - (m_rotate90CCW ? m_texRect.height : m_texRect.width)) / 2 + m_offsetX;
-    float y = (sh - (m_rotate90CCW ? m_texRect.width : m_texRect.height)) / 2 + m_offsetY;
+    // calculate correct render area and offset
+    float x, y, w, h;
+    if(m_enableRenderRect) {
+        x = m_renderRect.x + m_offsetX;
+        y = m_renderRect.y + m_offsetY;
+        w = m_renderRect.width;
+        h = m_renderRect.height;
+    } else {
+        w = m_rotate90CCW ? m_texRect.height : m_texRect.width;
+        h = m_rotate90CCW ? m_texRect.width : m_texRect.height;
+        float sw = m_texSourceWidth == 0 ? m_texRect.width : m_texSourceWidth;
+        float sh = m_texSourceHeight == 0 ? m_texRect.height : m_texSourceHeight;
+        x = (sw - w) / 2 + m_offsetX;
+        y = (sh - h) / 2 + m_offsetY;
+    }
 
 	// get vertices
 	float vertices[] = {
 		x, y, 0.0f,
-		m_renderWidth + x, y, 0.0f,
-		x, m_renderHeight + y, 0.0f,
-		m_renderWidth + x, m_renderHeight + y, 0.0f
+		w + x, y, 0.0f,
+		x, h + y, 0.0f,
+		w + x, h + y, 0.0f
 	};
 
 	// get texture coordination
@@ -120,10 +130,10 @@ void wyRectangle::update() {
 		wyUtils::swap(texCoords, 3, 7);
 
 		// adjust vertices y value
-		vertices[1] = m_renderHeight - vertices[1];
-		vertices[4] = m_renderHeight - vertices[4];
-		vertices[7] = m_renderHeight - vertices[7];
-		vertices[10] = m_renderHeight - vertices[10];
+		vertices[1] = h - vertices[1];
+		vertices[4] = h - vertices[4];
+		vertices[7] = h - vertices[7];
+		vertices[10] = h - vertices[10];
 
 		// swap bl and tl, swap br and tr
 		wyUtils::swap(vertices, 0, 6);
@@ -142,10 +152,10 @@ void wyRectangle::update() {
 		wyUtils::swap(texCoords, 5, 7);
 
 		// adjust vertices x value
-		vertices[0] = m_renderWidth - vertices[0];
-		vertices[3] = m_renderWidth - vertices[3];
-		vertices[6] = m_renderWidth - vertices[6];
-		vertices[9] = m_renderWidth - vertices[9];
+		vertices[0] = w - vertices[0];
+		vertices[3] = w - vertices[3];
+		vertices[6] = w - vertices[6];
+		vertices[9] = w - vertices[9];
 
 		// swap bl and br, swap tl and tr
 		wyUtils::swap(vertices, 0, 3);

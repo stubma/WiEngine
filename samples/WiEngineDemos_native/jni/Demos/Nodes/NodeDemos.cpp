@@ -641,6 +641,12 @@ public:
 class wyImageSpriteTestLayer: public wyNodeTestLayer {
 public:
 	wyImageSpriteTestLayer() {
+        wySprite* bg = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.background")));
+        bg->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
+        bg->setContentSize(wyDevice::winWidth, wyDevice::winHeight);
+        bg->setAutoFit(true);
+        addChildLocked(bg, -1);
+        
 		addNewSprite(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 	}
 

@@ -67,17 +67,11 @@ void wyTextureNode::updateMesh() {
 	// update render width
 	wyMesh* mesh = getMesh();
 	if(m_autoFit) {
-		mesh->setRenderWidth(m_width);
-		mesh->setRenderHeight(m_height);
-	} else if(mesh->isRotate90CCW()) {
-		wyRect r = mesh->getTextureRect();
-		mesh->setRenderWidth(r.height);
-		mesh->setRenderHeight(r.width);
+		mesh->setRenderRect(wyr(0, 0, m_width, m_height));
+        mesh->setEnableRenderRect(true);
 	} else {
-		wyRect r = mesh->getTextureRect();
-		mesh->setRenderWidth(r.width);
-		mesh->setRenderHeight(r.height);
-	}
+        mesh->setEnableRenderRect(false);
+    }
 
 	// update
 	mesh->update();
@@ -99,9 +93,13 @@ void wyTextureNode::setTextureRect(wyRect rect) {
 }
 
 void wyTextureNode::setRenderOffset(wyPoint p) {
+    // update mesh
 	wyMesh* mesh = getMesh();
 	mesh->setOffsetX(p.x);
 	mesh->setOffsetY(p.y);
+    
+    // flag update
+	setNeedUpdateMesh(true);
 }
 
 void wyTextureNode::setTexture(wyTexture2D* tex, int index) {
@@ -224,7 +222,6 @@ void wyTextureNode::setDisplayFrame(wyFrame* newFrame) {
 	}
 
 	// flag update
-	setNeedUpdateMaterial(true);
 	setNeedUpdateMesh(true);
 }
 

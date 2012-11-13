@@ -70,8 +70,8 @@ void wyProgressTimer::updateMesh() {
 	mesh->setTextureRect(m_sprite->getTextureRect());
 	mesh->setFlipX(m_sprite->isFlipX());
 	mesh->setFlipY(flipY);
-	mesh->setRenderWidth(m_width);
-	mesh->setRenderHeight(m_height);
+    mesh->setRenderRect(wyr(0, 0, m_width, m_height));
+    mesh->setEnableRenderRect(true);
 	mesh->setRotate90CCW(m_sprite->isRotatedZwoptex());
 	mesh->update();
 }

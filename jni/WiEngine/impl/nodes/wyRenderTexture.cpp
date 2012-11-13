@@ -65,8 +65,8 @@ void wyRenderTexture::init(int width, int height) {
 	wyRectangle* r = wyRectangle::make();
 	r->setTexPOTWidth(w);
 	r->setTexPOTHeight(h);
-	r->setRenderWidth(m_width);
-	r->setRenderHeight(m_height);
+    r->setRenderRect(wyr(0, 0, m_width, m_height));
+    r->setEnableRenderRect(true);
 	r->setTexSourceWidth(m_width);
 	r->setTexSourceHeight(m_height);
 	r->setTextureRect(wyr(0, 0, m_width, m_height));

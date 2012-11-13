@@ -311,11 +311,21 @@ void wyProgress::updateRadial() {
 void wyProgress::updateBar() {
 	float alpha = m_percentage / 100.0f;
 
-	// render offset
-	float sw = m_texSourceWidth == 0 ? m_texRect.width : m_texSourceWidth;
-	float sh = m_texSourceHeight == 0 ? m_texRect.height : m_texSourceHeight;
-    float x = (sw - (m_rotate90CCW ? m_texRect.height : m_texRect.width)) / 2 + m_offsetX;
-    float y = (sh - (m_rotate90CCW ? m_texRect.width : m_texRect.height)) / 2 + m_offsetY;
+    // calculate correct render area and offset
+    float x, y, w, h;
+    if(m_enableRenderRect) {
+        x = m_renderRect.x + m_offsetX;
+        y = m_renderRect.y + m_offsetY;
+        w = m_renderRect.width;
+        h = m_renderRect.height;
+    } else {
+        w = m_rotate90CCW ? m_texRect.height : m_texRect.width;
+        h = m_rotate90CCW ? m_texRect.width : m_texRect.height;
+        float sw = m_texSourceWidth == 0 ? m_texRect.width : m_texSourceWidth;
+        float sh = m_texSourceHeight == 0 ? m_texRect.height : m_texSourceHeight;
+        x = (sw - w) / 2 + m_offsetX;
+        y = (sh - h) / 2 + m_offsetY;
+    }
 
 	//	Texture Max is the actual max coordinates to deal with non-power of 2 textures
 	float tOffsetX = m_texRect.x / m_texPOTWidth;
@@ -343,13 +353,13 @@ void wyProgress::updateBar() {
 	kmVec3Fill(&v[0].pos, x, y, 0);
 	kmVec4Fill(&v[0].color, 1, 1, 1, 1);
 	kmVec2Fill(&v[1].tex, right, bottom);
-	kmVec3Fill(&v[1].pos, m_renderWidth + x, y, 0);
+	kmVec3Fill(&v[1].pos, w + x, y, 0);
 	kmVec4Fill(&v[1].color, 1, 1, 1, 1);
 	kmVec2Fill(&v[2].tex, left, top);
-	kmVec3Fill(&v[2].pos, x, m_renderHeight + y, 0);
+	kmVec3Fill(&v[2].pos, x, h + y, 0);
 	kmVec4Fill(&v[2].color, 1, 1, 1, 1);
 	kmVec2Fill(&v[3].tex, right, top);
-	kmVec3Fill(&v[3].pos, m_renderWidth + x, m_renderHeight + y, 0);
+	kmVec3Fill(&v[3].pos, w + x, h + y, 0);
 	kmVec4Fill(&v[3].color, 1, 1, 1, 1);
 
 	// is a rotated zwoptex frame?
@@ -387,7 +397,7 @@ void wyProgress::updateBar() {
 			v[1].tex.x = tMax.x * alpha;
 			v[3].tex.x = v[1].tex.x;
 		}
-		v[1].pos.x = m_renderWidth * alpha;
+		v[1].pos.x = w * alpha;
 		v[3].pos.x = v[1].pos.x;
 	} else if(m_style == HORIZONTAL_BAR_RL) {
 		if(m_rotate90CCW) {
@@ -397,7 +407,7 @@ void wyProgress::updateBar() {
 			v[0].tex.x = tMax.x * (1.0f - alpha);
 			v[2].tex.x = v[0].tex.x;
 		}
-		v[0].pos.x = m_renderWidth * (1.0f - alpha);
+		v[0].pos.x = w * (1.0f - alpha);
 		v[2].pos.x = v[0].pos.x;
 	} else if(m_style == VERTICAL_BAR_BT) {
 		if(m_rotate90CCW) {
@@ -407,7 +417,7 @@ void wyProgress::updateBar() {
 			v[2].tex.y = tMax.y * (1.0f - alpha);
 			v[3].tex.y = v[2].tex.y;
 		}
-		v[2].pos.y = m_renderHeight * alpha;
+		v[2].pos.y = h * alpha;
 		v[3].pos.y = v[2].pos.y;
 	} else if(m_style == VERTICAL_BAR_TB) {
 		if(m_rotate90CCW) {
@@ -417,7 +427,7 @@ void wyProgress::updateBar() {
 			v[0].tex.y = tMax.y * alpha;
 			v[1].tex.y = v[0].tex.y;
 		}
-		v[0].pos.y = m_renderHeight * (1.0f - alpha);
+		v[0].pos.y = h * (1.0f - alpha);
 		v[1].pos.y = v[0].pos.y;
 	}
 

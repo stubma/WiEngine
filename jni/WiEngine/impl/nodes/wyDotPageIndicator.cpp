@@ -133,8 +133,8 @@ void wyDotPageIndicator::updateMesh() {
 			r->setTexPOTHeight(m_selectedDot->getPixelHeight());
 			r->setOffsetX(x - m_selectedDotRect.width / 2);
 			r->setOffsetY(y - m_selectedDotRect.height / 2);
-			r->setRenderWidth(m_selectedDotRect.width);
-			r->setRenderHeight(m_selectedDotRect.height);
+            r->setRenderRect(wyr(0, 0, m_selectedDotRect.width, m_selectedDotRect.height));
+            r->setEnableRenderRect(true);
 			r->setTexSourceWidth(m_selectedDot->getWidth());
 			r->setTexSourceHeight(m_selectedDot->getHeight());
 			r->setFlipX(false);
@@ -149,8 +149,8 @@ void wyDotPageIndicator::updateMesh() {
 			r->setTexPOTHeight(m_dot->getPixelHeight());
 			r->setOffsetX(x - m_dotRect.width / 2);
 			r->setOffsetY(y - m_dotRect.height / 2);
-			r->setRenderWidth(m_dotRect.width);
-			r->setRenderHeight(m_dotRect.height);
+            r->setRenderRect(wyr(0, 0, m_dotRect.width, m_dotRect.height));
+            r->setEnableRenderRect(true);
 			r->setTexSourceWidth(m_dot->getWidth());
 			r->setTexSourceHeight(m_dot->getHeight());
 			r->setFlipX(false);
