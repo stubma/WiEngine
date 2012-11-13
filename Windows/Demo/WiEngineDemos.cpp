@@ -268,6 +268,7 @@ static demoEntryFunc sDemoMap[16][50] = {
 	},
 	{
 		DEMO_ENTRY_NAME(shader, AlphaTestTest),
+		DEMO_ENTRY_NAME(shader, WavingFlagTest),
 	},
 	{
 		DEMO_ENTRY_NAME(sound, MP3Test),

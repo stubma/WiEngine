@@ -25,7 +25,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\jni\Box2D\Box2D.h" />
-    <ClInclude Include="..\..\jni\Box2D\wyJNI.h" />
     <ClInclude Include="..\..\jni\Box2D\Collision\b2BroadPhase.h">
       <Filter>Collision</Filter>
     </ClInclude>
@@ -185,7 +184,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\jni\Box2D\wyBox2D.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2DCollisionDetector.cpp" />
-    <ClCompile Include="..\..\jni\Box2D\wyBox2DInit.cpp" />
     <ClCompile Include="..\..\jni\Box2D\wyBox2DPELoader.cpp" />
     <ClCompile Include="..\..\jni\Box2D\Collision\b2BroadPhase.cpp">
       <Filter>Collision</Filter>
