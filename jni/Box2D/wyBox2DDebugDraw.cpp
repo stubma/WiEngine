@@ -55,7 +55,7 @@ void wyBox2DDebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, co
 
 	wyShape* s = wyShape::make();
 	s->buildPath(VAR, vertexCount);
-	s->updateColor(wyc4f(color.r, color.g, color.b, 1.0f));
+	s->updateColor4F(wyc4f(color.r, color.g, color.b, 1.0f));
 	m_box2d->addRenderPair(wyMaterial::make(wyShaderManager::PROG_PC), s);
 
 	free(VAR);
@@ -74,13 +74,13 @@ void wyBox2DDebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCoun
 	wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
 	wyShape* s = wyShape::make();
 	s->buildCustom2D(VAR, NULL, vertexCount, wyMesh::TRIANGLE_FAN);
-	s->updateColor(wyc4f(color.r, color.g, color.b, 1.0f));
+	s->updateColor4F(wyc4f(color.r, color.g, color.b, 1.0f));
 	m_box2d->addRenderPair(m, s);
 
 	// black border
 	s = wyShape::make();
 	s->buildPath(VAR, vertexCount + 1);
-	s->updateColor(wyc4bBlack);
+	s->updateColor4B(wyc4bBlack);
 	m_box2d->addRenderPair(m, s);
 
 	free(VAR);
@@ -104,7 +104,7 @@ void wyBox2DDebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2
 	// mesh
 	wyShape* s = wyShape::make();
 	s->buildPath(vertices, circleVAR_count);
-	s->updateColor(wyc4f(color.r, color.g, color.b, 1.0f));
+	s->updateColor4F(wyc4f(color.r, color.g, color.b, 1.0f));
 	m_box2d->addRenderPair(wyMaterial::make(wyShaderManager::PROG_PC), s);
 }
 
@@ -133,20 +133,20 @@ void wyBox2DDebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, con
 	wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
 	wyShape* s = wyShape::make();
 	s->buildCustom2D(vertices, NULL, circleVAR_count - 1, wyMesh::TRIANGLE_FAN);
-	s->updateColor(wyc4f(color.r, color.g, color.b, 1.0f));
+	s->updateColor4F(wyc4f(color.r, color.g, color.b, 1.0f));
 	m_box2d->addRenderPair(m, s);
 
 	// border mesh
 	s = wyShape::make();
 	s->buildPath(vertices, circleVAR_count);
-	s->updateColor(wyc4bBlack);
+	s->updateColor4B(wyc4bBlack);
 	m_box2d->addRenderPair(m, s);
 }
 
 void wyBox2DDebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color) {
 	wyShape* s = wyShape::make();
 	s->buildLine(meter2Pixel(p1.x), meter2Pixel(p1.y), meter2Pixel(p2.x), meter2Pixel(p2.y));
-	s->updateColor(wyc4f(color.r, color.g, color.b, 1.0f));
+	s->updateColor4F(wyc4f(color.r, color.g, color.b, 1.0f));
 	m_box2d->addRenderPair(wyMaterial::make(wyShaderManager::PROG_PC), s);
 }
 
@@ -157,6 +157,6 @@ void wyBox2DDebugDraw::DrawTransform(const b2Transform& xf) {
 void wyBox2DDebugDraw::DrawPoint(const b2Vec2& p, float32 size, const b2Color& color) {
 	wyShape* s = wyShape::make();
 	s->buildPoint(meter2Pixel(p.x), meter2Pixel(p.y));
-	s->updateColor(wyc4f(color.r, color.g, color.b, 1.0f));
+	s->updateColor4F(wyc4f(color.r, color.g, color.b, 1.0f));
 	m_box2d->addRenderPair(wyMaterial::make(wyShaderManager::PROG_PC), s);
 }

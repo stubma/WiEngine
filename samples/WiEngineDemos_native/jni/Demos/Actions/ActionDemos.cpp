@@ -332,19 +332,19 @@ namespace Action {
             wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
             wyShape* s = wyShape::make();
             s->buildHypotrochoid(m_c, 100);
-            s->updateColor(wyc4bGreen);
+            s->updateColor4B(wyc4bGreen);
             addRenderPair(m, s);
 
     		// material and mesh for second curve
             s = wyShape::make();
             s->buildHypotrochoid(m_ellipse, 100);
-            s->updateColor(wyc4bGreen);
+            s->updateColor4B(wyc4bGreen);
             addRenderPair(m, s);
 
     		// material and mesh for third curve
             s = wyShape::make();
             s->buildHypotrochoid(m_circle, 100);
-            s->updateColor(wyc4bGreen);
+            s->updateColor4B(wyc4bGreen);
             addRenderPair(m, s);
     	}
 
@@ -406,7 +406,7 @@ namespace Action {
             wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
             wyShape* s = wyShape::make();
             s->buildLagrange(m_config, 30);
-            s->updateColor(wyc4bGreen);
+            s->updateColor4B(wyc4bGreen);
             addRenderPair(m, s);
 
             // mesh for lagrange control points
@@ -419,7 +419,7 @@ namespace Action {
                     m_config.endX, m_config.endY
             };
             s->buildPoints(p, sizeof(p) / sizeof(float));
-            s->updateColor(wyc4bRed);
+            s->updateColor4B(wyc4bRed);
             addRenderPair(m, s);
         }
 
@@ -449,14 +449,14 @@ namespace Action {
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
         	wyShape* s = wyShape::make();
 			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
 			addRenderPair(m, s);
 
 			// mesh for points
 			s = wyShape::make();
 			s->setPointSize(5);
 			s->buildPoint(DP(100), wyDevice::winHeight - DP(100));
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			addRenderPair(m, s);
         }
 
@@ -469,7 +469,7 @@ namespace Action {
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
 			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
         }
     };
 
@@ -496,14 +496,14 @@ namespace Action {
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
 			wyShape* s = wyShape::make();
 			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
 			addRenderPair(m, s);
 
 			// mesh for points
 			s = wyShape::make();
 			s->setPointSize(5);
 			s->buildPoint(DP(100), wyDevice::winHeight - DP(100));
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			addRenderPair(m, s);
 		}
 
@@ -516,7 +516,7 @@ namespace Action {
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
 			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
         }
 	};
 
@@ -562,14 +562,14 @@ namespace Action {
 			};
 			wyShape* s = wyShape::make();
 			s->buildDashPath(p, sizeof(p) / sizeof(float), 5);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
 			addRenderPair(m, s);
 
 			// mesh for points
 			s = wyShape::make();
 			s->setPointSize(5);
 			s->buildPoints(p, sizeof(p) / sizeof(float));
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			addRenderPair(m, s);
 		}
 
@@ -600,14 +600,14 @@ namespace Action {
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
         	wyShape* s = wyShape::make();
 			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
 			addRenderPair(m, s);
 
 			// mesh for points
 			s = wyShape::make();
 			s->setPointSize(5);
 			s->buildPoint(DP(100), wyDevice::winHeight - DP(100));
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			addRenderPair(m, s);
         }
 
@@ -617,7 +617,7 @@ namespace Action {
         	wyPoint anchor = wyp(m_Sprite->getAnchorPointX(), m_Sprite->getAnchorPointY());
         	anchor = m_Sprite->nodeToWorldSpace(anchor);
 			s->buildDashLine(DP(100), wyDevice::winHeight - DP(100), anchor.x, anchor.y, 5);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
         }
     };
 
@@ -898,7 +898,7 @@ namespace Action {
             wyMaterial* m = wyMaterial::make(wyShaderManager::PROG_PC);
             wyShape* s = wyShape::make();
             s->buildBezier(m_config, 30);
-            s->updateColor(wyc4bGreen);
+            s->updateColor4B(wyc4bGreen);
             addRenderPair(m, s);
 
             // mesh for bezier control points
@@ -911,7 +911,7 @@ namespace Action {
                     m_config.endX, m_config.endY
             };
             s->buildPoints(p, sizeof(p) / sizeof(float));
-            s->updateColor(wyc4bRed);
+            s->updateColor4B(wyc4bRed);
             addRenderPair(m, s);
         }
 

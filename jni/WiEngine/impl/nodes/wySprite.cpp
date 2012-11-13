@@ -59,6 +59,5 @@ wySprite::wySprite(wyTexture2D* tex, wyZwoptexFrame* f) :
 	setTextureRect(f->rect);
 	setContentSize(f->sourceSize.width, f->sourceSize.height);
 	setRotatedZwoptex(f->rotated);
-	m_pointLeftBottom.x = f->sourceSize.width / 2 + f->offset.x - (f->rotated ? f->rect.height : f->rect.width) / 2;
-	m_pointLeftBottom.y = f->sourceSize.height / 2 + f->offset.y - (f->rotated ? f->rect.width : f->rect.height) / 2;
+	setRenderOffset(f->offset);
 }

@@ -69,5 +69,5 @@ void wyColorLayer::updateMesh() {
 }
 
 void wyColorLayer::updateMeshColor() {
-	((wyShape*)getMesh())->updateColor(m_color);
+	((wyShape*)getMesh())->updateColor4B(m_color);
 }

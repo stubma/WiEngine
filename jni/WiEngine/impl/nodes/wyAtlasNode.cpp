@@ -83,5 +83,5 @@ void wyAtlasNode::init(wyTexture2D* tex, int itemWidth, int itemHeight, int capa
 
 void wyAtlasNode::updateMeshColor() {
 	wyQuadList* quadList = (wyQuadList*)getMesh();
-	quadList->updateColor(m_color);
+	quadList->updateColor4B(m_color);
 }

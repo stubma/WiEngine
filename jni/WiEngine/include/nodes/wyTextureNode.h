@@ -35,6 +35,7 @@
 #include "wyTexture2D.h"
 #include "wyAnimation.h"
 #include <stdbool.h>
+#include "wyMesh.h"
 
 /**
  * @class wyTextureNode
@@ -53,23 +54,6 @@ protected:
     bool m_originSaved;
 
 	/**
-	 * 标识是否以X轴为转动轴翻转图片, 在wyTexture2D中，也有关于图片翻转的设置，
-	 * 这里的设置和\link wyTexture2D wyTexture2D\endlink 的设置是互相独立的，这样可以保证一个
-	 * \link wyTexture2D wyTexture2D\endlink 可以被多个wyTextureNode使用时可以渲染的不一样
-	 */
-	bool m_flipY;
-
-	/**
-	 * 标识是否以Y轴为转动轴翻转图片, 在wyTexture2D中，也有关于图片翻转的设置，
-	 * 这里的设置和\link wyTexture2D wyTexture2D\endlink 的设置是互相独立的，这样可以保证一个
-	 * \link wyTexture2D wyTexture2D\endlink 可以被多个wyTextureNode使用时可以渲染的不一样
-	 */
-	bool m_flipX;
-
-	/// true表示图片来源于一个图片集，则图片集中的图片被顺时针旋转了90度
-	bool m_rotatedZwoptex;
-
-	/**
 	 * true表示渲染时，贴图会自动适配节点的大小。这样的话，如果贴图大小不等于
 	 * 节点大小，则会起到贴图被拉伸的效果。缺省是false。
 	 */
@@ -81,12 +65,6 @@ protected:
 	/// animation map
 	map<int, wyAnimation*>* m_animations;
 
-	/// 所用贴图区域
-	wyRect m_texRect;
-
-	/// 图片左下顶点坐标
-	wyPoint m_pointLeftBottom;
-
 	/// 原始的贴图对象所用贴图区域, 以便动画结束时能够恢复原始图像
 	wyRect m_originTexRect;
 
@@ -95,9 +73,6 @@ protected:
 
 	/// 原始的贴图对象旋转标志, 以便动画结束时能够恢复原始图像
 	bool m_originRotatedZwoptex;
-
-	/// 原始的图片左下顶点坐标，以便动画结束时能够恢复原始图像
-	wyPoint m_originPointLeftBottom;
 
 private:
 	static void releaseAnimation(int id, wyAnimation* anim);
@@ -144,7 +119,7 @@ public:
 	 *
 	 * @return 矩形，(rect.x, rect.y)为左上角
 	 */
-	wyRect getTextureRect() { return m_texRect; }
+	wyRect getTextureRect() { return getMesh()->getTextureRect(); }
 
 	/// @see wyNode::addAnimation(wyAnimation*)
 	virtual void addAnimation(wyAnimation* anim);
@@ -164,47 +139,50 @@ public:
 	/// @see wyNode::setDisplayFrameById
 	virtual void setDisplayFrameById(int id, int frameIndex);
 
+	/// set render offset of this texture
+	virtual void setRenderOffset(wyPoint p);
+
 	/**
 	 * 设置是否以Y轴为转动轴翻转图片
 	 *
 	 * @param flipX true为翻转
 	 */
-	virtual void setFlipX(bool flipX) { m_flipX = flipX; }
+	virtual void setFlipX(bool flipX) { getMesh()->setFlipX(flipX); }
 
 	/**
 	 * 获得是否以Y轴为转动轴翻转图片
 	 *
 	 * @return 是否以Y轴为转动轴翻转图片，true为翻转
 	 */
-	bool isFlipX() { return m_flipX; }
+	bool isFlipX() { return getMesh()->isFlipX(); }
 
 	/**
 	 * 设置是否以X轴为转动轴翻转图片
 	 *
 	 * @param flipY true为翻转
 	 */
-	virtual void setFlipY(bool flipY) { m_flipY = flipY; }
+	virtual void setFlipY(bool flipY) { getMesh()->setFlipY(flipY); }
 
 	/**
 	 * 获得是否以X轴为转动轴翻转图片
 	 *
 	 * @return 是否以X轴为转动轴翻转图片，true为翻转
 	 */
-	bool isFlipY() { return m_flipY; }
+	bool isFlipY() { return getMesh()->isFlipY(); }
 
 	/**
 	 * 设置图片来源是一个图片集，且被顺时针旋转了90度
 	 *
 	 * @param flag true表示图片来源是一个图片集，且被顺时针旋转了90度
 	 */
-	void setRotatedZwoptex(bool flag) { m_rotatedZwoptex = flag; }
+	void setRotatedZwoptex(bool flag) { getMesh()->setRotate90CCW(flag); }
 
 	/**
 	 * 是否图片来源是一个图片集，且被顺时针旋转了90度
 	 *
 	 * @return true表示图片来源是一个图片集，且被顺时针旋转了90度
 	 */
-	bool isRotatedZwoptex() { return m_rotatedZwoptex; }
+	bool isRotatedZwoptex() { return getMesh()->isRotate90CCW(); }
 
 	/**
 	 * 设置是否自动拉伸贴图以便能匹配节点大小
@@ -219,12 +197,6 @@ public:
 	 * @return true表示自动拉伸贴图以便能匹配节点大小
 	 */
 	bool isAutoFit() { return m_autoFit; }
-
-	/**
-	 * 将自身包装成一个\link wySpriteFrame wySpriteFrame\endlink, 生成的\link wySpriteFrame wySpriteFrame\endlink
-	 * 的duration是0, 需要在返回后由开发者设置.
-	 */
-	wySpriteFrame* makeFrame();
 
 	/**
 	 * \if English

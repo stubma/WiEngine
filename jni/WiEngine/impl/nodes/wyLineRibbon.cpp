@@ -204,7 +204,7 @@ typedef struct wyStraightLine {
 
 		// update to mesh
 		m_mesh->buildCustom2D((float*)m_vertices, (float*)m_texCoords, 8, wyMesh::TRIANGLE_STRIP);
-		m_mesh->updateColor(m_color);
+		m_mesh->updateColor4B(m_color);
 	}
 } wyStraightLine;
 
@@ -369,7 +369,7 @@ typedef struct wyLine {
 
 		// update mesh
 		m_mesh->buildCustom2D((float*)m_jointVertices, (float*)m_jointTexCoords, 3 * (m_straightLines->num - 1), wyMesh::TRIANGLES);
-		m_mesh->updateColor(m_color);
+		m_mesh->updateColor4B(m_color);
 	}
 } wyLine;
 

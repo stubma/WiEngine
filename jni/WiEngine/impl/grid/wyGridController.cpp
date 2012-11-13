@@ -54,16 +54,22 @@ wyGridController::wyGridController(float w, float h, int c, int r) :
 }
 
 wyGridController* wyGridController::make3D(float w, float h, int c, int r) {
+    // the grid need to be flipped in y axis because framebuffer texture is upside-down
 	wyGridController* g = WYNEW wyGridController(w, h, c, r);
 	g->m_mesh = wyGrid3D::make(w, h, c, r);
 	g->m_mesh->retain();
+    g->m_mesh->setFlipY(true);
+	g->m_mesh->update();
 	return (wyGridController*)g->autoRelease();
 }
 
 wyGridController* wyGridController::makeTiled3D(float w, float h, int c, int r) {
+    // the grid need to be flipped in y axis because framebuffer texture is upside-down
 	wyGridController* g = WYNEW wyGridController(w, h, c, r);
 	g->m_mesh = wyTiledGrid3D::make(w, h, c, r);
 	g->m_mesh->retain();
+    g->m_mesh->setFlipY(true);
+	g->m_mesh->update();
 	return (wyGridController*)g->autoRelease();
 }
 

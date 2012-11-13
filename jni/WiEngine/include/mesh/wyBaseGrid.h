@@ -49,12 +49,6 @@ protected:
 	/// column count
 	int m_gridY;
 
-	/// grid pixel width
-	float m_width;
-
-	/// grid pixel height
-	float m_height;
-
 	/// width of a single grid unit
 	float m_stepWidth;
 

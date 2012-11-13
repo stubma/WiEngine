@@ -345,7 +345,7 @@ void wyVerletRope::setColor(wyColor3B color) {
 	m_color.r = color.r;
 	m_color.g = color.g;
 	m_color.b = color.b;
-	m_mesh->updateColor(m_color);
+	m_mesh->updateColor4B(m_color);
 }
 
 void wyVerletRope::setColor(wyColor4B color) {
@@ -353,7 +353,7 @@ void wyVerletRope::setColor(wyColor4B color) {
 	m_color.g = color.g;
 	m_color.b = color.b;
 	m_color.a = color.a;
-	m_mesh->updateColor(m_color);
+	m_mesh->updateColor4B(m_color);
 }
 
 bool wyVerletRope::isStretched() {

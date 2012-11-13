@@ -98,7 +98,7 @@ void wyTMXObjectLayer::updateMesh() {
 			// set to mesh
 			wyShape* s = wyShape::make();
 			s->buildPath((float*)buffer, vertices.getCount());
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
 			addRenderPair(m, s);
 		}
 	}

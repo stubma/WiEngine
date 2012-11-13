@@ -55,22 +55,25 @@ wyProgressTimer* wyProgressTimer::make(wySprite* sprite) {
 void wyProgressTimer::updateMesh() {
 	// get texture and texture rect
 	wyTexture2D* tex = m_sprite->getTexture();
-	wyRect texRect = m_sprite->getTextureRect();
 
 	// if texture is get from opengl, it is natural born y-flipped
 	bool flipY = tex->getSource() == SOURCE_OPENGL;
 	if(m_sprite->isFlipY())
 		flipY = !flipY;
 
-	// update
-	((wyProgress*)getMesh())->updateProgress(tex->getPixelWidth(),
-			tex->getPixelHeight(),
-			texRect,
-			m_width,
-			m_height,
-			m_sprite->isFlipX(),
-			flipY,
-			m_sprite->isRotatedZwoptex());
+	// update mesh
+	wyMesh* mesh = getMesh();
+	mesh->setTexPOTWidth(tex->getPixelWidth());
+	mesh->setTexPOTHeight(tex->getPixelHeight());
+	mesh->setTexSourceWidth(m_width);
+	mesh->setTexSourceHeight(m_height);
+	mesh->setTextureRect(m_sprite->getTextureRect());
+	mesh->setFlipX(m_sprite->isFlipX());
+	mesh->setFlipY(flipY);
+	mesh->setRenderWidth(m_width);
+	mesh->setRenderHeight(m_height);
+	mesh->setRotate90CCW(m_sprite->isRotatedZwoptex());
+	mesh->update();
 }
 
 void wyProgressTimer::updateMeshColor() {

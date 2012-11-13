@@ -62,20 +62,18 @@ void wyRenderTexture::init(int width, int height) {
 	m_fb->retain();
 
 	// add render pair
-	wyRectangle* mesh = wyRectangle::make();
-	mesh->updateMesh(w,
-			h,
-			0,
-			0,
-			m_width,
-			m_height,
-			m_width,
-			m_height,
-			false,
-			true,
-			wyr(0, 0, m_width, m_height),
-			false);
-	addRenderPair(m_fb->getMaterial(), mesh);
+	wyRectangle* r = wyRectangle::make();
+	r->setTexPOTWidth(w);
+	r->setTexPOTHeight(h);
+	r->setRenderWidth(m_width);
+	r->setRenderHeight(m_height);
+	r->setTexSourceWidth(m_width);
+	r->setTexSourceHeight(m_height);
+	r->setTextureRect(wyr(0, 0, m_width, m_height));
+	r->setFlipY(true);
+	r->setRotate90CCW(false);
+	r->update();
+	addRenderPair(m_fb->getMaterial(), r);
 
 	// set blend mode
 	setBlendMode(wyRenderState::ALPHA);
@@ -121,5 +119,5 @@ wySprite* wyRenderTexture::createSprite() {
 }
 
 void wyRenderTexture::updateMeshColor() {
-	((wyRectangle*)getMesh())->updateColor(m_color);
+	((wyRectangle*)getMesh())->updateColor4B(m_color);
 }

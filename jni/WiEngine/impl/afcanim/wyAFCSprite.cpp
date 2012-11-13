@@ -282,7 +282,7 @@ void wyAFCSprite::updateMesh() {
 			wyRect bound = getFrameRect();
 			wyShape* s = wyShape::make();
 			s->buildRect(bound.x, bound.y, bound.width, bound.height);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
 			addRenderPair(m, s);
 		}
 
@@ -312,7 +312,7 @@ void wyAFCSprite::updateMesh() {
 							// add it
 							wyShape* s = wyShape::make();
 							s->buildRect(r.x, r.y, r.width, r.height);
-							s->updateColor(wyc4bGreen);
+							s->updateColor4B(wyc4bGreen);
 							addRenderPair(m, s);
 						}
 					}

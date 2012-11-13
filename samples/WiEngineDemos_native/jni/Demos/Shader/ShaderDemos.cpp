@@ -94,8 +94,71 @@ namespace Shader {
 	};
 
 	//////////////////////////////////////////////////////////////////////////////////////////
+
+	class wyWavingFlagTestLayer : public wyLayer {
+	private:
+		float m_time;
+		wySprite* m_flag;
+
+	public:
+		wyWavingFlagTestLayer() : m_time(0) {
+			// load custom shader, id is 1
+			wyShaderProgram* p = wyShaderManager::getInstance()->addProgram(1, RES("R.raw.shader_waving_flag_vsh"), RES("R.raw.shader_waving_flag_fsh"));
+			p->addAttribute(wyShaderVariable::VEC4, wyAttribute::NAME[wyAttribute::POSITION], wyAttribute::POSITION);
+			p->addAttribute(wyShaderVariable::VEC4, wyAttribute::NAME[wyAttribute::COLOR], wyAttribute::COLOR);
+			p->addAttribute(wyShaderVariable::VEC2, wyAttribute::NAME[wyAttribute::TEXTURE], wyAttribute::TEXTURE);
+			if(p->link()) {
+				p->addUniform(wyShaderVariable::MAT4,
+						wyUniform::NAME[wyUniform::WORLD_VIEW_PROJECTION_MATRIX],
+						wyUniform::WORLD_VIEW_PROJECTION_MATRIX);
+				p->addUniform(wyShaderVariable::TEXTURE_2D,
+						wyUniform::NAME[wyUniform::TEXTURE_2D],
+						wyUniform::TEXTURE_2D);
+				p->addUniform(wyShaderVariable::FLOAT,
+						"u_time",
+						wyUniform::CUSTOM);
+			}
+
+			// create
+			m_flag = wySprite::make(wyTexture2D::makeJPG(RES("R.drawable.usa_flag")));
+			m_flag->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
+			addChildLocked(m_flag);
+
+			// now get material of sprite and set to custom shader
+			wyMaterial* m = m_flag->getMaterial();
+			m->getTechnique()->setProgram(1);
+
+			// add an alpha parameter to material
+			wyShaderVariable::Value v;
+			v.f = m_time;
+			wyMaterialParameter* mp = wyMaterialParameter::make("u_time", v);
+			m->addParameter(mp);
+
+			// use grid 3d mesh for this sprite
+			wyGrid3D* grid = wyGrid3D::make(m_flag->getWidth(), m_flag->getHeight(), m_flag->getWidth(), 1);
+			m_flag->replaceMesh(grid);
+
+			// schedule a time to update uniform
+			scheduleLocked(wyTimer::make(wyTargetSelector::make(this, SEL(wyWavingFlagTestLayer::onUpdateTimeUniform))));
+		}
+
+		virtual ~wyWavingFlagTestLayer() {
+		}
+
+		void onUpdateTimeUniform(wyTargetSelector* ts) {
+			m_time += ts->getDelta();
+			wyMaterial* m = m_flag->getMaterial();
+			wyMaterialParameter* mp = m->getParameter("u_time");
+			wyShaderVariable::Value v;
+			v.f = m_time;
+			mp->setValue(v);
+		}
+	};
+
+	//////////////////////////////////////////////////////////////////////////////////////////
 }
 
 using namespace Shader;
 
 DEMO_ENTRY_IMPL(shader, AlphaTestTest);
+DEMO_ENTRY_IMPL(shader, WavingFlagTest);

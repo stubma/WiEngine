@@ -38,14 +38,9 @@
 wyTextureNode::wyTextureNode(wyTexture2D* tex) :
 		m_originalTex(NULL),
         m_originSaved(false),
-		m_flipX(false),
-		m_flipY(false),
-		m_rotatedZwoptex(false),
 		m_autoFit(false),
 		m_currentFrame(NULL),
-		m_pointLeftBottom(wypZero),
-		m_animations(WYNEW map<int, wyAnimation*>()),
-		m_texRect(wyrZero) {
+		m_animations(WYNEW map<int, wyAnimation*>()) {
 	// create empty material and mesh, default we use rectangle mesh
 	addRenderPair(wyMaterial::make(), wyRectangle::make());
 
@@ -69,38 +64,44 @@ void wyTextureNode::releaseAnimation(int id, wyAnimation* anim) {
 }
 
 void wyTextureNode::updateMesh() {
-	// update texture to mesh
-	wyRectangle* rect = (wyRectangle*)getMesh();
-	wyTexture2D* tex = getTexture();
-	if(tex) {
-		rect->updateMesh(tex->getPixelWidth(),
-				tex->getPixelHeight(),
-				m_autoFit ? 0 : m_pointLeftBottom.x,
-				m_autoFit ? 0 : m_pointLeftBottom.y,
-				m_autoFit ? m_width : (m_rotatedZwoptex ? m_texRect.height : m_texRect.width),
-				m_autoFit ? m_height : (m_rotatedZwoptex ? m_texRect.width : m_texRect.height),
-	            m_width,
-	            m_height,
-				m_flipX,
-				m_flipY,
-				m_texRect,
-				m_rotatedZwoptex);
+	// update render width
+	wyMesh* mesh = getMesh();
+	if(m_autoFit) {
+		mesh->setRenderWidth(m_width);
+		mesh->setRenderHeight(m_height);
+	} else if(mesh->isRotate90CCW()) {
+		wyRect r = mesh->getTextureRect();
+		mesh->setRenderWidth(r.height);
+		mesh->setRenderHeight(r.width);
+	} else {
+		wyRect r = mesh->getTextureRect();
+		mesh->setRenderWidth(r.width);
+		mesh->setRenderHeight(r.height);
 	}
+
+	// update
+	mesh->update();
 }
 
 void wyTextureNode::updateMeshColor() {
 	// update color of mesh
 	wyRectangle* rect = (wyRectangle*)getMesh();
-	rect->updateColor(m_color);
+	rect->updateColor4B(m_color);
 }
 
 void wyTextureNode::setTextureRect(wyRect rect) {
-	m_texRect = rect;
-	if(!m_autoFit)
-		setContentSize(rect.width, rect.height);
+	// update mesh
+	wyMesh* mesh = getMesh();
+	mesh->setTextureRect(rect);
 
 	// flag update
 	setNeedUpdateMesh(true);
+}
+
+void wyTextureNode::setRenderOffset(wyPoint p) {
+	wyMesh* mesh = getMesh();
+	mesh->setOffsetX(p.x);
+	mesh->setOffsetY(p.y);
 }
 
 void wyTextureNode::setTexture(wyTexture2D* tex, int index) {
@@ -108,15 +109,17 @@ void wyTextureNode::setTexture(wyTexture2D* tex, int index) {
 
 	// sync content size
 	if(tex != NULL) {
-		// if node is set to auto fit, don't change texture size
-		if(!m_autoFit)
-			setContentSize(tex->getWidth(), tex->getHeight());
+		// set content size
+        if(!m_autoFit)
+        	setContentSize(tex->getWidth(), tex->getHeight());
 
-    	// update texture rect
-    	m_texRect.x = 0;
-    	m_texRect.y = 0;
-    	m_texRect.width = tex->getWidth();
-    	m_texRect.height = tex->getHeight();
+    	// update mesh
+		wyMesh* mesh = getMesh();
+		mesh->setTexPOTWidth(tex->getPixelWidth());
+		mesh->setTexPOTHeight(tex->getPixelHeight());
+
+		// set texture rect
+		setTextureRect(wyr(0, 0, tex->getWidth(), tex->getHeight()));
     }
 }
 
@@ -157,10 +160,13 @@ void wyTextureNode::setDisplayFrame(wyFrame* newFrame) {
 			wyObjectRelease(m_originalTex);
 			m_originalTex = NULL;
 
-			m_texRect = m_originTexRect;
+			// restore content size
 			setContentSize(m_originContentSize.width, m_originContentSize.height);
-			m_rotatedZwoptex = m_originRotatedZwoptex;
-			m_pointLeftBottom = m_originPointLeftBottom;
+
+			// restore mesh info
+			wyMesh* mesh = getMesh();
+			mesh->setTextureRect(m_originTexRect);
+			mesh->setRotate90CCW(m_originRotatedZwoptex);
             
             // reset flag
             m_originSaved = false;
@@ -173,19 +179,18 @@ void wyTextureNode::setDisplayFrame(wyFrame* newFrame) {
 			wyObjectRelease(m_currentFrame);
 			m_currentFrame = f;
 
-			// is rotated
-			m_rotatedZwoptex = f->isRotated();
-            
+			// get mesh
+			wyMesh* mesh = getMesh();
+
             // save original frame data
             if(!m_originSaved) {
                 m_originSaved = true;
                 
 				m_originalTex = getTexture();
 				wyObjectRetain(m_originalTex);
-                m_originTexRect = m_texRect;
+                m_originTexRect = mesh->getTextureRect();
                 m_originContentSize = getContentSize();
-                m_originRotatedZwoptex = m_rotatedZwoptex;
-                m_originPointLeftBottom = m_pointLeftBottom;
+                m_originRotatedZwoptex = mesh->isRotate90CCW();
             }
 
 			// set texture
@@ -198,10 +203,14 @@ void wyTextureNode::setDisplayFrame(wyFrame* newFrame) {
 	        wyPoint offset = f->getOffset();
 		    wySize size = f->getOriginalSize();
 		    wyRect rect = f->getRect();
+			bool rotate = f->isRotated();
 
-		    // calculate offset
-	        m_pointLeftBottom.x = (size.width - (m_rotatedZwoptex ? rect.height : rect.width)) / 2 + offset.x;
-	        m_pointLeftBottom.y = (size.height - (m_rotatedZwoptex ? rect.width : rect.height)) / 2 + offset.y;
+		    // update mesh
+		    mesh->setOffsetX(offset.x);
+		    mesh->setOffsetY(offset.y);
+		    mesh->setTexSourceWidth(size.width);
+		    mesh->setTexSourceHeight(size.height);
+		    mesh->setRotate90CCW(rotate);
 
 	        // set texture rect
 	        setTextureRect(rect);
@@ -217,17 +226,6 @@ void wyTextureNode::setDisplayFrame(wyFrame* newFrame) {
 	// flag update
 	setNeedUpdateMaterial(true);
 	setNeedUpdateMesh(true);
-}
-
-wySpriteFrame* wyTextureNode::makeFrame() {
-	float offsetX = m_pointLeftBottom.x - (m_width - (m_rotatedZwoptex ? m_texRect.height : m_texRect.width)) / 2;
-	float offsetY = m_pointLeftBottom.y - (m_height - (m_rotatedZwoptex ? m_texRect.width : m_texRect.height)) / 2;
-	return wySpriteFrame::make(0,
-			getTexture(),
-			m_texRect,
-			wyp(offsetX, offsetY),
-			wys(m_width, m_height),
-			m_rotatedZwoptex);
 }
 
 void wyTextureNode::setDisplayFrameById(int id, int frameIndex) {

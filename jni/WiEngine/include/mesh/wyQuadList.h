@@ -65,6 +65,12 @@ public:
 	/// @see wyMesh::getElementCount()
 	virtual int getElementCount() { return getTotalQuads(); }
 
+	/// @see wyMesh::update
+	virtual void update() {}
+
+	/// @see wyMesh::updateColor4B
+	virtual void updateColor4B(wyColor4B color);
+
 	/**
 	 * Append a quad to buffer end
 	 *
@@ -141,12 +147,6 @@ public:
 	 */
 	void updateColor(int index, wyColor4B color);
 
-	/**
-	 * Update color for all quads
-	 *
-	 * @param color color to be set
-	 */
-	void updateColor(wyColor4B color);
 
 	/**
 	 * Translate position of every vertex in quad list

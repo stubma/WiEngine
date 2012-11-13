@@ -1360,11 +1360,6 @@
 				<category android:name="android.intent.category.TEST" />
 			</intent-filter><meta-data android:name="desc" android:resource="@string/HGETest_desc"></meta-data>
 </activity>
-<activity android:name=".tests.shader.AlphaTestTest" android:label="Shader/Alpha Test"><intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.TEST" />
-            </intent-filter><meta-data android:name="desc" android:resource="@string/AlphaTestTest_desc"></meta-data>
-</activity>
 <activity android:name=".tests.other.AStarTest" android:label="Other/AStar Find Path"><intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.TEST" />
@@ -1834,7 +1829,16 @@
 			</intent-filter>
 			<meta-data android:name="desc" android:resource="@string/RunActionTest_desc"></meta-data>
 		</activity>
-		
+<activity android:name=".tests.shader.AlphaTestTest" android:label="Shader/Alpha Test"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter><meta-data android:name="desc" android:resource="@string/AlphaTestTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.shader.WavingFlagTest" android:label="Shader/Waving Flag"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter><meta-data android:name="desc" android:resource="@string/WavingFlagTest_desc"></meta-data>
+</activity>
         <receiver android:name="com.wiyun.engine.iap.androidmarket.BillingReceiver">
             <intent-filter>
                 <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />

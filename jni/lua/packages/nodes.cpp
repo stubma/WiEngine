@@ -1,6 +1,6 @@
 /*
 ** Lua binding: nodes
-** Generated automatically by tolua++-1.0.92 on Fri Nov  9 11:52:57 2012.
+** Generated automatically by tolua++-1.0.92 on Mon Nov 12 14:43:48 2012.
 */
 
 #ifndef __cplusplus
@@ -21707,38 +21707,6 @@ static int tolua_nodes_wyTextureNode_isAutoFit00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeFrame of class  wyTextureNode */
-#ifndef TOLUA_DISABLE_tolua_nodes_wyTextureNode_makeFrame00
-static int tolua_nodes_wyTextureNode_makeFrame00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTextureNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTextureNode* self = (wyTextureNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'makeFrame'", NULL);
-#endif
-  {
-   wySpriteFrame* tolua_ret = (wySpriteFrame*)  self->makeFrame();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wySpriteFrame");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeFrame'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: make of class  wyTGATileMapAtlas */
 #ifndef TOLUA_DISABLE_tolua_nodes_wyTGATileMapAtlas_make00
 static int tolua_nodes_wyTGATileMapAtlas_make00(lua_State* tolua_S)
@@ -29735,7 +29703,6 @@ TOLUA_API int tolua_nodes_open (lua_State* tolua_S)
    tolua_function(tolua_S,"isRotatedZwoptex",tolua_nodes_wyTextureNode_isRotatedZwoptex00);
    tolua_function(tolua_S,"setAutoFit",tolua_nodes_wyTextureNode_setAutoFit00);
    tolua_function(tolua_S,"isAutoFit",tolua_nodes_wyTextureNode_isAutoFit00);
-   tolua_function(tolua_S,"makeFrame",tolua_nodes_wyTextureNode_makeFrame00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"wyTGATileMapAtlas","wyTGATileMapAtlas","wyTileMapAtlas",tolua_collect_wyTGATileMapAtlas);

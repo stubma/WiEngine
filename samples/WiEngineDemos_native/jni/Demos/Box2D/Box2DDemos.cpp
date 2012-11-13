@@ -1903,7 +1903,7 @@ public:
 			// collision point
 			wyShape* s = wyShape::make();
 			s->buildPoints((float*)m_result.points, m_result.pointCount * 2);
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			s->setPointSize(5);
 			addRenderPair(m, s);
 
@@ -1913,7 +1913,7 @@ public:
 					m_result.points[0].y,
 					m_result.points[0].x + m_result.normal.x * 50,
 					m_result.points[0].y + m_result.normal.y * 50);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
 			addRenderPair(m, s);
 		}
 	}
@@ -2706,14 +2706,14 @@ public:
 				hitPointMesh->setSkip(false);
 				hitPointMesh->buildPoint(m_box2d->meter2Pixel(callback.m_point.x),
 						m_box2d->meter2Pixel(callback.m_point.y));
-				hitPointMesh->updateColor(wyc4f(0.4f, 0.9f, 0.4f, 1.0f));
+				hitPointMesh->updateColor4F(wyc4f(0.4f, 0.9f, 0.4f, 1.0f));
 
 				wyShape* rayMesh = (wyShape*)m_box2d->getMeshByTag(1000);
 				rayMesh->buildLine(m_box2d->meter2Pixel(point1.x),
 						m_box2d->meter2Pixel(point1.y),
 						m_box2d->meter2Pixel(callback.m_point.x),
 						m_box2d->meter2Pixel(callback.m_point.y));
-				rayMesh->updateColor(wyc4f(0.8f, 0.8f, 0.8f, 1.0f));
+				rayMesh->updateColor4F(wyc4f(0.8f, 0.8f, 0.8f, 1.0f));
 
 				b2Vec2 head = callback.m_point + 0.5f * callback.m_normal;
 				wyShape* headMesh = (wyShape*)m_box2d->getMeshByTag(1001);
@@ -2722,7 +2722,7 @@ public:
 						m_box2d->meter2Pixel(callback.m_point.y),
 						m_box2d->meter2Pixel(head.x),
 						m_box2d->meter2Pixel(head.y));
-				headMesh->updateColor(wyc4f(0.9f, 0.9f, 0.4f, 1.0f));
+				headMesh->updateColor4F(wyc4f(0.9f, 0.9f, 0.4f, 1.0f));
 			} else {
 				wyShape* hitPointMesh = (wyShape*)m_box2d->getMeshByTag(1002);
 				hitPointMesh->setSkip(true);
@@ -2735,7 +2735,7 @@ public:
 						m_box2d->meter2Pixel(point1.y),
 						m_box2d->meter2Pixel(point2.x),
 						m_box2d->meter2Pixel(point2.y));
-				rayMesh->updateColor(wyc4f(0.8f, 0.8f, 0.8f, 1.0f));
+				rayMesh->updateColor4F(wyc4f(0.8f, 0.8f, 0.8f, 1.0f));
 			}
 		}
 
@@ -4807,7 +4807,7 @@ public:
 						s->setSkip(false);
 						s->buildPoint(m_box2d->meter2Pixel(callback.m_point.x),
 								m_box2d->meter2Pixel(callback.m_point.y));
-						s->updateColor(wyc4b(0.4f * 255, 0.9f * 255, 0.4f * 255, 255));
+						s->updateColor4B(wyc4b(0.4f * 255, 0.9f * 255, 0.4f * 255, 255));
 					} else {
 						s->setSkip(true);
 					}
@@ -4822,13 +4822,13 @@ public:
 								m_box2d->meter2Pixel(point1.y),
 								m_box2d->meter2Pixel(callback.m_point.x),
 								m_box2d->meter2Pixel(callback.m_point.y));
-						s->updateColor(wyc4b(0.8f * 255, 0.8f * 255, 0.8f * 255, 255));
+						s->updateColor4B(wyc4b(0.8f * 255, 0.8f * 255, 0.8f * 255, 255));
 					} else {
 						s->buildLine(m_box2d->meter2Pixel(point1.x),
 								m_box2d->meter2Pixel(point1.y),
 								m_box2d->meter2Pixel(point2.x),
 								m_box2d->meter2Pixel(point2.y));
-						s->updateColor(wyc4b(0.8f * 255, 0.8f * 255, 0.8f * 255, 255));
+						s->updateColor4B(wyc4b(0.8f * 255, 0.8f * 255, 0.8f * 255, 255));
 					}
 					break;
 				}
@@ -4843,7 +4843,7 @@ public:
 								m_box2d->meter2Pixel(callback.m_point.y),
 								m_box2d->meter2Pixel(head.x),
 								m_box2d->meter2Pixel(head.y));
-						s->updateColor(wyc4b(0.9f * 255, 0.9f * 255, 0.4f * 255, 255));
+						s->updateColor4B(wyc4b(0.9f * 255, 0.9f * 255, 0.4f * 255, 255));
 					} else {
 						s->setSkip(true);
 					}

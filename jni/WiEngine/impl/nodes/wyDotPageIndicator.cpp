@@ -129,33 +129,35 @@ void wyDotPageIndicator::updateMesh() {
 	for(int i = 0; i < m_pageCount; i++) {
 		if(m_selectedIndex == i) {
 			wyRectangle* r = wyRectangle::make();
-			r->updateMesh(m_selectedDot->getPixelWidth(),
-					m_selectedDot->getPixelHeight(),
-					x - m_selectedDotRect.width / 2,
-					y - m_selectedDotRect.height / 2,
-					m_selectedDotRect.width,
-					m_selectedDotRect.height,
-					m_selectedDot->getWidth(),
-					m_selectedDot->getHeight(),
-					false,
-					false,
-					m_selectedDotRect,
-					false);
+			r->setTexPOTWidth(m_selectedDot->getPixelWidth());
+			r->setTexPOTHeight(m_selectedDot->getPixelHeight());
+			r->setOffsetX(x - m_selectedDotRect.width / 2);
+			r->setOffsetY(y - m_selectedDotRect.height / 2);
+			r->setRenderWidth(m_selectedDotRect.width);
+			r->setRenderHeight(m_selectedDotRect.height);
+			r->setTexSourceWidth(m_selectedDot->getWidth());
+			r->setTexSourceHeight(m_selectedDot->getHeight());
+			r->setFlipX(false);
+			r->setFlipY(false);
+			r->setTextureRect(m_selectedDotRect);
+			r->setRotate90CCW(false);
+			r->update();
 			addRenderPair(m_selectedDotMaterial, r);
 		} else {
 			wyRectangle* r = wyRectangle::make();
-			r->updateMesh(m_dot->getPixelWidth(),
-					m_dot->getPixelHeight(),
-					x - m_dotRect.width / 2,
-					y - m_dotRect.height / 2,
-					m_dotRect.width,
-					m_dotRect.height,
-					m_dot->getWidth(),
-					m_dot->getHeight(),
-					false,
-					false,
-					m_dotRect,
-					false);
+			r->setTexPOTWidth(m_dot->getPixelWidth());
+			r->setTexPOTHeight(m_dot->getPixelHeight());
+			r->setOffsetX(x - m_dotRect.width / 2);
+			r->setOffsetY(y - m_dotRect.height / 2);
+			r->setRenderWidth(m_dotRect.width);
+			r->setRenderHeight(m_dotRect.height);
+			r->setTexSourceWidth(m_dot->getWidth());
+			r->setTexSourceHeight(m_dot->getHeight());
+			r->setFlipX(false);
+			r->setFlipY(false);
+			r->setTextureRect(m_dotRect);
+			r->setRotate90CCW(false);
+			r->update();
 			addRenderPair(m_dotMaterial, r);
 		}
 

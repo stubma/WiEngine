@@ -56,7 +56,7 @@ wyStripRibbon::~wyStripRibbon() {
 
 void wyStripRibbon::updateMeshColor() {
 	wyQuadList* atlas = (wyQuadList*)getMesh();
-	atlas->updateColor(m_color);
+	atlas->updateColor4B(m_color);
 }
 
 void wyStripRibbon::update(float delta) {

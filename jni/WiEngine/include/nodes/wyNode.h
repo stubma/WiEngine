@@ -3252,6 +3252,14 @@ public:
 	virtual void replaceMaterial(wyMaterial* material, int index = 0);
 
 	/**
+	 * Replace mesh of render pair at given index
+	 *
+	 * @param mesh new mesh
+	 * @param index render pair index
+	 */
+	virtual void replaceMesh(wyMesh* mesh, int index = 0);
+
+	/**
 	 * Get mesh at specified index
 	 *
 	 * @param index index of mesh, for node which only has one render pair, this parameter

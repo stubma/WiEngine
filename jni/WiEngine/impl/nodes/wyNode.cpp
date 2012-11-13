@@ -1618,6 +1618,18 @@ void wyNode::replaceMaterial(wyMaterial* material, int index) {
 	rp.material = material;
 }
 
+void wyNode::replaceMesh(wyMesh* mesh, int index) {
+	// validate
+	if(index < 0 || index >= m_renderPairs->size())
+		return;
+
+	// replace
+	RenderPair& rp = m_renderPairs->at(index);
+	wyObjectRetain(mesh);
+	wyObjectRelease(rp.mesh);
+	rp.mesh = mesh;
+}
+
 wyRenderQueue::Bucket wyNode::getQueueBucket() {
     if (m_queueBucket != wyRenderQueue::INHERIT_BUCKET) {
         return m_queueBucket;

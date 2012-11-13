@@ -52,24 +52,11 @@ public:
 	/// @see wyMesh::getElementCount
 	virtual int getElementCount() { return 4; }
 
-	/**
-	 * Update mesh data base don texture size
-	 *
-	 * @param texPixelWidth opengl texture pixel width, should be a POT value
-	 * @param texPixelHeight opengl texture pixel height, should be a POT value
-	 * @param x render x position
-	 * @param y render y position
-	 * @param width render width
-	 * @param height render height
-	 * @param sourceWidth original width of image
-	 * @param sourceHeight original height of image
-	 * @param flipX true means need flip texture in x axis
-	 * @param flipY true means need flip texture in y axis
-	 * @param texRect the rect area in texture you want to draw, usually used for atlas texture rendering
-	 * @param rotate90 true means texture need to be rotated 90 degrees, counter-clockwise
-	 */
-	void updateMesh(float texPixelWidth, float texPixelHeight, float x, float y, float width, float height,
-			float sourceWidth, float sourceHeight, bool flipX, bool flipY, wyRect texRect, bool rotate90);
+	/// @see wyMesh::update
+	virtual void update();
+
+	/// @see wyMesh::updateColor4B
+	virtual void updateColor4B(wyColor4B color);
 
 	/**
 	 * Update mesh data directly from pre-calculated array
@@ -79,13 +66,6 @@ public:
 	 * 		NULL means texture coordinates will not be touched
 	 */
 	void updateMesh(float* vertices, float* texCoords);
-
-	/**
-	 * Update color info
-	 *
-	 * @param color \link wyColor4B wyColor4B\endlink
-	 */
-	void updateColor(wyColor4B color);
 };
 
 #endif // __wyRectangle_h__

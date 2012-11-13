@@ -487,14 +487,14 @@ namespace Other {
 			s = wyShape::make();
 			s->setLineWidth(5);
 			s->buildLine(0, wyDevice::winHeight, wyDevice::winWidth, 0);
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			addRenderPair(m, s);
 
 			// a big point
 			s = wyShape::make();
 			s->setPointSize(64);
 			s->buildPoint(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-			s->updateColor(wyc4b(0, 0, 255, 127));
+			s->updateColor4B(wyc4b(0, 0, 255, 127));
 			addRenderPair(m, s);
 
 			// four small points
@@ -504,27 +504,27 @@ namespace Other {
 			s = wyShape::make();
 			s->setPointSize(4);
 			s->buildPoints(points, sizeof(points) / sizeof(float));
-			s->updateColor(wyc4b(0, 255, 255, 255));
+			s->updateColor4B(wyc4b(0, 255, 255, 255));
 			addRenderPair(m, s);
 
 			// green circle
 			s = wyShape::make();
 			s->setLineWidth(11);
 			s->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 100, 0, 10, false);
-			s->updateColor(wyc4bGreen);
+			s->updateColor4B(wyc4bGreen);
 			addRenderPair(m, s);
 
 			// cyan circle with radius line
 			s = wyShape::make();
 			s->setLineWidth(2);
 			s->buildCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 2, 50, 90, 50, true);
-			s->updateColor(wyc4bCyan);
+			s->updateColor4B(wyc4bCyan);
 			addRenderPair(m, s);
 
 			// solid circle
 			s = wyShape::make();
 			s->buildSolidCircle(wyDevice::winWidth / 2, wyDevice::winHeight / 4, 30, 30);
-			s->updateColor(wyc4bBlue);
+			s->updateColor4B(wyc4bBlue);
 			addRenderPair(m, s);
 
 			// rect
@@ -536,7 +536,7 @@ namespace Other {
 			};
 			s = wyShape::make();
 			s->buildRect(rect);
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			addRenderPair(m, s);
 
 			// solid rect
@@ -548,7 +548,7 @@ namespace Other {
 			};
 			s = wyShape::make();
 			s->buildSolidRect(rect2);
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			addRenderPair(m, s);
 
 			// a yellow open poly lines
@@ -558,7 +558,7 @@ namespace Other {
 			s = wyShape::make();
 			s->setLineWidth(10);
 			s->buildPoly(vertices, sizeof(vertices) / sizeof(float), false);
-			s->updateColor(wyc4bYellow);
+			s->updateColor4B(wyc4bYellow);
 			addRenderPair(m, s);
 
 			// a closed poly
@@ -568,7 +568,7 @@ namespace Other {
 			s = wyShape::make();
 			s->setLineWidth(2);
 			s->buildPoly(vertices2, sizeof(vertices2) / sizeof(float), true);
-			s->updateColor(wyc4b(255, 0, 255, 255));
+			s->updateColor4B(wyc4b(255, 0, 255, 255));
 			addRenderPair(m, s);
 
 			// solid poly
@@ -577,7 +577,7 @@ namespace Other {
 			};
 			s = wyShape::make();
 			s->buildSolidPoly(vertices_fill, sizeof(vertices_fill) / sizeof(float));
-			s->updateColor(wyc4bRed);
+			s->updateColor4B(wyc4bRed);
 			addRenderPair(m, s);
 
 			// quad bezier

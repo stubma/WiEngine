@@ -346,6 +346,6 @@ void wyBitmapFontLabel::updateMeshColor() {
 	int c = getRenderPairCount();
 	for(int i = 0; i < c; i++) {
 		wyQuadList* ql = (wyQuadList*)getMesh(i);
-		ql->updateColor(m_color);
+		ql->updateColor4B(m_color);
 	}
 }

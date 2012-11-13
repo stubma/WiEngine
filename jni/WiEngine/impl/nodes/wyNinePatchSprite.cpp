@@ -176,5 +176,5 @@ void wyNinePatchSprite::updateMesh() {
 
 void wyNinePatchSprite::updateMeshColor() {
 	wyQuadList* quadList = (wyQuadList*)getMesh();
-	quadList->updateColor(m_color);
+	quadList->updateColor4B(m_color);
 }

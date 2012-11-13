@@ -1,0 +1,23 @@
+attribute vec4 a_position;
+attribute vec2 a_texCoord;
+attribute vec4 a_color;
+
+uniform	mat4 u_MVPMatrix;
+uniform float u_time;
+
+#ifdef GL_ES
+	varying lowp vec4 v_fragmentColor;
+	varying mediump vec2 v_texCoord;
+#else
+	varying vec4 v_fragmentColor;
+	varying vec2 v_texCoord;
+#endif
+
+void main() {
+	vec4 v = a_position;
+	v.z = sin(mod(v.x / 180.0 * 3.14 + u_time * 6.28, 6.28)) * 30.0;
+    gl_Position = u_MVPMatrix * v;
+    
+	v_fragmentColor = a_color;
+	v_texCoord = a_texCoord;
+}

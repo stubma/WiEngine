@@ -56,28 +56,33 @@ wyRectangle* wyRectangle::make() {
 	return (wyRectangle*)rect->autoRelease();
 }
 
-void wyRectangle::updateColor(wyColor4B color) {
+void wyRectangle::updateColor4B(wyColor4B color) {
 	wyBuffer* buf = getFirstConnectedBuffer();
 	Vertex* data = (Vertex*)buf->getData();
 	for(int i = 0; i < 4; i++)
 		kmVec4Fill(&data[i].color, color.r / 255.f, color.g / 255.f, color.b / 255.f, color.a / 255.f);
 }
 
-void wyRectangle::updateMesh(float texPixelWidth, float texPixelHeight, float x, float y, float width, float height,
-		float sourceWidth, float sourceHeight, bool flipX, bool flipY, wyRect texRect, bool rotate90) {
+void wyRectangle::update() {
+    // calculate offset
+	float sw = m_texSourceWidth == 0 ? m_texRect.width : m_texSourceWidth;
+	float sh = m_texSourceHeight == 0 ? m_texRect.height : m_texSourceHeight;
+    float x = (sw - (m_rotate90CCW ? m_texRect.height : m_texRect.width)) / 2 + m_offsetX;
+    float y = (sh - (m_rotate90CCW ? m_texRect.width : m_texRect.height)) / 2 + m_offsetY;
+
 	// get vertices
 	float vertices[] = {
 		x, y, 0.0f,
-		width + x, y, 0.0f,
-		x, height + y, 0.0f,
-		width + x, height + y, 0.0f
+		m_renderWidth + x, y, 0.0f,
+		x, m_renderHeight + y, 0.0f,
+		m_renderWidth + x, m_renderHeight + y, 0.0f
 	};
 
 	// get texture coordination
-    float left = (2 * texRect.x + 1) / (2 * texPixelWidth);
-    float right = left + (texRect.width * 2 - 2) / (2 * texPixelWidth);
-    float top = (2 * texRect.y + 1) / (2 * texPixelHeight);
-    float bottom = top + (texRect.height * 2 - 2) / (2 * texPixelHeight);
+    float left = (2 * m_texRect.x + 1) / (2 * m_texPOTWidth);
+    float right = left + (m_texRect.width * 2 - 2) / (2 * m_texPOTWidth);
+    float top = (2 * m_texRect.y + 1) / (2 * m_texPOTHeight);
+    float bottom = top + (m_texRect.height * 2 - 2) / (2 * m_texPOTHeight);
     float texCoords[] = {
 		left, bottom,
 		right, bottom,
@@ -86,7 +91,7 @@ void wyRectangle::updateMesh(float texPixelWidth, float texPixelHeight, float x,
     };
 
     // need rotate?
-    if(rotate90) {
+    if(m_rotate90CCW) {
     	float bl_x = texCoords[0];
     	float bl_y = texCoords[1];
 
@@ -108,17 +113,17 @@ void wyRectangle::updateMesh(float texPixelWidth, float texPixelHeight, float x,
     }
 
     // if flip y axis
-	if(flipY) {
+	if(m_flipY) {
 		wyUtils::swap(texCoords, 0, 4);
 		wyUtils::swap(texCoords, 1, 5);
 		wyUtils::swap(texCoords, 2, 6);
 		wyUtils::swap(texCoords, 3, 7);
 
 		// adjust vertices y value
-		vertices[1] = sourceHeight - vertices[1];
-		vertices[4] = sourceHeight - vertices[4];
-		vertices[7] = sourceHeight - vertices[7];
-		vertices[10] = sourceHeight - vertices[10];
+		vertices[1] = m_renderHeight - vertices[1];
+		vertices[4] = m_renderHeight - vertices[4];
+		vertices[7] = m_renderHeight - vertices[7];
+		vertices[10] = m_renderHeight - vertices[10];
 
 		// swap bl and tl, swap br and tr
 		wyUtils::swap(vertices, 0, 6);
@@ -130,17 +135,17 @@ void wyRectangle::updateMesh(float texPixelWidth, float texPixelHeight, float x,
 	}
 
 	// if flip x axis
-	if(flipX) {
+	if(m_flipX) {
 		wyUtils::swap(texCoords, 0, 2);
 		wyUtils::swap(texCoords, 1, 3);
 		wyUtils::swap(texCoords, 4, 6);
 		wyUtils::swap(texCoords, 5, 7);
 
 		// adjust vertices x value
-		vertices[0] = sourceWidth - vertices[0];
-		vertices[3] = sourceWidth - vertices[3];
-		vertices[6] = sourceWidth - vertices[6];
-		vertices[9] = sourceWidth - vertices[9];
+		vertices[0] = m_renderWidth - vertices[0];
+		vertices[3] = m_renderWidth - vertices[3];
+		vertices[6] = m_renderWidth - vertices[6];
+		vertices[9] = m_renderWidth - vertices[9];
 
 		// swap bl and br, swap tl and tr
 		wyUtils::swap(vertices, 0, 3);

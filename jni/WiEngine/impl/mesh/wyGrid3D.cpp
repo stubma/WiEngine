@@ -36,15 +36,31 @@ void wyGrid3D::reuse() {
 	m_buf->copy(m_backup);
 }
 
-void wyGrid3D::calculateVertexPoints() {
-	// texture real size
-	int width = wyMath::getNextPOT(m_width);
-	int height = wyMath::getNextPOT(m_height);
+void wyGrid3D::update() {
+	// clear old data
+	m_buf->clear();
+	m_indices->clear();
 
 	// ensure capacity of buffers
 	int numVertex = (m_gridX + 1) * (m_gridY + 1);
 	m_buf->reserve(numVertex);
 	m_indices->reserve(m_gridX * m_gridY * 6);
+    
+    // texture step in normal setting, which means not flipped
+	float texStepX = m_stepWidth / m_texPOTWidth;
+	float texStepY = -m_stepHeight / m_texPOTHeight;
+	float texStartX = 0;
+	float texStartY = m_texSourceHeight / m_texPOTHeight;
+    
+	// need reverse step if flip flag is set
+	if(m_flipX) {
+		texStepX = -texStepX;
+		texStartX = m_texSourceWidth / m_texPOTWidth;
+	}
+	if(m_flipY) {
+		texStepY = -texStepY;
+		texStartY = 0;
+	}
 
 	// get raw buffer
 	GLushort* indices = (GLushort*)m_indices->getData();
@@ -77,22 +93,22 @@ void wyGrid3D::calculateVertexPoints() {
 
 			// corner 1
 			kmVec3Fill(&v[a].pos, x1, y1, 0);
-			kmVec2Fill(&v[a].tex, x1 / width, y1 / height);
+			kmVec2Fill(&v[a].tex, texStartX + x * texStepX, texStartY + y * texStepY);
 			kmVec4Fill(&v[a].color, 1, 1, 1, 1);
 
 			// corner 2
 			kmVec3Fill(&v[b].pos, x2, y1, 0);
-			kmVec2Fill(&v[b].tex, x2 / width, y1 / height);
+			kmVec2Fill(&v[b].tex, texStartX + (x + 1) * texStepX, texStartY + y * texStepY);
 			kmVec4Fill(&v[b].color, 1, 1, 1, 1);
 
 			// corner 3
 			kmVec3Fill(&v[c].pos, x2, y2, 0);
-			kmVec2Fill(&v[c].tex, x2 / width, y2 / height);
+			kmVec2Fill(&v[c].tex, texStartX + (x + 1) * texStepX, texStartY + (y + 1) * texStepY);
 			kmVec4Fill(&v[c].color, 1, 1, 1, 1);
 
 			// corner 4
 			kmVec3Fill(&v[d].pos, x1, y2, 0);
-			kmVec2Fill(&v[d].tex, x1 / width, y2 / height);
+			kmVec2Fill(&v[d].tex, texStartX + x * texStepX, texStartY + (y + 1) * texStepY);
 			kmVec4Fill(&v[d].color, 1, 1, 1, 1);
 		}
 	}
@@ -118,8 +134,6 @@ wyGrid3D::wyGrid3D(float w, float h, int c, int r) : wyBaseGrid(w, h, c, r) {
 	// create backup buffer
 	m_backup = wyBuffer::makeCustom(sizeof(Vertex));
 	m_backup->retain();
-
-	calculateVertexPoints();
 }
 
 void wyGrid3D::setVertex(wyDimension pos, wyVertex3D vertex) {
@@ -142,4 +156,16 @@ wyVertex3D wyGrid3D::getOriginalVertex(wyDimension pos) {
 	wyVertex3D ret;
 	memcpy(&ret, &v[index].pos, sizeof(wyVertex3D));
 	return ret;
+}
+
+void wyGrid3D::updateColor4B(wyColor4B color) {
+	float r = color.r / 255.0f;
+	float g = color.g / 255.0f;
+	float b = color.b / 255.0f;
+	float a = color.a / 255.0f;
+	int c = m_buf->getElementCount();
+	Vertex* v = (Vertex*)m_buf->getData();
+	for(int i = 0; i < c; i++, v++) {
+		kmVec4Fill(&v[0].color, r, g, b, a);
+	}
 }

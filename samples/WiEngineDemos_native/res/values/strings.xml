@@ -241,4 +241,5 @@
 	<string name="BigTMXTest_desc">Test performance when rendering a large TMX tile map. The test map we used in this demo is 500x25 size, so total 12500 tiles</string>
 	<string name="ToastTest_desc">Use wyToast to show a float tip likes Android Toast component, but it is implemented by OpenGL and much customizable</string>
 	<string name="RenderTextureTest_desc">Use RenderTexture to combine some drawing operation so it can create great effect</string>
+	<string name="WavingFlagTest_desc">Very simple shader to show a waving flag</string>
 </resources>

@@ -654,7 +654,7 @@ void wyShape::updateVertices(float* vertices, int vertexCount, int updateStart) 
 	}
 }
 
-void wyShape::updateColor(wyColor4B color) {
+void wyShape::updateColor4B(wyColor4B color) {
 	// color
 	float r = color.r / 255.0f;
 	float g = color.g / 255.0f;
@@ -666,14 +666,6 @@ void wyShape::updateColor(wyColor4B color) {
 	int c = m_buf->getElementCount();
 	for(int i = 0; i < c; i++) {
 		kmVec4Fill(&v[i].color, r, g, b, a);
-	}
-}
-
-void wyShape::updateColor(wyColor4F color) {
-	Vertex* v = (Vertex*)m_buf->getData();
-	int c = m_buf->getElementCount();
-	for(int i = 0; i < c; i++) {
-		kmVec4Fill(&v[i].color, color.r, color.g, color.b, color.a);
 	}
 }
 

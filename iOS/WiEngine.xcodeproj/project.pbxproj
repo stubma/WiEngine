@@ -127,7 +127,6 @@
 		92261FE41643A0B3003D980F /* wyBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92261FE31643A0B3003D980F /* wyBuffer.cpp */; };
 		92261FE61643A0D4003D980F /* wyCompoundNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92261FE51643A0D4003D980F /* wyCompoundNode.cpp */; };
 		92295DEB143AA47D00800457 /* wyBox2DPELoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92295DEA143AA47D00800457 /* wyBox2DPELoader.cpp */; };
-		922C9F7D143C178F00224BCF /* wyBox2DInit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 922C9F7C143C178F00224BCF /* wyBox2DInit.cpp */; };
 		9230DFA414BC1F7900DB1BED /* wyDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9230DFA314BC1F7900DB1BED /* wyDialog.cpp */; };
 		9233581B14CC42CA009E2DF9 /* wyMemoryInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233581A14CC42CA009E2DF9 /* wyMemoryInputStream.cpp */; };
 		9233582114CC47B6009E2DF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9265F9521348774C00CBF61F /* Foundation.framework */; };
@@ -795,7 +794,6 @@
 		9207BAD6134F499E005B1B6F /* libwiengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libwiengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		920B9FC7134B23B000E89A09 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		920C9E6613BAF1930006D88E /* wyJNI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJNI.h; sourceTree = "<group>"; };
-		920C9E6813BAF1A20006D88E /* wyJNI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJNI.h; sourceTree = "<group>"; };
 		920CADDF13D28CB20058C41B /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		920CADF213D2EFA60058C41B /* persistence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = persistence.cpp; sourceTree = "<group>"; };
 		920F62CD143ED77C001BEA13 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -958,7 +956,6 @@
 		92261FE71643A0DD003D980F /* wyCompoundNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyCompoundNode.h; path = ../../include/nodes/wyCompoundNode.h; sourceTree = "<group>"; };
 		92295DE8143AA46A00800457 /* wyBox2DPELoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBox2DPELoader.h; path = ../WiEngine/include/box2d/wyBox2DPELoader.h; sourceTree = "<group>"; };
 		92295DEA143AA47D00800457 /* wyBox2DPELoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DPELoader.cpp; sourceTree = "<group>"; };
-		922C9F7C143C178F00224BCF /* wyBox2DInit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DInit.cpp; sourceTree = "<group>"; };
 		9230DFA114BC1F7200DB1BED /* wyDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyDialog.h; path = ../jni/WiEngine/include/dialog/wyDialog.h; sourceTree = "<group>"; };
 		9230DFA314BC1F7900DB1BED /* wyDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyDialog.cpp; path = ../jni/WiEngine/impl/dialog/wyDialog.cpp; sourceTree = "<group>"; };
 		9233581814CC42B5009E2DF9 /* wyMemoryInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyMemoryInputStream.h; path = ../../include/utils/wyMemoryInputStream.h; sourceTree = "<group>"; };
@@ -3961,7 +3958,6 @@
 				923451DA142A29B900C56838 /* Controllers */,
 				923451E7142A29B900C56838 /* Dynamics */,
 				9295059713A9FB4300A39E68 /* Box2D.h */,
-				920C9E6813BAF1A20006D88E /* wyJNI.h */,
 				929506B313A9FB8700A39E68 /* wyBox2D.h */,
 				92674B77143AC2A500965D87 /* wyBox2DCollisionDetector.h */,
 				92295DE8143AA46A00800457 /* wyBox2DPELoader.h */,
@@ -3970,7 +3966,6 @@
 				92261F8716439CC7003D980F /* wyBox2DDebugDraw.cpp */,
 				92261F8916439CC7003D980F /* wyBox2DMeshBuilder.cpp */,
 				929505FB13A9FB4300A39E68 /* wyBox2D.cpp */,
-				922C9F7C143C178F00224BCF /* wyBox2DInit.cpp */,
 				92674B7A143AC2B000965D87 /* wyBox2DCollisionDetector.cpp */,
 				92295DEA143AA47D00800457 /* wyBox2DPELoader.cpp */,
 			);
@@ -5058,7 +5053,6 @@
 				92345281142A29B900C56838 /* b2WheelJoint.cpp in Sources */,
 				92295DEB143AA47D00800457 /* wyBox2DPELoader.cpp in Sources */,
 				92674B7B143AC2B000965D87 /* wyBox2DCollisionDetector.cpp in Sources */,
-				922C9F7D143C178F00224BCF /* wyBox2DInit.cpp in Sources */,
 				92261F8A16439CC7003D980F /* wyBox2DDebugDraw.cpp in Sources */,
 				92261F8C16439CC7003D980F /* wyBox2DMeshBuilder.cpp in Sources */,
 			);

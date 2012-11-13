@@ -49,6 +49,12 @@ public:
 	/// create a empty instance of wyShape, no vertex
 	static wyShape* make();
 
+	/// @see wyMesh::update
+	virtual void update() {}
+
+	/// @see wyMesh::updateColor4B
+	virtual void updateColor4B(wyColor4B color);
+
 	/// clear all vertices
 	void clear();
 
@@ -241,20 +247,6 @@ public:
 
 	/// @see wyMesh::getElementCount()
 	virtual int getElementCount();
-
-	/**
-	 * Update color of all vertices
-	 *
-	 * @param color \link wyColor4B wyColor4B\endlink
-	 */
-	void updateColor(wyColor4B color);
-
-	/**
-	 * update color of all vertices
-	 *
-	 * @param color \link wyColor4F wyColor4F\endlink
-	 */
-	void updateColor(wyColor4F color);
 
 	/**
 	 * Update one vertex

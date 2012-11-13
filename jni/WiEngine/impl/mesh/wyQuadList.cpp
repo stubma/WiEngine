@@ -198,7 +198,7 @@ void wyQuadList::updateColor(int index, wyColor4B color) {
 	}
 }
 
-void wyQuadList::updateColor(wyColor4B color) {
+void wyQuadList::updateColor4B(wyColor4B color) {
 	// save default color
 	m_color = color;
 

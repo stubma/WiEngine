@@ -94,6 +94,12 @@ public:
 	/// @see wyMesh::getPointSize
 	virtual float getPointSize() { return m_mesh->getPointSize(); }
 
+	/// @see wyMesh::update
+	virtual void update() { m_mesh->update(); }
+
+	/// @see wyMesh::updateColor4B
+	virtual void updateColor4B(wyColor4B color) { m_mesh->updateColor4B(color); }
+
 	/// set element count
 	void setElementCount(int c) { m_elementCount = c; }
 

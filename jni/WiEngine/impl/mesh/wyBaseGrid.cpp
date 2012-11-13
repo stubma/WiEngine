@@ -32,10 +32,14 @@
 wyBaseGrid::wyBaseGrid(float w, float h, int c, int r) :
 		m_gridX(c),
 		m_gridY(r),
-		m_width(w),
-		m_height(h),
 		m_stepWidth(w / c),
 		m_stepHeight(h / r) {
+	// set texture size
+	setTexPOTWidth(wyMath::getNextPOT(w));
+	setTexPOTHeight(wyMath::getNextPOT(h));
+	setTexSourceWidth(w);
+	setTexSourceHeight(h);
+
 	// make indices buffer
 	m_indices = wyBuffer::makeShort();
 

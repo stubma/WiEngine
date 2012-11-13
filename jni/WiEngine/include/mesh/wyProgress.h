@@ -77,16 +77,16 @@ protected:
 	wyProgress(Style style);
 
 	/// update mesh when style is bar
-	void updateBar(int texPixelWidth, int texPixelHeight, wyRect& texRect, float width, float height, bool flipX, bool flipY, bool rotatedZwoptex);
+	void updateBar();
 
 	/// update mesh when style is radial
-	void updateRadial(int texPixelWidth, int texPixelHeight, wyRect& texRect, float width, float height, bool flipX, bool flipY, bool rotatedZwoptex);
+	void updateRadial();
 
 	/// get boundary point texture coordinates
 	wyPoint boundaryTexCoord(int index);
 
 	/// get vertex from texture coordinates
-	wyPoint vertexFromTexCoord(float texPixelWidth, float texPixelHeight, wyRect& texRect, float width, float height, float u, float v);
+	wyPoint vertexFromTexCoord(float u, float v);
 
 public:
 	virtual ~wyProgress();
@@ -96,6 +96,12 @@ public:
 
 	/// @see wyMesh::getElementCount
 	virtual int getElementCount() { return m_buf->getElementCount(); }
+
+	/// @see wyMesh::update
+	virtual void update();
+
+	/// @see wyMesh::updateColor4B
+	virtual void updateColor4B(wyColor4B color) { updateColor(color, false); }
 
 	/// set mesh style
 	void setStyle(Style style);
@@ -108,20 +114,6 @@ public:
 
 	/// set percentage
 	void setPercentage(float p);
-
-	/**
-	 * update mesh
-	 *
-	 * @param texPixelWidth texture pixel width
-	 * @param texPixelHeight texture pixel height
-	 * @param texRect texture rect
-	 * @param width destination width, generally it is node's width
-	 * @param height destination height, generally it is node's height
-	 * @param flipX true means flip mesh in x axis
-	 * @param flipY true means flip mesh in y axis
-	 * @param rotatedZwoptex true means the source texture is a zwoptex frame and rotated
-	 */
-	void updateProgress(int texPixelWidth, int texPixelHeight, wyRect texRect, float width, float height, bool flipX, bool flipY, bool rotatedZwoptex);
 
 	/**
 	 * update color

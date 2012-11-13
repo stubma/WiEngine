@@ -11,6 +11,7 @@ extern "C" {
 #endif
 
 DEMO_ENTRY(shader, AlphaTestTest);
+DEMO_ENTRY(shader, WavingFlagTest);
 
 #ifdef __cplusplus
 }

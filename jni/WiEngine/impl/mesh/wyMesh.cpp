@@ -33,6 +33,18 @@ wyMesh::wyMesh() :
 		m_lodLevels(NULL),
 		m_lineWidth(1),
 		m_pointSize(1),
+		m_texPOTWidth(0),
+		m_texPOTHeight(0),
+		m_texSourceWidth(0),
+		m_texSourceHeight(0),
+		m_texRect(wyrZero),
+		m_renderWidth(0),
+		m_renderHeight(0),
+		m_offsetX(0),
+		m_offsetY(0),
+		m_flipX(false),
+		m_flipY(false),
+		m_rotate90CCW(false),
 		m_tag(-1),
 		m_skip(false) {
 	// create buffer array
@@ -165,4 +177,8 @@ wyBuffer* wyMesh::getFirstConnectedBuffer() {
 	}
 
 	return NULL;
+}
+
+void wyMesh::updateColor4F(wyColor4F color) {
+	updateColor4B(wyc4b(color.r * 255, color.g * 255, color.b * 255, color.a * 255));
 }

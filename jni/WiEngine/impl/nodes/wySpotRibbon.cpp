@@ -60,7 +60,7 @@ wySpotRibbon::~wySpotRibbon() {
 
 void wySpotRibbon::updateMeshColor() {
 	wyQuadList* atlas = (wyQuadList*)getMesh();
-	atlas->updateColor(m_color);
+	atlas->updateColor4B(m_color);
 }
 
 void wySpotRibbon::addPoint(wyPoint location) {

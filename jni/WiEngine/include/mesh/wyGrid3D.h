@@ -42,9 +42,6 @@ private:
 	/// backup buffer
 	wyBuffer* m_backup;
 
-private:
-	void calculateVertexPoints();
-
 protected:
 	/**
 	 * constructor
@@ -74,6 +71,12 @@ public:
 
 	/// @see wyMesh::getElementCount
 	virtual int getElementCount() { return m_buf->getElementCount(); }
+
+	/// @see wyMesh::update
+	virtual void update();
+
+	/// @see wyMesh::updateColor4B
+	virtual void updateColor4B(wyColor4B color);
 
 	/**
 	 * set vertex of a grid unit

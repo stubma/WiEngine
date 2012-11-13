@@ -105,8 +105,7 @@ wySpriteEx::wySpriteEx(wyTexture2D* pTex, wyZwoptexFrame* f) : wyTextureNode(pTe
 	setTextureRect(f->rect);
 	setContentSize(f->sourceSize.width, f->sourceSize.height);
 	setRotatedZwoptex(f->rotated);
-	m_pointLeftBottom.x = f->sourceSize.width / 2 + f->offset.x - (f->rotated ? f->rect.height : f->rect.width) / 2;
-	m_pointLeftBottom.y = f->sourceSize.height / 2 + f->offset.y - (f->rotated ? f->rect.width : f->rect.height) / 2;
+	setRenderOffset(f->offset);
 }
 
 wySpriteEx::~wySpriteEx() {
@@ -214,23 +213,25 @@ void wySpriteEx::updateTextureCoords() {
 	float atlasWidth = m_batchNode->getTexture()->getPixelWidth();
 	float atlasHeight = m_batchNode->getTexture()->getPixelHeight();
 
-	float left = (2 * m_texRect.x + 1) / (2 * atlasWidth);
-	float right = left + (m_texRect.width * 2 - 2) / (2 * atlasWidth);
-	float top = (2 * m_texRect.y + 1) / (2 * atlasHeight);
-	float bottom = top + (m_texRect.height * 2 - 2) / (2 * atlasHeight);
+	wyMesh* mesh = getMesh();
+	wyRect texRect = mesh->getTextureRect();
+	float left = (2 * texRect.x + 1) / (2 * atlasWidth);
+	float right = left + (texRect.width * 2 - 2) / (2 * atlasWidth);
+	float top = (2 * texRect.y + 1) / (2 * atlasHeight);
+	float bottom = top + (texRect.height * 2 - 2) / (2 * atlasHeight);
 
-	if(m_flipX) {
+	if(mesh->isFlipX()) {
 		float tmp = left;
 		left = right;
 		right = tmp;
 	}
-	if(m_flipY) {
+	if(mesh->isFlipY()) {
 		float tmp = top;
 		top = bottom;
 		bottom = tmp;
 	}
 
-	if(m_rotatedZwoptex) {
+	if(mesh->isRotate90CCW()) {
 		m_texCoords.bl_x = left;
 		m_texCoords.bl_y = top;
 		m_texCoords.br_x = left;
@@ -256,10 +257,14 @@ void wySpriteEx::updateVertices(wyAffineTransform& t) {
 	if(!m_visible) {
 		memset(&(m_vertices), 0, sizeof(wyQuad3D));
 	} else {
-		float x1 = m_autoFit ? 0 : m_pointLeftBottom.x;
-		float y1 = m_autoFit ? 0 : m_pointLeftBottom.y;
-		float x2 = x1 + (m_autoFit ? m_width : (m_rotatedZwoptex ? m_texRect.height : m_texRect.width));
-		float y2 = y1 + (m_autoFit ? m_height : (m_rotatedZwoptex ? m_texRect.width : m_texRect.height));
+		wyMesh* mesh = getMesh();
+		wyRect texRect = mesh->getTextureRect();
+		float x1 = m_autoFit ? 0 :
+				((mesh->getTexSourceWidth() - (mesh->isRotate90CCW() ? texRect.height : texRect.width)) / 2 + mesh->getOffsetX());
+		float y1 = m_autoFit ? 0 :
+				((mesh->getTexSourceHeight() - (mesh->isRotate90CCW() ? texRect.width : texRect.height)) / 2 + mesh->getOffsetY());
+		float x2 = x1 + (m_autoFit ? m_width : (mesh->isRotate90CCW() ? texRect.height : texRect.width));
+		float y2 = y1 + (m_autoFit ? m_height : (mesh->isRotate90CCW() ? texRect.width : texRect.height));
 
         m_vertices.bl_x = x1;
 		m_vertices.bl_y = y1;
@@ -274,7 +279,7 @@ void wySpriteEx::updateVertices(wyAffineTransform& t) {
 		m_vertices.tr_y = y2;
 		m_vertices.tr_z = 0;
 
-		if(m_flipY) {
+		if(mesh->isFlipY()) {
 			// adjust vertices y value
 			m_vertices.bl_y = m_height - m_vertices.bl_y;
 			m_vertices.br_y = m_height - m_vertices.br_y;
@@ -290,7 +295,7 @@ void wySpriteEx::updateVertices(wyAffineTransform& t) {
 			wyUtils::swap((float*)&m_vertices, 5, 11);
 		}
 
-		if(m_flipX) {
+		if(mesh->isFlipX()) {
 			// adjust vertices x value
 			m_vertices.bl_x = m_width - m_vertices.bl_x;
 			m_vertices.br_x = m_width - m_vertices.br_x;

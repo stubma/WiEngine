@@ -140,14 +140,58 @@ protected:
 	/// true means skip rendering this mesh
 	bool m_skip;
 
-	/// related texture pixel width
-	float m_texPixelWidth;
+	/// related texture POT width
+	float m_texPOTWidth;
 
-	/// related texture pixel height
-	float m_texPixelHeight;
+	/// related texture POT height
+	float m_texPOTHeight;
 
-	/// related texture altas rect
+	/**
+	 * texture source width, some atlas software, such as TexturePacker, can
+	 * remove texture's white border when packing atlas, so the texture size
+	 * before removing border is source size. So the source size is actually the
+	 * real size of texture before doing anything to it.
+	 */
+	float m_texSourceWidth;
+
+	/**
+	 * texture source height, some atlas software, such as TexturePacker, can
+	 * remove texture's white border when packing atlas, so the texture size
+	 * before removing border is source size. So the source size is actually the
+	 * real size of texture before doing anything to it.
+	 */
+	float m_texSourceHeight;
+
+	/**
+	 * related texture altas rect, or just texture effect area rectangle if it
+	 * is not atlas texture
+	 */
 	wyRect m_texRect;
+
+	/// the destination render area width
+	float m_renderWidth;
+
+	/// the destination render area height
+	float m_renderHeight;
+
+	/// the x offset when render this texture
+	float m_offsetX;
+
+	/// the y offset when render this texture
+	float m_offsetY;
+
+	/// is texture need to be flipped in x axis
+	bool m_flipX;
+
+	/// is texture need to be flipped in y axis
+	bool m_flipY;
+
+	/**
+	 * is texture need to be rotated by 90 degree in couter-clockwise direction.
+	 * texture wrapper software, such as TexturePacker, can rotate texture when
+	 * packing atlas.
+	 */
+	bool m_rotate90CCW;
 
 private:
 	static void releaseAttributeConnection(AttributeConnection* conn);
@@ -304,6 +348,27 @@ public:
 	virtual int getOffset() { return 0; }
 
 	/**
+	 * Update mesh vertex and texture info. Subclass need fulfill this logic.
+	 * wyMesh already provides APIs for some basic info, such as texture size, flip flag, etc.,
+	 * and subclass can use them or not.
+	 */
+	virtual void update() = 0;
+
+	/**
+	 * Update vertex color info. Subclass need implement this to get color updated correctly.
+	 *
+	 * @param color \link wyColor4B wyColor4B\endlink
+	 */
+	virtual void updateColor4B(wyColor4B color) = 0;
+
+	/*
+	 * update vertex color info, but use float color
+	 *
+	 * @param color \link wyColor4F wyColor4F\endlink
+	 */
+	virtual void updateColor4F(wyColor4F color);
+
+	/**
 	 * Set node tag. Tag is an integer and -1 is default.
 	 */
 	void setTag(int tag) { m_tag = tag; }
@@ -319,23 +384,77 @@ public:
 	/// set skip flag of mesh
 	void setSkip(bool flag) { m_skip = flag; }
 
-	/// get texture pixel width
-	float getTexPixelWidth() { return m_texPixelWidth; }
+	/// get texture POT width
+	float getTexPOTWidth() { return m_texPOTWidth; }
 
-	/// set texture pixel width
-	void setTexPixelWidth(float w) { m_texPixelWidth = w; }
+	/// set texture POT width
+	void setTexPOTWidth(float w) { m_texPOTWidth = w; }
 
-	/// get texture pixel height
-	float getTexPixelHeight() { return m_texPixelHeight; }
+	/// get texture POT height
+	float getTexPOTHeight() { return m_texPOTHeight; }
 
-	/// set texture pixel height
-	void setTexPixelHeight(float h) { m_texPixelHeight = h; }
+	/// set texture POT height
+	void setTexPOTHeight(float h) { m_texPOTHeight = h; }
+
+	/// set texture source width
+	void setTexSourceWidth(float w) { m_texSourceWidth = w; }
+
+	/// get texture source width
+	float getTexSourceWidth() { return m_texSourceWidth; }
+
+	/// set texture source height
+	void setTexSourceHeight(float h) { m_texSourceHeight = h; }
+
+	/// get texture source height
+	float getTexSourceHeight() { return m_texSourceHeight; }
 
 	/// get texture rect
 	wyRect getTextureRect() { return m_texRect; }
 
 	/// set texture rect
 	void setTextureRect(wyRect r) { m_texRect = r; }
+
+	/// set render width expected
+	void setRenderWidth(float w) { m_renderWidth = w; }
+
+	/// get render width expected
+	float setRenderWidth() { return m_renderWidth; }
+
+	/// set render height expected
+	void setRenderHeight(float h) { m_renderHeight = h; }
+
+	/// get render height expected
+	float getRenderHeight() { return m_renderHeight; }
+
+	/// set render offset x
+	void setOffsetX(float x) { m_offsetX = x; }
+
+	/// get render offset x
+	float getOffsetX() { return m_offsetX; }
+
+	/// set render offset y
+	void setOffsetY(float y) { m_offsetY = y; }
+
+	/// get render offset y
+	float getOffsetY() { return m_offsetY; }
+
+	/// set flip x flag
+	void setFlipX(bool flag) { m_flipX = flag; }
+
+	/// get flip x flag
+	bool isFlipX() { return m_flipX; }
+
+	/// set flip y flag
+	void setFlipY(bool flag) { m_flipY = flag; }
+
+	/// get flip y flag
+	bool isFlipY() { return m_flipY; }
+
+	/// set rotate flag
+	void setRotate90CCW(bool flag) { m_rotate90CCW = flag; }
+
+	/// get rotate flag
+	bool isRotate90CCW() { return m_rotate90CCW; }
 };
 
 #endif // __wyMesh_h__

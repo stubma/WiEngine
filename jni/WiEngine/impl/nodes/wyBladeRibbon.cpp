@@ -286,7 +286,7 @@ void wyBladeRibbon::updateMesh() {
 			blade->m_dirty = false;
 
 			// need update color because populate will reset mesh
-			blade->m_mesh->updateColor(m_color);
+			blade->m_mesh->updateColor4B(m_color);
 		}
 
 		// add
@@ -300,7 +300,7 @@ void wyBladeRibbon::updateMesh() {
 			m_blade->m_dirty = false;
 
 			// need update color because populate will reset mesh
-			m_blade->m_mesh->updateColor(m_color);
+			m_blade->m_mesh->updateColor4B(m_color);
 		}
 
 		// add

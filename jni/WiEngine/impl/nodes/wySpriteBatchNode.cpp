@@ -67,7 +67,7 @@ wySpriteBatchNode::~wySpriteBatchNode() {
 
 void wySpriteBatchNode::updateMeshColor() {
 	wyQuadList* quadList = (wyQuadList*)getMesh();
-	quadList->updateColor(m_color);
+	quadList->updateColor4B(m_color);
 }
 
 void wySpriteBatchNode::beforeRender() {
