@@ -754,10 +754,6 @@ namespace Action {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     class wyProgressByTestLayer : public wyLayer {
-    private:
-    	float ITEM_WIDTH;
-    	float ITEM_HEIGHT;
-
     public:
         wyProgressByTestLayer(){
         	wyProgressTimer* left = wyProgressTimer::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
@@ -767,13 +763,12 @@ namespace Action {
         	addChildLocked(left);
         	left->runAction(action);
 
-    		ITEM_WIDTH = 85;
-    		ITEM_HEIGHT = 121;
-    		int idx = rand() % 14;
-    		float x = (idx % 5) * ITEM_WIDTH;
-    		float y = (idx / 5) * ITEM_HEIGHT;
-    		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
-    		wySprite* sprite = wySprite::make(tex, wyUtils::resolveRect(wyr(x, y, ITEM_WIDTH, ITEM_HEIGHT)));
+            wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+            wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
+            int idx = abs(rand()) % 14 + 1;
+            char buf[128];
+            sprintf(buf, "grossini_dance_%02d.png", idx);
+            wySprite* sprite = wyZwoptexManager::getInstance()->makeSprite(buf);
     		wyProgressTimer* right = wyProgressTimer::make(sprite);
             right->setStyle(wyProgress::VERTICAL_BAR_BT);
         	right->setPosition(wyDevice::winWidth - 100, wyDevice::winHeight / 2);
@@ -786,10 +781,6 @@ namespace Action {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     class wyProgressToTestLayer : public wyLayer {
-    private:
-    	float ITEM_WIDTH;
-    	float ITEM_HEIGHT;
-
     public:
         wyProgressToTestLayer(){
         	wyProgressTimer* left = wyProgressTimer::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
@@ -800,13 +791,12 @@ namespace Action {
         	left->runAction(r);
         	addChildLocked(left);
             
-    		ITEM_WIDTH = 85;
-    		ITEM_HEIGHT = 121;
-    		int idx = rand() % 14;
-    		float x = (idx % 5) * ITEM_WIDTH;
-    		float y = (idx / 5) * ITEM_HEIGHT;
-    		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
-    		wySprite* sprite = wySprite::make(tex, wyUtils::resolveRect(wyr(x, y, ITEM_WIDTH, ITEM_HEIGHT)));
+            wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+            wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
+            int idx = abs(rand()) % 14 + 1;
+            char buf[128];
+            sprintf(buf, "grossini_dance_%02d.png", idx);
+            wySprite* sprite = wyZwoptexManager::getInstance()->makeSprite(buf);
     		wyProgressTimer* right = wyProgressTimer::make(sprite);
             right->setStyle(wyProgress::VERTICAL_BAR_BT);
         	right->setPosition(wyDevice::winWidth - 100, wyDevice::winHeight / 2);

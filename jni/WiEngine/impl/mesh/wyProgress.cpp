@@ -122,7 +122,7 @@ void wyProgress::updateRadial() {
 		0.5f * tMax.x,
 		0.5f * tMax.y
 	};
-
+    
     // get percentage value in [0, 1] range
 	float alpha = m_percentage / 100.f;
 
@@ -254,28 +254,30 @@ void wyProgress::updateRadial() {
 	kmVec2Fill(&v[index].tex, hit.x, hit.y);
 	kmVec3Fill(&v[index].pos, vertex.x, vertex.y, 0);
 	kmVec4Fill(&v[index].color, 1, 1, 1, 1);
-
-    // if sprite is from a rotated zwoptex image, need rotate texture coordinate
-    if(m_rotate90CCW) {
-        float t_x = tMax.x;
-        tMax.x = tMax.y;
-        tMax.y = t_x;
-    }
-
+    
+    // when zwoptex texture is rotated, the flipY should be preset, so need check real flip y flag
+    bool flipY = m_rotate90CCW ? !m_flipY : m_flipY;
+    
     // fill all texture coordinates
     for(int i = 0; i < count; i++) {
         if(m_rotate90CCW) {
             float t_x = v[i].tex.x;
             float t_y = v[i].tex.y;
-            v[i].tex.x = t_y / (tMax.x / tMax.y);
-            v[i].tex.y = t_x * (tMax.x / tMax.y);
+            v[i].tex.x = t_y / (tMax.y / tMax.x);
+            v[i].tex.y = t_x * (tMax.y / tMax.x);
         }
-        if (m_flipY || m_flipX) {
-            if (m_flipX) {
-                v[i].tex.x = tMax.x - v[i].tex.x;
+        if (m_flipX || flipY) {
+            if(m_flipX) {
+                if(m_rotate90CCW)
+                    v[i].tex.y = tMax.y - v[i].tex.y;
+                else
+                    v[i].tex.x = tMax.x - v[i].tex.x;
             }
-            if(m_flipY) {
-            	v[i].tex.y = tMax.y - v[i].tex.y;
+            if(flipY) {
+                if(m_rotate90CCW)
+                    v[i].tex.x = tMax.x - v[i].tex.x;
+                else
+                    v[i].tex.y = tMax.y - v[i].tex.y;
             }
         }
         v[i].tex.x += tOffsetX;
@@ -313,19 +315,10 @@ void wyProgress::updateBar() {
 
     // calculate correct render area and offset
     float x, y, w, h;
-    if(m_enableRenderRect) {
-        x = m_renderRect.x + m_offsetX;
-        y = m_renderRect.y + m_offsetY;
-        w = m_renderRect.width;
-        h = m_renderRect.height;
-    } else {
-        w = m_rotate90CCW ? m_texRect.height : m_texRect.width;
-        h = m_rotate90CCW ? m_texRect.width : m_texRect.height;
-        float sw = m_texSourceWidth == 0 ? m_texRect.width : m_texSourceWidth;
-        float sh = m_texSourceHeight == 0 ? m_texRect.height : m_texSourceHeight;
-        x = (sw - w) / 2 + m_offsetX;
-        y = (sh - h) / 2 + m_offsetY;
-    }
+    x = m_renderRect.x;
+    y = m_renderRect.y;
+    w = m_renderRect.width;
+    h = m_renderRect.height;
 
 	//	Texture Max is the actual max coordinates to deal with non-power of 2 textures
 	float tOffsetX = m_texRect.x / m_texPOTWidth;
@@ -435,12 +428,18 @@ void wyProgress::updateBar() {
 	for (int i = 0; i < PROGRESS_TEXTURE_COORDS_COUNT; i++) {
 		// handle flip
 		if (m_flipY || m_flipX) {
-			if (m_flipX) {
-				v[i].tex.x = tMax.x - v[i].tex.x;
-			}
-			if(m_flipY) {
-				v[i].tex.y = tMax.y - v[i].tex.y;
-			}
+            if(m_flipX) {
+                if(m_rotate90CCW)
+                    v[i].tex.y = tMax.x - v[i].tex.y;
+                else
+                    v[i].tex.x = tMax.x - v[i].tex.x;
+            }
+            if(m_flipY) {
+                if(m_rotate90CCW)
+                    v[i].tex.x = tMax.y - v[i].tex.x;
+                else
+                    v[i].tex.y = tMax.y - v[i].tex.y;
+            }
 		}
 
 		// add offset to final texture coordinates, because it may be an atlas texture

@@ -95,7 +95,9 @@ void wyProgressTimer::setSprite(wySprite* sprite) {
 		m_sprite = sprite;
 
 		// reset content size
-		setContentSize(m_sprite->getWidth(), m_sprite->getHeight());
+        wyRect r = m_sprite->getTextureRect();
+        bool rotate90CCW = m_sprite->isRotatedZwoptex();
+		setContentSize(rotate90CCW ? r.height : r.width, rotate90CCW ? r.width : r.height);
 
 		// add render pair or replace material
 		if(getRenderPairCount() > 0) {
