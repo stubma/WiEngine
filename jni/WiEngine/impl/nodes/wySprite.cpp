@@ -60,4 +60,8 @@ wySprite::wySprite(wyTexture2D* tex, wyZwoptexFrame* f) :
 	setContentSize(f->sourceSize.width, f->sourceSize.height);
 	setRotatedZwoptex(f->rotated);
 	setRenderOffset(f->offset);
+
+    wyMesh* mesh = getMesh();
+    mesh->setTexSourceWidth(f->sourceSize.width);
+    mesh->setTexSourceHeight(f->sourceSize.height);
 }

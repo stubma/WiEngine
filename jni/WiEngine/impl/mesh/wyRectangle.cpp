@@ -74,8 +74,8 @@ void wyRectangle::update() {
     } else {
         w = m_rotate90CCW ? m_texRect.height : m_texRect.width;
         h = m_rotate90CCW ? m_texRect.width : m_texRect.height;
-        float sw = m_texSourceWidth == 0 ? m_texRect.width : m_texSourceWidth;
-        float sh = m_texSourceHeight == 0 ? m_texRect.height : m_texSourceHeight;
+        float sw = m_texSourceWidth == 0 ? w : m_texSourceWidth;
+        float sh = m_texSourceHeight == 0 ? h : m_texSourceHeight;
         x = (sw - w) / 2 + m_offsetX;
         y = (sh - h) / 2 + m_offsetY;
     }
@@ -124,47 +124,57 @@ void wyRectangle::update() {
 
     // if flip y axis
 	if(m_flipY) {
-		wyUtils::swap(texCoords, 0, 4);
-		wyUtils::swap(texCoords, 1, 5);
-		wyUtils::swap(texCoords, 2, 6);
-		wyUtils::swap(texCoords, 3, 7);
-
-		// adjust vertices y value
-		vertices[1] = h - vertices[1];
-		vertices[4] = h - vertices[4];
-		vertices[7] = h - vertices[7];
-		vertices[10] = h - vertices[10];
-
-		// swap bl and tl, swap br and tr
-		wyUtils::swap(vertices, 0, 6);
-		wyUtils::swap(vertices, 1, 7);
-		wyUtils::swap(vertices, 2, 8);
-		wyUtils::swap(vertices, 3, 9);
-		wyUtils::swap(vertices, 4, 10);
-		wyUtils::swap(vertices, 5, 11);
+        // save bl
+        float bl_x = texCoords[0];
+    	float bl_y = texCoords[1];
+        
+        // tl -> bl
+        texCoords[0] = texCoords[4];
+    	texCoords[1] = texCoords[5];
+        
+        // bl -> tl
+        texCoords[4] = bl_x;
+    	texCoords[5] = bl_y;
+        
+        // save br
+        float br_x = texCoords[2];
+    	float br_y = texCoords[3];
+        
+        // tr -> br
+        texCoords[2] = texCoords[6];
+    	texCoords[3] = texCoords[7];
+        
+        // br -> tr
+        texCoords[6] = br_x;
+    	texCoords[7] = br_y;
 	}
 
 	// if flip x axis
 	if(m_flipX) {
-		wyUtils::swap(texCoords, 0, 2);
-		wyUtils::swap(texCoords, 1, 3);
-		wyUtils::swap(texCoords, 4, 6);
-		wyUtils::swap(texCoords, 5, 7);
-
-		// adjust vertices x value
-		vertices[0] = w - vertices[0];
-		vertices[3] = w - vertices[3];
-		vertices[6] = w - vertices[6];
-		vertices[9] = w - vertices[9];
-
-		// swap bl and br, swap tl and tr
-		wyUtils::swap(vertices, 0, 3);
-		wyUtils::swap(vertices, 1, 4);
-		wyUtils::swap(vertices, 2, 5);
-		wyUtils::swap(vertices, 6, 9);
-		wyUtils::swap(vertices, 7, 10);
-		wyUtils::swap(vertices, 8, 11);
-	}
+        // save bl
+        float bl_x = texCoords[0];
+    	float bl_y = texCoords[1];
+        
+        // br -> bl
+        texCoords[0] = texCoords[2];
+        texCoords[1] = texCoords[3];
+        
+        // bl -> br
+        texCoords[2] = bl_x;
+        texCoords[3] = bl_y;
+        
+        // save tl
+        float tl_x = texCoords[4];
+        float tl_y = texCoords[5];
+        
+        // tr -> tl
+        texCoords[4] = texCoords[6];
+        texCoords[5] = texCoords[7];
+        
+        // tl -> tr
+        texCoords[6] = tl_x;
+        texCoords[7] = tl_y;
+    }
 
 	// update to buffer
 	updateMesh(vertices, texCoords);
