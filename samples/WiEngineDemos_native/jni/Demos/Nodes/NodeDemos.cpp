@@ -519,23 +519,14 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 class wyAtlasSpriteTestLayer: public wyNodeTestLayer {
-private:
-	float ITEM_WIDTH;
-	float ITEM_HEIGHT;
-    wyTexture2D* m_tex;
 public:
 	wyAtlasSpriteTestLayer() {
-		// set width and height
-		ITEM_WIDTH = 85;
-		ITEM_HEIGHT = 121;
-
-        m_tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+    	wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+		wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
 		addNewSprite(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
-		m_tex->retain();
 	}
 
 	virtual ~wyAtlasSpriteTestLayer() {
-		m_tex->release();
 	}
 
 	virtual bool touchesBegan(wyMotionEvent& event) {
@@ -545,16 +536,15 @@ public:
 	}
 
 	void addNewSprite(float posx, float posy) {
-		int idx = rand() % 14;
-		float x = (idx % 5) * ITEM_WIDTH;
-		float y = (idx / 5) * ITEM_HEIGHT;
-		wySprite* sprite = new wySprite(m_tex, wyUtils::resolveRect(wyr(x, y, ITEM_WIDTH, ITEM_HEIGHT)));
+		int idx = abs(rand()) % 14 + 1;
+		char buf[128];
+		sprintf(buf, "grossini_dance_%02d.png", idx);
+		wySprite* sprite = wyZwoptexManager::getInstance()->makeSprite(buf);
 		sprite->setFlipX(rand() % 2);
 		sprite->setFlipY(rand() % 2);
 		sprite->setRotation(rand() % 360);
 		sprite->setPosition(posx, posy);
 		addChildLocked(sprite);
-		wyObjectRelease(sprite);
 	}
 };
 
@@ -1322,10 +1312,6 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 class wyProgressTimerTestLayer: public wyLayer {
-private:
-	float ITEM_WIDTH;
-	float ITEM_HEIGHT;
-
 public:
 	wyProgressTimerTestLayer() {
 		// 逆时针进度条
@@ -1338,13 +1324,12 @@ public:
 		addChildLocked((wyNode*) pt1->autoRelease());
 
 		// 使用atlas sprite构造进度条, 顺时针进度条
-		ITEM_WIDTH = 85;
-		ITEM_HEIGHT = 121;
-		int idx = rand() % 14;
-		float x = (idx % 5) * ITEM_WIDTH;
-		float y = (idx / 5) * ITEM_HEIGHT;
 		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
-		wySprite* sprite = wySprite::make(tex, wyUtils::resolveRect(wyr(x, y, ITEM_WIDTH, ITEM_HEIGHT)));
+		wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
+		int idx = abs(rand()) % 14 + 1;
+		char buf[128];
+		sprintf(buf, "grossini_dance_%02d.png", idx);
+		wySprite* sprite = wyZwoptexManager::getInstance()->makeSprite(buf);
 		wyProgressTimer* pt2 = new wyProgressTimer(sprite);
 		pt2->setStyle(RADIAL_CW);
 		pt2->setPercentage(75);
@@ -2140,17 +2125,16 @@ public:
 
 class wySpriteExBatchNodeTestLayer: public wyNodeTestLayer {
 private:
-	float ITEM_WIDTH;
-	float ITEM_HEIGHT;
 	wySpriteBatchNode* m_batchNode;
 
 public:
 	wySpriteExBatchNodeTestLayer() {
-		// set width and height
-		ITEM_WIDTH = 85;
-		ITEM_HEIGHT = 121;
+		// add zwoptex
+		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+		wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
 
-		m_batchNode = wySpriteBatchNode::make(wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas")));
+		// set width and height
+		m_batchNode = wySpriteBatchNode::make(tex);
 		m_batchNode->setPosition(0, 0);
 
 		addChildLocked(m_batchNode);
@@ -2168,11 +2152,11 @@ public:
 	}
 
 	void addNewSprite(float posx, float posy) {
-		int idx = rand() % 15;
-		float x = (idx % 5) * ITEM_WIDTH;
-		float y = (idx / 5) * ITEM_HEIGHT;
-		wyRect rt = wyUtils::resolveRect(wyr(x, y, ITEM_WIDTH, ITEM_HEIGHT));
-		wySpriteEx* spriteEx = wySpriteEx::make(m_batchNode, rt);
+		int idx = abs(rand()) % 14 + 1;
+		char buf[128];
+		sprintf(buf, "grossini_dance_%02d.png", idx);
+		wyZwoptexFrame* zf = wyZwoptexManager::getInstance()->getZwoptexFrame(buf);
+		wySpriteEx* spriteEx = wySpriteEx::make(m_batchNode, zf);
 
 		// can set flip
 		spriteEx->setFlipX(rand() % 2);

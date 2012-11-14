@@ -296,28 +296,31 @@ void wyProgressTimer::updateRadial() {
 	vertex = vertexFromTexCoord(hit.x, hit.y);
 	m_vertices[index] = vertex.x;
 	m_vertices[index + 1] = vertex.y;
-
-    // if sprite is from a rotated zwoptex image, need rotate texture coordinate
-    if(m_sprite->isRotatedZwoptex()) {
-        float t_x = tMax.x;
-        tMax.x = tMax.y;
-        tMax.y = t_x;
-    }
     
+    // when zwoptex texture is rotated, the flipY should be preset, so need check real flip y flag
+	if(m_sprite->isRotatedZwoptex())
+		flipY = !flipY;
+
     // fill all texture coordinates
     for(int i = 0; i < m_vertexCount; i++) {
         if(m_sprite->isRotatedZwoptex()) {
             float t_x = m_texCoords[i * 2];
             float t_y = m_texCoords[i * 2 + 1];
-            m_texCoords[i*2] = t_y / (tMax.x / tMax.y);
-            m_texCoords[i * 2 + 1] = t_x * (tMax.x / tMax.y); 
+            m_texCoords[i*2] = t_y / (tMax.y / tMax.x);
+            m_texCoords[i * 2 + 1] = t_x * (tMax.y / tMax.x);
         }
         if (flipY || m_sprite->isFlipX()) {
             if (m_sprite->isFlipX()) {
-                m_texCoords[i * 2] = tMax.x - m_texCoords[i * 2];
+                if(m_sprite->isRotatedZwoptex())
+                	m_texCoords[i * 2 + 1] = tMax.y - m_texCoords[i * 2 + 1];
+                else
+                	m_texCoords[i * 2] = tMax.x - m_texCoords[i * 2];
             }
             if(flipY) {
-                m_texCoords[i * 2 + 1] = tMax.y - m_texCoords[i * 2 + 1];
+                if(m_sprite->isRotatedZwoptex())
+                	m_texCoords[i * 2] = tMax.x - m_texCoords[i * 2];
+                  else
+                	  m_texCoords[i * 2 + 1] = tMax.y - m_texCoords[i * 2 + 1];
             }
         }
         m_texCoords[i * 2] += tOffsetX;
@@ -457,10 +460,16 @@ void wyProgressTimer::updateBar() {
 		// 处理翻转
 		if (flipY || m_sprite->isFlipX()) {
 			if (m_sprite->isFlipX()) {
-				m_texCoords[2 * i] = tMax.x - m_texCoords[2 * i];
+                if(m_sprite->isRotatedZwoptex())
+                	m_texCoords[2 * i + 1] = tMax.x - m_texCoords[2 * i + 1];
+                else
+                	m_texCoords[2 * i] = tMax.x - m_texCoords[2 * i];
 			}
 			if(flipY) {
-				m_texCoords[2 * i + 1] = tMax.y - m_texCoords[2 * i + 1];
+                if(m_sprite->isRotatedZwoptex())
+                	m_texCoords[2 * i] = tMax.y - m_texCoords[2 * i];
+                else
+                	m_texCoords[2 * i + 1] = tMax.y - m_texCoords[2 * i + 1];
 			}
 		}
 
@@ -564,7 +573,9 @@ void wyProgressTimer::setSprite(wySprite* sprite) {
 		m_vertexCount = 0;
 
 		// reset content size
-		setContentSize(sprite->getWidth(), sprite->getHeight());
+		wyRect r = m_sprite->getTextureRect();
+		bool rotate90CCW = m_sprite->isRotatedZwoptex();
+		setContentSize(rotate90CCW ? r.height : r.width, rotate90CCW ? r.width : r.height);
 	}
 }
 
