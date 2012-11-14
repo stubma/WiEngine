@@ -97,6 +97,22 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_utils_ZwoptexManager_nativeGetSprit
 
 /*
  * Class:     com_wiyun_engine_utils_ZwoptexManager
+ * Method:    nativeGetZwoptexFrame
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_utils_ZwoptexManager_nativeGetZwoptexFrame__Ljava_lang_String_2Ljava_lang_String_2
+  (JNIEnv *, jclass, jstring, jstring);
+
+/*
+ * Class:     com_wiyun_engine_utils_ZwoptexManager
+ * Method:    nativeGetZwoptexFrame
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_utils_ZwoptexManager_nativeGetZwoptexFrame__Ljava_lang_String_2
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_wiyun_engine_utils_ZwoptexManager
  * Method:    nativeMakeSprite
  * Signature: (Ljava/lang/String;Ljava/lang/String;Lcom/wiyun/engine/opengl/Texture2D;)I
  */

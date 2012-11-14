@@ -49,7 +49,7 @@
  */
 package com.wiyun.engine.tests.node;
 
-import static com.wiyun.engine.utils.Utilities.randZeroToOne;
+import static com.wiyun.engine.utils.Utilities.*;
 
 import java.util.Random;
 
@@ -63,9 +63,9 @@ import com.wiyun.engine.nodes.SpriteBatchNode;
 import com.wiyun.engine.nodes.SpriteEx;
 import com.wiyun.engine.opengl.Texture2D;
 import com.wiyun.engine.types.WYPoint;
-import com.wiyun.engine.types.WYRect;
 import com.wiyun.engine.types.WYSize;
-import com.wiyun.engine.utils.ResolutionIndependent;
+import com.wiyun.engine.utils.ZwoptexFrame;
+import com.wiyun.engine.utils.ZwoptexManager;
 
 public class SpriteExBatchNodeTest extends WiEngineTestActivity {
 	@Override
@@ -73,26 +73,17 @@ public class SpriteExBatchNodeTest extends WiEngineTestActivity {
 		return new MyLayer();
 	}
 
-    private static float ITEM_WIDTH = 0;
-    private static float ITEM_HEIGHT = 0;
-    
     class MyLayer extends Layer {
         SpriteBatchNode m_batchNode;
         
         public MyLayer() {
-            float x, y;
-            
-            // set width and height
-            ITEM_WIDTH = ResolutionIndependent.resolveDp(85);
-            ITEM_HEIGHT = ResolutionIndependent.resolveDp(121);
-
             WYSize s = Director.getInstance().getWindowSize();
-            x = s.width;
-            y = s.height;
-            
-            m_batchNode = SpriteBatchNode.make(Texture2D.makePNG(R.drawable.grossini_dance_atlas));
+            Texture2D tex = Texture2D.makePNG(R.drawable.grossini_dance_atlas);
+            tex.autoRelease();
+            m_batchNode = SpriteBatchNode.make(tex);
+            ZwoptexManager.addZwoptex("grossini", R.raw.grossini_dance_atlas, tex);
             addChild(m_batchNode);
-            addNewSprite(WYPoint.make(x / 2, y / 2));
+            addNewSprite(WYPoint.make(s.width / 2, s.height / 2));
             
             // enable touch
             setTouchEnabled(true);
@@ -101,11 +92,9 @@ public class SpriteExBatchNodeTest extends WiEngineTestActivity {
         private void addNewSprite(WYPoint pos) {
             Random random = new Random();
             
-            float rnd = randZeroToOne() * 1400.0f / 100.0f;
-            int idx = (int) rnd;
-            float x = (idx % 5) * ITEM_WIDTH;
-            float y = (idx / 5) * ITEM_HEIGHT;
-            SpriteEx sprite = SpriteEx.make(m_batchNode, WYRect.make(x, y, ITEM_WIDTH, ITEM_HEIGHT));
+            int idx = rand(14) + 1;
+            ZwoptexFrame f = ZwoptexManager.getZwoptexFrame(String.format("grossini_dance_%02d.png", idx));
+            SpriteEx sprite = SpriteEx.make(m_batchNode, f);
         	sprite.setFlipX(random.nextBoolean());
         	sprite.setFlipY(random.nextBoolean());
         	sprite.setRotation(random.nextFloat() * 360f);

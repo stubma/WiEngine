@@ -30,6 +30,7 @@ package com.wiyun.engine.nodes;
 
 import com.wiyun.engine.opengl.Texture2D;
 import com.wiyun.engine.types.WYRect;
+import com.wiyun.engine.utils.ZwoptexFrame;
 
 /**
  * 图片对象，有两种模式，批渲染模式和单独渲染模式。
@@ -37,9 +38,6 @@ import com.wiyun.engine.types.WYRect;
  * 在批渲染模式下，所使用的贴图为父SpriteBatchNode贴图。
  */
 public class SpriteEx extends TextureNode {
-	protected SpriteEx() {
-	}
-	
 	protected SpriteEx(int pointer) {
 		super(pointer);
 	}
@@ -72,6 +70,10 @@ public class SpriteEx extends TextureNode {
 	 */	
 	protected SpriteEx(SpriteBatchNode batchnode, WYRect rect, int zOrder) {
 		nativeInit(batchnode, rect, zOrder);
+	}
+	
+	protected SpriteEx(SpriteBatchNode batchnode, ZwoptexFrame f) {
+		nativeInit(batchnode, f);
 	}
 
 	/**
@@ -115,6 +117,10 @@ public class SpriteEx extends TextureNode {
 		return new SpriteEx(batchnode, rect, 0);
 	}
 	
+	public static SpriteEx make(SpriteBatchNode batchnode, ZwoptexFrame f) {
+		return new SpriteEx(batchnode, f);
+	}
+	
 	/**
 	 * 创建一个图像节点, 启动批渲染模式
 	 *
@@ -139,4 +145,5 @@ public class SpriteEx extends TextureNode {
 	private native void nativeInit(Texture2D tex);
 	private native void nativeInit(Texture2D tex, WYRect rect);
 	private native void nativeInit(SpriteBatchNode batchnode, WYRect rect, int zOrder);	
+	private native void nativeInit(SpriteBatchNode batchnode, ZwoptexFrame f);	
 }

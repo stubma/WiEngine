@@ -30,3 +30,13 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_SpriteEx_nativeInit__Lcom_wiy
 	sprite->retain();
 	sprite->lazyRelease();
 }
+
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_SpriteEx_nativeInit__Lcom_wiyun_engine_nodes_SpriteBatchNode_2Lcom_wiyun_engine_utils_ZwoptexFrame_2
+  (JNIEnv* env, jobject thiz, jobject batchNode, jobject zwoptexFrame) {
+	wySpriteBatchNode* bn = (wySpriteBatchNode*)env->GetIntField(batchNode, g_fid_BaseObject_mPointer);
+	wyZwoptexFrame* f = (wyZwoptexFrame*)env->GetIntField(zwoptexFrame, g_fid_BaseObject_mPointer);
+	wySpriteEx* sprite = wySpriteEx::make(bn, f);
+	env->SetIntField(thiz, g_fid_BaseObject_mPointer, (jint)sprite);
+	sprite->retain();
+	sprite->lazyRelease();
+}

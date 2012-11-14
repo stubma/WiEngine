@@ -31,6 +31,14 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_SpriteEx_nativeInit__Lcom_wiy
 JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_SpriteEx_nativeInit__Lcom_wiyun_engine_nodes_SpriteBatchNode_2Lcom_wiyun_engine_types_WYRect_2I
   (JNIEnv *, jobject, jobject, jobject, jint);
 
+/*
+ * Class:     com_wiyun_engine_nodes_SpriteEx
+ * Method:    nativeInit
+ * Signature: (Lcom/wiyun/engine/nodes/SpriteBatchNode;Lcom/wiyun/engine/utils/ZwoptexFrame;)V
+ */
+JNIEXPORT void JNICALL Java_com_wiyun_engine_nodes_SpriteEx_nativeInit__Lcom_wiyun_engine_nodes_SpriteBatchNode_2Lcom_wiyun_engine_utils_ZwoptexFrame_2
+  (JNIEnv *, jobject, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

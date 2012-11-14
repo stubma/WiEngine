@@ -160,6 +160,38 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_utils_ZwoptexManager_nativeGetSprit
 	return (jint)f;
 }
 
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_utils_ZwoptexManager_nativeGetZwoptexFrame__Ljava_lang_String_2Ljava_lang_String_2
+(JNIEnv * env, jclass clazz, jstring zwoptexName, jstring frameName) {
+	wyZwoptexManager* zm = wyZwoptexManager::getInstance();
+	const char* zn = (const char*)env->GetStringUTFChars(zwoptexName, NULL);
+	const char* fn = (const char*)env->GetStringUTFChars(frameName, NULL);
+
+	wyZwoptexFrame* f = zm->getZwoptexFrame(zn, fn);;
+	if (f != NULL){
+		f->retain();
+		f->lazyRelease();
+	}
+
+	env->ReleaseStringUTFChars(zwoptexName, zn);
+	env->ReleaseStringUTFChars(frameName, fn);
+	return (jint)f;
+}
+
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_utils_ZwoptexManager_nativeGetZwoptexFrame__Ljava_lang_String_2
+  (JNIEnv * env, jclass clazz, jstring frameName) {
+	wyZwoptexManager* zm = wyZwoptexManager::getInstance();
+	const char* fn = (const char*)env->GetStringUTFChars(frameName, NULL);
+
+	wyZwoptexFrame* f = zm->getZwoptexFrame(fn);
+	if (f != NULL) {
+		f->retain();
+		f->lazyRelease();
+	}
+
+	env->ReleaseStringUTFChars(frameName, fn);
+	return (jint)f;
+}
+
 JNIEXPORT jint JNICALL Java_com_wiyun_engine_utils_ZwoptexManager_nativeMakeSprite__Ljava_lang_String_2Ljava_lang_String_2Lcom_wiyun_engine_opengl_Texture2D_2
   (JNIEnv * env, jclass clazz, jstring zwoptexName, jstring frameName, jobject tex) {
 	wyZwoptexManager* zm = wyZwoptexManager::getInstance();

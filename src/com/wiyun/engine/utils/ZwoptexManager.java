@@ -318,6 +318,26 @@ public class ZwoptexManager {
 
 	/**
 	 * \if English
+	 * Get a zwoptex frame by name
+	 *
+	 * @param frameName name of frame
+	 * @return \link ZwoptexFrame ZwoptexFrame\endlink, or NULL if not found
+	 * \else
+	 * 根据名称查找一个zwoptex帧
+	 *
+	 * @param frameName 帧名称
+	 * @return \link ZwoptexFrame ZwoptexFrame\endlink, 如果没有找到, 返回NULL
+	 * \endif
+	 */
+	public static ZwoptexFrame getZwoptexFrame(String frameName) {
+		return ZwoptexFrame.from(nativeGetZwoptexFrame(frameName));
+	}
+	
+	private native static int nativeGetZwoptexFrame(String zwoptexName, String frameName);
+	private native static int nativeGetZwoptexFrame(String frameName);
+	
+	/**
+	 * \if English
 	 * Create a \link Sprite Sprite\endlink from a frame
 	 *
 	 * @param zwoptexName name of zwoptex

@@ -37,9 +37,8 @@ import com.wiyun.engine.nodes.Layer;
 import com.wiyun.engine.nodes.ProgressTimer;
 import com.wiyun.engine.nodes.Sprite;
 import com.wiyun.engine.opengl.Texture2D;
-import com.wiyun.engine.types.WYRect;
 import com.wiyun.engine.types.WYSize;
-import com.wiyun.engine.utils.ResolutionIndependent;
+import com.wiyun.engine.utils.ZwoptexManager;
 
 public class ProgressTimerTest extends WiEngineTestActivity {
 	@Override
@@ -47,15 +46,8 @@ public class ProgressTimerTest extends WiEngineTestActivity {
 		return new MyLayer();
 	}
 	
-	private static float ITEM_WIDTH = 0;
-	private static float ITEM_HEIGHT = 0;
-
     class MyLayer extends Layer {
     	public MyLayer() {
-            // set width and height
-            ITEM_WIDTH = ResolutionIndependent.resolveDp(85);
-            ITEM_HEIGHT = ResolutionIndependent.resolveDp(121);
-            
     		// 逆时针进度条
             WYSize s = Director.getInstance().getWindowSize();
             ProgressTimer pt1 = ProgressTimer.make(R.drawable.grossini);
@@ -66,12 +58,9 @@ public class ProgressTimerTest extends WiEngineTestActivity {
             addChild(pt1);
             
             // 使用atlas sprite构造进度条, 顺时针进度条
-            int idx = rand(14);
-            float x = (idx % 5) * ITEM_WIDTH;
-            float y = (idx / 5) * ITEM_HEIGHT;
-            Texture2D tex = Texture2D.makePNG(R.drawable.grossini_dance_atlas);
-            tex.autoRelease();
-            Sprite sprite = Sprite.make(tex, WYRect.make(x, y, ITEM_WIDTH, ITEM_HEIGHT));
+            int idx = rand(14) + 1;
+            ZwoptexManager.addZwoptex("grossini", R.raw.grossini_dance_atlas, Texture2D.makePNG(R.drawable.grossini_dance_atlas));
+            Sprite sprite = ZwoptexManager.makeSprite(String.format("grossini_dance_%02d.png", idx));
             sprite.autoRelease();
             ProgressTimer pt2 = ProgressTimer.make(sprite);
             pt2.setStyle(ProgressTimer.RADIAL_CW);
