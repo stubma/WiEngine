@@ -35,7 +35,6 @@ include $(LOCAL_PATH)/kazmath/Android.mk
 include $(CLEAR_VARS)
 LOCAL_MODULE := wiengine
 LOCAL_LDLIBS := -L$(LOCAL_PATH)/../system_libs/$(TARGET_ARCH) -llog -lGLESv2 -lz -ldl -lsqlite
-LOCAL_CFLAGS += -Wno-psabi
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/WiEngine/include \
 	$(LOCAL_PATH)/WiEngine/include/actions \
 	$(LOCAL_PATH)/WiEngine/include/afcanim \

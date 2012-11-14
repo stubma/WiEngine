@@ -8,7 +8,6 @@ ALL_INCLUDES := $(LOCAL_PATH)/android_adapter \
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := aal
-LOCAL_CFLAGS += -Wno-psabi
 LOCAL_LDLIBS := -L$(LOCAL_PATH)/../system_libs/$(TARGET_ARCH) \
 	-L$(LOCAL_PATH)/../system_libs/$(TARGET_ARCH)/2.x \
 	-llog -lcutils -lutils
@@ -24,7 +23,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := aal_honeycomb
-LOCAL_CFLAGS += -DHONEYCOMB -Wno-psabi
+LOCAL_CFLAGS += -DHONEYCOMB
 LOCAL_LDLIBS := -L$(LOCAL_PATH)/../system_libs/$(TARGET_ARCH) \
 	-L$(LOCAL_PATH)/../system_libs/$(TARGET_ARCH)/3.x \
 	-llog -lcutils -lutils
@@ -40,7 +39,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := aal_jellybean
-LOCAL_CFLAGS += -DHONEYCOMB -Wno-psabi
+LOCAL_CFLAGS += -DHONEYCOMB
 LOCAL_LDLIBS := -L$(LOCAL_PATH)/../system_libs/$(TARGET_ARCH) \
 	-L$(LOCAL_PATH)/../system_libs/$(TARGET_ARCH)/4.1 \
 	-llog -lcutils -lutils -landroidfw

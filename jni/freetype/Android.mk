@@ -6,7 +6,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := ft2
 LOCAL_ARM_MODE := arm 
-LOCAL_CFLAGS += -W -Wall -fPIC -DPIC -DDARWIN_NO_CARBON -DFT2_BUILD_LIBRARY -O2 -fvisibility=hidden -Wno-psabi
+LOCAL_CFLAGS += -W -Wall -fPIC -DPIC -DDARWIN_NO_CARBON -DFT2_BUILD_LIBRARY -O2 -fvisibility=hidden
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/freetype/builds \
 	$(LOCAL_PATH)/freetype/include
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/freetype/builds \

@@ -288,9 +288,6 @@ typedef unsigned char boolean;
 /* Capability options common to encoder and decoder: */
 
 #define DCT_ISLOW_SUPPORTED	/* slow but accurate integer algorithm */
-#ifdef ARM // define in Android.mk
-#define DCT_IFAST_SUPPORTED	/* faster, less accurate integer method */
-#endif
 #define DCT_FLOAT_SUPPORTED	/* floating-point: accurate, fast on fast HW */
 
 /* Encoder capability options: */

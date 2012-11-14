@@ -20,7 +20,7 @@ LOCAL_MODULE := wiskia
 LOCAL_ARM_MODE := arm
 
 # by default hide skia api
-LOCAL_CFLAGS += -fvisibility=hidden -Wno-psabi
+LOCAL_CFLAGS += -fvisibility=hidden
 
 # build release
 LOCAL_CFLAGS += -DNDEBUG
