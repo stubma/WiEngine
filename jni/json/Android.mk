@@ -12,7 +12,6 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := json
 LOCAL_LDLIBS := -llog
-LOCAL_CFLAGS += -Wno-psabi
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/json \
 	$(LOCAL_PATH)/WiEngine/include/json
 LOCAL_SHARED_LIBRARIES := wiengine

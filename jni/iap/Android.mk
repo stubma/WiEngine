@@ -6,7 +6,6 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := iap
 LOCAL_LDLIBS := -llog
-LOCAL_CFLAGS += -Wno-psabi
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/iap \
 	$(LOCAL_PATH)/iap/backends/androidmarket \
 	$(LOCAL_PATH)/WiEngine/include/iap

@@ -5,7 +5,7 @@
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vorbis
-LOCAL_CFLAGS += -DLITTLE_ENDIAN=1 -DBIG_ENDIAN=2 -DBYTE_ORDER=1 -fvisibility=hidden -Wno-psabi
+LOCAL_CFLAGS += -DLITTLE_ENDIAN=1 -DBIG_ENDIAN=2 -DBYTE_ORDER=1 -fvisibility=hidden
 ifneq ($(TARGET_ARCH),x86)
 	LOCAL_ARM_MODE := arm
 	LOCAL_CFLAGS += -D_ARM_ASSEM_

@@ -5,7 +5,7 @@
 include $(CLEAR_VARS)
 LOCAL_MODULE := lua
 LOCAL_LDLIBS := -llog
-LOCAL_CFLAGS += -DTOLUA_RELEASE -Wno-psabi -fpermissive
+LOCAL_CFLAGS += -DTOLUA_RELEASE -fpermissive
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/lua \
 	$(LOCAL_PATH)/lua/tolua++ \
 	$(LOCAL_PATH)/WiEngine/include/lua

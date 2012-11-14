@@ -33,7 +33,6 @@ endif
 include $(CLEAR_VARS)
 LOCAL_MODULE := wisound
 LOCAL_LDLIBS := -llog
-LOCAL_CFLAGS += -Wno-psabi
 ifeq ($(BACKEND),openal)
 	LOCAL_CFLAGS += -DBACKEND_OPENAL
 	LOCAL_STATIC_LIBRARIES := mpg123 vorbis openal

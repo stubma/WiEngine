@@ -4,7 +4,7 @@
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := mpg123
-LOCAL_CFLAGS += -DNO_32BIT -DNO_REAL -DREAL_IS_FIXED -fvisibility=hidden -Wno-psabi
+LOCAL_CFLAGS += -DNO_32BIT -DNO_REAL -DREAL_IS_FIXED -fvisibility=hidden
 ifeq ($(TARGET_ARCH),x86)
 	LOCAL_CFLAGS += -DOPT_I386
 else
