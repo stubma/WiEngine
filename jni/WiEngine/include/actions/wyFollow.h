@@ -34,69 +34,56 @@
 #include "wyTypes.h"
 
 /**
- * @class wyFollow
- *
- * \if English
  * An action that "follows" a node
- * \else
- * 跟踪一个节点, 让屏幕内容跟随节点的移动
- * \endif
  */
 class WIENGINE_API wyFollow : public wyAction {
 
 private:
-	/// 要跟踪的\link wyNode wyNode\endlink节点
+	/// \link wyNode wyNode\endlink to be tracked
 	wyNode* m_followedNode;
 
-	/// 标示是否设置了最大的跟踪范围, true表示已设置
+	/// true means max tracking area is set
 	bool m_boundarySet;
 
-	/// 表示屏幕大小是否超过设置的最大跟踪范围, true表示超过
+	/// true means screen bound fully contains tracking area
 	bool m_boundaryFullyCovered;
 
-	/// 屏幕尺寸
+	/// half screen size
 	wyPoint m_halfScreenSize;
 
-	/// 一半屏幕尺寸
+	/// screen size
 	wyPoint m_fullScreenSize;
 
-	/* world boundaries */
+	/// track area left boundary
 	float m_leftBoundary;
+
+	/// track area right boundary
 	float m_rightBoundary;
+
+	/// track area top boundary
 	float m_topBoundary;
+
+	/// track area bottom boundary
 	float m_bottomBoundary;
 
 protected:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param fNode node to follow
-	 * @param worldBoundary rectangle of world
-	 * \else
-	 * 构造函数
-	 *
-	 * @param fNode 要跟踪的\link wyNode wyNode\endlink节点
-	 * @param worldBoundary 最大移动空间的矩形范围,如不设置表示fNode永远为中心点
-	 * \endif
+	 * @param worldBoundary rectangle of world, if not set, \c fNode will always be center
+	 * 		in screen
 	 */
 	wyFollow(wyNode* fNode, wyRect worldBoundary);
 
 public:
 	/**
-	 * \if English
 	 * Static Constructor
 	 *
 	 * @param fNode node to follow
-	 * @param worldBoundary rectangle of world
+	 * @param worldBoundary rectangle of world, if not set, \c fNode will always be center
+	 * 		in screen
 	 * @return \link wyFollow wyFollow\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param fNode 要跟踪的\link wyNode wyNode\endlink节点
-	 * @param worldBoundary 最大移动空间的矩形范围,如不设置表示fNode永远为中心点
-	 * @return \link wyFollow wyFollow\endlink
-	 * \endif
 	 */
 	static wyFollow* make(wyNode* fNode, wyRect worldBoundary = wyrZero);
 

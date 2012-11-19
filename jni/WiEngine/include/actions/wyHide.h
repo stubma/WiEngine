@@ -32,13 +32,7 @@
 #include "wyInstantAction.h"
 
 /**
- * @class wyHide
- *
- * \if English
- * Hide a node by calling setVisible method. A node which is hidden will not draw and respond to events
- * \else
- * 节点隐藏的动作封装，对节点执行隐藏操作
- * \endif
+ * Hide a node by calling setVisible method. A node which is hidden will not be drawn and respond to events
  */
 class WIENGINE_API wyHide : public wyInstantAction {
 protected:
@@ -53,15 +47,10 @@ public:
 	virtual wyAction* copy();
 
 	/**
-	 * \if English
-	 * Return the reversed action of \link wyHide wyHide\endlink, actually it is a \link wyShow wyShow\endlink object
+	 * Return the reversed action of \link wyHide wyHide\endlink, actually it is a
+	 * \link wyShow wyShow\endlink object
 	 *
 	 * @return \link wyAction wyAction \endlink
-	 * \else
-	 * 返回hide的反转操作，实际是\link wyShow wyShow \endlink对象指针
-	 *
-	 * @return \link wyAction wyAction \endlink对象指针
-	 * \endif
 	 */
 	virtual wyAction* reverse();
 

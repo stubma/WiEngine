@@ -33,71 +33,29 @@
 #include "wyTypes.h"
 
 /**
- * @class wyMoveBy
- *
- * \if English
  * Move a node
- * \else
- * 节点移动的动作封装,根据设置偏移量进行移动
- * \endif
  */
 class WIENGINE_API wyMoveBy : public wyIntervalAction {
 protected:
-	/**
-	 * \if English
-	 * start x position
-	 * \else
-	 * 节点的起始x轴位置
-	 * \endif
-	 */
+	/// start x position
 	float m_startPositionX;
 
-	/**
-	 * \if English
-	 * start y position
-	 * \else
-	 * 节点的起始y轴位置
-	 * \endif
-	 */
+    /// start y position
 	float m_startPositionY;
 
-	/**
-	 * \if English
-	 * offset in x axis
-	 * \else
-	 * 节点的偏移x轴距离
-	 * \endif
-	 */
+	/// offset in x axis
 	float m_deltaX;
 
-	/**
-	 * \if English
-	 * offset in y axis
-	 * \else
-	 * 节点的偏移y轴距离
-	 * \endif
-	 */
+	/// offset in y axis
 	float m_deltaY;
 
 	/**
-	 * \if English
 	 * Pin point. When moving, node's rotation will be set to angle of line
 	 * between node anchor and pin point
-	 * \else
-	 * 一个固定点, 用全局坐标指定, 当物体移动时, 物体的旋转角度将根据物体锚点
-	 * 和这个固定点之间连线的角度确定. 这个固定点可以动态的修改, 因此可以实现
-	 * 移动节点对固定或者移动物体的跟踪功能.
-	 * \endif
 	 */
 	wyPoint m_pinPoint;
 
-	/**
-	 * \if English
-	 * angle delta added to node rotation when pin point is set
-	 * \else
-	 * 在根据pin point设置节点的旋转角度时, 可以设置一个附加角度偏移量
-	 * \endif
-	 */
+	/// angle delta added to node rotation when pin point is set
 	float m_pinDelta;
 
 protected:
@@ -112,21 +70,12 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param duration duration time of action
 	 * @param x offset in x axis
 	 * @param y offset in y axis
 	 * @return \link wyMoveBy wyMoveBy\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param x 节点偏移x轴距离
-	 * @param y 节点偏移y轴距离
-	 * @return \link wyMoveBy wyMoveBy\endlink
-	 * \endif
 	 */
 	static wyMoveBy* make(float duration, float x, float y);
 
@@ -145,78 +94,43 @@ public:
 	virtual void update(float t);
 
 	/**
-	 * \if English
 	 * set pin point
 	 *
 	 * @param p global coordinate of pin point
-	 * \else
-	 * 设置pin point
-	 *
-	 * @param p pin point的全局坐标
-	 * \endif
 	 */
 	void setPinPoint(wyPoint p) { m_pinPoint = p; }
 
 	/**
-	 * \if English
 	 * set pin point
 	 *
 	 * @param x global x location of pin point
 	 * @param y global y location of pin point
-	 * \else
-	 * 设置pin point
-	 *
-	 * @param x pin point的全局x位置
-	 * @param y pin point的全局y位置
-	 * \endif
 	 */
 	void setPinPoint(float x, float y) { m_pinPoint = wyp(x, y); }
 
 	/**
-	 * \if English
 	 * get pin point
 	 *
 	 * @return global coordinate of pin point
-	 * \else
-	 * 得到pin point
-	 *
-	 * @return pin point的全局坐标
-	 * \endif
 	 */
 	wyPoint getPinPoint() { return m_pinPoint; }
 
 	/**
-	 * \if English
 	 * clear pin point
-	 * \else
-	 * 清除掉pin point, 这样节点移动时将不再自动对准pin point
-	 * \endif
 	 */
 	void clearPinPoint() { m_pinPoint = wyp(MAX_FLOAT, MAX_FLOAT); }
 
 	/**
-	 * \if English
 	 * set angle delta of pin point rotation
 	 *
 	 * @param angle to be added to node rotation
-	 * \else
-	 * 设置附加角度, 仅当pin point被设置时有效
-	 *
-	 * @param delta 附加角度
-	 * \endif
 	 */
 	void setPinAngleDelta(float delta) { m_pinDelta = delta; }
 
 	/**
-	 * \if English
 	 * get angle delta
 	 *
 	 * @return angle delta
-	 * \else
-	 * 得到附加角度
-	 *
-	 * @return 附加角度
-	 * \endif
 	 */
 	float getPinAngleDelta() { return m_pinDelta; }
 };

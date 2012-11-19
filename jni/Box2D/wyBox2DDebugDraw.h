@@ -72,32 +72,28 @@ public:
 	virtual void DrawPoint(const b2Vec2& p, float32 size, const b2Color& color);
 
 	/**
-	 * 得到1米对应的像素数
-	 *
-	 * @return 1米对应的像素数
+	 * Get pixels mapped to one meter
 	 */
 	float getMeterPixels() { return m_meterPixels; }
 
 	/**
-	 * 设置1米对应的像素数
-	 *
-	 * @param mp 1米对应的像素数
+	 * Set how many pixels mapped to one meter
 	 */
 	void setMeterPixels(float mp) { m_meterPixels = mp; }
 
 	/**
-	 * 根据当前的box2d放缩比例，把像素数转换成米数
+	 * Convert pixel to meter based on current one meter pixel setting
 	 *
-	 * @param pixel 像素数
-	 * @return 米数
+	 * @param pixel pixel
+	 * @return meter
 	 */
 	float pixel2Meter(float pixel) { return pixel / m_meterPixels; }
 
 	/**
-	 * 根据当前的box2d放缩比例, 把米数转换成像素数
+	 * Convert meter to pixel based on current one meter pixel setting
 	 *
-	 * @param meter 米数
-	 * @return 像素数
+	 * @param meter meter
+	 * @return pixel
 	 */
 	float meter2Pixel(float meter) { return meter * m_meterPixels; }
 };

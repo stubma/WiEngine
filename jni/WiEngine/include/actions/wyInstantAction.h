@@ -32,14 +32,8 @@
 #include "wyFiniteTimeAction.h"
 
 /**
- * @class wyInstantAction
- *
- * \if English
  * Base class for actions who ends immediately. However, its duration is not zero, but very very small.
  * setDuration has no effect for instant actions.
- * \else
- * 瞬间动作的封装, 是所有瞬间动作的基类
- * \endif
  */
 class WIENGINE_API wyInstantAction : public wyFiniteTimeAction {
 protected:

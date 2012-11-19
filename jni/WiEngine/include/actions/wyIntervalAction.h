@@ -33,13 +33,7 @@
 #include <stdbool.h>
 
 /**
- * @class wyIntervalAction
- *
- * \if English
  * Opposite to instant action, it is the base class of actions who will last for some while.
- * \else
- * 是所有非瞬间动作的基类, 用来表示一定时间内完成且在完成时间内持续更新的动作
- * \endif
  */
 class WIENGINE_API wyIntervalAction : public wyFiniteTimeAction {
 protected:

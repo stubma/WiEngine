@@ -32,42 +32,23 @@
 #include "wyIntervalAction.h"
 
 /**
- * @class wyDelayTime
- *
- * \if English
  * Just wait for a while and do nothing
- * \else
- * 延时动作。仅仅就是一段时间内什么也不做，和其它动作组合使用，相当于起到定时的作用。
- * \endif
  */
 class WIENGINE_API wyDelayTime : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param duration waiting time
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * \endif
 	 */
 	wyDelayTime(float duration);
 
 public:
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param duration waiting time
 	 * @return \link wyDelayTime wyDelayTime\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @return \link wyDelayTime wyDelayTime\endlink
-	 * \endif
 	 */
 	static wyDelayTime* make(float duration);
 

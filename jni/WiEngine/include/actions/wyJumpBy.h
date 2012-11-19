@@ -33,50 +33,20 @@
 #include "wyTypes.h"
 
 /**S
- * @class wyJumpBy
- *
- * \if English
  * A node jumps from current position to elsewhere, the jumping can be adjusted by offset, height and times
- * \else
- * 节点跳跃的动作封装,根据设置偏移量，高度，跳跃次数进行移动
- * \endif
  */
 class WIENGINE_API wyJumpBy : public wyIntervalAction {
 protected:
-	/**
-	 * \if English
-	 * start position
-	 * \else
-	 * 节点的起始位置 \link wyPoint wyPoint对象 \endlink
-	 * \endif
-	 */
+	/// start position
 	wyPoint m_startPosition;
 
-	/**
-	 * \if English
-	 * jump offset in two directions
-	 * \else
-	 * 节点偏移位置 \link wyPoint wyPoint对象 \endlink
-	 * \endif
-	 */
+	/// jump offset in two directions
 	wyPoint m_delta;
 
-	/**
-	 * \if English
-	 * height of jumping
-	 * \else
-	 * 节点跳跃的高度
-	 * \endif
-	 */
+	/// height of jumping
 	float m_height;
 
-	/**
-	 * \if English
-	 * times of jumping
-	 * \else
-	 * 节点跳跃的次数
-	 * \endif
-	 */
+	/// times of jumping
 	int m_jumps;
 
 protected:
@@ -93,7 +63,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param duration duration time of action
@@ -102,16 +71,6 @@ public:
 	 * @param height height of jumping
 	 * @param jumps times of jumping
 	 * @return \link wyJumpBy wyJumpBy\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param x 节点偏移x轴距离
-	 * @param y 节点偏移y轴距离
-	 * @param height 节点跳跃的高度
-	 * @param jumps 节点跳跃的次数
-	 * @return \link wyJumpBy wyJumpBy\endlink
-	 * \endif
 	 */
 	static wyJumpBy* make(float duration, float x, float y, float height, int jumps);
 

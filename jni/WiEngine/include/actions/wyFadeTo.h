@@ -32,56 +32,25 @@
 #include "wyIntervalAction.h"
 
 /**
- * @class wyFadeTo
- *
- * \if English
  * Change alpha of node from one value to another value
- * \else
- * 节点透明度变化效果的动作封装
- * \endif
  */
 class WIENGINE_API wyFadeTo : public wyIntervalAction {
 protected:
-	/**
-	 * \if English
-	 * end alpha, range from 0 to 255
-	 * \else
-	 * 目标透明度，取值0到255，255为不透明，0为透明
-	 * \endif
-	 */
+	/// end alpha, range from 0 to 255
 	int m_toAlpha;
 
-	/**
-	 * \if English
-	 * start alpha, range from 0 to 255
-	 * \else
-	 * 起始透明度，取值0到255，255为不透明，0为透明
-	 * \endif
-	 */
+	/// start alpha, range from 0 to 255
 	int m_fromAlpha;
 
-	/**
-	 * \if English
-	 * true indicating modify alpha value of child nodes recursively
-	 * \else
-	 * true表示递归修改所有子节点的alpha值
-	 * \endif
-	 */
+	/// true indicating modify alpha value of child nodes recursively
 	bool m_includeChildren;
 
 private:
 	/**
-	 * \if English
 	 * update alpha recursively
 	 *
 	 * @param node start node
 	 * @param alpha destination alpha value
-	 * \else
-	 * 递归更新alpha值
-	 *
-	 * @param node 起始结点
-	 * @param alpha 目标alpha值
-	 * \endif
 	 */
 	void updateAlpha(wyNode* node, int alpha);
 
@@ -98,7 +67,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param duration duration time of action
@@ -106,15 +74,6 @@ public:
 	 * @param toAlpha end alpha, range from 0 to 255
 	 * @param includeChildren true indicating modify alpha value of child nodes recursively
 	 * @return \link wyFadeTo wyFadeTo\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param fromAlpha 起始透明度，取值0到255，255为不透明，0为透明
-	 * @param toAlpha 目标透明度，取值0到255，255为不透明，0为透明
-	 * @param includeChildren true表示同时修改所有子节点的alpha值, 缺省是false
-	 * @return \link wyFadeTo wyFadeTo\endlink
-	 * \endif
 	 */
 	static wyFadeTo* make(float duration, int fromAlpha, int toAlpha, bool includeChildren = false);
 

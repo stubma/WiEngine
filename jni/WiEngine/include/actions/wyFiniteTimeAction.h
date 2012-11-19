@@ -32,44 +32,20 @@
 #include "wyAction.h"
 
 /**
- * @class wyFiniteTimeAction
- *
- * \if English
  * Base class for actions whose time is definite
- * \else
- * 用于表示在有限时间内可以完成的动作
- * \endif
  */
 class WIENGINE_API wyFiniteTimeAction : public wyAction {
 	friend class wyRepeat;
 	friend class wyRepeatForever;
 
 protected:
-	/**
-	 * \if English
-	 * time already passed
-	 * \else
-	 * 动作已经持续的时间
-	 * \endif
-	 */
+	/// time already passed
 	float m_elapsed;
 
-	/**
-	 * \if English
-	 * duration time of action
-	 * \else
-	 * 动作持续的时间
-	 * \endif
-	 */
+	/// duration time of action
 	float m_duration;
 
-	/**
-	 * \if English
-	 * true indicating it is the first time to update action, it is set to ensure action starts from beginning
-	 * \else
-	 * true表示是第一次更新, 用于设置初始状态，保证动作从初始状态开始执行
-	 * \endif
-	 */
+	/// true indicating it is the first time to update action, it is set to ensure action starts from beginning
 	bool m_firstTick;
 
 protected:
@@ -87,54 +63,30 @@ public:
 	virtual void start(wyNode* target);
 
 	/**
-	 * \if English
 	 * Get duration time of action
 	 *
 	 * @return duration time of action
-	 * \else
-	 * 获得动作持续时间长度
-	 *
-	 * @return 动作持续时间长度
-	 * \endif
 	 */
 	float getDuration();
 
 	/**
-	 * \if English
 	 * Set duration time of action, no effect if action is started
 	 *
 	 * @param duration duration time of action
-	 * \else
-	 * 设置动作持续时间长度, 如果动作已经开始执行, 设置不会有效果
-	 *
-	 * @param duration 动作持续时间长度
-	 * \endif
 	 */
 	void setDuration(float duration);
 
 	/**
-	 * \if English
 	 * Get elapsed time of this action
 	 *
 	 * @return elapsed time in second
-	 * \else
-	 * 获得动作已经持续的时间
-	 *
-	 * @return 动作已经持续的时间
-	 * \endif
 	 */
 	float getElapsed() { return m_elapsed; }
 
 	/**
-	 * \if English
 	 * Set elapsed time of action, don't call it if you do not know what will happen. Mainly used by internal logic.
 	 *
 	 * @param e elapsed time
-	 * \else
-	 * 设置动作已经持续的时间，只应在一些特殊情况下调用该方法
-	 *
-	 * @param e 已经过去的时间
-	 * \endif
 	 */
 	void setElapsed(float e) { m_elapsed = e; }
 };

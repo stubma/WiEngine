@@ -32,72 +32,38 @@
 #include "wyIntervalAction.h"
 
 /**
- * @class wyFadeIn
- *
- * \if English
  * Fade in a node, it changes alpha of node from 0 to 1
- * \else
- * 节点淡入效果的动作封装
- * \endif
  */
 class WIENGINE_API wyFadeIn : public wyIntervalAction {
 private:
-	/**
-	 * \if English
-	 * true indicating modify alpha value of child nodes recursively
-	 * \else
-	 * true表示递归修改所有子节点的alpha值
-	 * \endif
-	 */
+	/// true indicating modify alpha value of child nodes recursively
 	bool m_includeChildren;
 
 private:
 	/**
-	 * \if English
 	 * update alpha recursively
 	 *
 	 * @param node start node
 	 * @param alpha destination alpha value
-	 * \else
-	 * 递归更新alpha值
-	 *
-	 * @param node 起始结点
-	 * @param alpha 目标alpha值
-	 * \endif
 	 */
 	void updateAlpha(wyNode* node, int alpha);
 
 protected:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param duration duration time of this action
 	 * @param includeChildren true indicating modify alpha value of child nodes recursively
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param includeChildren true表示同时修改所有子节点的alpha值, 缺省是false
-	 * \endif
 	 */
 	wyFadeIn(float duration, bool includeChildren = false);
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param duration duration time of this action
 	 * @param includeChildren true indicating modify alpha value of child nodes recursively
 	 * @return \link wyFadeIn wyFadeIn\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param includeChildren true表示同时修改所有子节点的alpha值, 缺省是false
-	 * @return \link wyFadeIn wyFadeIn\endlink
-	 * \endif
 	 */
 	static wyFadeIn* make(float duration, bool includeChildren = false);
 
