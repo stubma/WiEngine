@@ -34,43 +34,24 @@
 /**
  * @class wyEaseElasticIn
  *
- * \if English
  * See demo EaseActions\\EaseElasticIn.
- * \else
- * 详细了解可见示例 EaseActions\\EaseElasticIn.
- * \endif
  */
 class WIENGINE_API wyEaseElasticIn : public wyEaseElastic {
 public:
  	/**
- 	 * \if English
  	 * Constructor
  	 *
  	 * @param period elastic vibration period, the smaller the value is, the faster it shakes
  	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
 	 * @return \link wyEaseElasticIn wyEaseElasticIn\endlink
- 	 * \else
-	 * 构造函数
-	 *
-	 * @param period Elastic的波动周期，值越小，波动越快
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * @return \link wyEaseElasticIn wyEaseElasticIn\endlink
-	 * \endif
 	 */
 	static wyEaseElasticIn* make(float period, wyIntervalAction* wrapped = NULL);
 
  	/**
- 	 * \if English
  	 * Constructor
  	 *
  	 * @param period elastic vibration period, the smaller the value is, the faster it shakes
  	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
- 	 * \else
-	 * 构造函数
-	 *
-	 * @param period Elastic的波动周期，值越小，波动越快
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	wyEaseElasticIn(float period, wyIntervalAction* wrapped = NULL);
 	

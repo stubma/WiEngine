@@ -35,21 +35,13 @@
 /**
  * @class wyPlace
  *
- * \if English
  * Move a node to specfied place. This action doesn't have reverse action and
  * execute instantly.
- * \else
- * 节点位置变化的动作封装,根据设置点进行移动
- * \endif
  */
 class WIENGINE_API wyPlace : public wyInstantAction {
 protected:
 	/**
-	 * \if English
 	 * offset to be moved
-	 * \else
-	 * 设置的移动点的位置 \link wyPoint wyPoint对象 \endlink
-	 * \endif
 	 */
 	wyPoint m_position;
 
@@ -64,17 +56,10 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param x x offset to be added
 	 * @param y y offset to be added
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param x 目标位置x轴偏移量
-	 * @param y 目标位置y轴偏移量
-	 * \endif
 	 */
 	static wyPlace* make(float x, float y);
 
@@ -84,15 +69,9 @@ public:
 	virtual wyAction* copy();
 
 	/**
-	 * \if English
 	 * This action doesn't have reverse action, so returns NULL always
 	 *
 	 * @return NULL
-	 * \else
-	 * 此动作不支持反转，返回为NULL
-	 *
-	 * @return NULL
-	 * \endif
 	 */
 	virtual wyAction* reverse();
 

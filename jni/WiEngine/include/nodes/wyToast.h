@@ -37,14 +37,9 @@ class wyDirector;
 /**
  * @class wyToast
  *
- * \if English
  * A UI component behaves like Android Toast control. It consists of background and content
  * node, so it can display anything. Background node is better to be a scalable node, such as
  * \link wyNinePatchSprite wyNinePatchSprite\endlink
- * \else
- * 类似于Android的toast控件的节点, 由一个背景和内容两个节点组成. 因此它不限于只能显示文字, 内容节点可以
- * 为任意类型. 背景节点最好是一个可以拉伸的节点, 比如\link wyNinePatchSprite wyNinePatchSprite\endlink.
- * \endif
  */
 class WIENGINE_API wyToast : public wyNode, public wyActionCallback {
 	friend class wyDirector;
@@ -139,67 +134,37 @@ public:
 	virtual ~wyToast();
 
 	/**
-	 * \if English
 	 * Create a toast with background and content node
 	 *
 	 * @param bg background node
 	 * @param content content node
 	 * @param duration duration in seconds
-	 * \else
-	 * 创建一个toast节点, 指定背景和内容节点
-	 *
-	 * @param bg 背景节点
-	 * @param content 内容节点
-	 * @param duration 持续显示时间, 时间到后会渐渐消失
-	 * \endif
 	 */
 	static wyToast* make(wyNode* bg, wyNode* content, float duration);
 
 	/**
-	 * \if English
 	 * Create a toast with content node, it uses default background
 	 *
 	 * @param content content node
 	 * @param duration duration in seconds
-	 * \else
-	 * 创建一个toast节点, 指定内容节点, 使用缺省背景
-	 *
-	 * @param content 内容节点
-	 * @param duration 持续显示时间, 时间到后会渐渐消失
-	 * \endif
 	 */
 	static wyToast* make(wyNode* content, float duration);
 
 	/**
-	 * \if English
 	 * Create a toast with background node, and content text, the text
 	 * will be assigned to a \link wyLabel wyLabel\endlink
 	 *
 	 * @param bg background node
 	 * @param text content text string
 	 * @param duration duration in seconds
-	 * \else
-	 * 创建一个toast, 仅指定背景节点和内容文字. 文字会被赋于一个\link wyLabel wyLabel\endlink节点.
-	 *
-	 * @param bg 背景节点
-	 * @param text 内容文字
-	 * @param duration 持续显示时间, 时间到后会渐渐消失
-	 * \endif
 	 */
 	static wyToast* make(wyNode* bg, const char* text, float duration);
 
 	/**
-	 * \if English
 	 * Create a toast with content text. The background will be set to default style
 	 *
 	 * @param text content text
 	 * @param duration duration in seconds
-	 * \else
-	 * 创建一个Toast节点, 只指定内容文字. 背景会设置成缺省样式
-	 *
-	 * @param text 内容文字
-	 * @param duration 持续显示时间, 时间到后会渐渐消失
-	 * \endif
 	 */
 	static wyToast* make(const char* text, float duration);
 
@@ -213,91 +178,51 @@ public:
 	virtual void onActionUpdate(wyAction* action, float t) {}
 
 	/**
-	 * \if English
 	 * Show this toast
 	 *
 	 * @param immediately true means the toast should be visible right now, or false
 	 * 		means it will be shown after previous toast is disappeared, default is false
-	 * \else
-	 * 显示这个toast
-	 *
-	 * @param immediately true表示立刻显示这个toast. false表示等它之前一个toast消失之后再显示,
-	 * 		缺省是false
-	 * \endif
 	 */
 	void show(bool immediately = false);
 
 	/**
-	 * \if English
 	 * Get background node
-	 * \else
-	 * 得到背景节点
-	 * \endif
 	 */
 	wyNode* getBackground() { return m_bg; }
 
 	/**
-	 * \if English
 	 * Get content node
-	 * \else
-	 * 得到内容节点
-	 * \endif
 	 */
 	wyNode* getContent() { return m_content; }
 
 	/**
-	 * \if English
 	 * Set margin between content and background node.
-	 * \else
-	 * 设置内容节点和背景节点边界的距离
-	 * \endif
 	 */
 	void setMargin(float top, float left, float right, float bottom);
 
 	/**
-	 * \if English
 	 * Get left margin
-	 * \else
-	 * 得到左边空隙
-	 * \endif
 	 */
 	float getLeftMargin() { return m_leftMargin; }
 
 	/**
-	 * \if English
 	 * Get right margin
-	 * \else
-	 * 得到右边空隙
-	 * \endif
 	 */
 	float getRightMargin() { return m_rightMargin; }
 
 	/**
-	 * \if English
 	 * Get top margin
-	 * \else
-	 * 得到上边空隙
-	 * \endif
 	 */
 	float getTopMargin() { return m_topMargin; }
 
 	/**
-	 * \if English
 	 * Get bottom margin
-	 * \else
-	 * 得到下边空隙
-	 * \endif
 	 */
 	float getBottomMargin() { return m_bottomMargin; }
 
 	/**
-	 * \if English
 	 * Set desired position where toast will be shown. If not set,
 	 * toast will be placed in (wyDevice::winWidth / 2, wyDevice::winHeight * 4 / 5)
-	 * \else
-	 * 设置toast出现的位置, 如果不设置. 则缺省会放在屏幕中间偏下的位置, 具体坐标是:
-	 * (wyDevice::winWidth / 2, wyDevice::winHeight * 4 / 5)
-	 * \endif
 	 */
 	void setToastPosition(float x, float y);
 };

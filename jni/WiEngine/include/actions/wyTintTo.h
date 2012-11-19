@@ -34,92 +34,52 @@
 /**
  * @class wyTintTo
  *
- * \if English
  * It changes color between start color and end color
- * \else
- * 节点染色的动作封装,根据设置起始染色量进行移动
- * \endif
  */
 class WIENGINE_API wyTintTo : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * red component of end color, from 0 to 255
-	 * \else
-	 * 目标红色值, 0到255
-	 * \endif
 	 */
 	int m_toR;
 
 	/**
-	 * \if English
 	 * green component of end color, from 0 to 255
-	 * \else
-	 * 目标绿色值, 0到255
-	 * \endif
 	 */
 	int m_toG;
 
 	/**
-	 * \if English
 	 * blue component of end color, from 0 to 255
-	 * \else
-	 * 目标蓝色值, 0到255
-	 * \endif
 	 */
 	int m_toB;
 
 	/**
-	 * \if English
 	 * delta value of red component
-	 * \else
-	 * 红色值变化值
-	 * \endif
 	 */
 	int m_deltaR;
 
 	/**
-	 * \if English
 	 * delta value of green component
-	 * \else
-	 * 绿色值变化值
-	 * \endif
 	 */
 	int m_deltaG;
 
 	/**
-	 * \if English
 	 * delta value of blue component
-	 * \else
-	 * 蓝色值变化值
-	 * \endif
 	 */
 	int m_deltaB;
 
 	/**
-	 * \if English
 	 * red component of start color, from 0 to 255
-	 * \else
-	 * 初始红色值, 0到255
-	 * \endif
 	 */
 	int m_fromR;
 
 	/**
-	 * \if English
 	 * green component of start color, from 0 to 255
-	 * \else
-	 * 初始绿色值, 0到255
-	 * \endif
 	 */
 	int m_fromG;
 
 	/**
-	 * \if English
 	 * blue component of start color, from 0 to 255
-	 * \else
-	 * 初始蓝色值, 0到255
-	 * \endif
 	 */
 	int m_fromB;
 
@@ -139,7 +99,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration duration time of action in seconds
@@ -149,17 +108,6 @@ public:
 	 * @param toR red component of end color, from 0 to 255
 	 * @param toG green component of end color, from 0 to 255
 	 * @param toB blue component of end color, from 0 to 255
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param fromR 初始红色值, 0到255
-	 * @param fromG 初始绿色值, 0到255
-	 * @param fromB 初始蓝色值, 0到255
-	 * @param toR 目标红色值, 0到255
-	 * @param toG 目标绿色值, 0到255
-	 * @param toB 目标蓝色值, 0到255
-	 * \endif
 	 */
 	static wyTintTo* make(float duration, int fromR, int fromG, int fromB, int toR, int toG, int toB);
 

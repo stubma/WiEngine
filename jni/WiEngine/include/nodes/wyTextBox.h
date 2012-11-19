@@ -166,11 +166,7 @@ protected:
 	virtual void notifyOnEndEditing();
 
 	/**
-	 * \if English
 	 * Show a dialog for input
-	 * \else
-	 * 显示一个输入对话框
-	 * \endif
 	 */
 	virtual void showInputDialog() = 0;
 
@@ -310,20 +306,12 @@ public:
 	void setPadding(float left, float top, float right, float bottom);
 
 	/**
-	 * \if English
 	 * Set text box as password style
-	 * \else
-	 * 设置文本框为密码输入框
-	 * \endif
 	 */
 	void setPassword(bool flag) { m_password = flag; }
 
 	/**
-	 * \if English
 	 * Is text box a password input?
-	 * \else
-	 * 文本框是否是密码输入框
-	 * \endif
 	 */
 	bool isPassword() { return m_password; }
 };

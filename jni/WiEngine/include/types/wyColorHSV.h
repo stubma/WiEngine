@@ -39,34 +39,19 @@ static inline wyColorHSV wychsv(float h, float s, float v) {
 }
 
 /**
- * \if English
  * Convert hsv color to rgb color
  *
  * @param c hsv color
  * @return rgb color
- * \else
- * 将hsv颜色转换为rgb颜色
- *
- * @param c hsv颜色
- * @return rgb颜色
- * \endif
  */
 wyColor3B wychsv2c3b(wyColorHSV& c);
 
 /**
- * \if English
  * Convert hsv color to rgba color
  *
  * @param c hsv color
  * @param alpha transparency value
  * @return rgba color
- * \else
- * 将hsv颜色转换为rgba颜色
- *
- * @param c hsv颜色
- * @param alpha 透明度
- * @return rgba颜色
- * \endif
  */
 wyColor4B wychsv2c4b(wyColorHSV& c, unsigned char alpha);
 

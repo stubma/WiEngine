@@ -34,48 +34,28 @@
 /**
  * @class wyRepeatForever
  *
- * \if English
  * repeat an action forever
- * \else
- * 不断重复执行某个动作的封装
- * \endif
  */
 class WIENGINE_API wyRepeatForever : public wyAction {
 protected:
 	/**
-	 * \if English
 	 * action to be repeated
-	 * \else
-	 * 具体要执行的\link wyIntervalAction wyIntervalAction对象 \endlink指针
-	 * \endif
 	 */
 	wyIntervalAction* m_other;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param other action to be repeated
-	 * \else
-	 * 构造函数
-	 *
-	 * @param other 具体执行的 \link wyIntervalAction wyIntervalAction对象 \endlink指针
-	 * \endif
 	 */
 	wyRepeatForever(wyIntervalAction* other);
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param other action to be repeated
-	 * \else
-	 * 静态构造方法
-	 *
-	 * @param other 具体执行的 \link wyIntervalAction wyIntervalAction对象 \endlink指针
-	 * \endif
 	 */
 	static wyRepeatForever* make(wyIntervalAction* other);
 

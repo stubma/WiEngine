@@ -81,11 +81,7 @@ class wyDirector;
 /**
  * @class wyMath
  *
- * \if English
  * Mathematical methods definition
- * \else
- * 数学相关工具方法
- * \endif
  */
 class WIENGINE_API wyMath {
 	friend class wyDirector;
@@ -99,93 +95,52 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * Return a number which is power of two and closest to given \c x
 	 *
 	 * @param x reference number
 	 * @return a number which is power of two and closest to given \c x
-	 * \else
-	 * 返回一个大于x的数，要求最接近x，且是2的整数次方。比如如果x是5，则返回8
-	 *
-	 * @param x 参考值
-	 * @return 最接近x的2的整数次方值
-	 * \endif
 	 */
 	static int getNextPOT(int x);
 
 	/**
-	 * \if English
 	 * Convert degree to radian
 	 *
 	 * @param degree value in degree
 	 * @return value in radian
-	 * \else
-	 * 把角度转换为弧度
-	 *
-	 * @param degree 角度值
-	 * @return 弧度值
-	 * \endif
 	 */
 	static float d2r(float degree);
 
 	/**
-	 * \if English
 	 * Convert radian to degree
 	 *
 	 * @param radian value in radian
 	 * @return value in degree
-	 * \else
-	 * 把弧度转换为角度
-	 *
-	 * @param radian 弧度
-	 * @return 角度
-	 * \endif
 	 */
 	static float r2d(float radian);
 
 	/**
-	 * \if English
 	 * Generate a random number between -1 and 1
 	 *
 	 * @return random number
-	 * \else
-	 * 产生一个在[-1, 1]范围内的随机数
-	 *
-	 * @return 随机数
-	 * \endif
 	 */
 	static float randMinusOneToOne();
 
 	/**
-	 * \if English
 	 * Generate a random number between 0 and 1
 	 *
 	 * @return random number
-	 * \else
-	 * 产生一个在[0, 1]范围内的随机数
-	 *
-	 * @return 随机数
-	 * \endif
 	 */
 	static float randZeroToOne();
 
 	/**
-	 * \if English
 	 * Generate a random number between 0 and \c max
 	 *
 	 * @param max max value
 	 * @return random number
-	 * \else
-	 * 尝试一个[0, max]之间的随机数
-	 *
-	 * @param max 随机数最大值
-	 * @return 随机数
-	 * \endif
 	 */
 	static int randMax(int max);
 
 	/**
-	 * \if English
 	 * Check two segments are intersected or not
 	 *
 	 * @param p1 start point of segment 1
@@ -193,20 +148,10 @@ public:
 	 * @param q1 start point of segment 2
 	 * @paarm q2 end point of segment 2
 	 * @return true means two segments are intersected, or false if not
-	 * \else
-	 * 检查是否两个线段相交
-	 *
-	 * @param p1 线段1的起点和终点
-	 * @param p2 线段1的终点
-	 * @param q1 线段2的起点和终点
-	 * @param q2 线段2的终点
-	 * @return true表示两个线段相交, false表示不相交
-	 * \endif
 	 */
 	static bool isIntersected(wyPoint p1, wyPoint p2, wyPoint q1, wyPoint q2);
 
 	/**
-	 * \if English
 	 * Returns the positive modulo remainder of value divided by period.
 	 *
 	 * \par
@@ -218,19 +163,10 @@ public:
 	 * @param value value
 	 * @param period modulo
 	 * @return remainder which is always positive
-	 * \else
-	 * 浮点的取模运算, 类似于fmod, 实际上它也调用fmod. 但是它保证返回的结果永远为正值. 比如cyclic(-2.0, 12.0)会
-	 * 返回10.0, 而fmod(-2.0, 12.0)会返回-2.0
-	 *
-	 * @param value 值
-	 * @param period 模数
-	 * @return 余数, 必为正值
-	 * \endif
 	 */
 	static float cyclic(float value, float period);
 
 	/**
-	 * \if English
 	 * Returns the difference between the specified minuend and subtrahend, in terms of the
 	 * minimum difference within the specified periodic cycle. Therefore, the result may be
 	 * positive or negative, but will always be between (+period/2) and (-period/2).
@@ -246,64 +182,30 @@ public:
 	 * @param subtrahend subtrahend
 	 * @param period modulo
 	 * @return minimum difference
-	 * \else
-	 * 计算一个减数和被减数在某个周期模数下的最小差值, 返回值可能为正也可能为负, 但是肯定在
-	 * (+period/2)到(-period/2)的范围内
-	 *
-	 * \par
-	 * 例如: 对于罗盘来说, 角度范围360度, cyclicDifference(350, 10, 360)将得到-20, 因为从10度到
-	 * 350度的最小移动范围是反向移动20度.
-	 *
-	 * @param minuend 被减数
-	 * @param subtrahend 减数
-	 * @param period 模数
-	 * @return 最小差值
-	 * \endif
 	 */
 	static float cyclicDifference(float minuend, float subtrahend, float period);
 
 	/**
-	 * \if English
 	 * Optimized sin method
 	 * 
 	 * @param r radian
 	 * @return sine result
-	 * \else
-	 * 经过优化的正弦计算方法
-	 *
-	 * @param r 弧度
-	 * @return 正弦
-	 * \endif
 	 */
 	static float sin(float r);
 
 	/**
-	 * \if English
 	 * Optimized cos method
 	 * 
 	 * @param r radian
 	 * @param cosine result
-	 * \else
-	 * 经过优化的余弦计算方法 
-	 *
-	 * @param r 弧度
-	 * @return 余弦
-	 * \endif
 	 */
 	static float cos(float r);
 
 	/**
-	 * \if English
 	 * Optimized sqrt method
 	 *
 	 * @param f float value
 	 * @return sqrt result
-	 * \else
-	 * 经过优化的平方根计算方法
-	 *
-	 * @param f 参数
-	 * @return 平方根
-	 * \endif
 	 */
 	static float sqrt(float f);
 };

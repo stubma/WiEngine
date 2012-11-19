@@ -175,72 +175,41 @@ public:
 	void fire(float delta);
 
 	/**
-	 * \if English
 	 * Set trigger this timer only once or not
 	 *
 	 * \deprecated use \c setMaxInvocation(1) instead
-	 * \else
-	 * 设置此定时器是否只调用一次
-	 *
-	 * \deprecated 用\c setMaxInvocation(1)可以达到同样效果
-	 * \endif
 	 */
 	void setOneShot(bool flag);
 
 	/**
-	 * \if English
 	 * Will this timer be trigger only once?
-	 * \else
-	 * 返回此定时器是否只调用一次
-	 * \endif
 	 */
 	bool isOneShot() { return m_maxInvocation == 1; }
 
 	/**
-	 * \if English
 	 * Set max invocation count of this timer. If you set to 1, then
 	 * it is same as \c setOneShot(true). Zero means no limitation
-	 * \else
-	 * 设置这个定时器最大的触发次数, 设置成1和\c setOneShot(true)的作用是相同的.
-	 * 0表示不限制触发次数
-	 * \endif
 	 */
 	void setMaxInvocation(int max) { m_maxInvocation = max; }
 
 	/**
-	 * \if English
 	 * Get max invocation count of this timer. For a one shot timer, it returns 1.
 	 * Zero means no limitation
-	 * \else
-	 * 得到定时器的最大触发次数, 对于one shot是true的定时器, 返回1. 0表示没有限制
-	 * \endif
 	 */
 	int getMaxInvocation() { return m_maxInvocation; }
 
 	/**
-	 * \if English
 	 * Get current invocation count
-	 * \else
-	 * 得到当前已经触发的次数
-	 * \endif
 	 */
 	int getCurrentInvocationCount() { return m_counter; }
 
 	/**
-	 * \if English
 	 * Set paused flag of timer
-	 * \else
-	 * 设置timer的暂停标志
-	 * \endif
 	 */
 	void setPaused(bool flag) { m_paused = flag; }
 
 	/**
-	 * \if English
 	 * Get paused flag of timer
-	 * \else
-	 * 得到节点的暂停标志
-	 * \endif
 	 */
 	bool isPaused() { return m_paused; }
 

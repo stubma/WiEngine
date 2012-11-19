@@ -34,39 +34,22 @@
 /**
  * @class wyEaseSineOut
  *
- * \if English
  * See demo  EaseActions\\EaseSineOut.
- * \else
- * 详细了解可见示例 EaseActions\\EaseSineOut.
- * \endif
  */
 class WIENGINE_API wyEaseSineOut : public wyEaseAction {
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
 	 * @return \link wyEaseSineOut wyEaseSineOut\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * @return \link wyEaseSineOut wyEaseSineOut\endlink
-	 * \endif
 	 */
 	static wyEaseSineOut* make(wyIntervalAction* wrapped = NULL);
 
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	wyEaseSineOut(wyIntervalAction* wrapped = NULL);
 

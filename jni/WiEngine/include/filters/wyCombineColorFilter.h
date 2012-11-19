@@ -34,22 +34,13 @@
 /**
  * @class wyCombineColorFilter
  *
- * \if English
  * Combine many color filters together and perform them one by one. Output
  * of previous filter is the input of next.
- * \else
- * 将多个过滤器组合成一个, 先后执行它们, 后一个过滤器以前一个过滤器的输出为输入.
- * 过滤器越多, 速度可能越慢, 因此要谨慎使用.
- * \endif
  */
 class WIENGINE_API wyCombineColorFilter : public wyColorFilter {
 private:
 	/**
-	 * \if English
 	 * filter list
-	 * \else
-	 * 过滤器数组
-	 * \endif
 	 */
 	wyArray* m_filters;
 
@@ -63,28 +54,16 @@ public:
 	virtual ~wyCombineColorFilter();
 
 	/**
-	 * \if English
 	 * Static constructor, must be ended by NULL
 	 *
 	 * @param filter1 first filter, more filters can follow filter1, use NULL to end
-	 * \else
-	 * 静态构造函数, 必须以NULL表示结束
-	 *
-	 * @param filter1 第一个过滤器, 如果有更多过滤器可以跟在后面, 以NULL结束
-	 * \endif
 	 */
 	static wyCombineColorFilter* make(wyColorFilter* filter1, ...);
 
 	/**
-	 * \if English
 	 * Add a filter to last
 	 *
 	 * @param filter color filter to be added
-	 * \else
-	 * 添加一个过滤器到最后
-	 *
-	 * @param filter 过滤器
-	 * \endif
 	 */
 	void addFilter(wyColorFilter* filter);
 

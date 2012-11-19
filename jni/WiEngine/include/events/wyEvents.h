@@ -41,11 +41,7 @@ class wyAutoReleasePool;
 /**
  * @typedef wyKeyCode
  *
- * \if English
  * Key code defined in Android
- * \else
- * 按键代码
- * \endif
  */
 typedef enum {
 	KEYCODE_UNKNOWN         = 0,
@@ -149,11 +145,7 @@ typedef enum {
 /**
  * @typedef wyModifierFlag
  *
- * \if English
  * General modifier flag definition
- * \else
- * 通用辅助按键标志
- * \endif
  */
 typedef enum {
 	WY_CTRL = 1 << 0,
@@ -166,67 +158,39 @@ typedef enum {
 /**
  * @struct wyKeyEvent
  *
- * \if English
  * Key event definition
- * \else
- * 按键事件
- * \endif
  */
 typedef struct wyKeyEvent {
 	/**
-	 * \if English
 	 * key code
-	 * \else
-	 * 按键代码
-	 * \endif
 	 */
 	wyKeyCode keyCode;
 	
 	/**
-	 * \if English
 	 * int repeat count
-	 * \else
-	 * 按键重复次数
-	 * \endif
 	 */
 	int repeatCount;
 	
 	/**
-	 * \if English
 	 * event time
-	 * \else
-	 * 事件发生时间
-	 * \endif
 	 */
 	int64_t eventTime;
 	
 	/**
-	 * \if English
 	 * down time
-	 * \else
-	 * 按键按下时间
-	 * \endif
 	 */
 	int64_t downTime;
 	
 #if MACOSX || WINDOWS
 	/**
-	 * \if English
 	 * modifier key flags
-	 * \else
-	 * 按键附属键
-	 * \endif
 	 */
 	int modifierFlags;
 #endif
 	
 #if MACOSX
 	/**
-	 * \if English
 	 * keycode defined by carbon
-	 * \else
-	 * carbon key code in mac os x
-	 * \endif
 	 */
 	int carbonKeyCode;
 #endif
@@ -239,107 +203,61 @@ typedef struct wyKeyEvent {
 /**
  * @struct wyMotionEvent
  *
- * \if English
  * Touch event structure, it is a platform-independent abstraction
- * \else
- * 触摸事件结构. 这个事件结构相当于对不同平台事件的适配层. 里面有些内容有的是通用的, 有的
- * 也是和平台相关的, 如果要使用平台相关的内容, 要注意在进行跨平台移植的时候是不兼容的.
- * \endif
  */
 typedef struct wyMotionEvent {
 	/**
-	 * \if English
 	 * touch pointer count in this event
-	 * \else
-	 * 触摸点数, 大于1表示多点触摸
-	 * \endif
 	 */
 	int pointerCount;
 	
 	/**
-	 * \if English
 	 * If event is touch pointer began or end, then this index is the pointer which
 	 * is beginning or ending. You can get pointer id by pid[index]
-	 * \else
-	 * 如果当前的事件是touch pointer began或end, 则这个index代表的是正在began或end
-	 * 的触摸点索引, 通过pid[index]可以得到这个触摸点的id
-	 * \endif
 	 */
 	int index;
 	
 	/**
-	 * \if English
 	 * Pointer id list of touch, max capacity is five
-	 * \else
-	 * 触摸点id, 最多5个
-	 * \endif
 	 */
 	int pid[5];
 	
 	/**
-	 * \if English
 	 * Pointer x location in OpenGL coordinate system, max capacity is five
-	 * \else
-	 * 触摸点x坐标, 最多5个, 相对于OpenGL坐标系
-	 * \endif
 	 */
 	float x[5];
 	
 	/**
-	 * \if English
 	 * Pointer y location in OpenGL coordinate system, max capacity is five
-	 * \else
-	 * 触摸点y坐标, 最多5个, 相对于OpenGL坐标系
-	 * \endif
 	 */
 	float y[5];
 	
 #if ANDROID
 	/**
-	 * \if English
 	 * touch pressure
-	 * \else
-	 * 压力
-	 * \endif
 	 */
 	float pressure;
 	
 	/**
-	 * \if English
 	 * touch down time in milliseconds from 1970-1-1
-	 * \else
-	 * 按下时间, 单位毫秒, 从1970-1-1开始
-	 * \endif
 	 */
 	int64_t downTime;
 #elif IOS || WINDOWS
 	/**
-	 * \if English
 	 * tap count of this touch pointer
-	 * \else
-	 * 这个触摸点的点击次数
-	 * \endif
 	 */
 	int tap[5];
 #endif
 	
 #if MACOSX || WINDOWS
 	/**
-	 * \if English
 	 * modifier key flags
-	 * \else
-	 * 修饰键值
-	 * \endif
 	 */
 	int modifierFlags;
 #endif
 	
 	/**
-	 * \if English
 	 * Event time in milliseconds from 1970-1-1
-	 * \else
-	 * 事件发生时间, 单位毫秒, 从1970-1-1开始
-	 * \endif
 	 */
 	int64_t eventTime;
 } wyMotionEvent;
@@ -347,11 +265,7 @@ typedef struct wyMotionEvent {
 /**
  * @typedef wyEventType
  *
- * \if English
  * General event type definition
- * \else
- * 通用事件类型定义, 内部使用
- * \endif
  */
 typedef enum {
 	// accelerometer
@@ -400,11 +314,7 @@ typedef enum {
 /**
  * @struct wyEvent
  *
- * \if English
  * General event structure
- * \else
- * 通用事件结构
- * \endif
  */
 typedef struct wyEvent {
 	wyEventType type;

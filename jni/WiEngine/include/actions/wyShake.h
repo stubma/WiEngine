@@ -34,38 +34,22 @@
 /**
  * @class wyShake
  *
- * \if English
  * node is moved randomly in a circle area fast, looks like shaking
- * \else
- * 节点在一个圆形区域范围内随机移动, 造成抖动的效果
- * \endif
  */
 class WIENGINE_API wyShake : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * radius of shaking area
-	 * \else
-	 * 抖动半径
-	 * \endif
 	 */
 	float m_radius;
 
 	/**
-	 * \if English
 	 * original x position of node
-	 * \else
-	 * 原始的x位置
-	 * \endif
 	 */
 	float m_originalX;
 
 	/**
-	 * \if English
 	 * original y position of node
-	 * \else
-	 * 原始的y位置
-	 * \endif
 	 */
 	float m_originalY;
 
@@ -80,17 +64,10 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration duration time of action in seconds
 	 * @param radius radius of shaking area
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param radius 抖动半径, 节点在不超过这个半径的圆内抖动
-	 * \endif
 	 */
 	static wyShake* make(float duration, float radius);
 

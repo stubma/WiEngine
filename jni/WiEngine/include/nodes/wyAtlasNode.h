@@ -34,11 +34,7 @@
 /**
  * @class wyAtlasNode
  *
- * \if English
  * Base class of \link wyTileMapAtlas wyTileMapAtlas\endlink
- * \else
- * 图片集节点的封装,是图片集节点的基类
- * \endif
  */
 class WIENGINE_API wyAtlasNode : public wyNode {
 protected:
@@ -62,78 +58,43 @@ protected:
 
 protected:
     /**
-     * \if English
      * to do initialization
      *
      * @param tex see \link wyTexture2D wyTexture2D\endlink
      * @param itemWidth tile width, in pixels
      * @param itemHeight tile height, in pixels
      * @param capacity for cache purpose, to specify how much tiles will be cached
-     * \else
-	 * 初始化
-	 *
-	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @param itemWidth 图片块的宽度
-	 * @param itemHeight 图片块的高度
-	 * @param capacity 缓存数
-	 * \endif
 	 */
     void init(wyTexture2D* tex, int itemWidth, int itemHeight, int capacity);
 
     /**
-     * \if English
      * constructor
-     * \else
-	 * 构造函数
-	 * \endif
 	 */
     wyAtlasNode();
 
 public:
     /**
-     * \if English
      * factory function, used to create a new instance with autoRelease enabled
      *
      * @param tex see \link wyTexture2D wyTexture2D\endlink
      * @param itemWidth tile width, in pixels
      * @param itemHeight tile height, in pixels
      * @param capacity for cache purpose, to specify how much tiles will be cached
-     * \else
-	 * 静态构造函数
-	 *
-	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @param itemWidth 图片块的宽度
-	 * @param itemHeight 图片块的高度
-	 * @param capacity 缓存数
-	 * \endif
 	 */
     static wyAtlasNode* make(wyTexture2D* tex, int itemWidth, int itemHeight, int capacity);
 
     /**
-     * \if English
      * constructor
      *
      * @param tex see \link wyTexture2D wyTexture2D\endlink
      * @param itemWidth tile width, in pixels
      * @param itemHeight tile height, in pixels
      * @param capacity for cache purpose, to specify how much tiles will be cached
-     * \else
-	 * 构造函数
-	 *
-	 * @param tex 图片资源\link wyTexture2D wyTexture2D对象指针\endlink
-	 * @param itemWidth 图片块的宽度
-	 * @param itemHeight 图片块的高度
-	 * @param capacity 缓存数
-	 * \endif
 	 */
     wyAtlasNode(wyTexture2D* tex, int itemWidth, int itemHeight, int capacity);
 
     /**
-     * \if English
      * destructor
-     * \else
-	 * 析构函数
-	 * \endif
 	 */
     virtual ~wyAtlasNode();
 

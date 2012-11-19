@@ -94,11 +94,7 @@ typedef struct WIENGINE_API wyTileSetInfo {
 	float imageHeight;
     
     /**
-     * \if English
      * related texture of this tileset
-     * \else
-     * 图片集的相关贴图对象
-     * \endif
      */
     wyTexture2D* texture;
 } wyTileSetInfo;

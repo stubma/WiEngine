@@ -34,11 +34,7 @@
 
 /**
  * @class wyTurnOffTiles
- * \if English
  * Node performing this action will be divided into tiles, and the tiles will disappear one after one randomly, until all tiles are gone.
- * \else
- * 网格随机消失动作。网格按照随机顺序一个一个消失直到全部消失
- * \endif
  */
 class WIENGINE_API wyTurnOffTiles : public wyTiledGrid3DAction {
 protected:
@@ -51,45 +47,26 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	static wyTurnOffTiles* make(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	wyTurnOffTiles(float duration, int gridX, int gridY);
 
 	/**
 	 * \if Enlgish
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyTurnOffTiles();
 

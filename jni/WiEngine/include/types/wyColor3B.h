@@ -64,17 +64,10 @@ static inline wyColor3B wyc3bFromInteger(int argb) {
 }
 
 /**
- * \if English
  * Convert RGB color to HSV color
  *
  * @param c \link wyColor3B wyColor3B\endlink
  * @return \link wyColorHSV wyColorHSV\endlink
- * \else
- * 将RGB颜色转换为HSV颜色
- *
- * @param c \link wyColor3B wyColor3B\endlink
- * @return \link wyColorHSV wyColorHSV\endlink
- * \endif
  */
 wyColorHSV wyc3b2hsv(wyColor3B& c);
 

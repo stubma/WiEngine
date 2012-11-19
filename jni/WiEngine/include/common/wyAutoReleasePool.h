@@ -36,13 +36,8 @@ class wyDirector;
 /**
  * @class wyAutoReleasePool
  *
- * \if English
  * pool of objects which need to be auto released. Maintained for
  * every thread so that objects got released when thread exits
- * \else
- * 自动释放对象池. 每个创建的线程都需要一个这样的池用来保存需要释放的对象, 在
- * 线程结束时释放它们
- * \endif
  */
 class WIENGINE_API wyAutoReleasePool : public wyObject {
 	friend class wyObject;
@@ -69,20 +64,12 @@ public:
 	static wyAutoReleasePool* make();
 
 	/**
-	 * \if English
 	 * Drain autorelease pool of current thread
-	 * \else
-	 * 抽干当前线程的自动释放池
-	 * \endif
 	 */
 	static void drainCurrent();
 
 	/**
-	 * \if English
 	 * Drain pool to release all objects in it
-	 * \else
-	 * 抽干自动释放池, 从而里面的所有对象都得到释放
-	 * \endif
 	 */
 	void drain();
 };

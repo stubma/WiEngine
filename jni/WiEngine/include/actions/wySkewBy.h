@@ -35,11 +35,7 @@
 /**
  * @class wySkewBy
  *
- * \if English
  * Skew x/y axis
- * \else
- * 改变x/y轴倾斜度的动作
- * \endif
  */
 class WIENGINE_API wySkewBy : public wyIntervalAction {
 private:
@@ -69,7 +65,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static creator
 	 *
 	 * @param duration action duration time in seconds
@@ -77,13 +72,6 @@ public:
 	 * 		clockwise
 	 * @param skewY the angle between x axis and node bottom border, positive value means
 	 * 		clockwise
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间, 秒
-	 * @param skewX x方向变化的倾斜度, 表示y轴和节点左边界的夹角, 正值表示顺时针
-	 * @param skewY y方向变化的倾斜度, 表示x轴和节点下边界的夹角, 正式表示顺时针
-	 * \endif
 	 */
 	static wySkewBy* make(float duration, float skewX, float skewY);
 

@@ -34,11 +34,7 @@
 /**
  * @class wyEaseAction
  *
- * \if English
  * Turn a linear action into a non-linear action
- * \else
- * 非线性动作的封装, 是所有非线性动作的基类，负责把线性动作转换成非线性动作
- * \endif
  */
 class WIENGINE_API wyEaseAction : public wyIntervalAction {
 protected:
@@ -47,15 +43,9 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param wrapped linear action, which should be a subclass of \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param wrapped 线性动作的\link wyIntervalAction wyIntervalAction\endlink的指针
-	 * \endif
 	 */
 	wyEaseAction(wyIntervalAction* wrapped = NULL);
 
@@ -68,16 +58,9 @@ public:
 	virtual void stop();
 
 	/**
-	 * \if English
 	 * Set wrapped linear action. If ease action is running then it does nothing.
 	 *
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 设置该EaseAction所包含的动作. 如果当前EaseAction正在运行, 则调用此方法无效. 在包含动作
-	 * 被设置之前, 调用copy和reverse方法都是危险的.
-	 *
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	void setWrappedAction(wyIntervalAction* wrapped);
 };

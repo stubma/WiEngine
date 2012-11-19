@@ -34,50 +34,28 @@
 /**
  * @class wyLightingColorFilter
  *
- * \if English
  * Color filter that multiplies the RGB channels by one color, and then adds a second color,
  * pinning the result for each component to [0..255]. The alpha components of the mul and add arguments
  * are ignored.
- * \else
- * 这个滤镜对颜色的三原色进行一个乘法, 然后再做一个加法, 最后的结果限制在[0, 255]之内. 透明度不参与乘法和加法.
- *
- * \par
- * 例如: 如果想把图片中的红色清空, 可以指定和0xFF00FFFF相乘, 再和0x00000000相加.
- * \endif
  */
 class WIENGINE_API wyLightingColorFilter : public wyColorFilter {
 private:
 	/**
-	 * \if English
 	 * color to be multiplied, format is 0xaarrggbb
-	 * \else
-	 * 用来相乘的颜色, 格式是0xaarrggbb
-	 * \endif
 	 */
 	int m_mul;
 
 	/**
-	 * \if English
 	 * color to be added, format is 0xaarrggbb
-	 * \else
-	 * 用来相加的颜色, 格式是0xaarrggbb
-	 * \endif
 	 */
 	int m_add;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param mul color to be multiplied, format is 0xaarrggbb
 	 * @param add color to be added, format is 0xaarrggbb
-	 * \else
-	 * 构造函数
-	 *
-	 * @param mul 用来相乘的颜色, 格式是0xaarrggbb
-	 * @param add 用来相加的颜色, 格式是0xaarrggbb
-	 * \endif
 	 */
 	wyLightingColorFilter(int mul, int add);
 
@@ -85,19 +63,11 @@ public:
 	virtual ~wyLightingColorFilter();
 
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param mul color to be multiplied, format is 0xaarrggbb
 	 * @param add color to be added, format is 0xaarrggbb
 	 * @return \link wyLightingColorFilter wyLightingColorFilter\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param mul 用来相乘的颜色, 格式是0xaarrggbb
-	 * @param add 用来相加的颜色, 格式是0xaarrggbb
-	 * @return \link wyLightingColorFilter wyLightingColorFilter\endlink
-	 * \endif
 	 */
 	static wyLightingColorFilter* make(int mul, int add);
 

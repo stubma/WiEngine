@@ -206,35 +206,20 @@ protected:
 
 protected:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param layerIndex index of layer, start from zero
 	 * @param mapInfo info of whole map
-	 * \else
-	 * 构造函数
-	 *
-	 * @param layerIndex 层的序号, 从0开始
-	 * @param mapInfo 地图信息对象, \link wyMapInfo wyMapInfo\endlink
-	 * \endif
 	 */
 	wyTMXLayer(int layerIndex, wyMapInfo* mapInfo);
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param layerIndex index of layer, start from zero
 	 * @param mapInfo info of whole map
 	 * @return \link wyTMXLayer wyTMXLayer\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param layerIndex 层的序号, 从0开始
-	 * @param mapInfo 地图信息对象, \link wyMapInfo wyMapInfo\endlink
-	 * @return \link wyTMXLayer wyTMXLayer\endlink
-	 * \endif
 	 */
 	static wyTMXLayer* make(int layerIndex, wyMapInfo* mapInfo);
 
@@ -303,7 +288,6 @@ public:
 	wyDimension getTileCoordinateAt(float x, float y);
 
 	/**
-	 * \if English
 	 * returns the tile (wySpriteEx) at a given a tile coordinate.
 	 * The returned wySpriteEx will be already added to the wyTMXLayer. Don't add it again.
 	 * The wySpriteEx can be treated like any other wySpriteEx: rotated, scaled, translated, opacity, color, etc.
@@ -316,33 +300,14 @@ public:
 	 * @param x x coordinate of tile
 	 * @param y y coordinate of tile
 	 * @return \link wySpriteEx wySpriteEx\endlink object, or NULL if no tile at location
-	 * \else
-	 * 得到某个瓦片位置的wySpriteEx对象, 并且被加到了wyTMXLayer中. 返回的对象可以进行普通的旋转, 放缩, 移动,
-	 * 透明度和颜色等操作. 你可以通过removeTileAt或者removeChild方法删除掉它. 返回的sprite的tag被设置成了
-	 * x + y * layerWidth, 不要修改这个tag否则可能造成程序逻辑混乱.
-	 *
-	 * 对于比较大的地图, 比如100x100, 如果预先创建这些sprite, 则最多可能有10000个, 这在资源上也是不太好的. 因此
-	 * 返回的sprite实际上是即时创建的, 如果不需要使用的时候可以考虑删除掉. 删掉sprite的时候可以选择是否保留瓦片.
-	 *
-	 * @param x 行位置，从左往右数
-	 * @param y 列位置，从上往下数
-	 * @return \link wySpriteEx wySpriteEx\endlink 对象, 如果瓦片坐标处没有瓦片图片, 则返回NULL
-	 * \endif
 	 */
 	wySpriteEx* tileAt(int x, int y);
 
 	/**
-	 * \if English
 	 * Remove a tile from a sprite which is got from \c tileAt method. If the sprite
 	 * is not a tile sprite, do nothing
 	 *
 	 * @param sprite sprite which is got from \c tileAt
-	 * \else
-	 * 通过\link wySpriteEx wySpriteEx\endlink对象删除一个瓦片, 这个sprite对象必须是
-	 * 通过\c tileAt方法得到的, 如果不是, 则这个方法不做任何事
-	 *
-	 * @param sprite 从\c tileAt方法得到的瓦片精灵对象
-	 * \endif
 	 */
 	void removeTile(wySpriteEx* sprite);
 

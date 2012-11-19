@@ -239,47 +239,26 @@ public:
 	bool isHorizontal() { return m_horizontal; }
 
 	/**
-	 * \if English
 	 * 添加可滚动子节点, 方法是线程安全的
 	 *
 	 * @param child 子节点\link wyNode wyNode对象指针\endlink
-	 * \else
-	 * Add a scrollable child, the method is thread safe
-	 *
-	 * @param child child node to be added
-	 * \endif
 	 */
 	void addScrollableChildLocked(wyNode* child);
 
 	/**
-	 * \if English
 	 * 添加可滚动子节点, 方法是线程安全的
 	 *
 	 * @param child 子节点\link wyNode wyNode对象指针\endlink
 	 * @param z z轴顺序, 缺省是0
-	 * \else
-	 * Add a scrollable child, the method is thread safe
-	 *
-	 * @param child child node to be added
-	 * @param z z order of child
-	 * \endif
 	 */
 	void addScrollableChildLocked(wyNode* child, int z);
 
 	/**
-	 * \if English
 	 * 添加可滚动子节点, 方法是线程安全的
 	 *
 	 * @param child 子节点\link wyNode wyNode对象指针\endlink
 	 * @param z z轴顺序, 缺省是0
 	 * @param tag 子节点的标识, 缺省是一个无效值
-	 * \else
-	 * Add a scrollable child, the method is thread safe
-	 *
-	 * @param child child node to be added
-	 * @param z z order of child
-	 * @param tag tag of child
-	 * \endif
 	 */
 	void addScrollableChildLocked(wyNode* child, int z, int tag);
 
@@ -302,33 +281,18 @@ public:
 	void removeScrollableChildByTagLocked(int tag, bool cleanup);
 
 	/**
-	 * \if English
 	 * Remove all scrollable children, method is thread safe
 	 *
 	 * @param cleanup true means reset state of removed children
-	 * \else
-	 * 删除所有可滚动节点, 方法是线程安全的
-	 *
-	 * @param cleanup true表示重置被删除的节点的状态。一个节点被clean之后将失去一些状态，比如附加在节点
-	 * 		上的action，timer等，但是这个节点仍然可以用addChild加回来继续使用。
-	 * \endif
 	 */
 	void removeAllScrollableChildrenLocked(bool cleanup);
 
 	/**
-	 * \if English
 	 * Get a scrollable child by tag. This method can only be used to get child which
 	 * is added by \c addScrollableChildLocked
 	 *
 	 * @param tag child tag
 	 * @return child node, or NULL if no such child node
-	 * \else
-	 * 根据tag得到某个可滚动子节点, 这个方法仅能用来得到通过\c addScrollableChildLocked方法添加的
-	 * 子节点
-	 *
-	 * @param tag 子节点tag
-	 * @return 子节点, 如果没有找到则返回NULL
-	 * \endif
 	 */
 	wyNode* getScrollableChildByTag(int tag);
 

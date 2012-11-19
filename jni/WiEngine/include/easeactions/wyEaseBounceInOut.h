@@ -34,37 +34,21 @@
 /**
  * @class wyEaseBounceInOut
  *
- * \if English
  * See demo EaseActions\\EaseBounceInOut.
- * \else
- * 详细了解可见示例 EaseActions\\EaseBounceInOut.
- * \endif
  */
 class WIENGINE_API wyEaseBounceInOut : public wyEaseBounce {
 public:
 	/**
-	 * \if English
 	 * Static creator
 	 *
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 静态创建函数
-	 *
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	static wyEaseBounceInOut* make(wyIntervalAction* wrapped = NULL);
 
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	wyEaseBounceInOut(wyIntervalAction* wrapped = NULL);
 

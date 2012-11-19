@@ -111,11 +111,7 @@ typedef struct wyHypotrochoidConfig {
 /**
  * @union wyUserData
  *
- * \if English
  * Represent a custom data which can be any type
- * \else
- * 一个可以代表任意类型的数据联合定义
- * \endif
  */
 typedef union {
 	bool b;
@@ -133,11 +129,7 @@ typedef union {
 /**
  * @typedef wyKeyValueHash
  *
- * \if English
  * Common hash object for a key value pair. Key and value are all C string.
- * \else
- * 通用的键值对哈希对象, 键和值都是C字符串
- * \endif
  */
 typedef struct wyKeyValueHash {
 	char* key;

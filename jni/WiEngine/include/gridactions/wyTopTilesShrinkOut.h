@@ -34,12 +34,8 @@
 
 /**
  * @class wyTopTilesShrinkOut
- * \if English
  * Node performing this action will be divided into tiles, and will disappear in tiles
  * one row after another, from top to bottom, looks like the node shrinks from the top
- * \else
- * 把屏幕分成网格，从顶部开始收缩每行的网格
- * \endif
  */
 class WIENGINE_API wyTopTilesShrinkOut : public wyTiledGrid3DAction {
 private:
@@ -50,45 +46,25 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	static wyTopTilesShrinkOut* make(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	wyTopTilesShrinkOut(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyTopTilesShrinkOut();
 

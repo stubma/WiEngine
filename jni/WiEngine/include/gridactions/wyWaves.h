@@ -33,44 +33,27 @@
 
 /**
  * @class wyWaves
- * \if English
  * Node performing this effect will produce an effect of waves
- * \else
- * 波浪效果
- * \endif
  */
 class WIENGINE_API wyWaves : public wyGrid3DAction {
 protected:
 	/**
-	 * \if English
 	 * wave count
-	 * \else
-	 * 波浪数
-	 * \endif
 	 */
 	int m_waves;
 
 	/**
-	 * \if English
 	 * specify whether the effect applies on the vertical direction
-	 * \else
-	 * 是否垂直方向有波浪效果
-	 * \endif
 	 */
 	bool m_vertical;
 
 	/**
-	 * \if English
 	 * specify whether the effect applies on the horizontal direction
-	 * \else
-	 * 是否水平方向有波浪效果
-	 * \endif
 	 */
 	bool m_horizontal;
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param duration time, in seconds
@@ -80,22 +63,10 @@ public:
 	 * @param waves wave count
 	 * @param vertical specify whether the effect applies on the vertical direction
 	 * @param horizontal specify whether the effect applies on the horizontal direction
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param amplitude 幅度
-	 * @param waves 波浪数
-	 * @param vertical 是否垂直方向有波浪效果
-	 * @param horizontal 是否水平方向有波浪效果
-	 * \endif
 	 */
 	static wyWaves* make(float duration, int gridX, int gridY, float amplitude, int waves, bool vertical, bool horizontal);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
@@ -105,26 +76,11 @@ public:
 	 * @param waves wave count
 	 * @param vertical specify whether the effect applies on the vertical direction
 	 * @param horizontal specify whether the effect applies on the horizontal direction
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param amplitude 幅度
-	 * @param waves 波浪数
-	 * @param vertical 是否垂直方向有波浪效果
-	 * @param horizontal 是否水平方向有波浪效果
-	 * \endif
 	 */
 	wyWaves(float duration, int gridX, int gridY, float amplitude, int waves, bool vertical, bool horizontal);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyWaves();
 

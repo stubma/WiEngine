@@ -34,12 +34,8 @@
 
 /**
  * @class wyLeftBottomTilesShrinkOut
- * \if English
  * This action produces an effect that the node performing this action will be divided into tiles,
  * and the tiles will shrink from the left bottom corner to the right up corner.
- * \else
- * 把屏幕划分为网格，从左下角开始，收缩每个tile
- * \endif
  */
 class WIENGINE_API wyLeftBottomTilesShrinkOut : public wyTiledGrid3DAction {
 private:
@@ -50,45 +46,25 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled.
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	static wyLeftBottomTilesShrinkOut* make(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	wyLeftBottomTilesShrinkOut(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyLeftBottomTilesShrinkOut();
 

@@ -39,12 +39,8 @@
 /**
  * @class wyTMXTileMap
  *
- * \if English
  * TMX tile map class. Every layer in TMX map is a \link wyTMXLayer wyTMXLayer\endlink class and
  * also child node of it.
- * \else
- * 这是TMX地图的顶层类, TMX地图中的每一层都是一个\link wyTMXLayer wyTMXLayer\endlink类, 也是它的子节点
- * \endif
  */
 class WIENGINE_API wyTMXTileMap : public wyNode {
 protected:
@@ -88,45 +84,26 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param resId tmx file resource id
 	 * @param tex1 texture of first tileset, if more than one tileset, append other texture after this and
 	 * 		end with NULL
 	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param resId .tmx文件的资源ID
-	 * @param tex1 第一个tileset的贴图, 如果有其它tileset, 依次追加贴图对象, 必须按照tileset出
-	 * 		现在tmx中的顺序依次出现, 以NULL结尾
-	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
-	 * \endif
 	 */
 	static wyTMXTileMap* make(int resId, wyTexture2D* tex1, ...);
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param resId tmx file resource id
 	 * @param tex texture list of tileset
 	 * @param texCount number of textures
 	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param resId .tmx文件的资源ID
-	 * @param tex tileset的贴图列表, 必须按照tileset出现在tmx中的顺序依次出现
-	 * @param texCount 贴图个数
-	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
-	 * \endif
 	 */
 	static wyTMXTileMap* make(int resId, wyTexture2D** tex, int texCount);
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param path tmx file path
@@ -135,19 +112,10 @@ public:
 	 * @param tex1 texture of first tileset, if more than one tileset, append other texture after this and
 	 * 		end with NULL
 	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param path tmx文件的路径
-	 * @param isFile true表示path是一个文件系统路径, false表示这是一个assets下的相对路径
-	 * @param tex1 第一个tileset的贴图, 如果有其它tileset, 依次追加贴图对象, 以NULL结尾
-	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
-	 * \endif
 	 */
 	static wyTMXTileMap* make(const char* path, bool isFile, wyTexture2D* tex1, ...);
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param path tmx file path
@@ -156,15 +124,6 @@ public:
 	 * @param tex texture list of tileset
 	 * @param texCount number of textures
 	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param path tmx文件的路径
-	 * @param isFile true表示path是一个文件系统路径, false表示这是一个assets下的相对路径
-	 * @param tex tileset的贴图列表, 必须按照tileset出现在tmx中的顺序依次出现
-	 * @param texCount 贴图个数
-	 * @return \link wyTMXTileMap wyTMXTileMap\endlink
-	 * \endif
 	 */
 	static wyTMXTileMap* make(const char* path, bool isFile, wyTexture2D** tex, int texCount);
 
@@ -189,11 +148,7 @@ public:
 	virtual void setColor(wyColor4B color);
 
 	/**
-	 * \if English
 	 * Get map info struct
-	 * \else
-	 * 得到地图信息数据结构
-	 * \endif
 	 */
 	wyMapInfo* getMapInfo() { return m_mapInfo; }
 
@@ -274,42 +229,24 @@ public:
 	wyTMXOrientation getOrientation() { return m_mapInfo->orientation; }
 
 	/**
-	 * \if English
 	 * Set to true if you want to render objects outline, for debug purpose.
 	 * By default it is false
-	 * \else
-	 * 设置是否渲染自定义对象的轮廓, 仅用于调试目的. 缺省是false
-	 * \endif
 	 */
 	void setDebugDrawObjects(bool flag);
 
 	/**
-	 * \if English
 	 * Convert a point from node to TMX coordinate space
 	 *
 	 * @param p point in node space
 	 * @return point in TMX space
-	 * \else
-	 * 把一个点的坐标从节点空间转换到TMX空间
-	 *
-	 * @param p 要转换的点
-	 * @return 转换到TMX空间后的点
-	 * \endif
 	 */
 	wyPoint nodeToTMXSpace(wyPoint p);
 
 	/**
-	 * \if English
 	 * Convert a point from TMX to node coordinate space
 	 *
 	 * @param p point in TMX space
 	 * @return point in node space
-	 * \else
-	 * 把一个点的坐标从TMX空间转换到节点空间
-	 *
-	 * @param p 要转换的点
-	 * @return 转换到节点空间后的点
-	 * \endif
 	 */
 	wyPoint tmxToNodeSpace(wyPoint p);
 };

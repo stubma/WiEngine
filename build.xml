@@ -139,24 +139,9 @@
 	</target>
 
 	<!-- generate cppdoc -->
-	<target name="cppdoc_chinese">
+	<target name="cppdoc">
 		<exec executable="${doxygen}" dir="doxygen">
-			<arg value="cppdoc_chinese_android.cfg"/>
-		</exec>
-		
-		<!-- copy auxiliary resources -->
-		<copy todir="cppdoc/html">
-			<fileset dir="doxygen/images">
-				<include name="*.jpg"/>
-				<include name="*.png"/>
-			</fileset>
-		</copy>
-	</target>
-
-	<!-- generate cppdoc -->
-	<target name="cppdoc_english">
-		<exec executable="${doxygen}" dir="doxygen">
-			<arg value="cppdoc_english_android.cfg"/>
+			<arg value="cppdoc_android.cfg"/>
 		</exec>
 		
 		<!-- copy auxiliary resources -->

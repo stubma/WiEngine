@@ -36,11 +36,7 @@ typedef unsigned char xmlChar;
 /**
  * @class wyParticleLoader
  *
- * \if English
  * It loads exported file of particle designer
- * \else
- * 用于载入particle designer设计的粒子系统描述文件
- * \endif
  */
 class WIENGINE_API wyParticleLoader {
 private:
@@ -62,22 +58,14 @@ private:
 	
 public:
 	/**
-	 * \if English
 	 * Load particle system from particle designer file
 	 *
 	 * @param resId resource id of particle designer file
 	 * @return \link wyQuadParticleSystem wyQuadParticleSystem\endlink
-	 * \else
-	 * 载入particle designer描述文件
-	 *
-	 * @param resId pd描述文件的资源id
-	 * @return \link wyQuadParticleSystem wyQuadParticleSystem\endlink
-	 * \endif
 	 */
 	static wyQuadParticleSystem* load(int resId);
 
 	/**
-	 * \if English
 	 * Load particle system from particle designer file
 	 *
 	 * @param path file path of particle designer file
@@ -86,14 +74,6 @@ public:
 	 * @param inDensity input density of particle description file. Default is zero and it means
 	 * 		use default input density saved in \c wyDevice::defaultInDensity
 	 * @return \link wyQuadParticleSystem wyQuadParticleSystem\endlink
-	 * \else
-	 * 载入particle designer描述文件
-	 *
-	 * @param path pd描述文件的asset路径或者文件系统路径
-	 * @param isFile 可选参数, true表示path是一个文件系统路径, false表示path是一个assets下的相对路径
-	 * @param inDensity 密度, 缺省为0, 表示使用系统缺省的输入密度
-	 * @return \link wyQuadParticleSystem wyQuadParticleSystem\endlink
-	 * \endif
 	 */
 	static wyQuadParticleSystem* load(const char* path, bool isFile = false, float inDensity = 0);
 };

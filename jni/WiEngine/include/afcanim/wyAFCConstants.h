@@ -32,83 +32,47 @@
 /**
  * @typedef wyAFCClipType
  *
- * \if English
  * Type of clip
- * \else
- * 分片的类型
- * \endif
  */
 typedef enum {
 	/**
-	 * \if English
 	 * clip is a image
-	 * \else
-	 * 分片是一个图片
-	 * \endif
 	 */
 	AFC_CLIP_IMAGE,
 
 	/**
-	 * \if English
 	 * clip is a ellipse
-	 * \else
-	 * 分片是一个椭圆
-	 * \endif
 	 */
 	AFC_CLIP_ELLIPSE,
 
 	/**
-	 * \if English
 	 * clip is a line
-	 * \else
-	 * 分片是一条线
-	 * \endif
 	 */
 	AFC_CLIP_LINE,
 
 	/**
-	 * \if English
 	 * clip is a rectangle
-	 * \else
-	 * 分片是一个矩形
-	 * \endif
 	 */
 	AFC_CLIP_RECT,
 
 	/**
-	 * \if English
 	 * clip is a round corner rectangle
-	 * \else
-	 * 分片是一个圆角矩形
-	 * \endif
 	 */
 	AFC_CLIP_ROUNDRECT,
 
 	/**
-	 * \if English
 	 * clip is a collision rect. Collision rectangle only has size property, it
 	 * can't have a fill color, etc.
-	 * \else
-	 * 分片是一个碰撞矩形, 碰撞矩形和矩形的区别是: 碰撞矩形只是一个大小, 没有填充色等信息
-	 * \endif
 	 */
 	AFC_CLIP_COLLISION_RECT,
 
 	/**
-	 * \if English
 	 * clip is a reference point
-	 * \else
-	 * 分片是一个点
-	 * \endif
 	 */
 	AFC_CLIP_POINT,
 
 	/**
-	 * \if English
 	 * clip is a triangle
-	 * \else
-	 * 分片是一个三角形
-	 * \endif
 	 */
 	AFC_CLIP_TRIANGLE
 } wyAFCClipType;

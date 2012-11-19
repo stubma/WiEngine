@@ -242,15 +242,9 @@ public:
 	virtual ~wyTextureManager();
 
 	/**
-	 * \if English
 	 * Get currently cached texture count
 	 *
 	 * @return total number of cached texture
-	 * \else
-	 * 得到当前缓存的贴图数量
-	 *
-	 * @return 当前缓存的贴图数量
-	 * \endif
 	 */
 	int getTextureCount();
 

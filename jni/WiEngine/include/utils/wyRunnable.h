@@ -34,13 +34,8 @@
 /**
  * @class wyRunnable
  *
- * \if English
  * it encapsulates some logic and can be delivered to other class to process it.
  * This class is a virtual base class and subclass must implmement run methods
- * \else
- * 类似于java中的Runnable类, \link wyRunnable wyRunnable\endlink 封装了一段逻辑, 这段
- * 逻辑可以交给其它任何类执行, 只要调用run方法即可. 该类是虚类, 子类必须实现run方法.
- * \endif
  */
 class WIENGINE_API wyRunnable : public wyObject {
 public:
@@ -48,11 +43,7 @@ public:
 	virtual ~wyRunnable();
 
 	/**
-	 * \if English
 	 * execute
-	 * \else
-	 * 执行runnable
-	 * \endif
 	 */
 	virtual void run() = 0;
 };

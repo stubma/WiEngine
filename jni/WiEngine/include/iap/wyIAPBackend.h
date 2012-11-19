@@ -46,64 +46,37 @@ public:
 	virtual ~wyIAPBackend();
 
 	/**
-	 * \if English
 	 * Is backend available for payment
 	 *
 	 * @return true means this backend can be used to IAP
-	 * \else
-	 * 当前后端是否可以用于支付
-	 *
-	 * @return true表示当前后端可以用来进行IAP
-	 * \endif
 	 */
 	virtual bool isAvailable() = 0;
 
 	/**
-	 * \if English
 	 * Buy a product, can specify quantity if not one
 	 *
 	 * @param productId product unique identifier
 	 * @param quantity quantity to buy, default is 1
-	 * \else
-	 * 购买一个物品
-	 *
-	 * @param productId 物品的唯一标识符
-	 * @param quantity 购买的数量, 缺省是1
-	 * \endif
 	 */
 	virtual void buy(const char* productId, int quantity = 1) = 0;
     
     /**
-     * \if English
      * Restore products which are bought already. It can't work for
      * consumable product
-     * \else
-     * 请求获得之前已经购买过的道具信息. 对于消耗性道具这没有用处
-     * \endif
      */
     virtual void restoreTransactions() = 0;
     
     /**
-     * \if English
      * Verify a receipt data of a transaction
      * 
      * @param pid product identifier
      * @param receipt data of receipt, its format may dependent backend implementation
      * @param length byte length of \c receipt
      * @param sandbox true means verify receipt in sandbox mode
-     * \else
-     * 校验一次交易的发票数据
-     * 
-     * @param pid 物品标识符
-     * @param receipt 发票数据, 其具体格式依赖于具体的后端实现
-     * @param length \c receipt的字节长度
-     * @param sandbox true表示进行调试性质的验证
-     * \endif
      */
     virtual void verifyTransaction(const char* pid, const void* receipt, size_t length, bool sandbox = false) = 0;
 
 	/**
-	 * \if English
 	 * Config backend. It depends on backend so you must ensure current backend
 	 * understand those parameters you sent. This method must be called after
 	 * \c enableBackend
@@ -117,19 +90,6 @@ public:
 	 *
 	 * @param key parameter key
 	 * @param value parameter value
-	 * \else
-	 * 配置后端. 这个方法依赖于后端具体的实现, 不同的后端可能接受不同的参数, 你需要自己确定传入的
-	 * 参数对当前后端是有效的. 这个方法必须在enableBackend之后调用.
-	 *
-	 * \par
-	 * Android Market后端可以指定public_key参数
-	 *
-	 * \par
-	 * App Store后端不需要任何参数
-	 *
-	 * @param key 参数的键
-	 * @param value 参数的值
-	 * \endif
 	 */
 	virtual void config(const char* key, const char* value) = 0;
 

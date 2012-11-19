@@ -35,57 +35,32 @@
 /**
  * @class wySPX3Action
  *
- * \if English
  * animation of SpriteX 2011
- * \else
- * SpriteX 2011的动画信息
- * \endif
  */
 class WIENGINE_API wySPX3Action : public wyObject {
 public:
 	/**
-	 * \if English
 	 * data mode of action
-	 * \else
-	 * 动画的数据模式
-	 * \endif
 	 */
 	wySPX3ActionMode m_mode;
 
 	/**
-	 * \if English
 	 * collision rect of this animation
-	 * \else
-	 * 动画的碰撞区域
-	 * \endif
 	 */
 	wySPX3Tile m_collisionRect;
 
 	/**
-	 * \if English
 	 * frame count in this animation
-	 * \else
-	 * 动画中的帧数
-	 * \endif
 	 */
 	int m_frameCount;
 
 	/**
-	 * \if English
 	 * indices of frame
-	 * \else
-	 * 动画中帧的索引列表
-	 * \endif
 	 */
 	short* m_frameIndices;
 
 	/**
-	 * \if English
 	 * duration time of frames. useless if data mode is not time
-	 * \else
-	 * 帧的持续时间列表， 单位秒. SpriteX 2011中存的是毫秒， 需要除1000再存入.
-	 * 如果动画的数据模式是无持续时间，则这个字段无用
-	 * \endif
 	 */
 	float* m_delays;
 

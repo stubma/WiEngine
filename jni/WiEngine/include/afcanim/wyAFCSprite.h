@@ -56,7 +56,6 @@ public:
 /**
  * @class wyAFCSprite
  *
- * \if English
  * \par
  * AFC means Animation, Frame, Clip and it is an architecture of frame animation. That is
  * to say, animation consists of frame and frame consists of fragment. This architecture
@@ -85,34 +84,6 @@ public:
  * \link wyAFCSprite wyAFCSprite\endlink subclass has a zero size so you can't perform collision detection
  * based on node size. \link wyAFCSprite wyAFCSprite\endlink provides \c getFrameRect methods to return a
  * minimum rectangle containing all clips of current frame
- * \else
- * \par
- * AFC的含义是Animation, Frame, Clip, 它代表了一种常见的动画架构, 即动画由帧组成, 而帧由分片组成
- * 的动画数据结构. 这种动画数据结构在逐帧动画中应用的比较普遍, 相关的编辑器也很多. 而\link wyAFCSprite wyAFCSprite\endlink的
- * 目的就是封装此类动画逻辑, 做到用一套代码适应不同编辑器的目的.
- *
- * \par
- * 对于不同的编辑器, 其相关术语可能叫法不同, 但是含义基本类似. 这里的Animation, Frame和Clip是动画编辑
- * 器Motion Welder的叫法, 对于其它的编辑器, 如:
- * \li SpriteX: 按照AFC的排列顺序, 它的叫法是Action, Frame, Tile
- * \li Arctic & AuroraGT: 按照AFC的排列顺序, 它的叫法是Animation, Frame, Module
- * 之所以采用Motion Welder的叫法, 是因为Motion Welder是WiEngine支持的第一款动画编辑器, 作为纪念所以命名此类动画为AFC动画
- *
- * \par
- * 对于某些复杂的功能(比如分片图片本身是旋转的或者动画本身有旋转属性), 目前并不支持. 这些旋转功能并非必要的特性, 由于AFC是一个
- * 通用架构, 且需要遵守节点本身的架构, 为避免过于复杂的转换, 目前并不支持这些特性.
- *
- * \par
- * 一个动画帧的持续时间在AFC架构中有两种表示方式, 即按照时间或按照帧表示. 有些编辑器, 比如Motion Welder, Arctic等, 并不存放
- * 一个动画帧的实际显示时间, 而是使用一个无单位的整数, 用来表示这个动画帧应该在几帧内保持可见. 因此, 如果机器渲染速度越快, 则
- * 动画帧可见的时间就越短. \link wyAFCSprite wyAFCSprite\endlink提供了第三种选择, 可以设置一个单位时间间隔, 从而可以调整
- * 按帧显示动画的播放速度, 从而将按帧显示变成按时间显示. 缺省情况下单位时间间隔是0, 表示忽略该设置, 使用按帧显示.
- *
- * \par
- * \link wyAFCSprite wyAFCSprite\endlink及其子类都是没有大小的, 即它们的尺寸都是0, 因此不能通过节点大小来判断碰撞.
- * \link wyAFCSprite wyAFCSprite\endlink提供了getFrameRect等方法可以返回当前帧相对于节点位置的矩形, 但是要注意, 这些
- * 方法只是计算包含所有分片的最小矩形.
- * \endif
  */
 class WIENGINE_API wyAFCSprite : public wyNode {
 protected:

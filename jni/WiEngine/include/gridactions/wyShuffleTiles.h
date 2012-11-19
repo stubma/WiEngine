@@ -34,40 +34,24 @@
 
 typedef struct wyTile {
 	/**
-	 * \if English
 	 * position of the tile
-	 * \else
-	 * 网格的行列坐标
-	 * \endif
 	 */
 	wyPoint position;
 
 	/**
-	 * \if English
 	 * the original position of the tile, used in some effects
-	 * \else
-	 * 起始位置，用在某些特效中。
-	 * \endif
 	 */
 	wyPoint startPosition;
 
 	/**
-	 * \if English
 	 * tuning of the position
-	 * \else
-	 * 位置变化量，用在某些特效中。
-	 * \endif
 	 */
 	wyDimension delta;
 } wyTile;
 
 /**
  * @class wyShuffleTiles
- * \if English
  * Node performing this action will be divided into tiles and the tiles will be shuffled.
- * \else
- * 网格洗牌动作。 把网格打算重新放置
- * \endif
  */
 class WIENGINE_API wyShuffleTiles : public wyTiledGrid3DAction {
 protected:
@@ -81,45 +65,25 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param duration time, in seconds
 	 * @gridX row count
 	 * @gridY column count
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	static wyShuffleTiles* make(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
 	 * @gridX row count
 	 * @gridY column count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	wyShuffleTiles(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyShuffleTiles();
 

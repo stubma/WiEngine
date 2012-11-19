@@ -37,12 +37,7 @@ class wyVerletRope;
 /**
  * @class wyVerletStick
  *
- * \if English
  * Segment of between two \link wyVerletPoint wyVerletPoint\endlink
- * \else
- * 封装两个\link wyVerletPoint wyVerletPoint\endlink, 代表了链接这两个点
- * 的一个线段
- * \endif
  */
 class WIENGINE_API wyVerletStick : public wyObject {
 	friend class wyVerletRope;
@@ -73,69 +68,38 @@ public:
 	virtual ~wyVerletStick();
 
 	/**
-	 * \if English
 	 * Contract this segment to approach original length. It is not done
 	 * immediately but repeatly.
 	 *
 	 * @param reverse true means treat a point as b, treat b as a
-	 * \else
-	 * 收缩线段，使得两点距离逐渐回复到原始距离。这个收缩过程不是一下子
-	 * 完成的，这使得绳子看起来有一定的弹性。
-	 *
-	 * @param reverse true表示把a点当成b点, b点当成a点
-	 * \endif
 	 */
 	void contract(bool reverse);
 
 	/**
-	 * \if English
 	 * Get point a
 	 *
 	 * @return \link wyVerletPoint wyVerletPoint\endlink
-	 * \else
-	 * 得到点A
-	 *
-	 * @return \link wyVerletPoint wyVerletPoint\endlink
-	 * \endif
 	 */
 	wyVerletPoint* getPointA() { return m_pointA; }
 
 	/**
-	 * \if English
 	 * Get point b
 	 *
 	 * @return \link wyVerletPoint wyVerletPoint\endlink
-	 * \else
-	 * 得到点b
-	 *
-	 * @return \link wyVerletPoint wyVerletPoint\endlink
-	 * \endif
 	 */
 	wyVerletPoint* getPointB() { return m_pointB; }
 
 	/**
-	 * \if English
 	 * Get original length
 	 *
 	 * @return original length
-	 * \else
-	 * 得到原始长度
-	 *
-	 * @return 原始长度
-	 * \endif
 	 */
 	float getLength() { return m_length; }
 
 	/**
-	 * \if English
 	 * Get current length
 	 *
 	 * @return current length
-	 * \else
-	 * 得到当前长度
-	 *
-	 * @return 当前长度
-	 * \endif
 	 */
 	float getCurrentLength() { return m_currentLength; }
 };

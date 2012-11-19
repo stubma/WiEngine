@@ -146,11 +146,7 @@ private:
 	float m_inDensity;
 
 	/**
-	 * \if English
 	 * color filter
-	 * \else
-	 * 颜色过滤器, 可以为NULL
-	 * \endif
 	 */
 	wyColorFilter* m_filter;
 
@@ -554,20 +550,12 @@ private:
 	float getHeight() { return m_height; }
 
 	/**
-	 * \if English
 	 * Get precise scaled width of image
-	 * \else
-	 * 得到图片缩放后的精确宽度, 这个宽度不会丢失精度
-	 * \endif
 	 */
 	float getPreciseWidth() { return m_preciseWidth; }
 
 	/**
-	 * \if English
 	 * Get precise scaled height of image
-	 * \else
-	 * 得到图片缩放后的精确高度, 这个高度不会丢失精度
-	 * \endif
 	 */
 	float getPreciseHeight() { return m_preciseHeight; }
 
@@ -664,84 +652,47 @@ private:
 	void updateRaw(const char* raw);
 
 	/**
-	 * \if English
 	 * set color filter
 	 *
 	 * @param filter subclass of \link wyColorFilter wyColorFilter\endlink, or NULL if you want to
 	 * 		remove filter
-	 * \else
-	 * 设置颜色过滤器
-	 *
-	 * @param filter \link wyColorFilter wyColorFilter\endlink的子类, 或者NULL表示删除当前的过滤器
-	 * \endif
 	 */
 	void setColorFilter(wyColorFilter* filter);
 
 	/**
-	 * \if English
 	 * if current color filter is not NULL, apply this filter to texture. that will cause
 	 * texture changed immediately if texture is created.
-	 * \else
-	 * 如果当前的颜色过滤器不为空, 则应用这个过滤器, 如果OpenGL贴图已经被创建, 这会导致OpenGL贴图立刻发生变化.
-	 * \endif
 	 */
 	void applyFilter();
 
 	/**
-	 * \if English
 	 * apply current color filter to current texture, this will cause texture in
 	 * OpenGL layer changed immediately if texture is created
 	 *
 	 * @param data raw data of image which must be RGBA8888 format
 	 * @param width image pixel width
 	 * @param height image pixel height
-	 * \else
-	 * 对一个\link wyTexture2D wyTexture2D\endlink对象应用颜色矩阵, 这会导致
-	 * 底层的opengl贴图立刻发生变化
-	 *
-	 * @param data 图像原始数据, 必须是RGBA8888格式
-	 * @param width 图像的像素宽度
-	 * @param height 图像的像素高度
-	 * \endif
 	 */
 	void applyFilter(void* data, int width, int height);
 
 	/**
-	 * \if English
 	 * load png data
 	 *
 	 * @return png data loaded, in rgba8888 format
-	 * \else
-	 * 载入PNG图片数据
-	 *
-	 * @return 载入的png数据, 以rgba8888格式表示
-	 * \endif
 	 */
 	char* loadPNG();
 
 	/**
-	 * \if English
 	 * load bmp data
 	 *
 	 * @return bmp data loaded, in rgba8888 format
-	 * \else
-	 * 载入bmp图片数据
-	 *
-	 * @return 载入的bmp数据, 以rgba8888格式表示
-	 * \endif
 	 */
 	char* loadBMP();
 
 	/**
-	 * \if English
 	 * load jpg data
 	 *
 	 * @return jpg data loaded, in rgba8888 format
-	 * \else
-	 * 载入jpg图片数据
-	 *
-	 * @return 载入的jpg数据, 以rgba8888格式表示
-	 * \endif
 	 */
 	char* loadJPG();
 

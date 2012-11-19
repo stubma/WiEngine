@@ -34,12 +34,8 @@
 
 /**
  * @class wyBottomLineShrinkOut
- * \if English
  * The node which run this action will be divided into rows, and it will disappear in rows
  * one by one, from bottom to top, looks like the node shrinks from the bottom.
- * \else
- * 把屏幕分成若干行，从底部开始收缩每行
- * \endif
  */
 class WIENGINE_API wyBottomLineShrinkOut : public wyTiledGrid3DAction {
 private:
@@ -50,45 +46,25 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled.
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	static wyBottomLineShrinkOut* make(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	wyBottomLineShrinkOut(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyBottomLineShrinkOut();
 

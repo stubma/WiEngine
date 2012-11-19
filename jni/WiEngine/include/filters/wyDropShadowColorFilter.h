@@ -35,67 +35,38 @@
 /**
  * @class wyDropShadowColorFilter
  *
- * \if English
  * Glow texture
- * \else
- * 阴影滤镜
- * \endif
  */
 class WIENGINE_API wyDropShadowColorFilter : public wyColorFilter {
 private:
 	/**
-	 * \if English
 	 * The radius of the glow in pixels
-	 * \else
-	 * 阴影颜色半径
-	 * \endif
 	 */
 	int m_radius;
 
 	/**
-	 * \if English
 	 * The color of the glow
-	 * \else
-	 * 阴影颜色
-	 * \endif
 	 */
 	wyColor3B m_color;
 
 	/**
-	 * \if English
 	 * The radius of the highlight area
-	 * \else
-	 * 阴影颜色半径高亮区域
-	 * \endif
 	 */
 	int m_highlightRadius;
 
 	/**
-	 * \if English
 	 * The opacity of the glow
-	 * \else
-	 * 阴影透明度
-	 * \endif
 	 */
 	int m_opacity;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param color The color of the glow
 	 * @param radius The radius of the glow in pixels
 	 * @param highlightRadius The radius of the highlight area
 	 * @param opacity The opacity of the glow
-	 * \else
-	 * 构造函数
-	 *
-	 * @param color 阴影颜色
-	 * @param radius 阴影半径
-	 * @param highlightRadius 阴影半径高亮区域
-	 * @param opacity 阴影透明度
-	 * \endif
 	 */
 	wyDropShadowColorFilter(wyColor3B color, int radius, int highlightRadius, int opacity);
 
@@ -103,7 +74,6 @@ public:
 	virtual ~wyDropShadowColorFilter();
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param color The color of the glow
@@ -111,15 +81,6 @@ public:
 	 * @param highlightRadius The radius of the highlight area
 	 * @param opacity The opacity of the glow
 	 * @return \link wyDropShadowColorFilter wyDropShadowColorFilter\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param color 阴影颜色
-	 * @param radius 阴影半径
-	 * @param highlightRadius 阴影半径高亮区域
-	 * @param opacity 阴影透明度
-	 * @return \link wyDropShadowColorFilter wyDropShadowColorFilter\endlink
-	 * \endif
 	 */
 	static wyDropShadowColorFilter* make(wyColor3B color, int radius, int highlightRadius, int opacity);
 
@@ -127,80 +88,44 @@ public:
 	virtual void apply(void* data, int width, int height);
 
 	/**
-	 * \if English
 	 * Set blur radius
 	 *
 	 * @param radius blur radius
-	 * \else
-	 * 设置模糊半径
-	 *
-	 * @param radius 阴影半径
-	 * \endif
 	 */
 	void setRadius(int radius) { m_radius = radius; }
 
 	/**
-	 * \if English
 	 * Get blur radius
 	 *
 	 * @return blur radius
-	 * \else
-	 * 得到阴影半径
-	 *
-	 * @return 模糊半径
-	 * \endif
 	 */
 	int getRadius() { return m_radius; }
 
 	/**
-	 * \if English
 	 * Set opacity of the glow
 	 *
 	 * @param opacity of the glow
-	 * \else
-	 * 设置阴影透明度
-	 *
-	 * @param opacity 阴影透明度
-	 * \endif
 	 */
 	void setOpacity(int opacity) { m_opacity = opacity; }
 
 	/**
-	 * \if English
 	 * The opacity of the glow
 	 *
 	 * @return The opacity of the glow
-	 * \else
-	 * 得到阴影透明度
-	 *
-	 * @return 阴影透明度
-	 * \endif
 	 */
 	int getOpacity() { return m_opacity; }
 
 	/**
-	 * \if English
 	 * Set radius of the highlight area
 	 *
 	 * @param highlightRadius of the highlight area
-	 * \else
-	 * 设置阴影高亮区域半径
-	 *
-	 * @param highlightRadius 阴影高亮区域半径
-	 * \endif
 	 */
 	void setHighlightRadius(int highlightRadius) { m_highlightRadius = highlightRadius; }
 
 	/**
-	 * \if English
 	 * The radius of the highlight area
 	 *
 	 * @return The radius of the highlight area
-	 * \else
-	 * 得到阴影高亮区域半径
-	 *
-	 * @return 阴影高亮区域半径
-	 * \endif
 	 */
 	int getHighlightRadius() { return m_highlightRadius; }
 };

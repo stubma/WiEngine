@@ -34,11 +34,7 @@
 /**
  * @class wyToggleVisibility
  *
- * \if English
  * Toggle visibility of a node
- * \else
- * 节点可见与不可见切换的动作封装
- * \endif
  */
 class WIENGINE_API wyToggleVisibility : public wyInstantAction {
 protected:

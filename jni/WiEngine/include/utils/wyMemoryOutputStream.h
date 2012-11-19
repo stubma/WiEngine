@@ -34,11 +34,7 @@
 /**
  * @class wyMemoryOutputStream
  *
- * \if English
  * Output stream which writes to a memory data
- * \else
- * 输入流, 目标是一段内存缓冲区
- * \endif
  */
 class WIENGINE_API wyMemoryOutputStream : public wyAssetOutputStream {
 private:
@@ -74,33 +70,19 @@ public:
     virtual ~wyMemoryOutputStream();
 
     /**
-     * \if English
      * Create a default memory output stream and the output buffer is maintained by stream.
      *
      * @return output stream
-     * \else
-     * 创建一个缺省的内存输出流, 内存缓冲区将由流自身维护
-     *
-     * @return 输出流对象
-     * \endif
      */
     static wyMemoryOutputStream* make();
 
     /**
-     * \if English
      * Create a memory output stream, and buffer is created by stream but may not released by it
      *
      * @param capacity buffer byte capacity
      * @param release true means \c buffer should be released by stream, or false means \c buffer
      * 		will be released by caller
      * @return output stream
-     * \else
-     * 创建一个内存输出流, 缓冲区由流分配并且可以指定是否由流释放该缓冲区
-     *
-     * @param capacity 缓冲区的字节容量
-     * @param release true表示\c buffer由流负责释放, false表示\c buffer由调用者自己释放
-     * @return 输出流对象
-     * \endif
      */
     static wyMemoryOutputStream* make(size_t capacity, bool release = false);
 
@@ -120,38 +102,21 @@ public:
 	virtual size_t seek(int offset, int mode);
 
 	/**
-	 * \if English
 	 * Get data written in buffer
 	 *
 	 * @return data length written to buffer
-	 * \else
-	 * 得到总共写入的数据字节数
-	 *
-	 * @return 总共写入的数据字节数
-	 * \endif
 	 */
 	size_t getLength() { return m_length; }
 
 	/**
-	 * \if English
 	 * Get buffer pointer
 	 *
 	 * @return buffer pointer
-	 * \else
-	 * 得到缓冲区指针, 返回的缓冲区会是一个0结尾的内存块, 可以当成c字符串使用(当前中间部分是否有
-	 * 0字节不能保证)
-	 *
-	 * @return 缓冲区指针
-	 * \endif
 	 */
 	const char* getBuffer();
 
 	/**
-	 * \if English
 	 * Reset stream to be ready for write new data
-	 * \else
-	 * 重置流状态, 抛弃所有现有数据重新开始
-	 * \endif
 	 */
 	void reset();
 };

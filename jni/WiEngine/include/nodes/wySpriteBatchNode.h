@@ -38,13 +38,8 @@ class wyMWSprite;
 /**
  * @class wySpriteBatchNode
  *
- * \if English
  * Batch render sprite node, but it only accept \link wySpriteEx wySpriteEx\endlink as
  * child node.
- * \else
- * 用于图像节点的批处理，仅接受 \link wySpriteEx wySpriteEx\endlink作为子节点。
- * 所有子节点共享一张贴图，所有节点的绘制一次完成，可提高性能。
- * \endif
  */
 class WIENGINE_API wySpriteBatchNode : public wyNode {
 	friend class wySpriteEx;
@@ -81,30 +76,17 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param tex texture related to this batch node
 	 * @return \link wySpriteBatchNode wySpriteBatchNode\endlink
-	 * \else
-	 * 创建一个wySpriteBatchNode类型的节点
-	 *
-	 * @param tex 贴图
-	 * @return \link wySpriteBatchNode wySpriteBatchNode\endlink
-	 * \endif
 	 */
 	static wySpriteBatchNode* make(wyTexture2D* tex);
 
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param tex texture related to this batch node
-	 * \else
-	 * 创建一个wySpriteBatchNode类型的节点
-	 *
-	 * @param tex 贴图
-	 * \endif
 	 */
 	wySpriteBatchNode(wyTexture2D* tex);
 	
@@ -135,28 +117,16 @@ public:
 	virtual void removeAllChildren(bool cleanup);
 
 	/**
-	 * \if English
 	 * Set marker position, it will affect \c drawFromMarker method
 	 *
 	 * @param pos position of marker
-	 * \else
-	 * 设置标记位置, 将会影响\c drawFromMarker方法
-	 *
-	 * @param pos 标记位置
-	 * \endif
 	 */
 	void setMarker(int pos) { m_marker = pos; }
 
 	/**
-	 * \if English
 	 * Get current marker position
 	 *
 	 * @return current marker position
-	 * \else
-	 * 得到当前的标记位置
-	 *
-	 * @return 当前标记位置
-	 * \endif
 	 */
 	int getMarker() { return m_marker; }
 };

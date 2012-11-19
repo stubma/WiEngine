@@ -34,11 +34,7 @@
 /**
  * @class wyOrbitCamera
  *
- * \if English
  * Camera action, it does animation by changing camera position.
- * \else
- * 轨道镜头动作。可以让视点沿着某条轨迹移动
- * \endif
  */
 class WIENGINE_API wyOrbitCamera : public wyCameraAction {
 protected:
@@ -70,7 +66,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration action duration time in second
@@ -80,17 +75,6 @@ public:
 	 * @param dz the delta of \c z
 	 * @param x the initial angle of x axis
 	 * @param dx the delta of \c x
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param r 镜头距离图象中心的距离，称为半径
-	 * @param dr 半径在持续时间内变化总量
-	 * @param z 动作开始时，镜头到图象中心的连线与z轴的夹角
-	 * @param dz z角度的变化总量
-	 * @param x x轴的初始倾斜角度
-	 * @param dx x轴的总变化角度
-	 * \endif
 	 */
 	static wyOrbitCamera* make(float duration, float r, float dr, float z, float dz, float x, float dx);
 

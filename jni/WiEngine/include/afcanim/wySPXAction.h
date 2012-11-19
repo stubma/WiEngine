@@ -37,28 +37,16 @@ class wySPXLoader;
 /**
  * @typedef wySPXActionFrame
  *
- * \if English
  * frame info in animation
- * \else
- * 动画中帧的信息
- * \endif
  */
 typedef struct wySPXActionFrame {
 	/**
-	 * \if English
 	 * frame index
-	 * \else
-	 * 帧索引
-	 * \endif
 	 */
 	int index;
 
 	/**
-	 * \if English
 	 * duration of frame
-	 * \else
-	 * 持续时间, 单位秒
-	 * \endif
 	 */
 	float duration;
 } wySPXActionFrame;
@@ -66,49 +54,29 @@ typedef struct wySPXActionFrame {
 /**
  * @class wySPXAction
  *
- * \if English
  * Info bean for one SpriteX animation
- * \else
- * 封装一个SpriteX动画的信息
- * \endif
  */
 class WIENGINE_API wySPXAction : public wyObject {
 	friend class wySPXLoader;
 
 public:
 	/**
-	 * \if English
 	 * transform of anmation
-	 * \else
-	 * 动画的转换常量
-	 * \endif
 	 */
 	wySPXTransform m_transform;
 
 	/**
-	 * \if English
 	 * frame count in this animation
-	 * \else
-	 * 动画中帧个数
-	 * \endif
 	 */
 	int m_frameCount;
 
 	/**
-	 * \if English
 	 * max tile count of frame
-	 * \else
-	 * 所有的帧中, tile数目最多是多少
-	 * \endif
 	 */
 	int m_maxFrameTile;
 
 	/**
-	 * \if English
 	 * frame info
-	 * \else
-	 * 帧信息
-	 * \endif
 	 */
 	wySPXActionFrame* m_frames;
 

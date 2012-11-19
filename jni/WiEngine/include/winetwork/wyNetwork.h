@@ -34,11 +34,7 @@
 /**
  * @class wyNetwork
  *
- * \if English
  * Global utility class of WiNetwork module
- * \else
- * WiEngine网络模块中的一个全局工具类
- * \endif
  */
 class WINETWORK_API wyNetwork {
 private:
@@ -47,103 +43,59 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * Network type definition
-	 * \else
-	 * 网络类型定义
-	 * \endif
 	 */
 	enum NetworkType {
 		/**
-		 * \if English
 		 * No network available
-		 * \else
-		 * 没有可用网络
-		 * \endif
 		 */
 		NONE,
 
 		/**
-		 * \if English
 		 * Unknown network type
-		 * \else
-		 * 未知网络类型
-		 * \endif
 		 */
 		UNKNOWN,
 
 		/**
-		 * \if English
 		 * 2G network, gprs
-		 * \else
-		 * 2G网络, gprs
-		 * \endif
 		 */
 		G2,
 
 		/**
-		 * \if English
 		 * Edge network
-		 * \else
-		 * 2.5G, edge网络
-		 * \endif
 		 */
 		EDGE,
 
 		/**
-		 * \if English
 		 * 3G network
-		 * \else
-		 * 3G网络
-		 * \endif
 		 */
 		G3,
 
 		/**
-		 * \if English
 		 * WiFi network
-		 * \else
-		 * 无线网络
-		 * \endif
 		 */
 		WIFI
 	};
 
 public:
 	/**
-	 * \if English
 	 * Initialize network module
-	 * \else
-	 * 初始化网络模块
-	 * \endif
 	 */
 	static void init();
 
 	/**
-	 * \if English
 	 * Clean up network layer
-	 * \else
-	 * 清除网络模块, 释放资源
-	 * \endif
 	 */
 	static void cleanup();
 
 	/**
-	 * \if English
 	 * Get network type
-	 * \else
-	 * 得到可用的网络类型
-	 * \endif
 	 * \see wyNetwork::NetworkType
 	 */
 	static NetworkType getNetworkType();
 
 	/**
-	 * \if English
 	 * A quick shortcut for getNetworkType() return result checking
-	 * \else
-	 * 一个简单的方法, 专门用来判断当前是否已经有WiFi连接. 实际上调用的是\c getNetworkType
-	 * \endif
 	 */
 	static bool hasWifi() { return getNetworkType() == WIFI; }
 };

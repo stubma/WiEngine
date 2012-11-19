@@ -38,29 +38,17 @@
 /**
  * @class wyArcticManager
  *
- * \if English
  * Manager of ASprite file
- * \else
- * ASprite文件数据的管理类
- * \endif
  */
 class WIENGINE_API wyArcticManager : public wyObject {
 private:
 	/**
-	 * \if English
 	 * sprite file data list
-	 * \else
-	 * 动画数据列表
-	 * \endif
 	 */
 	wyArray* m_arcticFileDataList;
 
 	/**
-	 * \if English
 	 * scale of current file data
-	 * \else
-	 * 当前动画文件的缩放比例
-	 * \endif
 	 */
 	float m_resScale;
 
@@ -72,22 +60,14 @@ private:
 	wyArcticFileData* getArcticFileDataWithName(const char* asPath);
 
 	/**
-	 * \if English
 	 * resolve original value
 	 *
 	 * @param v original value in sprite file
 	 * @return value scaled
-	 * \else
-	 * 解析大小
-	 *
-	 * @param v 从sprite文件中解析出来的原始值
-	 * @return 解析后的大小
-	 * \endif
 	 */
 	float resolve(short v);
 
 	/**
-	 * \if English
 	 * parse all modules in a frame, it may recursively called because frame module 
 	 * may be a reference to other frame
 	 * 
@@ -97,16 +77,6 @@ private:
 	 * @param offsetX x offset, only used for hyper frame
 	 * @param offsetY y offset, only used for hyper frame
 	 * @param mapping clip mapping rules, can be NULL
-	 * \else
-	 * 解析所有的帧内分片, 这个方法可能递归因为分片可能引用其它帧
-	 *
-	 * @param afd \link wyArcticFileData wyArcticFileData\endlink
-	 * @param arcticFrame \link wyArcticFrame wyArcticFrame\endlink
-	 * @param afcFrame \link wyAFCFrame wyAFCFrame\endlink
-	 * @param offsetX x偏移量, 仅对hyper frame有意义
-	 * @param offsetY y偏移量, 仅对hyper frame有意义
-	 * @param mapping 分片映射规则, 可能为NULL
-	 * \endif
 	 */
 	void parseFrameModules(wyArcticFileData* afd, wyArcticFrame* arcticFrame, wyAFCFrame* afcFrame, int offsetX, int offsetY, wyAFCClipMapping* mapping);
 	
@@ -130,83 +100,44 @@ public:
 	static wyArcticManager* getInstance();
 
 	/**
-	 * \if English
 	 * Load ASprite file and returns \link wyArcticFileData wyArcticFileData\endlink object.
 	 * If this resource is already loaded, returns it directly.
 	 *
 	 * @param asResId resource id of ASprite file
 	 * @return \link wyArcticFileData wyArcticFileData\endlink
-	 * \else
-	 * 解析一个ASprite文件，返回文件数据对象. 如果这个ASprite文件已经被载入过, 则会直接返回
-	 * 解析过的数据对象
-	 *
-	 * @param asResId ASprite文件的资源id
-	 * @return \link wyArcticFileData wyArcticFileData\endlink
-	 * \endif
 	 */
 	wyArcticFileData* load(int asResId);
 
 	/**
-	 * \if English
 	 * Load ASprite from a path. If already loaded, returns it directly.
 	 *
 	 * @param asPath path of ASprite file
 	 * @param isFile true means \c asPath is an absolute path in file system,
 	 * 		false means \c asPath is relative path under assets
 	 * @return \link wyArcticFileData wyArcticFileData\endlink
-	 * \else
-	 * 解析一个ASprite文件，返回文件数据对象. 如果这个ASprite文件已经被载入过, 则会直接返回
-	 * 解析过的数据对象
-	 *
-	 * @param asPath ASprite文件的路径
-	 * @param isFile true表示\c asPath是一个文件系统的绝对路径, false表示\c asPath是一个assets
-	 * 		下的相对路径
-	 * @return \link wyArcticFileData wyArcticFileData\endlink
-	 * \endif
 	 */
 	wyArcticFileData* load(const char* asPath, bool isFile = false);
 
 	/**
-	 * \if English
 	 * Load ASprite from memory file. If already loaded, returns it directly
 	 *
 	 * @param mfsName name of memory file
 	 * @return \link wyArcticFileData wyArcticFileData\endlink
-	 * \else
-	 * 解析一个ASprite内存文件，返回文件数据对象. 如果这个ASprite文件已经被载入过, 则会直接返回
-	 * 解析过的数据对象
-	 *
-	 * @param mfsName 内存文件名称
-	 * @return \link wyArcticFileData wyArcticFileData\endlink
-	 * \endif
 	 */
 	wyArcticFileData* loadMemory(const char* mfsName);
 
 	/**
-	 * \if English
 	 * Get \link wyAFCAnimation wyAFCAnimation\endlink data at specified index
 	 *
 	 * @param afd \link wyArcticFileData wyArcticFileData\endlink
 	 * @param animIndex animation index
 	 * @param mapping clip mapping rules, can be NULL
 	 * @return \link wyAFCAnimation wyAFCAnimation\endlink
-	 * \else
-	 * 在动画数据列表中根据索引得到某个动画数据对象
-	 *
-	 * @param afd \link wyArcticFileData wyArcticFileData\endlink
-	 * @param animIndex 索引
-	 * @param mapping 分片映射规则, 可以为NULL
-	 * @return \link wyAFCAnimation wyAFCAnimation\endlink
-	 * \endif
 	 */
 	wyAFCAnimation* getAnimationData(wyArcticFileData* afd, int animIndex, wyAFCClipMapping* mapping);
 
 	/**
-	 * \if English
 	 * release all animation file data
-	 * \else
-	 * 释放所有动画数据
-	 * \endif
 	 */
 	void releaseAllAnimationFileData();
 };

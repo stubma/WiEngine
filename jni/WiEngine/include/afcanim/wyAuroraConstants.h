@@ -32,11 +32,7 @@
 /**
  * @typedef wyAuroraFlags
  *
- * \if English
  * Flags used in BSprite file
- * \else
- * AuroraGT将它的导出文件格式称为BSprite, 这是BSprite文件中的标志位定义
- * \endif
  */
 typedef enum {
 	// export modules
@@ -112,11 +108,7 @@ typedef enum {
 /**
  * @typedef wyAuroraModuleType
  *
- * \if English
  * type of module in BSprite
- * \else
- * BSprite中的分片类型
- * \endif
  */
 typedef enum {
 	// unknown type
@@ -138,101 +130,57 @@ typedef enum {
 /**
  * @typedef wyAuroraFrameModuleFlags
  *
- * \if English
  * Flags used in arctic frame module
- * \else
- * 在BSprite的帧分片信息中使用的标志位定义
- * \endif
  */
 typedef enum {
 	/**
-	 * \if English
 	 * flipped in x axis
-	 * \else
-	 * x轴翻转
-	 * \endif
 	 */
 	BS_FLIP_X = 0x01,
 
 	/**
-	 * \if English
 	 * flipped in y axis
-	 * \else
-	 * y轴翻转
-	 * \endif
 	 */
 	BS_FLIP_Y = 0x02,
 
 	/**
-	 * \if English
 	 * rotoated by 90 degree, in clockwise direction
-	 * \else
-	 * 顺时针90度旋转
-	 * \endif
 	 */
 	BS_ROT_90 = 0x04,
 
 	/**
-	 * \if English
 	 * reversed
-	 * \else
-	 * 保留给用户自定义
-	 * \endif
 	 */
 	BS_USER0 = 0x10,
 
 	/**
-	 * \if English
 	 * reversed
-	 * \else
-	 * 保留给用户自定义
-	 * \endif
 	 */
 	BS_USER1 = 0x20,
 
 	/**
-	 * \if English
 	 * it is not a module, it is a reference to other frame
-	 * \else
-	 * 使用的是Hyper frames
-	 * \endif
 	 */
 	BS_HYPER_FM = 0x10,
 
 	/**
-	 * \if English
 	 * attach box
-	 * \else
-	 * 攻击框
-	 * \endif
 	 */
 	BS_ATTACK_BOX = 0x40,
 
 	/**
-	 * \if English
 	 * extended index mask
-	 * \else
-	 * 扩展索引位的掩码
-	 * \endif
 	 */
 	BS_INDEX_EX_MASK = 0xC0
 } wyAuroraFrameModuleFlags;
 
 /**
- * \if English
  * how many bits should extended index shift to right
- * \else
- * 扩展索引需要右移的位数
- * \endif
  */
 #define BS_INDEX_EX_SHIFT 2
 
 /**
- * \if English
  * Version 3 of BSprite file
- * \else
- * BSprite文件格式第三版
- * \endif
  */
 #define BS_VERSION_3 0x03DF
 

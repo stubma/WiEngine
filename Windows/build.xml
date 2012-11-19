@@ -44,7 +44,7 @@
 		<antcall target="setup"/>
 		
 		<!-- generate cppdoc -->
-		<antcall target="cppdoc_chinese"/>
+		<antcall target="cppdoc"/>
 		
 		<!-- copy cppdoc to dist -->
 		<copy todir="${dist.dir}/cppdoc">
@@ -134,24 +134,9 @@
 	</target>
 	
 	<!-- generate cppdoc -->
-	<target name="cppdoc_chinese">
+	<target name="cppdoc">
 		<exec executable="${doxygen}" dir="${doxygen.dir}">
-			<arg value="cppdoc_chinese_windows.cfg"/>
-		</exec>
-		
-		<!-- copy auxiliary resources -->
-		<copy todir="${tmp.cppdoc.dir}/html">
-			<fileset dir="${doxygen.dir}/images">
-				<include name="*.jpg"/>
-				<include name="*.png"/>
-			</fileset>
-		</copy>
-	</target>
-	
-	<!-- generate cppdoc -->
-	<target name="cppdoc_english">
-		<exec executable="${doxygen}" dir="${doxygen.dir}">
-			<arg value="cppdoc_english_windows.cfg"/>
+			<arg value="cppdoc_windows.cfg"/>
 		</exec>
 		
 		<!-- copy auxiliary resources -->

@@ -34,70 +34,40 @@
 /**
  * @class wyRepeat
  *
- * \if English
  * repeat an action, you can control repeat times
- * \else
- * 根据设置重复次数，重复执行动作的封装
- * \endif
  */
 class WIENGINE_API wyRepeat : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * repeat times, must be larger than zero
-	 * \else
-	 * 动作重复的次数
-	 * \endif
 	 */
 	int m_times;
 
 	/**
-	 * \if English
 	 * times of already executed
-	 * \else
-	 * 已经执行的次数
-	 * \endif
 	 */
 	int m_total;
 
 	/**
-	 * \if English
 	 * action to be repeated
-	 * \else
-	 * 具体要执行的\link wyFiniteTimeAction wyFiniteTimeAction对象 \endlink指针
-	 * \endif
 	 */
 	wyFiniteTimeAction* m_other;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param other action to be repeated
 	 * @param times repeat times
-	 * \else
-	 * 构造函数
-	 *
-	 * @param other 具体要执行的\link wyFiniteTimeAction wyFiniteTimeAction对象 \endlink指针
-	 * @param times 动作重复的次数
-	 * \endif
 	 */
 	wyRepeat(wyFiniteTimeAction* other, int times);
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param other action to be repeated
 	 * @param times repeat times
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param other 具体要执行的\link wyFiniteTimeAction wyFiniteTimeAction\endlink指针
-	 * @param times 动作重复的次数
-	 * \endif
 	 */
 	static wyRepeat* make(wyFiniteTimeAction* other, int times);
 

@@ -34,46 +34,29 @@
 
 /**
  * @class wyShakyTiles3D
- * \if English
  * Node performing this action will be divided into tiles, and the node shakes in tiles.
- * \else
- * 节点分成瓦片，每个瓦片在抖动
- * \endif
  */
 class WIENGINE_API wyShakyTiles3D : public wyTiledGrid3DAction {
 protected:
 	/**
-	 * \if English
 	 * shake amplitude
-	 * \else
-	 * 抖动幅度
-	 * \endif
 	 */
 	int m_range;
 
 	/**
-	 * \if English
 	 * tuning of shake amplitude
-	 * \else
-	 * 抖动变化值
-	 * \endif
 	 */
 	int m_deltaRange;
 
 	int m_lastRange;
 
 	/**
-	 * \if English
 	 * specify whether node shaked on z axis
-	 * \else
-	 * 是否在z轴方向上抖动
-	 * \endif
 	 */
 	bool m_shakeZ;
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param duration time, in seconds
@@ -82,21 +65,10 @@ public:
 	 * @param range shake amplitude
 	 * @param delta range tuning of shake amplitude
 	 * @param shakeZ specify whether shakes on z axis
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param range 抖动
-	 * @param deltaRange 抖动变化值
-	 * @param shakeZ 是否在z轴方向上抖动
-	 * \endif
 	 */
 	static wyShakyTiles3D* make(float duration, int gridX, int gridY, int range, int deltaRange, bool shakeZ);
 
 	/**
-	 * \if English
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
@@ -104,25 +76,11 @@ public:
 	 * @param range shake amplitude
 	 * @param delta range tuning of shake amplitude
 	 * @param shakeZ specify whether shakes on z axis
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param range 抖动
-	 * @param deltaRange 抖动变化值
-	 * @param shakeZ 是否在z轴方向上抖动
-	 * \endif
 	 */
 	wyShakyTiles3D(float duration, int gridX, int gridY, int range, int deltaRange, bool shakeZ);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyShakyTiles3D();
 

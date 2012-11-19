@@ -71,17 +71,10 @@ public:
 	virtual void setTexture(wyTexture2D* tex);
 
 	/**
-	 * \if English
 	 * Set particle texture
 	 *
 	 * @param tex texture
 	 * @param rect texture rect, so you can specify a part of atlas texture used as particle texture
-	 * \else
-	 * 设置应用于粒子的贴图
-	 *
-	 * @param tex 贴图
-	 * @param rect 贴图内区域，如{0，0，tex.width/2, tex.height/2}表示仅左下1/4区域用于贴图操作
-	 * \endif
 	 */	
 	void setTexture(wyTexture2D* tex, wyRect rect);
 };

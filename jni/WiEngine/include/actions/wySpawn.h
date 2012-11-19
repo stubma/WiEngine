@@ -34,29 +34,17 @@
 /**
  * @class wySpawn
  *
- * \if English
  * Execute two actions simultaneously. The duration time will be the longer-lived action's time
- * \else
- * 同时执行两个动作的封装
- * \endif
  */
 class WIENGINE_API wySpawn : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * first action, must be subclass of \link wyFiniteTimeAction wyFiniteTimeAction \endlink
-	 * \else
-	 * 要执行的动作\link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针
-	 * \endif
 	 */
 	wyFiniteTimeAction* m_one;
 
 	/**
-	 * \if English
 	 * second action, must be subclass of \link wyFiniteTimeAction wyFiniteTimeAction \endlink
-	 * \else
-	 * 要执行的动作\link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针
-	 * \endif
 	 */
 	wyFiniteTimeAction* m_two;
 
@@ -71,17 +59,10 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param one first action, must be subclass of \link wyFiniteTimeAction wyFiniteTimeAction \endlink
 	 * @param two second action, must be subclass of \link wyFiniteTimeAction wyFiniteTimeAction \endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param one 要执行的动作 \link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针
-	 * @param two 要执行的动作 \link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针
-	 * \endif
 	 */
 	static wySpawn* make(wyFiniteTimeAction* one, wyFiniteTimeAction* two);
 

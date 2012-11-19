@@ -199,19 +199,11 @@ public:
 	bool isAutoFit() { return m_autoFit; }
 
 	/**
-	 * \if English
 	 * Set alpha function. If alpha function is set to GL_ALWAYS, then
 	 * alpha test is disabled
 	 *
 	 * @param func alpha test function
 	 * @param ref alpha reference value
-	 * \else
-	 * 设置alpha比较方式. 如果把alpha比较方式设置为GL_ALWAYS, 则相当于
-	 * 禁止alpha测试
-	 *
-	 * @param func alpha比较方式, 由OpenGL定义, 缺省是GL_ALWAYS
-	 * @param ref alpha参考值
-	 * \endif
 	 */
 	void setAlphaFunc(GLenum func, float ref);
 };

@@ -34,31 +34,17 @@
 /**
  * @struct wyMWFileData
  *
- * \if English
  * A bean of anu file
- * \else
- * 封装了从anu文件里面读取出来的原始数据, 它可能包含多个动画. 从逻辑上来说,
- * 一个\link wyMWFileData wyMWFileData\endlink 就对应
- * 了一个anu文件
- * \endif
  */
 class WIENGINE_API wyMWFileData : public wyAFCFileData {
 public:
 	/**
-	 * \if English
 	 * image count of this file referred
-	 * \else
-	 * 动画中牵涉到的图片集个数
-	 * \endif
 	 */
 	unsigned int m_numOfImage;
 
 	/**
-	 * \if English
 	 * animation count in this file
-	 * \else
-	 * 动画个数
-	 * \endif
 	 */
 	int m_numOfAnimation;
 

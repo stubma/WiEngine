@@ -32,12 +32,7 @@
 /**
  * @typedef wySPXTransform
  *
- * \if English
  * SpriteX transform constants
- * \else
- * SpriteX文件中的转换方式常量定义. SpriteX中的tile的旋转角度， 正值是逆时针，
- * 负值是顺时针. 但是对于action的旋转角度, 正值是顺时针, 负值是逆时针。
- * \endif
  */
 typedef enum {
 	SPX_TRANS_NONE,

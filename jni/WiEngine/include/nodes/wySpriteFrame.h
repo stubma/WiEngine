@@ -37,11 +37,7 @@ class wyTexture2D;
 /**
  * @class wySpriteFrame
  *
- * \if English
  * A frame which is related to a texture or part of texture
- * \else
- * 帧引用了某个贴图或者只是某个贴图的一部分
- * \endif
  */
 class WIENGINE_API wySpriteFrame : public wyFrame {
 private:

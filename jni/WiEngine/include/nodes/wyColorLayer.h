@@ -34,11 +34,7 @@
 
 /**
  * @class wyColorLayer
- * \if English
  * a color layer, visible
- * \else
- * 有底色显示层的封装
- * \endif
  */
 class WIENGINE_API wyColorLayer : public wyLayer {
 private:

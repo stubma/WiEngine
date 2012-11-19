@@ -42,14 +42,8 @@ class wyTMXLayer;
 /**
  * @class wySpriteEx
  *
- * \if English
  * Extended sprite class which can be seen as a superset of \link wySprite wySprite\endlink. It can do
  * anything \link wySprite wySprite\endlink can and supports batch rendering mode with \link wySpriteBatchNode wySpriteBatchNode\endlink.
- * \else
- * 图像节点，有两种模式，批渲染模式和单独渲染模式。
- * 要启用批渲染模式，需要将节点作为子节点插入一个 \link wySpriteBatchNode wySpriteBatchNode\endlink 节点.
- * 在批渲染模式下，所使用的贴图为父wySpriteBatchNode贴图。
- * \endif
  */
 class WIENGINE_API wySpriteEx : public wyTextureNode {
 	friend class wySpriteBatchNode;

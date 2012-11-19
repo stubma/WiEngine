@@ -34,12 +34,7 @@
 /**
  * @class wyEaseElastic
  *
- * \if English
  * Elastic vibration wrap for linear action
- * \else
- * 基类，开发者可继承此类，实现自己的 EaseElastic action。SDK中提供了基于此基类的3个具体实现，
- * \link wyEaseElasticIn wyEaseElasticIn \endlink, \link wyEaseElasticOut wyEaseElasticOut \endlink，\link wyEaseElasticInOut wyEaseElasticInOut \endlink
- * \endif
  */
 class WIENGINE_API wyEaseElastic : public wyEaseAction {
 protected:
@@ -48,17 +43,10 @@ protected:
 
 public:
  	/**
- 	 * \if English
  	 * Constructor
  	 *
  	 * @param period elastic vibration period, the smaller the value is, the faster it shakes
  	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
- 	 * \else
-	 * 构造函数
-	 *
-	 * @param period Elastic的波动周期，值越小，波动越快
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	wyEaseElastic(float period, wyIntervalAction* wrapped = NULL);
 

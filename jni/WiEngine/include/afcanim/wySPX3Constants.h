@@ -34,58 +34,32 @@
 /**
  * @typedef wySPX3ActionMode
  *
- * \if English
  * Mode of action
- * \else
- * SPX3动画中的模式字节
- * \endif
  */
 typedef enum {
 	/**
-	 * \if English
 	 * animation uses time to define frame duration
-	 * \else
-	 * 动画使用时间来定义帧持续时间
-	 * \endif
 	 */
 	SPX_DELAY = 1,
 
 	/**
-	 * \if English
 	 * all frames in animation are displayed for one frame time
-	 * \else
-	 * 动画内的所有帧都只显示一帧的时间, 这个模式下， 动画信息中不包含每帧的
-	 * 持续时间
-	 * \endif
 	 */
 	SPX_NODELAY
 } wySPX3ActionMode;
 
 /**
- * \if English
  * mode of tile sets
- * \else
- * SPX3中的分片集中的数据模式
- * \endif
  */
 typedef enum {
 	/**
-	 * \if English
 	 * every tile has same size, so it only saves tile size and rows/columns in atlas.
 	 * That means the file size can be smaller
-	 * \else
-	 * 每个分片的大小都是相同的， 而且是规律的网格状分布， 这样就只需要保存分片的大小和行列数即可，
-	 * 相对于索引模式可以减少文件尺寸
-	 * \endif
 	 */
 	SPX_TILE_INDEX = 1,
 
 	/**
-	 * \if English
 	 * every tile is defined by position and size
-	 * \else
-	 * 每个分片都由一个位置和大小来进行定义
-	 * \endif
 	 */
 	SPX_TILE_CLIP
 } wySPX3TileSetMode;
@@ -93,36 +67,20 @@ typedef enum {
 /**
  * @typedef wySPX3PatchType
  *
- * \if English
  * Type of patch, patch here is just equal with tile
  *
  * \note
  * Collision rectangle is not a tile in SpriteX 2011 and SpriteX 2011 processes
  * collision rectangle alone
- * \else
- * 分片的类型。SpriteX 2011把分片做了两级分类， 第一级只有tile和shape两种， 它这里用的
- * patch， 其意思其实相当于tile. 可以认为Patch和Tile是两个可以在SpriteX中等同的术语。
- *
- * \note
- * 碰撞矩形在SpriteX 2011中不被当成一种分片， 因此没有分片类型， 是单独处理的一种元素
- * \endif
  */
 typedef enum {
 	/**
-	 * \if English
 	 * patch is a tile, i.e., at image in atlas
-	 * \else
-	 * 分片是一个图片集中的图片
-	 * \endif
 	 */
 	SPX_PATCH_TILE = 1,
 
 	/**
-	 * \if English
 	 * patch is a shape
-	 * \else
-	 * 分片是一个形状.
-	 * \endif
 	 */
 	SPX_PATCH_SHAPE
 } wySPX3PatchType;
@@ -130,11 +88,7 @@ typedef enum {
 /**
  * @typedef wySPX3ShapeType
  *
- * \if English
  * type of shape
- * \else
- * 分片如果是个形状， 这些常量定义了矩形是什么形状
- * \endif
  */
 typedef enum {
 	SPX_POINT = 0x01,

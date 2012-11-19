@@ -61,17 +61,11 @@ public:
 	virtual bool keyUp(wyKeyEvent& event);
 
 	/**
-	 * \if English
 	 * Check whether it is a transition scene, if subclass is a transition it should override
 	 * it and returns true
 	 *
 	 * @return true means it is a transition scene, generally it means it is a subclass
 	 * of \link wyTransitionScene wyTransitionScene\endlink
-	 * \else
-	 * 检查这是否是一个transition scene, 这个方法只是为了避免使用RTTI而添加的一个方法
-	 *
-	 * @return true表示这是一个transition scene, 一般情况下也就意味着这是一个\link wyTransitionScene wyTransitionScene\endlink 的子类
-	 * \endif
 	 */
 	virtual bool isTransition() { return false; }
 };

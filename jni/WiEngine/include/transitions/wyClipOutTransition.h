@@ -35,11 +35,7 @@
 /**
  * @class wyClipOutTransition
  *
- * \if English
  * Old scene uses clip out action to hide itself gradually so new scene becomes visible
- * \else
- * 旧的场景通过\link wyClipOut wyClipOut\endlink逐渐隐藏从而显示新场景
- * \endif
  */
 class WIENGINE_API wyClipOutTransition : public wyTransitionScene {
 private:
@@ -67,21 +63,12 @@ public:
 	virtual ~wyClipOutTransition();
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param duration transition duration time in seconds
 	 * @param inScene new scene
 	 * @param direction clip shrink direction
 	 * @return \link wyClipOutTransition wyClipOutTransition\endlink
-	 * \else
-	 * 静态构造方法
-	 *
-	 * @param duration 转场持续时间
-	 * @param inScene 新场景
-	 * @param direction 裁剪区域收缩方向
-	 * @return \link wyClipOutTransition wyClipOutTransition\endlink
-	 * \endif
 	 * \see wyClipOut::Direction
 	 */
 	static wyClipOutTransition* make(float duration, wyScene* inScene, wyClipOut::Direction direction);

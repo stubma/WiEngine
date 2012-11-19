@@ -35,30 +35,18 @@
 /**
  * @class wyAFCFileData
  *
- * \if English
  * Base class for all file data object in AFC architecture, it contains
  * common fields for AFC file data
- * \else
- * 所有AFC动画文件数据的基类, 包含了所有AFC动画文件都应该具有的属性
- * \endif
  */
 class WIENGINE_API wyAFCFileData : public wyObject {
 public:
 	/**
-	 * \if English
 	 * unique id for this file data
-	 * \else
-	 * data的一个唯一标识符，内部使用，用来缓冲
-	 * \endif
 	 */
 	unsigned int m_dataId;
 
 	/**
-	 * \if English
 	 * scale of file data
-	 * \else
-	 * 动画文件的缩放比例
-	 * \endif
 	 */
 	float m_resScale;
 

@@ -34,40 +34,23 @@
 /**
  * @class wyLayer
  *
- * \if English
  * Layer is a container for other nodes. Its size by default is set
  * to surface view size and relativeAnchorPoint flag is false
- * \else
- * 层的封装, 层的缺省大小是和屏幕一样大，且relativeAnchorPoint标志
- * 缺省是false
- * \endif
  */
 class WIENGINE_API wyLayer : public wyNode {
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
-	 * \else
-	 * 静态构造函数
-	 * \endif
 	 */
 	static wyLayer* make();
 
 	/**
-	 * \if English
 	 * constructor
-	 * \else
-	 * 构造函数
-	 * \endif
 	 */
 	wyLayer();
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyLayer();
 };

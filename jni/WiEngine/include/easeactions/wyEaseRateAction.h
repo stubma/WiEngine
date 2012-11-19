@@ -34,12 +34,7 @@
 /**
  * @class wyEaseRateAction
  *
- * \if English
  * base class of rate actions
- * \else
- * 基类，开发者可继承此类，实现自己的 EaseRate action。SDK中提供了基于此基类的3个具体实现，
- * \link wyEaseIn wyEaseIn\endlink, \link wyEaseOut wyEaseOut\endlink，\link wyEaseInOut wyEaseInOut\endlink
- * \endif
  */
 class WIENGINE_API wyEaseRateAction : public wyEaseAction {
 protected:
@@ -48,17 +43,10 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param rate non-linear transform rate
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param rate 控制非线性变换幅度的参数
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	wyEaseRateAction(float rate, wyIntervalAction* wrapped = NULL);
 

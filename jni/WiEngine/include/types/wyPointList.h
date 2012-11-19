@@ -32,38 +32,22 @@
 /**
  * @struct wyPointList
  *
- * \if English
  * Maintain a buffer of points
- * \else
- * 点缓冲, 维护一系列的点
- * \endif
  */
 class WIENGINE_API wyPointList {
 private:
 	/**
-	 * \if English
 	 * point buffer
-	 * \else
-	 * 点缓冲区
-	 * \endif
 	 */
 	wyPoint* m_buffer;
 
 	/**
-	 * \if English
 	 * point count
-	 * \else
-	 * 点数量
-	 * \endif
 	 */
 	int m_count;
 
 	/**
-	 * \if English
 	 * capacity of buffer, in point, not bytes
-	 * \else
-	 * 点缓冲区的容量, 表示能容纳多少个点, 不是字节数
-	 * \endif
 	 */
 	int m_capacity;
 
@@ -72,84 +56,47 @@ public:
 	virtual ~wyPointList();
 
 	/**
-	 * \if English
 	 * Add a point
-	 * \else
-	 * 添加一个点
-	 * \endif
 	 */
 	void addPoint(float x, float y);
 
 	/**
-	 * \if English
 	 * Add a point
-	 * \else
-	 * 添加一个点
-	 * \endif
 	 */
 	void addPoint(wyPoint p) { addPoint(p.x, p.y); }
 
 	/**
-	 * \if English
 	 * Add all points from another point list
 	 *
 	 * @param plist point list to be copied from
-	 * \else
-	 * 添加另一个点列表中的所有点
-	 *
-	 * @param plist 要拷贝的点列表
-	 * \endif
 	 */
 	void addPoints(wyPointList& plist);
 
 	/**
-	 * \if English
 	 * delete point at given index
-	 * \else
-	 * 删除指定位置的点
-	 * \endif
 	 */
 	void deletePointAt(int index);
 
 	/**
-	 * \if English
 	 * Get point buffer
-	 * \else
-	 * 得到点缓冲区
-	 * \endif
 	 */
 	wyPoint* getBuffer() { return m_buffer; }
 
 	/**
-	 * \if English
 	 * Get point count
-	 * \else
-	 * 得到点数
-	 * \endif
 	 */
 	int getCount() { return m_count; }
 
 	/**
-	 * \if English
 	 * Clear all points
-	 * \else
-	 * 重置点数为0
-	 * \endif
 	 */
 	void clear();
 
 	/**
-	 * \if English
 	 * Get point at given index
 	 *
 	 * @param index point index
 	 * @return \link wyPoint wyPoint\endlink
-	 * \else
-	 * 得到指定位置的点
-	 *
-	 * @param index 点索引
-	 * @return \link wyPoint wyPoint\endlink
-	 * \endif
 	 */
 	wyPoint getPointAt(int index);
 };

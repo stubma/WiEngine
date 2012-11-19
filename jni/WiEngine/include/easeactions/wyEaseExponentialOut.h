@@ -34,39 +34,22 @@
 /**
  * @class wyEaseExponentialOut
  *
- * \if English
  * See demo  EaseActions\\EaseExponentialOut.
- * \else
- * 详细了解可见示例 EaseActions\\EaseExponentialOut.
- * \endif
  */
 class WIENGINE_API wyEaseExponentialOut : public wyEaseAction {
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
 	 * @return \link wyEaseExponentialOut wyEaseExponentialOut\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * @return \link wyEaseExponentialOut wyEaseExponentialOut\endlink
-	 * \endif
 	 */
 	static wyEaseExponentialOut* make(wyIntervalAction* wrapped = NULL);
 
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	wyEaseExponentialOut(wyIntervalAction* wrapped = NULL);
 

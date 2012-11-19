@@ -42,11 +42,7 @@
 /**
  * @class wyWinGLView
  *
- * \if English
  * GL encapsulation for windows platform
- * \else
- * windows平台的GL上下文封装
- * \endif
  */
 class WIENGINE_API wyWinGLView : public wyObject, public wyGestureRecognizerListener {
 private:
@@ -97,11 +93,7 @@ public:
 	void prepare();
 
 	/**
-	 * \if English
 	 * Create a window and start main loop, this method blocks until user ends app
-	 * \else
-	 * 创建一个窗口并启动主循环， 因此这个方法将堵塞直到用户关闭程序
-	 * \endif
 	 */
 	int run();
 

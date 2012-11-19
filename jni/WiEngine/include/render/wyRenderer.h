@@ -39,14 +39,9 @@
 /**
  * @class wyRenderer
  *
- * \if English
  * \c wyRenderer is a virtual class which abstract necessary operation need to be
  * implemented for rendering. It is the interface which connects WiEngine core to
  * specific render technology.
- * \else
- * \c wyRenderer是一个抽象的渲染方法定义接口, 定义了完成渲染需要实现的所有方法, 它将WiEngine和
- * 具体的渲染技术隔离开来.
- * \endif
  */
 class WIENGINE_API wyRenderer : public wyObject {
 protected:
@@ -56,15 +51,9 @@ public:
 	virtual ~wyRenderer();
 
 	/**
-	 * \if English
 	 * Set background color used to clear buffer
 	 *
 	 * @param color background color
-	 * \else
-	 * 设置用来清除颜色缓冲区的缺省颜色
-	 *
-	 * @param color 背景色
-	 * \endif
 	 */
 	virtual void setBackgroundColor(wyColor4B color) = 0;
 
@@ -76,91 +65,51 @@ public:
 	virtual wyColor4B getBackgroundColor() = 0;
 
 	/**
-	 * \if English
 	 * Clear buffer
 	 *
 	 * @param color true means color buffer should be cleared
 	 * @param depth true means depth buffer should be cleared
 	 * @param stencil true means stencil buffer should be cleared
-	 * \else
-	 * 清除缓冲区
-	 *
-	 * @param color true表示需要清除颜色缓冲区
-	 * @param depth true表示需要清除深度缓冲区
-	 * @param stencil true表示需要清除蒙版缓冲区
-	 * \endif
 	 */
 	virtual void clearBuffers(bool color, bool depth, bool stencil) = 0;
 
 	/**
-	 * \if English
 	 * Set viewport range
 	 *
 	 * @param x x position of viewport
 	 * @param y y position of viewport
 	 * @param w width of viewport
 	 * @param h height of viewport
-	 * \else
-	 * 设置视口范围
-	 *
-	 * @param x 视口x位置
-	 * @param y 视口y位置
-	 * @param w 视口宽度
-	 * @param h 视口高度
-	 * \endif
 	 */
 	virtual void setViewport(float x, float y, float w, float h) = 0;
 
 	/**
-	 * \if English
 	 * Push a clip rect to clip rect stack top and enable it
 	 *
 	 * @param r clip rectangle
-	 * \else
-	 * 设置矩形裁剪区域
-	 *
-	 * @param r 裁剪区域矩形
-	 * \endif
 	 */
 	virtual void pushClipRect(wyRect& r) = 0;
 
 	/**
-	 * \if English
 	 * Pop current clip rect, if no more clip rect in stack, disable clip rect.
 	 * If has other clip rect, enable new top clip rect
-	 * \else
-	 * 弹出当前裁剪区域, 切换栈顶和剪裁区域为第二个矩形, 如果没有更多矩形, 取消剪裁
-	 * \endif
 	 */
 	virtual void popClipRect() = 0;
 
     /**
-     * \if English
      * Set the range of the depth values for objects. All rendered
      * objects will have their depth clamped to this range.
      *
      * @param start The range start
      * @param end The range end
-     * \else
-     * 设置深度范围
-     *
-     * @param start 起始深度
-     * @param end 结束深度
-     * \endif
      */
 	virtual void setDepthRange(float start, float end) = 0;
 
 	/**
-	 * \if English
 	 * Set active shader program
 	 *
 	 * @param program \link wyShaderProgram wyShaderProgram\endlink, or NULL
 	 * 		if you want to remove current shader
-	 * \else
-	 * 设置当前shader程序
-	 *
-	 * @param program \link wyShaderProgram wyShaderProgram\endlink, 或者NULL表示取消当前的shader程序
-	 * \endif
 	 */
 	virtual void setShaderProgram(wyShaderProgram* program) = 0;
 
@@ -179,30 +128,17 @@ public:
 	virtual void onSurfaceDestroyed() = 0;
 
 	/**
-	 * \if English
 	 * Render a mesh with current material and technique
 	 *
 	 * @param mesh \link wyMesh wyMesh\endlink
 	 * @param lodLevel level of detail of mesh
-	 * \else
-	 * 以当前材质和技术渲染一个mesh网络
-	 *
-	 * @param mesh \link wyMesh wyMesh\endlink
-	 * @param lodLevel 需要渲染的模型精细度级别
-	 * \endif
 	 */
 	virtual void renderMesh(wyMesh* mesh, int lodLevel) = 0;
 
 	/**
-	 * \if English
 	 * Apply render state
 	 *
 	 * @param rs \link wyRenderState wyRenderState\endlink
-	 * \else
-	 * 使渲染状态生效
-	 *
-	 * @param rs \link wyRenderState wyRenderState\endlink
-	 * \endif
 	 */
 	virtual void applyRenderState(wyRenderState* rs) = 0;
 

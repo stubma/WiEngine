@@ -36,11 +36,7 @@ class wyDialog;
 /**
  * @class wyDialogTransition
  *
- * \if English
  * Effect when open or close dialog
- * \else
- * 封装对话框出现, 消失的效果
- * \endif
  */
 class WIENGINE_API wyDialogTransition : public wyObject, public wyActionCallback {
 protected:
@@ -64,28 +60,16 @@ public:
 	virtual ~wyDialogTransition();
 
 	/**
-	 * \if English
 	 * Apply in action to dialog
 	 *
 	 * @param dialog dialog object
-	 * \else
-	 * 对对话框执行显示效果
-	 *
-	 * @param dialog 对话框对象
-	 * \endif
 	 */
 	virtual void applyIn(wyDialog* dialog);
 
 	/**
-	 * \if English
 	 * Apply out action to dialog
 	 *
 	 * @param dialog dialog object
-	 * \else
-	 * 对对话框执行隐藏效果
-	 *
-	 * @param dialog 对话框对象
-	 * \endif
 	 */
 	virtual void applyOut(wyDialog* dialog);
 

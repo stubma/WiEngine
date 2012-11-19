@@ -34,11 +34,7 @@
 /**
  * @class wyShow
  *
- * \if English
  * Make a node visible
- * \else
- * 节点可见的动作封装，对节点执行可见操作
- * \endif
  */
 class WIENGINE_API wyShow : public wyInstantAction {
 protected:
@@ -53,15 +49,9 @@ public:
 	virtual wyAction* copy();
 
 	/**
-	 * \if English
 	 * return the reverse action of show, actually it is a \link wyHide wyHide\endlink
 	 *
 	 * @return \link wyHide wyHide\endlink
-	 * \else
-	 * 返回show的反转操作，实际是\link wyHide wyHide\endlink对象指针
-	 *
-	 * @return \link wyAction wyAction\endlink对象指针
-	 * \endif
 	 */
 	virtual wyAction* reverse();
 

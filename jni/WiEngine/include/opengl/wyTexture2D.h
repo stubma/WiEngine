@@ -106,37 +106,21 @@ class WIENGINE_API wyTexture2D : public wyObject {
 
 public:
 	/**
-	 * \if English
 	 * Text alignment of label node
-	 * \else
-	 * Label文字的对其方式
-	 * \endif
 	 */
 	enum TextAlignment {
 		/**
-		 * \if English
 		 * Left alignment
-		 * \else
-		 * 文字左对齐
-		 * \endif
 		 */
 		LEFT,
 
 		/**
-		 * \if English
 		 * center alignment
-		 * \else
-		 * 居中对齐
-		 * \endif
 		 */
 		CENTER,
 
 		/**
-		 * \if English
 		 * right alignment
-		 * \else
-		 * 右对齐
-		 * \endif
 		 */
 		RIGHT
 	};
@@ -914,20 +898,12 @@ public:
 	float getHeight();
 
 	/**
-	 * \if English
 	 * Get precise scaled width of image
-	 * \else
-	 * 得到图片缩放后的精确宽度, 这个宽度不会丢失精度
-	 * \endif
 	 */
 	float getPreciseWidth();
 
 	/**
-	 * \if English
 	 * Get precise scaled height of image
-	 * \else
-	 * 得到图片缩放后的精确高度, 这个高度不会丢失精度
-	 * \endif
 	 */
 	float getPreciseHeight();
 
@@ -1017,82 +993,47 @@ public:
 	void updateRaw(const char* raw);
 
 	/**
-	 * \if English
 	 * set color filter. texture has many sources and it doesn't support label or opengl or pvr source. color filter
 	 * won't be called when set until you call \c applyFilter. However, \c applyFilter will be automatically
 	 * called when texture is loading.
 	 *
 	 * @param filter subclass of \link wyColorFilter wyColorFilter\endlink, or NULL if you want to
 	 * 		remove filter
-	 * \else
-	 * 设置颜色过滤器, 贴图本身有一个来源标示其类型, 对于标签或opengl或pvr来源的贴图暂时不支持颜色过滤器. 在调用\c setColorFilter
-	 * 的时候, 过滤器并不会立刻起作用. 想要过滤器发生效果需要调用\c applyFilter. 但是如果贴图正在被载入, 则\c applyFilter
-	 * 会被自动调用.
-	 *
-	 * @param filter \link wyColorFilter wyColorFilter\endlink的子类, 或者NULL表示删除当前的过滤器
-	 * \endif
 	 */
 	void setColorFilter(wyColorFilter* filter);
 
 	/**
-	 * \if English
 	 * if current color filter is not NULL, apply this filter to texture. that will cause
 	 * texture changed immediately.
-	 * \else
-	 * 如果当前的颜色过滤器不为空, 则应用这个过滤器, 这会导致OpenGL贴图立刻发生变化
-	 * \endif
 	 */
 	void applyFilter();
 
 	/**
-	 * \if English
 	 * Clone a texture. After returns, this object will point to a new OpenGL texture
 	 * object. Every cloned texture should have a clone id to unique identify itself.
 	 * If current proxy already points a cloned texture, then source texture will be cloned
 	 *
 	 * @param cloneId clone id
 	 * @param proxy of cloned texture, NULL if clone is failed
-	 * \else
-	 * 克隆该贴图. 方法返回后, 该对象会指向一个新的OpenGL贴图对象. 每个克隆的贴图都有一个克隆id来
-	 * 进行唯一的标识. 如果当前的贴图代理指向的已经是一个克隆贴图, 则该方法会克隆源贴图.
-	 *
-	 * @param cloneId 克隆id
-	 * @return 克隆贴图代理对象, 如果克隆失败, 返回NULL
-	 * \endif
 	 */
 	wyTexture2D* clone(int cloneId);
 
 	/**
-	 * \if English
 	 * Change this proxy texture to a cloned texture proxy. Cloned texture proxy can
 	 * not be created directly so you should call this method to switch a proxy to a
 	 * cloned proxy. If clone id not found, do nothing
 	 *
 	 * @param cloneId clone id
 	 * @return true means ok, false means there is no clone which has that id
-	 * \else
-	 * 把当前的贴图代理对象定位到某个克隆贴图对象上. 这是因为克隆贴图代理不能直接被创建, 只能先
-	 * 创建原始贴图代理, 再调用这个方法重新定位. 如果指定的克隆id没有找到, 则该方法无效果
-	 *
-	 * @param cloneId 克隆贴图id
-	 * @return true表示切换成功, false表示指定id的克隆不存在
-	 * \endif
 	 */
 	bool switchToClone(int cloneId);
 
 	/**
-	 * \if English
 	 * Delete a cloned texture with specified id, it will immediately delete texture both
 	 * in cache and in opengl.
 	 *
 	 * @param cloneId id of cloned texture
 	 * @return true means ok, false means no clone has that id
-	 * \else
-	 * 删除某个克隆贴图. 该方法立刻从贴图缓冲和opengl中删除贴图资源
-	 *
-	 * @param cloneId 要删除的克隆贴图id
-	 * @return true表示成功, false表示不存在该id的克隆
-	 * \endif
 	 */
 	bool deleteClone(int cloneId);
 };

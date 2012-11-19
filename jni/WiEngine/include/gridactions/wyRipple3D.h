@@ -35,83 +35,47 @@
 /**
  * @class wyRipple3D
  *
- * \if English
  * Node performing this action will produce the ripple effect.
- * \else
- * 波纹动作。目标会呈现类似于水面被投入石子的效果
- * \endif
  */
 class WIENGINE_API wyRipple3D : public wyGrid3DAction {
 protected:
 	/**
-	 * \if English
 	 * x coordinate of the ripple center
-	 * \else
-	 * 波动中心位置x值
-	 * \endif
 	 */
 	float m_centerX;
 
 	/**
-	 * \if English
 	 * y coordinate of the ripple center
-	 * \else
-	 * 波动中心位置值
-	 * \endif
 	 */
 	float m_centerY;
 
 	/**
-	 * \if English
 	 * tuning of the ripple center on the x direction
-	 * \else
-	 * 波动中心横向变化值
-	 * \endif
 	 */
 	float m_deltaX;
 
 	/**
-	 * \if English
 	 * tuning of the ripple center on the y direction
-	 * \else
-	 * 波动中心中心变化值
-	 * \endif
 	 */
 	float m_deltaY;
 
 	/**
-	 * \if English
 	 * radius of the ripple
-	 * \else
-	 * 波动波及范围的半径
-	 * \endif
 	 */
 	float m_radius;
 
 	/**
-	 * \if English
 	 * tuning of the ripple radius
-	 * \else
-	 * 波动半径变化值
-	 * \endif
 	 */
 	float m_deltaRadius;
 
 	/**
-	 * \if English
 	 * wave count
-	 * \else
-	 * 波数
-	 * \endif
 	 */
 	float m_waves;
 
 	/**
-	 * \if English
 	 * tuning of the amplitude
-	 * \else
-	 * 幅度变化值
-	 * \endif
 	 */
 	float m_deltaAmplitude;
 
@@ -123,7 +87,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param duration time, in seconds
@@ -138,28 +101,11 @@ public:
 	 * @param amplitude amplitude
 	 * @param deltaAmplitude tuning of amplitude
 	 * @param waves wave count
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param centerX 波动中心位置x值
-	 * @param centerY 波动中心位置值
-	 * @param deltaX 波动中心横向变化值
-	 * @param deltaY 波动中心中心变化值
-	 * @param radius 波动波及范围的半径
-	 * @param deltaRadius 波动波及范围的半径变化值
-	 * @param amplitude 幅度
-	 * @param deltaAmplitude 幅度变化值
-	 * @param waves 波数
-	 * \endif
 	 */
 	static wyRipple3D* make(float duration, int gridX, int gridY, float centerX, float centerY,
 			float deltaX, float deltaY, float radius, float deltaRadius, float amplitude, float deltaAmplitude, float waves);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
@@ -174,22 +120,6 @@ public:
 	 * @param amplitude amplitude
 	 * @param deltaAmplitude tuning of amplitude
 	 * @param waves wave count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param centerX 波动中心位置x值
-	 * @param centerY 波动中心位置值
-	 * @param deltaX 波动中心横向变化值
-	 * @param deltaY 波动中心中心变化值
-	 * @param radius 波动波及范围的半径
-	 * @param deltaRadius 波动波及范围的半径变化值
-	 * @param amplitude 幅度
-	 * @param deltaAmplitude 幅度变化值
-	 * @param waves 波数
-	 * \endif
 	 */
 	wyRipple3D(float duration, int gridX, int gridY, float centerX, float centerY,
 			float deltaX, float deltaY, float radius, float deltaRadius, float amplitude, float deltaAmplitude, float waves);
@@ -197,9 +127,6 @@ public:
 	/**
 	 * \if Englsih
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyRipple3D();
 

@@ -34,11 +34,7 @@
 /**
  * @class wyColorFilter
  *
- * \if English
  * color filter is used to transform colors in a texture
- * \else
- * 颜色过滤器用来对一个贴图中的颜色进行转换
- * \endif
  */
 class WIENGINE_API wyColorFilter : public wyObject {
 protected:
@@ -48,19 +44,11 @@ public:
 	virtual ~wyColorFilter() {}
 
 	/**
-	 * \if English
 	 * apply this color filter to some image data
 	 *
 	 * @param data raw data of image which must be RGBA8888 format, it holds transformed result when method returns
 	 * @param width image pixel width
 	 * @param height image pixel height
-	 * \else
-	 * 对一个图像数据应用颜色矩阵
-	 *
-	 * @param data 图像原始数据, 必须是RGBA8888格式, 方法完成后, data中的数据变成转换后的值.
-	 * @param width 图像的像素宽度
-	 * @param height 图像的像素高度
-	 * \endif
 	 */
 	virtual void apply(void* data, int width, int height) = 0;
 };

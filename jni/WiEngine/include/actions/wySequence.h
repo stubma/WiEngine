@@ -35,38 +35,22 @@
 /**
  * @class wySequence
  *
- * \if English
  * execute actions one by one
- * \else
- * 按顺序执行一组动作的封装
- * \endif
  */
 class WIENGINE_API wySequence : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * action array
-	 * \else
-	 * 所有动作的\link wyArray wyArray \endlink对象指针
-	 * \endif
 	 */
 	wyArray* m_actions;
 
 	/**
-	 * \if English
 	 * the time split of two actions
-	 * \else
-	 * 两个动作的时间区分点
-	 * \endif
 	 */
 	float m_split;
 
 	/**
-	 * \if English
 	 * current action index, 0 for first, 1 for second
-	 * \else
-	 * 当前执行的动作index
-	 * \endif
 	 */
 	int m_last;
 
@@ -85,21 +69,12 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param action1 first action, must be subclass of \link wyFiniteTimeAction wyFiniteTimeAction\endlink
 	 * @param action2 second action, must be subclass of \link wyFiniteTimeAction wyFiniteTimeAction\endlink, you can append more
 	 * 		actions after this one and end with a NULL
 	 * @return \link wySequence wySequence\endlink
-	 * \else
-	 * 构造\link wySequence wySequence \endlink对象指针
-	 *
-	 * @param action1 要执行的动作\link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针
-	 * @param action2 要执行的动作\link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针，
-	 * 后面还可以添加多个\link wyFiniteTimeAction wyFiniteTimeAction \endlink对象指针，参数以NULL结束
-	 * @return \link wySequence wySequence \endlink对象指针
-	 * \endif
 	 */
 	static wySequence* make(wyFiniteTimeAction* action1, wyFiniteTimeAction* action2, ...);
 

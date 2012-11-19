@@ -34,16 +34,11 @@
 /**
  * @class wyCharProvider
  *
- * \if English
  * An interface defines method to query character infomation
- * \else
- * 定义获取字符信息的接口
- * \endif
  */
 class WIENGINE_API wyCharProvider {
 public:
 	/**
-	 * \if English
 	 * Measure string width for specified character range. No need consider about
 	 * new line character.
 	 *
@@ -52,15 +47,6 @@ public:
 	 * @param spaceWidth space character width in pixels
 	 * @param tabSize space count which one tab equals to
 	 * @return width of sub string in specified range
-	 * \else
-	 * 计算指定范围的字符构成的字符串长度, 不需要考虑换行符的情况
-	 *
-	 * @param chars utf-8编码的字符串
-	 * @param length 需要被计算的字节长度
-	 * @param spaceWidth 如果不存在空格字符, 则为空格填充的像素宽度
-	 * @param tabSize 一个tab相当于多少个空格
-	 * @return 范围内的子串长度
-	 * \endif
 	 */
 	virtual float measureText(const char* chars, int length, float spaceWidth, float tabSize) = 0;
 };

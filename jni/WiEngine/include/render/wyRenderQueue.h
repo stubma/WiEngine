@@ -35,21 +35,13 @@
 /**
  * @class wyRenderQueue
  *
- * \if English
  * Render queue to speed up same type geometry rendering speed, it sorts geometry
  * to keep z order correct
- * \else
- * 渲染队列会对\link wyNode wyNode\endlink进行排序, 以提高渲染速度
- * \endif
  */
 class WIENGINE_API wyRenderQueue : public wyObject {
 public:
 	/**
-	 * \if English
 	 * Render bucket
-	 * \else
-	 * 渲染队列标记
-	 * \endif
 	 */
 	enum Bucket {
         /**
@@ -137,57 +129,32 @@ public:
 	virtual ~wyRenderQueue();
 
 	/**
-	 * \if English
 	 * Adds a node to the given bucket. The \link wyRenderManager wyRenderManager\endlink automatically handles this task
 	 * when flattening the scene graph
 	 *
 	 * @param n The geometry to add
 	 * @param bucket The bucket to add to
-	 * \else
-	 * 添加一个可见元素到某个渲染队列中
-	 *
-	 * @param n 需要添加的节点
-	 * @param bucket 渲染队列类型
-	 * \endif
 	 */
 	void addToQueue(wyNode* n, Bucket bucket);
 
 	/**
-	 * \if English
 	 * Clear all geometries in all list
-	 * \else
-	 * 清除所有的可见元素
-	 * \endif
 	 */
 	void clear();
 
 	/**
-	 * \if English
 	 * Check is a bucket empty or not?
 	 *
 	 * @param bucket bucket type
 	 * @return true means bucket is empty
-	 * \else
-	 * 检查某个渲染队列是否为空
-	 *
-	 * @param bucket 队列类型
-	 * @return true表示队列为空
-	 * \endif
 	 */
 	bool isBucketEmpty(Bucket bucket);
 
 	/**
-	 * \if English
 	 * Render a bucket
 	 *
 	 * @param bucket bucket type
 	 * @param rm \link wyRenderManager wyRenderManager\endlink
-	 * \else
-	 * 渲染一个队列
-	 *
-	 * @param bucket 队列类型
-	 * @param rm 渲染管理器实例
-	 * \endif
 	 */
 	void renderBucket(Bucket bucket, wyRenderManager* rm);
 };

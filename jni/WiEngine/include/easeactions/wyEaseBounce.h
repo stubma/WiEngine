@@ -34,12 +34,7 @@
 /**
  * @class wyEaseBounce
  *
- * \if English
  * Bounce transform of linear action
- * \else
- * 封装了bounce函数，开发者可继承此类，实现自己的 bounce action。SDK中提供了基于此基类的3个具体实现，
- * \link wyEaseBounceIn wyEaseBounceIn \endlink, \link wyEaseBounceOut wyEaseBounceOut \endlink，\link wyEaseBounceInOut wyEaseBouceInOut \endlink
- * \endif
  */
 class WIENGINE_API wyEaseBounce : public wyEaseAction {
 protected:
@@ -52,15 +47,9 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	wyEaseBounce(wyIntervalAction* wrapped);
 	 

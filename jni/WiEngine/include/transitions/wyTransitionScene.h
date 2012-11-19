@@ -128,23 +128,11 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * Static constructor to create a do-nothing transition
 	 *
 	 * @param duration duration time of transition, in seconds
 	 * @param inScene incoming scene, or NULL if you want to use transiton when pop scene
 	 * @return \link wyTransitionScene wyTransitionScene\endlinnk
-	 * \else
-	 * 创建一个什么也不做的转场效果, 由于这是所有转场效果的基类, 因此其并无任何动画逻辑. 但是也许有时候
-	 * 这个还真用得上.
-	 *
-	 * @param duration 转场持续时间
-	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
-	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
-	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
-	 * 		会自动设置载入和载出场景.
-	 * @return \link wyTransitionScene wyTransitionScene\endlink
-	 * \endif
 	 */
 	static wyTransitionScene* make(float duration, wyScene* inScene);
 
@@ -229,15 +217,9 @@ public:
 	void setOutEaseAction(wyEaseAction* outEase);
 
 	/**
-	 * \if English
 	 * Set a target selector which is called when transition is finished
 	 *
 	 * @param ts target selector object
-	 * \else
-	 * 设置一个选择子用于在转场结束时调用
-	 *
-	 * @param ts 被调用的选择子
-	 * \endif
 	 */
 	void setFinishCallback(wyTargetSelector* ts);
 };

@@ -36,24 +36,14 @@ extern "C" {
 #endif
 
 /**
- * \if English
  * start to record time
  *
  * @param name name for this recording
- * \else
- * 开始记录时间
- *
- * @param name 输出时间时显示的字符串，用来标识是什么时间
- * \endif
  */
 WIENGINE_API void wyRecordTime(const char* name);
 
 /**
- * \if English
  * output time to log
- * \else
- * 输出时间
- * \endif
  */
 WIENGINE_API void wyOutputTime();
 

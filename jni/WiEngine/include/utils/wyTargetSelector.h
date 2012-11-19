@@ -70,11 +70,7 @@ typedef void (wyObject::*wySEL_p)(wyTargetSelector* ts, void*);
 /**
  * @class wyTargetSelector
  *
- * \if English
  * it indicates a callback
- * \else
- * 定时器回调的封装
- * \endif
  */
 class WIENGINE_API wyTargetSelector : public wyObject {
 private:
@@ -105,66 +101,38 @@ public:
 	/**
 	 * @union ArgValue
 	 *
-	 * \if English
 	 * Data set for this target selector
-	 * \else
-	 * 设置给回调方法的参数
-	 * \endif
 	 */
 	union ArgValue {
 		/**
-		 * \if English
 		 * Integer value
-		 * \else
-		 * 整数值
-		 * \endif
 		 */
 		int i;
 
 		/**
-		 * \if English
 		 * Float value
-		 * \else
-		 * 浮点值
-		 * \endif
 		 */
 		float f;
 
 		/**
-		 * \if English
 		 * pointer
-		 * \else
-		 * 指针
-		 * \endif
 		 */
 		void* p;
 	};
 
 private:
 	/**
-	 * \if English
 	 * callback target, must be a wyObject subclass
-	 * \else
-	 * native层回调的\link wyObject wyObject对象指针\endlink
-	 * \endif
 	 */
 	wyObject* m_target;
 
 	/**
-	 * \if English
 	 * id of this target selector
-	 * \else
-	 * 标识id
-	 * \endif
 	 */
 	int m_id;
 
 	/**
-	 * \if English
 	 * the time between last calling and now
-	 * \else
-	 * 标识距离上次触发所持续的时间，例如如果按三帧刷新一次，则累计三帧消耗的时间
-	 * \endif
 	 */
 	float m_delta;
 
@@ -172,20 +140,12 @@ private:
 	Prototype m_prototype;
 
 	/**
-	 * \if English
 	 * argument of callback
-	 * \else
-	 * native层回调的参数
-	 * \endif
 	 */
 	ArgValue m_data;
 
 	/**
-	 * \if English
 	 * callback function of a class
-	 * \else
-	 * 自定义函数回调
-	 * \endif
 	 */
 	Selector m_sel;
 
@@ -236,7 +196,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * \note
@@ -247,22 +206,10 @@ public:
 	 * @param callback callback target, must be a wyObject subclass
 	 * @param id id of this target selector
 	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * \note
-	 * 这个方法虽然可以使用但是不再推荐. 实际上这个方法是为了Lua脚本而继续存在的, 由于Lua脚本中
-	 * 传递函数指针比较麻烦, 所以通过id调用一个选择子仍然有存在的必要.
-	 *
-	 * @param callback native层回调的\link wyObject wyObject对象指针\endlink
-	 * @param id 标识id
-	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \endif
 	 */
 	static wyTargetSelector* makeId(wyObject* callback, int id);
 
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * \note
@@ -274,23 +221,10 @@ public:
 	 * @param id id of this target selector
 	 * @param data integer custom data
 	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * \note
-	 * 这个方法虽然可以使用但是不再推荐. 实际上这个方法是为了Lua脚本而继续存在的, 由于Lua脚本中
-	 * 传递函数指针比较麻烦, 所以通过id调用一个选择子仍然有存在的必要.
-	 *
-	 * @param callback native层回调的\link wyObject wyObject对象指针\endlink
-	 * @param id 标识id
-	 * @param data 整数类型的参数
-	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \endif
 	 */
 	static wyTargetSelector* makeId(wyObject* callback, int id, int data);
 
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * \note
@@ -302,23 +236,10 @@ public:
 	 * @param id id of this target selector
 	 * @param data float custom data
 	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * \note
-	 * 这个方法虽然可以使用但是不再推荐. 实际上这个方法是为了Lua脚本而继续存在的, 由于Lua脚本中
-	 * 传递函数指针比较麻烦, 所以通过id调用一个选择子仍然有存在的必要.
-	 *
-	 * @param callback native层回调的\link wyObject wyObject对象指针\endlink
-	 * @param id 标识id
-	 * @param data 浮点类型的参数
-	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \endif
 	 */
 	static wyTargetSelector* makeId(wyObject* callback, int id, float data);
 
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * \note
@@ -330,191 +251,100 @@ public:
 	 * @param id id of this target selector
 	 * @param data pointer custom data
 	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * \note
-	 * 这个方法虽然可以使用但是不再推荐. 实际上这个方法是为了Lua脚本而继续存在的, 由于Lua脚本中
-	 * 传递函数指针比较麻烦, 所以通过id调用一个选择子仍然有存在的必要.
-	 *
-	 * @param callback native层回调的\link wyObject wyObject对象指针\endlink
-	 * @param id 标识id
-	 * @param data 指针类型的参数
-	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \endif
 	 */
 	static wyTargetSelector* makeId(wyObject* callback, int id, void* data);
 
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param target object of callback function
 	 * @param sel pointer to callback function
 	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param target 回调函数所在的类实例
-	 * @param sel 指向回调函数的指针
-	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \endif
 	 */
 	static wyTargetSelector* make(wyObject* target, wySEL sel);
 
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param target object of callback function
 	 * @param sel pointer to callback function
 	 * @param data integer argument for callback function
 	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param target 回调函数所在的类实例
-	 * @param sel 指向回调函数的指针
-	 * @param data 传递给回调函数的整数参数
-	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \endif
 	 */
 	static wyTargetSelector* make(wyObject* target, wySEL_i sel, int data);
 
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param target object of callback function
 	 * @param sel pointer to callback function
 	 * @param data float argument for callback function
 	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param target 回调函数所在的类实例
-	 * @param sel 指向回调函数的指针
-	 * @param data 传递给回调函数的浮点参数
-	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \endif
 	 */
 	static wyTargetSelector* make(wyObject* target, wySEL_f sel, float data);
 
 	/**
-	 * \if English
 	 * static constructor
 	 *
 	 * @param target object of callback function
 	 * @param sel pointer to callback function
 	 * @param data pointer argument for callback function
 	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param target 回调函数所在的类实例
-	 * @param sel 指向回调函数的指针
-	 * @param data 传递给回调函数的指针参数
-	 * @return \link wyTargetSelector wyTargetSelector\endlink
-	 * \endif
 	 */
 	static wyTargetSelector* make(wyObject* target, wySEL_p sel, void* data);
 
 	virtual ~wyTargetSelector();
 	
 	/**
-	 * \if English
 	 * overload of ==
-	 * \else
-	 * ==操作符的重载
-	 * \endif
 	 */
 	bool operator==(wyTargetSelector& ts);
 
 	/**
-	 * \if English
 	 * set time between last calling and now
 	 *
 	 * @param delta time between last calling and now
-	 * \else
-	 * 设置距离上次触发所持续的时间，例如如果按三帧刷新一次，则累计三帧消耗的时间
-	 *
-	 * @param delta 时间
-	 * \endif
 	 */
 	void setDelta(float delta);
 
 	/**
-	 * \if English
 	 * invoke callback function
-	 * \else
-	 * 触发回调
-	 * \endif
 	 */
 	void invoke();
 
 	/**
-	 * \if English
 	 * get callback target, must be a wyObject subclass
 	 *
 	 * @return callback target, must be a wyObject subclass
-	 * \else
-	 * 获得native层回调的\link wyObject wyObject对象指针\endlink
-	 *
-	 * @return native层回调的\link wyObject wyObject对象指针\endlink
-	 * \endif
 	 */
 	wyObject* getTarget() { return m_target; }
 
 	/**
-	 * \if English
 	 * get id of target selector
 	 *
 	 * @return id of target selector
-	 * \else
-	 * 获得标识id
-	 *
-	 * @return 标识id
-	 * \endif
 	 */
 	int getId() { return m_id; }
 
 	/**
-	 * \if English
 	 * set id of target selector
 	 *
 	 * @param id id of target selector
-	 * \else
-	 * 设置标识id
-	 *
-	 * @param id 标识id
-	 * \endif
 	 */
 	void setId(int id) { m_id = id; }
 
 	/**
-	 * \if English
 	 * get time between last calling and now
 	 *
 	 * @return time between last calling and now
-	 * \else
-	 * 获得距离上次触发所持续的时间，例如如果按三帧刷新一次，则累计三帧消耗的时间
-	 *
-	 * @return 时间
-	 * \endif
 	 */
 	float getDelta() { return m_delta; }
 
 	/**
-	 * \if English
 	 * Get data set in selector, it is a union so you need get proper value
 	 * based on the argument you set
 	 *
 	 * @return ArgValue union
-	 * \else
-	 * 得到选择子的数据字段
-	 *
-	 * @return ArgValue联合结构
-	 * \endif
 	 */
 	ArgValue& getData() { return m_data; }
 };

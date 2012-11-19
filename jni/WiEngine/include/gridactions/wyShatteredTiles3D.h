@@ -34,29 +34,17 @@
 
 /**
  * @class wyShatteredTiles3D
- * \if English
  * Node performing this action will produce an effect which looks like a glass is shattered.
- * \else
- * 把节点打碎，如同打碎玻璃的效果
- * \endif
  */
 class WIENGINE_API wyShatteredTiles3D : public wyTiledGrid3DAction {
 protected:
 	/**
-	 * \if English
 	 * specify how serious the shattering would be
-	 * \else
-	 * 破碎程度
-	 * \endif
 	 */
 	int m_range;
 
 	/**
-	 * \if English
 	 * specify whether shattering is performed on the z axis
-	 * \else
-	 * 是否在z轴方向上混淆
-	 * \endif
 	 */
 	bool m_shatterZ;
 
@@ -64,7 +52,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param duration time, in seconds
@@ -72,44 +59,21 @@ public:
 	 * @param gridY column count
 	 * @range specify how serious the shattering would be
 	 * @shatterZ specify whether shattering is performed on the z axis
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param range 网格混乱程度
-	 * @param shatterZ 是否在z轴方向上混淆
-	 * \endif
 	 */
 	static wyShatteredTiles3D* make(float duration, int gridX, int gridY, int range, bool shatterZ);
 
 	/**
-	 * \if English
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
 	 * @range specify how serious the shattering would be
 	 * @shatterZ specify whether shattering is performed on the z axis
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param range 网格混乱程度
-	 * @param shatterZ 是否在z轴方向上混淆
-	 * \endif
 	 */
 	wyShatteredTiles3D(float duration, int gridX, int gridY, int range, bool shatterZ);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyShatteredTiles3D();
 

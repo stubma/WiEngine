@@ -34,12 +34,8 @@
 
 /**
  * @class wyLeftLineShrinkOut
- * \if English
  * The node performing this action will be divided into columns, and the columns will disappear one by one
  * from left to right, looks like the node shrinks.
- * \else
- * 把屏幕分成若干列，从左边开始收缩每列
- * \endif
  */
 class WIENGINE_API wyLeftLineShrinkOut : public wyTiledGrid3DAction {
 private:
@@ -50,45 +46,25 @@ private:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled.
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	static wyLeftLineShrinkOut* make(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
 	 * @param gridX row count
 	 * @param gridY column count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * \endif
 	 */
 	wyLeftLineShrinkOut(float duration, int gridX, int gridY);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyLeftLineShrinkOut();
 

@@ -34,29 +34,17 @@
 /**
  * @class wySuckTransition
  *
- * \if English
  * Transition which uses suck effect
- * \else
- * 使用吸入效果的转场类
- * \endif
  */
 class WIENGINE_API wySuckTransition : public wyTransitionScene {
 protected:
 	/**
-	 * \if English
 	 * x position
-	 * \else
-	 * 吸入点x坐标
-	 * \endif
 	 */
 	float m_suckX;
 
 	/**
-	 * \if English
 	 * y position
-	 * \else
-	 * 吸入点y坐标
-	 * \endif
 	 */
 	float m_suckY;
 
@@ -68,7 +56,6 @@ protected:
 	virtual wyIntervalAction* getOutAction();
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param duration transition duration time in seconds
@@ -78,23 +65,11 @@ protected:
 	 * 		will set in and out scene automatically.
 	 * @param suckX x position of sucking
 	 * @param suckY y position of sucking
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 场景切换的时间
-	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
-	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
-	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
-	 * 		会自动设置载入和载出场景.
-	 * @param suckX 吸入点的x位置
-	 * @param suckY 吸入点的y位置
-	 * \endif
 	 */
 	wySuckTransition(float duration, wyScene* inScene, float suckX, float suckY);
 
 public:
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param duration transition duration time in seconds
@@ -105,18 +80,6 @@ public:
 	 * @param suckX x position of sucking
 	 * @param suckY y position of sucking
 	 * @return \link wySuckTransition wySuckTransition\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 场景切换的时间
-	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
-	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
-	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
-	 * 		会自动设置载入和载出场景.
-	 * @param suckX 吸入点的x位置
-	 * @param suckY 吸入点的y位置
-	 * @return \link wySuckTransition wySuckTransition\endlink
-	 * \endif
 	 */
 	static wySuckTransition* make(float duration, wyScene* inScene, float suckX, float suckY);
 

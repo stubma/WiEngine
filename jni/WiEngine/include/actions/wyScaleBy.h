@@ -34,135 +34,75 @@
 /**
  * @class wyScaleBy
  *
- * \if English
  * scale a node
- * \else
- * 节点缩放的动作封装,根据设置缩放比例进行节点缩放
- * \endif
  */
 class WIENGINE_API wyScaleBy : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * original x scale
-	 * \else
-	 * 初始x轴缩放比，取值大于0
-	 * \endif
 	 */
 	float m_startScaleX;
 
 	/**
-	 * \if English
 	 * original y scale
-	 * \else
-	 * 初始y轴缩放比，取值大于0
-	 * \endif
 	 */
 	float m_startScaleY;
 
 	/**
-	 * \if English
 	 * end x scale
-	 * \else
-	 * 目标x轴缩放比，取值大于0
-	 * \endif
 	 */
 	float m_endScaleX;
 
 	/**
-	 * \if English
 	 * end y scale
-	 * \else
-	 * 目标y轴缩放比，取值大于0
-	 * \endif
 	 */
 	float m_endScaleY;
 
 	/**
-	 * \if English
 	 * delta x scale
-	 * \else
-	 * 缩放变化的x轴缩比例
-	 * \endif
 	 */
 	float m_deltaX;
 
 	/**
-	 * \if English
 	 * delta y scale
-	 * \else
-	 * 缩放变化的y轴缩比例
-	 * \endif
 	 */
 	float m_deltaY;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration duration of action in second
 	 * @param scaleX delta x scale
 	 * @param scaleY delta y scale
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param scaleX 缩放变化的x轴缩放比
-	 * @param scaleY 缩放变化的y轴缩放比
-	 * \endif
 	 */
 	wyScaleBy(float duration, float scaleX, float scaleY);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration duration of action in second
 	 * @param scale delta scale
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param scale 缩放变化的缩放比
-	 * \endif
 	 */
 	wyScaleBy(float duration, float scale);
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration duration of action in second
 	 * @param scaleX delta x scale
 	 * @param scaleY delta y scale
 	 * @return \link wyScaleBy wyScaleBy\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param scaleX 缩放变化的x轴缩放比
-	 * @param scaleY 缩放变化的y轴缩放比
-	 * @return \link wyScaleBy wyScaleBy\endlink
-	 * \endif
 	 */
 	static wyScaleBy* make(float duration, float scaleX, float scaleY);
 
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration duration of action in second
 	 * @param scale delta scale
 	 * @return \link wyScaleBy wyScaleBy\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param scale 缩放变化的缩放比
-	 * @return \link wyScaleBy wyScaleBy\endlink
-	 * \endif
 	 */
 	static wyScaleBy* make(float duration, float scale);
 

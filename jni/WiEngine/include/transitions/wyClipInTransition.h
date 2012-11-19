@@ -35,11 +35,7 @@
 /**
  * @class wyClipInTransition
  *
- * \if English
  * Incoming scene uses clip in action to show it gradually
- * \else
- * 新的场景通过\link wyClipIn wyClipIn\endlink逐渐显示盖掉旧场景
- * \endif
  */
 class WIENGINE_API wyClipInTransition : public wyTransitionScene {
 private:
@@ -67,21 +63,12 @@ public:
 	virtual ~wyClipInTransition();
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param duration transition duration time in seconds
 	 * @param inScene new scene
 	 * @param direction clip grows direction
 	 * @return \link wyClipInTransition wyClipInTransition\endlink
-	 * \else
-	 * 静态构造方法
-	 *
-	 * @param duration 转场持续时间
-	 * @param inScene 新场景
-	 * @param direction 裁剪区域变化方向
-	 * @return \link wyClipInTransition wyClipInTransition\endlink
-	 * \endif
 	 * \see wyClipIn::Direction
 	 */
 	static wyClipInTransition* make(float duration, wyScene* inScene, wyClipIn::Direction direction);

@@ -34,31 +34,18 @@
 /**
  * @class wyHGEFontLoader
  *
- * \if English
  * Load HGE font description file. It is only for internal usage and developer
  * should not call it directly.
- * \else
- * 载入HGE字体描述文件, 该类主要由内部使用, 开发者不需要直接访问.
- * \endif
  */
 class WIENGINE_API wyHGEFontLoader {
 public:
 	/**
-	 * \if English
 	 * load a HGE font description file
 	 *
 	 * @param font \link wyBitmapFont wyBitmapFont\endlink
 	 * @param data raw data of font description file
 	 * @param length data length
 	 * @param resScale scale need to applied to size, default is 1.0f so no scale applied
-	 * \else
-	 * 字符信息解析函数
-	 *
-	 * @param font \link wyBitmapFont wyBitmapFont\endlink
-	 * @param data fnt文件的原始数据
-	 * @param length data数据长度
-	 * @param resScale 表示大小的数值需要缩放的比例, 缺省是1
-	 * \endif
 	 */
 	static void load(wyBitmapFont* font, const char* data, size_t length, float resScale = 1.f);
 };

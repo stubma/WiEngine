@@ -34,11 +34,7 @@
 /**
  * @class wyMemoryInputStream
  *
- * \if English
  * A stream which read a memory buffer
- * \else
- * 一个把内存数组封装成流的实现, 其是\link wyAssetInputStream wyAssetInputStream\endlink的子类
- * \endif
  */
 class WIENGINE_API wyMemoryInputStream : public wyAssetInputStream {
 private:
@@ -68,21 +64,12 @@ public:
     virtual ~wyMemoryInputStream();
     
     /**
-     * \if English
      * Create a memory input stream
      *
      * @param buffer memory buffer
      * @param length buffer data length
      * @param release true means this buffer will be released by this stream
      * @return memory buffer input stream
-     * \else
-     * 创建一个内存流
-     *
-     * @param buffer 内存数组
-     * @param length 字节长度
-     * @param release true表示这个内存由该流对象负责释放, false表示由调用者释放
-     * @return 内存流对象
-     * \endif
      */
     static wyMemoryInputStream* make(char* buffer, size_t length, bool release = false);
     

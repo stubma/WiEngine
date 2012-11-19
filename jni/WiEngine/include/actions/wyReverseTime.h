@@ -34,20 +34,12 @@
 /**
  * @class wyReverseTime
  *
- * \if English
  * make update time from 1 to 0 so it can easily reverse any action
- * \else
- * 反向执行动作的封装
- * \endif
  */
 class WIENGINE_API wyReverseTime : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * the action need to be reversed
-	 * \else
-	 * 要反转执行的动作 \link wyFiniteTimeAction wyFiniteTimeAction \endlink指针
-	 * \endif
 	 */
 	wyFiniteTimeAction* m_other;
 
@@ -61,15 +53,9 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param other the action need to be reversed
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param other 要反转执行的动作 \link wyFiniteTimeAction wyFiniteTimeAction \endlink指针
-	 * \endif
 	 */
 	static wyReverseTime* make(wyFiniteTimeAction* other);
 

@@ -33,11 +33,7 @@
 
 /**
  * @class wyWaves3D
- * \if English
  * The same as effect of wyWaves except that wyWaves3D also waves on the z axis
- * \else
- * 波浪效果，3D表示z轴也会发生波浪变化
- * \endif
  */
 class WIENGINE_API wyWaves3D : public wyGrid3DAction {
 protected:
@@ -45,7 +41,6 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
 	 *
 	 * @param duration time, in seconds
@@ -53,20 +48,10 @@ public:
 	 * @param gridY column count
 	 * @param amplitude amplitude
 	 * @param waves wave count
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param amplitude 幅度
-	 * @param waves 波浪数
-	 * \endif
 	 */
 	static wyWaves3D* make(float duration, int gridX, int gridY, float amplitude, int waves);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
@@ -74,24 +59,11 @@ public:
 	 * @param gridY column count
 	 * @param amplitude amplitude
 	 * @param waves wave count
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * @param gridX 网格行数
-	 * @param gridY 网格列数
-	 * @param amplitude 幅度
-	 * @param waves 波浪数
-	 * \endif
 	 */
 	wyWaves3D(float duration, int gridX, int gridY, float amplitude, int waves);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyWaves3D();
 

@@ -33,39 +33,23 @@
 
 /**
  * @class wyStopGrid
- * \if English
  * If a node performed this action, the background resource occupied by this node for producing grid effect will be
  * released.
- * \else
- * 停止网格特效。 当不需要网格操作时，这个动作会中止网格操作，释放相关资源。
- * \endif
  */
 class WIENGINE_API wyStopGrid : public wyInstantAction {
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRelease enabled
-	 * \else
-	 * 静态构造函数
-	 * \endif
 	 */
 	static wyStopGrid* make();
 
 	/**
-	 * \if English
 	 * constructor
-	 * \else
-	 * 构造函数
-	 * \endif
 	 */
 	wyStopGrid();
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyStopGrid();
 
@@ -73,13 +57,7 @@ public:
 	virtual wyAction* copy();
 
 	/**
-	 * \if English
 	 * not supported, NULL will be returned.
-	 * \else
-	 * 不支持此动作翻转
-	 *
-	 * @return NULL
-	 * \endif
 	 */
 	virtual wyAction* reverse();
 

@@ -36,20 +36,12 @@
 /**
  * @struct wyAFCAnimation
  *
- * \if English
  * This class represents an animation in AFC architecture
- * \else
- * 这个类只代表一个动画，包含了这个动画的所有帧信息.
- * \endif
  */
 class WIENGINE_API wyAFCAnimation : public wyObject {
 private:
 	/**
-	 * \if English
 	 * Frame list, all are \link wyAFCFrame wyAFCFrame\endlink object
-	 * \else
-	 * 帧列表，包含了\link wyAFCFrame wyAFCFrame\endlink对象指针
-	 * \endif
 	 */
 	wyArray* m_frameList;
 
@@ -64,43 +56,24 @@ public:
 	static wyAFCAnimation* make();
 
 	/**
-	 * \if English
 	 * Get frame count in this animation
 	 *
 	 * @return frame count
-	 * \else
-	 * 得到动画中的帧数
-	 *
-	 * @return 帧数
-	 * \endif
 	 */
 	int getFrameCount() { return m_frameList->num; }
 
 	/**
-	 * \if English
 	 * Add a frame to animation
 	 *
 	 * @param f \link wyAFCFrame wyAFCFrame\endlink
-	 * \else
-	 * 添加一个帧到动画中
-	 *
-	 * @param f \link wyAFCFrame wyAFCFrame\endlink
-	 * \endif
 	 */
 	void addFrame(wyAFCFrame* f);
 
 	/**
-	 * \if English
 	 * Get frame at specified index
 	 *
 	 * @param index index, starts from 0
 	 * @return \link wyAFCFrame wyAFCFrame\endlink object, or NULL if index is invalid
-	 * \else
-	 * 得到某个位置处的帧
-	 *
-	 * @param index 帧索引
-	 * @return \link wyAFCFrame wyAFCFrame\endlink对象, 如果索引非法, 返回NULL
-	 * \endif
 	 */
 	wyAFCFrame* getFrameAt(int index) { return (wyAFCFrame*)wyArrayGet(m_frameList, index); }
 };

@@ -34,39 +34,24 @@
 /**
  * @class wyBlurColorFilter
  *
- * \if English
  * Blur filter, using average filter algorithm
- * \else
- * 模糊滤镜, 使用平均模糊算法
- * \endif
  */
 class WIENGINE_API wyBlurColorFilter : public wyColorFilter {
 private:
 	/**
-	 * \if English
 	 * radius of blur
-	 * \else
-	 * 模糊半径, 半径越大越模糊
-	 * \endif
 	 */
 	int m_radius;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param radius blur radius
-	 * \else
-	 * 构造函数
-	 *
-	 * @param radius 模糊半径
-	 * \endif
 	 */
 	wyBlurColorFilter(int radius);
 
 	/**
-	 * \if English
 	 * Blur a row
 	 *
 	 * @param data image data
@@ -74,15 +59,6 @@ protected:
 	 * @param row row number to be blurred
 	 * @param radius blur radius
 	 * @return blurred row data
-	 * \else
-	 * 模糊一行
-	 *
-	 * @param data 图片数据
-	 * @param width 图片宽度
-	 * @param row 需要模糊的行号
-	 * @param radius 模糊半径
-	 * @return 被模糊的行数据
-	 * \endif
 	 */
 	unsigned char* blurRow(void* data, int width, int row, int radius);
 
@@ -90,17 +66,10 @@ public:
 	virtual ~wyBlurColorFilter();
 
 	/**
-	 * \if English
 	 * Static constructor
 	 *
 	 * @param radius blur radius, at least 1
 	 * @return \link wyBlurColorFilter wyBlurColorFilter\endlink
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param radius 模糊半径, 至少大于等于1, 如果小于1则不做任何事
-	 * @return \link wyBlurColorFilter wyBlurColorFilter\endlink
-	 * \endif
 	 */
 	static wyBlurColorFilter* make(int radius);
 
@@ -108,28 +77,16 @@ public:
 	virtual void apply(void* data, int width, int height);
 
 	/**
-	 * \if English
 	 * Set blur radius
 	 *
 	 * @param radius blur radius
-	 * \else
-	 * 设置模糊半径
-	 *
-	 * @param radius 模糊半径
-	 * \endif
 	 */
 	void setRadius(int radius) { m_radius = radius; }
 
 	/**
-	 * \if English
 	 * Get blur radius
 	 *
 	 * @return blur radius
-	 * \else
-	 * 得到模糊半径
-	 *
-	 * @return 模糊半径
-	 * \endif
 	 */
 	int getRadius() { return m_radius; }
 };

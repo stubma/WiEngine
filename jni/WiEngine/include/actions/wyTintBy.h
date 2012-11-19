@@ -34,65 +34,37 @@
 /**
  * @class wyTintBy
  *
- * \if English
  * It changes color of node by a delta value
- * \else
- * 节点染色的动作封装,根据设置染色量进行移动
- * \endif
  */
 class WIENGINE_API wyTintBy : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * delta value of red component
-	 * \else
-	 * 红色值变化值
-	 * \endif
 	 */
 	int m_deltaR;
 
 	/**
-	 * \if English
 	 * delta value of green component
-	 * \else
-	 * 绿色值变化值
-	 * \endif
 	 */
 	int m_deltaG;
 
 	/**
-	 * \if English
 	 * delta value of blue component
-	 * \else
-	 * 蓝色值变化值
-	 * \endif
 	 */
 	int m_deltaB;
 
 	/**
-	 * \if English
 	 * red component of start color, from 0 to 255
-	 * \else
-	 * 初始红色值, 0到255
-	 * \endif
 	 */
 	int m_fromR;
 
 	/**
-	 * \if English
 	 * green component of start color, from 0 to 255
-	 * \else
-	 * 初始绿色值, 0到255
-	 * \endif
 	 */
 	int m_fromG;
 
 	/**
-	 * \if English
 	 * blue component of start color, from 0 to 255
-	 * \else
-	 * 初始蓝色值, 0到255
-	 * \endif
 	 */
 	int m_fromB;
 
@@ -109,21 +81,12 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration duration time of action in seconds
 	 * @param r delta value of red component
 	 * @param g delta value of green component
 	 * @param b delta value of blue component
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param r 红色值变化值
-	 * @param g 绿色值变化值
-	 * @param b 蓝色值变化值
-	 * \endif
 	 */
 	static wyTintBy* make(float duration, int r, int g, int b);
 

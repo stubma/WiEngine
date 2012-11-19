@@ -34,46 +34,26 @@
 /**
  * @class wyGridFlipY
  *
- * \if English
  * rotate around x axis by 180 degrees
- * \else
- * 旋转y轴180度
- * \endif
  */
 class WIENGINE_API wyGridFlipY : public wyGrid3DAction {
 public:
 	/**
-	 * \if English
 	 * factory function, used to create a new instance with autoRlease enabled
 	 *
 	 * @param duration time, in seconds
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * \endif
 	 */
 	static wyGridFlipY* make(float duration);
 
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param duration time, in seconds
-	 * \else
-	 * 构造函数
-	 *
-	 * @param duration 动作持续时间
-	 * \endif
 	 */
 	wyGridFlipY(float duration);
 
 	/**
-	 * \if English
 	 * destructor
-	 * \else
-	 * 析构函数
-	 * \endif
 	 */
 	virtual ~wyGridFlipY();
 

@@ -32,11 +32,7 @@
 /**
  * @typedef wyArcticFlags
  *
- * \if English
  * flags used in ASprite file
- * \else
- * ASprite格式文件中可能用到的标志位常量
- * \endif
  */
 typedef enum {
 	/// export encoded images for each module
@@ -100,92 +96,52 @@ typedef enum {
 /**
  * @typedef wyArcticFrameModuleFlags
  *
- * \if English
  * Flags used in arctic frame module
- * \else
- * 在ASprite的帧分片信息中使用的标志位定义
- * \endif
  */
 typedef enum {
 	/**
-	 * \if English
 	 * flipped in x axis
-	 * \else
-	 * x轴翻转
-	 * \endif
 	 */
 	AS_FLIP_X = 0x01,
 
 	/**
-	 * \if English
 	 * flipped in y axis
-	 * \else
-	 * y轴翻转
-	 * \endif
 	 */
 	AS_FLIP_Y = 0x02,
 
 	/**
-	 * \if English
 	 * rotoated by 90 degree, in clockwise direction
-	 * \else
-	 * 顺时针90度旋转
-	 * \endif
 	 */
 	AS_ROT_90 = 0x04,
 
 	/**
-	 * \if English
 	 * reversed
-	 * \else
-	 * 保留给用户自定义
-	 * \endif
 	 */
 	AS_USER0 = 0x10,
 
 	/**
-	 * \if English
 	 * reversed
-	 * \else
-	 * 保留给用户自定义
-	 * \endif
 	 */
 	AS_USER1 = 0x20,
 
 	/**
-	 * \if English
 	 * it is not a module, it is a reference to other frame
-	 * \else
-	 * 使用的是Hyper frames
-	 * \endif
 	 */
 	AS_HYPER_FM = 0x10,
 
 	/**
-	 * \if English
 	 * attach box
-	 * \else
-	 * 攻击框
-	 * \endif
 	 */
 	AS_ATTACK_BOX = 0x40,
 
 	/**
-	 * \if English
 	 * extended index mask
-	 * \else
-	 * 扩展索引位的掩码
-	 * \endif
 	 */
 	AS_INDEX_EX_MASK = 0xC0
 } wyArcticFrameModuleFlags;
 
 /**
- * \if English
  * how many bits should extended index shift to right
- * \else
- * 扩展索引需要右移的位数
- * \endif
  */
 #define AS_INDEX_EX_SHIFT 2
 

@@ -34,30 +34,18 @@
 /**
  * @class wyProgressBy
  *
- * \if English
  * Progress action which depends on a \link wyProgressTimer wyProgressTimer\endlink
  * node
- * \else
- * 使节点称为进度条显示的动作封装，根据指定变化的百分比执行动作
- * \endif
  */
 class WIENGINE_API wyProgressBy : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * delta percentage
-	 * \else
-	 * 节点显示变化的百分比，取值0到100
-	 * \endif
 	 */
 	float m_delta;
 
 	/**
-	 * \if English
 	 * start percentage
-	 * \else
-	 * 节点起始显示百分比，取值0到100
-	 * \endif
 	 */
 	float m_from;
 
@@ -72,17 +60,10 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration duration time
 	 * @param deltaPercents delta percentage
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param deltaPercents 节点变化的百分比，取值0到100
-	 * \endif
 	 */
 	static wyProgressBy* make(float duration, float deltaPercents);
 

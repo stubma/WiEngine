@@ -107,68 +107,40 @@ protected:
 	wyEventDispatcher();
 
 	/**
-	 * \if English
 	 * Check if any accelerometer handler installed, and enable accelerometer event
 	 * dispatching based on the result
-	 * \else
-	 * 检查当前是否有加速器事件监听器, 根据结果来打开或关闭加速器事件派发
-	 * \endif
 	 */
 	virtual void checkAccelHandlers() {}
 
 	/**
-	 * \if English
 	 * Check if any double tap handler installed, and enable double tap event dispatching
 	 * based on the result
-	 * \else
-	 * 检查当前是否有双击事件监听器, 根据结果来打开或关闭双击事件派发
-	 * \endif
 	 */
 	virtual void checkDoubleTapHandlers() {}
 
 	/**
-	 * \if English
 	 * Check if any gesture handler installed, and enable gesture event dispatching
 	 * based on the result
-	 * \else
-	 * 检查当前是否有手势事件监听器, 根据结果来打开或关闭手势事件派发
-	 * \endif
 	 */
 	virtual void checkGestureHandlers() {}
 
 	/**
-	 * \if English
 	 * Convert platform key event to general wyEvent structure
-	 * \else
-	 * 把平台按键事件对象转换为通用wyEvent结构
-	 * \endif
 	 */
 	virtual wyEvent* buildKeyEvent(wyEventType type, wyPlatformKeyEvent pe) = 0;
 
 	/**
-	 * \if English
 	 * Queue motion event
-	 * \else
-	 * 将平台触摸事件放入队列
-	 * \endif
 	 */
 	virtual void queueMotionEvent(wyEventType type, wyPlatformMotionEvent pe) = 0;
 
 	/**
-	 * \if English
 	 * Queue multi touch motion event
-	 * \else
-	 * 将平台多点触摸事件放入队列
-	 * \endif
 	 */
 	virtual void queueMotionEvent(wyEventType type, wyPlatformMotionEvent pe1, wyPlatformMotionEvent pe2, float vx, float vy) = 0;
 
 	/**
-	 * \if English
 	 * Process event which is not common for all platform
-	 * \else
-	 * 处理并非所有平台都支持的事件
-	 * \endif
 	 */
 	virtual void processUncommonEvent(wyEvent* e) {}
 
@@ -197,11 +169,7 @@ protected:
 	virtual bool dispatchOnSingleTapUp(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
 
 	/**
-	 * \if English
 	 * Recycle an event object, different platform may have different implementation
-	 * \else
-	 * 回收一个事件封装对象, 不同的平台需要不同的实现
-	 * \endif
 	 */
 	static void recycleEvent(wyEvent* e);
 
@@ -265,15 +233,9 @@ public:
 	static wyEventDispatcher* getInstance();
 
 	/**
-	 * \if English
 	 * Get singleton event dispatcher. However, it doesn't create the singleton if it is not created yet
 	 *
 	 * @return Singleton instance, or NULL if that instance is not available yet
-	 * \else
-	 * 得到事件派发器的单一实例, 但是如果该单一实例尚未被创建, 则会返回NULL
-	 *
-	 * @return 单一实例, 如果没有, 返回NULL
-	 * \endif
 	 */
 	static wyEventDispatcher* getInstanceNoCreate();
 
@@ -629,17 +591,10 @@ public:
 	void cancelTouch(wyMotionEvent& e, wyNode* parent);
 
 	/**
-	 * \if English
 	 * Cancel touch event for all nodes exclude specified one
 	 *
 	 * @param e cancel event
 	 * @param excludeNode node who won't receive cancel event
-	 * \else
-	 * 除了一个指定的节点, 其它所有节点目前在touch事件中的都收到touch取消事件
-	 *
-	 * @param e cancel的触摸事件结构
-	 * @param excludeNode 唯一不接收touch取消事件的节点
-	 * \endif
 	 */
 	void cancelTouchExcept(wyMotionEvent& e, wyNode* excludeNode);
 };

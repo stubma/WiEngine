@@ -36,29 +36,17 @@
 /**
  * @class wySpeed
  *
- * \if English
  * Accelerate or deaccelerate an action
- * \else
- * 加减速动作。相当于快镜头慢镜头，可以指定一个速度因子，比如2，则目标动作将会加快2倍。
- * \endif
  */
 class WIENGINE_API wySpeed : public wyAction {
 protected:
 	/**
-	 * \if English
 	 * the \link wyAction wyAction \endlink need to be speed up or down
-	 * \else
-	 * 具体执行的\link wyAction wyAction \endlink对象指针
-	 * \endif
 	 */
 	wyAction* m_other;
 
 	/**
-	 * \if English
 	 * the coefficient of speed up or down
-	 * \else
-	 * 加速或减速的速率，大于1为加速，取值必须大于0
-	 * \endif
 	 */
 	float m_speed;
 
@@ -73,17 +61,10 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param other the \link wyAction wyAction \endlink need to be speed up or down
 	 * @param speed the coefficient of speed up or down
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param other 具体执行的 \link wyAction wyAction \endlink对象指针
-	 * @param speed 加速或减速的速率，大于1为加速，取值必须大于0
-	 * \endif
 	 */
 	static wySpeed* make(wyAction* other, float speed);
 
@@ -111,29 +92,17 @@ public:
 	virtual bool isDone();
 
 	/**
-	 * \if English
 	 * get coefficient of speed
 	 *
 	 * @return coefficient of speed
-	 * \else
-	 * 获得加速或减速的速率
-	 *
-	 * @return 加速或减速的速率
-	 * \endif
 	 */
 	float getSpeed() { return m_speed; }
 
 	/**
-	 * \if English
 	 * set coefficient of speed
 	 *
 	 * @param speed Coefficient of speed, if larger than 1 then it means acceleration.
 	 * 		Can't set a negative value
-	 * \else
-	 * 设置加速或减速的速率
-	 *
-	 * @param speed 加速或减速的速率，大于1为加速
-	 * \endif
 	 */
 	void setSpeed(float speed) { m_speed = MAX(0, speed); }
 };

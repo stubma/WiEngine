@@ -34,11 +34,7 @@
 /**
  * @class wyDialogPopupTransition
  *
- * \if English
  * Popup dialog, first dialog will be scaled up and then shrink to normal size
- * \else
- * 对话框弹出效果, 会先有一个放大效果, 然后缩小到正常大小
- * \endif
  */
 class WIENGINE_API wyDialogPopupTransition : public wyDialogTransition {
 private:
@@ -61,15 +57,9 @@ public:
 	virtual ~wyDialogPopupTransition();
 
 	/**
-	 * \if English
 	 * Create a popup effect of dialog
 	 *
 	 * @return \link wyDialogPopupTransition wyDialogPopupTransition\endlink
-	 * \else
-	 * 创建一个弹出效果
-	 *
-	 * @return \link wyDialogPopupTransition wyDialogPopupTransition\endlink
-	 * \endif
 	 */
 	static wyDialogPopupTransition* make();
 

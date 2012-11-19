@@ -34,29 +34,17 @@
 /**
  * @class wyRotateBy
  *
- * \if English
  * rotate a node by specified angle, in degree
- * \else
- * 节点旋转的动作封装,根据设置旋转度数进行节点旋转
- * \endif
  */
 class WIENGINE_API wyRotateBy : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * Angle of rotation, in degree
-	 * \else
-	 * 节点要旋转的角度
-	 * \endif
 	 */
 	float m_angle;
 
 	/**
-	 * \if English
 	 * start angle in degree
-	 * \else
-	 * 节点初始的角度
-	 * \endif
 	 */
 	float m_startAngle;
 
@@ -71,17 +59,10 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration duration time of action, in seconds
 	 * @param angle angle in degree to be rotated
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param angle 旋转度数
-	 * \endif
 	 */
 	static wyRotateBy* make(float duration, float angle);
 

@@ -34,29 +34,17 @@
 /**
  * @class wyProgressTo
  *
- * \if English
  * progress a node, this action can only impose to \link wyProgressTimer wyProgressTimer\endlink
- * \else
- * 使节点称为进度条显示的动作封装，根据指定变化到的百分比执行动作
- * \endif
  */
 class WIENGINE_API wyProgressTo : public wyIntervalAction {
 protected:
 	/**
-	 * \if English
 	 * start percentage of node, from 0 to 100
-	 * \else
-	 * 节点起始显示百分比，取值0到100
-	 * \endif
 	 */
 	float m_from;
 
 	/**
-	 * \if English
 	 * end percentage of node, form 0 to 100
-	 * \else
-	 * 节点结束显示百分比，取值0到100
-	 * \endif
 	 */
 	float m_to;
 
@@ -72,19 +60,11 @@ protected:
 
 public:
 	/**
-	 * \if English
 	 * static factory method
 	 *
 	 * @param duration duration time in seconds
 	 * @param from start percentage, from 0 to 100
 	 * @param to end percentage from 0 to 100
-	 * \else
-	 * 静态构造函数
-	 *
-	 * @param duration 动作持续的时间
-	 * @param from 节点起始显示百分比，取值0到100
-	 * @param to 节点结束显示百分比，取值0到100
-	 * \endif
 	 */
 	static wyProgressTo* make(float duration, float from, float to);
 

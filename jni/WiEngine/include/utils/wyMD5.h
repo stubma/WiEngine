@@ -39,43 +39,24 @@ extern "C" {
 /**
  * @class wyMD5
  *
- * \if English
  * MD5 utilities
- * \else
- * MD5工具类
- * \endif
  */
 class WIENGINE_API wyMD5 {
 public:
 	/**
-	 * \if English
 	 * calculate md5 string for a C string
 	 *
 	 * @param s C string
 	 * @return md5 string, caller should release it
-	 * \else
-	 * 对一个字符串做md5, 返回md5的字符串形式
-	 *
-	 * @param s 要做md5的字符串
-	 * @return md5的字符串形式, 调用者要负责释放字符串
-	 * \endif
 	 */
 	static const char* md5(const char* s);
 
 	/**
-	 * \if English
 	 * calculate md5 for a binary data
 	 *
 	 * @param data binary data
 	 * @param len data length
 	 * @return md5 string, caller should release it
-	 * \else
-	 * 对一段数据做md5, 返回md5的字符串形式
-	 *
-	 * @param data 数据
-	 * @param len 数据长度
-	 * @return md5的字符串形式, 调用者要负责释放
-	 * \endif
 	 */
 	static const char* md5(const void* data, size_t len);
 };

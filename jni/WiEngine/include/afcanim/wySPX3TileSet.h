@@ -37,46 +37,26 @@
 /**
  * @typedef wySPX3Tile
  *
- * \if English
  * tile size info in SpriteX 2011
- * \else
- * 一个SpriteX 2011中的tile
- * \endif
  */
 typedef struct wySPX3Tile {
 	/**
-	 * \if English
 	 * x position of first corner
-	 * \else
-	 * 分片图片在图片集中的矩形的第一个角的x坐标
-	 * \endif
 	 */
 	short x1;
 
 	/**
-	 * \if English
 	 * y position of first corner
-	 * \else
-	 * 分片图片在图片集中的矩形的第一个角的y坐标
-	 * \endif
 	 */
 	short y1;
 
 	/**
-	 * \if English
 	 * x position of another corner
-	 * \else
-	 * 分片图片在图片集中的矩形的对角的x坐标
-	 * \endif
 	 */
 	short x2;
 
 	/**
-	 * \if English
 	 * y position of another corner
-	 * \else
-	 * 分片图片在图片集中的矩形的对角的y坐标
-	 * \endif
 	 */
 	short y2;
 
@@ -110,83 +90,47 @@ typedef struct wySPX3Tile {
 /**
  * @class wySPX3TileSet
  *
- * \if English
  * tile set info
- * \else
- * 分片集信息
- * \endif
  */
 class WIENGINE_API wySPX3TileSet : public wyObject {
 public:
 	/**
-	 * \if English
 	 * mode of this tileset
-	 * \else
-	 * 分片集数据模式
-	 * \endif
 	 */
 	wySPX3TileSetMode m_mode;
 
 	/**
-	 * \if English
 	 * image index
-	 * \else
-	 * 图片集索引
-	 * \endif
 	 */
 	int m_imageIndex;
 
 	/**
-	 * \if English
 	 * width of a tile, only used in index mode
-	 * \else
-	 * 分片宽度， 用于索引数据模式
-	 * \endif
 	 */
     int m_tileWidth;
 
 	/**
-	 * \if English
 	 * height of a tile, only used in index mode
-	 * \else
-	 * 分片高度， 用于索引数据模式
-	 * \endif
 	 */
     int m_tileHeight;
 
 	/**
-	 * \if English
 	 * tile columns, only used in index mode
-	 * \else
-	 * 图片集中包含多少列分片， 用于索引数据模式
-	 * \endif
 	 */
     int m_tileColumns;
 
 	/**
-	 * \if English
 	 * tile rows, only used in index mode
-	 * \else
-	 * 图片集中包含多少行分片， 用于索引数据模式
-	 * \endif
 	 */
     int m_tileRows;
 
     /**
-     * \if English
      * total number of tiles, only used in clip mode
-     * \else
-     * 分片数, 只用于分片模式
-     * \endif
      */
     int m_tileCount;
 
     /**
-     * \if English
      * data of all tile, only used in clip mode
-     * \else
-     * 所有分片的数据， 只用于分片模式
-     * \endif
      */
     wySPX3Tile* m_tiles;
 

@@ -34,43 +34,24 @@
 /**
  * @class wyEaseInOut
  *
- * \if English
  * See demo EaseActions\\EaseInOut.
- * \else
- * 详细了解可见示例 EaseActions\\EaseInOut.
- * \endif
  */
 class WIENGINE_API wyEaseInOut : public wyEaseRateAction {
 public:
 	/**
-	 * \if English
 	 * Static creator
 	 *
 	 * @param rate non-linear transform rate
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
 	 * @return \link wyEaseInOut wyEaseInOut\endlink
-	 * \else
-	 * 静态创建函数
-	 *
-	 * @param rate 控制非线性变换幅度的参数
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * @return \link wyEaseInOut wyEaseInOut\endlink
-	 * \endif
 	 */
 	static wyEaseInOut* make(float rate, wyIntervalAction* wrapped = NULL);
 
 	/**
-	 * \if English
 	 * Constructor
 	 *
 	 * @param rate non-linear transform rate
 	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param rate 控制非线性变换幅度的参数
-	 * @param wrapped \link wyIntervalAction wyIntervalAction\endlink
-	 * \endif
 	 */
 	wyEaseInOut(float rate, wyIntervalAction* wrapped = NULL);
 

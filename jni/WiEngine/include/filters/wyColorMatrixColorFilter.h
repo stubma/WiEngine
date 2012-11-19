@@ -35,34 +35,20 @@
 /**
  * @class wyColorMatrixColorFilter
  *
- * \if English
  * color filter which use a color matrix to transform colors
- * \else
- * 使用颜色矩阵对颜色进行转换的过滤器
- * \endif
  */
 class WIENGINE_API wyColorMatrixColorFilter : public wyColorFilter {
 private:
 	/**
-	 * \if English
 	 * \link wyColorMatrix wyColorMatrix\endlink
-	 * \else
-	 * \link wyColorMatrix wyColorMatrix\endlink
-	 * \endif
 	 */
 	wyColorMatrix* m_matrix;
 
 protected:
 	/**
-	 * \if English
 	 * constructor
 	 *
 	 * @param m \link wyColorMatrix wyColorMatrix\endlink
-	 * \else
-	 * 构造函数
-	 *
-	 * @param m \link wyColorMatrix wyColorMatrix\endlink
-	 * \endif
 	 */
 	wyColorMatrixColorFilter(wyColorMatrix* m);
 
@@ -70,17 +56,10 @@ public:
 	virtual ~wyColorMatrixColorFilter();
 
 	/**
-	 * \if English
 	 * create a color matrix filter
 	 *
 	 * @param m \link wyColorMatrix wyColorMatrix\endlink
 	 * @return \link wyColorMatrixColorFilter wyColorMatrixColorFilter\endlink
-	 * \else
-	 * 创建一个颜色矩阵过滤器
-	 *
-	 * @param m \link wyColorMatrix wyColorMatrix\endlink
-	 * @return \link wyColorMatrixColorFilter wyColorMatrixColorFilter\endlink
-	 * \endif
 	 */
 	static wyColorMatrixColorFilter* make(wyColorMatrix* m);
 
