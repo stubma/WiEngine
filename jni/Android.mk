@@ -76,3 +76,9 @@ include $(LOCAL_PATH)/json/Android.mk
 ###########################################################
 
 include $(LOCAL_PATH)/iap/Android.mk
+
+###########################################################
+# build cegui lib
+###########################################################
+
+include $(LOCAL_PATH)/cegui/Android.mk
