@@ -61,6 +61,8 @@ Texture* WiEngineImageCodec::load(const RawDataContainer& data, Texture* result)
 	// if image is decoded successfully, create Texture
 	if(decoded) {
 	    result->loadFromMemory((const void*)decoded, Size(w, h), Texture::PF_RGBA);
+	    wyFree(decoded);
+	    return result;
 	} else {
 		return NULL;
 	}
