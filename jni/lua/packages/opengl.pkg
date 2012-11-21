@@ -313,13 +313,7 @@ typedef enum {
 	SOURCE_INVALID,
 
 	/// JPG图片
-	SOURCE_JPG,
-
-	/// PNG图片
-	SOURCE_PNG,
-
-	/// PVR图片
-	SOURCE_PVR,
+	SOURCE_IMG,
 
 	/// 字符串
 	SOURCE_LABEL,
@@ -416,7 +410,7 @@ public:
 	 * @param format 贴图格式
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeBMP(int resId);
+	static wyTexture2D* make(int resId);
 
 	/**
 	 * 从BMP文件创建贴图，BMP文件通过资源id指定, 创建的贴图格式由format参数指定.
@@ -426,10 +420,10 @@ public:
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeBMP(int resId, int transparentColor);
+	static wyTexture2D* make(int resId, int transparentColor);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过资源id指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过资源id指定, 创建的贴图格式由format参数指定.
 	 *
 	 * @param resId 资源id
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
@@ -437,85 +431,85 @@ public:
 	 * @param format 贴图格式
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeBMP(int resId, int transparentColor, wyTexturePixelFormat format);
+	static wyTexture2D* make(int resId, int transparentColor, wyTexturePixelFormat format);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过assets路径指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param assetPath BMP文件在assets下的路径
+	 * @param assetPath 文件在assets下的路径
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeBMP(const char* assetPath);
+	static wyTexture2D* make(const char* assetPath);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过assets路径指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param assetPath BMP文件在assets下的路径
+	 * @param assetPath 文件在assets下的路径
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeBMP(const char* assetPath, int transparentColor);
+	static wyTexture2D* make(const char* assetPath, int transparentColor);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过assets路径指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param assetPath BMP文件在assets下的路径
+	 * @param assetPath 文件在assets下的路径
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
 	 * @param format 贴图格式
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat format);
+	static wyTexture2D* make(const char* assetPath, int transparentColor, wyTexturePixelFormat format);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过assets路径指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param assetPath BMP文件在assets下的路径
+	 * @param assetPath 文件在assets下的路径
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
 	 * @param format 贴图格式
 	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
+	static wyTexture2D* make(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
 
 	/**
-	 * 从BMP文件创建贴图，BMP数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，数据已经被载入内存中, 创建的贴图格式由format参数指定.
 	 *
-	 * @param data BMP数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是bmp文件的原始的未经解码的数据
+	 * @param data 数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是文件的原始的未经解码的数据
 	 * @param length 数据字节长度
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeRawBMP(const char* data, size_t length);
+	static wyTexture2D* makeRaw(const char* data, size_t length);
 
 	/**
-	 * 从BMP文件创建贴图，BMP数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，数据已经被载入内存中, 创建的贴图格式由format参数指定.
 	 *
-	 * @param data BMP数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是bmp文件的原始的未经解码的数据
+	 * @param data 数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是文件的原始的未经解码的数据
 	 * @param length 数据字节长度
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeRawBMP(const char* data, size_t length, int transparentColor);
+	static wyTexture2D* makeRaw(const char* data, size_t length, int transparentColor);
 
 	/**
-	 * 从BMP文件创建贴图，BMP数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，数据已经被载入内存中, 创建的贴图格式由format参数指定.
 	 *
-	 * @param data BMP数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是bmp文件的原始的未经解码的数据
+	 * @param data 数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是文件的原始的未经解码的数据
 	 * @param length 数据字节长度
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @param format 贴图格式
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format);
+	static wyTexture2D* makeRaw(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format);
 
 	/**
-	 * 从BMP文件创建贴图，BMP数据已经被载入内存中, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，数据已经被载入内存中, 创建的贴图格式由format参数指定.
 	 *
-	 * @param data BMP数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是bmp文件的原始的未经解码的数据
+	 * @param data 数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是文件的原始的未经解码的数据
 	 * @param length 数据字节长度
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
@@ -523,77 +517,66 @@ public:
 	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity);
+	static wyTexture2D* makeRaw(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param mfsName BMP文件在内存文件系统中的映射名称
+	 * @param mfsName 文件在内存文件系统中的映射名称
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeMemoryBMP(const char* mfsName);
+	static wyTexture2D* makeMemory(const char* mfsName);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param mfsName BMP文件在内存文件系统中的映射名称
+	 * @param mfsName 文件在内存文件系统中的映射名称
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeMemoryBMP(const char* mfsName, int transparentColor);
+	static wyTexture2D* makeMemory(const char* mfsName, int transparentColor);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param mfsName BMP文件在内存文件系统中的映射名称
+	 * @param mfsName 文件在内存文件系统中的映射名称
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @param format 贴图格式
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat format);
+	static wyTexture2D* makeMemory(const char* mfsName, int transparentColor, wyTexturePixelFormat format);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param mfsName BMP文件在内存文件系统中的映射名称
+	 * @param mfsName 文件在内存文件系统中的映射名称
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @param format 贴图格式
 	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity);
+	static wyTexture2D* makeMemory(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param fsPath BMP文件在文件系统中的路径
+	 * @param fsPath 文件在文件系统中的路径
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeFileBMP(const char* fsPath);
+	static wyTexture2D* makeFile(const char* fsPath);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param fsPath BMP文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFileBMP(const char* fsPath, int transparentColor);
-
-	/**
-	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
+	 * 从文件创建贴图，文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
 	 *
 	 * @param fsPath BMP文件在文件系统中的路径
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat format);
+	static wyTexture2D* makeFile(const char* fsPath, int transparentColor);
 
 	/**
 	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
@@ -602,380 +585,21 @@ public:
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
+	static wyTexture2D* makeFile(const char* fsPath, int transparentColor, wyTexturePixelFormat format);
 
 	/**
-	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
+	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
 	 *
-	 * @param resId 资源id
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeJPG(int resId);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param resId 资源id
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeJPG(int resId, int transparentColor);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param resId 资源id
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeJPG(int resId, int transparentColor, wyTexturePixelFormat format);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param assetPath JPG文件在assets下的路径
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeJPG(const char* assetPath);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param assetPath JPG文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeJPG(const char* assetPath, int transparentColor);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param assetPath JPG文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat format);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param assetPath JPG文件在assets下的路径
+	 * @param fsPath BMP文件在文件系统中的路径
 	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
 	 * 		匹配rgb值的地方都会被设置为透明
 	 * @param format 贴图格式
 	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	static wyTexture2D* makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
-
-	/**
-	 * 从JPG文件创建贴图，JPG数据已经被载入内存中, 创建的贴图格式由format参数指定.
-	 *
-	 * @param data JPG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeRawJPG(const char* data, size_t length);
-
-	/**
-	 * 从JPG文件创建贴图，JPG数据已经被载入内存中, 创建的贴图格式由format参数指定.
-	 *
-	 * @param data JPG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeRawJPG(const char* data, size_t length, int transparentColor);
-
-	/**
-	 * 从JPG文件创建贴图，JPG数据已经被载入内存中, 创建的贴图格式由format参数指定.
-	 *
-	 * @param data JPG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format);
-
-	/**
-	 * 从JPG文件创建贴图，JPG数据已经被载入内存中, 创建的贴图格式由format参数指定.
-	 *
-	 * @param data JPG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param mfsName JPG文件在内存文件系统中的映射名称
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeMemoryJPG(const char* mfsName);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param mfsName JPG文件在内存文件系统中的映射名称
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeMemoryJPG(const char* mfsName, int transparentColor);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param mfsName JPG文件在内存文件系统中的映射名称
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat format);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param mfsName JPG文件在内存文件系统中的映射名称
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param fsPath JPG文件在文件系统中的路径
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFileJPG(const char* fsPath);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param fsPath JPG文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFileJPG(const char* fsPath, int transparentColor);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param fsPath JPG文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat format);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param fsPath JPG文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param resId 资源id
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makePNG(int resId);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过资源id指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param resId 资源id
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makePNG(int resId, wyTexturePixelFormat format);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param assetPath PNG文件在assets下的路径
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makePNG(const char* assetPath);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param assetPath PNG文件在assets下的路径
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makePNG(const char* assetPath, wyTexturePixelFormat format);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param assetPath PNG文件在assets下的路径
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makePNG(const char* assetPath, wyTexturePixelFormat format, float inDensity);
-
-	/**
-	 * 从PNG文件创建贴图，PNG数据已经被载入内存中, 创建的贴图格式由format参数指定.
-	 *
-	 * @param data PNG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeRawPNG(const char* data, size_t length);
-
-	/**
-	 * 从PNG文件创建贴图，PNG数据已经被载入内存中, 创建的贴图格式由format参数指定.
-	 *
-	 * @param data PNG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeRawPNG(const char* data, size_t length, wyTexturePixelFormat format);
-
-	/**
-	 * 从PNG文件创建贴图，PNG数据已经被载入内存中, 创建的贴图格式由format参数指定.
-	 *
-	 * @param data PNG数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeRawPNG(const char* data, size_t length, wyTexturePixelFormat format, float inDensity);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param mfsName PNG文件在内存文件系统中的映射名称
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeMemoryPNG(const char* mfsName);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param mfsName PNG文件在内存文件系统中的映射名称
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeMemoryPNG(const char* mfsName, wyTexturePixelFormat format);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过内存文件系统名称指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param mfsName PNG文件在内存文件系统中的映射名称
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeMemoryPNG(const char* mfsName, wyTexturePixelFormat format, float inDensity);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param fsPath PNG文件在文件系统中的路径
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFilePNG(const char* fsPath);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param fsPath PNG文件在文件系统中的路径
-	 * @param format 贴图格式
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFilePNG(const char* fsPath, wyTexturePixelFormat format);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param fsPath PNG文件在文件系统中的路径
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 为0表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFilePNG(const char* fsPath, wyTexturePixelFormat format, float inDensity);
-
-	/**
-	 * 从PVR文件创建贴图，PVR文件通过资源id指定
-	 *
-	 * @param resId 资源id
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makePVR(int resId);
-
-	/**
-	 * 从PVR文件创建贴图，PVR文件通过assets路径指定
-	 *
-	 * @param assetPath PVR文件在assets下的路径
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makePVR(const char* assetPath, float inDensity = 0);
-
-	/**
-	 * 从PVR文件创建贴图，PVR数据已经被载入内存中
-	 *
-	 * @param data PVR数据数组, 这个数据会被底层复制，因此方法返回后调用者可以立刻释放该数据。这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeRawPVR(const char* data, size_t length, float inDensity = 0);
-
-	/**
-	 * 从PVR文件创建贴图，PVR文件通过内存文件系统名称指定
-	 *
-	 * @param mfsName PVR文件在内存文件系统中的映射名称
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeMemoryPVR(const char* mfsName, float inDensity = 0);
-
-	/**
-	 * 从PVR文件创建贴图，PVR文件通过文件系统路径指定
-	 *
-	 * @param fsPath PVR文件在文件系统中的路径
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	static wyTexture2D* makeFilePVR(const char* fsPath, float inDensity = 0);
+	static wyTexture2D* makeFile(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
 
 	/**
 	 * 通过一个字符串生成一个贴图

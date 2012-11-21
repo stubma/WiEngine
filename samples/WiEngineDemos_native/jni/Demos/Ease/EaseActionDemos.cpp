@@ -10,7 +10,7 @@ namespace Ease_Action {
 
     public:
         wyEaseTestLayer() {
-            m_Sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+            m_Sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
             m_Sprite->retain();
             addChildLocked(m_Sprite);
             m_Sprite->setPosition(60, wyDevice::winHeight/ 2);

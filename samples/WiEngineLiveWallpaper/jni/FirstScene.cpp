@@ -39,7 +39,7 @@ public:
 		setEndColorVariance(1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 		//set texture
-		setTexture(wyTexture2D::makePNG(RES("R.drawable.snow")));
+		setTexture(wyTexture2D::make(RES("R.drawable.snow")));
 	}
 };
 
@@ -75,7 +75,7 @@ public:
         setEndColorVariance(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
         //set texture
-        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
+        setTexture(wyTexture2D::make(RES("R.drawable.stars")));
 
     	// additive
     	setBlendMode(wyRenderState::ALPHA_ADDITIVE);

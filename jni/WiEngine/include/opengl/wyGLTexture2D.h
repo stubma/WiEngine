@@ -152,219 +152,74 @@ private:
 
 private:
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过资源id指定
+	 * Create texture from image file which is specified by resource id.
+	 * It will auto detect image file format.
 	 *
-	 * @param resId 资源id
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
+	 * @param resId resource id
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param pixelFormat destination opengl texture format
 	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
 	 */
-	static wyGLTexture2D* makeBMP(int resId, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888);
+	static wyGLTexture2D* make(int resId, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定
+	 * Create texture from an image file which is specified by assets relative path. It
+	 * will auto detect image file format
 	 *
-	 * @param assetPath BMP文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @param assetPath relative path of image file in assets
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param pixelFormat destination opengl texture format
+	 * @param inDensity density of image file, zero means uses system default setting
 	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
 	 */
-	static wyGLTexture2D* makeBMP(const char* assetPath, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
+	static wyGLTexture2D* make(const char* assetPath, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
 
 	/**
-	 * 从BMP文件创建贴图，BMP数据已经被载入内存中
+	 * Create texture from image raw data. It will auto detect image file format. "raw" means
+	 * the data is directly read from image file without any processing.
 	 *
-	 * @param data BMP数据数组, 这个数组由texture manager托管. 这些数据必须是BMP文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @param data image raw data pointer. the data will be copied so it is safe to release it
+	 * 		after method returns
+	 * @param length raw data length in bytes
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param format destination opengl texture format
+	 * @param inDensity density of image file, zero means uses system default setting.
 	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
 	 */
-	static wyGLTexture2D* makeRawBMP(const char* data, size_t length, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
+	static wyGLTexture2D* makeRaw(const char* data, size_t length, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过内存文件系统名称指定
+	 * Create texture from memory image file. It will auto detect image file format
 	 *
-	 * @param mfsName BMP文件在内存文件系统中的映射名称
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @param mfsName image name in memory file system
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param format destination opengl texture format
+	 * @param inDensity density of image file, zero means uses system default setting.
 	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
 	 */
-	static wyGLTexture2D* makeMemoryBMP(const char* mfsName, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
+	static wyGLTexture2D* makeMemory(const char* mfsName, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
 
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定
+	 * Create texture from an image file and the file is saved in file system. It will
+	 * auto detect image file format
 	 *
-	 * @param fsPath BMP文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
+	 * @param fsPath image file path in file system, it should be an absolute file path
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param format destination opengl texture format
+	 * @param inDensity density of image file, zero means uses system default setting.
 	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
 	 */
-	static wyGLTexture2D* makeFileBMP(const char* fsPath, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过资源id指定
-	 *
-	 * @param resId 资源id
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeJPG(int resId, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定
-	 *
-	 * @param assetPath JPG文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeJPG(const char* assetPath, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从JPG文件创建贴图，JPG数据已经被载入内存中
-	 *
-	 * @param data JPG数据数组, 这个数组由texture manager托管. 这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeRawJPG(const char* data, size_t length, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过内存文件系统名称指定
-	 *
-	 * @param mfsName JPG文件在内存文件系统中的映射名称
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeMemoryJPG(const char* mfsName, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定
-	 *
-	 * @param fsPath JPG文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明, 缺省是0即不指定透明色
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeFileJPG(const char* fsPath, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过资源id指定
-	 *
-	 * @param resId 资源id
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makePNG(int resId, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过assets路径指定
-	 *
-	 * @param assetPath PNG文件在assets下的路径
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makePNG(const char* assetPath, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从PNG文件创建贴图，PNG数据已经被载入内存中
-	 *
-	 * @param data PNG数据数组, 这个数组由texture manager托管. 这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeRawPNG(const char* data, size_t length, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过内存文件系统名称指定
-	 *
-	 * @param mfsName PNG文件在内存文件系统中的映射名称
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeMemoryPNG(const char* mfsName, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定
-	 *
-	 * @param fsPath PNG文件在文件系统中的路径
-	 * @param pixelFormat 贴图格式, 缺省为RGBA8888
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeFilePNG(const char* fsPath, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
-
-	/**
-	 * 从PVR文件创建贴图，PVR文件通过资源id指定
-	 *
-	 * @param resId 资源id
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makePVR(int resId);
-
-	/**
-	 * 从PVR文件创建贴图，PVR文件通过assets路径指定
-	 *
-	 * @param assetPath PVR文件在assets下的路径
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makePVR(const char* assetPath, float inDensity = 0);
-
-	/**
-	 * 从PVR文件创建贴图，PVR数据已经被载入内存中
-	 *
-	 * @param data PVR数据数组, 这个数组由texture manager托管. 这些数据必须是jpg文件的原始的未经解码的数据
-	 * @param length 数据字节长度
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeRawPVR(const char* data, size_t length, float inDensity = 0);
-
-	/**
-	 * 从PVR文件创建贴图，PVR文件通过内存文件系统名称指定
-	 *
-	 * @param mfsName PVR文件在内存文件系统中的映射名称
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeMemoryPVR(const char* mfsName, float inDensity = 0);
-
-	/**
-	 * 从PVR文件创建贴图，PVR文件通过文件系统路径指定
-	 *
-	 * @param fsPath PVR文件在文件系统中的路径
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过wyDirector::setDefaultInDensity指定
-	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
-	 */
-	static wyGLTexture2D* makeFilePVR(const char* fsPath, float inDensity = 0);
+	static wyGLTexture2D* makeFile(const char* fsPath, int transparentColor = 0, wyTexturePixelFormat pixelFormat = WY_TEXTURE_PIXEL_FORMAT_RGBA8888, float inDensity = 0);
 
 	/**
 	 * 通过一个字符串生成一个贴图
@@ -413,7 +268,7 @@ private:
 	 * @param format 期望生成的贴图格式
 	 * @return \link wyGLTexture2D wyGLTexture2D\endlink
 	 */
-	static wyGLTexture2D* makeRaw(const char* data, int width, int height, wyTexturePixelFormat format = WY_TEXTURE_PIXEL_FORMAT_RGBA8888);
+	static wyGLTexture2D* makeRaw8888(const char* data, int width, int height, wyTexturePixelFormat format = WY_TEXTURE_PIXEL_FORMAT_RGBA8888);
 
 	/**
 	 * 构造函数
@@ -464,6 +319,11 @@ private:
 	 * 如果当前线程不是OpenGL线程, 则会堵塞当前线程知道贴图载入完成
 	 */
 	void load();
+
+	/**
+	 * Do actual image parsing work
+	 */
+	char* loadImage();
 
 	/**
 	 * 设置显示的字符串内容
@@ -674,27 +534,6 @@ private:
 	 * @param height image pixel height
 	 */
 	void applyFilter(void* data, int width, int height);
-
-	/**
-	 * load png data
-	 *
-	 * @return png data loaded, in rgba8888 format
-	 */
-	char* loadPNG();
-
-	/**
-	 * load bmp data
-	 *
-	 * @return bmp data loaded, in rgba8888 format
-	 */
-	char* loadBMP();
-
-	/**
-	 * load jpg data
-	 *
-	 * @return jpg data loaded, in rgba8888 format
-	 */
-	char* loadJPG();
 
 public:
 	/**

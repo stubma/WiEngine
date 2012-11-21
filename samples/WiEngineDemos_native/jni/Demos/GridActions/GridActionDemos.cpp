@@ -10,13 +10,13 @@ namespace Grid_Action {
 
     public:
         wyActionTestLayer() {
-            m_Sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+            m_Sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
             m_Sprite->retain();
             addChildLocked(m_Sprite, 2);
             m_Sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight/ 2);
 			m_Sprite->setScale(4);
 
-        	wySprite* bg = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.background")));
+        	wySprite* bg = wySprite::make(wyTexture2D::make(RES("R.drawable.background")));
         	bg->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
         	addChildLocked(bg, -1);
         }

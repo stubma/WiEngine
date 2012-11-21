@@ -984,124 +984,69 @@ char* wyUtils::loadCString(const char* mfsName) {
 	}
 }
 
-char* wyUtils::loadBMP(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(f, &length);
-	if(raw == NULL)
+char* wyUtils::loadImage(const char* raw, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
+	// basic validation
+	if(!raw) {
+		LOGW("wyUtils::loadImage: null data passed in");
 		return NULL;
+	}
 
-	// then deliver to other method
-	char* data = loadBMP(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
+	// detect image type
+	if(isPNG(raw, length)) {
+		char* data = loadPNG(raw, length, w, h, sizeOnly, scaleX, scaleY);
+		return data;
+	} else if(isJPG(raw, length)) {
+		char* data = loadJPG(raw, length, w, h, sizeOnly, scaleX, scaleY);
+		return data;
+	} else if(isBMP(raw, length)) {
+		char* data = loadBMP(raw, length, w, h, sizeOnly, scaleX, scaleY);
+		return data;
+	} else {
+		LOGW("wyUtils::loadImage: unrecognized image format");
+		return NULL;
+	}
 }
 
-char* wyUtils::loadBMP(int resId, float* w, float* h, bool sizeOnly) {
+char* wyUtils::loadImage(int resId, float* w, float* h, bool sizeOnly) {
 	// load raw data
 	size_t length;
 	float scale;
 	char* raw = loadRaw(resId, &length, &scale);
-	if(raw == NULL)
+	if(!raw)
 		return NULL;
 
-	// then deliver to other method
-	char* data = loadBMP(raw, length, w, h, sizeOnly, scale, scale);
-	wyFree(raw);
-	return data;
+	return loadImage(raw, length, w, h, sizeOnly, scale, scale);
 }
 
-char* wyUtils::loadBMP(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(path, isFile, &length);
-	if(raw == NULL)
-		return NULL;
-
-	// then deliver to other method
-	char* data = loadBMP(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
-}
-
-char* wyUtils::loadPNG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadImage(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(f, &length);
-	if(raw == NULL)
-		return NULL;
-	
-	// then deliver to other method
-	char* data = loadPNG(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
-}
-
-char* wyUtils::loadPNG(int resId, float* w, float* h, bool sizeOnly) {
-	// load raw data
-	size_t length;
-	float scale;
-	char* raw = loadRaw(resId, &length, &scale);
-	if(raw == NULL)
+	if(!raw)
 		return NULL;
 
-	// then deliver to other method
-	char* data = loadPNG(raw, length, w, h, sizeOnly, scale, scale);
-	wyFree(raw);
-	return data;
+	return loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
 }
 
-char* wyUtils::loadPNG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadImage(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(path, isFile, &length);
-	if(raw == NULL)
+	if(!raw)
 		return NULL;
 
-	// then deliver to other method
-	char* data = loadPNG(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
+	return loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
 }
 
-char* wyUtils::loadJPG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(f, &length);
-	if(raw == NULL)
-		return NULL;
-	
-	// then deliver to other method
-	char* data = loadJPG(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
-}
-
-char* wyUtils::loadJPG(int resId, float* w, float* h, bool sizeOnly) {
-	// load raw data
-	size_t length;
-	float scale;
-	char* raw = loadRaw(resId, &length, &scale);
-	if(raw == NULL)
+char* wyUtils::loadImage(const char* mfsName, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
+	// get data from memory file system
+	const char* mfsData = NULL;
+	size_t length = 0;
+	wyUtils::getFile(mfsName, &mfsData, &length);
+	if(!mfsData)
 		return NULL;
 
-	// then deliver to other method
-	char* data = loadJPG(raw, length, w, h, sizeOnly, scale, scale);
-	wyFree(raw);
-	return data;
-}
-
-char* wyUtils::loadJPG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(path, isFile, &length);
-	if(raw == NULL)
-		return NULL;
-
-	// then deliver to other method
-	char* data = loadJPG(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
+	return loadImage(mfsData, length, w, h, sizeOnly, scaleX, scaleY);
 }
 
 char* wyUtils::loadRaw(FILE* f, size_t* outLen, bool noDecode) {
@@ -1420,4 +1365,37 @@ const char* wyUtils::fileMd5(const char* path) {
 		// return
 		return md5;
 	}
+}
+
+bool wyUtils::isPNG(const char* p, size_t size) {
+	if(size >= 8 &&
+			p[0] == 0x89 &&
+			p[1] == 0x50 &&
+			p[2] == 0x4E &&
+			p[3] == 0x47 &&
+			p[4] == 0x0D &&
+			p[5] == 0x0A &&
+			p[6] == 0x1A &&
+			p[7] == 0x0A)
+		return true;
+	else
+		return false;
+}
+
+bool wyUtils::isJPG(const char* p, size_t size) {
+	if(size >= 4 &&
+			p[0] == 0xFF &&
+			p[1] == 0xD8 &&
+			p[2] == 0xFF &&
+			p[3] == 0xE0)
+		return true;
+	else
+		return false;
+}
+
+bool wyUtils::isBMP(const char* p, size_t size) {
+	if(size >= 2 && p[0] == 'B' && p[1] == 'M')
+		return true;
+	else
+		return false;
 }
