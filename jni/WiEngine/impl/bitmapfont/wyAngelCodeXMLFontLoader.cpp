@@ -173,13 +173,13 @@ void wyAngelCodeXMLFontLoader::startElement(void* ctx, const xmlChar *name, cons
 					            // append png file name
 					            sprintf(lastSolidus, "%s.png", value);
 					            if(state->font->isFile())
-					            	state->font->addTexture(wyTexture2D::makeFilePNG(fullPngPath));
+					            	state->font->addTexture(wyTexture2D::makeFile(fullPngPath));
 					            else
-					            	state->font->addTexture(wyTexture2D::makePNG(fullPngPath));
+					            	state->font->addTexture(wyTexture2D::make(fullPngPath));
 					            wyFree(fullPngPath);
 					        }
 					    } else {
-					    	state->font->addTexture(wyTexture2D::makePNG(wyUtils::getResId(value, "drawable", NULL)));
+					    	state->font->addTexture(wyTexture2D::make(wyUtils::getResId(value, "drawable", NULL)));
 					    }
 
 					    // restore old char

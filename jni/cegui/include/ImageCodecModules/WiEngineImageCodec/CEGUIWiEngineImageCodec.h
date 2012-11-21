@@ -50,11 +50,6 @@ namespace CEGUI {
   This image codec is able to load images which WiEngine supported, such as jpg, bmp, png
 */
 class CEGUIWIENGINEIMAGECODEC_API WiEngineImageCodec : public ImageCodec {
-private:
-	bool isPNG(const uint8* p, size_t size);
-	bool isJPG(const uint8* p, size_t size);
-	bool isBMP(const uint8* p, size_t size);
-
 public:
 	WiEngineImageCodec();
 

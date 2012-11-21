@@ -71,232 +71,80 @@ wyTexture2D::~wyTexture2D() {
 	}
 }
 
-wyTexture2D* wyTexture2D::makeBMP(int resId) {
-	return makeBMP(resId, 0);
+wyTexture2D* wyTexture2D::make(int resId) {
+	return make(resId, 0);
 }
 
-wyTexture2D* wyTexture2D::makeBMP(int resId, int transparentColor) {
-	return makeBMP(resId, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
+wyTexture2D* wyTexture2D::make(int resId, int transparentColor) {
+	return make(resId, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
 }
 
-wyTexture2D* wyTexture2D::makeBMP(int resId, int transparentColor, wyTexturePixelFormat format) {
-	return gTextureManager->makeBMP(resId, transparentColor, format);
+wyTexture2D* wyTexture2D::make(int resId, int transparentColor, wyTexturePixelFormat format) {
+	return gTextureManager->make(resId, transparentColor, format);
 }
 
-wyTexture2D* wyTexture2D::makeJPG(int resId) {
-	return makeJPG(resId, 0);
+wyTexture2D* wyTexture2D::makeRaw(const char* data, size_t length) {
+	return makeRaw(data, length, 0);
 }
 
-wyTexture2D* wyTexture2D::makeJPG(int resId, int transparentColor) {
-	return makeJPG(resId, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
+wyTexture2D* wyTexture2D::makeRaw(const char* data, size_t length, int transparentColor) {
+	return makeRaw(data, length, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
 }
 
-wyTexture2D* wyTexture2D::makeJPG(int resId, int transparentColor, wyTexturePixelFormat format) {
-	return gTextureManager->makeJPG(resId, transparentColor, format);
+wyTexture2D* wyTexture2D::makeRaw(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format) {
+	return makeRaw(data, length, transparentColor, format, 0);
 }
 
-wyTexture2D* wyTexture2D::makePNG(int resId) {
-	return makePNG(resId, wyTextureManager::getInstance()->getTexturePixelFormat());
+wyTexture2D* wyTexture2D::makeRaw(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity) {
+	return gTextureManager->makeRaw(data, length, transparentColor, format, inDensity);
 }
 
-wyTexture2D* wyTexture2D::makePNG(int resId, wyTexturePixelFormat format) {
-	return gTextureManager->makePNG(resId, format);
+wyTexture2D* wyTexture2D::make(const char* assetPath) {
+	return make(assetPath, 0);
 }
 
-wyTexture2D* wyTexture2D::makePVR(int resId) {
-	return gTextureManager->makePVR(resId);
+wyTexture2D* wyTexture2D::make(const char* assetPath, int transparentColor) {
+	return make(assetPath, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
 }
 
-wyTexture2D* wyTexture2D::makeRawBMP(const char* data, size_t length) {
-	return makeRawBMP(data, length, 0);
+wyTexture2D* wyTexture2D::make(const char* assetPath, int transparentColor, wyTexturePixelFormat format) {
+	return make(assetPath, transparentColor, format, 0);
 }
 
-wyTexture2D* wyTexture2D::makeRawBMP(const char* data, size_t length, int transparentColor) {
-	return makeRawBMP(data, length, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
+wyTexture2D* wyTexture2D::make(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
+	return gTextureManager->make(assetPath, transparentColor, format, inDensity);
 }
 
-wyTexture2D* wyTexture2D::makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format) {
-	return makeRawBMP(data, length, transparentColor, format, 0);
+wyTexture2D* wyTexture2D::makeMemory(const char* mfsName) {
+	return makeMemory(mfsName, 0);
 }
 
-wyTexture2D* wyTexture2D::makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeRawBMP(data, length, transparentColor, format, inDensity);
+wyTexture2D* wyTexture2D::makeMemory(const char* mfsName, int transparentColor) {
+	return makeMemory(mfsName, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
 }
 
-wyTexture2D* wyTexture2D::makeRawJPG(const char* data, size_t length) {
-	return makeRawJPG(data, length, 0);
+wyTexture2D* wyTexture2D::makeMemory(const char* mfsName, int transparentColor, wyTexturePixelFormat format) {
+	return makeMemory(mfsName, transparentColor, format, 0);
 }
 
-wyTexture2D* wyTexture2D::makeRawJPG(const char* data, size_t length, int transparentColor) {
-	return makeRawJPG(data, length, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
+wyTexture2D* wyTexture2D::makeMemory(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity) {
+	return gTextureManager->makeMemory(mfsName, transparentColor, format, inDensity);
 }
 
-wyTexture2D* wyTexture2D::makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format) {
-	return makeRawJPG(data, length, transparentColor, format, 0);
+wyTexture2D* wyTexture2D::makeFile(const char* fsPath) {
+	return makeFile(fsPath, 0);
 }
 
-wyTexture2D* wyTexture2D::makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeRawJPG(data, length, transparentColor, format, inDensity);
+wyTexture2D* wyTexture2D::makeFile(const char* fsPath, int transparentColor) {
+	return makeFile(fsPath, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
 }
 
-wyTexture2D* wyTexture2D::makeRawPNG(const char* data, size_t length) {
-	return makeRawPNG(data, length, wyTextureManager::getInstance()->getTexturePixelFormat());
+wyTexture2D* wyTexture2D::makeFile(const char* fsPath, int transparentColor, wyTexturePixelFormat format) {
+	return makeFile(fsPath, transparentColor, format, 0);
 }
 
-wyTexture2D* wyTexture2D::makeRawPNG(const char* data, size_t length, wyTexturePixelFormat format) {
-	return makeRawPNG(data, length, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeRawPNG(const char* data, size_t length, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeRawPNG(data, length, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeRawPVR(const char* data, size_t length, float inDensity) {
-	return gTextureManager->makeRawPVR(data, length, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeBMP(const char* assetPath) {
-	return makeBMP(assetPath, 0);
-}
-
-wyTexture2D* wyTexture2D::makeBMP(const char* assetPath, int transparentColor) {
-	return makeBMP(assetPath, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat format) {
-	return makeBMP(assetPath, transparentColor, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeBMP(assetPath, transparentColor, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeJPG(const char* assetPath) {
-	return makeJPG(assetPath, 0);
-}
-
-wyTexture2D* wyTexture2D::makeJPG(const char* assetPath, int transparentColor) {
-	return makeJPG(assetPath, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat format) {
-	return makeJPG(assetPath, transparentColor, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeJPG(assetPath, transparentColor, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makePNG(const char* assetPath) {
-	return makePNG(assetPath, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makePNG(const char* assetPath, wyTexturePixelFormat format) {
-	return makePNG(assetPath, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makePNG(const char* assetPath, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makePNG(assetPath, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makePVR(const char* assetPath, float inDensity) {
-	return gTextureManager->makePVR(assetPath, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryBMP(const char* mfsName) {
-	return makeMemoryBMP(mfsName, 0);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryBMP(const char* mfsName, int transparentColor) {
-	return makeMemoryBMP(mfsName, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat format) {
-	return makeMemoryBMP(mfsName, transparentColor, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeMemoryBMP(mfsName, transparentColor, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryJPG(const char* mfsName) {
-	return makeMemoryJPG(mfsName, 0);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryJPG(const char* mfsName, int transparentColor) {
-	return makeMemoryJPG(mfsName, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat format) {
-	return makeMemoryJPG(mfsName, transparentColor, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeMemoryJPG(mfsName, transparentColor, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryPNG(const char* mfsName) {
-	return makeMemoryPNG(mfsName, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makeMemoryPNG(const char* mfsName, wyTexturePixelFormat format) {
-	return makeMemoryPNG(mfsName, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryPNG(const char* mfsName, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeMemoryPNG(mfsName, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeMemoryPVR(const char* mfsName, float inDensity) {
-	return gTextureManager->makeMemoryPVR(mfsName, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeFileBMP(const char* fsPath) {
-	return makeFileBMP(fsPath, 0);
-}
-
-wyTexture2D* wyTexture2D::makeFileBMP(const char* fsPath, int transparentColor) {
-	return makeFileBMP(fsPath, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat format) {
-	return makeFileBMP(fsPath, transparentColor, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeFileBMP(fsPath, transparentColor, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeFileJPG(const char* fsPath) {
-	return makeFileJPG(fsPath, 0);
-}
-
-wyTexture2D* wyTexture2D::makeFileJPG(const char* fsPath, int transparentColor) {
-	return makeFileJPG(fsPath, transparentColor, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat format) {
-	return makeFileJPG(fsPath, transparentColor, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeFileJPG(fsPath, transparentColor, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeFilePNG(const char* fsPath) {
-	return makeFilePNG(fsPath, wyTextureManager::getInstance()->getTexturePixelFormat());
-}
-
-wyTexture2D* wyTexture2D::makeFilePNG(const char* fsPath, wyTexturePixelFormat format) {
-	return makeFilePNG(fsPath, format, 0);
-}
-
-wyTexture2D* wyTexture2D::makeFilePNG(const char* fsPath, wyTexturePixelFormat format, float inDensity) {
-	return gTextureManager->makeFilePNG(fsPath, format, inDensity);
-}
-
-wyTexture2D* wyTexture2D::makeFilePVR(const char* fsPath, float inDensity) {
-	return gTextureManager->makeFilePVR(fsPath, inDensity);
+wyTexture2D* wyTexture2D::makeFile(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
+	return gTextureManager->makeFile(fsPath, transparentColor, format, inDensity);
 }
 
 wyTexture2D* wyTexture2D::makeLabel(const char* text, float fontSize, const char* fontPath, bool isFile, float width, TextAlignment alignment) {
@@ -311,12 +159,12 @@ wyTexture2D* wyTexture2D::makeGL(int texture, int w, int h) {
 	return gTextureManager->makeGL(texture, w, h);
 }
 
-wyTexture2D* wyTexture2D::makeRaw(const char* data, int width, int height) {
-	return makeRaw(data, width, height, wyTextureManager::getInstance()->getTexturePixelFormat());
+wyTexture2D* wyTexture2D::makeRaw8888(const char* data, int width, int height) {
+	return makeRaw8888(data, width, height, wyTextureManager::getInstance()->getTexturePixelFormat());
 }
 
-wyTexture2D* wyTexture2D::makeRaw(const char* data, int width, int height, wyTexturePixelFormat format) {
-	return gTextureManager->makeRaw(data, width, height, format);
+wyTexture2D* wyTexture2D::makeRaw8888(const char* data, int width, int height, wyTexturePixelFormat format) {
+	return gTextureManager->makeRaw8888(data, width, height, format);
 }
 
 void wyTexture2D::load() {

@@ -15,8 +15,8 @@ namespace Persistence {
 #define TARGETSELECTOR(obj, id, userData) wyTargetSelector::make(obj, id, userData)
 
 static void createButton(const char* label, wyLayer* layer, float x, float y, wyTargetSelector* ts) {
-	wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-	wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+	wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+	wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 	normal1->setContentSize(DP(300), DP(44));
 	pressed1->setContentSize(DP(300), DP(44));
 
@@ -112,9 +112,9 @@ public:
 		label->setColor(wyc3bBlack);
 
         // create state sprite for text box
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.textbox_normal")), wyr(DP(13), DP(18), DP(1), DP(1)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.textbox_pressed")), wyr(DP(13), DP(18), DP(1), DP(1)));
-		wyNinePatchSprite* focused = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.textbox_focused")), wyr(DP(13), DP(18), DP(1), DP(1)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.textbox_normal")), wyr(DP(13), DP(18), DP(1), DP(1)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.textbox_pressed")), wyr(DP(13), DP(18), DP(1), DP(1)));
+		wyNinePatchSprite* focused = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.textbox_focused")), wyr(DP(13), DP(18), DP(1), DP(1)));
 		normal->setContentSize(DP(280), DP(32));
 		pressed->setContentSize(DP(280), DP(32));
 		focused->setContentSize(DP(280), DP(32));

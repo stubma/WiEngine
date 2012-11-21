@@ -16,7 +16,7 @@ namespace Events {
         wySprite* m_Sprite;
     public:
         wyEventTestLayer(){
-            m_Sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+            m_Sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
             m_Sprite->retain();
             addChildLocked(m_Sprite);
             m_Sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight/ 2);
@@ -157,7 +157,7 @@ namespace Events {
 			m_LastDirection = NONE;
 			
 			// add player
-            wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.player"));
+            wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.player"));
             m_Player = new wySprite(tex, wyr(0, ITEM_HEIGHT * 2, ITEM_WIDTH, ITEM_HEIGHT));
 			m_Player->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 			addChildLocked(m_Player);

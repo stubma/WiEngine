@@ -150,6 +150,48 @@ private:
 	 */
 	static ssize_t lastDotIndex(const char* path);
 
+	/**
+	 * Load bmp RGBA8888 data from memory bmp data
+	 *
+	 * @param data bmp file data in memory
+	 * @param length \c data length
+	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
+	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
+	 * @param sizeOnly true indicating only get size, don't load data
+	 * @param scaleX x scale, 1 for no scale
+	 * @param scaleY y scale, 1 for no scale
+	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
+	 */
+	static char* loadBMP(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * Load png RGBA8888 data from memory png data
+	 *
+	 * @param data png file data in memory
+	 * @param length \c data length
+	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
+	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
+	 * @param sizeOnly true indicating only get size, don't load data
+	 * @param scaleX x scale, 1 for no scale
+	 * @param scaleY y scale, 1 for no scale
+	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
+	 */
+	static char* loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * Load jpg RGBA8888 data from memory png data
+	 *
+	 * @param data jpg file data in memory
+	 * @param length \c data length
+	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
+	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
+	 * @param sizeOnly true indicating only get size, don't load data
+	 * @param scaleX x scale, 1 for no scale
+	 * @param scaleY y scale, 1 for no scale
+	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
+	 */
+	static char* loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+
 public:
 	
 	/*
@@ -217,32 +259,47 @@ public:
 	static const char16_t* getString16(int resId);
 	
 	/**
-	 * Load bmp RGBA8888 data from bmp resource id
+	 * Check a image is png or not
 	 *
-	 * @param resId resource id of bmp file
+	 * @param image raw data
+	 * @param size raw data length in bytes
+	 * @return true means the raw data is a png image, or false if not
+	 */
+	static bool isPNG(const char* p, size_t size);
+
+	/**
+	 * Check a image is jpg or not
+	 *
+	 * @param image raw data
+	 * @param size raw data length in bytes
+	 * @return true means the raw data is a jpg image, or false if not
+	 */
+	static bool isJPG(const char* p, size_t size);
+
+	/**
+	 * Check a image is bmp or not
+	 *
+	 * @param image raw data
+	 * @param size raw data length in bytes
+	 * @return true means the raw data is a bmp image, or false if not
+	 */
+	static bool isBMP(const char* p, size_t size);
+
+	/**
+	 * Load RGBA8888 data from image resource id, it will auto detect
+	 * image file format
+	 *
+	 * @param resId resource id of image file
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
 	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
 	 * @param sizeOnly true indicating only get size, don't load data
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
 	 */
-	static char* loadBMP(int resId, float* w, float* h, bool sizeOnly);
+	static char* loadImage(int resId, float* w, float* h, bool sizeOnly);
 
 	/**
-	 * Load bmp RGBA8888 data from memory bmp data
-	 *
-	 * @param data bmp file data in memory
-	 * @param length \c data length
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 */
-	static char* loadBMP(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * Load BMP RGBA8888 data from a C file pointer, it will close file pointer when done
+	 * Load RGBA8888 data from an image's C file pointer, it will close file pointer when done. It
+	 * will auto detect image file format
 	 *
 	 * @param f C FILE pointer
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
@@ -252,37 +309,12 @@ public:
 	 * @param scaleY y scale, 1 for no scale
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
 	 */
-	static char* loadBMP(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadImage(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
-	 * Load BMP RGBA8888 data from assets or file system
+	 * Load RGBA8888 data from memory image data, it will auto detect image file format
 	 *
-	 * @param path BMP file path
-	 * @param isFile true indicating \c path is an absolute path in file system, false if \c path is a relative path under assets
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 */
-	static char* loadBMP(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * Load png RGBA8888 data from png resource id
-	 *
-	 * @param resId resource id of png file
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 */
-	static char* loadPNG(int resId, float* w, float* h, bool sizeOnly);
-
-	/**
-	 * Load png RGBA8888 data from memory png data
-	 *
-	 * @param data png file data in memory
+	 * @param raw image file data in memory
 	 * @param length \c data length
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
 	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
@@ -291,25 +323,12 @@ public:
 	 * @param scaleY y scale, 1 for no scale
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
 	 */
-	static char* loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadImage(const char* raw, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
-	 * Load png RGBA8888 data from a C file pointer, it will close file pointer when done
+	 * Load RGBA8888 data from assets or file system, it will auto detect image file format
 	 *
-	 * @param f C FILE pointer
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 */
-	static char* loadPNG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * Load png RGBA8888 data from assets or file system
-	 *
-	 * @param path png file path
+	 * @param path image file path
 	 * @param isFile true indicating \c path is an absolute path in file system, false if \c path is a relative path under assets
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
 	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
@@ -318,12 +337,12 @@ public:
 	 * @param scaleY y scale, 1 for no scale
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
 	 */
-	static char* loadPNG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadImage(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
-	 * Load jpg RGBA8888 data from C file pointer, it will close file pointer when done
+	 * Load RGBA8888 data from memory file system, it will auto detect image file format
 	 *
-	 * @param f C file pointer
+	 * @param mfsName image file name in memory file system
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
 	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
 	 * @param sizeOnly true indicating only get size, don't load data
@@ -331,47 +350,8 @@ public:
 	 * @param scaleY y scale, 1 for no scale
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
 	 */
-	static char* loadJPG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadImage(const char* mfsName, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
-	/**
-	 * Load jpg RGBA8888 data from assets or file system
-	 *
-	 * @param path jpg file path
-	 * @param isFile true indicating \c path is an absolute path in file system, false if \c path is a relative path under assets
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 */
-	static char* loadJPG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * Load jpg RGBA8888 data from memory png data
-	 *
-	 * @param data jpg file data in memory
-	 * @param length \c data length
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 */
-	static char* loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * Load jpg RGBA8888 data from jpg resource id
-	 *
-	 * @param resId resource id of jpg file
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 */
-	static char* loadJPG(int resId, float* w, float* h, bool sizeOnly);
-	
 	/**
 	 * Load raw data from a C file pointer, it will close file pointer when done
 	 *

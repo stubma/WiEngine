@@ -5,8 +5,8 @@
 namespace Shader {
 
     static void createButton(const char* label, wyLayer* layer, float x, float y, wyTargetSelector* ts) {
-		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal1->setContentSize(DP(300), DP(44));
 		pressed1->setContentSize(DP(300), DP(44));
         
@@ -50,7 +50,7 @@ namespace Shader {
 			}
 
 			// create
-			m_sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.alpha_test")));
+			m_sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.alpha_test")));
 			m_sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2 + DP(80));
 			addChildLocked(m_sprite);
 
@@ -70,8 +70,8 @@ namespace Shader {
 			addChildLocked(m_hint);
 
 			// alpha value slider
-			wySprite* bar = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.bar")));
-			wySprite* thumb = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.thumb")));
+			wySprite* bar = wySprite::make(wyTexture2D::make(RES("R.drawable.bar")));
+			wySprite* thumb = wySprite::make(wyTexture2D::make(RES("R.drawable.thumb")));
 			m_slider = wySlider::make(NULL, bar, thumb);
 			m_slider->setValue(0);
 			m_slider->setMax(255);
@@ -120,7 +120,7 @@ namespace Shader {
 			}
 
 			// create
-			m_flag = wySprite::make(wyTexture2D::makeJPG(RES("R.drawable.usa_flag")));
+			m_flag = wySprite::make(wyTexture2D::make(RES("R.drawable.usa_flag")));
 			m_flag->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 			addChildLocked(m_flag);
 

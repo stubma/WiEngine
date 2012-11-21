@@ -449,7 +449,7 @@ wyQuadParticleSystem* wyParticleLoader::load(const char* data, size_t length, fl
 
 	// extract texture data if it is embedded in plist
 	if(pd->textureImageData != NULL) {
-		wyTexture2D* tex = wyTexture2D::makeRawPNG(pd->textureImageData, pd->textureImageDataLength,
+		wyTexture2D* tex = wyTexture2D::makeRaw(pd->textureImageData, pd->textureImageDataLength, 0,
 				wyTextureManager::getInstance()->getTexturePixelFormat(), wyDevice::density / resScale);
 		ps->setTexture(tex);
 	}

@@ -51,9 +51,7 @@ wyGLTexture2D::~wyGLTexture2D() {
 
 	// release specific info
 	switch(m_source) {
-		case SOURCE_PNG:
-		case SOURCE_PVR:
-		case SOURCE_JPG:
+		case SOURCE_IMG:
 			if(m_path != NULL)
 				wyFree((void*)m_path);
 			if(m_mfsName != NULL)
@@ -69,74 +67,27 @@ wyGLTexture2D::~wyGLTexture2D() {
 	}
 }
 
-wyGLTexture2D* wyGLTexture2D::makeBMP(int resId, int transparentColor, wyTexturePixelFormat pixelFormat) {
+wyGLTexture2D* wyGLTexture2D::make(int resId, int transparentColor, wyTexturePixelFormat pixelFormat) {
 	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
 	tex->autoRelease();
 	tex->m_pixelFormat = pixelFormat;
-	tex->m_source = SOURCE_BMP;
+	tex->m_source = SOURCE_IMG;
 	tex->m_resId = resId;
 	tex->m_transparentColor = transparentColor;
 
 	// init size
 	float width, height;
-	wyUtils::loadBMP(resId, &width, &height, true);
+	wyUtils::loadImage(resId, &width, &height, true);
 	tex->initSize(width, height);
 
 	return tex;
 }
 
-wyGLTexture2D* wyGLTexture2D::makeJPG(int resId, int transparentColor, wyTexturePixelFormat pixelFormat) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_JPG;
-	tex->m_resId = resId;
-
-	// init size
-	float width, height;
-	wyUtils::loadJPG(resId, &width, &height, true);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makePNG(int resId, wyTexturePixelFormat pixelFormat) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_source = SOURCE_PNG;
-	tex->m_resId = resId;
-
-	// init size
-	float width, height;
-	wyUtils::loadPNG(resId, &width, &height, true);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makePVR(int resId) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_source = SOURCE_PVR;
-	tex->m_resId = resId;
-
-	// init size
-	float width, height;
-	float scale;
-	wyUtils::getPVRSize(resId, &width, &height, &scale);
-	tex->m_inDensity = wyDevice::density / scale;
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
+wyGLTexture2D* wyGLTexture2D::makeRaw(const char* data, size_t length, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
 	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
 	tex->m_pixelFormat = pixelFormat;
 	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_BMP;
+	tex->m_source = SOURCE_IMG;
 	tex->m_data = data;
 	tex->m_length = length;
 	if(inDensity == 0)
@@ -145,72 +96,18 @@ wyGLTexture2D* wyGLTexture2D::makeRawBMP(const char* data, size_t length, int tr
 
 	// init size
 	float width, height;
-	wyUtils::loadBMP(data, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
+	wyUtils::loadImage(data, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
 	return (wyGLTexture2D*)tex->autoRelease();
 }
 
-wyGLTexture2D* wyGLTexture2D::makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_JPG;
-	tex->m_data = data;
-	tex->m_length = length;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::loadJPG(data, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return (wyGLTexture2D*)tex->autoRelease();
-}
-
-wyGLTexture2D* wyGLTexture2D::makeRawPNG(const char* data, size_t length, wyTexturePixelFormat pixelFormat, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_source = SOURCE_PNG;
-	tex->m_data = data;
-	tex->m_length = length;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::loadPNG(data, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return (wyGLTexture2D*)tex->autoRelease();
-}
-
-wyGLTexture2D* wyGLTexture2D::makeRawPVR(const char* data, size_t length, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->m_source = SOURCE_PVR;
-	tex->m_data = data;
-	tex->m_length = length;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::getPVRSize(data, length, &width, &height, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return (wyGLTexture2D*)tex->autoRelease();
-}
-
-wyGLTexture2D* wyGLTexture2D::makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
+wyGLTexture2D* wyGLTexture2D::make(const char* assetPath, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
 	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
 	tex->autoRelease();
 	tex->m_pixelFormat = pixelFormat;
 	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_BMP;
+	tex->m_source = SOURCE_IMG;
 	tex->m_path = wyUtils::copy(assetPath);
 	tex->m_isFile = false;
 	if(inDensity == 0)
@@ -219,75 +116,18 @@ wyGLTexture2D* wyGLTexture2D::makeBMP(const char* assetPath, int transparentColo
 
 	// init size
 	float width, height;
-	wyUtils::loadBMP(assetPath, false, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
+	wyUtils::loadImage(assetPath, false, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
 	return tex;
 }
 
-wyGLTexture2D* wyGLTexture2D::makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
+wyGLTexture2D* wyGLTexture2D::makeMemory(const char* mfsName, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
 	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
 	tex->autoRelease();
 	tex->m_pixelFormat = pixelFormat;
 	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_JPG;
-	tex->m_path = wyUtils::copy(assetPath);
-	tex->m_isFile = false;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::loadJPG(assetPath, false, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makePNG(const char* assetPath, wyTexturePixelFormat pixelFormat, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_source = SOURCE_PNG;
-	tex->m_path = wyUtils::copy(assetPath);
-	tex->m_isFile = false;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::loadPNG(assetPath, false, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makePVR(const char* assetPath, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_source = SOURCE_PVR;
-	tex->m_path = wyUtils::copy(assetPath);
-	tex->m_isFile = false;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::getPVRSize(assetPath, false, &width, &height, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_BMP;
+	tex->m_source = SOURCE_IMG;
 	tex->m_mfsName = wyUtils::copy(mfsName);
 	if(inDensity == 0)
 		inDensity = wyDevice::defaultInDensity;
@@ -300,87 +140,18 @@ wyGLTexture2D* wyGLTexture2D::makeMemoryBMP(const char* mfsName, int transparent
 
 	// init size
 	float width, height;
-	wyUtils::loadBMP(mfsData, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
+	wyUtils::loadImage(mfsData, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
 	return tex;
 }
 
-wyGLTexture2D* wyGLTexture2D::makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
+wyGLTexture2D* wyGLTexture2D::makeFile(const char* fsPath, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
 	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
 	tex->autoRelease();
 	tex->m_pixelFormat = pixelFormat;
 	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_JPG;
-	tex->m_mfsName = wyUtils::copy(mfsName);
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// get data from memory file system
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-
-	// init size
-	float width, height;
-	wyUtils::loadJPG(mfsData, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makeMemoryPNG(const char* mfsName, wyTexturePixelFormat pixelFormat, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_source = SOURCE_PNG;
-	tex->m_mfsName = wyUtils::copy(mfsName);
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// get data from memory file system
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-
-	// init size
-	float width, height;
-	wyUtils::loadPNG(mfsData, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makeMemoryPVR(const char* mfsName, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_source = SOURCE_PVR;
-	tex->m_mfsName = wyUtils::copy(mfsName);
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// get data from memory file system
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-
-	// init size
-	float width, height;
-	wyUtils::getPVRSize(mfsData, length, &width, &height, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_BMP;
+	tex->m_source = SOURCE_IMG;
 	tex->m_path = wyUtils::copy(fsPath);
 	tex->m_isFile = true;
 	if(inDensity == 0)
@@ -389,64 +160,7 @@ wyGLTexture2D* wyGLTexture2D::makeFileBMP(const char* fsPath, int transparentCol
 
 	// init size
 	float width, height;
-	wyUtils::loadBMP(fsPath, true, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat pixelFormat, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_transparentColor = transparentColor;
-	tex->m_source = SOURCE_JPG;
-	tex->m_path = wyUtils::copy(fsPath);
-	tex->m_isFile = true;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::loadJPG(fsPath, true, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makeFilePNG(const char* fsPath, wyTexturePixelFormat pixelFormat, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_pixelFormat = pixelFormat;
-	tex->m_source = SOURCE_PNG;
-	tex->m_path = wyUtils::copy(fsPath);
-	tex->m_isFile = true;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::loadPNG(fsPath, true, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
-	tex->initSize(width, height);
-
-	return tex;
-}
-
-wyGLTexture2D* wyGLTexture2D::makeFilePVR(const char* fsPath, float inDensity) {
-	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
-	tex->autoRelease();
-	tex->m_source = SOURCE_PVR;
-	tex->m_path = wyUtils::copy(fsPath);
-	tex->m_isFile = true;
-	if(inDensity == 0)
-		inDensity = wyDevice::defaultInDensity;
-	tex->m_inDensity = inDensity;
-
-	// init size
-	float width, height;
-	wyUtils::getPVRSize(fsPath, true, &width, &height, wyDevice::density / inDensity);
+	wyUtils::loadImage(fsPath, true, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
 	return tex;
@@ -494,10 +208,10 @@ wyGLTexture2D* wyGLTexture2D::makeGL(int texture, int w, int h) {
 	return (wyGLTexture2D*)tex->autoRelease();
 }
 
-wyGLTexture2D* wyGLTexture2D::makeRaw(const char* data, int width, int height, wyTexturePixelFormat format) {
+wyGLTexture2D* wyGLTexture2D::makeRaw8888(const char* data, int width, int height, wyTexturePixelFormat format) {
 	wyGLTexture2D* tex = WYNEW wyGLTexture2D();
 	tex->m_pixelFormat = format;
-	tex->m_source = SOURCE_RAW;
+	tex->m_source = SOURCE_RAW8888;
 	tex->m_data = data;
 	tex->m_length = width * height * 4;
 
@@ -556,138 +270,24 @@ void wyGLTexture2D::initSize(float realWidth, float realHeight) {
 	m_heightScale = m_height / m_pixelHeight;
 }
 
-char* wyGLTexture2D::loadPNG() {
-	char* raw = NULL;
-	float scale = wyDevice::density / m_inDensity;
-	float w, h;
-	if(m_resId != 0) {
-		size_t len;
-		char* png = wyUtils::loadRaw(m_resId, &len, &scale);
-		raw = wyUtils::loadPNG(png, len, &w, &h, false, 1.f, 1.f);
-		wyFree(png);
-	} else if(m_path != NULL) {
-		raw = wyUtils::loadPNG(m_path, m_isFile, &w, &h, false, 1.f, 1.f);
-	} else if(m_data != NULL) {
-		raw = wyUtils::loadPNG(m_data, m_length, &w, &h, false, 1.f, 1.f);
-	} else if(m_mfsName != NULL) {
-		// get data from memory file system
-		const char* mfsData = NULL;
-		size_t length = 0;
-		wyUtils::getFile(m_mfsName, &mfsData, &length);
-
-		// expand data
-		raw = wyUtils::loadPNG(mfsData, length, &w, &h, false, 1.f, 1.f);
-	} else {
-		LOGE("PNG texture doesn't has any input!");
-	}
-
-	// post processing
-	if(raw) {
-		// apply filter
-		applyFilter(raw, w, h);
-
-		// scale
-		char* scaled = wyUtils::scaleImage(raw, w, h, scale, scale);
-		if(raw != scaled) {
-			wyFree(raw);
-			raw = scaled;
-		}
-	}
-
-	return raw;
-}
-
-char* wyGLTexture2D::loadBMP() {
+char* wyGLTexture2D::loadImage() {
 	// decompress bmp data in RGBA8888
 	float scale = wyDevice::density / m_inDensity;
 	char* raw = NULL;
 	float w, h;
 	if(m_resId != 0) {
 		size_t len;
-		char* bmp = wyUtils::loadRaw(m_resId, &len, &scale);
-		raw = wyUtils::loadBMP(bmp, len, &w, &h, false, 1.f, 1.f);
-		wyFree(bmp);
+		char* tmp = wyUtils::loadRaw(m_resId, &len, &scale);
+		raw = wyUtils::loadImage(tmp, len, &w, &h, false, 1.f, 1.f);
+		wyFree(tmp);
 	} else if(m_path != NULL) {
-		raw = wyUtils::loadBMP(m_path, m_isFile, &w, &h, false, 1.f, 1.f);
+		raw = wyUtils::loadImage(m_path, m_isFile, &w, &h, false, 1.f, 1.f);
 	} else if(m_data != NULL) {
-		raw = wyUtils::loadBMP(m_data, m_length, &w, &h, false, 1.f, 1.f);
+		raw = wyUtils::loadImage(m_data, m_length, &w, &h, false, 1.f, 1.f);
 	} else if(m_mfsName != NULL) {
-		// get data from memory file system
-		const char* mfsData = NULL;
-		size_t length = 0;
-		wyUtils::getFile(m_mfsName, &mfsData, &length);
-
-		// expand data
-		raw = wyUtils::loadBMP(mfsData, length, &w, &h, false, 1.f, 1.f);
+		raw = wyUtils::loadImage(m_mfsName, &w, &h, false, 1.f, 1.f);
 	} else {
-		LOGE("BMP texture doesn't has any input!");
-	}
-
-	/*
-	 * post processing
-	 * we must apply filter first because scaling may change some color
-	 */
-	if(raw) {
-		// check transparent color
-		if(m_transparentColor != 0) {
-			char* p = raw;
-			for(int y = 0; y < h; y++) {
-				for(int x = 0; x < w; x++) {
-					// get pixel color
-					unsigned int r = p[0] & 0xFF;
-					unsigned int g = p[1] & 0xFF;
-					unsigned int b = p[2] & 0xFF;
-					unsigned int c = (r << 16) | (g << 8) | b;
-
-					// if pixel is same as transparent color, set this pixel to transparent
-					if((c ^ m_transparentColor) == 0) {
-						*(int*)p = 0;
-					}
-
-					// increase pointer
-					p += 4;
-				}
-			}
-		}
-
-		// apply filter
-		applyFilter(raw, w, h);
-
-		// scale
-		char* scaled = wyUtils::scaleImage(raw, w, h, scale, scale);
-		if(raw != scaled) {
-			wyFree(raw);
-			raw = scaled;
-		}
-	}
-
-	return raw;
-}
-
-char* wyGLTexture2D::loadJPG() {
-	// decompress jpg data in RGBA8888
-	float scale = wyDevice::density / m_inDensity;
-	char* raw = NULL;
-	float w, h;
-	if(m_resId != 0) {
-		size_t len;
-		char* jpg = wyUtils::loadRaw(m_resId, &len, &scale);
-		raw = wyUtils::loadJPG(jpg, len, &w, &h, false, 1.f, 1.f);
-		wyFree(jpg);
-	} else if(m_path != NULL) {
-		raw = wyUtils::loadJPG(m_path, m_isFile, &w, &h, false, 1.f, 1.f);
-	} else if(m_data != NULL) {
-		raw = wyUtils::loadJPG(m_data, m_length, &w, &h, false, 1.f, 1.f);
-	} else if(m_mfsName != NULL) {
-		// get data from memory file system
-		const char* mfsData = NULL;
-		size_t length = 0;
-		wyUtils::getFile(m_mfsName, &mfsData, &length);
-
-		// expand data
-		raw = wyUtils::loadJPG(mfsData, length, &w, &h, false, 1.f, 1.f);
-	} else {
-		LOGE("JPG texture doesn't has any input!");
+		LOGE("texture doesn't has any input!");
 	}
 
 	/*
@@ -783,7 +383,7 @@ void wyGLTexture2D::doLoad() {
 			m_needUpdateLabel = false;
 			break;
 		}
-		case SOURCE_BMP:
+		case SOURCE_IMG:
 		{
 			// generate texture and set parameter
 			glGenTextures(1, (GLuint*)&m_texture);
@@ -791,7 +391,7 @@ void wyGLTexture2D::doLoad() {
 			applyParameters();
 
 			// decompress jpg data in RGBA8888
-			char* raw = loadBMP();
+			char* raw = loadImage();
 			if(raw == NULL)
 				return;
 
@@ -823,210 +423,7 @@ void wyGLTexture2D::doLoad() {
 			wyFree((void*)data);
 			break;
 		}
-		case SOURCE_JPG:
-		{
-			// generate texture and set parameter
-			glGenTextures(1, (GLuint*)&m_texture);
-			glBindTexture(GL_TEXTURE_2D, m_texture);
-			applyParameters();
-
-			// decompress jpg data in RGBA8888
-			char* raw = loadJPG();
-			if(raw == NULL)
-				return;
-
-			// convert data format
-			const char* data = convertPixelFormat(raw);
-			if(data != raw) {
-				wyFree(raw);
-			}
-
-			// generate texture
-			switch(m_pixelFormat) {
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA8888:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGB565:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_pixelWidth, m_pixelHeight, 0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA4444:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA5551:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_A8:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, m_pixelWidth, m_pixelHeight, 0, GL_ALPHA, GL_UNSIGNED_BYTE, data);
-					break;
-			}
-
-			wyFree((void*)data);
-			break;
-		}
-		case SOURCE_PNG:
-		{
-			// generate texture and set parameter
-			glGenTextures(1, (GLuint*)&m_texture);
-			glBindTexture(GL_TEXTURE_2D, m_texture);
-			applyParameters();
-
-			// get expanded png data in RGBA8888
-			char* raw = loadPNG();
-			if(raw == NULL)
-				return;
-
-			// convert data format
-			const char* data = convertPixelFormat(raw);
-			if(data != raw) {
-				wyFree(raw);
-			}
-
-			// generate texture
-			switch(m_pixelFormat) {
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA8888:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGB565:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_pixelWidth, m_pixelHeight, 0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA4444:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA5551:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_A8:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, m_pixelWidth, m_pixelHeight, 0, GL_ALPHA, GL_UNSIGNED_BYTE, data);
-					break;
-			}
-
-			wyFree((void*)data);
-			break;
-		}
-		case SOURCE_PVR:
-		{
-			// get fd
-			char* raw = NULL;
-			bool freeRaw = true;
-			if(m_resId != 0) {
-				raw = wyUtils::loadRaw(m_resId);
-			} else if(m_path != NULL) {
-				raw = wyUtils::loadRaw(m_path, m_isFile);
-			} else if(m_data != NULL) {
-				raw = (char*)m_data;
-				freeRaw = false;
-			} else if(m_mfsName != NULL) {
-				// get data from memory file system
-				const char* mfsData = NULL;
-				size_t length = 0;
-				wyUtils::getFile(m_mfsName, &mfsData, &length);
-
-				raw = (char*)mfsData;
-				freeRaw = false;
-			} else {
-				LOGE("PVR texture doesn't has any input!");
-				return;
-			}
-
-			// directly copy header out
-			wyPVRHeader header;
-			memcpy(&header, raw, sizeof(wyPVRHeader));
-
-			// convert endian
-			wyUtils::convertPVRHeaderEndian(&header);
-
-			// generate texture and set parameter
-			glGenTextures(1, (GLuint*)&m_texture);
-			glBindTexture(GL_TEXTURE_2D, m_texture);
-			applyParameters();
-
-			// unpack pvr data
-			int* mipmapLens = NULL;
-			char** mipmaps = wyUtils::unpackPVRData(raw, &header, &mipmapLens, &m_pvrFormatIndex, &m_hasAlpha);
-
-			// start to generate texture
-			if(mipmaps != NULL) {
-				int size = header.numMipmaps + 1;
-				int width = header.width;
-				int height = header.height;
-				bool nPOT = m_pixelWidth != m_width || m_pixelHeight != m_height;
-
-				for(int i = 0; i < size; i++) {
-					int internalFormat = gPVRFormats[m_pvrFormatIndex][PVR_INDEX_INTERNAL_FORMAT];
-					int format = gPVRFormats[m_pvrFormatIndex][PVR_INDEX_OPENGL_FORMAT];
-					int type = gPVRFormats[m_pvrFormatIndex][PVR_INDEX_OPENGL_TYPE];
-					int bpp = gPVRFormats[m_pvrFormatIndex][PVR_INDEX_BPP];
-					bool compressed = gPVRFormats[m_pvrFormatIndex][PVR_INDEX_COMPRESSED] == 1;
-					if(compressed) {
-						// compressed pvr are always POT size
-						glCompressedTexImage2D(GL_TEXTURE_2D, i, internalFormat, width, height, 0, mipmapLens[i], mipmaps[i]);
-					} else {
-						/*
-						 * XXX: 在iOS平台上缩放PVR有些麻烦, 暂不支持, 为了保持WiEngine在Android和iOS上的行为一致, 这里
-						 * 暂时不再缩放PVR贴图
-						 */
-						// if density is not 1.0f, need try to scale pvr
-						// but some pvr format is not supported by skia
-//						float scale = wyDevice::density / m_inDensity;
-//						if(scale != 1.0f) {
-//							wyPVRFormat pvrFormat = (wyPVRFormat)gPVRFormats[m_pvrFormatIndex][PVR_INDEX_TEXTURE_FORMAT];
-//							char* data = wyUtils::scalePVR(pvrFormat, mipmaps[i], width, height, scale);
-//							if(data != mipmaps[i]) {
-//								wyFree(mipmaps[i]);
-//								mipmaps[i] = data;
-//								width = width * scale + 0.5f;
-//								height = height * scale + 0.5f;
-//							}
-//						}
-
-						if(nPOT) {
-							/*
-							 * 之前通过glTexSubImage2D方法来实现对一个POT大小的贴图进行替换, 在Android上运行正常, 
-							 * 但是在iOS上却是乱的, 可能和glTexSubImage2D在不同平台的实现有关, 因此在这里使用一种
-							 * 更安全的方法, 把非POT数据拷贝到POT数组中再直接调用glTexImage2D. 这个情况只对PVR出现,
-							 * 如果是PNG或JPG, 都没有这个问题, 估计和format也有关系, 因为PNG和JPG都是用RGBA8888处理的,
-							 * 如果PVR也用RGBA8888, 原来的代码也不会有问题
-							 */
-							int potWidth = wyMath::getNextPOT(width);
-							int potHeight = wyMath::getNextPOT(height);
-							GLubyte* pixels = (GLubyte*)wyCalloc(potWidth * potHeight * bpp / 8, sizeof(GLubyte));
-							int rowBytes = width * bpp / 8;
-							int potRowBytes = potWidth * bpp / 8;
-							for(int y = 0; y < height; y++) {
-								memcpy(pixels + potRowBytes * y, mipmaps[i] + rowBytes * y, rowBytes);
-							}
-							glTexImage2D(GL_TEXTURE_2D, i, internalFormat, potWidth, potHeight, 0, format, type, pixels);
-							wyFree(pixels);
-						} else {
-							glTexImage2D(GL_TEXTURE_2D, i, internalFormat, width, height, 0, format, type, mipmaps[i]);
-						}
-					}
-
-					int err = glGetError();
-					if(err != GL_NO_ERROR) {
-						LOGW("Error uploading compressed texture level: %d . glError: 0x%04X", i, err);
-						break;
-					}
-
-					width = MAX(width >> 1, 1);
-					height = MAX(height >> 1, 1);
-
-					// free this data
-					wyFree(mipmaps[i]);
-				}
-
-				// free mipmaps
-				wyFree(mipmaps);
-				wyFree(mipmapLens);
-			}
-
-			// free raw
-			if(freeRaw)
-				wyFree(raw);
-
-			break;
-		}
-		case SOURCE_RAW:
+		case SOURCE_RAW8888:
 		{
 			// generate texture and set parameter
 			glGenTextures(1, (GLuint*)&m_texture);
@@ -1440,25 +837,15 @@ void wyGLTexture2D::applyFilter(void* data, int width, int height) {
 void wyGLTexture2D::doApplyFilter() {
 	char* raw = NULL;
 	switch(m_source) {
-		case SOURCE_JPG:
+		case SOURCE_IMG:
 		{
-			// loadJPG do everything for you
-			raw = loadJPG();
+			raw = loadImage();
 			if(raw == NULL)
 				return;
 
 			break;
 		}
-		case SOURCE_PNG:
-		{
-			// loadPNG do everything for you
-			raw = loadPNG();
-			if(raw == NULL)
-				return;
-
-			break;
-		}
-		case SOURCE_RAW:
+		case SOURCE_RAW8888:
 		{
 			size_t len = sizeof(char) * m_width * m_height * 4;
 			raw = (char*)wyMalloc(len);

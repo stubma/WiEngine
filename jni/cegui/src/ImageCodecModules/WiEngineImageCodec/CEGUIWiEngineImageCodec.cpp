@@ -49,14 +49,7 @@ Texture* WiEngineImageCodec::load(const RawDataContainer& data, Texture* result)
 	// check image type and load
 	float w, h;
 	float scale = wyDevice::density / wyDevice::defaultInDensity;
-	char* decoded = NULL;
-	if(isPNG(p, size)) {
-		decoded = wyUtils::loadPNG((const char*)p, size, &w, &h, false, scale, scale);
-	} else if(isJPG(p, size)) {
-		decoded = wyUtils::loadJPG((const char*)p, size, &w, &h, false, scale, scale);
-	} else if(isBMP(p, size)) {
-		decoded = wyUtils::loadBMP((const char*)p, size, &w, &h, false, scale, scale);
-	}
+	char* decoded = wyUtils::loadImage((const char*)p, size, &w, &h, false, scale, scale);
 
 	// if image is decoded successfully, create Texture
 	if(decoded) {
@@ -66,39 +59,6 @@ Texture* WiEngineImageCodec::load(const RawDataContainer& data, Texture* result)
 	} else {
 		return NULL;
 	}
-}
-
-bool WiEngineImageCodec::isPNG(const uint8* p, size_t size) {
-	if(size >= 8 &&
-			p[0] == 0x89 &&
-			p[1] == 0x50 &&
-			p[2] == 0x4E &&
-			p[3] == 0x47 &&
-			p[4] == 0x0D &&
-			p[5] == 0x0A &&
-			p[6] == 0x1A &&
-			p[7] == 0x0A)
-		return true;
-	else
-		return false;
-}
-
-bool WiEngineImageCodec::isJPG(const uint8* p, size_t size) {
-	if(size >= 4 &&
-			p[0] == 0xFF &&
-			p[1] == 0xD8 &&
-			p[2] == 0xFF &&
-			p[3] == 0xE0)
-		return true;
-	else
-		return false;
-}
-
-bool WiEngineImageCodec::isBMP(const uint8* p, size_t size) {
-	if(size >= 2 && p[0] == 'B' && p[1] == 'M')
-		return true;
-	else
-		return false;
 }
 
 } // End of CEGUI namespace section

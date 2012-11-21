@@ -65,7 +65,7 @@ wyDialog::wyDialog() :
 	m_defaultSelector->retain();
 
 	// set default background
-	wyNinePatchSprite* bg = wyNinePatchSprite::make(wyTexture2D::makeMemoryPNG("default_dialog_bg.png"), wyr(DP(130), DP(20), DP(1), DP(1)));
+	wyNinePatchSprite* bg = wyNinePatchSprite::make(wyTexture2D::makeMemory("default_dialog_bg.png"), wyr(DP(130), DP(20), DP(1), DP(1)));
 	setBackground(bg);
 	setBackgroundPadding(DP(20), DP(20), DP(20), DP(15));
 }

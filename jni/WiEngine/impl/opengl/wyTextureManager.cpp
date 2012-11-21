@@ -224,73 +224,21 @@ wyGLTexture2D* wyTextureManager::createGLTexture(const char* md5, wyTexture2D* t
 		wyTextureHash& texHash = iter->second;
 		switch(texHash.type) {
 			case CT_RESID:
-				switch(texHash.source) {
-					case SOURCE_BMP:
-						return wyGLTexture2D::makeBMP(texHash.rp.resId, texHash.transparentColor, texHash.pixelFormat);
-					case SOURCE_PNG:
-						return wyGLTexture2D::makePNG(texHash.rp.resId, texHash.pixelFormat);
-					case SOURCE_JPG:
-						return wyGLTexture2D::makeJPG(texHash.rp.resId, texHash.transparentColor, texHash.pixelFormat);
-					case SOURCE_PVR:
-						return wyGLTexture2D::makePVR(texHash.rp.resId);
-				}
-				break;
+				return wyGLTexture2D::make(texHash.rp.resId, texHash.transparentColor, texHash.pixelFormat);
 			case CT_PATH:
-				switch(texHash.source) {
-					case SOURCE_PNG:
-						if(texHash.pp.isFile) {
-							return wyGLTexture2D::makeFilePNG(texHash.pp.path, texHash.pixelFormat, texHash.inDensity);
-						} else {
-							return wyGLTexture2D::makePNG(texHash.pp.path, texHash.pixelFormat, texHash.inDensity);
-						}
-						break;
-					case SOURCE_BMP:
-						if(texHash.pp.isFile) {
-							return wyGLTexture2D::makeFileBMP(texHash.pp.path, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
-						} else {
-							return wyGLTexture2D::makeBMP(texHash.pp.path, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
-						}
-						break;
-					case SOURCE_JPG:
-						if(texHash.pp.isFile) {
-							return wyGLTexture2D::makeFileJPG(texHash.pp.path, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
-						} else {
-							return wyGLTexture2D::makeJPG(texHash.pp.path, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
-						}
-						break;
-					case SOURCE_PVR:
-						if(texHash.pp.isFile) {
-							return wyGLTexture2D::makeFilePVR(texHash.pp.path, texHash.inDensity);
-						} else {
-							return wyGLTexture2D::makePVR(texHash.pp.path, texHash.inDensity);
-						}
-						break;
+				if(texHash.pp.isFile) {
+					return wyGLTexture2D::makeFile(texHash.pp.path, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
+				} else {
+					return wyGLTexture2D::make(texHash.pp.path, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
 				}
-				break;
 			case CT_MFS:
-				switch(texHash.source) {
-					case SOURCE_PNG:
-						return wyGLTexture2D::makeMemoryPNG(texHash.mp.mfsName, texHash.pixelFormat, texHash.inDensity);
-					case SOURCE_BMP:
-						return wyGLTexture2D::makeMemoryBMP(texHash.mp.mfsName, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
-					case SOURCE_JPG:
-						return wyGLTexture2D::makeMemoryJPG(texHash.mp.mfsName, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
-					case SOURCE_PVR:
-						return wyGLTexture2D::makeMemoryPVR(texHash.mp.mfsName, texHash.inDensity);
-				}
-				break;
+				return wyGLTexture2D::makeMemory(texHash.mp.mfsName, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
 			case CT_DATA:
 				switch(texHash.source) {
-					case SOURCE_PNG:
-						return wyGLTexture2D::makeRawPNG(texHash.dp.data, texHash.dp.length, texHash.pixelFormat, texHash.inDensity);
-					case SOURCE_BMP:
-						return wyGLTexture2D::makeRawBMP(texHash.dp.data, texHash.dp.length, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
-					case SOURCE_JPG:
-						return wyGLTexture2D::makeRawJPG(texHash.dp.data, texHash.dp.length, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
-					case SOURCE_PVR:
-						return wyGLTexture2D::makeRawPVR(texHash.dp.data, texHash.dp.length, texHash.inDensity);
-					case SOURCE_RAW:
-						return wyGLTexture2D::makeRaw(texHash.dp.data, texHash.dp.width, texHash.dp.height, texHash.pixelFormat);
+					case SOURCE_IMG:
+						return wyGLTexture2D::makeRaw(texHash.dp.data, texHash.dp.length, texHash.transparentColor, texHash.pixelFormat, texHash.inDensity);
+					case SOURCE_RAW8888:
+						return wyGLTexture2D::makeRaw8888(texHash.dp.data, texHash.dp.width, texHash.dp.height, texHash.pixelFormat);
 				}
 				break;
 			case CT_LABEL:
@@ -315,7 +263,7 @@ wyGLTexture2D* wyTextureManager::getTexture(wyTexture2D* t) {
 	return m_textures[handle];
 }
 
-wyTexture2D* wyTextureManager::makeBMP(int resId, int transparentColor, wyTexturePixelFormat format) {
+wyTexture2D* wyTextureManager::make(int resId, int transparentColor, wyTexturePixelFormat format) {
 	if(resId <= 0) {
 		LOGE("%s invalid resource ID: %d", __FUNCTION__, resId);
 		return NULL;
@@ -331,13 +279,13 @@ wyTexture2D* wyTextureManager::makeBMP(int resId, int transparentColor, wyTextur
 		texHash.type = CT_RESID;
 		texHash.pixelFormat = format;
 		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_BMP;
+		texHash.source = SOURCE_IMG;
 		texHash.md5 = hash;
 		texHash.handle = nextHandle();
 		texHash.rp.resId = resId;
 
 		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeBMP(resId, transparentColor, format);
+		wyGLTexture2D* glTex = wyGLTexture2D::make(resId, transparentColor, format);
 		glTex->retain();
 		m_textures[texHash.handle] = glTex;
 
@@ -356,7 +304,7 @@ wyTexture2D* wyTextureManager::makeBMP(int resId, int transparentColor, wyTextur
 	return (wyTexture2D*)tex->autoRelease();
 }
 
-wyTexture2D* wyTextureManager::makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
+wyTexture2D* wyTextureManager::make(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
 	const char* hash = hashForStr(assetPath);
 	unsigned int hashInt = wyUtils::strHash(hash);
 	wyTextureHash texHash;
@@ -367,7 +315,7 @@ wyTexture2D* wyTextureManager::makeBMP(const char* assetPath, int transparentCol
 		texHash.type = CT_PATH;
 		texHash.pixelFormat = format;
 		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_BMP;
+		texHash.source = SOURCE_IMG;
 		texHash.md5 = hash;
 		texHash.inDensity = inDensity;
 		texHash.handle = nextHandle();
@@ -375,7 +323,7 @@ wyTexture2D* wyTextureManager::makeBMP(const char* assetPath, int transparentCol
 		texHash.pp.isFile = false;
 
 		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeBMP(assetPath, transparentColor, format, inDensity);
+		wyGLTexture2D* glTex = wyGLTexture2D::make(assetPath, transparentColor, format, inDensity);
 		glTex->retain();
 		m_textures[texHash.handle] = glTex;
 
@@ -394,7 +342,7 @@ wyTexture2D* wyTextureManager::makeBMP(const char* assetPath, int transparentCol
 	return (wyTexture2D*)tex->autoRelease();
 }
 
-wyTexture2D* wyTextureManager::makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity) {
+wyTexture2D* wyTextureManager::makeRaw(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity) {
 	const char* hash = hashForData(data, length);
 	unsigned int hashInt = wyUtils::strHash(hash);
 	wyTextureHash texHash;
@@ -405,7 +353,7 @@ wyTexture2D* wyTextureManager::makeRawBMP(const char* data, size_t length, int t
 		texHash.type = CT_DATA;
 		texHash.pixelFormat = format;
 		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_BMP;
+		texHash.source = SOURCE_IMG;
 		texHash.md5 = hash;
 		texHash.inDensity = inDensity;
 		texHash.handle = nextHandle();
@@ -413,7 +361,7 @@ wyTexture2D* wyTextureManager::makeRawBMP(const char* data, size_t length, int t
 		texHash.dp.length = length;
 
 		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeRawBMP(texHash.dp.data, length, transparentColor, format, inDensity);
+		wyGLTexture2D* glTex = wyGLTexture2D::makeRaw(texHash.dp.data, length, transparentColor, format, inDensity);
 		glTex->retain();
 		m_textures[texHash.handle] = glTex;
 
@@ -432,7 +380,7 @@ wyTexture2D* wyTextureManager::makeRawBMP(const char* data, size_t length, int t
 	return (wyTexture2D*)tex->autoRelease();
 }
 
-wyTexture2D* wyTextureManager::makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity) {
+wyTexture2D* wyTextureManager::makeMemory(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity) {
 	const char* hash = hashForStr(mfsName);
 	unsigned int hashInt = wyUtils::strHash(hash);
 	wyTextureHash texHash;
@@ -443,14 +391,14 @@ wyTexture2D* wyTextureManager::makeMemoryBMP(const char* mfsName, int transparen
 		texHash.type = CT_MFS;
 		texHash.pixelFormat = format;
 		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_BMP;
+		texHash.source = SOURCE_IMG;
 		texHash.md5 = hash;
 		texHash.inDensity = inDensity;
 		texHash.handle = nextHandle();
 		texHash.mp.mfsName = wyUtils::copy(mfsName);
 
 		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeMemoryBMP(mfsName, transparentColor, format, inDensity);
+		wyGLTexture2D* glTex = wyGLTexture2D::makeMemory(mfsName, transparentColor, format, inDensity);
 		glTex->retain();
 		m_textures[texHash.handle] = glTex;
 
@@ -469,7 +417,7 @@ wyTexture2D* wyTextureManager::makeMemoryBMP(const char* mfsName, int transparen
 	return (wyTexture2D*)tex->autoRelease();
 }
 
-wyTexture2D* wyTextureManager::makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
+wyTexture2D* wyTextureManager::makeFile(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
 	const char* hash = hashForStr(fsPath);
 	unsigned int hashInt = wyUtils::strHash(hash);
 	wyTextureHash texHash;
@@ -480,7 +428,7 @@ wyTexture2D* wyTextureManager::makeFileBMP(const char* fsPath, int transparentCo
 		texHash.type = CT_PATH;
 		texHash.pixelFormat = format;
 		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_BMP;
+		texHash.source = SOURCE_IMG;
 		texHash.md5 = hash;
 		texHash.inDensity = inDensity;
 		texHash.handle = nextHandle();
@@ -488,568 +436,7 @@ wyTexture2D* wyTextureManager::makeFileBMP(const char* fsPath, int transparentCo
 		texHash.pp.isFile = true;
 
 		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeFileBMP(fsPath, transparentColor, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeJPG(int resId, int transparentColor, wyTexturePixelFormat format) {
-	if(resId <= 0) {
-		LOGE("%s invalid resource ID: %d", __FUNCTION__, resId);
-		return NULL;
-	}
-	
-	const char* hash = hashForNum(resId);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_RESID;
-		texHash.pixelFormat = format;
-		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_JPG;
-		texHash.md5 = hash;
-		texHash.handle = nextHandle();
-		texHash.rp.resId = resId;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeJPG(resId, transparentColor, format);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	const char* hash = hashForData(data, length);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_DATA;
-		texHash.pixelFormat = format;
-		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_JPG;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.dp.data = wyUtils::copy(data, 0, length);
-		texHash.dp.length = length;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeRawJPG(texHash.dp.data, length, transparentColor, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	const char* hash = hashForStr(assetPath);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	wyTextureHash texHash;
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_PATH;
-		texHash.pixelFormat = format;
-		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_JPG;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.pp.path = wyUtils::copy(assetPath);
-		texHash.pp.isFile = false;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeJPG(assetPath, transparentColor, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	const char* hash = hashForStr(mfsName);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_MFS;
-		texHash.pixelFormat = format;
-		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_JPG;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.mp.mfsName = wyUtils::copy(mfsName);
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeMemoryJPG(mfsName, transparentColor, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity) {
-	const char* hash = hashForStr(fsPath);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_PATH;
-		texHash.pixelFormat = format;
-		texHash.transparentColor = transparentColor;
-		texHash.source = SOURCE_JPG;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.pp.path = wyUtils::copy(fsPath);
-		texHash.pp.isFile = true;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeFileJPG(fsPath, transparentColor, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makePNG(int resId, wyTexturePixelFormat format) {
-	if(resId <= 0) {
-		LOGE("%s invalid resource ID: %d", __FUNCTION__, resId);
-		return NULL;
-	}
-	
-	const char* hash = hashForNum(resId);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_RESID;
-		texHash.pixelFormat = format;
-		texHash.source = SOURCE_PNG;
-		texHash.md5 = hash;
-		texHash.handle = nextHandle();
-		texHash.rp.resId = resId;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makePNG(resId, format);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeRawPNG(const char* data, size_t length, wyTexturePixelFormat format, float inDensity) {
-	const char* hash = hashForData(data, length);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_DATA;
-		texHash.pixelFormat = format;
-		texHash.source = SOURCE_PNG;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.dp.data = wyUtils::copy(data, 0, length);
-		texHash.dp.length = length;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeRawPNG(texHash.dp.data, length, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makePNG(const char* assetPath, wyTexturePixelFormat format, float inDensity) {
-	const char* hash = hashForStr(assetPath);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_PATH;
-		texHash.pixelFormat = format;
-		texHash.source = SOURCE_PNG;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.pp.path = wyUtils::copy(assetPath);
-		texHash.pp.isFile = false;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makePNG(assetPath, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeMemoryPNG(const char* mfsName, wyTexturePixelFormat format, float inDensity) {
-	const char* hash = hashForStr(mfsName);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_MFS;
-		texHash.pixelFormat = format;
-		texHash.source = SOURCE_PNG;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.mp.mfsName = wyUtils::copy(mfsName);
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeMemoryPNG(mfsName, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeFilePNG(const char* fsPath, wyTexturePixelFormat format, float inDensity) {
-	const char* hash = hashForStr(fsPath);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_PATH;
-		texHash.pixelFormat = format;
-		texHash.source = SOURCE_PNG;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.pp.path = wyUtils::copy(fsPath);
-		texHash.pp.isFile = true;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeFilePNG(fsPath, format, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makePVR(int resId) {
-	if(resId <= 0) {
-		LOGE("%s invalid resource ID: %d", __FUNCTION__, resId);
-		return NULL;
-	}
-
-	const char* hash = hashForNum(resId);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_RESID;
-		texHash.source = SOURCE_PVR;
-		texHash.md5 = hash;
-		texHash.handle = nextHandle();
-		texHash.rp.resId = resId;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makePVR(resId);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeRawPVR(const char* data, size_t length, float inDensity) {
-	const char* hash = hashForData(data, length);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_DATA;
-		texHash.source = SOURCE_PVR;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.dp.data = wyUtils::copy(data, 0, length);
-		texHash.dp.length = length;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeRawPVR(data, length, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makePVR(const char* assetPath, float inDensity) {
-	const char* hash = hashForStr(assetPath);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_PATH;
-		texHash.source = SOURCE_PVR;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.pp.path = wyUtils::copy(assetPath);
-		texHash.pp.isFile = false;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makePVR(assetPath, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeMemoryPVR(const char* mfsName, float inDensity) {
-	const char* hash = hashForStr(mfsName);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_MFS;
-		texHash.source = SOURCE_PVR;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.mp.mfsName = wyUtils::copy(mfsName);
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeMemoryPVR(mfsName, inDensity);
-		glTex->retain();
-		m_textures[texHash.handle] = glTex;
-
-		// insert hash
-		(*m_textureHash)[hashInt] = texHash;
-	} else {
-		texHash = iter->second;
-        wyFree((void*) hash);
-    }
-
-	// create texture proxy and return
-	wyTexture2D* tex = WYNEW wyTexture2D();
-	tex->m_handle = texHash.handle;
-	tex->m_md5 = texHash.md5;
-	tex->m_source = texHash.source;
-	return (wyTexture2D*)tex->autoRelease();
-}
-
-wyTexture2D* wyTextureManager::makeFilePVR(const char* fsPath, float inDensity) {
-	const char* hash = hashForStr(fsPath);
-	unsigned int hashInt = wyUtils::strHash(hash);
-	wyTextureHash texHash;
-	map<unsigned int, wyTextureHash>::iterator iter = m_textureHash->find(hashInt);
-	if(iter == m_textureHash->end()) {
-		// create hash
-		memset(&texHash, 0, sizeof(wyTextureHash));
-		texHash.type = CT_PATH;
-		texHash.source = SOURCE_PVR;
-		texHash.md5 = hash;
-		texHash.inDensity = inDensity;
-		texHash.handle = nextHandle();
-		texHash.pp.path = wyUtils::copy(fsPath);
-		texHash.pp.isFile = true;
-
-		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeFilePVR(fsPath, inDensity);
+		wyGLTexture2D* glTex = wyGLTexture2D::makeFile(fsPath, transparentColor, format, inDensity);
 		glTex->retain();
 		m_textures[texHash.handle] = glTex;
 
@@ -1185,7 +572,7 @@ wyTexture2D* wyTextureManager::makeGL(int texture, int w, int h) {
 	return (wyTexture2D*)tex->autoRelease();
 }
 
-wyTexture2D* wyTextureManager::makeRaw(const char* data, int width, int height, wyTexturePixelFormat format) {
+wyTexture2D* wyTextureManager::makeRaw8888(const char* data, int width, int height, wyTexturePixelFormat format) {
 	size_t length = width * height * 4;
 	const char* hash = hashForData(data, length);
 	unsigned int hashInt = wyUtils::strHash(hash);
@@ -1196,7 +583,7 @@ wyTexture2D* wyTextureManager::makeRaw(const char* data, int width, int height, 
 		memset(&texHash, 0, sizeof(wyTextureHash));
 		texHash.type = CT_DATA;
 		texHash.pixelFormat = format;
-		texHash.source = SOURCE_RAW;
+		texHash.source = SOURCE_RAW8888;
 		texHash.md5 = hash;
 		texHash.handle = nextHandle();
 		texHash.dp.data = wyUtils::copy(data, 0, length);

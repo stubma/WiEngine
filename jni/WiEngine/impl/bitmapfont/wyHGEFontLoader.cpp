@@ -90,13 +90,13 @@ void wyHGEFontLoader::load(wyBitmapFont* font, const char* data, size_t length, 
             // append png file name
             sprintf(lastSolidus, "%s.png", fileName);
             if(font->isFile())
-            	font->addTexture(wyTexture2D::makeFilePNG(fullPngPath));
+            	font->addTexture(wyTexture2D::makeFile(fullPngPath));
             else
-            	font->addTexture(wyTexture2D::makePNG(fullPngPath));
+            	font->addTexture(wyTexture2D::make(fullPngPath));
             wyFree(fullPngPath);
         }
     } else {
-    	font->addTexture(wyTexture2D::makePNG(wyUtils::getResId(fileName, "drawable", NULL)));
+    	font->addTexture(wyTexture2D::make(wyUtils::getResId(fileName, "drawable", NULL)));
     }
 
     // get all words one by one

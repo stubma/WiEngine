@@ -1,6 +1,6 @@
 /*
 ** Lua binding: opengl
-** Generated automatically by tolua++-1.0.92 on Thu Nov  8 13:35:51 2012.
+** Generated automatically by tolua++-1.0.92 on Wed Nov 21 17:04:15 2012.
 */
 
 #ifndef __cplusplus
@@ -694,9 +694,9 @@ static int tolua_opengl_wyCamera_setViewport00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeBMP00
-static int tolua_opengl_wyTexture2D_makeBMP00(lua_State* tolua_S)
+/* method: make of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_make00
+static int tolua_opengl_wyTexture2D_make00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -711,22 +711,22 @@ static int tolua_opengl_wyTexture2D_makeBMP00(lua_State* tolua_S)
  {
   int resId = ((int)  tolua_tonumber(tolua_S,2,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeBMP(resId);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::make(resId);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeBMP'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'make'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeBMP01
-static int tolua_opengl_wyTexture2D_makeBMP01(lua_State* tolua_S)
+/* method: make of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_make01
+static int tolua_opengl_wyTexture2D_make01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -741,19 +741,19 @@ static int tolua_opengl_wyTexture2D_makeBMP01(lua_State* tolua_S)
   int resId = ((int)  tolua_tonumber(tolua_S,2,0));
   int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeBMP(resId,transparentColor);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::make(resId,transparentColor);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeBMP00(tolua_S);
+ return tolua_opengl_wyTexture2D_make00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeBMP02
-static int tolua_opengl_wyTexture2D_makeBMP02(lua_State* tolua_S)
+/* method: make of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_make02
+static int tolua_opengl_wyTexture2D_make02(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -770,19 +770,19 @@ static int tolua_opengl_wyTexture2D_makeBMP02(lua_State* tolua_S)
   int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeBMP(resId,transparentColor,format);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::make(resId,transparentColor,format);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeBMP01(tolua_S);
+ return tolua_opengl_wyTexture2D_make01(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeBMP03
-static int tolua_opengl_wyTexture2D_makeBMP03(lua_State* tolua_S)
+/* method: make of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_make03
+static int tolua_opengl_wyTexture2D_make03(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -795,19 +795,19 @@ static int tolua_opengl_wyTexture2D_makeBMP03(lua_State* tolua_S)
  {
   const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeBMP(assetPath);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::make(assetPath);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeBMP02(tolua_S);
+ return tolua_opengl_wyTexture2D_make02(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeBMP04
-static int tolua_opengl_wyTexture2D_makeBMP04(lua_State* tolua_S)
+/* method: make of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_make04
+static int tolua_opengl_wyTexture2D_make04(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -822,19 +822,19 @@ static int tolua_opengl_wyTexture2D_makeBMP04(lua_State* tolua_S)
   const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
   int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeBMP(assetPath,transparentColor);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::make(assetPath,transparentColor);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeBMP03(tolua_S);
+ return tolua_opengl_wyTexture2D_make03(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeBMP05
-static int tolua_opengl_wyTexture2D_makeBMP05(lua_State* tolua_S)
+/* method: make of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_make05
+static int tolua_opengl_wyTexture2D_make05(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -851,19 +851,19 @@ static int tolua_opengl_wyTexture2D_makeBMP05(lua_State* tolua_S)
   int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeBMP(assetPath,transparentColor,format);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::make(assetPath,transparentColor,format);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeBMP04(tolua_S);
+ return tolua_opengl_wyTexture2D_make04(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeBMP06
-static int tolua_opengl_wyTexture2D_makeBMP06(lua_State* tolua_S)
+/* method: make of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_make06
+static int tolua_opengl_wyTexture2D_make06(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -882,19 +882,19 @@ static int tolua_opengl_wyTexture2D_makeBMP06(lua_State* tolua_S)
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
   float inDensity = ((float)  tolua_tonumber(tolua_S,5,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeBMP(assetPath,transparentColor,format,inDensity);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::make(assetPath,transparentColor,format,inDensity);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeBMP05(tolua_S);
+ return tolua_opengl_wyTexture2D_make05(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeRawBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawBMP00
-static int tolua_opengl_wyTexture2D_makeRawBMP00(lua_State* tolua_S)
+/* method: makeRaw of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRaw00
+static int tolua_opengl_wyTexture2D_makeRaw00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -911,22 +911,22 @@ static int tolua_opengl_wyTexture2D_makeRawBMP00(lua_State* tolua_S)
   const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
   size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawBMP(data,length);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRaw(data,length);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeRawBMP'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'makeRaw'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeRawBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawBMP01
-static int tolua_opengl_wyTexture2D_makeRawBMP01(lua_State* tolua_S)
+/* method: makeRaw of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRaw01
+static int tolua_opengl_wyTexture2D_makeRaw01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -943,19 +943,19 @@ static int tolua_opengl_wyTexture2D_makeRawBMP01(lua_State* tolua_S)
   size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
   int transparentColor = ((int)  tolua_tonumber(tolua_S,4,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawBMP(data,length,transparentColor);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRaw(data,length,transparentColor);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRawBMP00(tolua_S);
+ return tolua_opengl_wyTexture2D_makeRaw00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeRawBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawBMP02
-static int tolua_opengl_wyTexture2D_makeRawBMP02(lua_State* tolua_S)
+/* method: makeRaw of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRaw02
+static int tolua_opengl_wyTexture2D_makeRaw02(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -974,19 +974,19 @@ static int tolua_opengl_wyTexture2D_makeRawBMP02(lua_State* tolua_S)
   int transparentColor = ((int)  tolua_tonumber(tolua_S,4,0));
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,5,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawBMP(data,length,transparentColor,format);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRaw(data,length,transparentColor,format);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRawBMP01(tolua_S);
+ return tolua_opengl_wyTexture2D_makeRaw01(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeRawBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawBMP03
-static int tolua_opengl_wyTexture2D_makeRawBMP03(lua_State* tolua_S)
+/* method: makeRaw of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRaw03
+static int tolua_opengl_wyTexture2D_makeRaw03(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -1007,19 +1007,19 @@ static int tolua_opengl_wyTexture2D_makeRawBMP03(lua_State* tolua_S)
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,5,0));
   float inDensity = ((float)  tolua_tonumber(tolua_S,6,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawBMP(data,length,transparentColor,format,inDensity);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRaw(data,length,transparentColor,format,inDensity);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRawBMP02(tolua_S);
+ return tolua_opengl_wyTexture2D_makeRaw02(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeMemoryBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryBMP00
-static int tolua_opengl_wyTexture2D_makeMemoryBMP00(lua_State* tolua_S)
+/* method: makeMemory of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemory00
+static int tolua_opengl_wyTexture2D_makeMemory00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -1034,22 +1034,22 @@ static int tolua_opengl_wyTexture2D_makeMemoryBMP00(lua_State* tolua_S)
  {
   const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryBMP(mfsName);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemory(mfsName);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeMemoryBMP'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'makeMemory'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeMemoryBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryBMP01
-static int tolua_opengl_wyTexture2D_makeMemoryBMP01(lua_State* tolua_S)
+/* method: makeMemory of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemory01
+static int tolua_opengl_wyTexture2D_makeMemory01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -1064,19 +1064,19 @@ static int tolua_opengl_wyTexture2D_makeMemoryBMP01(lua_State* tolua_S)
   const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
   int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryBMP(mfsName,transparentColor);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemory(mfsName,transparentColor);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeMemoryBMP00(tolua_S);
+ return tolua_opengl_wyTexture2D_makeMemory00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeMemoryBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryBMP02
-static int tolua_opengl_wyTexture2D_makeMemoryBMP02(lua_State* tolua_S)
+/* method: makeMemory of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemory02
+static int tolua_opengl_wyTexture2D_makeMemory02(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -1093,19 +1093,19 @@ static int tolua_opengl_wyTexture2D_makeMemoryBMP02(lua_State* tolua_S)
   int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryBMP(mfsName,transparentColor,format);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemory(mfsName,transparentColor,format);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeMemoryBMP01(tolua_S);
+ return tolua_opengl_wyTexture2D_makeMemory01(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeMemoryBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryBMP03
-static int tolua_opengl_wyTexture2D_makeMemoryBMP03(lua_State* tolua_S)
+/* method: makeMemory of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemory03
+static int tolua_opengl_wyTexture2D_makeMemory03(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -1124,19 +1124,19 @@ static int tolua_opengl_wyTexture2D_makeMemoryBMP03(lua_State* tolua_S)
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
   float inDensity = ((float)  tolua_tonumber(tolua_S,5,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryBMP(mfsName,transparentColor,format,inDensity);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemory(mfsName,transparentColor,format,inDensity);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeMemoryBMP02(tolua_S);
+ return tolua_opengl_wyTexture2D_makeMemory02(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeFileBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFileBMP00
-static int tolua_opengl_wyTexture2D_makeFileBMP00(lua_State* tolua_S)
+/* method: makeFile of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFile00
+static int tolua_opengl_wyTexture2D_makeFile00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -1151,22 +1151,22 @@ static int tolua_opengl_wyTexture2D_makeFileBMP00(lua_State* tolua_S)
  {
   const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFileBMP(fsPath);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFile(fsPath);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeFileBMP'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'makeFile'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeFileBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFileBMP01
-static int tolua_opengl_wyTexture2D_makeFileBMP01(lua_State* tolua_S)
+/* method: makeFile of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFile01
+static int tolua_opengl_wyTexture2D_makeFile01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -1181,19 +1181,19 @@ static int tolua_opengl_wyTexture2D_makeFileBMP01(lua_State* tolua_S)
   const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
   int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFileBMP(fsPath,transparentColor);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFile(fsPath,transparentColor);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeFileBMP00(tolua_S);
+ return tolua_opengl_wyTexture2D_makeFile00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeFileBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFileBMP02
-static int tolua_opengl_wyTexture2D_makeFileBMP02(lua_State* tolua_S)
+/* method: makeFile of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFile02
+static int tolua_opengl_wyTexture2D_makeFile02(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -1210,19 +1210,19 @@ static int tolua_opengl_wyTexture2D_makeFileBMP02(lua_State* tolua_S)
   int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFileBMP(fsPath,transparentColor,format);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFile(fsPath,transparentColor,format);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeFileBMP01(tolua_S);
+ return tolua_opengl_wyTexture2D_makeFile01(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: makeFileBMP of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFileBMP03
-static int tolua_opengl_wyTexture2D_makeFileBMP03(lua_State* tolua_S)
+/* method: makeFile of class  wyTexture2D */
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFile03
+static int tolua_opengl_wyTexture2D_makeFile03(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -1241,1127 +1241,13 @@ static int tolua_opengl_wyTexture2D_makeFileBMP03(lua_State* tolua_S)
   wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
   float inDensity = ((float)  tolua_tonumber(tolua_S,5,0));
   {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFileBMP(fsPath,transparentColor,format,inDensity);
+   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFile(fsPath,transparentColor,format,inDensity);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
   }
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeFileBMP02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeJPG00
-static int tolua_opengl_wyTexture2D_makeJPG00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int resId = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeJPG(resId);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeJPG'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeJPG01
-static int tolua_opengl_wyTexture2D_makeJPG01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  int resId = ((int)  tolua_tonumber(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeJPG(resId,transparentColor);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeJPG00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeJPG02
-static int tolua_opengl_wyTexture2D_makeJPG02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  int resId = ((int)  tolua_tonumber(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeJPG(resId,transparentColor,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeJPG01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeJPG03
-static int tolua_opengl_wyTexture2D_makeJPG03(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeJPG(assetPath);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeJPG02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeJPG04
-static int tolua_opengl_wyTexture2D_makeJPG04(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeJPG(assetPath,transparentColor);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeJPG03(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeJPG05
-static int tolua_opengl_wyTexture2D_makeJPG05(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeJPG(assetPath,transparentColor,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeJPG04(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeJPG06
-static int tolua_opengl_wyTexture2D_makeJPG06(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,5,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeJPG(assetPath,transparentColor,format,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeJPG05(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeRawJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawJPG00
-static int tolua_opengl_wyTexture2D_makeRawJPG00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawJPG(data,length);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeRawJPG'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeRawJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawJPG01
-static int tolua_opengl_wyTexture2D_makeRawJPG01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawJPG(data,length,transparentColor);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRawJPG00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeRawJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawJPG02
-static int tolua_opengl_wyTexture2D_makeRawJPG02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,4,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,5,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawJPG(data,length,transparentColor,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRawJPG01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeRawJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawJPG03
-static int tolua_opengl_wyTexture2D_makeRawJPG03(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,4,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,5,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,6,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawJPG(data,length,transparentColor,format,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRawJPG02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeMemoryJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryJPG00
-static int tolua_opengl_wyTexture2D_makeMemoryJPG00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryJPG(mfsName);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeMemoryJPG'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeMemoryJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryJPG01
-static int tolua_opengl_wyTexture2D_makeMemoryJPG01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryJPG(mfsName,transparentColor);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeMemoryJPG00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeMemoryJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryJPG02
-static int tolua_opengl_wyTexture2D_makeMemoryJPG02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryJPG(mfsName,transparentColor,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeMemoryJPG01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeMemoryJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryJPG03
-static int tolua_opengl_wyTexture2D_makeMemoryJPG03(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,5,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryJPG(mfsName,transparentColor,format,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeMemoryJPG02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeFileJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFileJPG00
-static int tolua_opengl_wyTexture2D_makeFileJPG00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFileJPG(fsPath);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeFileJPG'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeFileJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFileJPG01
-static int tolua_opengl_wyTexture2D_makeFileJPG01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFileJPG(fsPath,transparentColor);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeFileJPG00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeFileJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFileJPG02
-static int tolua_opengl_wyTexture2D_makeFileJPG02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFileJPG(fsPath,transparentColor,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeFileJPG01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeFileJPG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFileJPG03
-static int tolua_opengl_wyTexture2D_makeFileJPG03(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int transparentColor = ((int)  tolua_tonumber(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,5,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFileJPG(fsPath,transparentColor,format,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeFileJPG02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makePNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makePNG00
-static int tolua_opengl_wyTexture2D_makePNG00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int resId = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makePNG(resId);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makePNG'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makePNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makePNG01
-static int tolua_opengl_wyTexture2D_makePNG01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  int resId = ((int)  tolua_tonumber(tolua_S,2,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makePNG(resId,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makePNG00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makePNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makePNG02
-static int tolua_opengl_wyTexture2D_makePNG02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makePNG(assetPath);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makePNG01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makePNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makePNG03
-static int tolua_opengl_wyTexture2D_makePNG03(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makePNG(assetPath,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makePNG02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makePNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makePNG04
-static int tolua_opengl_wyTexture2D_makePNG04(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,3,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makePNG(assetPath,format,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makePNG03(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeRawPNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawPNG00
-static int tolua_opengl_wyTexture2D_makeRawPNG00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawPNG(data,length);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeRawPNG'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeRawPNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawPNG01
-static int tolua_opengl_wyTexture2D_makeRawPNG01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawPNG(data,length,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRawPNG00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeRawPNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawPNG02
-static int tolua_opengl_wyTexture2D_makeRawPNG02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,4,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,5,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawPNG(data,length,format,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRawPNG01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeMemoryPNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryPNG00
-static int tolua_opengl_wyTexture2D_makeMemoryPNG00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryPNG(mfsName);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeMemoryPNG'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeMemoryPNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryPNG01
-static int tolua_opengl_wyTexture2D_makeMemoryPNG01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryPNG(mfsName,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeMemoryPNG00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeMemoryPNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryPNG02
-static int tolua_opengl_wyTexture2D_makeMemoryPNG02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,3,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryPNG(mfsName,format,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeMemoryPNG01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeFilePNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFilePNG00
-static int tolua_opengl_wyTexture2D_makeFilePNG00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFilePNG(fsPath);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeFilePNG'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeFilePNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFilePNG01
-static int tolua_opengl_wyTexture2D_makeFilePNG01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFilePNG(fsPath,format);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeFilePNG00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeFilePNG of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFilePNG02
-static int tolua_opengl_wyTexture2D_makeFilePNG02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  wyTexturePixelFormat format = ((wyTexturePixelFormat) (int)  tolua_tonumber(tolua_S,3,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFilePNG(fsPath,format,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makeFilePNG01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makePVR of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makePVR00
-static int tolua_opengl_wyTexture2D_makePVR00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int resId = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makePVR(resId);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makePVR'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makePVR of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makePVR01
-static int tolua_opengl_wyTexture2D_makePVR01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* assetPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makePVR(assetPath,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-tolua_lerror:
- return tolua_opengl_wyTexture2D_makePVR00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeRawPVR of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRawPVR00
-static int tolua_opengl_wyTexture2D_makeRawPVR00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,4,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeRawPVR(data,length,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeRawPVR'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeMemoryPVR of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeMemoryPVR00
-static int tolua_opengl_wyTexture2D_makeMemoryPVR00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* mfsName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeMemoryPVR(mfsName,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeMemoryPVR'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: makeFilePVR of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeFilePVR00
-static int tolua_opengl_wyTexture2D_makeFilePVR00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* fsPath = ((const char*)  tolua_tostring(tolua_S,2,0));
-  float inDensity = ((float)  tolua_tonumber(tolua_S,3,0));
-  {
-   wyTexture2D* tolua_ret = (wyTexture2D*)  wyTexture2D::makeFilePVR(fsPath,inDensity);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"wyTexture2D");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeFilePVR'.",&tolua_err);
- return 0;
-#endif
+ return tolua_opengl_wyTexture2D_makeFile02(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -2475,10 +1361,9 @@ static int tolua_opengl_wyTexture2D_makeGL00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: makeRaw of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRaw00
-static int tolua_opengl_wyTexture2D_makeRaw00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRaw04
+static int tolua_opengl_wyTexture2D_makeRaw04(lua_State* tolua_S)
 {
-#ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
@@ -2489,7 +1374,6 @@ static int tolua_opengl_wyTexture2D_makeRaw00(lua_State* tolua_S)
  )
   goto tolua_lerror;
  else
-#endif
  {
   const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
   int width = ((int)  tolua_tonumber(tolua_S,3,0));
@@ -2500,17 +1384,14 @@ static int tolua_opengl_wyTexture2D_makeRaw00(lua_State* tolua_S)
   }
  }
  return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'makeRaw'.",&tolua_err);
- return 0;
-#endif
+tolua_lerror:
+ return tolua_opengl_wyTexture2D_makeRaw03(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: makeRaw of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRaw01
-static int tolua_opengl_wyTexture2D_makeRaw01(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_makeRaw05
+static int tolua_opengl_wyTexture2D_makeRaw05(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -2535,7 +1416,7 @@ static int tolua_opengl_wyTexture2D_makeRaw01(lua_State* tolua_S)
  }
  return 1;
 tolua_lerror:
- return tolua_opengl_wyTexture2D_makeRaw00(tolua_S);
+ return tolua_opengl_wyTexture2D_makeRaw04(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -3758,68 +2639,30 @@ TOLUA_API int tolua_opengl_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"wyTexture2D","wyTexture2D","wyObject",NULL);
   #endif
   tolua_beginmodule(tolua_S,"wyTexture2D");
-   tolua_function(tolua_S,"makeBMP",tolua_opengl_wyTexture2D_makeBMP00);
-   tolua_function(tolua_S,"makeBMP",tolua_opengl_wyTexture2D_makeBMP01);
-   tolua_function(tolua_S,"makeBMP",tolua_opengl_wyTexture2D_makeBMP02);
-   tolua_function(tolua_S,"makeBMP",tolua_opengl_wyTexture2D_makeBMP03);
-   tolua_function(tolua_S,"makeBMP",tolua_opengl_wyTexture2D_makeBMP04);
-   tolua_function(tolua_S,"makeBMP",tolua_opengl_wyTexture2D_makeBMP05);
-   tolua_function(tolua_S,"makeBMP",tolua_opengl_wyTexture2D_makeBMP06);
-   tolua_function(tolua_S,"makeRawBMP",tolua_opengl_wyTexture2D_makeRawBMP00);
-   tolua_function(tolua_S,"makeRawBMP",tolua_opengl_wyTexture2D_makeRawBMP01);
-   tolua_function(tolua_S,"makeRawBMP",tolua_opengl_wyTexture2D_makeRawBMP02);
-   tolua_function(tolua_S,"makeRawBMP",tolua_opengl_wyTexture2D_makeRawBMP03);
-   tolua_function(tolua_S,"makeMemoryBMP",tolua_opengl_wyTexture2D_makeMemoryBMP00);
-   tolua_function(tolua_S,"makeMemoryBMP",tolua_opengl_wyTexture2D_makeMemoryBMP01);
-   tolua_function(tolua_S,"makeMemoryBMP",tolua_opengl_wyTexture2D_makeMemoryBMP02);
-   tolua_function(tolua_S,"makeMemoryBMP",tolua_opengl_wyTexture2D_makeMemoryBMP03);
-   tolua_function(tolua_S,"makeFileBMP",tolua_opengl_wyTexture2D_makeFileBMP00);
-   tolua_function(tolua_S,"makeFileBMP",tolua_opengl_wyTexture2D_makeFileBMP01);
-   tolua_function(tolua_S,"makeFileBMP",tolua_opengl_wyTexture2D_makeFileBMP02);
-   tolua_function(tolua_S,"makeFileBMP",tolua_opengl_wyTexture2D_makeFileBMP03);
-   tolua_function(tolua_S,"makeJPG",tolua_opengl_wyTexture2D_makeJPG00);
-   tolua_function(tolua_S,"makeJPG",tolua_opengl_wyTexture2D_makeJPG01);
-   tolua_function(tolua_S,"makeJPG",tolua_opengl_wyTexture2D_makeJPG02);
-   tolua_function(tolua_S,"makeJPG",tolua_opengl_wyTexture2D_makeJPG03);
-   tolua_function(tolua_S,"makeJPG",tolua_opengl_wyTexture2D_makeJPG04);
-   tolua_function(tolua_S,"makeJPG",tolua_opengl_wyTexture2D_makeJPG05);
-   tolua_function(tolua_S,"makeJPG",tolua_opengl_wyTexture2D_makeJPG06);
-   tolua_function(tolua_S,"makeRawJPG",tolua_opengl_wyTexture2D_makeRawJPG00);
-   tolua_function(tolua_S,"makeRawJPG",tolua_opengl_wyTexture2D_makeRawJPG01);
-   tolua_function(tolua_S,"makeRawJPG",tolua_opengl_wyTexture2D_makeRawJPG02);
-   tolua_function(tolua_S,"makeRawJPG",tolua_opengl_wyTexture2D_makeRawJPG03);
-   tolua_function(tolua_S,"makeMemoryJPG",tolua_opengl_wyTexture2D_makeMemoryJPG00);
-   tolua_function(tolua_S,"makeMemoryJPG",tolua_opengl_wyTexture2D_makeMemoryJPG01);
-   tolua_function(tolua_S,"makeMemoryJPG",tolua_opengl_wyTexture2D_makeMemoryJPG02);
-   tolua_function(tolua_S,"makeMemoryJPG",tolua_opengl_wyTexture2D_makeMemoryJPG03);
-   tolua_function(tolua_S,"makeFileJPG",tolua_opengl_wyTexture2D_makeFileJPG00);
-   tolua_function(tolua_S,"makeFileJPG",tolua_opengl_wyTexture2D_makeFileJPG01);
-   tolua_function(tolua_S,"makeFileJPG",tolua_opengl_wyTexture2D_makeFileJPG02);
-   tolua_function(tolua_S,"makeFileJPG",tolua_opengl_wyTexture2D_makeFileJPG03);
-   tolua_function(tolua_S,"makePNG",tolua_opengl_wyTexture2D_makePNG00);
-   tolua_function(tolua_S,"makePNG",tolua_opengl_wyTexture2D_makePNG01);
-   tolua_function(tolua_S,"makePNG",tolua_opengl_wyTexture2D_makePNG02);
-   tolua_function(tolua_S,"makePNG",tolua_opengl_wyTexture2D_makePNG03);
-   tolua_function(tolua_S,"makePNG",tolua_opengl_wyTexture2D_makePNG04);
-   tolua_function(tolua_S,"makeRawPNG",tolua_opengl_wyTexture2D_makeRawPNG00);
-   tolua_function(tolua_S,"makeRawPNG",tolua_opengl_wyTexture2D_makeRawPNG01);
-   tolua_function(tolua_S,"makeRawPNG",tolua_opengl_wyTexture2D_makeRawPNG02);
-   tolua_function(tolua_S,"makeMemoryPNG",tolua_opengl_wyTexture2D_makeMemoryPNG00);
-   tolua_function(tolua_S,"makeMemoryPNG",tolua_opengl_wyTexture2D_makeMemoryPNG01);
-   tolua_function(tolua_S,"makeMemoryPNG",tolua_opengl_wyTexture2D_makeMemoryPNG02);
-   tolua_function(tolua_S,"makeFilePNG",tolua_opengl_wyTexture2D_makeFilePNG00);
-   tolua_function(tolua_S,"makeFilePNG",tolua_opengl_wyTexture2D_makeFilePNG01);
-   tolua_function(tolua_S,"makeFilePNG",tolua_opengl_wyTexture2D_makeFilePNG02);
-   tolua_function(tolua_S,"makePVR",tolua_opengl_wyTexture2D_makePVR00);
-   tolua_function(tolua_S,"makePVR",tolua_opengl_wyTexture2D_makePVR01);
-   tolua_function(tolua_S,"makeRawPVR",tolua_opengl_wyTexture2D_makeRawPVR00);
-   tolua_function(tolua_S,"makeMemoryPVR",tolua_opengl_wyTexture2D_makeMemoryPVR00);
-   tolua_function(tolua_S,"makeFilePVR",tolua_opengl_wyTexture2D_makeFilePVR00);
+   tolua_function(tolua_S,"make",tolua_opengl_wyTexture2D_make00);
+   tolua_function(tolua_S,"make",tolua_opengl_wyTexture2D_make01);
+   tolua_function(tolua_S,"make",tolua_opengl_wyTexture2D_make02);
+   tolua_function(tolua_S,"make",tolua_opengl_wyTexture2D_make03);
+   tolua_function(tolua_S,"make",tolua_opengl_wyTexture2D_make04);
+   tolua_function(tolua_S,"make",tolua_opengl_wyTexture2D_make05);
+   tolua_function(tolua_S,"make",tolua_opengl_wyTexture2D_make06);
+   tolua_function(tolua_S,"makeRaw",tolua_opengl_wyTexture2D_makeRaw00);
+   tolua_function(tolua_S,"makeRaw",tolua_opengl_wyTexture2D_makeRaw01);
+   tolua_function(tolua_S,"makeRaw",tolua_opengl_wyTexture2D_makeRaw02);
+   tolua_function(tolua_S,"makeRaw",tolua_opengl_wyTexture2D_makeRaw03);
+   tolua_function(tolua_S,"makeMemory",tolua_opengl_wyTexture2D_makeMemory00);
+   tolua_function(tolua_S,"makeMemory",tolua_opengl_wyTexture2D_makeMemory01);
+   tolua_function(tolua_S,"makeMemory",tolua_opengl_wyTexture2D_makeMemory02);
+   tolua_function(tolua_S,"makeMemory",tolua_opengl_wyTexture2D_makeMemory03);
+   tolua_function(tolua_S,"makeFile",tolua_opengl_wyTexture2D_makeFile00);
+   tolua_function(tolua_S,"makeFile",tolua_opengl_wyTexture2D_makeFile01);
+   tolua_function(tolua_S,"makeFile",tolua_opengl_wyTexture2D_makeFile02);
+   tolua_function(tolua_S,"makeFile",tolua_opengl_wyTexture2D_makeFile03);
    tolua_function(tolua_S,"makeLabel",tolua_opengl_wyTexture2D_makeLabel00);
    tolua_function(tolua_S,"makeLabel",tolua_opengl_wyTexture2D_makeLabel01);
    tolua_function(tolua_S,"makeGL",tolua_opengl_wyTexture2D_makeGL00);
-   tolua_function(tolua_S,"makeRaw",tolua_opengl_wyTexture2D_makeRaw00);
-   tolua_function(tolua_S,"makeRaw",tolua_opengl_wyTexture2D_makeRaw01);
+   tolua_function(tolua_S,"makeRaw",tolua_opengl_wyTexture2D_makeRaw04);
+   tolua_function(tolua_S,"makeRaw",tolua_opengl_wyTexture2D_makeRaw05);
    tolua_function(tolua_S,"new",tolua_opengl_wyTexture2D_new00);
    tolua_function(tolua_S,"new_local",tolua_opengl_wyTexture2D_new00_local);
    tolua_function(tolua_S,".call",tolua_opengl_wyTexture2D_new00_local);
@@ -3854,9 +2697,7 @@ TOLUA_API int tolua_opengl_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"wyEventDispatcher");
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"SOURCE_INVALID",SOURCE_INVALID);
-  tolua_constant(tolua_S,"SOURCE_JPG",SOURCE_JPG);
-  tolua_constant(tolua_S,"SOURCE_PNG",SOURCE_PNG);
-  tolua_constant(tolua_S,"SOURCE_PVR",SOURCE_PVR);
+  tolua_constant(tolua_S,"SOURCE_IMG",SOURCE_IMG);
   tolua_constant(tolua_S,"SOURCE_LABEL",SOURCE_LABEL);
   tolua_constant(tolua_S,"SOURCE_OPENGL",SOURCE_OPENGL);
   tolua_constant(tolua_S,"WY_TEXTURE_PIXEL_FORMAT_RGBA8888",WY_TEXTURE_PIXEL_FORMAT_RGBA8888);
