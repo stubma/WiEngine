@@ -1659,6 +1659,15 @@ void wyGLTexture2D::doApplyFilter() {
 
 			break;
 		}
+		case SOURCE_BMP:
+		{
+			// loadPNG do everything for you
+			raw = loadBMP();
+			if(raw == NULL)
+				return;
+
+			break;
+		}
 		case SOURCE_RAW:
 		{
 			size_t len = sizeof(char) * m_width * m_height * 4;
