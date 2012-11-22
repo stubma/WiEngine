@@ -1661,7 +1661,7 @@ void wyGLTexture2D::doApplyFilter() {
 		}
 		case SOURCE_BMP:
 		{
-			// loadPNG do everything for you
+			// loadBMP do everything for you
 			raw = loadBMP();
 			if(raw == NULL)
 				return;
