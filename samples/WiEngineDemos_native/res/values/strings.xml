@@ -22,6 +22,7 @@
     <string name="iap_desc">In-App Purchase is important for game profit but integrating IAP for a cross-platform game may be a little troublesome. WiEngine provides an universal IAP interface to simplify IAP integration work</string>
     <string name="performance_desc">Test performance of WiEngine in your device</string>
     <string name="shader_desc">How to use custom shader to implement cool effect</string>
+    <string name="cegui_desc">CEGUI(Crazy Eddie\'s GUI) System is a free library providing windowing and widgets for graphics APIs/engines where such functionality is not natively available, or severely lacking. The library is object orientated, written in C++, and targeted at games developers who should be spending their time creating great games, not building GUI sub-systems! WiEngine integrates CEGUI into wyCEGUINode so CEGUI elements can be embedded in WiEngine scene</string>
     
     <!-- activity description -->
     <string name="MenuTest_desc">How to create menu node and response events</string>
@@ -242,4 +243,5 @@
 	<string name="ToastTest_desc">Use wyToast to show a float tip likes Android Toast component, but it is implemented by OpenGL and much customizable</string>
 	<string name="RenderTextureTest_desc">Use RenderTexture to combine some drawing operation so it can create great effect</string>
 	<string name="WavingFlagTest_desc">Very simple shader to show a waving flag</string>
+	<string name="CEGUIWindowTest_desc">Window is CEGUI control\'s base class</string>
 </resources>

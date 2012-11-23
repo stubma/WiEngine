@@ -29,6 +29,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/astar \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/bitmapfont \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/box2d \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/cegui \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/common \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/dialog \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/easeactions \

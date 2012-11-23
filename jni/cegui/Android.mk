@@ -11,10 +11,12 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/cegui/include \
 	$(LOCAL_PATH)/cegui/include/falagard \
 	$(LOCAL_PATH)/cegui/include/XMLParserModules/ExpatParser \
 	$(LOCAL_PATH)/cegui/include/ImageCodecModules/WiEngineImageCodec \
+	$(LOCAL_PATH)/cegui/include/RendererModules/WiEngine \
 	$(LOCAL_PATH)/cegui/include/WindowRendererSets/Falagard \
 	$(LOCAL_PATH)/cegui/include/ScriptingModules/LuaScriptModule \
 	$(LOCAL_PATH)/cegui/src/minizip
-LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES)
+LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES) \
+	$(LOCAL_PATH)/WiEngine/include/cegui
 LOCAL_STATIC_LIBRARIES := ft2 expat png jpeg nsbmp kazmath
 LOCAL_SHARED_LIBRARIES := lua wiengine
 LOCAL_SRC_FILES := $(call all-cpp-files-under,cegui)

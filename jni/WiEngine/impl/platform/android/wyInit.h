@@ -82,6 +82,7 @@ typedef void (*getAssetFDFunc)(const char* path, size_t* outFD, size_t* outOffse
 typedef const char* (*utf16toutf8Func)(const char16_t* s16);
 typedef const char16_t* (*toUTF16Func)(const char* s8);
 typedef const char* (*wctoutf8Func)(const wchar_t* ws);
+typedef const char** (*listAssetFilesFunc)(const char* path, size_t* outLen, const char* pattern);
 typedef struct wyAAL {
 	scaleImageFunc scaleImage;
 	scalePVRFunc scalePVR;
@@ -108,6 +109,7 @@ typedef struct wyAAL {
 	utf16toutf8Func utf16toutf8;
 	toUTF16Func toUTF16;
 	wctoutf8Func wctoutf8;
+	listAssetFilesFunc listAssetFiles;
 } wyAAL;
 
 #endif // #if ANDROID

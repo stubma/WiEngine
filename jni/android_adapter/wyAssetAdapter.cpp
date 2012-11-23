@@ -33,6 +33,7 @@
 #include "utils/ResourceTypes.h"
 #include <jni.h>
 #include "wyLog.h"
+#include <fnmatch.h>
 
 typedef enum {
 	SCALE_MODE_BY_DENSITY,
@@ -53,12 +54,13 @@ extern JavaVM* gVM;
 static jobject jobject_Context = NULL;
 static jmethodID jmethodID_Context_getAssets;
 static jclass jclass_AssetManager = NULL;
+static jmethodID jmethodID_AssetManager_list;
+static jfieldID jfieldID_AssetManager_mObject;
 static wyScaleMode sScaleMode = SCALE_MODE_BY_DENSITY;
 static float sDensity = 1.0f;
 
 static AssetManager* assetManagerForJavaObject(JNIEnv* env, jobject obj) {
-	jfieldID amField = env->GetFieldID(jclass_AssetManager, "mObject", "I");
-	AssetManager* am = (AssetManager*)env->GetIntField(obj, amField);
+	AssetManager* am = (AssetManager*)env->GetIntField(obj, jfieldID_AssetManager_mObject);
 	return am;
 }
 
@@ -80,6 +82,8 @@ void setEnv(void* env) {
 	je->GetJavaVM(&gVM);
 	jclass c = je->FindClass(CLASS_ASSETMANAGER);
 	jclass_AssetManager = (jclass)je->NewGlobalRef(c);
+	jmethodID_AssetManager_list = je->GetMethodID(jclass_AssetManager, "list", "(Ljava/lang/String;)[Ljava/lang/String;");
+	jfieldID_AssetManager_mObject = je->GetFieldID(jclass_AssetManager, "mObject", "I");
 }
 
 void setContext(void* context) {
@@ -337,6 +341,48 @@ const char* wctoutf8(const wchar_t* ws) {
 	strcpy(s8, str->string());
 	delete str;
 	return s8;
+}
+
+const char** listAssetFilesFunc(const char* path, size_t* outLen, const char* pattern) {
+	// get env
+	JNIEnv* env = getEnv();
+
+	// get asset manager
+	jobject amObj = env->CallObjectMethod(jobject_Context, jmethodID_Context_getAssets);
+
+	// get list
+	jstring jPath = env->NewStringUTF(path == NULL ? "" : path);
+	jobjectArray jFiles = (jobjectArray)env->CallObjectMethod(amObj, jmethodID_AssetManager_list, jPath);
+	jsize len = env->GetArrayLength(jFiles);
+
+	// get c string list, copy java string content to c string
+	int count = 0;
+	char** files = (char**)malloc(sizeof(char*) * len);
+	for(int i = 0; i < len; i++) {
+		jstring jFile = (jstring)env->GetObjectArrayElement(jFiles, i);
+		jsize size = env->GetStringUTFLength(jFile);
+		files[i] = (char*)calloc(sizeof(char), size + 1);
+		const char* jFileStr = (const char*)env->GetStringUTFChars(jFile, NULL);
+		if(!pattern) {
+			if(fnmatch(pattern, jFileStr, 0) == 0) {
+				memcpy(files[count], jFileStr, size);
+				count++;
+			}
+		}
+		env->ReleaseStringUTFChars(jFile, jFileStr);
+		env->DeleteLocalRef(jFile);
+	}
+
+	// return len
+	if(outLen)
+		*outLen = count;
+
+	// release
+	env->DeleteLocalRef(jPath);
+	env->DeleteLocalRef(jFiles);
+
+	// return
+	return (const char**)files;
 }
 
 #ifdef __cplusplus

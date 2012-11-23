@@ -26,6 +26,7 @@ public abstract class WiEngineTestActivity extends Activity {
 		System.loadLibrary("winetwork");
 		System.loadLibrary("json");
 		System.loadLibrary("iap");
+		System.loadLibrary("cegui");
 		System.loadLibrary("wienginedemos");
 	}
 	

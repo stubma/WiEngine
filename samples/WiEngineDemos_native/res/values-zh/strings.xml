@@ -22,6 +22,7 @@
     <string name="iap_desc">应用内支付(In-App Purchase)是游戏盈利的重要手段. 不过, 对于一个跨平台游戏而言, 集成应用内支付也许是个费劲的活. WiEngine定义了一个IAP的通用接口, 来简化IAP代码的平台移植工作</string>
     <string name="performance_desc">在您的设备上测试WiEngine的性能</string>
     <string name="shader_desc">如何使用自定义的shader程序实现一些特殊效果</string>
+    <string name="cegui_desc">CEGUI(Crazy Eddie\'s GUI)是一个免费开源的图形窗口组件库, 它使用C++开发, 主要针对游戏开发者而设计, 可以节省游戏开发者在用户界面上花费的精力, 而有更多时间专注于游戏逻辑. WiEngine通过wyCEGUINode类集成了CEGUI元素, 因此可以将CEGUI嵌入到WiEngine场景中.</string>
         
     <!-- activity description -->
     <string name="MenuTest_desc">如何创建菜单和菜单项并响应点击事件</string>
@@ -242,4 +243,5 @@
 	<string name="ToastTest_desc">如何使用wyToast类显示一个浮动提示, 其类似于Android上的Toast组件, 只不过是完全OpenGL实现的, 并具有更高的定制性</string>
 	<string name="RenderTextureTest_desc">用RenderTexture可以将多个渲染操作组合起来形成一张贴图, 这可以用于实现一些特殊效果, 比如聚光灯</string>
 	<string name="WavingFlagTest_desc">简单的实现一个飘动的旗帜</string>
+	<string name="CEGUIWindowTest_desc">Window是CEGUI组件的基类</string>
 </resources>

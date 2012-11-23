@@ -1137,6 +1137,16 @@ public:
 	 */
 	static const char* mapAssetsPath(const char* path);
 
+	/**
+	 * List all files, no matter file or directory, in an assets folder
+	 *
+	 * @param path relative path in assets folder
+	 * @param outLen it returns the size of returned string array
+	 * @param pattern file name pattern, or NULL if no pattern
+	 * @return a file name array which should be released by caller
+	 */
+	static const char** listAssetFiles(const char* path, size_t* outLen, const char* pattern);
+
 	/*
 	 * thread helper
 	 */

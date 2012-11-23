@@ -415,7 +415,9 @@ void System::renderGUI(void)
 	}
 
     d_renderer->getDefaultRenderingRoot().draw();
+#if !defined(ANDROID) && !defined(IOS)
 	MouseCursor::getSingleton().draw();
+#endif
     d_renderer->endRendering();
 
     // do final destruction on dead-pool windows

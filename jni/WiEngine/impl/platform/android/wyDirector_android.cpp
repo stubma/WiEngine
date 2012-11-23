@@ -501,6 +501,12 @@ void wyDirector_android::setupAAL() {
 	    	dlclose(sAALHandler);
 	    	exit(1);
 	    }
+	    gAAL.listAssetFiles = (listAssetFilesFunc)dlsym(sAALHandler, "listAssetFiles");
+	    if(gAAL.listAssetFiles == NULL) {
+	    	LOGE("Cannot load symbol 'listAssetFiles'");
+	    	dlclose(sAALHandler);
+	    	exit(1);
+	    }
 
 	    // set env to aal
 	    if(gAAL.setEnv)

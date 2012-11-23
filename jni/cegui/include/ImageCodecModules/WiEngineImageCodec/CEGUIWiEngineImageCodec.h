@@ -56,7 +56,7 @@ public:
     ~WiEngineImageCodec();
     
     /// @see CEGUI::ImageCodec::load
-    Texture* load(const RawDataContainer& data, Texture* result);
+    virtual Texture* load(const RawDataContainer& data, Texture* result);
 };
 
 } // End of CEGUI namespace section 

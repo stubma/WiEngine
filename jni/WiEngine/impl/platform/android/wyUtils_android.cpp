@@ -120,6 +120,10 @@ extern jmethodID g_mid_Intent_putExtra_Parcelable;
 // Map
 extern jmethodID g_mid_Map_put;
 
+// Context
+extern jmethodID g_mid_Context_getAssets;
+extern jfieldID g_fid_AssetManager_mObject;
+
 // aal
 extern wyAAL gAAL;
 
@@ -1450,12 +1454,16 @@ bool wyUtils::isResExistent(const char* path, bool isFile) {
 	}
 }
 
+const char** wyUtils::listAssetFiles(const char* path, size_t* outLen, const char* pattern) {
+	return gAAL.listAssetFiles(path, outLen, pattern);
+}
+
 JNIEnv* wyUtils::getJNIEnv() {
 	return getEnv();
 }
 
 void wyUtils::addAndroidStrings(const char* fileName, const char* langId) {
-    
+	// do nothing for android platform
 }
 
 #endif // #if ANDROID
