@@ -80,9 +80,6 @@ void wyGridController::beforeDraw() {
 void wyGridController::afterDraw(wyNode* node) {
 	m_fb->afterRender();
 
-	// need transform to this node because afterRender will pop matrix to parent space
-	node->applyWorldMatrix();
-
 	// render texture of frame buffer
 	wyDirector* d = wyDirector::getInstance();
 	wyRenderManager* rm = d->getRenderManager();

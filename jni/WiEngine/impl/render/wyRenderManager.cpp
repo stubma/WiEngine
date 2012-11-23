@@ -179,12 +179,12 @@ void wyRenderManager::renderNodeRecursively(wyNode* node) {
 	kmGLMatrixMode(KM_GL_WORLD);
 	kmGLPushMatrix();
 
+	// transform to node space
+	node->applyWorldMatrix();
+
 	// if node has grid, enable grid
-	// if not, transform node
 	if(node->isGridActive()) {
 		node->getGrid()->beforeDraw();
-	} else {
-		node->applyWorldMatrix();
 	}
 
 	// push clip rect
