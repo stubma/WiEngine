@@ -198,7 +198,7 @@ const char* wctoutf8(const wchar_t* ws);
  * @param pattern file name pattern, or NULL if no pattern
  * @return a file name array which should be released by caller
  */
-const char** listAssetFilesFunc(const char* path, size_t* outLen, const char* pattern);
+const char** listAssetFiles(const char* path, size_t* outLen, const char* pattern);
 
 #ifdef __cplusplus
 }

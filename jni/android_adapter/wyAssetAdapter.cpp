@@ -343,7 +343,7 @@ const char* wctoutf8(const wchar_t* ws) {
 	return s8;
 }
 
-const char** listAssetFilesFunc(const char* path, size_t* outLen, const char* pattern) {
+const char** listAssetFiles(const char* path, size_t* outLen, const char* pattern) {
 	// get env
 	JNIEnv* env = getEnv();
 
