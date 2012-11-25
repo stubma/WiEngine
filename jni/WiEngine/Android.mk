@@ -74,8 +74,8 @@ LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES) \
 	$(LOCAL_PATH)/WiEngine/impl/render \
 	$(LOCAL_PATH)/WiEngine/impl/tmx \
 	$(LOCAL_PATH)/sqlite3
-LOCAL_STATIC_LIBRARIES := png jpeg nsbmp kazmath
-LOCAL_SHARED_LIBRARIES := xml2
+LOCAL_STATIC_LIBRARIES := png jpeg nsbmp
+LOCAL_SHARED_LIBRARIES := xml2 kazmath
 LOCAL_SRC_FILES := $(call all-cpp-files-under,WiEngine)
 	
 include $(BUILD_SHARED_LIBRARY)

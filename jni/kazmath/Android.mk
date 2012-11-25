@@ -12,4 +12,4 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/kazmath/include
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/kazmath/include
 LOCAL_SRC_FILES := $(call all-c-files-under,kazmath)
 	
-include $(BUILD_STATIC_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)

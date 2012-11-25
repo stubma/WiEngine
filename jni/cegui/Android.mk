@@ -17,8 +17,8 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/cegui/include \
 	$(LOCAL_PATH)/cegui/src/minizip
 LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES) \
 	$(LOCAL_PATH)/WiEngine/include/cegui
-LOCAL_STATIC_LIBRARIES := ft2 expat png jpeg nsbmp kazmath
-LOCAL_SHARED_LIBRARIES := lua wiengine
+LOCAL_STATIC_LIBRARIES := ft2 expat png jpeg nsbmp
+LOCAL_SHARED_LIBRARIES := kazmath lua wiengine
 LOCAL_SRC_FILES := $(call all-cpp-files-under,cegui)
 	
 include $(BUILD_SHARED_LIBRARY)

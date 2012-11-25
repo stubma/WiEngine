@@ -17,7 +17,7 @@ endef
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wienginedemos
-LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -ldl -lGLESv2 -lwiengine -llua -lwisound -lbox2d -lwinetwork -ljson -liap
+LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -ldl -lGLESv2 -lwiengine -llua -lwisound -lbox2d -lwinetwork -ljson -liap -lcegui
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni \
 	$(LOCAL_PATH)/../../../jni/lua \
