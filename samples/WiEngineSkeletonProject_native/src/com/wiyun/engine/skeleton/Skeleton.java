@@ -21,6 +21,7 @@ public class Skeleton extends Activity {
 		 */
 		System.loadLibrary("wiskia");
 		System.loadLibrary("xml2");
+		System.loadLibrary("kazmath");
 		System.loadLibrary("wiengine");
 		System.loadLibrary("lua");
 		System.loadLibrary("box2d");
