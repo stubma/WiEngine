@@ -79,6 +79,32 @@ void WiEngineTexture::loadFromMemory(const void* buffer,
 void WiEngineTexture::saveToMemory(void* buffer) {
 	// TODO need implement
 }
+    
+void WiEngineTexture::loadNull(const Size& size) {
+    // pot size
+    Size pot(wyMath::getNextPOT(size.d_width), wyMath::getNextPOT(size.d_height));
+    
+    // generate texture
+    GLuint t;
+    glGenTextures(1, &t);
+    glBindTexture(GL_TEXTURE_2D, t);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    
+    // use null data pointer
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,
+                 static_cast<GLsizei>(pot.d_width),
+                 static_cast<GLsizei>(pot.d_height),
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+    
+    // create wiengine texture
+    setTexture(wyTexture2D::makeGL(t, size.d_width, size.d_height));
+    
+    // update values
+    updateCachedValues();
+}
 
 void WiEngineTexture::updateCachedValues() {
 	m_originalSize.d_width = m_tex->getWidth();

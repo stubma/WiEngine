@@ -527,6 +527,7 @@
 		929D49531470082800267B99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7947146FA9AF004757F9 /* Foundation.framework */; };
 		929D49541470082800267B99 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
 		929D49571470087300267B99 /* wyTextBox_macosx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D49551470087200267B99 /* wyTextBox_macosx.cpp */; };
+		92AE99881663729700200532 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7F53146FC75A004757F9 /* OpenGL.framework */; };
 		92BB799F1478D9FC00503912 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BB799E1478D9FB00503912 /* Carbon.framework */; };
 		92BB79A61478E67400503912 /* WYAlertDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92BB79A51478E67300503912 /* WYAlertDelegate.mm */; };
 		92BB79A81478EA4400503912 /* wyDevice_macosx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BB79A71478EA4400503912 /* wyDevice_macosx.cpp */; };
@@ -3107,6 +3108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92E1B0E61663086A00D06233 /* libz.dylib in Frameworks */,
+				92AE99881663729700200532 /* OpenGL.framework in Frameworks */,
 				92E1B2EC16630D3400D06233 /* CoreFoundation.framework in Frameworks */,
 				92E1B0E8166308AE00D06233 /* libwiengine.dylib in Frameworks */,
 				92E1B0E7166308AB00D06233 /* liblua.dylib in Frameworks */,
@@ -8215,6 +8217,7 @@
 				92E1ACB7166307D200D06233 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		92E1B0F61663090300D06233 /* Build configuration list for PBXNativeTarget "libexpat" */ = {
 			isa = XCConfigurationList;
@@ -8223,6 +8226,7 @@
 				92E1B0F81663090300D06233 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		92E1B1051663092100D06233 /* Build configuration list for PBXNativeTarget "libft2" */ = {
 			isa = XCConfigurationList;
@@ -8231,6 +8235,7 @@
 				92E1B1071663092100D06233 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		92E1B29D16630A6300D06233 /* Build configuration list for PBXNativeTarget "libkazmath" */ = {
 			isa = XCConfigurationList;
@@ -8239,6 +8244,7 @@
 				92E1B29F16630A6300D06233 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

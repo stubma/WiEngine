@@ -28,18 +28,36 @@
  */
 #include "CEGUIWiEngineRenderer.h"
 #include "CEGUIWiEngineGeometryBuffer.h"
+#include "CEGUIWiEngineTexture.h"
+#include "CEGUIWiEngineViewportTarget.h"
+#include "CEGUIWiEngineTextureTarget.h"
 #include <algorithm>
+#include "WiEngine.h"
 
 namespace CEGUI {
+    
+// renderer id initialization
+String WiEngineRenderer::s_rendererID("CEGUI::WiEngineRenderer - OpenGL ES 2.0 based WiEngine renderer");
 
-WiEngineRenderer::WiEngineRenderer() {
+WiEngineRenderer::WiEngineRenderer() :
+        m_displayDPI(160, 160),
+        m_defaultRoot(NULL),
+        m_defaultTarget(NULL) {
+    m_defaultTarget = new WiEngineViewportTarget(*this);
+    m_defaultRoot = new RenderingRoot(*m_defaultTarget);
 }
 
 WiEngineRenderer::~WiEngineRenderer() {
+    destroyAllGeometryBuffers();
+    destroyAllTextureTargets();
+    destroyAllTextures();
+    
+    delete m_defaultRoot;
+    delete m_defaultTarget;
 }
 
 RenderingRoot& WiEngineRenderer::getDefaultRenderingRoot() {
-
+    return *m_defaultRoot;
 }
 
 GeometryBuffer& WiEngineRenderer::createGeometryBuffer() {
@@ -62,36 +80,62 @@ void WiEngineRenderer::destroyAllGeometryBuffers() {
 }
 
 TextureTarget* WiEngineRenderer::createTextureTarget() {
-
+    TextureTarget* t = new WiEngineTextureTarget(*this);
+    m_textureTargets.push_back(t);
+    return t;
 }
 
 void WiEngineRenderer::destroyTextureTarget(TextureTarget* target) {
-
+    TextureTargetList::iterator i = std::find(m_textureTargets.begin(),
+                                              m_textureTargets.end(),
+                                              target);
+    
+    if (m_textureTargets.end() != i) {
+        m_textureTargets.erase(i);
+        delete target;
+    }
 }
 
 void WiEngineRenderer::destroyAllTextureTargets() {
-
+    while (!m_textureTargets.empty())
+        destroyTextureTarget(*m_textureTargets.begin());
 }
 
 Texture& WiEngineRenderer::createTexture() {
-
+    WiEngineTexture* tex = new WiEngineTexture(*this);
+    m_textures.push_back(tex);
+    return *tex;
 }
 
 Texture& WiEngineRenderer::createTexture(const String& filename,
 							   const String& resourceGroup) {
-
+    WiEngineTexture* tex = new WiEngineTexture(*this);
+    tex->loadFromFile(filename, resourceGroup);
+    m_textures.push_back(tex);
+    return *tex;
 }
 
 Texture& WiEngineRenderer::createTexture(const Size& size) {
-
+    WiEngineTexture* tex = new WiEngineTexture(*this);
+    tex->loadNull(size);
+    m_textures.push_back(tex);
+    return *tex;
 }
 
 void WiEngineRenderer::destroyTexture(Texture& texture) {
-
+    TextureList::iterator i = std::find(m_textures.begin(),
+                                        m_textures.end(),
+                                        &texture);
+    
+    if (m_textures.end() != i) {
+        m_textures.erase(i);
+        delete &texture;
+    }
 }
 
 void WiEngineRenderer::destroyAllTextures() {
-
+    while (!m_textures.empty())
+        destroyTexture(**m_textures.begin());
 }
 
 void WiEngineRenderer::beginRendering() {
@@ -103,23 +147,30 @@ void WiEngineRenderer::endRendering() {
 }
 
 void WiEngineRenderer::setDisplaySize(const Size& size) {
-
+    if (size != m_displaySize) {
+        m_displaySize = size;
+        
+        // update the default target's area
+        Rect area(m_defaultTarget->getArea());
+        area.setSize(size);
+        m_defaultTarget->setArea(area);
+    }
 }
 
 const Size& WiEngineRenderer::getDisplaySize() const {
-
+    return m_displaySize;
 }
 
 const Vector2& WiEngineRenderer::getDisplayDPI() const {
-
+    return m_displayDPI;
 }
 
 uint WiEngineRenderer::getMaxTextureSize() const {
-
+    return wyDevice::maxTextureSize;
 }
 
 const String& WiEngineRenderer::getIdentifierString() const {
-
+    return s_rendererID;
 }
 
 } // end of namespace CEGUI

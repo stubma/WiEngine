@@ -34,16 +34,40 @@
 namespace CEGUI {
 
 class WiEngineGeometryBuffer;
-
+class WiEngineTexture;
+    
 /**
  * WiEngine renderer for CEGUI
  */
 class CEGUIEXPORT WiEngineRenderer : public Renderer {
 private:
+    /// String holding the renderer identification text.
+    static String s_rendererID;
+    
     /// Container used to track geometry buffers
     typedef std::vector<WiEngineGeometryBuffer*> GeometryBufferList;
     GeometryBufferList m_geometryBuffers;
 
+    /// container type used to hold Textures we create.
+    typedef std::vector<WiEngineTexture*> TextureList;
+    TextureList m_textures;
+    
+    /// container type used to hold TextureTargets we create.
+    typedef std::vector<TextureTarget*> TextureTargetList;
+    TextureTargetList m_textureTargets;
+    
+    /// What the renderer considers to be the current display size.
+    Size m_displaySize;
+    
+    /// What the renderer considers to be the current display DPI resolution.
+    Vector2 m_displayDPI;
+    
+    /// The default rendering root object
+    RenderingRoot* m_defaultRoot;
+    
+    /// The default RenderTarget (used by m_defaultRoot)
+    RenderTarget* m_defaultTarget;
+    
 public:
 	WiEngineRenderer();
 	virtual ~WiEngineRenderer();

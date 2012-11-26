@@ -87,6 +87,9 @@ public:
 
 	/// @see CEGUI::Texture::saveToMemory
     virtual void saveToMemory(void* buffer);
+    
+    /// create a empty texture with specified size
+    void loadNull(const Size& size);
 };
 
 } // end of namespace CEGUI
