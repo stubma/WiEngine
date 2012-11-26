@@ -361,13 +361,11 @@ const char** listAssetFiles(const char* path, size_t* outLen, const char* patter
 	for(int i = 0; i < len; i++) {
 		jstring jFile = (jstring)env->GetObjectArrayElement(jFiles, i);
 		jsize size = env->GetStringUTFLength(jFile);
-		files[i] = (char*)calloc(sizeof(char), size + 1);
 		const char* jFileStr = (const char*)env->GetStringUTFChars(jFile, NULL);
-		if(!pattern) {
-			if(fnmatch(pattern, jFileStr, 0) == 0) {
-				memcpy(files[count], jFileStr, size);
-				count++;
-			}
+		if(!pattern || fnmatch(pattern, jFileStr, 0) == 0) {
+			files[count] = (char*)calloc(sizeof(char), size + 1);
+			memcpy(files[count], jFileStr, size);
+			count++;
 		}
 		env->ReleaseStringUTFChars(jFile, jFileStr);
 		env->DeleteLocalRef(jFile);
