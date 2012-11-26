@@ -51,7 +51,7 @@ wyCEGUINode::wyCEGUINode(Window* window) :
 	// create system if not ready
 	if(!System::getSingletonPtr()) {
 		WiEngineRenderer* r = new WiEngineRenderer();
-		r->setDisplaySize(Size(wyDevice::winWidth, wyDevice::winHeight));
+		r->setDisplaySize(CEGUI::Size(wyDevice::winWidth, wyDevice::winHeight));
 		WiEngineResourceProvider* rp = new WiEngineResourceProvider();
 		System::create(*r, rp);
 

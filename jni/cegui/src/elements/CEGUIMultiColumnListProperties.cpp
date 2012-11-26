@@ -299,7 +299,7 @@ void ColumnHeader::set(PropertyReceiver* receiver, const String& value)
     size_t capstart = value.find("text:");
 
     // some defaults in case of missing data
-    String caption, id("0"), width("{0.33,0}");
+    String caption, fid("0"), width("{0.33,0}");
 
     // extract the caption field
     if (capstart != String::npos)
@@ -329,13 +329,13 @@ void ColumnHeader::set(PropertyReceiver* receiver, const String& value)
     // extract the id field.
     if (idstart != String::npos)
     {
-        id = value.substr(idstart);
-        id = id.substr(id.find_first_of(":") + 1);
+        fid = value.substr(idstart);
+        fid = fid.substr(fid.find_first_of(":") + 1);
     }
 
     // add the column accordingly
     static_cast<MultiColumnList*>(receiver)->addColumn(
-        caption, PropertyHelper::stringToUint(id), PropertyHelper::stringToUDim(width));
+        caption, PropertyHelper::stringToUint(fid), PropertyHelper::stringToUDim(width));
 }
 
 

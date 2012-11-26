@@ -51,6 +51,7 @@
 #    define DYNLIB_ERROR( ) dlerror( )
 
 #elif defined(__APPLE_CC__)
+#    include <CoreFoundation/CoreFoundation.h>
 #    define DYNLIB_HANDLE CFBundleRef
 #    define DYNLIB_LOAD( a ) mac_loadExeBundle( a )
 #    define DYNLIB_GETSYM( a, b ) mac_getBundleSym( a, b )

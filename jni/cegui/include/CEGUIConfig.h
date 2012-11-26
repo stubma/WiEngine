@@ -104,7 +104,7 @@ Each item in here has a comment to describe what it's for.
 // To disable the use of PCRE (and therefore the validation factilities),
 // comment the following line.  (Attempts to set validation string will throw).
 //////////////////////////////////////////////////////////////////////////
-#define CEGUI_HAS_PCRE_REGEX
+// #define CEGUI_HAS_PCRE_REGEX
 
 //////////////////////////////////////////////////////////////////////////
 // The following controls whether the default logger be (possibly) used.
