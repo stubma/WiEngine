@@ -60,8 +60,9 @@ wyCEGUINode::wyCEGUINode(Window* window) :
 		initializeDefaultResourceGroups();
 	}
 
-	// default size
+	// default size and position
 	setContentSize(wyDevice::winWidth, wyDevice::winHeight);
+    setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 }
 
 wyCEGUINode::~wyCEGUINode() {
