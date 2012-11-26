@@ -84,6 +84,12 @@ public:
 	 * only need to be called once
 	 */
 	static void setResourceRoot(const char* root);
+    
+    /// @see wyNode::beforeRender
+    virtual void beforeRender();
+    
+    /// @see wyNode::afterRender
+    virtual void afterRender();
 
 	/// get bound window
 	Window* getWindow() { return m_window; }

@@ -137,3 +137,15 @@ void wyCEGUINode::initializeDefaultResourceGroups() {
     if (parser->isPropertyPresent("SchemaDefaultResourceGroup"))
         parser->setProperty("SchemaDefaultResourceGroup", "schemas");
 }
+
+void wyCEGUINode::beforeRender() {
+    System* sys = System::getSingletonPtr();
+    if(sys)
+        sys->renderGUI();
+}
+
+void wyCEGUINode::afterRender() {
+    System* sys = System::getSingletonPtr();
+    if(sys)
+        sys->signalRedraw();
+}
