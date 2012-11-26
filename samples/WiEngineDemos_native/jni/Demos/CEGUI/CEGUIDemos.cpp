@@ -1,6 +1,7 @@
 #include "CEGUIDemos.h"
 #include "common.h"
 #include "WiEngine.h"
+#include "WiEngine-CEGUI.h"
 
 namespace CEGUI {
 
@@ -27,6 +28,8 @@ namespace CEGUI {
 	class wyWindowTestLayer : public wyLayer {
 	public:
 		wyWindowTestLayer() {
+            wyCEGUINode* node = wyCEGUINode::make(NULL);
+            addChildLocked(node);
 		}
 
 		virtual ~wyWindowTestLayer() {
