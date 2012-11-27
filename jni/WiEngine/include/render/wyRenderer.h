@@ -88,7 +88,7 @@ public:
 	 *
 	 * @param r clip rectangle
 	 */
-	virtual void pushClipRect(wyRect& r) = 0;
+	virtual void pushClipRect(const wyRect& r) = 0;
 
 	/**
 	 * Pop current clip rect, if no more clip rect in stack, disable clip rect.

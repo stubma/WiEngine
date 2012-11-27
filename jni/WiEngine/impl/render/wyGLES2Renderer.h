@@ -123,7 +123,7 @@ public:
 	virtual void setViewport(float x, float y, float w, float h);
 
 	/// @see wyRenderer::pushClipRect
-	virtual void pushClipRect(wyRect& r);
+	virtual void pushClipRect(const wyRect& r);
 
 	/// @see wyRenderer::popClipRect
 	virtual void popClipRect();

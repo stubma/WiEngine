@@ -107,7 +107,7 @@ void wyGLES2Renderer::setViewport(float x, float y, float w, float h) {
     }
 }
 
-void wyGLES2Renderer::pushClipRect(wyRect& r) {
+void wyGLES2Renderer::pushClipRect(const wyRect& r) {
 	// ensure capacity
 	while(m_clipStackCount >= m_clipStackCapacity) {
 		m_clipStackCapacity *= 2;
