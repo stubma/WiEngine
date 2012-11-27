@@ -117,9 +117,8 @@ protected:
 	 * update uniform value
 	 *
 	 * @param p shader program
-	 * @param g current geometry in rendering
 	 */
-	void updateUniformValues(wyShaderProgram* p, wyNode* g);
+	void updateUniformValues(wyShaderProgram* p);
 
 public:
 	/**
@@ -140,13 +139,13 @@ public:
 	void render(float delta);
 
 	/**
-	 * Render a material in a node space
+	 * Render a material in current node space. You must ensure current space
+     * is correctly transformed before calling this method
 	 *
-	 * @param space node related
 	 * @param material material to be rendered
 	 * @param mesh mesh of this material
 	 */
-	void renderMaterial(wyNode* space, wyMaterial* material, wyMesh* mesh);
+	void renderMaterial(wyMaterial* material, wyMesh* mesh);
 
 	/**
 	 * Render from start node recursively
