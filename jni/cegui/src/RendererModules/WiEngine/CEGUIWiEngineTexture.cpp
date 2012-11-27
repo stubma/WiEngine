@@ -94,7 +94,7 @@ void WiEngineTexture::loadNull(const Size& size) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
     // use null data pointer
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
                  static_cast<GLsizei>(pot.d_width),
                  static_cast<GLsizei>(pot.d_height),
                  0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
