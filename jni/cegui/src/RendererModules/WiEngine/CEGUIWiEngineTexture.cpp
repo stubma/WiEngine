@@ -59,8 +59,11 @@ void WiEngineTexture::loadFromFile(const String& filename,
 	const String& groupDir = rp->getResourceGroupDirectory(resourceGroup);
 	String path = groupDir + filename;
 
-	// create texture
-	setTexture(wyTexture2D::make(path.c_str()));
+	// create texture, use wyDevice::density so that it won't be scaled
+	setTexture(wyTexture2D::make(path.c_str(),
+                                 0,
+                                 wyTextureManager::getInstance()->getTexturePixelFormat(),
+                                 wyDevice::density));
 
 	// update size values
 	updateCachedValues();

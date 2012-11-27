@@ -50,6 +50,7 @@ WiEngineGeometryBuffer::WiEngineGeometryBuffer(WiEngineRenderer& owner) :
     // init mesh
     m_mesh = wyShape::make();
     m_mesh->retain();
+    m_mesh->setMode(wyMesh::TRIANGLES);
 }
 
 WiEngineGeometryBuffer::~WiEngineGeometryBuffer() {
@@ -115,7 +116,7 @@ void WiEngineGeometryBuffer::setClippingRegion(const Rect& region) {
     cr.d_right  = ceguimax(0.0f, PixelAligned(region.d_right));
     
     m_clipRect.x = cr.d_left;
-    m_clipRect.y = cr.d_bottom;
+    m_clipRect.y = cr.d_top;
     m_clipRect.width = cr.getWidth();
     m_clipRect.height = cr.getHeight();
 }
