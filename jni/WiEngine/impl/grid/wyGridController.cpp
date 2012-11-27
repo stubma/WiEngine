@@ -83,7 +83,7 @@ void wyGridController::afterDraw(wyNode* node) {
 	// render texture of frame buffer
 	wyDirector* d = wyDirector::getInstance();
 	wyRenderManager* rm = d->getRenderManager();
-	rm->renderMaterial(node, m_fb->getMaterial(), m_mesh);
+	rm->renderMaterial(m_fb->getMaterial(), m_mesh);
 }
 
 void wyGridController::setActive(bool flag) {

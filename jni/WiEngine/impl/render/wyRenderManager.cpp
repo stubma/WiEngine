@@ -294,7 +294,7 @@ void wyRenderManager::renderNode(wyNode* g) {
 		m_renderer->applyRenderState(rs);
 
 		// update general uniform
-		updateUniformValues(program, g);
+		updateUniformValues(program);
 
 		// apply material parameters
 		map<unsigned int, wyMaterialParameter*>* matParams = material->getParameters();
@@ -313,7 +313,7 @@ void wyRenderManager::renderNode(wyNode* g) {
 	g->afterRender();
 }
 
-void wyRenderManager::updateUniformValues(wyShaderProgram* p, wyNode* g) {
+void wyRenderManager::updateUniformValues(wyShaderProgram* p) {
 	WY_UNIFORM_MAP* uniforms = p->getUniforms();
 	for(WY_UNIFORM_ITER iter = uniforms->begin(); iter != uniforms->end(); iter++) {
 		// get uniform, mark it is set first
@@ -378,9 +378,9 @@ void wyRenderManager::updateUniformValues(wyShaderProgram* p, wyNode* g) {
 	}
 }
 
-void wyRenderManager::renderMaterial(wyNode* space, wyMaterial* material, wyMesh* mesh) {
+void wyRenderManager::renderMaterial(wyMaterial* material, wyMesh* mesh) {
 	// basic checking
-	if(!space || !material || !mesh)
+	if(!material || !mesh)
 		return;
 
 	// apply render state
@@ -393,7 +393,7 @@ void wyRenderManager::renderMaterial(wyNode* space, wyMaterial* material, wyMesh
 	r->applyRenderState(rs);
 
 	// update general uniform
-	updateUniformValues(program, space);
+	updateUniformValues(program);
 
 	// apply material parameters
 	map<unsigned int, wyMaterialParameter*>* matParams = material->getParameters();
