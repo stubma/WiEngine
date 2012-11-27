@@ -58,7 +58,7 @@ WIENGINE_API wyRect wyrFromString(const char* s);
  * @param r2 rectangle two
  * @return true if they are same
  */
-static inline bool wyrEquals(wyRect& r1, wyRect& r2) {
+static inline bool wyrEquals(const wyRect& r1, const wyRect& r2) {
 	return r1.x == r2.x &&
 			r1.y == r2.y &&
 			r1.width == r2.width &&
