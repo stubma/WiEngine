@@ -140,8 +140,11 @@ void wyCEGUINode::initializeDefaultResourceGroups() {
 
 void wyCEGUINode::beforeRender() {
     System* sys = System::getSingletonPtr();
-    if(sys)
+    if(sys) {
+        if(sys->getGUISheet() != m_window)
+            sys->setGUISheet(m_window);
         sys->renderGUI();
+    }
 }
 
 void wyCEGUINode::afterRender() {
