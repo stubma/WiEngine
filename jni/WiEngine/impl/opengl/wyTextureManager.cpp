@@ -592,7 +592,7 @@ wyTexture2D* wyTextureManager::makeRaw8888(const char* data, int width, int heig
 		texHash.dp.height = height;
 
 		// create real texture
-		wyGLTexture2D* glTex = wyGLTexture2D::makeRaw(texHash.dp.data, width, height, format);
+		wyGLTexture2D* glTex = wyGLTexture2D::makeRaw8888(texHash.dp.data, width, height, format);
 		glTex->retain();
 		m_textures[texHash.handle] = glTex;
 
