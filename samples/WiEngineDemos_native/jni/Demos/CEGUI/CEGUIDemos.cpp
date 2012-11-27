@@ -28,7 +28,25 @@ namespace CEGUI {
 	class wyWindowTestLayer : public wyLayer {
 	public:
 		wyWindowTestLayer() {
-            wyCEGUINode* node = wyCEGUINode::make(NULL);
+            // bootstrapSystem must be called at the very beginning
+            wyCEGUINode::bootstrapSystem("cegui");
+            
+            // create root and add a window to root
+            SchemeManager::getSingleton().create("TaharezLook.scheme");
+            WindowManager& winMgr = WindowManager::getSingleton();
+            DefaultWindow* root = (DefaultWindow*)winMgr.createWindow("DefaultWindow", "Root");
+            FrameWindow* wnd = (FrameWindow*)winMgr.createWindow("TaharezLook/FrameWindow", "Demo Window");
+            root->addChildWindow(wnd);
+            
+            // set window size
+            wnd->setPosition(UVector2(cegui_reldim(0.25f), cegui_reldim(0.25f)));
+            wnd->setSize(UVector2(cegui_reldim(0.5f), cegui_reldim(0.5f)));
+            wnd->setMaxSize(UVector2(cegui_reldim(1.0f), cegui_reldim(1.0f)));
+            wnd->setMinSize(UVector2(cegui_reldim(0.1f), cegui_reldim(0.1f)));
+            wnd->setText("Hello World!");
+            
+            // add cegui node
+            wyCEGUINode* node = wyCEGUINode::make(wnd);
             addChildLocked(node);
 		}
 
