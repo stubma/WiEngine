@@ -247,6 +247,9 @@ public:
 
 	/// @see wyMesh::getElementCount()
 	virtual int getElementCount();
+    
+    /// get vertex buffer
+    wyBuffer* getBuffer() { return m_buf; }
 
 	/**
 	 * Update one vertex
