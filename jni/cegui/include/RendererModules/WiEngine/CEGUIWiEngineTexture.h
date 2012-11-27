@@ -59,9 +59,6 @@ private:
 	/// update some cached size and scaling value
 	void updateCachedValues();
 
-	/// set WiEngine texture
-	void setTexture(wyTexture2D* tex);
-
 public:
 	WiEngineTexture(WiEngineRenderer& owner);
 
@@ -90,6 +87,12 @@ public:
     
     /// create a empty texture with specified size
     void loadNull(const Size& size);
+    
+    /// set WiEngine texture
+	void setTexture(wyTexture2D* tex);
+    
+    /// get WiEngine texture
+    wyTexture2D* getTexture();
 };
 
 } // end of namespace CEGUI

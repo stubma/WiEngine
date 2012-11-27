@@ -139,11 +139,9 @@ void WiEngineRenderer::destroyAllTextures() {
 }
 
 void WiEngineRenderer::beginRendering() {
-
 }
 
 void WiEngineRenderer::endRendering() {
-
 }
 
 void WiEngineRenderer::setDisplaySize(const Size& size) {

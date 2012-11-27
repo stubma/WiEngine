@@ -31,12 +31,23 @@
 
 #include "CEGUIWiEngineRenderTarget.h"
 
+class wyFrameBuffer;
+
 namespace CEGUI {
+    
+class WiEngineTexture;
 
 /**
  * Texture target
  */
 class CEGUIEXPORT WiEngineTextureTarget : public WiEngineRenderTarget, public TextureTarget {
+private:
+    /// texture related
+    WiEngineTexture* m_texture;
+    
+    /// frame buffer
+    wyFrameBuffer* m_fb;
+    
 public:
 	WiEngineTextureTarget(WiEngineRenderer& owner);
 
@@ -56,6 +67,12 @@ public:
 
 	/// @see CEGUI::TextureTarget::isRenderingInverted
     virtual bool isRenderingInverted() const;
+    
+    /// @see CEGUI::RenderTarget::activate
+	virtual void activate();
+    
+	/// @see CEGUI::RenderTarget::deactivate
+	virtual void deactivate();
 };
 
 } // end of namespace CEGUI

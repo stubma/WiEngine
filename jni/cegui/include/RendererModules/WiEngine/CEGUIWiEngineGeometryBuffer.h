@@ -30,10 +30,13 @@
 #define __CEGUIWiEngineGeometryBuffer_h__
 
 #include "CEGUI.h"
+#include "wyTypes.h"
+#include "wyGlobal.h"
 
 namespace CEGUI {
 
 class WiEngineRenderer;
+class WiEngineTexture;
 
 /**
  * WiEngine based geometry buffer implementation
@@ -42,6 +45,40 @@ class CEGUIEXPORT WiEngineGeometryBuffer : public GeometryBuffer {
 private:
 	/// owner who create me
 	WiEngineRenderer& m_owner;
+    
+    // last texture that was set as active
+    WiEngineTexture* m_activeTexture;
+    
+    /// RenderEffect that will be used by the GeometryBuffer
+    RenderEffect* m_effect;
+    
+    /// translation vector
+    Vector3 m_translation;
+    
+    /// rotation vector
+    Vector3 m_rotation;
+    
+    /// pivot point for rotation
+    Vector3 m_pivot;
+    
+    /// true when d_matrix is valid and up to date
+    mutable bool m_matrixValid;
+    
+    /// rectangular clip region
+    wyRect m_clipRect;
+    
+    /// matrix
+    mutable kmMat4 m_matrix;
+    
+    /// material for WiEngine
+    wyMaterial* m_material;
+    
+    /// mesh for WiEngine
+    wyShape* m_mesh;
+    
+private:
+    /// update matrix
+    void updateMatrix() const;
 
 public:
 	WiEngineGeometryBuffer(WiEngineRenderer& owner);
@@ -89,6 +126,9 @@ public:
 
 	/// @see CEGUI::GeometryBuffer::getRenderEffect
     virtual RenderEffect* getRenderEffect();
+    
+    /// get tranform matrix
+    const kmMat4& getMatrix() { return m_matrix; }
 };
 
 } // end of namespace CEGUI

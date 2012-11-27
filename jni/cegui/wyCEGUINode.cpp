@@ -43,23 +43,6 @@ wyCEGUINode::wyCEGUINode(Window* window) :
 	// increase ref count
 	s_systemRefCount++;
 
-	// if first instance, init common variable
-	if(s_systemRefCount == 1) {
-		setResourceRoot("cegui");
-	}
-
-	// create system if not ready
-	if(!System::getSingletonPtr()) {
-		WiEngineRenderer* r = new WiEngineRenderer();
-		r->setDisplaySize(CEGUI::Size(wyDevice::winWidth, wyDevice::winHeight));
-		WiEngineResourceProvider* rp = new WiEngineResourceProvider();
-		System::create(*r, rp);
-
-		// initialize resource groups
-		initializeResourceGroupDirectories();
-		initializeDefaultResourceGroups();
-	}
-
 	// default size and position
 	setContentSize(wyDevice::winWidth, wyDevice::winHeight);
     setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
@@ -83,6 +66,24 @@ wyCEGUINode::~wyCEGUINode() {
 			wyFree((void*)s_resRoot);
 			s_resRoot = NULL;
 		}
+	}
+}
+
+void wyCEGUINode::bootstrapSystem(const char* root) {
+    // create system if not ready
+	if(!System::getSingletonPtr()) {
+        // set resource root
+        setResourceRoot(root == NULL ? "cegui" : root);
+        
+        // create system
+		WiEngineRenderer* r = new WiEngineRenderer();
+		r->setDisplaySize(CEGUI::Size(wyDevice::winWidth, wyDevice::winHeight));
+		WiEngineResourceProvider* rp = new WiEngineResourceProvider();
+		System::create(*r, rp);
+        
+		// initialize resource groups
+		initializeResourceGroupDirectories();
+		initializeDefaultResourceGroups();
 	}
 }
 

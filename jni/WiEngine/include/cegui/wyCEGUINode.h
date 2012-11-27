@@ -50,7 +50,25 @@ class CEGUIEXPORT wyCEGUINode : public wyNode {
 protected:
 	/// CEGUI window bound to this node
 	Window* m_window;
+    
+private:
+    /**
+	 * Set CEGUI resource root directory, the root path should be a relative path
+	 * in asset folder.
+	 */
+	static void setResourceRoot(const char* root);
 
+    /**
+	 * Initialize resource group directories, the resource root directory
+	 * is specified by \c m_resRoot
+	 */
+	static void initializeResourceGroupDirectories();
+    
+	/**
+	 * Sync resource group settings to CEGUI
+	 */
+	static void initializeDefaultResourceGroups();
+    
 protected:
 	/**
 	 * Constructor
@@ -59,31 +77,25 @@ protected:
 	 */
 	wyCEGUINode(Window* window);
 
-	/**
-	 * Initialize resource group directories, the resource root directory
-	 * is specified by \c m_resRoot
-	 */
-	void initializeResourceGroupDirectories();
-
-	/**
-	 * Sync resource group settings to CEGUI
-	 */
-	void initializeDefaultResourceGroups();
-
 public:
 	virtual ~wyCEGUINode();
 
+    /**
+     * Create a bridge node for a CEGUI window
+     *
+     * @param window CEGUI window
+     * @return \link wyCEGUINode wyCEGUINode\endlink
+     */
 	static wyCEGUINode* make(Window* window);
-
-	/**
-	 * Set CEGUI resource root directory, the root path should be a relative path
-	 * in asset folder.
-	 *
-	 * \note
-	 * this method should be called before any wyCEGUINode instance created, and
-	 * only need to be called once
-	 */
-	static void setResourceRoot(const char* root);
+    
+    /**
+     * Setup CEGUI system, it must be called once before any
+     * CEGUI api called
+     *
+     * @param root the CEGUI resource file root directory. It is optional and
+     *      will be "cegui" if NULL
+     */
+    static void bootstrapSystem(const char* root = NULL);
     
     /// @see wyNode::beforeRender
     virtual void beforeRender();

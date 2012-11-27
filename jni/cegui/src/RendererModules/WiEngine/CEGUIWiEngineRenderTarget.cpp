@@ -27,6 +27,7 @@
  * THE SOFTWARE.
  */
 #include "CEGUIWiEngineRenderTarget.h"
+#include "CEGUIWiEngineGeometryBuffer.h"
 #include "WiEngine.h"
 
 namespace CEGUI {
@@ -67,6 +68,22 @@ void WiEngineRenderTarget::deactivate() {
 
 void WiEngineRenderTarget::unprojectPoint(const GeometryBuffer& buff,
 							const Vector2& p_in, Vector2& p_out) const {
+    // get transform matrix
+    WiEngineGeometryBuffer& gb = (WiEngineGeometryBuffer&)buff;
+    const kmMat4& m = gb.getMatrix();
+    
+    // get inverse matrix
+    kmMat4 inv;
+    kmMat4Inverse(&inv, &m);
+    
+    // transform
+    kmVec3 v = { p_in.d_x, p_in.d_y, 0 };
+    kmVec3 out;
+    kmVec3Transform(&out, &v, &inv);
+    
+    // save
+    p_out.d_x = out.x;
+    p_out.d_y = out.y;
 }
 
 } // end of namesapce CEGUI

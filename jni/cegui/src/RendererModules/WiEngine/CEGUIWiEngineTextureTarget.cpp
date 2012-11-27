@@ -27,14 +27,26 @@
  * THE SOFTWARE.
  */
 #include "CEGUIWiEngineTextureTarget.h"
+#include "CEGUIWiEngineTexture.h"
+#include "WiEngine.h"
 
 namespace CEGUI {
 
 WiEngineTextureTarget::WiEngineTextureTarget(WiEngineRenderer& owner) :
-	WiEngineRenderTarget(owner) {
+        WiEngineRenderTarget(owner),
+        m_texture(NULL),
+        m_fb(NULL) {
 }
 
 WiEngineTextureTarget::~WiEngineTextureTarget() {
+    if(m_texture) {
+        m_owner.destroyTexture(*m_texture);
+        m_texture = NULL;
+    }
+    if(m_fb) {
+        m_fb->release();
+        m_fb = NULL;
+    }
 }
 
 bool WiEngineTextureTarget::isImageryCache() const {
@@ -42,16 +54,44 @@ bool WiEngineTextureTarget::isImageryCache() const {
 }
 
 void WiEngineTextureTarget::clear() {
+    if(m_fb)
+        m_fb->clearBuffer(wyc4bTransparent);
 }
 
 Texture& WiEngineTextureTarget::getTexture() const {
+    return *m_texture;
 }
 
 void WiEngineTextureTarget::declareRenderSize(const Size& sz) {
+    // destroy old
+    if(m_texture) {
+        m_owner.destroyTexture(*m_texture);
+        m_texture = NULL;
+    }
+    if(m_fb) {
+        m_fb->release();
+        m_fb = NULL;
+    }
+    
+    // re-create a new one
+    m_fb = wyFrameBuffer::make(sz.d_width, sz.d_height);
+    m_fb->retain();
+    m_texture = (WiEngineTexture*)&m_owner.createTexture(sz);
+    m_texture->setTexture(m_fb->createTexture());
 }
 
 bool WiEngineTextureTarget::isRenderingInverted() const {
 	return true;
 }
 
+void WiEngineTextureTarget::activate() {
+    if(m_fb)
+        m_fb->beforeRender();
+}
+
+void WiEngineTextureTarget::deactivate() {
+    if(m_fb)
+        m_fb->afterRender();
+}
+    
 } // end of namespace CEGUI

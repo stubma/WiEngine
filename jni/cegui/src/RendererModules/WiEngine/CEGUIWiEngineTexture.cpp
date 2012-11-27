@@ -122,5 +122,9 @@ void WiEngineTexture::setTexture(wyTexture2D* tex) {
 	wyObjectRelease(m_tex);
 	m_tex = tex;
 }
+    
+wyTexture2D* WiEngineTexture::getTexture() {
+    return m_tex;
+}
 
 } // end of namespace CEGUI
