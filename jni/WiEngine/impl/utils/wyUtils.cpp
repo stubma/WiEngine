@@ -1369,14 +1369,14 @@ const char* wyUtils::fileMd5(const char* path) {
 
 bool wyUtils::isPNG(const char* p, size_t size) {
 	if(size >= 8 &&
-			p[0] == 0x89 &&
-			p[1] == 0x50 &&
-			p[2] == 0x4E &&
-			p[3] == 0x47 &&
-			p[4] == 0x0D &&
-			p[5] == 0x0A &&
-			p[6] == 0x1A &&
-			p[7] == 0x0A)
+			p[0] == (char)0x89 &&
+			p[1] == (char)0x50 &&
+			p[2] == (char)0x4E &&
+			p[3] == (char)0x47 &&
+			p[4] == (char)0x0D &&
+			p[5] == (char)0x0A &&
+			p[6] == (char)0x1A &&
+			p[7] == (char)0x0A)
 		return true;
 	else
 		return false;
@@ -1384,10 +1384,10 @@ bool wyUtils::isPNG(const char* p, size_t size) {
 
 bool wyUtils::isJPG(const char* p, size_t size) {
 	if(size >= 4 &&
-			p[0] == 0xFF &&
-			p[1] == 0xD8 &&
-			p[2] == 0xFF &&
-			p[3] == 0xE0)
+			p[0] == (char)0xFF &&
+			p[1] == (char)0xD8 &&
+			p[2] == (char)0xFF &&
+			p[3] == (char)0xE0)
 		return true;
 	else
 		return false;
