@@ -37,20 +37,19 @@
  * represented by meshes.
  */
 class WIENGINE_API wyMesh : public wyObject {
-protected:
-	/// vertex data structure
+public:
+    /// vertex data structure
 	struct Vertex {
 		/// vertex position
 		kmVec3 pos;
-
+        
 		/// texture coordinates
 		kmVec2 tex;
-
+        
 		/// color
 		kmVec4 color;
 	};
-
-public:
+    
 	/// primitive modes
 	enum Mode {
         /**
