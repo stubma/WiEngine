@@ -1,3 +1,8 @@
++++ 3.10.3 +++
+[new] add new make method for wyToast
+[fix] make wyProgressTimer works with atlas texture
+[fix] fix bug #7, see https://github.com/stubma/WiEngine/issues/7#issuecomment-10745676
+
 +++ 3.10.2 +++
 [new] add changeBaseSize method to wyDirector, support changing base size at running time
 [new] add deleteClone method in wyTexture2D, add deleteClonedTexture in wyTextureManager
