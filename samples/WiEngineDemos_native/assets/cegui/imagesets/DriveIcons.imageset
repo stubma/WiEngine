@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Imageset Name="DriveIcons" Imagefile="DriveIcons.png" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true">
+<Imageset Name="DriveIcons" Imagefile="DriveIcons.png" NativeHorzRes="480" NativeVertRes="800" AutoScaled="true">
 	<Image Name="Artic" XPos="1" YPos="1" Width="62" Height="54" />
 	<Image Name="Lime" XPos="64" YPos="1" Width="62" Height="54" />
 	<Image Name="Sunset" XPos="127" YPos="1" Width="62" Height="54" />

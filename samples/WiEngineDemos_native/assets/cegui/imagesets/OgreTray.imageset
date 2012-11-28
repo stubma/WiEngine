@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Imageset Name="OgreTrayImages" Imagefile="OgreTrayImages.png" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true" >
+<Imageset Name="OgreTrayImages" Imagefile="OgreTrayImages.png" NativeHorzRes="480" NativeVertRes="800" AutoScaled="true" >
     <Image Name="Pulse" XPos="201" YPos="98" Width="8" Height="1" />
     <Image Name="Shade" XPos="2" YPos="127" Width="62" Height="46" />
     <Image Name="TrayB" XPos="179" YPos="50" Width="34" Height="15" />
