@@ -54,10 +54,10 @@ wyTextBox_win::~wyTextBox_win() {
 
 void wyTextBox_win::showInputDialog() {
 	HWND hWnd = wyDirector::getInstance()->getGLView()->getWindowHandle();
-	DialogBox(gModule, MAKEINTRESOURCE(IDD_INPUT), hWnd, About);
+	DialogBox(gModule, MAKEINTRESOURCE(IDD_INPUT), hWnd, handleDialogBox);
 }
 
-INT_PTR CALLBACK wyTextBox_win::About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
+INT_PTR CALLBACK wyTextBox_win::handleDialogBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message) {
 		case WM_INITDIALOG:
 		{
