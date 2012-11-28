@@ -497,15 +497,23 @@ size_t wyUtils::gunzip(char* in, size_t inLength, char** out) {
 }
 
 size_t wyUtils::trim(char* s) {
+	// null checking
+	if(!s)
+		return 0;
+	
+	// get length
     char* p = s;
     size_t l = strlen(p);
 
-    while(isspace(p[l - 1]))
+	// trim tail and head
+    while(l > 0 && isspace(p[l - 1]))
     	p[--l] = 0;
     while(*p && isspace(*p))
     	++p, --l;
 
+	// compact
     memmove(s, p, l + 1);
+	
     return l;
 }
 
