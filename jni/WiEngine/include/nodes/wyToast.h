@@ -207,6 +207,16 @@ public:
 	static wyToast* make(const char* text, float duration);
 
 	/**
+	 * Create a toast with a string resource. The background will be set to
+	 * default style
+	 *
+	 * @param resId resource id of string
+	 * @param duration duration in seconds
+	 * @return \link wyToast wyToast\endlink
+	 */
+	static wyToast* make(int resId, float duration);
+
+	/**
 	 * \if English
 	 * Show this toast
 	 *

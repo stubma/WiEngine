@@ -129,6 +129,13 @@ wyToast* wyToast::make(const char* text, float duration) {
 	return (wyToast*)t->autoRelease();
 }
 
+wyToast* wyToast::make(int resId, float duration) {
+	const char* text = wyUtils::getString(resId);
+	wyToast* t = make(text, duration);
+	wyFree((void*)text);
+	return t;
+}
+
 void wyToast::layout() {
 	if(m_dirty) {
 		// adjust bg size
