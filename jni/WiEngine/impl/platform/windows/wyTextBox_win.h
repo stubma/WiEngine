@@ -48,7 +48,7 @@ class wyTextBox_win : public wyTextBox {
 
 private:
 	/// dialog procedure
-	static INT_PTR CALLBACK wyTextBox_win::About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+	static INT_PTR CALLBACK wyTextBox_win::handleDialogBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
 protected:
 	/**
