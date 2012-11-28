@@ -461,13 +461,17 @@ void wyTextBox::setText(const char* text) {
 
 	// should set asterisk if password mode
 	if(m_password) {
-		size_t len = strlen(text);
-		char* buf = (char*)wyMalloc(sizeof(char) * (len + 1));
-		for(int i = 0; i < len; i++)
-			buf[i] = '*';
-		buf[len] = 0;
-		m_label->setText(buf);
-		wyFree(buf);
+        if(text) {
+            size_t len = strlen(text);
+            char* buf = (char*)wyMalloc(sizeof(char) * (len + 1));
+            for(int i = 0; i < len; i++)
+                buf[i] = '*';
+            buf[len] = 0;
+            m_label->setText(buf);
+            wyFree(buf);
+        } else {
+            m_label->setText(NULL);
+        }
 	} else {
 		m_label->setText(text);
 	}
