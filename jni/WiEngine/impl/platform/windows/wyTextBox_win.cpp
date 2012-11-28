@@ -46,13 +46,13 @@ wyTextBox* wyTextBox::make(wyNode* normal, wyNode* selected, wyNode* disabled, w
 
 wyTextBox_win::wyTextBox_win(wyNode* normal, wyNode* selected, wyNode* disabled, wyNode* focused, wyNode* label) :
 		wyTextBox(normal, selected, disabled, focused, label) {
-	s_current = this;
 }
 
 wyTextBox_win::~wyTextBox_win() {
 }
 
 void wyTextBox_win::showInputDialog() {
+	s_current = this;
 	HWND hWnd = wyDirector::getInstance()->getGLView()->getWindowHandle();
 	DialogBox(gModule, MAKEINTRESOURCE(IDD_INPUT), hWnd, handleDialogBox);
 }
