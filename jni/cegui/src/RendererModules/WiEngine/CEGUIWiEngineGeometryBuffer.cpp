@@ -187,15 +187,23 @@ void WiEngineGeometryBuffer::updateMatrix() const {
     // set matrix to identity
     kmMat4Identity(&m_matrix);
     
+    // temp
+    kmMat4 m;
+    
     // transform
-    kmMat4Translation(&m_matrix,
+    kmMat4Translation(&m,
                       m_translation.d_x + m_pivot.d_x,
                       m_translation.d_y + m_pivot.d_y,
                       m_translation.d_z + m_pivot.d_z);
-    kmMat4RotationZ(&m_matrix, wyMath::d2r(m_rotation.d_z));
-    kmMat4RotationY(&m_matrix, wyMath::d2r(m_rotation.d_y));
-    kmMat4RotationX(&m_matrix, wyMath::d2r(m_rotation.d_x));
-    kmMat4Translation(&m_matrix, -m_pivot.d_x, -m_pivot.d_y, -m_pivot.d_z);
+    kmMat4Multiply(&m_matrix, &m_matrix, &m);
+    kmMat4RotationZ(&m, wyMath::d2r(m_rotation.d_z));
+    kmMat4Multiply(&m_matrix, &m_matrix, &m);
+    kmMat4RotationY(&m, wyMath::d2r(m_rotation.d_y));
+    kmMat4Multiply(&m_matrix, &m_matrix, &m);
+    kmMat4RotationX(&m, wyMath::d2r(m_rotation.d_x));
+    kmMat4Multiply(&m_matrix, &m_matrix, &m);
+    kmMat4Translation(&m, -m_pivot.d_x, -m_pivot.d_y, -m_pivot.d_z);
+    kmMat4Multiply(&m_matrix, &m_matrix, &m);
 }
 
 } // end of namespace CEGUI
