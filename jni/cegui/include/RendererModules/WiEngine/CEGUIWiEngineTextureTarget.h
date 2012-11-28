@@ -48,6 +48,9 @@ private:
     /// frame buffer
     wyFrameBuffer* m_fb;
     
+    /// render size
+    Size m_renderSize;
+    
 public:
 	WiEngineTextureTarget(WiEngineRenderer& owner);
 

@@ -34,6 +34,7 @@ namespace CEGUI {
 
 WiEngineTextureTarget::WiEngineTextureTarget(WiEngineRenderer& owner) :
         WiEngineRenderTarget(owner),
+        m_renderSize(0, 0),
         m_texture(NULL),
         m_fb(NULL) {
 }
@@ -63,6 +64,13 @@ Texture& WiEngineTextureTarget::getTexture() const {
 }
 
 void WiEngineTextureTarget::declareRenderSize(const Size& sz) {
+    // do nothing if size doesn't change
+    if(m_renderSize.d_width == sz.d_width && m_renderSize.d_height == sz.d_height)
+        return;
+    
+    // save new size
+    m_renderSize = sz;
+    
     // destroy old
     if(m_texture) {
         m_owner.destroyTexture(*m_texture);
@@ -73,9 +81,11 @@ void WiEngineTextureTarget::declareRenderSize(const Size& sz) {
         m_fb = NULL;
     }
     
-    // re-create a new one
+    // re-create, must create frame buffer before create texture
+    // because the texture is lazy created in framebuffer
     m_fb = wyFrameBuffer::make(sz.d_width, sz.d_height);
     m_fb->retain();
+    m_fb->create();
     m_texture = (WiEngineTexture*)&m_owner.createTexture(sz);
     m_texture->setTexture(m_fb->createTexture());
 }
