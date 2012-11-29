@@ -46,10 +46,17 @@ private:
     WiEngineTexture* m_texture;
     
     /// frame buffer
-    wyFrameBuffer* m_fb;
+    mutable wyFrameBuffer* m_fb;
     
     /// render size
-    Size m_renderSize;
+    mutable Size m_renderSize;
+    
+    /// new render size need to be changed to
+    Size m_newSize;
+    
+private:
+    /// check render size dirty? if yes, reinit
+    void applyRenderSize() const;
     
 public:
 	WiEngineTextureTarget(WiEngineRenderer& owner);

@@ -35,8 +35,10 @@ namespace CEGUI {
 WiEngineTextureTarget::WiEngineTextureTarget(WiEngineRenderer& owner) :
         WiEngineRenderTarget(owner),
         m_renderSize(0, 0),
+        m_newSize(0, 0),
         m_texture(NULL),
         m_fb(NULL) {
+    m_texture = (WiEngineTexture*)&m_owner.createTexture();
 }
 
 WiEngineTextureTarget::~WiEngineTextureTarget() {
@@ -60,50 +62,47 @@ void WiEngineTextureTarget::clear() {
 }
 
 Texture& WiEngineTextureTarget::getTexture() const {
+    applyRenderSize();
     return *m_texture;
 }
 
 void WiEngineTextureTarget::declareRenderSize(const Size& sz) {
-    // do nothing if size doesn't change
-    if(m_renderSize.d_width == sz.d_width && m_renderSize.d_height == sz.d_height)
-        return;
-    
-    // save new size
-    m_renderSize = sz;
-    
-    // destroy old
-    if(m_texture) {
-        m_owner.destroyTexture(*m_texture);
-        m_texture = NULL;
-    }
-    if(m_fb) {
-        m_fb->release();
-        m_fb = NULL;
-    }
-    
-    // re-create, must create frame buffer before create texture
-    // because the texture is lazy created in framebuffer
-    m_fb = wyFrameBuffer::make(sz.d_width, sz.d_height);
-    m_fb->retain();
-    m_fb->create();
-    m_texture = (WiEngineTexture*)&m_owner.createTexture(sz);
-    m_texture->setTexture(m_fb->createTexture());
+    m_newSize = sz;
 }
 
 bool WiEngineTextureTarget::isRenderingInverted() const {
 	return true;
 }
 
-void WiEngineTextureTarget::activate() {
-    if(m_fb) {
-        m_fb->beforeRender();
+void WiEngineTextureTarget::applyRenderSize() const {
+    bool reshape = m_renderSize.d_width != m_newSize.d_width || m_renderSize.d_height != m_newSize.d_height;
+    if(reshape) {
+        // release old framebuffer if has
+        if(m_fb) {
+            m_fb->release();
+            m_fb = NULL;
+        }
+        
+        // recreate framebuffer
+        m_fb = wyFrameBuffer::make(m_newSize.d_width, m_newSize.d_height);
+        m_fb->retain();
+        m_fb->create();
+        
+        // set texture
+        m_texture->setTexture(m_fb->createTexture());
+        
+        // save size
+        m_renderSize = m_newSize;
     }
+}
+    
+void WiEngineTextureTarget::activate() {
+    applyRenderSize();
+    m_fb->beforeRender();
 }
 
 void WiEngineTextureTarget::deactivate() {
-    if(m_fb) {
-        m_fb->afterRender();
-    }
+    m_fb->afterRender();
 }
     
 } // end of namespace CEGUI

@@ -102,6 +102,18 @@ public:
     
     /// @see wyNode::afterRender
     virtual void afterRender();
+    
+    /// @see wyNode::touchesBegan
+    virtual bool touchesBegan(wyMotionEvent& e);
+    
+    /// @see wyNode::touchesMoved
+	virtual bool touchesMoved(wyMotionEvent& e);
+    
+	/// @see wyNode::touchesEnded
+	virtual bool touchesEnded(wyMotionEvent& e);
+    
+	/// @see wyNode::touchesCancelled
+	virtual bool touchesCancelled(wyMotionEvent& e);
 
 	/// get bound window
 	Window* getWindow() { return m_window; }

@@ -64,9 +64,6 @@ void WiEngineTexture::loadFromFile(const String& filename,
                                  0,
                                  wyTextureManager::getInstance()->getTexturePixelFormat(),
                                  wyDevice::density));
-
-	// update size values
-	updateCachedValues();
 }
 
 void WiEngineTexture::loadFromMemory(const void* buffer,
@@ -74,9 +71,6 @@ void WiEngineTexture::loadFromMemory(const void* buffer,
                             PixelFormat pixel_format) {
 	// create texture
 	setTexture(wyTexture2D::makeRaw8888((const char*)buffer, buffer_size.d_width, buffer_size.d_height));
-
-	// update size values
-	updateCachedValues();
 }
 
 void WiEngineTexture::saveToMemory(void* buffer) {
@@ -104,9 +98,6 @@ void WiEngineTexture::loadNull(const Size& size) {
     
     // create wiengine texture
     setTexture(wyTexture2D::makeGL(t, size.d_width, size.d_height));
-    
-    // update values
-    updateCachedValues();
 }
 
 void WiEngineTexture::updateCachedValues() {
@@ -124,6 +115,8 @@ void WiEngineTexture::setTexture(wyTexture2D* tex) {
 	wyObjectRetain(tex);
 	wyObjectRelease(m_tex);
 	m_tex = tex;
+    
+    updateCachedValues();
 }
     
 wyTexture2D* WiEngineTexture::getTexture() {
