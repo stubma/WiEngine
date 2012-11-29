@@ -39,15 +39,18 @@ namespace CEGUI {
             root->addChildWindow(wnd);
             
             // set window size
-            wnd->setPosition(UVector2(cegui_reldim(0.25f), cegui_reldim(0.25f)));
-            wnd->setSize(UVector2(cegui_reldim(0.5f), cegui_reldim(0.5f)));
-            wnd->setMaxSize(UVector2(cegui_reldim(1.0f), cegui_reldim(1.0f)));
-            wnd->setMinSize(UVector2(cegui_reldim(0.1f), cegui_reldim(0.1f)));
+            wnd->setPosition(UVector2(cegui_absdim(100), cegui_absdim(100)));
+            wnd->setSize(UVector2(cegui_absdim(wyDevice::winWidth / 3), cegui_absdim(wyDevice::winHeight / 3)));
+            wnd->setMaxSize(UVector2(cegui_absdim(wyDevice::winWidth), cegui_absdim(wyDevice::winHeight)));
+            wnd->setMinSize(UVector2(cegui_absdim(wyDevice::winWidth / 4), cegui_absdim(wyDevice::winHeight / 4)));
             wnd->setText("Hello World!");
             
             // add cegui node
             wyCEGUINode* node = wyCEGUINode::make(wnd);
             addChildLocked(node);
+            
+            // enable event for cegui node
+            node->setTouchEnabled(true);
 		}
 
 		virtual ~wyWindowTestLayer() {

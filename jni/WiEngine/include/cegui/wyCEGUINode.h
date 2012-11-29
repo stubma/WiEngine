@@ -44,7 +44,7 @@ using namespace CEGUI;
  * must be bound with a CEGUI window, but CEGUI system is shared by all wyCEGUINode instances.
  *
  * \par
- * By default wyCEGUINode is full-screen size.
+ * By default wyCEGUINode is full-screen size. And you should NOT change its size.
  */
 class CEGUIEXPORT wyCEGUINode : public wyNode {
 protected:

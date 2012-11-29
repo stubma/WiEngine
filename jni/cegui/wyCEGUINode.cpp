@@ -61,6 +61,9 @@ wyCEGUINode::~wyCEGUINode() {
 			delete r;
 			delete rp;
 		}
+        
+        // delete logger
+        delete Logger::getSingletonPtr();
 
 		// release others
 		if(s_resRoot) {
@@ -156,4 +159,39 @@ void wyCEGUINode::afterRender() {
     System* sys = System::getSingletonPtr();
     if(sys)
         sys->signalRedraw();
+}
+
+bool wyCEGUINode::touchesBegan(wyMotionEvent& e) {
+    wyPoint loc = wyp(e.x[0], e.y[0]);
+    loc = worldToNodeSpace(loc);
+    System::getSingleton().injectMousePosition(loc.x, loc.y);
+    System::getSingleton().injectMouseButtonDown(LeftButton);
+    
+    return wyNode::touchesBegan(e);
+}
+
+bool wyCEGUINode::touchesMoved(wyMotionEvent& e) {
+    wyPoint loc = wyp(e.x[0], e.y[0]);
+    loc = worldToNodeSpace(loc);
+    System::getSingleton().injectMousePosition(loc.x, loc.y);
+    
+    return wyNode::touchesMoved(e);
+}
+
+bool wyCEGUINode::touchesEnded(wyMotionEvent& e) {
+    wyPoint loc = wyp(e.x[0], e.y[0]);
+    loc = worldToNodeSpace(loc);
+    System::getSingleton().injectMousePosition(loc.x, loc.y);
+    System::getSingleton().injectMouseButtonUp(LeftButton);
+    
+    return wyNode::touchesEnded(e);
+}
+
+bool wyCEGUINode::touchesCancelled(wyMotionEvent& e) {
+    wyPoint loc = wyp(e.x[0], e.y[0]);
+    loc = worldToNodeSpace(loc);
+    System::getSingleton().injectMousePosition(loc.x, wyDevice::winHeight - loc.y);
+    System::getSingleton().injectMouseButtonUp(LeftButton);
+    
+    return wyNode::touchesCancelled(e);
 }
