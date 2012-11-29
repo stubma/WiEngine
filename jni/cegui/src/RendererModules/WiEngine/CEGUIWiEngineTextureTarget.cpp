@@ -95,13 +95,15 @@ bool WiEngineTextureTarget::isRenderingInverted() const {
 }
 
 void WiEngineTextureTarget::activate() {
-    if(m_fb)
+    if(m_fb) {
         m_fb->beforeRender();
+    }
 }
 
 void WiEngineTextureTarget::deactivate() {
-    if(m_fb)
+    if(m_fb) {
         m_fb->afterRender();
+    }
 }
     
 } // end of namespace CEGUI

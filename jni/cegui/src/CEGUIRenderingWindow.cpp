@@ -257,7 +257,12 @@ void RenderingWindow::realiseGeometry_impl()
     const float tu = d_size.d_width * tex.getTexelScaling().d_x;
     const float tv = d_size.d_height * tex.getTexelScaling().d_y;
     const Rect tex_rect(d_textarget.isRenderingInverted() ?
-                        Rect(0, 1, tu, 1 - tv) :
+                        /*
+                         * XXX: workaround for WiEngine
+                         * WiEngine use left-bottom part of framebuffer,
+                         * so the inverted rect should be tv, not 1
+                         */
+                        Rect(0, tv, tu, 0) : // Rect(0, 1, tu, 1 - tv) :
                         Rect(0, 0, tu, tv));
 
     const Rect area(0, 0, d_size.d_width, d_size.d_height);

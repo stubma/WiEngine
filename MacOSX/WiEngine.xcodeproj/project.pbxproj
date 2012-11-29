@@ -130,6 +130,7 @@
 		927EDD7014BFFE47008A847F /* wyWavStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 927EDD6714BFFE47008A847F /* wyWavStream.cpp */; };
 		927EFCF61478BC1600407A1B /* WYGestureRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 927EFCF51478BC1600407A1B /* WYGestureRecognizer.mm */; };
 		928015E41477A6F600806FD3 /* WYNinePatchImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 928015E31477A6F600806FD3 /* WYNinePatchImageView.mm */; };
+		928CDAD81667004800F423B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7947146FA9AF004757F9 /* Foundation.framework */; };
 		9292311414729DAD008EF743 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 9292311314729DAD008EF743 /* icon.icns */; };
 		9292BF7D14E4ECB900ADE7E9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
 		9292BF8714E4ECCA00ADE7E9 /* libwiengine.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D4319146FEA4100267B99 /* libwiengine.dylib */; };
@@ -3110,6 +3111,7 @@
 				92E1B0E61663086A00D06233 /* libz.dylib in Frameworks */,
 				92AE99881663729700200532 /* OpenGL.framework in Frameworks */,
 				92E1B2EC16630D3400D06233 /* CoreFoundation.framework in Frameworks */,
+				928CDAD81667004800F423B8 /* Foundation.framework in Frameworks */,
 				92E1B0E8166308AE00D06233 /* libwiengine.dylib in Frameworks */,
 				92E1B0E7166308AB00D06233 /* liblua.dylib in Frameworks */,
 				92E1B2EA16630A9C00D06233 /* libkazmath.dylib in Frameworks */,
