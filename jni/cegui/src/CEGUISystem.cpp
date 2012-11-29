@@ -415,9 +415,8 @@ void System::renderGUI(void)
 	}
 
     d_renderer->getDefaultRenderingRoot().draw();
-#if !defined(ANDROID) && !defined(IOS)
-	MouseCursor::getSingleton().draw();
-#endif
+	// XXX: we don't draw mouse cursor, wiengine is a mobile game engine
+//	MouseCursor::getSingleton().draw();
     d_renderer->endRendering();
 
     // do final destruction on dead-pool windows
