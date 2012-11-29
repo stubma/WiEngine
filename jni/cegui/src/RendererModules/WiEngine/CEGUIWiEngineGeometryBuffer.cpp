@@ -249,12 +249,18 @@ void WiEngineGeometryBuffer::updateMatrix() const {
                       m_translation.d_y + m_pivot.d_y,
                       m_translation.d_z + m_pivot.d_z);
     kmMat4Multiply(&m_matrix, &m_matrix, &m);
-    kmMat4RotationZ(&m, wyMath::d2r(m_rotation.d_z));
-    kmMat4Multiply(&m_matrix, &m_matrix, &m);
-    kmMat4RotationY(&m, wyMath::d2r(m_rotation.d_y));
-    kmMat4Multiply(&m_matrix, &m_matrix, &m);
-    kmMat4RotationX(&m, wyMath::d2r(m_rotation.d_x));
-    kmMat4Multiply(&m_matrix, &m_matrix, &m);
+	if(m_rotation.d_z != 0) {
+		kmMat4RotationZ(&m, wyMath::d2r(m_rotation.d_z));
+		kmMat4Multiply(&m_matrix, &m_matrix, &m);
+	}
+	if(m_rotation.d_y != 0) {
+		kmMat4RotationY(&m, wyMath::d2r(m_rotation.d_y));
+		kmMat4Multiply(&m_matrix, &m_matrix, &m);
+	}
+	if(m_rotation.d_x != 0) {
+		kmMat4RotationX(&m, wyMath::d2r(m_rotation.d_x));
+		kmMat4Multiply(&m_matrix, &m_matrix, &m);
+	}
     kmMat4Translation(&m, -m_pivot.d_x, -m_pivot.d_y, -m_pivot.d_z);
     kmMat4Multiply(&m_matrix, &m_matrix, &m);
 }

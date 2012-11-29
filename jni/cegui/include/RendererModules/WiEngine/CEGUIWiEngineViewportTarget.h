@@ -31,16 +31,27 @@
 
 #include "CEGUIWiEngineRenderTarget.h"
 
+class wyCamera;
+
 namespace CEGUI {
 
 /**
  * Viewport target
  */
 class CEGUIEXPORT WiEngineViewportTarget : public WiEngineRenderTarget {
+private:
+	wyCamera* m_camera;
+	
 public:
 	WiEngineViewportTarget(WiEngineRenderer& owner);
 
 	virtual ~WiEngineViewportTarget();
+	
+	/// @see CEGUI::RenderTarget::activate
+	virtual void activate();
+    
+	/// @see CEGUI::RenderTarget::deactivate
+	virtual void deactivate();
 };
 
 } // end of namespace CEGUI

@@ -71,7 +71,7 @@ void WiEngineTextureTarget::declareRenderSize(const Size& sz) {
 }
 
 bool WiEngineTextureTarget::isRenderingInverted() const {
-	return true;
+	return false;
 }
 
 void WiEngineTextureTarget::applyRenderSize() const {

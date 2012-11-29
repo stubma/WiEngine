@@ -164,7 +164,7 @@ void wyCEGUINode::afterRender() {
 bool wyCEGUINode::touchesBegan(wyMotionEvent& e) {
     wyPoint loc = wyp(e.x[0], e.y[0]);
     loc = worldToNodeSpace(loc);
-    System::getSingleton().injectMousePosition(loc.x, loc.y);
+    System::getSingleton().injectMousePosition(loc.x, wyDevice::winHeight - loc.y);
     System::getSingleton().injectMouseButtonDown(LeftButton);
     
     return wyNode::touchesBegan(e);
@@ -173,7 +173,7 @@ bool wyCEGUINode::touchesBegan(wyMotionEvent& e) {
 bool wyCEGUINode::touchesMoved(wyMotionEvent& e) {
     wyPoint loc = wyp(e.x[0], e.y[0]);
     loc = worldToNodeSpace(loc);
-    System::getSingleton().injectMousePosition(loc.x, loc.y);
+    System::getSingleton().injectMousePosition(loc.x, wyDevice::winHeight - loc.y);
     
     return wyNode::touchesMoved(e);
 }
@@ -181,7 +181,7 @@ bool wyCEGUINode::touchesMoved(wyMotionEvent& e) {
 bool wyCEGUINode::touchesEnded(wyMotionEvent& e) {
     wyPoint loc = wyp(e.x[0], e.y[0]);
     loc = worldToNodeSpace(loc);
-    System::getSingleton().injectMousePosition(loc.x, loc.y);
+    System::getSingleton().injectMousePosition(loc.x, wyDevice::winHeight - loc.y);
     System::getSingleton().injectMouseButtonUp(LeftButton);
     
     return wyNode::touchesEnded(e);

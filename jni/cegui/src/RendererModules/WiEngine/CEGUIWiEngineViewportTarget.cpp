@@ -27,14 +27,34 @@
  * THE SOFTWARE.
  */
 #include "CEGUIWiEngineViewportTarget.h"
+#include "WiEngine.h"
 
 namespace CEGUI {
 
 WiEngineViewportTarget::WiEngineViewportTarget(WiEngineRenderer& owner) :
-	WiEngineRenderTarget(owner) {
+		WiEngineRenderTarget(owner) {
+	m_camera = wyCamera::make();
+	m_camera->retain();
+	m_camera->setEye(0.5f, 0.5f, -1 / GOLDEN_MEAN);
+	m_camera->setCenter(0.5f, 0.5f, 0);
+	m_camera->setUp(0, -1, 0);
+	m_camera->setUseRelativeValue(true);
 }
 
 WiEngineViewportTarget::~WiEngineViewportTarget() {
+	wyObjectRelease(m_camera);
+}
+	
+void WiEngineViewportTarget::activate() {
+	kmGLMatrixMode(KM_GL_MODELVIEW);
+	kmGLPushMatrix();
+	kmGLLoadIdentity();
+	kmGLMultMatrix(m_camera->getViewMatrix());
+}
+
+void WiEngineViewportTarget::deactivate() {
+	kmGLMatrixMode(KM_GL_MODELVIEW);
+	kmGLPopMatrix();
 }
 
 } // end of namespace CEGUI
