@@ -30,6 +30,7 @@
 #include "WiEngine.h"
 #include "CEGUIWiEngineResourceProvider.h"
 #include "CEGUIWiEngineRenderer.h"
+#include "CEGUIWiEngineLogger.h"
 #include <stdlib.h>
 
 /// a reference count of how many wyCEGUINode exists
@@ -72,6 +73,9 @@ wyCEGUINode::~wyCEGUINode() {
 void wyCEGUINode::bootstrapSystem(const char* root) {
     // create system if not ready
 	if(!System::getSingletonPtr()) {
+        // create WiEngine logger so that default logger will not be used
+        new WiEngineLogger();
+        
         // set resource root
         setResourceRoot(root == NULL ? "cegui" : root);
         

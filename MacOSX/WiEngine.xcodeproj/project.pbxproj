@@ -660,6 +660,7 @@
 		92CA7970146FAA27004757F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7967146FAA27004757F9 /* main.m */; };
 		92CA7972146FAA27004757F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92CA796B146FAA27004757F9 /* InfoPlist.strings */; };
 		92CA7A92146FB3BC004757F9 /* ManifestXML.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7A91146FB3BC004757F9 /* ManifestXML.mm */; };
+		92D2E6D716674F30007E8705 /* CEGUIWiEngineLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92D2E6D516674F30007E8705 /* CEGUIWiEngineLogger.cpp */; };
 		92D4E5921480DCB20045CF13 /* WYTextBoxDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92D4E5911480DCB20045CF13 /* WYTextBoxDelegate.mm */; };
 		92E1ACA61663061F00D06233 /* CEGUIDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E1ACA41663061F00D06233 /* CEGUIDemos.cpp */; };
 		92E1AFEC1663082900D06233 /* CEGUIAffector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E1ADD61663082900D06233 /* CEGUIAffector.cpp */; };
@@ -2267,6 +2268,8 @@
 		92CA7F60146FD277004757F9 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		92CA7F62146FD370004757F9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		92CA7F64146FD375004757F9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		92D2E6D416674DF5007E8705 /* CEGUIWiEngineLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEGUIWiEngineLogger.h; sourceTree = "<group>"; };
+		92D2E6D516674F30007E8705 /* CEGUIWiEngineLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEGUIWiEngineLogger.cpp; sourceTree = "<group>"; };
 		92D4E5901480DCB20045CF13 /* WYTextBoxDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYTextBoxDelegate.h; sourceTree = "<group>"; };
 		92D4E5911480DCB20045CF13 /* WYTextBoxDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WYTextBoxDelegate.mm; sourceTree = "<group>"; };
 		92E107B41538577A0086FDD2 /* wyJSONConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONConfig.h; path = ../WiEngine/include/json/wyJSONConfig.h; sourceTree = "<group>"; };
@@ -5394,6 +5397,7 @@
 				92E1ADA11663082900D06233 /* CEGUIWiEngineTexture.h */,
 				92E1ADA21663082900D06233 /* CEGUIWiEngineTextureTarget.h */,
 				92E1ADA31663082900D06233 /* CEGUIWiEngineViewportTarget.h */,
+				92D2E6D416674DF5007E8705 /* CEGUIWiEngineLogger.h */,
 			);
 			path = WiEngine;
 			sourceTree = "<group>";
@@ -5766,6 +5770,7 @@
 				92E1AEA61663082900D06233 /* CEGUIWiEngineTexture.cpp */,
 				92E1AEA71663082900D06233 /* CEGUIWiEngineTextureTarget.cpp */,
 				92E1AEA81663082900D06233 /* CEGUIWiEngineViewportTarget.cpp */,
+				92D2E6D516674F30007E8705 /* CEGUIWiEngineLogger.cpp */,
 			);
 			path = WiEngine;
 			sourceTree = "<group>";
@@ -7461,6 +7466,7 @@
 				92E1B0E21663082900D06233 /* CEGUIExpatParser.cpp in Sources */,
 				92E1B0E31663082900D06233 /* CEGUIExpatParserModule.cpp in Sources */,
 				92E1B0E41663082900D06233 /* wyCEGUINode.cpp in Sources */,
+				92D2E6D716674F30007E8705 /* CEGUIWiEngineLogger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7966,6 +7972,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INSTALL_PATH = "@executable_path";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libmpg123 /usr/include/libxml2 $(SRCROOT)/../jni $(SRCROOT)/../jni/lua $(SRCROOT)/../jni/lua/tolua++ $(SRCROOT)/../jni/WiEngine/include $(SRCROOT)/../jni/WiEngine/include/lua $(SRCROOT)/../jni/WiEngine/include/utils $(SRCROOT)/../jni/vorbis $(SRCROOT)/../jni/kazmath/include $(SRCROOT)/../jni/cegui/include $(SRCROOT)/../jni/freetype/include";
 			};
@@ -7988,6 +7995,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INSTALL_PATH = "@executable_path";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libmpg123 /usr/include/libxml2 $(SRCROOT)/../jni $(SRCROOT)/../jni/lua $(SRCROOT)/../jni/lua/tolua++ $(SRCROOT)/../jni/WiEngine/include $(SRCROOT)/../jni/WiEngine/include/lua $(SRCROOT)/../jni/WiEngine/include/utils $(SRCROOT)/../jni/vorbis $(SRCROOT)/../jni/kazmath/include $(SRCROOT)/../jni/cegui/include $(SRCROOT)/../jni/freetype/include";
 			};
