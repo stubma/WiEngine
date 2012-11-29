@@ -46,8 +46,20 @@ private:
 	/// owner who create me
 	WiEngineRenderer& m_owner;
     
-    // last texture that was set as active
+    /// last texture that was set as active
     WiEngineTexture* m_activeTexture;
+    
+    /// texture to material mapping
+    typedef std::map<WiEngineTexture*, wyMaterial*> TextureMaterialMap;
+    TextureMaterialMap m_tmMap;
+    
+    /// render pair of this geometry buffer
+    typedef struct {
+        wyMaterial* mat;
+        wyShape* mesh;
+    } RenderPair;
+    typedef std::vector<RenderPair> RenderPairList;
+    RenderPairList m_renderPairs;
     
     /// RenderEffect that will be used by the GeometryBuffer
     RenderEffect* m_effect;
@@ -70,15 +82,12 @@ private:
     /// matrix
     mutable kmMat4 m_matrix;
     
-    /// material for WiEngine
-    wyMaterial* m_material;
-    
-    /// mesh for WiEngine
-    wyShape* m_mesh;
-    
 private:
     /// update matrix
     void updateMatrix() const;
+    
+    /// pick a mesh to append geometry
+    wyShape* pickMesh();
 
 public:
 	WiEngineGeometryBuffer(WiEngineRenderer& owner);

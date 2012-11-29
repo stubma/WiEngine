@@ -42,20 +42,14 @@ WiEngineGeometryBuffer::WiEngineGeometryBuffer(WiEngineRenderer& owner) :
         m_translation(0, 0, 0),
         m_rotation(0, 0, 0),
         m_pivot(0, 0, 0) {
-    // init material
-    m_material = wyMaterial::make();
-    m_material->retain();
-    m_material->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
-            
-    // init mesh
-    m_mesh = wyShape::make();
-    m_mesh->retain();
-    m_mesh->setMode(wyMesh::TRIANGLES);
 }
 
 WiEngineGeometryBuffer::~WiEngineGeometryBuffer() {
-    wyObjectRelease(m_material);
-    wyObjectRelease(m_mesh);
+    for(RenderPairList::iterator iter = m_renderPairs.begin(); iter != m_renderPairs.end(); iter++) {
+        RenderPair& rp = *iter;
+        wyObjectRelease(rp.mat);
+        wyObjectRelease(rp.mesh);
+    }
 }
 
 void WiEngineGeometryBuffer::draw() const {
@@ -82,7 +76,10 @@ void WiEngineGeometryBuffer::draw() const {
         r->pushClipRect(m_clipRect);
     
     // render it
-    rm->renderMaterial(m_material, m_mesh);
+    for(RenderPairList::const_iterator iter = m_renderPairs.begin(); iter != m_renderPairs.end(); iter++) {
+        const RenderPair& rp = *iter;
+        rm->renderMaterial(rp.mat, rp.mesh);
+    }
     
     // pop clip rect
     if(clip)
@@ -126,7 +123,11 @@ void WiEngineGeometryBuffer::appendVertex(const Vertex& vertex) {
 }
 
 void WiEngineGeometryBuffer::appendGeometry(const Vertex* const vbuff, uint vertex_count) {
-    wyBuffer* buf = m_mesh->getBuffer();
+    wyShape* mesh = pickMesh();
+    if(!mesh)
+        return;
+    
+    wyBuffer* buf = mesh->getBuffer();
     wyMesh::Vertex v;
     for(uint i = 0; i < vertex_count; i++) {
         kmVec2Fill(&v.tex, vbuff[i].tex_coords.d_x, vbuff[i].tex_coords.d_y);
@@ -139,26 +140,75 @@ void WiEngineGeometryBuffer::appendGeometry(const Vertex* const vbuff, uint vert
         buf->append(&v, 1);
     }
 }
-
-void WiEngineGeometryBuffer::setActiveTexture(Texture* texture) {
-    m_activeTexture = (WiEngineTexture*)texture;
     
-    // update material
-    wyTexture2D* tex = m_activeTexture->getTexture();
-    if(tex) {
-        wyMaterialParameter* mp = m_material->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
-        if(!mp) {
-            wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], tex);
-            m_material->addParameter(p);
+wyShape* WiEngineGeometryBuffer::pickMesh() {
+    // if no active texture, return NULL
+    if(!m_activeTexture)
+        return NULL;
+    
+    // first we find material of this texture
+    // if not find, create render pair
+    // if find, need check whether this material is at the end of render pair list
+    TextureMaterialMap::iterator iter = m_tmMap.find(m_activeTexture);
+    if(iter == m_tmMap.end()) {
+        // init material
+        wyMaterial* mat = wyMaterial::make();
+        mat->retain();
+        mat->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
+        
+        // update material
+        wyTexture2D* tex = m_activeTexture->getTexture();
+        if(tex) {
+            wyMaterialParameter* mp = mat->getParameter(wyUniform::NAME[wyUniform::TEXTURE_2D]);
+            if(!mp) {
+                wyMaterialTextureParameter* p = wyMaterialTextureParameter::make(wyUniform::NAME[wyUniform::TEXTURE_2D], tex);
+                mat->addParameter(p);
+            } else {
+                wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
+                mtp->setTexture(tex);
+            }
+        }
+        
+        // init mesh
+        wyShape* mesh = wyShape::make();
+        mesh->retain();
+        mesh->setMode(wyMesh::TRIANGLES);
+        
+        // add render pair and return
+        RenderPair rp = { mat, mesh };
+        m_renderPairs.push_back(rp);
+        return mesh;
+    } else {
+        RenderPair& rp = *m_renderPairs.rbegin();
+        if(rp.mat == iter->second) {
+            return rp.mesh;
         } else {
-            wyMaterialTextureParameter* mtp = (wyMaterialTextureParameter*)mp;
-            mtp->setTexture(tex);
+            // init mesh
+            wyShape* mesh = wyShape::make();
+            mesh->retain();
+            mesh->setMode(wyMesh::TRIANGLES);
+            
+            // add render pair and return
+            rp.mat->retain();
+            RenderPair newRP = { rp.mat, mesh };
+            m_renderPairs.push_back(newRP);
+            return mesh;
         }
     }
 }
 
+void WiEngineGeometryBuffer::setActiveTexture(Texture* texture) {
+    m_activeTexture = (WiEngineTexture*)texture;
+}
+
 void WiEngineGeometryBuffer::reset() {
-    m_mesh->getBuffer()->clear();
+    for(RenderPairList::iterator iter = m_renderPairs.begin(); iter != m_renderPairs.end(); iter++) {
+        RenderPair& rp = *iter;
+        wyObjectRelease(rp.mat);
+        wyObjectRelease(rp.mesh);
+    }
+    m_renderPairs.clear();
+    m_tmMap.clear();
     m_activeTexture = NULL;
 }
 
@@ -167,12 +217,15 @@ Texture* WiEngineGeometryBuffer::getActiveTexture() const {
 }
 
 uint WiEngineGeometryBuffer::getVertexCount() const {
-    return m_mesh->getElementCount();
+    int count = 0;
+    for(RenderPairList::const_iterator iter = m_renderPairs.begin(); iter != m_renderPairs.end(); iter++) {
+        count += iter->mesh->getElementCount();
+    }
+    return count;
 }
 
 uint WiEngineGeometryBuffer::getBatchCount() const {
-    // TODO not implemented yet, just return 1
-    return 1;
+    return (uint)m_renderPairs.size();
 }
 
 void WiEngineGeometryBuffer::setRenderEffect(RenderEffect* effect) {
