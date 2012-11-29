@@ -17,7 +17,7 @@ endef
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wienginedemos
-LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -ldl -lGLESv2 -lwiengine -llua -lwisound -lbox2d -lwinetwork -ljson -liap -lcegui
+LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv2 -lwiengine -llua -lwisound -lbox2d -lwinetwork -ljson -liap -lcegui
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni \
 	$(LOCAL_PATH)/../../../jni/lua \
@@ -55,7 +55,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/winetwork \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/wisound \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/utils \
-	$(LOCAL_PATH)/../../../jni/libxml2/include
+	$(LOCAL_PATH)/../../../jni/libxml2/include \
+	$(LOCAL_PATH)/../../../jni/cegui/include
 LOCAL_SRC_FILES := $(call all-cpp-files-under,Demos)
 	
 include $(BUILD_SHARED_LIBRARY)
