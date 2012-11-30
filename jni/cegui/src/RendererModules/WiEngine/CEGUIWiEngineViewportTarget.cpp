@@ -48,8 +48,7 @@ WiEngineViewportTarget::~WiEngineViewportTarget() {
 void WiEngineViewportTarget::activate() {
 	kmGLMatrixMode(KM_GL_MODELVIEW);
 	kmGLPushMatrix();
-	kmGLLoadIdentity();
-	kmGLMultMatrix(m_camera->getViewMatrix());
+	kmGLLoadMatrix(m_camera->getViewMatrix());
 }
 
 void WiEngineViewportTarget::deactivate() {
