@@ -57,8 +57,7 @@ bool WiEngineTextureTarget::isImageryCache() const {
 }
 
 void WiEngineTextureTarget::clear() {
-    if(m_fb)
-        m_fb->clearBuffer(wyc4bTransparent);
+    // do nothing because frame buffer will be cleared in beforeRender
 }
 
 Texture& WiEngineTextureTarget::getTexture() const {
