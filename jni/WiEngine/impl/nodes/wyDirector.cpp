@@ -833,6 +833,10 @@ void wyDirector::setRunningScene(wyScene* scene) {
 	m_runningScene = scene;
 }
 
+wyScene* wyDirector::getRunningScene() {
+	return m_nextScene == NULL ? m_runningScene : m_nextScene;
+}
+
 void wyDirector::setNextScene(wyScene* scene) {
 	wyObjectRetain(scene);
 	wyObjectRelease(m_nextScene);

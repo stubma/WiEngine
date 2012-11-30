@@ -1368,15 +1368,14 @@ public:
 	wyScene* getPreviousScene();
 
 	/**
-	 * \if English
-	 * get the current scene
-	 * \else
-	 * 获得当前场景\link wyScene wyScene对象指针\endlink
+	 * Get the current scene. However, when you call runWithScene, pushScene, replaceScene,
+	 * the running scene will be changed in next loop, not the time you calling those API.
+	 * In order to get the scene you passed to those API, this method will check next scene
+	 * first.
 	 *
-	 * @return 当前场景\link wyScene wyScene对象指针\endlink
-	 * \endif
+	 * @return the scene is running or will run at next loop, or NULL if no scene is running
 	 */
-	wyScene* getRunningScene() { return m_runningScene; }
+	wyScene* getRunningScene();
 
 	/**
 	 * \if English
