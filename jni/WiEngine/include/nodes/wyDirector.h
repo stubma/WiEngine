@@ -723,9 +723,14 @@ public:
 	wyScene* getPreviousScene();
 
 	/**
-	 * get the current scene
+	 * Get the current scene. However, when you call runWithScene, pushScene, replaceScene,
+	 * the running scene will be changed in next loop, not the time you calling those API.
+	 * In order to get the scene you passed to those API, this method will check next scene
+	 * first.
+	 *
+	 * @return the scene is running or will run at next loop, or NULL if no scene is running
 	 */
-	wyScene* getRunningScene() { return m_runningScene; }
+	wyScene* getRunningScene();
 
 	/**
 	 * get whether the director is paused
