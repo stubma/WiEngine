@@ -128,7 +128,7 @@ void wyFrameBuffer::beforeRender() {
 	// push matrix and reset to identity
 	kmGLMatrixMode(KM_GL_PROJECTION);
 	kmGLPushMatrix();
-	kmGLLoadIdentity();
+	kmGLLoadMatrix(m_camera->getProjectionMatrix());
 	kmGLMatrixMode(KM_GL_MODELVIEW);
 	kmGLPushMatrix();
 	kmGLLoadIdentity();
@@ -138,10 +138,6 @@ void wyFrameBuffer::beforeRender() {
 
 	// update viewport range
 	r->setViewport(0, 0, m_texWidth, m_texHeight);
-
-	// multiply camera matrix
-	kmGLMatrixMode(KM_GL_PROJECTION);
-	kmGLMultMatrix(m_camera->getProjectionMatrix());
 
 	// switch to frame buffer
 	r->setFrameBuffer(m_id);
