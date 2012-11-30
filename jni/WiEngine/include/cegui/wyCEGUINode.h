@@ -36,15 +36,17 @@ using namespace CEGUI;
 
 /**
  * wyCEGUINode is a bridge between WiEngine and CEGUI so that CEGUI can be integrated
- * into WiEngine scene. However, wyCEGUINode is only a bridge, to manipulate CEGUI interface,
- * you must use CEGUI API.
+ * into WiEngine scene. By default wyCEGUINode is full-screen size. And you should NOT 
+ * change its size and position. However, wyCEGUINode is only a bridge, to manipulate 
+ * CEGUI interface, you must use CEGUI API. One thing you must remember: CEGUI's origin
+ * is at top-left of screen, be careful with this stuff when using CEGUI API.
  *
  * \par
  * Althrough CEGUI System class is singleton, wyCEGUINode can be multi-instance. wyCEGUINode
  * must be bound with a CEGUI window, but CEGUI system is shared by all wyCEGUINode instances.
- *
- * \par
- * By default wyCEGUINode is full-screen size. And you should NOT change its size.
+ * Before creating first wyCEGUINode instance, the \c bootstrapSystem method must be invoked.
+ * You don't need to worry about destroying CEGUI system, wyCEGUINode handles it when last
+ * wyCEGUINode instance destroyed.
  */
 class CEGUIEXPORT wyCEGUINode : public wyNode {
 protected:

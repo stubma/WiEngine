@@ -38,7 +38,10 @@ namespace CEGUI {
             FrameWindow* wnd = (FrameWindow*)winMgr.createWindow("TaharezLook/FrameWindow", "Demo Window");
             root->addChildWindow(wnd);
             
-            // set window size
+            /*
+             * Init window
+             * NOTE: the origin of CEGUI is at top-left of screen
+             */
             wnd->setPosition(UVector2(cegui_absdim(100), cegui_absdim(100)));
             wnd->setSize(UVector2(cegui_absdim(wyDevice::winWidth / 3), cegui_absdim(wyDevice::winHeight / 3)));
             wnd->setMaxSize(UVector2(cegui_absdim(wyDevice::winWidth), cegui_absdim(wyDevice::winHeight)));
