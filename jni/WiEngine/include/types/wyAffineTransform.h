@@ -89,8 +89,15 @@ static void wyaToGL(wyAffineTransform& t, float* m) {
 	m[13] = (float)t.ty;
 }
 
+/**
+ * make a rotation matrix
+ *
+ * @param angle rotation angle in radian
+ * @param x pivot x
+ * @param y pivot y
+ * @return \link wyAffineTransform wyAffineTransform\endlink
+ */
 static const wyAffineTransform wyaMakeRotate(float angle, float x = 0.f, float y = 0.f) {
-	// 正值为逆时针旋转，负值为顺时针旋转
 	wyAffineTransform t = wyaZero;
 	wyaSetToRotation(&t, angle, x, y);
 	return t;
