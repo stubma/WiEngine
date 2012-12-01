@@ -38,10 +38,10 @@
  */
 class WIENGINE_API wyZoomFlipAngularTransition : public wyTransitionScene {
 protected:
-	/// 标识向左还是向右旋转，true为向左
+	/// true means flip from right to left
 	bool m_toLeft;
 
-	/// 缩放比，标识旧场景的目标缩放比和新场景的其实缩放比
+	/// scale rate of out and in target
 	float m_scale;
 
 	/// @see wyTransitionScene::initScenes

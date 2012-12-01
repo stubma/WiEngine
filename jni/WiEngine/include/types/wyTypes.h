@@ -142,16 +142,9 @@ typedef struct wyKeyValueHash {
  * 字体类型
  */
 typedef enum {
-	/// 正常字体
     NORMAL = 0,
-
-    /// 粗体类型
     BOLD   = 0x01,
-
-    /// 斜体类型
     ITALIC = 0x02,
-
-    /// 粗斜体类型
     BOLD_ITALIC = 0x03
 } wyFontStyle;
 

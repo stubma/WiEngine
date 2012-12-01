@@ -47,10 +47,10 @@
  */
 class WIENGINE_API wyTextureNode : public wyNode {
 protected:
-    /// 原始的贴图对象，由于可以在节点上设置帧，所以对于原始的贴图需要保留一份引用以便动画结束时能够恢复
+    /// texture reference backup, used to restore texture
     wyTexture2D* m_originalTex;
     
-    /// true表示原始的贴图数据已经被保存
+    /// true means texture info is saved
     bool m_originSaved;
 
 	/**
@@ -59,19 +59,19 @@ protected:
 	 */
 	bool m_autoFit;
 
-	/// 当前图片帧的\link wySpriteFrame wySpriteFrame对象指针\endlink
+	/// current frame object
 	wySpriteFrame* m_currentFrame;
 
 	/// animation map
 	map<int, wyAnimation*>* m_animations;
 
-	/// 原始的贴图对象所用贴图区域, 以便动画结束时能够恢复原始图像
+	/// original texture rectangle saved
 	wyRect m_originTexRect;
 
-	/// 原始的贴图对象大小, 以便动画结束时能够恢复原始图像
+	/// original node content size saved
 	wySize m_originContentSize;
 
-	/// 原始的贴图对象旋转标志, 以便动画结束时能够恢复原始图像
+	/// orginal rotate flag saved
 	bool m_originRotatedZwoptex;
 
 private:
@@ -92,9 +92,6 @@ public:
 	 */
 	wyTextureNode(wyTexture2D* tex = NULL);
 
-	/**
-	 * 析构函数
-	 */
 	virtual ~wyTextureNode();
 
 	/// @see wyGeometry::updateMesh

@@ -43,6 +43,5 @@ wyRibbon::wyRibbon(float fade) :
 		m_preLastLocation(wypZero),
 		m_remaining(0),
 		m_fadeTime(fade),
-		m_firstPoint(true),
-		m_blendFunc(wybfDefault) {
+		m_firstPoint(true) {
 }

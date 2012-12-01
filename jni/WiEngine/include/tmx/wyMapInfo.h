@@ -43,13 +43,13 @@ extern "C" {
  * TMX地图的类型
  */
 typedef enum {
-	/// 正交型
+	/// orthogonal
 	ORIENTATION_ORTHOGONAL = 1,
 
-	/// 等角型
+	/// isometric
 	ORIENTATION_ISOMETRIC,
 
-	/// 六边型
+	/// hexagonal
 	ORIENTATION_HEXAGONAL
 } wyTMXOrientation;
 

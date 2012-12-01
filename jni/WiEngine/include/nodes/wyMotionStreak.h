@@ -146,12 +146,6 @@ public:
 	/// @see wyNode::setContentSize
 	virtual void setContentSize(float w, float h);
 
-	/// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_ribbon->getBlendFunc(); }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_ribbon->setBlendFunc(func); }
-
 	/// @see wyNode::getTexture
 	virtual wyTexture2D* getTexture() { return m_ribbon->getTexture(); }
 

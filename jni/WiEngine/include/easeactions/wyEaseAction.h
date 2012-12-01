@@ -38,7 +38,7 @@
  */
 class WIENGINE_API wyEaseAction : public wyIntervalAction {
 protected:
-	/// 线性动作的\link wyIntervalAction wyIntervalAction对象 \endlink 的指针
+	/// the linear action wrapped by this ease action
 	wyIntervalAction* m_wrapped;
 
 public:

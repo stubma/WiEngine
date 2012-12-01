@@ -38,7 +38,7 @@
  */
 class WIENGINE_API wyScene : public wyNode {
 private:
-	/// 跟踪back按键事件, true表示之前back按键的按下已经收到
+	/// true means back key is in tracking
 	bool m_backKeyTracing;
 
 public:

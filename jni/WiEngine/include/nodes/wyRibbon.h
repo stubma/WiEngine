@@ -42,23 +42,20 @@
  */
 class WIENGINE_API wyRibbon : public wyNode {
 protected:
-	/// 上一次的点
+	/// last location
     wyPoint m_lastLocation;
 
-    /// 上上一次的点
+    /// the point ahead of last location
     wyPoint m_preLastLocation;
 
-    /// 当前剩余的未计算距离
+    /// distance is not counted
     float m_remaining;
 
-    /// 淡出时间
+    /// fade out time
     float m_fadeTime;
 
-    /// 下一个点是否是第一个点
+    /// true means next point is first point
     bool m_firstPoint;
-
-    /// 渲染模式\link wyBlendFunc wyBlendFunc结构\endlink
-    wyBlendFunc m_blendFunc;
 
 protected:
     /**
@@ -76,12 +73,6 @@ public:
 
 	/// @see wyNode::setContentSize
 	virtual void setContentSize(float w, float h);
-
-    /// @see wyNode::getBlendFunc
-	virtual wyBlendFunc getBlendFunc() { return m_blendFunc; }
-
-	/// @see wyNode::setBlendFunc
-	virtual void setBlendFunc(wyBlendFunc func) { m_blendFunc = func; }
 
 	/**
 	 * 强制指定下一个新端点会产生一个新的RibbonSegment
