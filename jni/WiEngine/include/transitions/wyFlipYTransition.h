@@ -38,7 +38,7 @@
  */
 class WIENGINE_API wyFlipYTransition : public wyTransitionScene {
 protected:
-	// 标识向上还是向下旋转，true为向上
+	// true means flip from bottom to top
 	bool m_toTop;
 
 	/// @see wyTransitionScene::initScenes

@@ -59,25 +59,25 @@ private:
 
 	/// hash for texture handle
 	struct wyTextureHash {
-		/// 资源的创建参数
+		/// creation parameter of texture
 		union {
-			// 通过资源id创建的
+			// from res id
 			struct {
 				int resId;
 			} rp;
 
-			// 通过内存文件创建的
+			// from memory file system
 			struct {
 				const char* mfsName;
 			} mp;
 
-			// 通过路径创建的
+			// from path
 			struct {
 				const char* path;
 				bool isFile;
 			} pp;
 
-			// 通过内存数据创建的
+			// from memory data
 			struct {
 				const char* data;
 				size_t length;
@@ -92,25 +92,25 @@ private:
 			} gp;
 		};
 
-		/// 创建类型
+		/// creation type
 		wyTextureCreationType type;
 
-		/// 贴图类型
+		/// texture source
 		wyTextureSource source;
 
-		/// 贴图格式
+		/// texture pixel format
 		wyTexturePixelFormat pixelFormat;
 
-		/// 透明色, 仅对BMP文件有效
+		/// transparent color, or zero if not set
 		int transparentColor;
 
-		/// 资源的inDensity
+		/// in density of resource
 		float inDensity;
 
-		/// 资源的md5字符串, 用来唯一标识贴图
+		/// md5 of resource, as an identifier
 		const char* md5;
 
-		/// 贴图句柄
+		/// handle of real texture
 		size_t handle;
 
 		/// true means this texture is a cloned texture of other
@@ -127,22 +127,22 @@ private:
 	};
 
 private:
-	/// 所有贴图的指针, 以句柄为访问索引
+	/// real texture array
 	wyGLTexture2D** m_textures;
 
-	/// 当前贴图数量
+	/// current texture handle count
 	int m_textureCount;
 
-	/// 所有可以通过某个键值查找的贴图对象哈希表
+	/// texture hash map
 	map<unsigned int, wyTextureHash>* m_textureHash;
 
 	/// idle gl texture handle list
 	vector<int>* m_idleHandles;
 
-	/// 下一个label的id
+	/// next id for label texture
 	int m_nextLabelId;
 
-	/// 缺省贴图格式, 设置合适的贴图格式可以提高渲染速度, 缺省格式是RGBA8888
+	/// default texture pixel format, default is RGBA8888
 	wyTexturePixelFormat m_texturePixelFormat;
 
 private:

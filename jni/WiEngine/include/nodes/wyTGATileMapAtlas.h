@@ -42,7 +42,7 @@ protected:
 	/// \link wyTGA wyTGA结构\endlink
 	wyTGA* m_tga;
 
-	/// TGA图片一行的字节数
+	/// bytes of one row
 	int m_rowBytes;
 
 public:

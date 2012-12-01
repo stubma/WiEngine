@@ -38,7 +38,7 @@
  */
 class WIENGINE_API wyFlipAngularTransition : public wyTransitionScene {
 protected:
-	/// 标识向左还是向右旋转，true为向左
+	/// true means flip from right to left
 	bool m_toLeft;
 
 	/// @see wyTransitionScene::initScenes

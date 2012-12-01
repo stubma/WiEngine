@@ -38,10 +38,10 @@
  */
 class WIENGINE_API wyZoomFlipYTransition : public wyTransitionScene {
 protected:
-	/// 标识向上还是向下旋转，true为向上
+	/// true means scenes flip from bottom to top
 	bool m_toTop;
 
-	/// 缩放比，标识旧场景的目标缩放比和新场景的其实缩放比
+	/// scale rate which is used for scale out and in target
 	float m_scale;
 
 	/// @see wyTransitionScene::initScenes
@@ -80,9 +80,6 @@ public:
 	 */
 	wyZoomFlipYTransition(float duration, wyScene* inScene, bool toTop, float scale);
 
-	/**
-	 * 析构函数
-	 */
 	virtual ~wyZoomFlipYTransition();
 };
 

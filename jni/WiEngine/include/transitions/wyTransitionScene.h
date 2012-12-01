@@ -36,9 +36,8 @@
 #include "wyGlobal.h"
 
 /**
- * @class wyTransitionScene
- *
- * 场景切换效果的封装, 是所有场景切换的基类
+ * Transition means effect when switching scenes. This is the base class for
+ * other transition implementation
  */
 class WIENGINE_API wyTransitionScene : public wyScene {
 private:
@@ -46,19 +45,19 @@ private:
 	bool m_finished;
 
 protected:
-	/// 准备载入的\link wyScene wyScene对象指针\endlink
+	/// the scene will be swapped in
 	wyScene* m_inScene;
 
-	/// 准备载出的\link wyScene wyScene对象指针\endlink，一般为wyDirector::getRunningScene
+	/// the scene will be swapped out, it is always the current scene
 	wyScene* m_outScene;
 
-	/// 场景切换的持续时间
+	/// duration time of transition animation
 	float m_duration;
 
-	/// 进场效果的ease动作
+	/// ease action of in scene
 	wyEaseAction* m_inEase;
 
-	/// 出场效果的ease动作
+	/// ease action of out scene
 	wyEaseAction* m_outEase;
 
 	/// target selector invoked when transition is done
@@ -66,12 +65,12 @@ protected:
 
 protected:
 	/**
-	 * 当完成场景切换后调用此方法，可以在子类重载该方法
+	 * invoked when transition is done, subclass can customize it
 	 */
 	virtual void postFinish();
 
 	/**
-	 * 对场景准备开始切换做准备工作，可以在子类重载该方法
+	 * setup something before transition, subclass can customize it
 	 */
 	virtual void initScenes();
 
@@ -83,46 +82,36 @@ protected:
 	virtual bool shouldInSceneOnTop();
 
 	/**
-	 * 返回载入场景效果的\link wyNode wyNode对象指针\endlink
-	 *
-	 * @return 载入场景效果的\link wyNode wyNode对象指针\endlink
+	 * get the target will be imposed with in action
 	 */
 	virtual wyNode* getInActionTarget();
 
 	/**
-	 * 返回载出场景效果的\link wyNode wyNode对象指针\endlink
-	 *
-	 * @return 载出场景效果的\link wyNode wyNode对象指针\endlink
+	 * get the target will be imposed with out action
 	 */
 	virtual wyNode* getOutActionTarget();
 
 	/**
-	 * 返回载入场景动作\link wyIntervalAction wyIntervalAction对象指针\endlink
-	 *
-	 * @return 载入场景动作\link wyIntervalAction wyIntervalAction对象指针\endlink
+	 * get action will be performed on in target
 	 */
 	virtual wyIntervalAction* getInAction();
 
 	/**
-	 * 返回载出场景动作\link wyIntervalAction wyIntervalAction对象指针\endlink
-	 *
-	 * @return 载出场景动作\link wyIntervalAction wyIntervalAction对象指针\endlink
+	 * get action will be performed on out target
 	 */
 	virtual wyIntervalAction* getOutAction();
 
 	/**
-	 * 设置wyDirector的当前场景为inScene,并激活事件派发机制
+	 * internally invoked when transition is done
 	 */
 	void setNewScene(wyTargetSelector* ts);
 
 	/**
-	 * 构造函数, 直接使用当前正在运行的场景为载出场景, 载入场景需要指定.
+	 * Constructor
 	 *
-	 * @param duration 场景切换的持续时间
-	 * @param inScene 准备载入的\link wyScene wyScene对象指针\endlink. 如果不为NULL, 则
-	 * 		载出场景自动设置为当前场景. 如果为NULL, 则载入场景和载出场景都不设置. 需要在之后再
-	 * 		自行设置. 一般如果是想在popScene的时候, 需要把这个参数设置为NULL, 这样\link wyDirector wyDirector\endlink
-	 * 		会自动设置载入和载出场景.
+	 * @param duration duration time of transition animation
+	 * @param inScene the scene will be swapped out, if not NULL, the out scene will be automatically set
+	 *		to current scene. if NULL, then out scene will not be set and you must set them later
 	 */
 	wyTransitionScene(float duration, wyScene* inScene);
 
@@ -136,9 +125,6 @@ public:
 	 */
 	static wyTransitionScene* make(float duration, wyScene* inScene);
 
-	/**
-	 * 析构函数
-	 */
 	virtual ~wyTransitionScene();
 
 	/// @see wyNode::onEnter
@@ -154,65 +140,54 @@ public:
 	virtual void afterRender();
 
 	/**
-	 * 当场景切换完成后调用该方法
+	 * this method must be called when transition should be ended, it is not
+	 * intend to be called by developer
 	 */
 	void finish(wyTargetSelector* ts);
 
 	/**
-	 * 隐藏载出场景并可见载入场景
+	 * hide out scene and show in scene
 	 */
 	void hideOutShowIn(wyTargetSelector* ts);
 
 	/**
-	 * 获得载入的\link wyScene wyScene对象指针\endlink
-	 *
-	 * @return 载入的\link wyScene wyScene对象指针\endlink
+	 * get the scene will be swapped in
 	 */
 	wyScene* getInScene() { return m_inScene; }
 
 	/**
-	 * 设置载入场景, 只能在运行前设置.
-	 *
-	 * @param scene 需要载入的场景
+	 * set the scene will be swapped in, you can only call it before transition is performed
 	 */
 	void setInScene(wyScene* scene);
 
 	/**
-	 * 获得载出的\link wyScene wyScene对象指针\endlink
-	 *
-	 * @return 载出的\link wyScene wyScene对象指针\endlink
+	 * get the scene will be swapped out
 	 */
 	wyScene* getOutScene() { return m_outScene; }
 
 	/**
-	 * 设置载出场景, 只能在运行前设置.
-	 *
-	 * @param scene 需要载出的场景
+	 * set the scene will be swapped out, you can only call it before transition is performed
 	 */
 	void setOutScene(wyScene* scene);
 
 	/**
-	 * 获得场景切换设置的时间
-	 *
-	 * @return 场景切换设置的时间
+	 * set duration time of transition animation
 	 */
 	float getDuration() { return m_duration; }
 
 	/**
-	 * 设置入场效果的ease动作. 内置的转换效果都是线性的, 如果想给它们设置一个非线性效果, 则
-	 * 必须在转换开始之前设置. 不过给转换动画设置非线性效果需要适当的运用, 不然出入场动画不匹配
-	 * 则会比较难看.
+	 * set non-linear effect for in animation, that makes transition animation more flexible.
+	 * it must be called before transition is performed
 	 *
-	 * @param inEase \link wyEaseAction wyEaseAction\endlink的子类
+	 * @param inEase subclass of \link wyEaseAction wyEaseAction\endlink
 	 */
 	void setInEaseAction(wyEaseAction* inEase);
 
 	/**
-	 * 设置出场效果的ease动作. 内置的转换效果都是线性的, 如果想给它们设置一个非线性效果, 则
-	 * 必须在转换开始之前设置. 不过给转换动画设置非线性效果需要适当的运用, 不然出入场动画不匹配
-	 * 则会比较难看.
+	 * set non-linear effect for out animation, that makes transition animation more flexible.
+	 * it must be called before transition is performed
 	 *
-	 * @param outEase \link wyEaseAction wyEaseAction\endlink的子类
+	 * @param outEase subclass of \link wyEaseAction wyEaseAction\endlink
 	 */
 	void setOutEaseAction(wyEaseAction* outEase);
 

@@ -55,7 +55,7 @@ private:
 	};
 
 protected:
-	/// 标识是否启用事件机制
+	/// true means event is enabled
 	bool m_dispatchEvents;
 
 	/// pending accelerator handlers
@@ -88,16 +88,16 @@ protected:
 	/// 手势事件\link wyArray wyArray对象\endlink
 	wyArray* m_gestureHandlers;
 
-	/// 事件队列\link wyArray wyArray对象\endlink，事件放入队列等待处理
+	/// event queue
 	wyArray* m_eventQueue;
 
-	/// 事件池\link wyArray wyArray对象\endlink，用来保存执行过的事件，为下次使用避免分配内存问题
+	/// event object pool
 	wyArray* m_eventPool;
 
-	/// 需要加入到事件队列里的事件
+	/// events need to be added to event queue 
 	wyArray* m_pendingAddList;
 
-	/// 需要执行的\link wyRunnable wyRunnable\endlink 对象
+	/// \link wyRunnable wyRunnable\endlink need to be executed in GL thread
 	wyArray* m_runnables;
 
 protected:
