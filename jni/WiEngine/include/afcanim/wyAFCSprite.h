@@ -43,14 +43,14 @@ public:
 	 *
 	 * @param sprite \link wyAFCSprite wyAFCSprite\endlink
 	 */
-	virtual void onAFCSpriteAnimationFrameChanged(wyAFCSprite* sprite);
+	virtual void onAFCSpriteAnimationFrameChanged(wyAFCSprite* sprite) = 0;
 
 	/**
 	 * Invoked when animation ended
 	 *
 	 * @param sprite \link wyAFCSprite wyAFCSprite\endlink
 	 */
-	virtual void onAFCSpriteAnimationEnded(wyAFCSprite* sprite);
+	virtual void onAFCSpriteAnimationEnded(wyAFCSprite* sprite) = 0;
 };
 
 /**
