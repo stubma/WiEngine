@@ -26,6 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef C_STACK_H_INCLUDED
 #define C_STACK_H_INCLUDED
 
+#include "kazmath/utility.h"
 #include "kazmath/mat4.h"
 
 typedef struct km_mat4_stack {
@@ -39,10 +40,10 @@ typedef struct km_mat4_stack {
 extern "C" {
 #endif
 
-void km_mat4_stack_initialize(km_mat4_stack* stack);
-void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item);
-void km_mat4_stack_pop(km_mat4_stack* stack, kmMat4* pOut);
-void km_mat4_stack_release(km_mat4_stack* stack);
+KAZMATH_API void km_mat4_stack_initialize(km_mat4_stack* stack);
+KAZMATH_API void km_mat4_stack_push(km_mat4_stack* stack, const kmMat4* item);
+KAZMATH_API void km_mat4_stack_pop(km_mat4_stack* stack, kmMat4* pOut);
+KAZMATH_API void km_mat4_stack_release(km_mat4_stack* stack);
 
 #ifdef __cplusplus
 }

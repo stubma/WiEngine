@@ -43,68 +43,68 @@ typedef struct kmQuaternion {
 	kmScalar w;
 } kmQuaternion;
 
-kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns pOut, sets pOut to the conjugate of pIn
+KAZMATH_API kmQuaternion* const kmQuaternionConjugate(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns pOut, sets pOut to the conjugate of pIn
 
-const kmScalar 	kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2); ///< Returns the dot product of the 2 quaternions
+KAZMATH_API const kmScalar 	kmQuaternionDot(const kmQuaternion* q1, const kmQuaternion* q2); ///< Returns the dot product of the 2 quaternions
 
-kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns the exponential of the quaternion
+KAZMATH_API kmQuaternion* kmQuaternionExp(kmQuaternion* pOut, const kmQuaternion* pIn); ///< Returns the exponential of the quaternion
 
 ///< Makes the passed quaternion an identity quaternion
 
-kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut);
+KAZMATH_API kmQuaternion* kmQuaternionIdentity(kmQuaternion* pOut);
 
 ///< Returns the inverse of the passed Quaternion
 
-kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
+KAZMATH_API kmQuaternion* kmQuaternionInverse(kmQuaternion* pOut,
 											const kmQuaternion* pIn);
 
 ///< Returns true if the quaternion is an identity quaternion
 
-int kmQuaternionIsIdentity(const kmQuaternion* pIn);
+KAZMATH_API int kmQuaternionIsIdentity(const kmQuaternion* pIn);
 
 ///< Returns the length of the quaternion
 
-kmScalar kmQuaternionLength(const kmQuaternion* pIn);
+KAZMATH_API kmScalar kmQuaternionLength(const kmQuaternion* pIn);
 
 ///< Returns the length of the quaternion squared (prevents a sqrt)
 
-kmScalar kmQuaternionLengthSq(const kmQuaternion* pIn);
+KAZMATH_API kmScalar kmQuaternionLengthSq(const kmQuaternion* pIn);
 
 ///< Returns the natural logarithm
 
-kmQuaternion* kmQuaternionLn(kmQuaternion* pOut, const kmQuaternion* pIn);
+KAZMATH_API kmQuaternion* kmQuaternionLn(kmQuaternion* pOut, const kmQuaternion* pIn);
 
 ///< Multiplies 2 quaternions together
 
-kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2);
+KAZMATH_API kmQuaternion* kmQuaternionMultiply(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2);
 
 ///< Normalizes a quaternion
 
-kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut, const kmQuaternion* pIn);
+KAZMATH_API kmQuaternion* kmQuaternionNormalize(kmQuaternion* pOut, const kmQuaternion* pIn);
 
 ///< Rotates a quaternion around an axis
 
-kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut, const struct kmVec3* pV, kmScalar angle);
+KAZMATH_API kmQuaternion* kmQuaternionRotationAxis(kmQuaternion* pOut, const struct kmVec3* pV, kmScalar angle);
 
 ///< Creates a quaternion from a rotation matrix
 
-kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut, const struct kmMat3* pIn);
+KAZMATH_API kmQuaternion* kmQuaternionRotationMatrix(kmQuaternion* pOut, const struct kmMat3* pIn);
 
 ///< Create a quaternion from yaw, pitch and roll
 
-kmQuaternion* kmQuaternionRotationYawPitchRoll(kmQuaternion* pOut, kmScalar yaw, kmScalar pitch, kmScalar roll);
+KAZMATH_API kmQuaternion* kmQuaternionRotationYawPitchRoll(kmQuaternion* pOut, kmScalar yaw, kmScalar pitch, kmScalar roll);
 ///< Interpolate between 2 quaternions
-kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, kmScalar t);
+KAZMATH_API kmQuaternion* kmQuaternionSlerp(kmQuaternion* pOut, const kmQuaternion* q1, const kmQuaternion* q2, kmScalar t);
 
 ///< Get the axis and angle of rotation from a quaternion
-void kmQuaternionToAxisAngle(const kmQuaternion* pIn, struct kmVec3* pVector, kmScalar* pAngle);
+KAZMATH_API void kmQuaternionToAxisAngle(const kmQuaternion* pIn, struct kmVec3* pVector, kmScalar* pAngle);
 
 ///< Scale a quaternion
-kmQuaternion* kmQuaternionScale(kmQuaternion* pOut, const kmQuaternion* pIn, kmScalar s);
-kmQuaternion* kmQuaternionAssign(kmQuaternion* pOut, const kmQuaternion* pIn);
-kmQuaternion* kmQuaternionAdd(kmQuaternion* pOut, const kmQuaternion* pQ1, const kmQuaternion* pQ2);
-kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const struct kmVec3* vec1, const struct kmVec3* vec2, const struct kmVec3* fallback);
-struct kmVec3* kmQuaternionMultiplyVec3(struct kmVec3* pOut, const kmQuaternion* q, const struct kmVec3* v);
+KAZMATH_API kmQuaternion* kmQuaternionScale(kmQuaternion* pOut, const kmQuaternion* pIn, kmScalar s);
+KAZMATH_API kmQuaternion* kmQuaternionAssign(kmQuaternion* pOut, const kmQuaternion* pIn);
+KAZMATH_API kmQuaternion* kmQuaternionAdd(kmQuaternion* pOut, const kmQuaternion* pQ1, const kmQuaternion* pQ2);
+KAZMATH_API kmQuaternion* kmQuaternionRotationBetweenVec3(kmQuaternion* pOut, const struct kmVec3* vec1, const struct kmVec3* vec2, const struct kmVec3* fallback);
+KAZMATH_API struct kmVec3* kmQuaternionMultiplyVec3(struct kmVec3* pOut, const kmQuaternion* q, const struct kmVec3* v);
 
 #ifdef __cplusplus
 }

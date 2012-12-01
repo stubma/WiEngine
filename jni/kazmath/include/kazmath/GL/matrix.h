@@ -35,23 +35,24 @@ typedef unsigned int kmGLEnum;
 
 #include "kazmath/mat4.h"
 #include "kazmath/vec3.h"
+#include "kazmath/utility.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void kmGLFreeAll(void);
-void kmGLPushMatrix(void);
-void kmGLPopMatrix(void);
-kmMat4* kmGLPeekMatrix();
-void kmGLMatrixMode(kmGLEnum mode);
-void kmGLLoadIdentity(void);
-void kmGLLoadMatrix(const kmMat4* pIn);
-void kmGLMultMatrix(const kmMat4* pIn);
-void kmGLTranslatef(float x, float y, float z);
-void kmGLRotatef(float angle, float x, float y, float z);
-void kmGLScalef(float x, float y, float z);
-void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut);
+KAZMATH_API void kmGLFreeAll(void);
+KAZMATH_API void kmGLPushMatrix(void);
+KAZMATH_API void kmGLPopMatrix(void);
+KAZMATH_API kmMat4* kmGLPeekMatrix();
+KAZMATH_API void kmGLMatrixMode(kmGLEnum mode);
+KAZMATH_API void kmGLLoadIdentity(void);
+KAZMATH_API void kmGLLoadMatrix(const kmMat4* pIn);
+KAZMATH_API void kmGLMultMatrix(const kmMat4* pIn);
+KAZMATH_API void kmGLTranslatef(float x, float y, float z);
+KAZMATH_API void kmGLRotatef(float angle, float x, float y, float z);
+KAZMATH_API void kmGLScalef(float x, float y, float z);
+KAZMATH_API void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut);
 
 #ifdef __cplusplus
 }
