@@ -26,6 +26,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef UTILITY_H_INCLUDED
 #define UTILITY_H_INCLUDED
 
+// export definition
+#if WINDOWS
+	#if LIBKAZMATH_EXPORTS
+		#define KAZMATH_API __declspec(dllexport)
+	#else
+		#define KAZMATH_API __declspec(dllimport)
+	#endif
+#else
+	#define KAZMATH_API
+#endif
+
 #define kmScalar float
 #define kmBool unsigned char
 #define kmEnum unsigned int

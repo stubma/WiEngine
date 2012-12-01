@@ -50,10 +50,10 @@ typedef struct kmTriangle {
 	int index;
 } kmTriangle;
 
-kmTriangle* kmTriangleFill(kmTriangle* pOut, const kmVec3* a, const kmVec3* b, const kmVec3* c);
-kmTriangle* kmTriangleCopy(kmTriangle* pOut, const kmTriangle* pIn);
-kmVec3* kmTriangleGetPoint(kmTriangle* pIn, int index);
-kmTriangle* kmTriangleSetPoint(kmTriangle* pIn, int index, const kmVec3* p);
-kmTriangle* kmTriangleSet(kmTriangle* pIn, const kmVec3* a, const kmVec3* b, const kmVec3* c);
+KAZMATH_API kmTriangle* kmTriangleFill(kmTriangle* pOut, const kmVec3* a, const kmVec3* b, const kmVec3* c);
+KAZMATH_API kmTriangle* kmTriangleCopy(kmTriangle* pOut, const kmTriangle* pIn);
+KAZMATH_API kmVec3* kmTriangleGetPoint(kmTriangle* pIn, int index);
+KAZMATH_API kmTriangle* kmTriangleSetPoint(kmTriangle* pIn, int index, const kmVec3* p);
+KAZMATH_API kmTriangle* kmTriangleSet(kmTriangle* pIn, const kmVec3* a, const kmVec3* b, const kmVec3* c);
 
 #endif // __triangle_h__

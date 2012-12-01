@@ -24,14 +24,16 @@
 #ifndef __NEON_MATRIX_IMPL_H__
 #define __NEON_MATRIX_IMPL_H__
 
+#include "kazmath/utility.h"
+
 // Matrixes are assumed to be stored in column major format according to OpenGL
 // specification.
 
 // Multiplies two 4x4 matrices (a,b) outputing a 4x4 matrix (output)
-void NEON_Matrix4Mul(const float* a, const float* b, float* output );
+KAZMATH_API void NEON_Matrix4Mul(const float* a, const float* b, float* output );
 
 // Multiplies a 4x4 matrix (m) with a vector 4 (v), outputing a vector 4
-void NEON_Matrix4Vector4Mul(const float* m, const float* v, float* output);
+KAZMATH_API void NEON_Matrix4Vector4Mul(const float* m, const float* v, float* output);
 
 
 #endif // __NEON_MATRIX_IMPL_H__

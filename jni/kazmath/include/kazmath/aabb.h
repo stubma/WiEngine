@@ -42,9 +42,9 @@ typedef struct kmAABB {
     kmVec3 max; /** The min corner of the box */
 } kmAABB;
 
-const int kmAABBContainsPoint(const kmVec3* pPoint, const kmAABB* pBox);
-kmAABB* const kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
-kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
+KAZMATH_API const int kmAABBContainsPoint(const kmVec3* pPoint, const kmAABB* pBox);
+KAZMATH_API kmAABB* const kmAABBAssign(kmAABB* pOut, const kmAABB* pIn);
+KAZMATH_API kmAABB* const kmAABBScale(kmAABB* pOut, const kmAABB* pIn, kmScalar s);
 
 #ifdef __cplusplus
 }
