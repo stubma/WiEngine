@@ -45,7 +45,7 @@
 	Dynamic Library import / export control conditional
 	(Define CEGUIBASE_EXPORTS to export symbols, else they are imported)
 *************************************************************************/
-#if (defined( __WIN32__ ) || defined( _WIN32 )) && !defined(CEGUI_STATIC)
+#if (defined( __WIN32__ ) || defined( _WIN32 ))
 #   ifdef CEGUIBASE_EXPORTS
 #       define CEGUIEXPORT __declspec(dllexport)
 #   else

@@ -60,6 +60,9 @@
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Shader\ShaderDemos.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\CEGUI\CEGUIDemos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.h">
@@ -117,6 +120,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Shader\ShaderDemos.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\CEGUI\CEGUIDemos.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

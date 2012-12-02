@@ -14,6 +14,9 @@
     <ProjectReference Include="libbox2d\libbox2d.vcxproj">
       <Project>{df17e696-5188-4116-ac4a-8b7fa613d4db}</Project>
     </ProjectReference>
+    <ProjectReference Include="libcegui\libcegui.vcxproj">
+      <Project>{741c3d6a-0fa0-471f-b065-0901a39b16bd}</Project>
+    </ProjectReference>
     <ProjectReference Include="libjson\libjson.vcxproj">
       <Project>{9f501aff-2c19-4993-a801-9182d4d01efa}</Project>
     </ProjectReference>
@@ -33,6 +36,7 @@
   <ItemGroup>
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.cpp" />
+    <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\CEGUI\CEGUIDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.cpp" />
     <ClCompile Include="..\samples\WiEngineDemos_native\jni\Demos\GridActions\GridActionDemos.cpp" />
@@ -53,6 +57,7 @@
   <ItemGroup>
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Actions\ActionDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Box2D\Box2DDemos.h" />
+    <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\CEGUI\CEGUIDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\common.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Ease\EaseActionDemos.h" />
     <ClInclude Include="..\samples\WiEngineDemos_native\jni\Demos\Events\EventDemos.h" />
@@ -103,7 +108,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\jni\kazmath\include;..\jni\WiEngine\include\mesh;..\jni\WiEngine\include\material;..\jni\WiEngine\include\shader;..\jni\WiEngine\include\render;..\jni\WiEngine\include;..\jni\WiEngine\impl\platform\windows;..\jni\WiEngine\include\winetwork;..\jni\WiEngine\include\designer;..\jni\WiEngine\include\wisound;..\jni\WiEngine\include\tmx;..\jni\WiEngine\include\transitions;..\jni\WiEngine\include\iap;..\jni\WiEngine\include\json;..\jni\WiEngine\include\lua;..\jni\WiEngine\include\box2d;..\jni\chipmunk;..\jni\WiEngine\include\chipmunk;..\jni\WiEngine\include\persistence;..\jni\WiEngine\include\mfs;..\jni\WiEngine\include\particle;..\jni\WiEngine\include\grid;..\jni\WiEngine\include\gridactions;..\jni\WiEngine\include\events;..\jni\WiEngine\include\filters;..\jni\WiEngine\include\easeactions;..\jni\WiEngine\include\dialog;..\jni\WiEngine\include\afcanim;..\jni\WiEngine\include\bitmapfont;..\jni\WiEngine\include\astar;..\jni\WiEngine\include\nodes;..\jni\WiEngine\include\actions;..\jni\WiEngine\include\types;..\jni\WiEngine\include\opengl;..\jni\WiEngine\include\utils;..\jni\WiEngine\include\common;..\jni\WiEngine\include\platform\windows;..\jni\libnsbmp;..\jni\libpng;..\jni\libjpeg;..\jni\libxml2\include;..\jni\lua;libpthread;libz\include;..\jni;..\samples\WiEngineDemos_native\jni\Demos</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\jni\cegui\include;..\jni\kazmath\include;..\jni\WiEngine\include\mesh;..\jni\WiEngine\include\material;..\jni\WiEngine\include\shader;..\jni\WiEngine\include\render;..\jni\WiEngine\include;..\jni\WiEngine\impl\platform\windows;..\jni\WiEngine\include\winetwork;..\jni\WiEngine\include\cegui;..\jni\WiEngine\include\designer;..\jni\WiEngine\include\wisound;..\jni\WiEngine\include\tmx;..\jni\WiEngine\include\transitions;..\jni\WiEngine\include\iap;..\jni\WiEngine\include\json;..\jni\WiEngine\include\lua;..\jni\WiEngine\include\box2d;..\jni\chipmunk;..\jni\WiEngine\include\chipmunk;..\jni\WiEngine\include\persistence;..\jni\WiEngine\include\mfs;..\jni\WiEngine\include\particle;..\jni\WiEngine\include\grid;..\jni\WiEngine\include\gridactions;..\jni\WiEngine\include\events;..\jni\WiEngine\include\filters;..\jni\WiEngine\include\easeactions;..\jni\WiEngine\include\dialog;..\jni\WiEngine\include\afcanim;..\jni\WiEngine\include\bitmapfont;..\jni\WiEngine\include\astar;..\jni\WiEngine\include\nodes;..\jni\WiEngine\include\actions;..\jni\WiEngine\include\types;..\jni\WiEngine\include\opengl;..\jni\WiEngine\include\utils;..\jni\WiEngine\include\common;..\jni\WiEngine\include\platform\windows;..\jni\libnsbmp;..\jni\libpng;..\jni\libjpeg;..\jni\libxml2\include;..\jni\lua;libpthread;libz\include;..\jni;..\samples\WiEngineDemos_native\jni\Demos</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WINDOWS</PreprocessorDefinitions>
       <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -140,7 +145,7 @@ copy /Y dependence\* $(Configuration)</Command>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\jni\kazmath\include;..\jni\WiEngine\include\mesh;..\jni\WiEngine\include\material;..\jni\WiEngine\include\shader;..\jni\WiEngine\include\render;..\jni\WiEngine\include;..\jni\WiEngine\impl\platform\windows;..\jni\WiEngine\include\winetwork;..\jni\WiEngine\include\designer;..\jni\WiEngine\include\wisound;..\jni\WiEngine\include\tmx;..\jni\WiEngine\include\transitions;..\jni\WiEngine\include\iap;..\jni\WiEngine\include\json;..\jni\WiEngine\include\lua;..\jni\WiEngine\include\box2d;..\jni\chipmunk;..\jni\WiEngine\include\chipmunk;..\jni\WiEngine\include\persistence;..\jni\WiEngine\include\mfs;..\jni\WiEngine\include\particle;..\jni\WiEngine\include\grid;..\jni\WiEngine\include\gridactions;..\jni\WiEngine\include\events;..\jni\WiEngine\include\filters;..\jni\WiEngine\include\easeactions;..\jni\WiEngine\include\dialog;..\jni\WiEngine\include\afcanim;..\jni\WiEngine\include\bitmapfont;..\jni\WiEngine\include\astar;..\jni\WiEngine\include\nodes;..\jni\WiEngine\include\actions;..\jni\WiEngine\include\types;..\jni\WiEngine\include\opengl;..\jni\WiEngine\include\utils;..\jni\WiEngine\include\common;..\jni\WiEngine\include\platform\windows;..\jni\libnsbmp;..\jni\libpng;..\jni\libjpeg;..\jni\libxml2\include;..\jni\lua;libpthread;libz\include;..\jni;..\samples\WiEngineDemos_native\jni\Demos</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\jni\cegui\include;..\jni\kazmath\include;..\jni\WiEngine\include\mesh;..\jni\WiEngine\include\material;..\jni\WiEngine\include\shader;..\jni\WiEngine\include\render;..\jni\WiEngine\include;..\jni\WiEngine\impl\platform\windows;..\jni\WiEngine\include\winetwork;..\jni\WiEngine\include\cegui;..\jni\WiEngine\include\designer;..\jni\WiEngine\include\wisound;..\jni\WiEngine\include\tmx;..\jni\WiEngine\include\transitions;..\jni\WiEngine\include\iap;..\jni\WiEngine\include\json;..\jni\WiEngine\include\lua;..\jni\WiEngine\include\box2d;..\jni\chipmunk;..\jni\WiEngine\include\chipmunk;..\jni\WiEngine\include\persistence;..\jni\WiEngine\include\mfs;..\jni\WiEngine\include\particle;..\jni\WiEngine\include\grid;..\jni\WiEngine\include\gridactions;..\jni\WiEngine\include\events;..\jni\WiEngine\include\filters;..\jni\WiEngine\include\easeactions;..\jni\WiEngine\include\dialog;..\jni\WiEngine\include\afcanim;..\jni\WiEngine\include\bitmapfont;..\jni\WiEngine\include\astar;..\jni\WiEngine\include\nodes;..\jni\WiEngine\include\actions;..\jni\WiEngine\include\types;..\jni\WiEngine\include\opengl;..\jni\WiEngine\include\utils;..\jni\WiEngine\include\common;..\jni\WiEngine\include\platform\windows;..\jni\libnsbmp;..\jni\libpng;..\jni\libjpeg;..\jni\libxml2\include;..\jni\lua;libpthread;libz\include;..\jni;..\samples\WiEngineDemos_native\jni\Demos</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WINDOWS</PreprocessorDefinitions>
       <DisableSpecificWarnings>4819;4244;4018;4996;4800</DisableSpecificWarnings>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>

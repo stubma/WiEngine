@@ -17,7 +17,15 @@
 #define TOLUA_H
 
 #ifndef TOLUA_API
-#define TOLUA_API extern
+	#if WINDOWS
+		#if LIBLUA_EXPORTS
+			#define TOLUA_API __declspec(dllexport)
+		#else
+			#define TOLUA_API __declspec(dllimport)
+		#endif
+	#else
+		#define TOLUA_API extern
+	#endif
 #endif
 
 #define TOLUA_VERSION "tolua++-1.0.92"

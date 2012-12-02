@@ -202,7 +202,7 @@ typedef struct {
 /* Constructs a new parser; encoding is the encoding specified by the
    external protocol or NULL if there is none specified.
 */
-XMLPARSEAPI(XML_Parser)
+XMLPARSEAPI(XML_Parser) 
 XML_ParserCreate(const XML_Char *encoding);
 
 /* Constructs a new parser and namespace processor.  Element type

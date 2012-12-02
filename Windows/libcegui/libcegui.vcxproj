@@ -1,0 +1,642 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libexpat\libexpat.vcxproj">
+      <Project>{8c0d6d29-08f1-4c41-9f16-4fec2f3214ba}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libft2\libft2.vcxproj">
+      <Project>{a3722d31-1761-4101-bccb-1d5f62d8802f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libjpeg\libjpeg.vcxproj">
+      <Project>{5d6ece36-0116-481e-952a-09fcf377c00b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libkazmath\libkazmath.vcxproj">
+      <Project>{9ee74d72-5f0e-4a28-8e33-18a8dd6a50f4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\liblua\liblua.vcxproj">
+      <Project>{9aafd680-72b3-490d-8b81-263a20f2cce8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libnsbmp\libnsbmp.vcxproj">
+      <Project>{935281d4-cdda-4c26-ac78-80addfc745ba}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libpng\libpng.vcxproj">
+      <Project>{d9b1762c-1184-4e06-af04-f8a0d9546eb2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libwiengine\libwiengine.vcxproj">
+      <Project>{b0ae0601-02ca-43ef-8f61-c3b31fadbda2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libz\libz.vcxproj">
+      <Project>{a84811e2-e408-475d-95c8-3810ec8a64a2}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIAffector.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIAnimation.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIAnimationInstance.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIAnimationManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIAnimation_xmlHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIBase.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIBasicInterpolators.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIBasicRenderedStringParser.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIBiDiVisualMapping.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIBoundSlot.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUICentredRenderedString.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIChainedXMLHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIcolour.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIColourRect.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIConfig_xmlHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUICoordConverter.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIDataContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIDefaultLogger.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIDefaultRenderedStringParser.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIDefaultResourceProvider.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIDynamicModule.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIEvent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIEventArgs.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIEventSet.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIEventSignal.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIEventSignalSet.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIExceptions.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIFactoryModule.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIFont.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIFontManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIFontProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIFont_xmlHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIFormattedRenderedString.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIFreeTypeFont.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIFribidiVisualMapping.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIGeometryBuffer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIGlobalEventSet.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIGUILayout_xmlHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIImage.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIImageCodec.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIImageset.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIImagesetManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIImageset_xmlHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIJustifiedRenderedString.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIJustifiedRenderedStringWordWrapper.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIKeyFrame.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUILeftAlignedRenderedString.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUILogger.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIMinibidiVisualMapping.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIMinizipResourceProvider.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIMouseCursor.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUINamedXMLResourceManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIPixmapFont.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIProperty.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIPropertyHelper.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIPropertySet.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRect.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderedString.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderedStringComponent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderedStringImageComponent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderedStringTextComponent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderedStringWidgetComponent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderEffectManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderingRoot.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderingSurface.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderingWindow.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRenderQueue.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIRightAlignedRenderedString.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIScheme.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUISchemeManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIScheme_xmlHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIScriptModule.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUISize.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIString.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUISubscriberSlot.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUISystem.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUITextUtils.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWindow.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWindowFactory.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWindowFactoryManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWindowManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWindowProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWindowRenderer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWindowRendererManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWindowRendererModule.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIWRFactoryRegisterer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIXMLAttributes.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIXMLHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIXMLParser.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\CEGUIXMLSerializer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIButtonBase.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUICheckbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUICheckboxProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIClippedContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUICombobox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIComboboxProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIComboDropList.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIDragContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIDragContainerProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIEditbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIEditboxProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIFrameWindow.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIFrameWindowProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIGridLayoutContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIGridLayoutContainerProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIGroupBox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIGUISheet.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIHorizontalLayoutContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIItemEntry.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIItemEntryProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIItemListBase.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIItemListBaseProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIItemListbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIItemListboxProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUILayoutContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIListbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIListboxItem.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIListboxProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIListboxTextItem.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIListHeader.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIListHeaderProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIListHeaderSegment.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIListHeaderSegmentProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMenubar.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMenuBase.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMenuBaseProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMenuItem.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMenuItemProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMultiColumnList.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMultiColumnListProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMultiLineEditbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIMultiLineEditboxProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIPopupMenu.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIPopupMenuProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIProgressBar.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIProgressBarProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIPushButton.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIRadioButton.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIRadioButtonProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIScrollablePane.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIScrollablePaneProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIScrollbar.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIScrollbarProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIScrolledContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIScrolledContainerProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIScrolledItemListBase.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIScrolledItemListBaseProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUISequentialLayoutContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUISlider.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUISliderProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUISpinner.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUISpinnerProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITabButton.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITabControl.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITabControlProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIThumb.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIThumbProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITitlebar.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITitlebarProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITooltip.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITooltipProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITree.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITreeItem.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUITreeProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\elements\CEGUIVerticalLayoutContainer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalagard_xmlHandler.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalComponentBase.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalDimensions.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalFrameComponent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalImageryComponent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalImagerySection.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalLayerSpecification.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalNamedArea.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalPropertyDefinition.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalPropertyDefinitionBase.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalPropertyInitialiser.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalPropertyLinkDefinition.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalSectionSpecification.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalStateImagery.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalTextComponent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalWidgetComponent.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalWidgetLookFeel.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalWidgetLookManager.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\falagard\CEGUIFalXMLEnumHelper.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\ImageCodecModules\WiEngineImageCodec\CEGUIWiEngineImageCodec.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\ImageCodecModules\WiEngineImageCodec\CEGUIWiEngineImageCodecModule.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\implementations\mac\macPlugins.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\minibidi.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\minizip\ioapi.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\minizip\iowin32.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\minizip\unzip.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\RendererModules\WiEngine\CEGUIWiEngineGeometryBuffer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\RendererModules\WiEngine\CEGUIWiEngineLogger.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\RendererModules\WiEngine\CEGUIWiEngineRenderer.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\RendererModules\WiEngine\CEGUIWiEngineRenderTarget.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\RendererModules\WiEngine\CEGUIWiEngineResourceProvider.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\RendererModules\WiEngine\CEGUIWiEngineTexture.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\RendererModules\WiEngine\CEGUIWiEngineTextureTarget.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\RendererModules\WiEngine\CEGUIWiEngineViewportTarget.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\ScriptingModules\LuaScriptModule\CEGUILua.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\ScriptingModules\LuaScriptModule\CEGUILuaFunctor.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\ScriptingModules\LuaScriptModule\lua_CEGUI.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\ScriptingModules\LuaScriptModule\required.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalButton.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalDefault.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalEditbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalEditboxProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalFrameWindow.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalItemEntry.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalItemListbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalListbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalListHeader.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalListHeaderProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalListHeaderSegment.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalMenubar.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalMenuItem.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalModule.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalMultiColumnList.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalMultiLineEditbox.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalMultiLineEditboxProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalPopupMenu.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalProgressBar.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalProgressBarProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalScrollablePane.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalScrollbar.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalScrollbarProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalSlider.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalSliderProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalStatic.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalStaticImage.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalStaticImageProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalStaticProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalStaticText.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalStaticTextProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalSystemButton.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalTabButton.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalTabControl.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalTabControlProperties.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalTitlebar.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalToggleButton.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalTooltip.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\WindowRendererSets\Falagard\FalTree.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\XMLParserModules\ExpatParser\CEGUIExpatParser.cpp" />
+    <ClCompile Include="..\..\jni\cegui\src\XMLParserModules\ExpatParser\CEGUIExpatParserModule.cpp" />
+    <ClCompile Include="..\..\jni\cegui\wyCEGUINode.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\cegui\include\CEGUI.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIAffector.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIAnimation.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIAnimationInstance.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIAnimationManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIAnimation_xmlHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIBasicInterpolators.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIBasicRenderedStringParser.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIBiDiVisualMapping.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIBoundSlot.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUICentredRenderedString.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIChainedXMLHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIcolour.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIColourRect.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIConfig.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIConfig_xmlHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUICoordConverter.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIDataContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIDefaultLogger.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIDefaultRenderedStringParser.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIDefaultResourceProvider.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIDynamicModule.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIEvent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIEventArgs.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIEventSet.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIExceptions.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFactoryModule.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFont.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFontGlyph.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFontManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFont_xmlHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFormattedRenderedString.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIForwardRefs.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFreeFunctionSlot.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFreeTypeFont.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFribidiVisualMapping.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFunctorCopySlot.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFunctorPointerSlot.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFunctorReferenceBinder.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIFunctorReferenceSlot.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIGeometryBuffer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIGlobalEventSet.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIGUILayout_xmlHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIImage.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIImageCodec.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIImageset.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIImagesetManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIImageset_xmlHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIInputEvent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIInterpolator.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIIteratorBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIJustifiedRenderedString.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIKeyFrame.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUILeftAlignedRenderedString.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUILogger.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIMemberFunctionSlot.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIMinibidiVisualMapping.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIMinizipResourceProvider.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIMouseCursor.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUINamedXMLResourceManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIPixmapFont.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIProperty.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIPropertyHelper.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIPropertySet.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRect.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRefCounted.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRegexMatcher.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderedString.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderedStringComponent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderedStringImageComponent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderedStringParser.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderedStringTextComponent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderedStringWidgetComponent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderedStringWordWrapper.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderEffect.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderEffectFactory.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderEffectManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderingContext.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderingRoot.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderingSurface.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderingWindow.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderQueue.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRenderTarget.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIResourceProvider.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIRightAlignedRenderedString.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIScheme.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUISchemeManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIScheme_xmlHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIScriptModule.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUISingleton.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUISize.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUISlotFunctorBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIString.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUISubscriberSlot.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUISystem.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUITexture.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUITextureTarget.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUITextUtils.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUITplWindowFactory.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUITplWindowRendererFactory.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUITplWRFactoryRegisterer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIUDim.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIVector.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIVersion.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIVertex.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWidgetModule.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWindow.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWindowFactory.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWindowFactoryManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWindowManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWindowProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWindowRenderer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWindowRendererManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWindowRendererModule.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIWRFactoryRegisterer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIXMLAttributes.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIXMLHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIXMLParser.h" />
+    <ClInclude Include="..\..\jni\cegui\include\CEGUIXMLSerializer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\config.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIAll.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIButtonBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUICheckbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUICheckboxProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIClippedContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUICombobox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIComboboxProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIComboDropList.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIDragContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIDragContainerProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIEditbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIEditboxProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIFrameWindow.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIFrameWindowProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIGridLayoutContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIGridLayoutContainerProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIGroupBox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIGUISheet.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIHorizontalLayoutContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIItemEntry.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIItemEntryProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIItemListBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIItemListBaseProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIItemListbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIItemListboxProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUILayoutContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIListbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIListboxItem.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIListboxProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIListboxTextItem.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIListHeader.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIListHeaderProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIListHeaderSegment.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIListHeaderSegmentProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMenubar.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMenuBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMenuBaseProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMenuItem.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMenuItemProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMultiColumnList.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMultiColumnListProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMultiLineEditbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIMultiLineEditboxProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIPopupMenu.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIPopupMenuProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIProgressBar.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIProgressBarProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIPushButton.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIRadioButton.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIRadioButtonProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIScrollablePane.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIScrollablePaneProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIScrollbar.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIScrollbarProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIScrolledContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIScrolledContainerProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIScrolledItemListBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIScrolledItemListBaseProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUISequentialLayoutContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUISlider.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUISliderProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUISpinner.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUISpinnerProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITabButton.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITabControl.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITabControlProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIThumb.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIThumbProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITitlebar.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITitlebarProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITooltip.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITooltipProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITree.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITreeItem.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUITreeProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\elements\CEGUIVerticalLayoutContainer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalagard_xmlHandler.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalComponentBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalDimensions.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalEnums.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalFrameComponent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalImageryComponent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalImagerySection.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalLayerSpecification.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalNamedArea.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalPropertyDefinition.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalPropertyDefinitionBase.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalPropertyInitialiser.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalPropertyLinkDefinition.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalSectionSpecification.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalStateImagery.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalTextComponent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalWidgetComponent.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalWidgetLookFeel.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalWidgetLookManager.h" />
+    <ClInclude Include="..\..\jni\cegui\include\falagard\CEGUIFalXMLEnumHelper.h" />
+    <ClInclude Include="..\..\jni\cegui\include\ImageCodecModules\WiEngineImageCodec\CEGUIWiEngineImageCodec.h" />
+    <ClInclude Include="..\..\jni\cegui\include\ImageCodecModules\WiEngineImageCodec\CEGUIWiEngineImageCodecModule.h" />
+    <ClInclude Include="..\..\jni\cegui\include\RendererModules\WiEngine\CEGUIWiEngineGeometryBuffer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\RendererModules\WiEngine\CEGUIWiEngineLogger.h" />
+    <ClInclude Include="..\..\jni\cegui\include\RendererModules\WiEngine\CEGUIWiEngineRenderer.h" />
+    <ClInclude Include="..\..\jni\cegui\include\RendererModules\WiEngine\CEGUIWiEngineRenderTarget.h" />
+    <ClInclude Include="..\..\jni\cegui\include\RendererModules\WiEngine\CEGUIWiEngineResourceProvider.h" />
+    <ClInclude Include="..\..\jni\cegui\include\RendererModules\WiEngine\CEGUIWiEngineTexture.h" />
+    <ClInclude Include="..\..\jni\cegui\include\RendererModules\WiEngine\CEGUIWiEngineTextureTarget.h" />
+    <ClInclude Include="..\..\jni\cegui\include\RendererModules\WiEngine\CEGUIWiEngineViewportTarget.h" />
+    <ClInclude Include="..\..\jni\cegui\include\ScriptingModules\LuaScriptModule\CEGUILua.h" />
+    <ClInclude Include="..\..\jni\cegui\include\ScriptingModules\LuaScriptModule\CEGUILuaFunctor.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalButton.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalDefault.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalEditbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalEditboxProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalFrameWindow.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalItemEntry.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalItemListbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalListbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalListHeader.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalListHeaderProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalListHeaderSegment.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalMenubar.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalMenuItem.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalModule.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalMultiColumnList.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalMultiLineEditbox.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalMultiLineEditboxProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalPopupMenu.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalProgressBar.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalProgressBarProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalScrollablePane.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalScrollbar.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalScrollbarProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalSlider.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalSliderProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalStatic.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalStaticImage.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalStaticImageProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalStaticProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalStaticText.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalStaticTextProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalSystemButton.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalTabButton.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalTabControl.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalTabControlProperties.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalTitlebar.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalToggleButton.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalTooltip.h" />
+    <ClInclude Include="..\..\jni\cegui\include\WindowRendererSets\Falagard\FalTree.h" />
+    <ClInclude Include="..\..\jni\cegui\include\XMLParserModules\ExpatParser\CEGUIExpatParser.h" />
+    <ClInclude Include="..\..\jni\cegui\include\XMLParserModules\ExpatParser\CEGUIExpatParserModule.h" />
+    <ClInclude Include="..\..\jni\cegui\src\implementations\mac\macPlugins.h" />
+    <ClInclude Include="..\..\jni\cegui\src\minizip\ioapi.h" />
+    <ClInclude Include="..\..\jni\cegui\src\minizip\iowin32.h" />
+    <ClInclude Include="..\..\jni\cegui\src\minizip\unzip.h" />
+    <ClInclude Include="..\..\jni\cegui\src\ScriptingModules\LuaScriptModule\required.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\cegui\wyCEGUINode.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{741C3D6A-0FA0-471F-B065-0901A39B16BD}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libcegui</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;CEGUIWIENGINEIMAGECODEC_EXPORTS;FALAGARDWRBASE_EXPORTS;CEGUILUA_EXPORTS;CEGUIWIDGETMODULE_EXPORTS;CEGUIBASE_EXPORTS;CEGUIEXPATPARSER_EXPORTS;XML_STATIC;CEGUI_STATIC;HAVE_CONFIG_H;WINDOWS;_DEBUG;_WINDOWS;_USRDLL;LIBCEGUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\lua;..\..\jni\lua\tolua++;..\..\jni\freetype\include;..\..\jni\freetype\builds;..\..\jni\expat;..\..\jni\cegui\include\ScriptingModules\LuaScriptModule;..\..\jni\cegui\include\XMLParserModules\ExpatParser;..\..\jni\cegui\include\RendererModules\WiEngine;..\..\jni\cegui\include\ImageCodecModules\WiEngineImageCodec;..\..\jni\cegui\include\falagard;..\..\jni\cegui\include\elements;..\..\jni\cegui\include\WindowRendererSets\Falagard;..\..\jni\cegui\include;..\..\jni\kazmath\include;..\..\jni\WiEngine\include;..\..\jni\WiEngine\include\material;..\..\jni\WiEngine\include\mesh;..\..\jni\WiEngine\impl\render;..\..\jni\WiEngine\include\render;..\..\jni\WiEngine\include\shader;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\cegui;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996;4819;4244;4251</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Winmm.lib;libEGL.lib;libGLESv2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dependence</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;CEGUIWIENGINEIMAGECODEC_EXPORTS;FALAGARDWRBASE_EXPORTS;CEGUILUA_EXPORTS;CEGUIWIDGETMODULE_EXPORTS;CEGUIBASE_EXPORTS;CEGUIEXPATPARSER_EXPORTS;XML_STATIC;CEGUI_STATIC;HAVE_CONFIG_H;WINDOWS;NDEBUG;_WINDOWS;_USRDLL;LIBCEGUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\lua;..\..\jni\lua\tolua++;..\..\jni\freetype\include;..\..\jni\freetype\builds;..\..\jni\expat;..\..\jni\cegui\include\ScriptingModules\LuaScriptModule;..\..\jni\cegui\include\XMLParserModules\ExpatParser;..\..\jni\cegui\include\RendererModules\WiEngine;..\..\jni\cegui\include\ImageCodecModules\WiEngineImageCodec;..\..\jni\cegui\include\falagard;..\..\jni\cegui\include\elements;..\..\jni\cegui\include\WindowRendererSets\Falagard;..\..\jni\cegui\include;..\..\jni\kazmath\include;..\..\jni\WiEngine\include;..\..\jni\WiEngine\include\material;..\..\jni\WiEngine\include\mesh;..\..\jni\WiEngine\impl\render;..\..\jni\WiEngine\include\render;..\..\jni\WiEngine\include\shader;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\cegui;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996;4819;4244;4251</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Winmm.lib;libEGL.lib;libGLESv2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dependence</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

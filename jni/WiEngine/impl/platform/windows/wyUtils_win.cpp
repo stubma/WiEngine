@@ -1202,6 +1202,11 @@ const char* wyUtils::mapAssetsPath(const char* path) {
 	return copy(wyResMap::getInstance()->getAssetFilePath(path));
 }
 
+const char** wyUtils::listAssetFiles(const char* path, size_t* outLen, const char* pattern) {
+	// TODO
+	return NULL;
+}
+
 void wyUtils::playVideo(int resId) {
 
 }

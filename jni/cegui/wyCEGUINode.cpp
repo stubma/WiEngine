@@ -32,6 +32,9 @@
 #include "CEGUIWiEngineRenderer.h"
 #include "CEGUIWiEngineLogger.h"
 #include <stdlib.h>
+#ifdef WINDOWS
+	#include <limits.h>
+#endif
 
 /// a reference count of how many wyCEGUINode exists
 static int s_systemRefCount = 0;
@@ -109,7 +112,7 @@ void wyCEGUINode::setResourceRoot(const char* root) {
 
 void wyCEGUINode::initializeResourceGroupDirectories() {
     WiEngineResourceProvider* rp = (WiEngineResourceProvider*)System::getSingleton().getResourceProvider();
-    char resourcePath[PATH_MAX];
+    char resourcePath[512];
 
     // for each resource type, set a resource group directory
     sprintf(resourcePath, "%s/%s", s_resRoot, "schemes/");

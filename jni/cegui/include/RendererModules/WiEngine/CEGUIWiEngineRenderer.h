@@ -35,6 +35,7 @@ namespace CEGUI {
 
 class WiEngineGeometryBuffer;
 class WiEngineTexture;
+class TextureTarget;
     
 /**
  * WiEngine renderer for CEGUI

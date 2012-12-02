@@ -7,6 +7,7 @@
 #include "common.h"
 #include "Actions/ActionDemos.h"
 #include "Box2D/Box2DDemos.h"
+#include "CEGUI/CEGUIDemos.h"
 #include "Ease/EaseActionDemos.h"
 #include "Events/EventDemos.h"
 #include "GridActions/GridActionDemos.h"
@@ -36,7 +37,7 @@ static void demo_notImplemented() {
 #define NOT_IMPL(entry) demo_notImplemented
 
 // demo map
-static demoEntryFunc sDemoMap[16][50] = {
+static demoEntryFunc sDemoMap[17][50] = {
 	{
 		DEMO_ENTRY_NAME(action, AnimationTest),
 		DEMO_ENTRY_NAME(action, AtlasAnimationTest),
@@ -107,6 +108,9 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(box2d, VaryingFrictionTest),
 		DEMO_ENTRY_NAME(box2d, VaryingRestitutionTest),
 		DEMO_ENTRY_NAME(box2d, WebTest),
+	},
+	{
+		DEMO_ENTRY_NAME(cegui, WindowTest),
 	},
 	{
 		DEMO_ENTRY_NAME(ease, EaseBackInOutTest),

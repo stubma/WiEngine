@@ -31,7 +31,7 @@
 
 #include "../../CEGUIImageCodec.h"
 
-#if (defined( __WIN32__ ) || defined( _WIN32 )) && !defined(CEGUI_STATIC)
+#if (defined( __WIN32__ ) || defined( _WIN32 ))
 #   ifdef CEGUIWIENGINEIMAGECODEC_EXPORTS
 #       define CEGUIWIENGINEIMAGECODEC_API __declspec(dllexport)
 #   else
