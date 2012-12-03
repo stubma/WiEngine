@@ -245,4 +245,5 @@
 	<string name="WavingFlagTest_desc">简单的实现一个飘动的旗帜</string>
 	<string name="CEGUIWindowTest_desc">Window是CEGUI组件的基类</string>
 	<string name="CEGUITabControlTest_desc">演示了TabControl的使用, 同时也包含了很多其它元素, 比如PushButton, RadioButton, ListBox等等. CEGUI还支持从XML文件生成界面, 这个例子也用到了这一功能.</string>
+	<string name="CEGUIScrollablePaneTest_desc">演示了滚动区域的使用, 不过这个demo使用了Windows样式, 看上去很不一样, 这可以让你了解如何在CEGUI中使用其它外观主题. 至于如何编写自己的主题, 可以去CEGUI的官网学习.</string>
 </resources>

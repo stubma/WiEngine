@@ -31,6 +31,89 @@ namespace CEGUI {
     
 	/////////////////////////////////////////////////////////////////////////////////
 
+	class wyScrollablePaneTestLayer : public wyLayer {
+	public:
+		wyScrollablePaneTestLayer() {
+            // bootstrapSystem must be called at the very beginning
+            wyCEGUINode::bootstrapSystem("cegui");
+            
+            // this sample will use WindowsLook
+            SchemeManager::getSingleton().create("WindowsLook.scheme");
+            
+            // load the default font because WindowsLook.scheme doesn't specify font
+            Font* font = &FontManager::getSingleton().create("DejaVuSans-10.font");
+            
+            // create a root window
+            // this will be a static, to give a nice app'ish background
+            WindowManager& winMgr = WindowManager::getSingleton();
+            Window* root = winMgr.createWindow("WindowsLook/Static");
+            root->setProperty("FrameEnabled", "false");
+            
+            // create a menubar.
+            // this will fit in the top of the screen and have options for the demo
+            UDim bar_bottom(0, font->getLineSpacing(2));
+            Window* bar = winMgr.createWindow("WindowsLook/Menubar");
+            bar->setArea(UDim(0, 0), UDim(0, 0), UDim(1, 0), bar_bottom);
+            bar->setAlwaysOnTop(true);
+            root->addChildWindow(bar);
+            
+            // fill out the menubar
+            createMenu(bar);
+            
+            // create a scrollable pane for our demo content
+            // this scrollable pane will be a kind of virtual desktop in the sense that it's bigger than
+            // the screen. 3000 x 3000 pixels
+            ScrollablePane* pane = (ScrollablePane*)winMgr.createWindow("WindowsLook/ScrollablePane");
+            pane->setArea(URect(UDim(0, 0), bar_bottom, UDim(1, 0), UDim(1, 0)));
+            pane->setContentPaneAutoSized(false);
+            pane->setContentPaneArea(CEGUI::Rect(0, 0, 3000, 3000));
+            root->addChildWindow(pane);
+            
+            // add a dialog to this pane so we have something to drag around :)
+            Window* dlg = winMgr.createWindow("WindowsLook/FrameWindow");
+            dlg->setMinSize(UVector2(UDim(0, 250), UDim(0, 100)));
+            dlg->setSize(UVector2(UDim(0, 250), UDim(0, 100)));
+            dlg->setText("Drag me around");
+            pane->addChildWindow(dlg);
+            
+            // add cegui node
+            wyCEGUINode* node = wyCEGUINode::make(root);
+            addChildLocked(node);
+            
+            // enable event for cegui node
+            node->setTouchEnabled(true);
+		}
+
+		virtual ~wyScrollablePaneTestLayer() {
+		}
+        
+        void createMenu(Window* bar) {
+            // file menu item
+            WindowManager& winMgr = WindowManager::getSingleton();
+            Window* file = winMgr.createWindow("WindowsLook/MenuItem");
+            file->setText("File");
+            bar->addChildWindow(file);
+            
+            // file popup
+            Window* popup = winMgr.createWindow("WindowsLook/PopupMenu");
+            file->addChildWindow(popup);
+            
+            // quit item in file menu
+            Window* item = winMgr.createWindow("WindowsLook/MenuItem");
+            item->setText("Quit");
+            item->subscribeEvent("Clicked",
+                                 Event::Subscriber(&wyScrollablePaneTestLayer::fileQuit, this));
+            popup->addChildWindow(item);
+        }
+        
+        bool fileQuit(const EventArgs&) {
+            wyDirector::getInstance()->popScene();
+            return true;
+        }
+	};
+
+	/////////////////////////////////////////////////////////////////////////////////
+
     static const char* PageText [] = {
         "This is page three",
         "And this is page four, it's not too different from page three, isn't it?",
@@ -367,5 +450,6 @@ namespace CEGUI {
 
 using namespace CEGUI;
 
+DEMO_ENTRY_IMPL(cegui, ScrollablePaneTest);
 DEMO_ENTRY_IMPL(cegui, TabControlTest);
 DEMO_ENTRY_IMPL(cegui, WindowTest);

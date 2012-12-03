@@ -245,4 +245,5 @@
 	<string name="WavingFlagTest_desc">Very simple shader to show a waving flag</string>
 	<string name="CEGUIWindowTest_desc">Window is CEGUI control\'s base class</string>
 	<string name="CEGUITabControlTest_desc">It demos CEGUI TabControl, as well as other basic elements such as PushButton, RadioButton, ListBox, etc. It also uses XML layout because CEGUI supports generating UI from a pre-defined XML format</string>
+	<string name="CEGUIScrollablePaneTest_desc">It demos ScrollablePane of CEGUI. It uses Windows look-and-feel so that is a good demo to understanding how to customize your UI. If you want to know how to write your own scheme, go to CEGUI official wiki for help</string>
 </resources>
