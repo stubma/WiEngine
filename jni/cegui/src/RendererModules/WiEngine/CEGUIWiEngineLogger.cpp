@@ -47,7 +47,7 @@ void WiEngineLogger::logEvent(const String& message, LoggingLevel level) {
             LOGW("%s", message.c_str());
             break;
         default:
-            LOGD("%s", message.c_str());
+//            LOGD("%s", message.c_str());
             break;
     }
 }
