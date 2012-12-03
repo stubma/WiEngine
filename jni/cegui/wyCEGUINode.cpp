@@ -32,9 +32,6 @@
 #include "CEGUIWiEngineRenderer.h"
 #include "CEGUIWiEngineLogger.h"
 #include <stdlib.h>
-#ifdef WINDOWS
-	#include <limits.h>
-#endif
 
 /// a reference count of how many wyCEGUINode exists
 static int s_systemRefCount = 0;
