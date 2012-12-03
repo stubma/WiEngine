@@ -244,4 +244,5 @@
 	<string name="RenderTextureTest_desc">Use RenderTexture to combine some drawing operation so it can create great effect</string>
 	<string name="WavingFlagTest_desc">Very simple shader to show a waving flag</string>
 	<string name="CEGUIWindowTest_desc">Window is CEGUI control\'s base class</string>
+	<string name="CEGUITabControlTest_desc">It demos CEGUI TabControl, as well as other basic elements such as PushButton, RadioButton, ListBox, etc. It also uses XML layout because CEGUI supports generating UI from a pre-defined XML format</string>
 </resources>

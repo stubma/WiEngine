@@ -15,7 +15,7 @@
 
 <manifest 
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.wiyun.engine" android:versionCode="70" android:versionName="4.0.0" android:installLocation="preferExternal">
+	package="com.wiyun.engine" android:versionCode="70" android:versionName="4.0.0" android:installLocation="internalOnly">
 	<uses-sdk android:minSdkVersion="8"></uses-sdk>
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.CAMERA" />
@@ -1844,6 +1844,11 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.TEST" />
             </intent-filter><meta-data android:name="desc" android:resource="@string/CEGUIWindowTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.cegui.TabControlTest" android:label="CEGUI/Tab Control"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter><meta-data android:name="desc" android:resource="@string/CEGUITabControlTest_desc"></meta-data>
 </activity>
         <receiver android:name="com.wiyun.engine.iap.androidmarket.BillingReceiver">
             <intent-filter>
