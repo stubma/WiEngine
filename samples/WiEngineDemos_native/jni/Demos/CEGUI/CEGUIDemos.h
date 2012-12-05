@@ -10,6 +10,7 @@
 extern "C" {
 #endif
 
+DEMO_ENTRY(cegui, FontTest);
 DEMO_ENTRY(cegui, ScrollablePaneTest);
 DEMO_ENTRY(cegui, TabControlTest);
 DEMO_ENTRY(cegui, WindowTest);

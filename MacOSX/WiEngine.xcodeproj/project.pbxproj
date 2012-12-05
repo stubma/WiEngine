@@ -131,6 +131,18 @@
 		927EFCF61478BC1600407A1B /* WYGestureRecognizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 927EFCF51478BC1600407A1B /* WYGestureRecognizer.mm */; };
 		928015E41477A6F600806FD3 /* WYNinePatchImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 928015E31477A6F600806FD3 /* WYNinePatchImageView.mm */; };
 		928CDAD81667004800F423B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7947146FA9AF004757F9 /* Foundation.framework */; };
+		929027BC166F105E00909A69 /* bdf.c in Sources */ = {isa = PBXBuildFile; fileRef = 9290274A166F105D00909A69 /* bdf.c */; };
+		929027BF166F105E00909A69 /* ftbzip2.c in Sources */ = {isa = PBXBuildFile; fileRef = 92902751166F105D00909A69 /* ftbzip2.c */; };
+		929027C5166F105E00909A69 /* type1cid.c in Sources */ = {isa = PBXBuildFile; fileRef = 9290275F166F105D00909A69 /* type1cid.c */; };
+		929027C7166F105E00909A69 /* ftgzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 92902762166F105D00909A69 /* ftgzip.c */; };
+		929027CE166F105E00909A69 /* ftlzw.c in Sources */ = {isa = PBXBuildFile; fileRef = 92902772166F105D00909A69 /* ftlzw.c */; };
+		929027D0166F105E00909A69 /* pcf.c in Sources */ = {isa = PBXBuildFile; fileRef = 92902776166F105D00909A69 /* pcf.c */; };
+		929027D4166F105E00909A69 /* pfr.c in Sources */ = {isa = PBXBuildFile; fileRef = 92902780166F105D00909A69 /* pfr.c */; };
+		929027DC166F105E00909A69 /* psaux.c in Sources */ = {isa = PBXBuildFile; fileRef = 92902792166F105D00909A69 /* psaux.c */; };
+		929027E8166F105E00909A69 /* type1.c in Sources */ = {isa = PBXBuildFile; fileRef = 929027AD166F105E00909A69 /* type1.c */; };
+		929027EC166F105E00909A69 /* type42.c in Sources */ = {isa = PBXBuildFile; fileRef = 929027B7166F105E00909A69 /* type42.c */; };
+		929027ED166F105E00909A69 /* winfnt.c in Sources */ = {isa = PBXBuildFile; fileRef = 929027BA166F105E00909A69 /* winfnt.c */; };
+		929027F8166F14CC00909A69 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929027EF166F10B600909A69 /* libbz2.dylib */; };
 		9292311414729DAD008EF743 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 9292311314729DAD008EF743 /* icon.icns */; };
 		9292BF7D14E4ECB900ADE7E9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
 		9292BF8714E4ECCA00ADE7E9 /* libwiengine.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D4319146FEA4100267B99 /* libwiengine.dylib */; };
@@ -917,8 +929,8 @@
 		92E1B11F1663093E00D06233 /* xmltok.c in Sources */ = {isa = PBXBuildFile; fileRef = 92E1B1181663093E00D06233 /* xmltok.c */; };
 		92E1B1201663093E00D06233 /* xmltok_impl.c in Sources */ = {isa = PBXBuildFile; fileRef = 92E1B11A1663093E00D06233 /* xmltok_impl.c */; };
 		92E1B1211663093E00D06233 /* xmltok_ns.c in Sources */ = {isa = PBXBuildFile; fileRef = 92E1B11C1663093E00D06233 /* xmltok_ns.c */; };
-		92E1B1221663099100D06233 /* liblibexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E1B0EE1663090300D06233 /* liblibexpat.a */; };
-		92E1B1231663099400D06233 /* liblibft2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E1B0FD1663092100D06233 /* liblibft2.a */; };
+		92E1B1221663099100D06233 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E1B0EE1663090300D06233 /* libexpat.a */; };
+		92E1B1231663099400D06233 /* libft2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E1B0FD1663092100D06233 /* libft2.a */; };
 		92E1B23E166309B100D06233 /* autofit.c in Sources */ = {isa = PBXBuildFile; fileRef = 92E1B19D166309B100D06233 /* autofit.c */; };
 		92E1B242166309B100D06233 /* ftbase.c in Sources */ = {isa = PBXBuildFile; fileRef = 92E1B1A3166309B100D06233 /* ftbase.c */; };
 		92E1B243166309B100D06233 /* ftbbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 92E1B1A5166309B100D06233 /* ftbbox.c */; };
@@ -978,6 +990,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9256760114CC6C7F005C1787;
 			remoteInfo = libjson;
+		};
+		929027F2166F149B00909A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92E1B0ED1663090300D06233;
+			remoteInfo = libexpat;
+		};
+		929027F4166F149B00909A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92E1B0FC1663092100D06233;
+			remoteInfo = libft2;
+		};
+		929027F6166F14A900909A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92E1ACAC166307D200D06233;
+			remoteInfo = libcegui;
 		};
 		9292BFB214E4ED5B00ADE7E9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1291,6 +1324,18 @@
 		928015E21477A6F600806FD3 /* WYNinePatchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYNinePatchImageView.h; sourceTree = "<group>"; };
 		928015E31477A6F600806FD3 /* WYNinePatchImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WYNinePatchImageView.mm; sourceTree = "<group>"; };
 		928015E61477CAA100806FD3 /* wyEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyEvents.h; path = ../../include/events/wyEvents.h; sourceTree = "<group>"; };
+		9290274A166F105D00909A69 /* bdf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bdf.c; sourceTree = "<group>"; };
+		92902751166F105D00909A69 /* ftbzip2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftbzip2.c; sourceTree = "<group>"; };
+		9290275F166F105D00909A69 /* type1cid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = type1cid.c; sourceTree = "<group>"; };
+		92902762166F105D00909A69 /* ftgzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftgzip.c; sourceTree = "<group>"; };
+		92902772166F105D00909A69 /* ftlzw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftlzw.c; sourceTree = "<group>"; };
+		92902776166F105D00909A69 /* pcf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pcf.c; sourceTree = "<group>"; };
+		92902780166F105D00909A69 /* pfr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pfr.c; sourceTree = "<group>"; };
+		92902792166F105D00909A69 /* psaux.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = psaux.c; sourceTree = "<group>"; };
+		929027AD166F105E00909A69 /* type1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = type1.c; sourceTree = "<group>"; };
+		929027B7166F105E00909A69 /* type42.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = type42.c; sourceTree = "<group>"; };
+		929027BA166F105E00909A69 /* winfnt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winfnt.c; sourceTree = "<group>"; };
+		929027EF166F10B600909A69 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		9292311314729DAD008EF743 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		9292BF7C14E4ECB900ADE7E9 /* libiap.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libiap.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		9292BF8C14E4ED1900ADE7E9 /* com_wiyun_engine_iap_androidmarket_PurchaseObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = com_wiyun_engine_iap_androidmarket_PurchaseObserver.cpp; sourceTree = "<group>"; };
@@ -2802,8 +2847,8 @@
 		92E1AEDC1663082900D06233 /* CEGUIExpatParserModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEGUIExpatParserModule.cpp; sourceTree = "<group>"; };
 		92E1AEDD1663082900D06233 /* wyCEGUINode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyCEGUINode.cpp; sourceTree = "<group>"; };
 		92E1B0E9166308D900D06233 /* wyCEGUINode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyCEGUINode.h; path = ../WiEngine/include/cegui/wyCEGUINode.h; sourceTree = "<group>"; };
-		92E1B0EE1663090300D06233 /* liblibexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		92E1B0FD1663092100D06233 /* liblibft2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibft2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		92E1B0EE1663090300D06233 /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		92E1B0FD1663092100D06233 /* libft2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libft2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92E1B1091663093E00D06233 /* Android.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
 		92E1B10A1663093E00D06233 /* ascii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ascii.h; sourceTree = "<group>"; };
 		92E1B10B1663093E00D06233 /* asciitab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asciitab.h; sourceTree = "<group>"; };
@@ -2881,7 +2926,6 @@
 		92E1B160166309B100D06233 /* fttrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fttrace.h; sourceTree = "<group>"; };
 		92E1B161166309B100D06233 /* ftvalid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ftvalid.h; sourceTree = "<group>"; };
 		92E1B162166309B100D06233 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
-		92E1B163166309B100D06233 /* pcftypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pcftypes.h; sourceTree = "<group>"; };
 		92E1B164166309B100D06233 /* psaux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = psaux.h; sourceTree = "<group>"; };
 		92E1B165166309B100D06233 /* pshints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pshints.h; sourceTree = "<group>"; };
 		92E1B167166309B100D06233 /* svbdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svbdf.h; sourceTree = "<group>"; };
@@ -3117,9 +3161,10 @@
 				928CDAD81667004800F423B8 /* Foundation.framework in Frameworks */,
 				92E1B0E8166308AE00D06233 /* libwiengine.dylib in Frameworks */,
 				92E1B0E7166308AB00D06233 /* liblua.dylib in Frameworks */,
+				929027F8166F14CC00909A69 /* libbz2.dylib in Frameworks */,
 				92E1B2EA16630A9C00D06233 /* libkazmath.dylib in Frameworks */,
-				92E1B1231663099400D06233 /* liblibft2.a in Frameworks */,
-				92E1B1221663099100D06233 /* liblibexpat.a in Frameworks */,
+				92E1B1231663099400D06233 /* libft2.a in Frameworks */,
+				92E1B1221663099100D06233 /* libexpat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3574,6 +3619,94 @@
 				920397A714C07A8C0099AD2E /* wyDialogTransition.cpp */,
 			);
 			name = dialog;
+			sourceTree = "<group>";
+		};
+		92902749166F105D00909A69 /* bdf */ = {
+			isa = PBXGroup;
+			children = (
+				9290274A166F105D00909A69 /* bdf.c */,
+			);
+			path = bdf;
+			sourceTree = "<group>";
+		};
+		92902750166F105D00909A69 /* bzip2 */ = {
+			isa = PBXGroup;
+			children = (
+				92902751166F105D00909A69 /* ftbzip2.c */,
+			);
+			path = bzip2;
+			sourceTree = "<group>";
+		};
+		92902752166F105D00909A69 /* cid */ = {
+			isa = PBXGroup;
+			children = (
+				9290275F166F105D00909A69 /* type1cid.c */,
+			);
+			path = cid;
+			sourceTree = "<group>";
+		};
+		92902760166F105D00909A69 /* gzip */ = {
+			isa = PBXGroup;
+			children = (
+				92902762166F105D00909A69 /* ftgzip.c */,
+			);
+			path = gzip;
+			sourceTree = "<group>";
+		};
+		92902771166F105D00909A69 /* lzw */ = {
+			isa = PBXGroup;
+			children = (
+				92902772166F105D00909A69 /* ftlzw.c */,
+			);
+			path = lzw;
+			sourceTree = "<group>";
+		};
+		92902775166F105D00909A69 /* pcf */ = {
+			isa = PBXGroup;
+			children = (
+				92902776166F105D00909A69 /* pcf.c */,
+			);
+			path = pcf;
+			sourceTree = "<group>";
+		};
+		9290277F166F105D00909A69 /* pfr */ = {
+			isa = PBXGroup;
+			children = (
+				92902780166F105D00909A69 /* pfr.c */,
+			);
+			path = pfr;
+			sourceTree = "<group>";
+		};
+		9290278F166F105D00909A69 /* psaux */ = {
+			isa = PBXGroup;
+			children = (
+				92902792166F105D00909A69 /* psaux.c */,
+			);
+			path = psaux;
+			sourceTree = "<group>";
+		};
+		9290279E166F105E00909A69 /* type1 */ = {
+			isa = PBXGroup;
+			children = (
+				929027AD166F105E00909A69 /* type1.c */,
+			);
+			path = type1;
+			sourceTree = "<group>";
+		};
+		929027AE166F105E00909A69 /* type42 */ = {
+			isa = PBXGroup;
+			children = (
+				929027B7166F105E00909A69 /* type42.c */,
+			);
+			path = type42;
+			sourceTree = "<group>";
+		};
+		929027B8166F105E00909A69 /* winfonts */ = {
+			isa = PBXGroup;
+			children = (
+				929027BA166F105E00909A69 /* winfnt.c */,
+			);
+			path = winfonts;
 			sourceTree = "<group>";
 		};
 		9292BF8814E4ED1900ADE7E9 /* iap */ = {
@@ -4122,8 +4255,8 @@
 				9256760214CC6C7F005C1787 /* libjson.dylib */,
 				9292BF7C14E4ECB900ADE7E9 /* libiap.dylib */,
 				92E1ACAD166307D200D06233 /* libcegui.dylib */,
-				92E1B0EE1663090300D06233 /* liblibexpat.a */,
-				92E1B0FD1663092100D06233 /* liblibft2.a */,
+				92E1B0EE1663090300D06233 /* libexpat.a */,
+				92E1B0FD1663092100D06233 /* libft2.a */,
 				92E1B29516630A6300D06233 /* libkazmath.dylib */,
 			);
 			name = Products;
@@ -4132,6 +4265,7 @@
 		92CA7941146FA9AF004757F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				929027EF166F10B600909A69 /* libbz2.dylib */,
 				92CA7F64146FD375004757F9 /* libsqlite3.dylib */,
 				92CA7F62146FD370004757F9 /* libz.dylib */,
 				92BB7BEB1479028500503912 /* libldap.dylib */,
@@ -6002,7 +6136,6 @@
 				92E1B160166309B100D06233 /* fttrace.h */,
 				92E1B161166309B100D06233 /* ftvalid.h */,
 				92E1B162166309B100D06233 /* internal.h */,
-				92E1B163166309B100D06233 /* pcftypes.h */,
 				92E1B164166309B100D06233 /* psaux.h */,
 				92E1B165166309B100D06233 /* pshints.h */,
 				92E1B166166309B100D06233 /* services */,
@@ -6040,6 +6173,17 @@
 		92E1B181166309B100D06233 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				92902749166F105D00909A69 /* bdf */,
+				92902750166F105D00909A69 /* bzip2 */,
+				92902752166F105D00909A69 /* cid */,
+				92902760166F105D00909A69 /* gzip */,
+				92902771166F105D00909A69 /* lzw */,
+				92902775166F105D00909A69 /* pcf */,
+				9290277F166F105D00909A69 /* pfr */,
+				9290278F166F105D00909A69 /* psaux */,
+				9290279E166F105E00909A69 /* type1 */,
+				929027AE166F105E00909A69 /* type42 */,
+				929027B8166F105E00909A69 /* winfonts */,
 				92E1B182166309B100D06233 /* autofit */,
 				92E1B19E166309B100D06233 /* base */,
 				92E1B1BE166309B100D06233 /* cff */,
@@ -6394,6 +6538,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				929027F7166F14A900909A69 /* PBXTargetDependency */,
 				9292BFB314E4ED5B00ADE7E9 /* PBXTargetDependency */,
 				9256762114CC6D6E005C1787 /* PBXTargetDependency */,
 				92BB7C6414790C2800503912 /* PBXTargetDependency */,
@@ -6417,6 +6562,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				929027F3166F149B00909A69 /* PBXTargetDependency */,
+				929027F5166F149B00909A69 /* PBXTargetDependency */,
 			);
 			name = libcegui;
 			productName = libcegui;
@@ -6436,7 +6583,7 @@
 			);
 			name = libexpat;
 			productName = libexpat;
-			productReference = 92E1B0EE1663090300D06233 /* liblibexpat.a */;
+			productReference = 92E1B0EE1663090300D06233 /* libexpat.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		92E1B0FC1663092100D06233 /* libft2 */ = {
@@ -6452,7 +6599,7 @@
 			);
 			name = libft2;
 			productName = libft2;
-			productReference = 92E1B0FD1663092100D06233 /* liblibft2.a */;
+			productReference = 92E1B0FD1663092100D06233 /* libft2.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		92E1B29416630A6300D06233 /* libkazmath */ = {
@@ -7504,6 +7651,17 @@
 				92E1B279166309B100D06233 /* sfnt.c in Sources */,
 				92E1B287166309B100D06233 /* smooth.c in Sources */,
 				92E1B288166309B100D06233 /* truetype.c in Sources */,
+				929027BC166F105E00909A69 /* bdf.c in Sources */,
+				929027BF166F105E00909A69 /* ftbzip2.c in Sources */,
+				929027C5166F105E00909A69 /* type1cid.c in Sources */,
+				929027C7166F105E00909A69 /* ftgzip.c in Sources */,
+				929027CE166F105E00909A69 /* ftlzw.c in Sources */,
+				929027D0166F105E00909A69 /* pcf.c in Sources */,
+				929027D4166F105E00909A69 /* pfr.c in Sources */,
+				929027DC166F105E00909A69 /* psaux.c in Sources */,
+				929027E8166F105E00909A69 /* type1.c in Sources */,
+				929027EC166F105E00909A69 /* type42.c in Sources */,
+				929027ED166F105E00909A69 /* winfnt.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7542,6 +7700,21 @@
 			isa = PBXTargetDependency;
 			target = 9256760114CC6C7F005C1787 /* libjson */;
 			targetProxy = 9256762014CC6D6E005C1787 /* PBXContainerItemProxy */;
+		};
+		929027F3166F149B00909A69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92E1B0ED1663090300D06233 /* libexpat */;
+			targetProxy = 929027F2166F149B00909A69 /* PBXContainerItemProxy */;
+		};
+		929027F5166F149B00909A69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92E1B0FC1663092100D06233 /* libft2 */;
+			targetProxy = 929027F4166F149B00909A69 /* PBXContainerItemProxy */;
+		};
+		929027F7166F14A900909A69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92E1ACAC166307D200D06233 /* libcegui */;
+			targetProxy = 929027F6166F14A900909A69 /* PBXContainerItemProxy */;
 		};
 		9292BFB314E4ED5B00ADE7E9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8015,7 +8188,7 @@
 					HAVE_EXPAT_CONFIG_H,
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = expat;
 			};
 			name = Debug;
 		};
@@ -8033,7 +8206,7 @@
 					HAVE_EXPAT_CONFIG_H,
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = expat;
 			};
 			name = Release;
 		};
@@ -8051,7 +8224,7 @@
 					FT2_BUILD_LIBRARY,
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ft2;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libmpg123 /usr/include/libxml2 $(SRCROOT)/../jni $(SRCROOT)/../jni/lua $(SRCROOT)/../jni/lua/tolua++ $(SRCROOT)/../jni/WiEngine/include $(SRCROOT)/../jni/WiEngine/include/lua $(SRCROOT)/../jni/WiEngine/include/utils $(SRCROOT)/../jni/vorbis $(SRCROOT)/../jni/kazmath/include $(SRCROOT)/../jni/freetype/include";
 			};
 			name = Debug;
@@ -8070,7 +8243,7 @@
 					FT2_BUILD_LIBRARY,
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ft2;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libmpg123 /usr/include/libxml2 $(SRCROOT)/../jni $(SRCROOT)/../jni/lua $(SRCROOT)/../jni/lua/tolua++ $(SRCROOT)/../jni/WiEngine/include $(SRCROOT)/../jni/WiEngine/include/lua $(SRCROOT)/../jni/WiEngine/include/utils $(SRCROOT)/../jni/vorbis $(SRCROOT)/../jni/kazmath/include $(SRCROOT)/../jni/freetype/include";
 			};
 			name = Release;

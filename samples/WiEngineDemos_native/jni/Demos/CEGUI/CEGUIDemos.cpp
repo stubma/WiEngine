@@ -31,6 +31,297 @@ namespace CEGUI {
     
 	/////////////////////////////////////////////////////////////////////////////////
 
+    static struct {
+        utf8* Language;
+        utf8* Font;
+    	utf8* Text;
+    } LangList[] = {
+    	// A list of strings in different languages
+    	// Feel free to add your own language here (UTF-8 ONLY!)...
+        { (utf8 *)"English",
+          (utf8*)"DejaVuSans-10",
+    	  (utf8 *)"THIS IS SOME TEXT IN UPPERCASE\n"
+                  "and this is lowercase...\n"
+                  "Try Catching The Brown Fox While It's Jumping Over The Lazy Dog" },
+        { (utf8 *)"Русский",
+          (utf8*)"DejaVuSans-10",
+    	  (utf8 *)"Всё ускоряющаяся эволюция компьютерных технологий предъявила жёсткие требования к производителям как собственно вычислительной техники, так и периферийных устройств.\n"
+                  "\nЗавершён ежегодный съезд эрудированных школьников, мечтающих глубоко проникнуть в тайны физических явлений и химических реакций.\n"
+                  "\nавтор панграмм -- Андрей Николаев\n" },
+        { (utf8 *)"Română",
+          (utf8*)"DejaVuSans-10",
+          (utf8 *)"CEI PATRU APOSTOLI\n"
+                  "au fost trei:\n"
+                  "Luca şi Matfei\n" },
+        { (utf8 *)"Dansk",
+          (utf8*)"DejaVuSans-10",
+          (utf8 *)"FARLIGE STORE BOGSTAVER\n"
+                  "og flere men små...\n"
+                  "Quizdeltagerne spiste jordbær med fløde, mens cirkusklovnen Walther spillede på xylofon\n" },
+    	{ (utf8 *)"Japanese",
+          (utf8*)"Sword-26",
+          (utf8 *)"日本語を選択\n"
+                  "トリガー検知\n"
+                  "鉱石備蓄不足\n" },
+    	{ (utf8 *)"Korean",
+          (utf8*)"Batang-26",
+          (utf8 *)"한국어를 선택\n"
+                  "트리거 검지\n"
+                  "광석 비축부족\n" },
+        { (utf8 *)"Việt",
+          (utf8*)"DejaVuSans-10",
+          (utf8 *)"Chào CrazyEddie !\n"
+                  "Mình rất hạnh phúc khi nghe bạn nói điều đó\n"
+                  "Hy vọng sớm được thấy CEGUI hỗ trợ đầy đủ tiếng Việt\n"
+                  "Cám ơn bạn rất nhiều\n"
+                  "Chúc bạn sức khoẻ\n"
+                  "Tạm biệt !\n" }
+    };
+
+	#define MIN_POINT_SIZE 6.0f
+
+    class wyFontTestLayer : public wyLayer {
+    public:
+    	wyFontTestLayer() {
+            // bootstrapSystem must be called at the very beginning
+            wyCEGUINode::bootstrapSystem("cegui");
+
+            // load scheme
+            SchemeManager::getSingleton().create("TaharezLook.scheme");
+
+    		// Create a custom font which we use to draw the list items. This custom
+    		// font won't get effected by the scaler and such. we set it as default font
+    		FontManager::getSingleton().createFreeTypeFont("DefaultFont", 10/*pt*/, true, "DejaVuSans.ttf");
+    		System::getSingleton().setDefaultFont("DefaultFont");
+
+            // load all the fonts (if they are not loaded yet)
+            FontManager::getSingleton().createAll("*.font", "fonts");
+
+            // load an image to use as a background
+            ImagesetManager::getSingleton().createFromImageFile("BackgroundImage", "GPN-2000-001437.png");
+
+            // here we will use a StaticImage as the root, then we can use it to place a background image
+            // full_image is the default name for the whole image area
+            WindowManager& winMgr = WindowManager::getSingleton();
+            Window* background = winMgr.createWindow ("TaharezLook/StaticImage");
+            background->setArea (URect (cegui_reldim (0), cegui_reldim (0),
+            		cegui_reldim (1), cegui_reldim (1)));
+            background->setProperty ("FrameEnabled", "false");
+            background->setProperty ("BackgroundEnabled", "false");
+            background->setProperty ("Image", "set:BackgroundImage image:full_image");
+
+            // load some demo windows and attach to the background 'root'
+            background->addChildWindow (winMgr.loadWindowLayout ("FontDemo.layout"));
+
+            // Add the font names to the listbox
+            Listbox* lbox = (Listbox*)winMgr.getWindow ("FontDemo/FontList");
+    		lbox->setFont("DefaultFont");
+
+    		// check current loaded font, add them to font list box
+            // but exclude the special DefaultFont
+            FontManager::FontIterator fi = FontManager::getSingleton().getIterator();
+            while (!fi.isAtEnd()) {
+                if (fi.getCurrentKey() != String("DefaultFont")) {
+                    ListboxTextItem* li = new ListboxTextItem(fi.getCurrentKey());
+                    li->setSelectionBrushImage(SKIN, "MultiListSelectionBrush");
+                	lbox->addItem(li);
+                }
+                ++fi;
+            }
+
+            // set up the font listbox callback
+            lbox->subscribeEvent(Listbox::EventSelectionChanged,
+            		Event::Subscriber(&wyFontTestLayer::handleFontSelection, this));
+
+            // select the first font by default
+            lbox->setItemSelectState (size_t (0), true);
+
+            // Add language list to the listbox
+            lbox = (Listbox*)winMgr.getWindow ("FontDemo/LangList");
+    		lbox->setFont("DefaultFont");
+            for (size_t i = 0; i < (sizeof(LangList) / sizeof (LangList [0])); i++) {
+                // only add a language if 'preferred' font is available
+                if (FontManager::getSingleton().isDefined(String(LangList[i].Font))) {
+                    ListboxTextItem* li = new ListboxTextItem(LangList[i].Language, i);
+                    li->setSelectionBrushImage(SKIN, "MultiListSelectionBrush");
+                	lbox->addItem(li);
+                }
+            }
+
+            // set up the language listbox callback
+            lbox->subscribeEvent(Listbox::EventSelectionChanged,
+            		Event::Subscriber(&wyFontTestLayer::handleLangSelection, this));
+
+            // select the first language by default
+            lbox->setItemSelectState(size_t (0), true);
+
+            // install event for other control
+            winMgr.getWindow("FontDemo/AutoScaled")->subscribeEvent(Checkbox::EventCheckStateChanged,
+            		Event::Subscriber(&wyFontTestLayer::handleAutoScaled, this));
+			winMgr.getWindow("FontDemo/Antialiased")->subscribeEvent(Checkbox::EventCheckStateChanged,
+					Event::Subscriber(&wyFontTestLayer::handleAntialiased, this));
+			winMgr.getWindow("FontDemo/PointSize")->subscribeEvent(Scrollbar::EventScrollPositionChanged,
+					Event::Subscriber(&wyFontTestLayer::handlePointSize, this));
+
+            // add cegui node
+            wyCEGUINode* node = wyCEGUINode::make(background);
+            addChildLocked(node);
+
+            // enable event for cegui node
+            node->setTouchEnabled(true);
+    	}
+
+    	virtual ~wyFontTestLayer() {
+    	}
+
+        void setFontDesc() {
+        	// get edit box
+			WindowManager& winMgr = WindowManager::getSingleton();
+			MultiLineEditbox* mle = (MultiLineEditbox*)winMgr.getWindow("FontDemo/FontSample");
+
+			// Query the font from the textbox
+			Font* f = mle->getFont();
+
+			// Build up the font name...
+			String s = f->getProperty("Name");
+			if(f->isPropertyPresent("PointSize")) {
+				s += "." + f->getProperty("PointSize");
+			}
+
+			// ...and set it
+			winMgr.getWindow("FontDemo/FontDesc")->setText(s);
+		}
+
+        void updateTextWindows() {
+			WindowManager& winMgr(WindowManager::getSingleton());
+			MultiLineEditbox* eb = static_cast<MultiLineEditbox*>(winMgr.getWindow("FontDemo/FontSample"));
+
+			// this is a hack to force the editbox to update it's state, and is
+			// needed because no facility currently exists for a font to notify that
+			// it's internal size or state has changed (ideally all affected windows
+			// should receive EventFontChanged - this should be a TODO item!)
+			eb->setWordWrapping(false);
+			eb->setWordWrapping(true);
+
+			// inform lists of updated data too
+			Listbox* lb = (Listbox*)winMgr.getWindow("FontDemo/LangList");
+			lb->handleUpdatedItemData();
+			lb = (Listbox*)winMgr.getWindow("FontDemo/FontList");
+			lb->handleUpdatedItemData();
+		}
+
+    	bool handleFontSelection(const EventArgs& e) {
+    		// Access the listbox which sent the event
+			Listbox* lbox = (Listbox*)((const WindowEventArgs&)e).window;
+
+			if(lbox->getFirstSelectedItem()) {
+				// Read the fontname and get the font by that name
+				Font* font = &FontManager::getSingleton().get(lbox->getFirstSelectedItem()->getText());
+
+				// Tell the textbox to use the newly selected font
+				WindowManager& winMgr = WindowManager::getSingleton();
+				winMgr.getWindow("FontDemo/FontSample")->setFont(font);
+
+				// set font auto scale property
+				bool b = font->isPropertyPresent("AutoScaled");
+				Checkbox* cb = (Checkbox*)winMgr.getWindow("FontDemo/AutoScaled");
+				cb->setEnabled(b);
+				if(b) {
+					cb->setSelected(PropertyHelper::stringToBool(font->getProperty("AutoScaled")));
+				}
+
+				// set font antialias property
+				b = font->isPropertyPresent("Antialiased");
+				cb = (Checkbox*)winMgr.getWindow("FontDemo/Antialiased");
+				cb->setEnabled(b);
+				if(b) {
+					cb->setSelected(PropertyHelper::stringToBool(font->getProperty("Antialiased")));
+				}
+
+				// set font size
+				b = font->isPropertyPresent("PointSize");
+				Scrollbar *sb = (Scrollbar*)winMgr.getWindow("FontDemo/PointSize");
+				sb->setEnabled(b);
+				if(font->isPropertyPresent("PointSize")) {
+					font->setProperty("PointSize", PropertyHelper::intToString(int(MIN_POINT_SIZE + sb->getScrollPosition())));
+				}
+
+				// update font name label
+				setFontDesc();
+			}
+
+			return true;
+    	}
+
+    	bool handleLangSelection(const EventArgs& e) {
+			// Access the listbox which sent the event
+			Listbox* lbox = (Listbox*)((const WindowEventArgs&)e).window;
+
+			if(lbox->getFirstSelectedItem()) {
+				// get font name in language list
+				ListboxItem* sel_item = lbox->getFirstSelectedItem();
+				size_t idx = sel_item ? sel_item->getID() : 0;
+				const String fontName(LangList[idx].Font);
+
+				// select the font in font list box
+				WindowManager& winMgr = WindowManager::getSingleton();
+				Listbox *fontList = (Listbox*)winMgr.getWindow("FontDemo/FontList");
+				ListboxItem* lbi = fontList->findItemWithText(fontName, 0);
+				if(lbi && !lbi->isSelected()) {
+					// This will cause 'handleFontSelection' to get called(!)
+					fontList->setItemSelectState(lbi, true);
+				}
+
+				// Finally, set the sample text for the selected language
+				winMgr.getWindow("FontDemo/FontSample")->setText((utf8*) LangList[idx].Text);
+			}
+
+			return true;
+    	}
+
+    	bool handleAutoScaled(const EventArgs& e) {
+            WindowManager& winMgr = WindowManager::getSingleton();
+			Checkbox *cb = (Checkbox*) ((const WindowEventArgs&) e).window;
+
+			MultiLineEditbox* mle = (MultiLineEditbox*) winMgr.getWindow("FontDemo/FontSample");
+
+			Font* f = mle->getFont();
+			f->setProperty("AutoScaled", PropertyHelper::boolToString(cb->isSelected()));
+
+			updateTextWindows();
+			return true;
+    	}
+
+    	bool handleAntialiased(const EventArgs& e) {
+            WindowManager& winMgr = WindowManager::getSingleton ();
+            Checkbox *cb = (Checkbox*) ((const WindowEventArgs&) e).window;
+
+			MultiLineEditbox* mle = (MultiLineEditbox*) winMgr.getWindow("FontDemo/FontSample");
+
+			Font *f = mle->getFont();
+			f->setProperty("Antialiased", PropertyHelper::boolToString(cb->isSelected()));
+
+			updateTextWindows();
+			return true;
+    	}
+
+    	bool handlePointSize(const EventArgs& e) {
+            WindowManager& winMgr = WindowManager::getSingleton ();
+            Scrollbar* sb = (Scrollbar*)((const WindowEventArgs&)e).window;
+
+            Font* f = winMgr.getWindow("FontDemo/FontSample")->getFont();
+
+			f->setProperty("PointSize", PropertyHelper::intToString(int(MIN_POINT_SIZE + sb->getScrollPosition())));
+
+			setFontDesc();
+			updateTextWindows();
+
+			return true;
+    	}
+    };
+
+	/////////////////////////////////////////////////////////////////////////////////
+
 	class wyScrollablePaneTestLayer : public wyLayer {
 	public:
 		wyScrollablePaneTestLayer() {
@@ -450,6 +741,7 @@ namespace CEGUI {
 
 using namespace CEGUI;
 
+DEMO_ENTRY_IMPL(cegui, FontTest);
 DEMO_ENTRY_IMPL(cegui, ScrollablePaneTest);
 DEMO_ENTRY_IMPL(cegui, TabControlTest);
 DEMO_ENTRY_IMPL(cegui, WindowTest);
