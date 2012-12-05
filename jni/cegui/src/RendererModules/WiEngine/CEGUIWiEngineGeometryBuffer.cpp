@@ -75,11 +75,23 @@ void WiEngineGeometryBuffer::draw() const {
     if(clip)
         r->pushClipRect(m_clipRect);
     
-    // render it
-    for(RenderPairList::const_iterator iter = m_renderPairs.begin(); iter != m_renderPairs.end(); iter++) {
-        const RenderPair& rp = *iter;
-        rm->renderMaterial(rp.mat, rp.mesh);
+    // render it, embeded by effect
+    int passCount = m_effect ? m_effect->getPassCount() : 1;
+    for(int pass = 0; pass < passCount; pass++) {
+        // set up RenderEffect
+        if (m_effect)
+            m_effect->performPreRenderFunctions(pass);
+        
+        // render material and mesh
+        for(RenderPairList::const_iterator iter = m_renderPairs.begin(); iter != m_renderPairs.end(); iter++) {
+            const RenderPair& rp = *iter;
+            rm->renderMaterial(rp.mat, rp.mesh);
+        }
     }
+    
+    // clean up RenderEffect
+    if(m_effect)
+        m_effect->performPostRenderFunctions();
     
     // pop clip rect
     if(clip)
