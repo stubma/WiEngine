@@ -350,10 +350,27 @@ const char** listAssetFiles(const char* path, size_t* outLen, const char* patter
 	// get asset manager
 	jobject amObj = env->CallObjectMethod(jobject_Context, jmethodID_Context_getAssets);
 
+	// must checking ending slash, asset manager list method doesn't support it
+	int pLen = path == NULL ? 0 : strlen(path);
+	char* p = (char*)path;
+	if(path) {
+		p = (char*)calloc(sizeof(char), pLen + 1);
+		memcpy(p, path, pLen);
+		while(p[pLen - 1] == '/') {
+			pLen--;
+		}
+		p[pLen] = 0;
+	}
+
 	// get list
-	jstring jPath = env->NewStringUTF(path == NULL ? "" : path);
+	jstring jPath = env->NewStringUTF(p == NULL ? "" : p);
 	jobjectArray jFiles = (jobjectArray)env->CallObjectMethod(amObj, jmethodID_AssetManager_list, jPath);
 	jsize len = env->GetArrayLength(jFiles);
+
+	// free
+	if(p) {
+		free(p);
+	}
 
 	// get c string list, copy java string content to c string
 	int count = 0;
