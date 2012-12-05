@@ -701,6 +701,278 @@ namespace CEGUI {
 
 	/////////////////////////////////////////////////////////////////////////////////
 
+	#define SCHEME_FILE_NAME   "TaharezLook.scheme"
+	#define IMAGES_FILE_NAME   "TaharezLook"
+	#define STATICIMAGE_NAME   "TaharezLook/StaticImage"
+	#define TOOLTIP_NAME       "TaharezLook/Tooltip"
+	#define LAYOUT_FILE_NAME   "TreeDemoTaharez.layout"
+	#define BRUSH_NAME         "TextSelectionBrush"
+
+	class wyTreeTestLayer : public wyLayer {
+	private:
+		Window* TreeDemoWindow;
+		Tree* theTree;
+		TreeItem* newTreeCtrlEntryLvl1;  // Level 1 TreeCtrlEntry (branch)
+		TreeItem* newTreeCtrlEntryLvl2;  // Level 2 TreeCtrlEntry (branch)
+		TreeItem* newTreeCtrlEntryLvl3;  // Level 3 TreeCtrlEntry (branch)
+		TreeItem* newTreeCtrlEntryParent;
+		Image* iconArray[9];
+
+        // id of tree and edit box, defined in layout xml file
+        static const unsigned int TreeID    = 1;
+        static const unsigned int EditBoxID = 2;
+
+	public:
+		wyTreeTestLayer() {
+            // bootstrapSystem must be called at the very beginning
+            wyCEGUINode::bootstrapSystem("cegui");
+
+            // load scheme
+            SchemeManager::getSingleton().create(SCHEME_FILE_NAME);
+
+            // load an image to use as a background
+            ImagesetManager::getSingleton().createFromImageFile("BackgroundImage", "GPN-2000-001437.png");
+
+            // Load some icon images for our test tree
+            Imageset& drives = ImagesetManager::getSingleton().create("DriveIcons.imageset");
+
+            // here we will use a StaticImage as the root, then we can use it to place a background image
+            WindowManager& winMgr = WindowManager::getSingleton();
+            Window* background = winMgr.createWindow(STATICIMAGE_NAME);
+            background->setArea(URect(cegui_reldim(0), cegui_reldim(0), cegui_reldim(1), cegui_reldim(1)));
+            background->setProperty("FrameEnabled", "false");
+            background->setProperty("BackgroundEnabled", "false");
+            background->setProperty("Image", "set:BackgroundImage image:full_image");
+
+            // load font
+            FontManager::getSingleton().create("DejaVuSans-10.font");
+
+            // create demo window
+            TreeDemoWindow = winMgr.loadWindowLayout(LAYOUT_FILE_NAME);
+            background->addChildWindow(TreeDemoWindow);
+            
+            // listen for key press on the root window
+            // in android, use search key
+            // in macosx and windows, use space key
+            // in iOS, ignored
+            background->subscribeEvent(Window::EventKeyDown,
+                                       Event::Subscriber(&wyTreeTestLayer::handleRootKeyDown, this));
+
+            // initialize tree and setup event
+            theTree = (Tree*)TreeDemoWindow->getChild(TreeID);
+            theTree->initialise();
+            theTree->subscribeEvent(Tree::EventSelectionChanged,
+            		Event::Subscriber(&wyTreeTestLayer::handleEventSelectionChanged, this));
+            theTree->subscribeEvent(Tree::EventBranchOpened,
+            		Event::Subscriber(&wyTreeTestLayer::handleEventBranchOpened, this));
+            theTree->subscribeEvent(Tree::EventBranchClosed,
+            		Event::Subscriber(&wyTreeTestLayer::handleEventBranchClosed, this));
+
+            // save tree icon reference
+            Imageset& iconImages = drives;
+            iconArray[0] = (Image *)&iconImages.getImage("Artic");
+            iconArray[1] = (Image *)&iconImages.getImage("Black");
+            iconArray[2] = (Image *)&iconImages.getImage("Sunset");
+            iconArray[3] = (Image *)&iconImages.getImage("DriveStack");
+            iconArray[4] = (Image *)&iconImages.getImage("GlobalDrive");
+            iconArray[5] = (Image *)&iconImages.getImage("Blue");
+            iconArray[6] = (Image *)&iconImages.getImage("Lime");
+            iconArray[7] = (Image *)&iconImages.getImage("Silver");
+            iconArray[8] = (Image *)&iconImages.getImage("GreenCandy");
+
+            // Create a top-most TreeCtrlEntry
+            newTreeCtrlEntryLvl1 = new TreeItem("Tree Item Level 1a");
+            newTreeCtrlEntryLvl1->setIcon(drives.getImage("Black"));
+            newTreeCtrlEntryLvl1->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            theTree->addItem(newTreeCtrlEntryLvl1);
+
+            // Create a second-level TreeCtrlEntry and attach it to the top-most TreeCtrlEntry
+            newTreeCtrlEntryLvl2 = new TreeItem("Tree Item Level 2a (1a)");
+            newTreeCtrlEntryLvl2->setIcon(drives.getImage("Artic"));
+            newTreeCtrlEntryLvl2->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            newTreeCtrlEntryLvl1->addItem(newTreeCtrlEntryLvl2);
+
+            // Create a third-level TreeCtrlEntry and attach it to the above TreeCtrlEntry
+            newTreeCtrlEntryLvl3 = new TreeItem("Tree Item Level 3a (2a)");
+            newTreeCtrlEntryLvl3->setIcon(drives.getImage("Blue"));
+            newTreeCtrlEntryLvl3->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            newTreeCtrlEntryLvl2->addItem(newTreeCtrlEntryLvl3);
+
+            // Create another third-level TreeCtrlEntry and attach it to the above TreeCtrlEntry
+            newTreeCtrlEntryLvl3 = new TreeItem("Tree Item Level 3b (2a)");
+            newTreeCtrlEntryLvl3->setIcon(drives.getImage("Lime"));
+            newTreeCtrlEntryLvl3->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            newTreeCtrlEntryLvl2->addItem(newTreeCtrlEntryLvl3);
+
+            // Create another second-level TreeCtrlEntry and attach it to the top-most TreeCtrlEntry
+            newTreeCtrlEntryLvl2 = new TreeItem("Tree Item Level 2b (1a)");
+            newTreeCtrlEntryLvl2->setIcon(drives.getImage("Sunset"));
+            newTreeCtrlEntryLvl2->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            newTreeCtrlEntryLvl1->addItem(newTreeCtrlEntryLvl2);
+
+            // Create another second-level TreeCtrlEntry and attach it to the top-most TreeCtrlEntry
+            newTreeCtrlEntryLvl2 = new TreeItem("Tree Item Level 2c (1a)");
+            newTreeCtrlEntryLvl2->setIcon(drives.getImage("Silver"));
+            newTreeCtrlEntryLvl2->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            newTreeCtrlEntryLvl1->addItem(newTreeCtrlEntryLvl2);
+
+            // Create another top-most TreeCtrlEntry
+            newTreeCtrlEntryLvl1 = new TreeItem("Tree Item Level 1b");
+            newTreeCtrlEntryLvl1->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            newTreeCtrlEntryLvl1->setIcon(drives.getImage("DriveStack"));
+            newTreeCtrlEntryLvl1->setDisabled(true); // Let's disable this one just to be sure it works
+            theTree->addItem(newTreeCtrlEntryLvl1);
+
+            // Create a second-level TreeCtrlEntry and attach it to the top-most TreeCtrlEntry
+            newTreeCtrlEntryLvl2 = new TreeItem("Tree Item Level 2a (1b)");
+            newTreeCtrlEntryLvl2->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            newTreeCtrlEntryLvl1->addItem(newTreeCtrlEntryLvl2);
+
+            // Create another second-level TreeCtrlEntry and attach it to the top-most TreeCtrlEntry
+            newTreeCtrlEntryLvl2 = new TreeItem("Tree Item Level 2b (1b)");
+            newTreeCtrlEntryLvl2->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            newTreeCtrlEntryLvl1->addItem(newTreeCtrlEntryLvl2);
+
+            // create third top-most entry
+            newTreeCtrlEntryLvl1 = new TreeItem("Tree Item Level 1c");
+            newTreeCtrlEntryLvl1->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+            theTree->addItem(newTreeCtrlEntryLvl1);
+
+            // Now let's create a whole bunch of items automatically
+            int levelIndex = 3;
+			int idepthIndex;
+			int childIndex;
+			int childCount;
+			unsigned int iconIndex;
+			String itemText;
+			while(levelIndex < 10) {
+				idepthIndex = 0;
+				itemText = "Tree Item Level " + PropertyHelper::intToString(levelIndex) + " Depth " + PropertyHelper::intToString(idepthIndex);
+				newTreeCtrlEntryLvl1 = new TreeItem(itemText);
+
+				// Set a random icon for the item.  Sometimes blank (on purpose).
+				iconIndex = wyMath::randMax((sizeof(iconArray) / sizeof(iconArray[0])) + 2);
+				if(iconIndex < sizeof(iconArray) / sizeof(iconArray[0]))
+					newTreeCtrlEntryLvl1->setIcon(*iconArray[iconIndex]);
+				newTreeCtrlEntryLvl1->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+				theTree->addItem(newTreeCtrlEntryLvl1);
+				newTreeCtrlEntryParent = newTreeCtrlEntryLvl1;
+
+				childIndex = 0;
+				childCount = wyMath::randMax(3);
+				while(childIndex < childCount) {
+					itemText = "Tree Item Level " + PropertyHelper::intToString(levelIndex) + " Depth " + PropertyHelper::intToString(idepthIndex + 1) + " Child "
+							+ PropertyHelper::intToString(childIndex + 1);
+					newTreeCtrlEntryLvl2 = new TreeItem(itemText);
+
+					// Set a random icon for the item.  Sometimes blank (on purpose).
+					iconIndex = wyMath::randMax((sizeof(iconArray) / sizeof(iconArray[0]) + 2));
+					if(iconIndex < sizeof(iconArray) / sizeof(iconArray[0]))
+						newTreeCtrlEntryLvl2->setIcon(*iconArray[iconIndex]);
+					newTreeCtrlEntryLvl2->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+					newTreeCtrlEntryParent->addItem(newTreeCtrlEntryLvl2);
+					++childIndex;
+				}
+
+				while(idepthIndex < 15) {
+					itemText = "Tree Item Level " + PropertyHelper::intToString(levelIndex) + " Depth " + PropertyHelper::intToString(idepthIndex + 1);
+					newTreeCtrlEntryLvl2 = new TreeItem(itemText);
+					// Set a random icon for the item.  Sometimes blank (on purpose).
+					iconIndex = wyMath::randMax((sizeof(iconArray) / sizeof(iconArray[0]) + 2));
+					if(iconIndex < sizeof(iconArray) / sizeof(iconArray[0]))
+						newTreeCtrlEntryLvl2->setIcon(*iconArray[iconIndex]);
+					newTreeCtrlEntryLvl2->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+					newTreeCtrlEntryParent->addItem(newTreeCtrlEntryLvl2);
+					newTreeCtrlEntryParent = newTreeCtrlEntryLvl2;
+
+					childIndex = 0;
+					childCount = wyMath::randMax(3);
+					while(childIndex < childCount) {
+						itemText = "Tree Item Level " + PropertyHelper::intToString(levelIndex) + " Depth " + PropertyHelper::intToString(idepthIndex + 1)
+								+ " Child " + PropertyHelper::intToString(childIndex + 1);
+						newTreeCtrlEntryLvl2 = new TreeItem(itemText);
+
+						// Set a random icon for the item.  Sometimes blank (on purpose).
+						iconIndex = wyMath::randMax((sizeof(iconArray) / sizeof(iconArray[0]) + 2));
+						if(iconIndex < sizeof(iconArray) / sizeof(iconArray[0]))
+							newTreeCtrlEntryLvl2->setIcon(*iconArray[iconIndex]);
+						newTreeCtrlEntryLvl2->setSelectionBrushImage(IMAGES_FILE_NAME, BRUSH_NAME);
+						newTreeCtrlEntryParent->addItem(newTreeCtrlEntryLvl2);
+
+						++childIndex;
+					}
+
+					++idepthIndex;
+				}
+
+				++levelIndex;
+			}
+
+            // add cegui node
+            wyCEGUINode* node = wyCEGUINode::make(background);
+            addChildLocked(node);
+
+            // enable event for cegui node
+            node->setTouchEnabled(true);
+            node->setKeyEnabled(true);
+		}
+
+		virtual ~wyTreeTestLayer() {
+		}
+        
+        bool handleRootKeyDown(const EventArgs& args) {
+            const KeyEventArgs& keyArgs = (const KeyEventArgs&)args;
+            
+            switch (keyArgs.scancode) {
+#ifdef ANDROID
+                case KEYCODE_SEARCH:
+#else
+                case KEYCODE_SPACE:
+#endif
+                    theTree->toggleOpen(theTree->getFirstSelectedItem());
+                    break;
+                default:
+                    return false;
+            }
+            
+            return true;
+        }
+
+		bool handleEventSelectionChanged(const EventArgs& args) {
+			const TreeEventArgs& treeArgs = static_cast<const TreeEventArgs&>(args);
+			Editbox *editBox = (Editbox *) TreeDemoWindow->getChild(EditBoxID);
+
+		    // Three different ways to get the item selected.
+			// TreeCtrlEntry *selectedItem = theTree->getFirstSelectedItem();      // the first selection in the list (may be more)
+			// TreeCtrlEntry *selectedItem = theTree->getLastSelectedItem();       // the last (time-wise) selected by the user
+			TreeItem *selectedItem = treeArgs.treeItem; // the actual item that caused this event
+
+			if(selectedItem) {
+				editBox->setText("Selected: " + selectedItem->getText());
+			} else {
+				editBox->setText("None Selected");
+			}
+
+			return true;
+		}
+
+		bool handleEventBranchOpened(const EventArgs& args) {
+			const TreeEventArgs& treeArgs = (const TreeEventArgs&)args;
+			Editbox* editBox = (Editbox*)TreeDemoWindow->getChild(EditBoxID);
+			editBox->setText("Opened: " + treeArgs.treeItem->getText());
+			return true;
+		}
+
+		bool handleEventBranchClosed(const EventArgs& args) {
+			const TreeEventArgs& treeArgs = (const TreeEventArgs&)args;
+			Editbox* editBox = (Editbox*)TreeDemoWindow->getChild(EditBoxID);
+			editBox->setText("Closed: " + treeArgs.treeItem->getText());
+			return true;
+		}
+	};
+
+	/////////////////////////////////////////////////////////////////////////////////
+
 	class wyWindowTestLayer : public wyLayer {
 	public:
 		wyWindowTestLayer() {
@@ -744,4 +1016,5 @@ using namespace CEGUI;
 DEMO_ENTRY_IMPL(cegui, FontTest);
 DEMO_ENTRY_IMPL(cegui, ScrollablePaneTest);
 DEMO_ENTRY_IMPL(cegui, TabControlTest);
+DEMO_ENTRY_IMPL(cegui, TreeTest);
 DEMO_ENTRY_IMPL(cegui, WindowTest);

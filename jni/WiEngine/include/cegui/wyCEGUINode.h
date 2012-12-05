@@ -116,6 +116,15 @@ public:
     
 	/// @see wyNode::touchesCancelled
 	virtual bool touchesCancelled(wyMotionEvent& e);
+    
+    /// @see wyNode::keyDown
+    virtual bool keyDown(wyKeyEvent& e);
+  
+    /// @see wyNode::keyUp
+	virtual bool keyUp(wyKeyEvent& e);
+ 
+    /// @see wyNode::keyMultiple
+	virtual bool keyMultiple(wyKeyEvent& e);
 
 	/// get bound window
 	Window* getWindow() { return m_window; }

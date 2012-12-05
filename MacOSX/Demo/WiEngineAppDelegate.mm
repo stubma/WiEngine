@@ -129,6 +129,7 @@ static demoEntryFunc sDemoMap[17][50] = {
         DEMO_ENTRY_NAME(cegui, FontTest),
         DEMO_ENTRY_NAME(cegui, ScrollablePaneTest),
         DEMO_ENTRY_NAME(cegui, TabControlTest),
+        DEMO_ENTRY_NAME(cegui, TreeTest),
         DEMO_ENTRY_NAME(cegui, WindowTest),
     },
 	{

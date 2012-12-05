@@ -1860,6 +1860,11 @@
                 <category android:name="android.intent.category.TEST" />
             </intent-filter><meta-data android:name="desc" android:resource="@string/CEGUIFontTest_desc"></meta-data>
 </activity>
+<activity android:name=".tests.cegui.TreeTest" android:label="CEGUI/Tree"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter><meta-data android:name="desc" android:resource="@string/CEGUITreeTest_desc"></meta-data>
+</activity>
         <receiver android:name="com.wiyun.engine.iap.androidmarket.BillingReceiver">
             <intent-filter>
                 <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />

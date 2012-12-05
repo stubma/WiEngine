@@ -195,3 +195,18 @@ bool wyCEGUINode::touchesCancelled(wyMotionEvent& e) {
     
     return wyNode::touchesCancelled(e);
 }
+
+bool wyCEGUINode::keyDown(wyKeyEvent& e) {
+    System::getSingleton().injectKeyDown(e.keyCode);
+    return wyNode::keyDown(e);
+}
+
+bool wyCEGUINode::keyUp(wyKeyEvent& e) {
+    System::getSingleton().injectKeyUp(e.keyCode);
+    return wyNode::keyUp(e);
+}
+
+bool wyCEGUINode::keyMultiple(wyKeyEvent& e) {
+    System::getSingleton().injectKeyDown(e.keyCode);
+    return wyNode::keyMultiple(e);
+}

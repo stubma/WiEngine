@@ -13,6 +13,7 @@ extern "C" {
 DEMO_ENTRY(cegui, FontTest);
 DEMO_ENTRY(cegui, ScrollablePaneTest);
 DEMO_ENTRY(cegui, TabControlTest);
+DEMO_ENTRY(cegui, TreeTest);
 DEMO_ENTRY(cegui, WindowTest);
 
 #ifdef __cplusplus
