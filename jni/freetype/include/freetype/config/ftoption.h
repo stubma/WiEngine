@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    User-selectable configuration macros (specification only).           */
 /*                                                                         */
-/*  Copyright 1996-2011 by                                                 */
+/*  Copyright 1996-2012 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -200,7 +200,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /*   Define this macro if you want to enable this `feature'.             */
   /*                                                                       */
-/* #define FT_CONFIG_OPTION_USE_BZIP2 */
+#define FT_CONFIG_OPTION_USE_BZIP2
 
 
   /*************************************************************************/
@@ -343,7 +343,7 @@ FT_BEGIN_HEADER
   /* supply font data incrementally as the document is parsed, such        */
   /* as the Ghostscript interpreter for the PostScript language.           */
   /*                                                                       */
-/* #define FT_CONFIG_OPTION_INCREMENTAL */
+#define FT_CONFIG_OPTION_INCREMENTAL
 
 
   /*************************************************************************/
@@ -555,7 +555,7 @@ FT_BEGIN_HEADER
   /*   Do not #undef this macro here, since the build system might         */
   /*   define it for certain configurations only.                          */
   /*                                                                       */
-/* #define TT_CONFIG_OPTION_BYTECODE_INTERPRETER */
+#define TT_CONFIG_OPTION_BYTECODE_INTERPRETER
 
 
   /*************************************************************************/
@@ -605,7 +605,7 @@ FT_BEGIN_HEADER
   /*     ...                                                               */
   /*   }                                                                   */
   /*                                                                       */
-#define TT_CONFIG_OPTION_UNPATENTED_HINTING
+/* #define TT_CONFIG_OPTION_UNPATENTED_HINTING */
 
 
   /*************************************************************************/
@@ -669,7 +669,7 @@ FT_BEGIN_HEADER
 
   /*************************************************************************/
   /*                                                                       */
-  /* T1_MAX_DICT_DEPTH is the maximal depth of nest dictionaries and       */
+  /* T1_MAX_DICT_DEPTH is the maximum depth of nest dictionaries and       */
   /* arrays in the Type 1 stream (see t1load.c).  A minimum of 4 is        */
   /* required.                                                             */
   /*                                                                       */

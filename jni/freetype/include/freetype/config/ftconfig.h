@@ -95,10 +95,6 @@ FT_BEGIN_HEADER
 #endif
 
 
-  /* Preferred alignment of data */
-#define FT_ALIGNMENT  8
-
-
   /* FT_UNUSED is a macro used to indicate that a given parameter is not  */
   /* used -- this is only used to get rid of unpleasant compiler warnings */
 #ifndef FT_UNUSED
@@ -124,8 +120,7 @@ FT_BEGIN_HEADER
   /*   This is the only necessary change, so it is defined here instead    */
   /*   providing a new configuration file.                                 */
   /*                                                                       */
-#if ( defined( __APPLE__ ) && !defined( DARWIN_NO_CARBON ) ) || \
-    ( defined( __MWERKS__ ) && defined( macintosh )        )
+#if defined( __APPLE__ ) || ( defined( __MWERKS__ ) && defined( macintosh ) )
   /* no Carbon frameworks for 64bit 10.4.x */
   /* AvailabilityMacros.h is available since Mac OS X 10.2,        */
   /* so guess the system version by maximum errno before inclusion */
@@ -135,9 +130,7 @@ FT_BEGIN_HEADER
 #endif
 #if defined( __LP64__ ) && \
     ( MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_4 )
-#define DARWIN_NO_CARBON 1
-#else
-#define FT_MACINTOSH 1
+#undef FT_MACINTOSH
 #endif
 
 #elif defined( __SC__ ) || defined( __MRC__ )
@@ -354,12 +347,12 @@ FT_BEGIN_HEADER
 
 
     __asm__ __volatile__ (
-      "smull  %1, %2, %4, %3\n\t"   /* (lo=%1,hi=%2) = a*b */
-      "mov    %0, %2, asr #31\n\t"  /* %0  = (hi >> 31) */
-      "add    %0, %0, #0x8000\n\t"  /* %0 += 0x8000 */
-      "adds   %1, %1, %0\n\t"       /* %1 += %0 */
-      "adc    %2, %2, #0\n\t"       /* %2 += carry */
-      "mov    %0, %1, lsr #16\n\t"  /* %0  = %1 >> 16 */
+      "smull  %1, %2, %4, %3\n\t"       /* (lo=%1,hi=%2) = a*b */
+      "mov    %0, %2, asr #31\n\t"      /* %0  = (hi >> 31) */
+      "add    %0, %0, #0x8000\n\t"      /* %0 += 0x8000 */
+      "adds   %1, %1, %0\n\t"           /* %1 += %0 */
+      "adc    %2, %2, #0\n\t"           /* %2 += carry */
+      "mov    %0, %1, lsr #16\n\t"      /* %0  = %1 >> 16 */
       "orr    %0, %0, %2, lsl #16\n\t"  /* %0 |= %2 << 16 */
       : "=r"(a), "=&r"(t2), "=&r"(t)
       : "r"(a), "r"(b) );

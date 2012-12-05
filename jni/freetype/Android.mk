@@ -1,4 +1,10 @@
 ###########################################################
+# build libbz
+###########################################################
+
+include $(LOCAL_PATH)/bzip2/Android.mk
+
+###########################################################
 # build libft2
 ###########################################################
 
@@ -28,6 +34,18 @@ LOCAL_SRC_FILES := freetype/src/base/ftbbox.c \
 	freetype/src/truetype/truetype.c \
 	freetype/src/cff/cff.c \
 	freetype/src/psnames/psnames.c \
-	freetype/src/pshinter/pshinter.c
+	freetype/src/pshinter/pshinter.c \
+	freetype/src/bdf/bdf.c \
+	freetype/src/bzip2/ftbzip2.c \
+	freetype/src/cid/type1cid.c \
+	freetype/src/gzip/ftgzip.c \
+	freetype/src/lzw/ftlzw.c \
+	freetype/src/pcf/pcf.c \
+	freetype/src/pfr/pfr.c \
+	freetype/src/psaux/psaux.c \
+	freetype/src/type1/type1.c \
+	freetype/src/type42/type42.c \
+	freetype/src/winfonts/winfnt.c
+LOCAL_STATIC_LIBRARIES := bz
 
 include $(BUILD_STATIC_LIBRARY)

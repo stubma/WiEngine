@@ -1,8 +1,8 @@
-/*  pcftypes.h
+/*  pcf.c
 
-  FreeType font driver for pcf fonts
+    FreeType font driver for pcf fonts
 
-  Copyright (C) 2000, 2001, 2002 by
+  Copyright 2000-2001, 2003 by
   Francesco Zappa Nardelli
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,32 +25,12 @@ THE SOFTWARE.
 */
 
 
-#ifndef __PCFTYPES_H__
-#define __PCFTYPES_H__
+#define FT_MAKE_OPTION_SINGLE_OBJECT
 
 
 #include <ft2build.h>
-#include FT_FREETYPE_H
-
-
-FT_BEGIN_HEADER
-
-
-  typedef struct  PCF_Public_FaceRec_
-  {
-    FT_FaceRec    root;
-    FT_StreamRec  gzip_stream;
-    FT_Stream     gzip_source;
-
-    char*         charset_encoding;
-    char*         charset_registry;
-
-  } PCF_Public_FaceRec, *PCF_Public_Face;
-
-
-FT_END_HEADER
-
-#endif  /* __PCFTYPES_H__ */
-
+#include "pcfutil.c"
+#include "pcfread.c"
+#include "pcfdrivr.c"
 
 /* END */

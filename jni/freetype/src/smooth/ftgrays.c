@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    A new `perfect' anti-aliasing renderer (body).                       */
 /*                                                                         */
-/*  Copyright 2000-2003, 2005-2011 by                                      */
+/*  Copyright 2000-2003, 2005-2012 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -232,10 +232,15 @@ typedef ptrdiff_t  FT_PtrDist;
 
   /* as usual, for the speed hungry :-) */
 
+#undef RAS_ARG
+#undef RAS_ARG_
+#undef RAS_VAR
+#undef RAS_VAR_
+
 #ifndef FT_STATIC_RASTER
 
-#define RAS_ARG   PWorker  worker
-#define RAS_ARG_  PWorker  worker,
+#define RAS_ARG   gray_PWorker  worker
+#define RAS_ARG_  gray_PWorker  worker,
 
 #define RAS_VAR   worker
 #define RAS_VAR_  worker,
@@ -252,6 +257,11 @@ typedef ptrdiff_t  FT_PtrDist;
 
   /* must be at least 6 bits! */
 #define PIXEL_BITS  8
+
+#undef FLOOR
+#undef CEILING
+#undef TRUNC
+#undef SCALED
 
 #define ONE_PIXEL       ( 1L << PIXEL_BITS )
 #define PIXEL_MASK      ( -1L << PIXEL_BITS )
@@ -302,7 +312,7 @@ typedef ptrdiff_t  FT_PtrDist;
 #endif /* PIXEL_BITS >= 8 */
 
 
-  /* maximal number of gray spans in a call to the span callback */
+  /* maximum number of gray spans in a call to the span callback */
 #define FT_MAX_GRAY_SPANS  32
 
 
@@ -310,15 +320,15 @@ typedef ptrdiff_t  FT_PtrDist;
 
   typedef struct  TCell_
   {
-    TPos   x;     /* same with TWorker.ex */
-    TCoord cover; /* same with TWorker.cover */
-    TArea  area;
-    PCell  next;
+    TPos    x;     /* same with gray_TWorker.ex    */
+    TCoord  cover; /* same with gray_TWorker.cover */
+    TArea   area;
+    PCell   next;
 
   } TCell;
 
 
-  typedef struct  TWorker_
+  typedef struct  gray_TWorker_
   {
     TCoord  ex, ey;
     TPos    min_ex, max_ex;
@@ -329,7 +339,7 @@ typedef ptrdiff_t  FT_PtrDist;
     TCoord  cover;
     int     invalid;
 
-    PCell   cells;
+    PCell       cells;
     FT_PtrDist  max_cells;
     FT_PtrDist  num_cells;
 
@@ -363,25 +373,25 @@ typedef ptrdiff_t  FT_PtrDist;
     PCell*     ycells;
     TPos       ycount;
 
-  } TWorker, *PWorker;
+  } gray_TWorker, *gray_PWorker;
 
 
 #ifndef FT_STATIC_RASTER
 #define ras  (*worker)
 #else
-  static TWorker  ras;
+  static gray_TWorker  ras;
 #endif
 
 
-  typedef struct TRaster_
+  typedef struct gray_TRaster_
   {
-    void*    buffer;
-    long     buffer_size;
-    int      band_size;
-    void*    memory;
-    PWorker  worker;
+    void*         buffer;
+    long          buffer_size;
+    int           band_size;
+    void*         memory;
+    gray_PWorker  worker;
 
-  } TRaster, *PRaster;
+  } gray_TRaster, *gray_PRaster;
 
 
 
@@ -872,10 +882,13 @@ typedef ptrdiff_t  FT_PtrDist;
                               const FT_Vector*  to )
   {
     TPos        dx, dy;
+    TPos        min, max, y;
     int         top, level;
     int*        levels;
     FT_Vector*  arc;
 
+
+    levels = ras.lev_stack;
 
     arc      = ras.bez_stack;
     arc[0].x = UPSCALE( to->x );
@@ -884,45 +897,44 @@ typedef ptrdiff_t  FT_PtrDist;
     arc[1].y = UPSCALE( control->y );
     arc[2].x = ras.x;
     arc[2].y = ras.y;
+    top      = 0;
 
     dx = FT_ABS( arc[2].x + arc[0].x - 2 * arc[1].x );
     dy = FT_ABS( arc[2].y + arc[0].y - 2 * arc[1].y );
     if ( dx < dy )
       dx = dy;
 
+    if ( dx < ONE_PIXEL / 4 )
+      goto Draw;
+
+    /* short-cut the arc that crosses the current band */
+    min = max = arc[0].y;
+
+    y = arc[1].y;
+    if ( y < min ) min = y;
+    if ( y > max ) max = y;
+
+    y = arc[2].y;
+    if ( y < min ) min = y;
+    if ( y > max ) max = y;
+
+    if ( TRUNC( min ) >= ras.max_ey || TRUNC( max ) < ras.min_ey )
+      goto Draw;
+
     level = 0;
-    while ( dx > ONE_PIXEL / 6 )
+    do
     {
       dx >>= 2;
       level++;
-    }
+    } while ( dx > ONE_PIXEL / 4 );
 
-    levels    = ras.lev_stack;
     levels[0] = level;
-    top       = 0;
 
     do
     {
       level = levels[top];
-      if ( level > 1 )
+      if ( level > 0 )
       {
-        /* check that the arc crosses the current band */
-        TPos  min, max, y;
-
-
-        min = max = arc[0].y;
-
-        y = arc[1].y;
-        if ( y < min ) min = y;
-        if ( y > max ) max = y;
-
-        y = arc[2].y;
-        if ( y < min ) min = y;
-        if ( y > max ) max = y;
-
-        if ( TRUNC( min ) >= ras.max_ey || TRUNC( max ) < ras.min_ey )
-          goto Draw;
-
         gray_split_conic( arc );
         arc += 2;
         top++;
@@ -973,6 +985,7 @@ typedef ptrdiff_t  FT_PtrDist;
                               const FT_Vector*  to )
   {
     FT_Vector*  arc;
+    TPos        min, max, y;
 
 
     arc      = ras.bez_stack;
@@ -985,35 +998,32 @@ typedef ptrdiff_t  FT_PtrDist;
     arc[3].x = ras.x;
     arc[3].y = ras.y;
 
+    /* Short-cut the arc that crosses the current band. */
+    min = max = arc[0].y;
+
+    y = arc[1].y;
+    if ( y < min )
+      min = y;
+    if ( y > max )
+      max = y;
+
+    y = arc[2].y;
+    if ( y < min )
+      min = y;
+    if ( y > max )
+      max = y;
+
+    y = arc[3].y;
+    if ( y < min )
+      min = y;
+    if ( y > max )
+      max = y;
+
+    if ( TRUNC( min ) >= ras.max_ey || TRUNC( max ) < ras.min_ey )
+      goto Draw;
+
     for (;;)
     {
-      /* Check that the arc crosses the current band. */
-      TPos  min, max, y;
-
-
-      min = max = arc[0].y;
-
-      y = arc[1].y;
-      if ( y < min )
-        min = y;
-      if ( y > max )
-        max = y;
-
-      y = arc[2].y;
-      if ( y < min )
-        min = y;
-      if ( y > max )
-        max = y;
-
-      y = arc[3].y;
-      if ( y < min )
-        min = y;
-      if ( y > max )
-        max = y;
-
-      if ( TRUNC( min ) >= ras.max_ey || TRUNC( max ) < ras.min_ey )
-        goto Draw;
-
       /* Decide whether to split or draw. See `Rapid Termination          */
       /* Evaluation for Recursive Subdivision of Bezier Curves' by Thomas */
       /* F. Hain, at                                                      */
@@ -1110,7 +1120,7 @@ typedef ptrdiff_t  FT_PtrDist;
 
   static int
   gray_move_to( const FT_Vector*  to,
-                PWorker           worker )
+                gray_PWorker      worker )
   {
     TPos  x, y;
 
@@ -1132,7 +1142,7 @@ typedef ptrdiff_t  FT_PtrDist;
 
   static int
   gray_line_to( const FT_Vector*  to,
-                PWorker           worker )
+                gray_PWorker      worker )
   {
     gray_render_line( RAS_VAR_ UPSCALE( to->x ), UPSCALE( to->y ) );
     return 0;
@@ -1142,7 +1152,7 @@ typedef ptrdiff_t  FT_PtrDist;
   static int
   gray_conic_to( const FT_Vector*  control,
                  const FT_Vector*  to,
-                 PWorker           worker )
+                 gray_PWorker      worker )
   {
     gray_render_conic( RAS_VAR_ control, to );
     return 0;
@@ -1153,7 +1163,7 @@ typedef ptrdiff_t  FT_PtrDist;
   gray_cubic_to( const FT_Vector*  control1,
                  const FT_Vector*  control2,
                  const FT_Vector*  to,
-                 PWorker           worker )
+                 gray_PWorker      worker )
   {
     gray_render_cubic( RAS_VAR_ control1, control2, to );
     return 0;
@@ -1164,7 +1174,7 @@ typedef ptrdiff_t  FT_PtrDist;
   gray_render_span( int             y,
                     int             count,
                     const FT_Span*  spans,
-                    PWorker         worker )
+                    gray_PWorker    worker )
   {
     unsigned char*  p;
     FT_Bitmap*      map = &worker->target;
@@ -1676,11 +1686,11 @@ typedef ptrdiff_t  FT_PtrDist;
 #endif /* _STANDALONE_ */
 
 
-  typedef struct  TBand_
+  typedef struct  gray_TBand_
   {
     TPos  min, max;
 
-  } TBand;
+  } gray_TBand;
 
     FT_DEFINE_OUTLINE_FUNCS(func_interface,
       (FT_Outline_MoveTo_Func) gray_move_to,
@@ -1717,11 +1727,11 @@ typedef ptrdiff_t  FT_PtrDist;
   static int
   gray_convert_glyph( RAS_ARG )
   {
-    TBand            bands[40];
-    TBand* volatile  band;
-    int volatile     n, num_bands;
-    TPos volatile    min, max, max_y;
-    FT_BBox*         clip;
+    gray_TBand            bands[40];
+    gray_TBand* volatile  band;
+    int volatile          n, num_bands;
+    TPos volatile         min, max, max_y;
+    FT_BBox*              clip;
 
 
     /* Set up state in the raster object */
@@ -1785,7 +1795,7 @@ typedef ptrdiff_t  FT_PtrDist;
             cell_start += sizeof ( TCell ) - cell_mod;
 
           cell_end  = ras.buffer_size;
-          cell_end -= cell_end % sizeof( TCell );
+          cell_end -= cell_end % sizeof ( TCell );
 
           cells_max = (PCell)( (char*)ras.buffer + cell_end );
           ras.cells = (PCell)( (char*)ras.buffer + cell_start );
@@ -1852,12 +1862,12 @@ typedef ptrdiff_t  FT_PtrDist;
 
 
   static int
-  gray_raster_render( PRaster                  raster,
+  gray_raster_render( gray_PRaster             raster,
                       const FT_Raster_Params*  params )
   {
     const FT_Outline*  outline    = (const FT_Outline*)params->source;
     const FT_Bitmap*   target_map = params->target;
-    PWorker            worker;
+    gray_PWorker       worker;
 
 
     if ( !raster || !raster->buffer || !raster->buffer_size )
@@ -1949,7 +1959,7 @@ typedef ptrdiff_t  FT_PtrDist;
   gray_raster_new( void*       memory,
                    FT_Raster*  araster )
   {
-    static TRaster  the_raster;
+    static gray_TRaster  the_raster;
 
     FT_UNUSED( memory );
 
@@ -1974,15 +1984,15 @@ typedef ptrdiff_t  FT_PtrDist;
   gray_raster_new( FT_Memory   memory,
                    FT_Raster*  araster )
   {
-    FT_Error  error;
-    PRaster   raster = NULL;
+    FT_Error      error;
+    gray_PRaster  raster = NULL;
 
 
     *araster = 0;
-    if ( !FT_ALLOC( raster, sizeof ( TRaster ) ) )
+    if ( !FT_ALLOC( raster, sizeof ( gray_TRaster ) ) )
     {
       raster->memory = memory;
-      *araster = (FT_Raster)raster;
+      *araster       = (FT_Raster)raster;
     }
 
     return error;
@@ -1992,7 +2002,7 @@ typedef ptrdiff_t  FT_PtrDist;
   static void
   gray_raster_done( FT_Raster  raster )
   {
-    FT_Memory  memory = (FT_Memory)((PRaster)raster)->memory;
+    FT_Memory  memory = (FT_Memory)((gray_PRaster)raster)->memory;
 
 
     FT_FREE( raster );
@@ -2006,19 +2016,20 @@ typedef ptrdiff_t  FT_PtrDist;
                      char*      pool_base,
                      long       pool_size )
   {
-    PRaster  rast = (PRaster)raster;
+    gray_PRaster  rast = (gray_PRaster)raster;
 
 
     if ( raster )
     {
-      if ( pool_base && pool_size >= (long)sizeof ( TWorker ) + 2048 )
+      if ( pool_base && pool_size >= (long)sizeof ( gray_TWorker ) + 2048 )
       {
-        PWorker  worker = (PWorker)pool_base;
+        gray_PWorker  worker = (gray_PWorker)pool_base;
 
 
         rast->worker      = worker;
         rast->buffer      = pool_base +
-                              ( ( sizeof ( TWorker ) + sizeof ( TCell ) - 1 ) &
+                              ( ( sizeof ( gray_TWorker ) +
+                                  sizeof ( TCell ) - 1 )  &
                                 ~( sizeof ( TCell ) - 1 ) );
         rast->buffer_size = (long)( ( pool_base + pool_size ) -
                                     (char*)rast->buffer ) &

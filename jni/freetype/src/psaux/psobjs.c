@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Auxiliary functions for PostScript fonts (body).                     */
 /*                                                                         */
-/*  Copyright 1996-2011 by                                                 */
+/*  Copyright 1996-2012 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -185,8 +185,8 @@
     /* grow the base block if needed */
     if ( table->cursor + length > table->capacity )
     {
-      FT_Error   error;
-      FT_Offset  new_size = table->capacity;
+      FT_Error    error;
+      FT_Offset   new_size = table->capacity;
       FT_PtrDist  in_offset;
 
 
@@ -589,7 +589,7 @@
     }
 
   Exit:
-    if ( cur == parser->cursor )
+    if ( cur < limit && cur == parser->cursor )
     {
       FT_ERROR(( "ps_parser_skip_PS_token:"
                  " current token is `%c' which is self-delimiting\n"

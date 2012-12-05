@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    The FreeType private base classes (body).                            */
 /*                                                                         */
-/*  Copyright 1996-2011 by                                                 */
+/*  Copyright 1996-2012 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -445,6 +445,10 @@
           else
             prev->next = cur->next;
 
+          /* finalize client-specific data */
+          if ( slot->generic.finalizer )
+            slot->generic.finalizer( slot );
+
           ft_glyphslot_done( slot );
           FT_FREE( slot );
           break;
@@ -620,7 +624,8 @@
          FT_DRIVER_IS_SCALABLE( driver )                  &&
          FT_DRIVER_USES_OUTLINES( driver )                &&
          !FT_IS_TRICKY( face )                            &&
-         ( ( face->internal->transform_matrix.yx == 0 &&
+         ( ( load_flags & FT_LOAD_IGNORE_TRANSFORM )    ||
+           ( face->internal->transform_matrix.yx == 0 &&
              face->internal->transform_matrix.xx != 0 ) ||
            ( face->internal->transform_matrix.xx == 0 &&
              face->internal->transform_matrix.yx != 0 ) ) )
@@ -756,11 +761,11 @@
         else if ( slot->format == FT_GLYPH_FORMAT_OUTLINE )
         {
           /* apply `standard' transformation if no renderer is available */
-          if ( &internal->transform_matrix )
+          if ( internal->transform_flags & 1 )
             FT_Outline_Transform( &slot->outline,
                                   &internal->transform_matrix );
 
-          if ( &internal->transform_delta )
+          if ( internal->transform_flags & 2 )
             FT_Outline_Translate( &slot->outline,
                                   internal->transform_delta.x,
                                   internal->transform_delta.y );
@@ -1186,7 +1191,7 @@
   /* there's a Mac-specific extended implementation of FT_New_Face() */
   /* in src/base/ftmac.c                                             */
 
-#if !defined( FT_MACINTOSH ) || defined( DARWIN_NO_CARBON )
+#ifndef FT_MACINTOSH
 
   /* documentation is in freetype.h */
 
@@ -1210,7 +1215,7 @@
     return FT_Open_Face( library, &args, face_index, aface );
   }
 
-#endif  /* defined( FT_MACINTOSH ) && !defined( DARWIN_NO_CARBON ) */
+#endif
 
 
   /* documentation is in freetype.h */
@@ -1519,7 +1524,7 @@
   }
 
 
-#if !defined( FT_MACINTOSH ) || defined( DARWIN_NO_CARBON )
+#ifndef FT_MACINTOSH
 
   /* The resource header says we've got resource_cnt `POST' (type1) */
   /* resources in this file.  They all need to be coalesced into    */
@@ -1874,7 +1879,7 @@
 
     for ( i = 0; i < FT_RACCESS_N_RULES; i++ )
     {
-      is_darwin_vfs = raccess_rule_by_darwin_vfs( i );
+      is_darwin_vfs = ft_raccess_rule_by_darwin_vfs( library, i );
       if ( is_darwin_vfs && vfs_rfork_has_no_font )
       {
         FT_TRACE3(( "Skip rule %d: darwin vfs resource fork"
@@ -2613,6 +2618,18 @@
       metrics->height      = bsize->height << 6;
       metrics->max_advance = bsize->x_ppem;
     }
+
+    FT_TRACE5(( "FT_Select_Metrics:\n" ));
+    FT_TRACE5(( "  x scale: %d (%f)\n",
+                metrics->x_scale, metrics->x_scale / 65536.0 ));
+    FT_TRACE5(( "  y scale: %d (%f)\n",
+                metrics->y_scale, metrics->y_scale / 65536.0 ));
+    FT_TRACE5(( "  ascender: %f\n",    metrics->ascender / 64.0 ));
+    FT_TRACE5(( "  descender: %f\n",   metrics->descender / 64.0 ));
+    FT_TRACE5(( "  height: %f\n",      metrics->height / 64.0 ));
+    FT_TRACE5(( "  max advance: %f\n", metrics->max_advance / 64.0 ));
+    FT_TRACE5(( "  x ppem: %d\n",      metrics->x_ppem ));
+    FT_TRACE5(( "  y ppem: %d\n",      metrics->y_ppem ));
   }
 
 
@@ -2721,6 +2738,18 @@
       metrics->x_scale = 1L << 16;
       metrics->y_scale = 1L << 16;
     }
+
+    FT_TRACE5(( "FT_Request_Metrics:\n" ));
+    FT_TRACE5(( "  x scale: %d (%f)\n",
+                metrics->x_scale, metrics->x_scale / 65536.0 ));
+    FT_TRACE5(( "  y scale: %d (%f)\n",
+                metrics->y_scale, metrics->y_scale / 65536.0 ));
+    FT_TRACE5(( "  ascender: %f\n",    metrics->ascender / 64.0 ));
+    FT_TRACE5(( "  descender: %f\n",   metrics->descender / 64.0 ));
+    FT_TRACE5(( "  height: %f\n",      metrics->height / 64.0 ));
+    FT_TRACE5(( "  max advance: %f\n", metrics->max_advance / 64.0 ));
+    FT_TRACE5(( "  x ppem: %d\n",      metrics->x_ppem ));
+    FT_TRACE5(( "  y ppem: %d\n",      metrics->y_ppem ));
   }
 
 
@@ -2742,7 +2771,33 @@
     clazz = face->driver->clazz;
 
     if ( clazz->select_size )
-      return clazz->select_size( face->size, (FT_ULong)strike_index );
+    {
+      FT_Error  error;
+
+
+      error = clazz->select_size( face->size, (FT_ULong)strike_index );
+
+#ifdef FT_DEBUG_LEVEL_TRACE
+      {
+        FT_Size_Metrics*  metrics = &face->size->metrics;
+
+
+        FT_TRACE5(( "FT_Select_Size (font driver's `select_size'):\n" ));
+        FT_TRACE5(( "  x scale: %d (%f)\n",
+                    metrics->x_scale, metrics->x_scale / 65536.0 ));
+        FT_TRACE5(( "  y scale: %d (%f)\n",
+                    metrics->y_scale, metrics->y_scale / 65536.0 ));
+        FT_TRACE5(( "  ascender: %f\n",    metrics->ascender / 64.0 ));
+        FT_TRACE5(( "  descender: %f\n",   metrics->descender / 64.0 ));
+        FT_TRACE5(( "  height: %f\n",      metrics->height / 64.0 ));
+        FT_TRACE5(( "  max advance: %f\n", metrics->max_advance / 64.0 ));
+        FT_TRACE5(( "  x ppem: %d\n",      metrics->x_ppem ));
+        FT_TRACE5(( "  y ppem: %d\n",      metrics->y_ppem ));
+      }
+#endif
+
+      return error;
+    }
 
     FT_Select_Metrics( face, (FT_ULong)strike_index );
 
@@ -2770,7 +2825,33 @@
     clazz = face->driver->clazz;
 
     if ( clazz->request_size )
-      return clazz->request_size( face->size, req );
+    {
+      FT_Error  error;
+
+
+      error = clazz->request_size( face->size, req );
+
+#ifdef FT_DEBUG_LEVEL_TRACE
+      {
+        FT_Size_Metrics*  metrics = &face->size->metrics;
+
+
+        FT_TRACE5(( "FT_Request_Size (font driver's `request_size'):\n" ));
+        FT_TRACE5(( "  x scale: %d (%f)\n",
+                    metrics->x_scale, metrics->x_scale / 65536.0 ));
+        FT_TRACE5(( "  y scale: %d (%f)\n",
+                    metrics->y_scale, metrics->y_scale / 65536.0 ));
+        FT_TRACE5(( "  ascender: %f\n",    metrics->ascender / 64.0 ));
+        FT_TRACE5(( "  descender: %f\n",   metrics->descender / 64.0 ));
+        FT_TRACE5(( "  height: %f\n",      metrics->height / 64.0 ));
+        FT_TRACE5(( "  max advance: %f\n", metrics->max_advance / 64.0 ));
+        FT_TRACE5(( "  x ppem: %d\n",      metrics->x_ppem ));
+        FT_TRACE5(( "  y ppem: %d\n",      metrics->y_ppem ));
+      }
+#endif
+
+      return error;
+    }
 
     /*
      * The reason that a driver doesn't have `request_size' defined is
@@ -4008,10 +4089,10 @@
   /*    all child faces.                                                   */
   /*                                                                       */
   /* <InOut>                                                               */
-  /*     module :: A handle to the target driver object.                   */
+  /*    module :: A handle to the target driver object.                    */
   /*                                                                       */
   /* <Note>                                                                */
-  /*     The driver _must_ be LOCKED!                                      */
+  /*    The driver _must_ be LOCKED!                                       */
   /*                                                                       */
   static void
   Destroy_Module( FT_Module  module )
@@ -4020,10 +4101,6 @@
     FT_Module_Class*  clazz   = module->clazz;
     FT_Library        library = module->library;
 
-
-    /* finalize client-data - before anything else */
-    if ( module->generic.finalizer )
-      module->generic.finalizer( module );
 
     if ( library && library->auto_hinter == module )
       library->auto_hinter = 0;
@@ -4241,6 +4318,7 @@
         FT_Module*  cur     = library->modules;
         FT_Module*  limit   = cur + library->num_modules;
 
+
         for ( ; cur < limit; cur++ )
         {
           if ( cur[0] != module )
@@ -4433,10 +4511,6 @@
       goto Exit;
 
     memory = library->memory;
-
-    /* Discard client-data */
-    if ( library->generic.finalizer )
-      library->generic.finalizer( library );
 
     /*
      * Close all faces in the library.  If we don't do this, we can have

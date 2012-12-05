@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    SFNT object management (base).                                       */
 /*                                                                         */
-/*  Copyright 1996-2008, 2010-2011 by                                      */
+/*  Copyright 1996-2008, 2010-2012 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -64,13 +64,17 @@
     for ( n = 0; n < len; n++ )
     {
       code = FT_NEXT_USHORT( read );
+
+      if ( code == 0 )
+        break;
+
       if ( code < 32 || code > 127 )
         code = '?';
 
       string[n] = (char)code;
     }
 
-    string[len] = 0;
+    string[n] = 0;
 
     return string;
   }
@@ -95,13 +99,17 @@
     for ( n = 0; n < len; n++ )
     {
       code = *read++;
+
+      if ( code == 0 )
+        break;
+
       if ( code < 32 || code > 127 )
         code = '?';
 
       string[n] = (char)code;
     }
 
-    string[len] = 0;
+    string[n] = 0;
 
     return string;
   }
@@ -376,7 +384,10 @@
          tag != TTAG_true    &&
          tag != TTAG_typ1    &&
          tag != 0x00020000UL )
+    {
+      FT_TRACE2(( "  not a font using the SFNT container format\n" ));
       return SFNT_Err_Unknown_File_Format;
+    }
 
     face->ttc_header.tag = TTAG_ttcf;
 
@@ -452,13 +463,18 @@
     {
       sfnt = (SFNT_Service)FT_Get_Module_Interface( library, "sfnt" );
       if ( !sfnt )
-        return SFNT_Err_Invalid_File_Format;
+      {
+        FT_ERROR(( "sfnt_init_face: cannot access `sfnt' module\n" ));
+        return SFNT_Err_Missing_Module;
+      }
 
       face->sfnt       = sfnt;
       face->goto_table = sfnt->goto_table;
     }
 
     FT_FACE_FIND_GLOBAL_SERVICE( face, face->psnames, POSTSCRIPT_CMAPS );
+
+    FT_TRACE2(( "SFNT driver\n" ));
 
     error = sfnt_open_font( stream, face );
     if ( error )

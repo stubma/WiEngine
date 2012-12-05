@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    The FreeType glyph rasterizer interface (body).                      */
 /*                                                                         */
-/*  Copyright 1996-2001, 2002, 2003, 2005, 2006 by                         */
+/*  Copyright 1996-2003, 2005, 2006, 2011 by                               */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -176,6 +176,13 @@
 
     width  = (FT_UInt)( ( cbox.xMax - cbox.xMin ) >> 6 );
     height = (FT_UInt)( ( cbox.yMax - cbox.yMin ) >> 6 );
+
+    if ( width > FT_USHORT_MAX || height > FT_USHORT_MAX )
+    {
+      error = Raster_Err_Invalid_Argument;
+      goto Exit;
+    }
+
     bitmap = &slot->bitmap;
     memory = render->root.memory;
 
@@ -237,10 +244,10 @@
   }
 
 
-  FT_DEFINE_RENDERER(ft_raster1_renderer_class,
-    
+  FT_DEFINE_RENDERER( ft_raster1_renderer_class,
+
       FT_MODULE_RENDERER,
-      sizeof( FT_RendererRec ),
+      sizeof ( FT_RendererRec ),
 
       "raster1",
       0x10000L,
@@ -268,11 +275,10 @@
   /* to register it by hand in your application.  It should only be    */
   /* used for backwards-compatibility with FT 1.x anyway.              */
   /*                                                                   */
-  FT_DEFINE_RENDERER(ft_raster5_renderer_class,
-  
-    
+  FT_DEFINE_RENDERER( ft_raster5_renderer_class,
+
       FT_MODULE_RENDERER,
-      sizeof( FT_RendererRec ),
+      sizeof ( FT_RendererRec ),
 
       "raster5",
       0x10000L,

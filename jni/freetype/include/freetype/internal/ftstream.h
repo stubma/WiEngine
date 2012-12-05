@@ -460,27 +460,27 @@ FT_BEGIN_HEADER
   /* read a 16-bit big-endian unsigned integer from a stream */
   FT_BASE( FT_UShort )
   FT_Stream_ReadUShort( FT_Stream  stream,
-                       FT_Error*  error );
+                        FT_Error*  error );
 
   /* read a 24-bit big-endian unsigned integer from a stream */
   FT_BASE( FT_ULong )
   FT_Stream_ReadUOffset( FT_Stream  stream,
-                        FT_Error*  error );
+                         FT_Error*  error );
 
   /* read a 32-bit big-endian integer from a stream */
   FT_BASE( FT_ULong )
   FT_Stream_ReadULong( FT_Stream  stream,
-                      FT_Error*  error );
+                       FT_Error*  error );
 
   /* read a 16-bit little-endian unsigned integer from a stream */
   FT_BASE( FT_UShort )
   FT_Stream_ReadUShortLE( FT_Stream  stream,
-                         FT_Error*  error );
+                          FT_Error*  error );
 
   /* read a 32-bit little-endian unsigned integer from a stream */
   FT_BASE( FT_ULong )
   FT_Stream_ReadULongLE( FT_Stream  stream,
-                        FT_Error*  error );
+                         FT_Error*  error );
 
   /* Read a structure from a stream.  The structure must be described */
   /* by an array of FT_Frame_Field records.                           */
