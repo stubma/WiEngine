@@ -603,6 +603,35 @@ void Tree::handleUpdatedItemData(void)
     configureScrollbars();
     invalidate();
 }
+    
+/*************************************************************************
+ toggle a branch open close state
+ *************************************************************************/
+void Tree::toggleOpen(TreeItem* item) {
+	if(!item)
+		return;
+
+    TreeEventArgs args(this);
+    args.treeItem = item;
+    item->toggleIsOpen();
+    if (item->getIsOpen())
+    {
+        TreeItem *lastItemInList = item->getTreeItemFromIndex(item->getItemCount() - 1);
+        ensureItemIsVisible(lastItemInList);
+        ensureItemIsVisible(item);
+        onBranchOpened(args);
+    }
+    else
+    {
+        onBranchClosed(args);
+    }
+    
+    // Update the item screen locations, needed to update the scrollbars.
+    populateGeometryBuffer();
+    
+    // Opened or closed a tree branch, so must update scrollbars.
+    configureScrollbars();
+}
 
 /*************************************************************************
     Perform the actual rendering for this Window.

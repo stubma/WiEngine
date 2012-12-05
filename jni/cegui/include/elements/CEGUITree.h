@@ -147,6 +147,9 @@ public:
     void doScrollbars()
         { configureScrollbars(); }
 
+    // toggle branch open close state
+    void toggleOpen(TreeItem* item);
+    
     /*************************************************************************
         Accessor Methods
      *************************************************************************/
