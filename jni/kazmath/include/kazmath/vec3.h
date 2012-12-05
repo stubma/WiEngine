@@ -58,6 +58,7 @@ KAZMATH_API kmVec3* kmVec3InverseTransform(kmVec3* pOut, const kmVec3* pV, const
 KAZMATH_API kmVec3* kmVec3InverseTransformNormal(kmVec3* pOut, const kmVec3* pVect, const struct kmMat4* pM);
 KAZMATH_API kmVec3* kmVec3Assign(kmVec3* pOut, const kmVec3* pIn);
 KAZMATH_API kmVec3* kmVec3Zero(kmVec3* pOut);
+KAZMATH_API void kmVec3Print(kmVec3* pIn);
 
 #ifdef __cplusplus
 }

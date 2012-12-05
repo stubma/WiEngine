@@ -34,6 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "kazmath/vec4.h"
 #include "kazmath/mat4.h"
 #include "kazmath/vec3.h"
+#include "kazmath/wyLog.h"
 
 /**
  * Fill a kmVec3 structure using 3 floating point values
@@ -310,4 +311,8 @@ kmVec3* kmVec3Zero(kmVec3* pOut) {
 	pOut->z = 0.0f;
 
 	return pOut;
+}
+
+void kmVec3Print(kmVec3* pIn) {
+    LOGD("%f, %f, %f", pIn->x, pIn->y, pIn->z);
 }
