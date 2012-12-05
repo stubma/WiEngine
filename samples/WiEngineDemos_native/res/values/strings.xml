@@ -248,4 +248,5 @@
 	<string name="CEGUIScrollablePaneTest_desc">It demos ScrollablePane of CEGUI. It uses Windows look-and-feel so that is a good demo to understanding how to customize your UI. If you want to know how to write your own scheme, go to CEGUI official wiki for help</string>
 	<string name="CEGUIFontTest_desc">CEGUI supports TrueType, PCF format, bitmap font, etc. From this demo you can learn how to use them in CEGUI</string>
 	<string name="CEGUITreeTest_desc">How to use CEGUI tree control</string>
+	<string name="CEGUIControlSetTest_desc">A control collection demo, it shows you most common used controls of CEGUI</string>
 </resources>

@@ -11,24 +11,164 @@ namespace CEGUI {
      */
     #define SKIN "TaharezLook"
 
-    static void createButton(const char* label, wyLayer* layer, float x, float y, wyTargetSelector* ts) {
-		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		normal1->setContentSize(DP(300), DP(44));
-		pressed1->setContentSize(DP(300), DP(44));
+	/////////////////////////////////////////////////////////////////////////////////
+
+	class wyControlSetTestLayer : public wyLayer {
+    private:
+        class MyListItem : public ListboxTextItem {
+        public:
+            MyListItem(const String& text) : ListboxTextItem(text) {
+                setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+            }
+        };
         
-		wyButton* button1 = wyButton::make(normal1, pressed1, NULL, NULL, NULL, ts);
-		button1->setPosition(x, y);
+	public:
+		wyControlSetTestLayer() {
+            // bootstrapSystem must be called at the very beginning
+            wyCEGUINode::bootstrapSystem("cegui");
+
+            // Now we make a Falagard mapping for a frame window that uses this effect.
+            // We create a type "TaharezLook/WobblyFrameWindow", which is subsequently
+            // referenced in the layout file loaded below.  Note that it wold be more
+            // usual for this mapping to be specified in the scheme xml file, though
+            // here we are doing in manually to save from needing either multiple
+            // versions of the schemes or from having demo specific definitions in
+            // the schemes.
+            WindowFactoryManager::getSingleton().addFalagardWindowMapping(
+                "TaharezLook/WobblyFrameWindow",    // type to create
+                "CEGUI/FrameWindow",                // 'base' widget type
+                "TaharezLook/FrameWindow",          // WidgetLook to use.
+                "Falagard/FrameWindow");             // WindowRenderer to use.
+
+            // load scheme
+            SchemeManager::getSingleton().create("TaharezLook.scheme");
+            
+            // let default font smaller, the default font is set in scheme file
+            Font& font = FontManager::getSingleton().create("DejaVuSans-10.font");
+            font.setProperty("PointSize", PropertyHelper::intToString(6));
+
+            // load an image to use as a background
+            ImagesetManager::getSingleton().createFromImageFile("BackgroundImage", "GPN-2000-001437.png");
+
+            // here we will use a StaticImage as the root, then we can use it to place a background image
+            // full_image is the default name for the whole image area
+            WindowManager& winMgr = WindowManager::getSingleton();
+            Window* background = winMgr.createWindow ("TaharezLook/StaticImage");
+            background->setArea (URect (cegui_reldim (0), cegui_reldim (0),
+            		cegui_reldim (1), cegui_reldim (1)));
+            background->setProperty ("FrameEnabled", "false");
+            background->setProperty ("BackgroundEnabled", "false");
+            background->setProperty ("Image", "set:BackgroundImage image:full_image");
+
+            // load the windows from the layout file.
+            Window* sheet = winMgr.loadWindowLayout("ControlSetWindows.layout");
+            background->addChildWindow(sheet);
+
+            // set-up the contents of the list boxes.
+            createListContent();
+            
+            // initialise the event handling.
+            initDemoEventWiring();
+
+            // add cegui node
+            wyCEGUINode* node = wyCEGUINode::make(background);
+            addChildLocked(node);
+
+            // enable event for cegui node
+            node->setTouchEnabled(true);
+		}
+
+		virtual ~wyControlSetTestLayer() {
+		}
         
-		wyBitmapFont* font = wyBitmapFont::loadFont(RES("R.raw.bitmapfont"));
-		wyBitmapFontLabel* label1 = wyBitmapFontLabel::make(font, label);
-		label1->setColor(wyc3b(255, 255, 0));
-		label1->setPosition(x, y);
+        bool handleSlider(const EventArgs& e) {
+            // get the current slider value
+            float val = ((Slider*)((const WindowEventArgs&)e).window)->getCurrentValue();
+            
+            // set the progress for the first bar according to the slider value
+            ((ProgressBar*)WindowManager::getSingleton().getWindow("ControlSet/Window2/Progbar1"))->setProgress(val);
+            
+            // set second bar's progress - this time the reverse of the first one
+            ((ProgressBar*)WindowManager::getSingleton().getWindow("ControlSet/Window2/Progbar2"))->setProgress(1.0f - val);
+            
+            // set the alpha on the window containing all the controls.
+            WindowManager::getSingleton().getWindow("root")->setAlpha(val);
+            
+            // event was handled.
+            return true;
+        }
         
-		layer->addChildLocked(button1);
-		layer->addChildLocked(label1);
-	}
-    
+        bool handleQuit(const EventArgs&) {
+            // pop current scene so it exits
+            wyDirector::getInstance()->popScene();
+            
+            // event was handled
+            return true;
+        }
+        
+        void initDemoEventWiring() {
+            // Subscribe handler that quits the application
+            WindowManager::getSingleton().getWindow("ControlSet/Window1/Quit")->
+            subscribeEvent(PushButton::EventClicked,
+                           Event::Subscriber(&wyControlSetTestLayer::handleQuit, this));
+            
+            // Subscribe handler that processes changes to the slider position.
+            WindowManager::getSingleton().getWindow("ControlSet/Window1/Slider1")->
+            subscribeEvent(Slider::EventValueChanged,
+                           Event::Subscriber(&wyControlSetTestLayer::handleSlider, this));
+        }
+        
+        void createListContent() {
+            WindowManager& winMgr = WindowManager::getSingleton();
+            
+            // add items to the combobox list
+            Combobox* cbobox = (Combobox*)winMgr.getWindow("ControlSet/Window2/Combobox");
+            cbobox->addItem(new MyListItem("Combobox Item 1"));
+            cbobox->addItem(new MyListItem("Combobox Item 2"));
+            cbobox->addItem(new MyListItem("Combobox Item 3"));
+            cbobox->addItem(new MyListItem("Combobox Item 4"));
+            cbobox->addItem(new MyListItem("Combobox Item 5"));
+            cbobox->addItem(new MyListItem("Combobox Item 6"));
+            cbobox->addItem(new MyListItem("Combobox Item 7"));
+            cbobox->addItem(new MyListItem("Combobox Item 8"));
+            cbobox->addItem(new MyListItem("Combobox Item 9"));
+            cbobox->addItem(new MyListItem("Combobox Item 10"));
+            
+            // Add some empty rows to the MCL
+            MultiColumnList* mclbox = (MultiColumnList*)winMgr.getWindow("ControlSet/Window2/MultiColumnList");
+            mclbox->addRow();
+            mclbox->addRow();
+            mclbox->addRow();
+            mclbox->addRow();
+            mclbox->addRow();
+            
+            // Set first row item texts for the MCL
+            mclbox->setItem(new MyListItem("Laggers World"), 0, 0);
+            mclbox->setItem(new MyListItem("yourgame.some-server.com"), 1, 0);
+            mclbox->setItem(new MyListItem("[colour='FFFF0000']1000ms"), 2, 0);
+            
+            // Set second row item texts for the MCL
+            mclbox->setItem(new MyListItem("Super-Server"), 0, 1);
+            mclbox->setItem(new MyListItem("whizzy.fakenames.net"), 1, 1);
+            mclbox->setItem(new MyListItem("[colour='FF00FF00']8ms"), 2, 1);
+            
+            // Set third row item texts for the MCL
+            mclbox->setItem(new MyListItem("Cray-Z-Eds"), 0, 2);
+            mclbox->setItem(new MyListItem("crayzeds.notarealserver.co.uk"), 1, 2);
+            mclbox->setItem(new MyListItem("[colour='FF00FF00']43ms"), 2, 2);
+            
+            // Set fourth row item texts for the MCL
+            mclbox->setItem(new MyListItem("Fake IPs"), 0, 3);
+            mclbox->setItem(new MyListItem("123.320.42.242"), 1, 3);
+            mclbox->setItem(new MyListItem("[colour='FFFFFF00']63ms"), 2, 3);
+            
+            // Set fifth row item texts for the MCL
+            mclbox->setItem(new MyListItem("Yet Another Game Server"), 0, 4);
+            mclbox->setItem(new MyListItem("abc.abcdefghijklmn.org"), 1, 4);
+            mclbox->setItem(new MyListItem("[colour='FFFF6600']284ms"), 2, 4);
+        }
+	};
+
 	/////////////////////////////////////////////////////////////////////////////////
 
     static struct {
@@ -1013,6 +1153,7 @@ namespace CEGUI {
 
 using namespace CEGUI;
 
+DEMO_ENTRY_IMPL(cegui, ControlSetTest);
 DEMO_ENTRY_IMPL(cegui, FontTest);
 DEMO_ENTRY_IMPL(cegui, ScrollablePaneTest);
 DEMO_ENTRY_IMPL(cegui, TabControlTest);

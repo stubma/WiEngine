@@ -248,4 +248,5 @@
 	<string name="CEGUIScrollablePaneTest_desc">演示了滚动区域的使用, 不过这个demo使用了Windows样式, 看上去很不一样, 这可以让你了解如何在CEGUI中使用其它外观主题. 至于如何编写自己的主题, 可以去CEGUI的官网学习.</string>
 	<string name="CEGUIFontTest_desc">演示CEGUI对字体的支持, CEGUI支持TrueType, PCF, 图片字体等多种字体格式</string>
 	<string name="CEGUITreeTest_desc">CEGUI的树形控件的使用</string>
+	<string name="CEGUIControlSetTest_desc">这个demo展示了CEGUI中的大多数常用组件</string>
 </resources>
