@@ -181,6 +181,9 @@ wyShape* WiEngineGeometryBuffer::pickMesh() {
             }
         }
         
+        // map material and texture
+        m_tmMap[m_activeTexture] = mat;
+        
         // init mesh
         wyShape* mesh = wyShape::make();
         mesh->retain();
@@ -201,8 +204,8 @@ wyShape* WiEngineGeometryBuffer::pickMesh() {
             mesh->setMode(wyMesh::TRIANGLES);
             
             // add render pair and return
-            rp.mat->retain();
-            RenderPair newRP = { rp.mat, mesh };
+            iter->second->retain();
+            RenderPair newRP = { iter->second, mesh };
             m_renderPairs.push_back(newRP);
             return mesh;
         }
