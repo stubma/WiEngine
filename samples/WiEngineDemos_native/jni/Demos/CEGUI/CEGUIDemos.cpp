@@ -178,44 +178,44 @@ namespace CEGUI {
             wyCEGUINode::bootstrapSystem("cegui");
 
             // load windows look
-             SchemeManager::getSingleton().create("WindowsLook.scheme");
+            SchemeManager::getSingleton().create("WindowsLook.scheme");
 
-             // load font and setup default if not loaded via scheme
-             FontManager::getSingleton().create("DejaVuSans-10.font");
-             System::getSingleton().setDefaultFont("DejaVuSans-10");
+            // load font and setup default if not loaded via scheme
+            FontManager::getSingleton().create("DejaVuSans-10.font");
+            System::getSingleton().setDefaultFont("DejaVuSans-10");
 
-             // load the drive icons imageset
-             ImagesetManager::getSingleton().create("DriveIcons.imageset");
+            // load the drive icons imageset
+            ImagesetManager::getSingleton().create("DriveIcons.imageset");
 
-             // load layout
-             WindowManager& winMgr = WindowManager::getSingleton();
-             Window* root = winMgr.loadWindowLayout("DragDropDemo.layout");
+            // load layout
+            WindowManager& winMgr = WindowManager::getSingleton();
+            Window* root = winMgr.loadWindowLayout("DragDropDemo.layout");
 
-             // event for close button
-             Window* main_wnd = winMgr.getWindow("Root/MainWindow");
-             main_wnd->subscribeEvent(FrameWindow::EventCloseClicked,
-            		 Event::Subscriber(&wyDragDropTestLayer::handleCloseButton, this));
+            // event for close button
+            Window* main_wnd = winMgr.getWindow("Root/MainWindow");
+            main_wnd->subscribeEvent(FrameWindow::EventCloseClicked,
+                 Event::Subscriber(&wyDragDropTestLayer::handleCloseButton, this));
 
-             /*
-              * Subscribe the same handler to each of the twelve slots
-              */
-             String base_name = "Root/MainWindow/Slot";
-			for(int i = 1; i <= 12; ++i) {
-				// get the window pointer for this slot
-				Window* wnd = winMgr.getWindow(base_name + PropertyHelper::intToString(i));
+            /*
+            * Subscribe the same handler to each of the twelve slots
+            */
+            String base_name = "Root/MainWindow/Slot";
+            for(int i = 1; i <= 12; ++i) {
+                // get the window pointer for this slot
+                Window* wnd = winMgr.getWindow(base_name + PropertyHelper::intToString(i));
 
-				// subscribe the handler.
-				wnd->subscribeEvent(Window::EventDragDropItemDropped,
-						Event::Subscriber(&wyDragDropTestLayer::handleItemDropped, this));
-			}
+                // subscribe the handler.
+                wnd->subscribeEvent(Window::EventDragDropItemDropped,
+                        Event::Subscriber(&wyDragDropTestLayer::handleItemDropped, this));
+            }
 
-             // add cegui node
-             wyCEGUINode* node = wyCEGUINode::make(root);
-             addChildLocked(node);
+            // add cegui node
+            wyCEGUINode* node = wyCEGUINode::make(root);
+            addChildLocked(node);
 
-             // enable event for cegui node
-             node->setTouchEnabled(true);
-		}
+            // enable event for cegui node
+            node->setTouchEnabled(true);
+        }
 
 		virtual ~wyDragDropTestLayer() {
 		}
