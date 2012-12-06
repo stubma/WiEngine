@@ -536,6 +536,10 @@ namespace CEGUI {
 	/////////////////////////////////////////////////////////////////////////////////
 
 	class wyScrollablePaneTestLayer : public wyLayer {
+    private:
+        Window* m_root;
+        ScrollablePane* m_pane;
+        
 	public:
 		wyScrollablePaneTestLayer() {
             // bootstrapSystem must be called at the very beginning
@@ -550,8 +554,8 @@ namespace CEGUI {
             // create a root window
             // this will be a static, to give a nice app'ish background
             WindowManager& winMgr = WindowManager::getSingleton();
-            Window* root = winMgr.createWindow("WindowsLook/Static");
-            root->setProperty("FrameEnabled", "false");
+            m_root = winMgr.createWindow("WindowsLook/Static");
+            m_root->setProperty("FrameEnabled", "false");
             
             // create a menubar.
             // this will fit in the top of the screen and have options for the demo
@@ -559,7 +563,7 @@ namespace CEGUI {
             Window* bar = winMgr.createWindow("WindowsLook/Menubar");
             bar->setArea(UDim(0, 0), UDim(0, 0), UDim(1, 0), bar_bottom);
             bar->setAlwaysOnTop(true);
-            root->addChildWindow(bar);
+            m_root->addChildWindow(bar);
             
             // fill out the menubar
             createMenu(bar);
@@ -567,21 +571,21 @@ namespace CEGUI {
             // create a scrollable pane for our demo content
             // this scrollable pane will be a kind of virtual desktop in the sense that it's bigger than
             // the screen. 3000 x 3000 pixels
-            ScrollablePane* pane = (ScrollablePane*)winMgr.createWindow("WindowsLook/ScrollablePane");
-            pane->setArea(URect(UDim(0, 0), bar_bottom, UDim(1, 0), UDim(1, 0)));
-            pane->setContentPaneAutoSized(false);
-            pane->setContentPaneArea(CEGUI::Rect(0, 0, 3000, 3000));
-            root->addChildWindow(pane);
+            m_pane = (ScrollablePane*)winMgr.createWindow("WindowsLook/ScrollablePane");
+            m_pane->setArea(URect(UDim(0, 0), bar_bottom, UDim(1, 0), UDim(1, 0)));
+            m_pane->setContentPaneAutoSized(false);
+            m_pane->setContentPaneArea(CEGUI::Rect(0, 0, 3000, 3000));
+            m_root->addChildWindow(m_pane);
             
             // add a dialog to this pane so we have something to drag around :)
             Window* dlg = winMgr.createWindow("WindowsLook/FrameWindow");
             dlg->setMinSize(UVector2(UDim(0, 250), UDim(0, 100)));
             dlg->setSize(UVector2(UDim(0, 250), UDim(0, 100)));
             dlg->setText("Drag me around");
-            pane->addChildWindow(dlg);
+            m_pane->addChildWindow(dlg);
             
             // add cegui node
-            wyCEGUINode* node = wyCEGUINode::make(root);
+            wyCEGUINode* node = wyCEGUINode::make(m_root);
             addChildLocked(node);
             
             // enable event for cegui node
@@ -608,10 +612,45 @@ namespace CEGUI {
             item->subscribeEvent("Clicked",
                                  Event::Subscriber(&wyScrollablePaneTestLayer::fileQuit, this));
             popup->addChildWindow(item);
+            
+            // demo menu item
+            Window* demo = winMgr.createWindow("WindowsLook/MenuItem");
+            demo->setText("Demo");
+            bar->addChildWindow(demo);
+            
+            // demo popup
+            popup = winMgr.createWindow("WindowsLook/PopupMenu");
+            demo->addChildWindow(popup);
+            
+            // demo -> new window
+            item = winMgr.createWindow("WindowsLook/MenuItem");
+            item->setText("New dialog");
+            item->setTooltipText("Hotkey: Space");
+            item->subscribeEvent("Clicked", Event::Subscriber(&wyScrollablePaneTestLayer::demoNewDialog, this));
+            popup->addChildWindow(item);
         }
         
         bool fileQuit(const EventArgs&) {
             wyDirector::getInstance()->popScene();
+            return true;
+        }
+        
+        bool demoNewDialog(const EventArgs&) {
+            // add a dialog to this pane so we have some more stuff to drag around :)
+            WindowManager& winMgr = WindowManager::getSingleton();
+            Window* dlg = winMgr.createWindow("WindowsLook/FrameWindow");
+            dlg->setMinSize(UVector2(UDim(0, 200), UDim(0, 100)));
+            dlg->setSize(UVector2(UDim(0, 200), UDim(0, 100)));
+            dlg->setText("Drag me around too!");
+            
+            // we put this in the center of the viewport into the scrollable pane
+            UVector2 uni_center(UDim(0.5f, 0), UDim(0.5f, 0));
+            Vector2 center = CoordConverter::windowToScreen(*m_root, uni_center);
+            Vector2 target = CoordConverter::screenToWindow(*m_pane->getContentPane(), center);
+            dlg->setPosition(UVector2(UDim(0,target.d_x - 100), UDim(0,target.d_y - 50)));
+            
+            m_pane->addChildWindow(dlg);
+            
             return true;
         }
 	};
