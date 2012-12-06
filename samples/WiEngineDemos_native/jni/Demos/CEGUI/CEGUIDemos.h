@@ -11,6 +11,7 @@ extern "C" {
 #endif
 
 DEMO_ENTRY(cegui, ControlSetTest);
+DEMO_ENTRY(cegui, DragDropTest);
 DEMO_ENTRY(cegui, FontTest);
 DEMO_ENTRY(cegui, ScrollablePaneTest);
 DEMO_ENTRY(cegui, TabControlTest);

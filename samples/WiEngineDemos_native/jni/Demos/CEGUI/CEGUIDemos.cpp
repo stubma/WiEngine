@@ -171,6 +171,79 @@ namespace CEGUI {
 
 	/////////////////////////////////////////////////////////////////////////////////
 
+	class wyDragDropTestLayer : public wyLayer {
+	public:
+		wyDragDropTestLayer() {
+            // bootstrapSystem must be called at the very beginning
+            wyCEGUINode::bootstrapSystem("cegui");
+
+            // load windows look
+             SchemeManager::getSingleton().create("WindowsLook.scheme");
+
+             // load font and setup default if not loaded via scheme
+             FontManager::getSingleton().create("DejaVuSans-10.font");
+             System::getSingleton().setDefaultFont("DejaVuSans-10");
+
+             // load the drive icons imageset
+             ImagesetManager::getSingleton().create("DriveIcons.imageset");
+
+             // load layout
+             WindowManager& winMgr = WindowManager::getSingleton();
+             Window* root = winMgr.loadWindowLayout("DragDropDemo.layout");
+
+             // event for close button
+             Window* main_wnd = winMgr.getWindow("Root/MainWindow");
+             main_wnd->subscribeEvent(FrameWindow::EventCloseClicked,
+            		 Event::Subscriber(&wyDragDropTestLayer::handleCloseButton, this));
+
+             /*
+              * Subscribe the same handler to each of the twelve slots
+              */
+             String base_name = "Root/MainWindow/Slot";
+			for(int i = 1; i <= 12; ++i) {
+				// get the window pointer for this slot
+				Window* wnd = winMgr.getWindow(base_name + PropertyHelper::intToString(i));
+
+				// subscribe the handler.
+				wnd->subscribeEvent(Window::EventDragDropItemDropped,
+						Event::Subscriber(&wyDragDropTestLayer::handleItemDropped, this));
+			}
+
+             // add cegui node
+             wyCEGUINode* node = wyCEGUINode::make(root);
+             addChildLocked(node);
+
+             // enable event for cegui node
+             node->setTouchEnabled(true);
+		}
+
+		virtual ~wyDragDropTestLayer() {
+		}
+
+		bool handleItemDropped(const EventArgs& args) {
+			// cast the args to the 'real' type so we can get access to extra fields
+			const DragDropEventArgs& dd_args =  (const DragDropEventArgs&)args;
+
+			if(!dd_args.window->getChildCount()) {
+				// add dragdrop item as child of target if target has no item already
+				dd_args.window->addChildWindow(dd_args.dragDropItem);
+
+				// Now we must reset the item position from it's 'dropped' location,
+				// since we're now a child of an entirely different window
+				dd_args.dragDropItem->setPosition(UVector2(UDim(0.05f, 0), UDim(0.05f, 0)));
+			}
+
+			return true;
+		}
+
+		bool handleCloseButton(const EventArgs&) {
+		    wyDirector::getInstance()->popScene();
+		    return true;
+		}
+	};
+
+	/////////////////////////////////////////////////////////////////////////////////
+
     static struct {
         utf8* Language;
         utf8* Font;
@@ -1154,6 +1227,7 @@ namespace CEGUI {
 using namespace CEGUI;
 
 DEMO_ENTRY_IMPL(cegui, ControlSetTest);
+DEMO_ENTRY_IMPL(cegui, DragDropTest);
 DEMO_ENTRY_IMPL(cegui, FontTest);
 DEMO_ENTRY_IMPL(cegui, ScrollablePaneTest);
 DEMO_ENTRY_IMPL(cegui, TabControlTest);

@@ -249,4 +249,5 @@
 	<string name="CEGUIFontTest_desc">演示CEGUI对字体的支持, CEGUI支持TrueType, PCF, 图片字体等多种字体格式</string>
 	<string name="CEGUITreeTest_desc">CEGUI的树形控件的使用</string>
 	<string name="CEGUIControlSetTest_desc">这个demo展示了CEGUI中的大多数常用组件</string>
+	<string name="CEGUIDragDropTest_desc">CEGUI有内置的拖放事件支持, 只要设定处理拖放事件就可以了</string>
 </resources>

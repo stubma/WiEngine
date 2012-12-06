@@ -249,4 +249,5 @@
 	<string name="CEGUIFontTest_desc">CEGUI supports TrueType, PCF format, bitmap font, etc. From this demo you can learn how to use them in CEGUI</string>
 	<string name="CEGUITreeTest_desc">How to use CEGUI tree control</string>
 	<string name="CEGUIControlSetTest_desc">A control collection demo, it shows you most common used controls of CEGUI</string>
+	<string name="CEGUIDragDropTest_desc">You can subscribe drag&amp;drop event, CEGUI has built-in drag&amp;drop event</string>
 </resources>
