@@ -29,6 +29,7 @@
 #include "CEGUIWiEngineGeometryBuffer.h"
 #include "CEGUIWiEngineRenderer.h"
 #include "CEGUIWiEngineTexture.h"
+#include "CEGUIWiEngineRenderTarget.h"
 #include "WiEngine.h"
 
 namespace CEGUI {
@@ -72,8 +73,20 @@ void WiEngineGeometryBuffer::draw() const {
     
     // set clip rect
     bool clip = m_clipRect.width != 0 && m_clipRect.height != 0;
-    if(clip)
-        r->pushClipRect(m_clipRect);
+    if(clip) {
+        if(WiEngineRenderTarget::sTextureTargetActive) {
+            // for texture target, we don't need to convert because it is not inverted
+            r->pushClipRect(m_clipRect);
+        } else {
+            // the real clip rect must be converted to WiEngine space
+            wyRect vr = r->getViewport();
+            vr.x = m_clipRect.x;
+            vr.y = vr.height - m_clipRect.y - m_clipRect.height;
+            vr.width = m_clipRect.width;
+            vr.height = m_clipRect.height;
+            r->pushClipRect(vr);
+        }
+    }
     
     // render it, embeded by effect
     int passCount = m_effect ? m_effect->getPassCount() : 1;

@@ -31,6 +31,8 @@
 #include "WiEngine.h"
 
 namespace CEGUI {
+    
+bool WiEngineRenderTarget::sTextureTargetActive = false;
 
 WiEngineRenderTarget::WiEngineRenderTarget(WiEngineRenderer& owner) :
 		m_owner(owner),

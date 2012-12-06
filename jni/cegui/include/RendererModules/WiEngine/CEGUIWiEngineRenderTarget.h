@@ -38,6 +38,10 @@ namespace CEGUI {
  * WiEngine base render target
  */
 class CEGUIEXPORT WiEngineRenderTarget : public virtual RenderTarget {
+public:
+    /// true means current a texture target is active
+    static bool sTextureTargetActive;
+    
 protected:
 	/// owner who create me
 	WiEngineRenderer& m_owner;

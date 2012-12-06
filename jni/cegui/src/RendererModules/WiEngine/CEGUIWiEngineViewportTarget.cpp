@@ -46,6 +46,8 @@ WiEngineViewportTarget::~WiEngineViewportTarget() {
 }
 	
 void WiEngineViewportTarget::activate() {
+    WiEngineRenderTarget::sTextureTargetActive = false;
+    
 	kmGLMatrixMode(KM_GL_MODELVIEW);
 	kmGLPushMatrix();
 	kmGLLoadMatrix(m_camera->getViewMatrix());

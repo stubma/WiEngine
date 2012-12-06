@@ -96,6 +96,7 @@ void WiEngineTextureTarget::applyRenderSize() const {
 }
     
 void WiEngineTextureTarget::activate() {
+    WiEngineRenderTarget::sTextureTargetActive = true;
     applyRenderSize();
     m_fb->beforeRender();
 }
