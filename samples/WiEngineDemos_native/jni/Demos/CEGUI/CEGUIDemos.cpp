@@ -584,6 +584,10 @@ namespace CEGUI {
             dlg->setText("Drag me around");
             m_pane->addChildWindow(dlg);
             
+            // install close button event for dialog window
+            dlg->subscribeEvent(FrameWindow::EventCloseClicked,
+                                Event::Subscriber(&wyScrollablePaneTestLayer::handleCloseButton, this));
+            
             // add cegui node
             wyCEGUINode* node = wyCEGUINode::make(m_root);
             addChildLocked(node);
@@ -630,6 +634,16 @@ namespace CEGUI {
             popup->addChildWindow(item);
         }
         
+        bool handleCloseButton(const EventArgs& e) {
+            // remove dialog window from scrollable pane
+            Window* dlg = ((const WindowEventArgs&)e).window;
+            m_pane->removeChildWindow(dlg);
+            
+            // no longer need it, destroy it
+            WindowManager::getSingleton().destroyWindow(dlg);
+            return true;
+        }
+        
         bool fileQuit(const EventArgs&) {
             wyDirector::getInstance()->popScene();
             return true;
@@ -648,6 +662,10 @@ namespace CEGUI {
             Vector2 center = CoordConverter::windowToScreen(*m_root, uni_center);
             Vector2 target = CoordConverter::screenToWindow(*m_pane->getContentPane(), center);
             dlg->setPosition(UVector2(UDim(0,target.d_x - 100), UDim(0,target.d_y - 50)));
+            
+            // install close button event for dialog window
+            dlg->subscribeEvent(FrameWindow::EventCloseClicked,
+                                Event::Subscriber(&wyScrollablePaneTestLayer::handleCloseButton, this));
             
             m_pane->addChildWindow(dlg);
             
