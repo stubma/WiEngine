@@ -107,6 +107,13 @@ void wyGLES2Renderer::setViewport(float x, float y, float w, float h) {
     }
 }
 
+wyRect wyGLES2Renderer::getViewport() {
+    return wyr(m_state->viewportX,
+               m_state->viewportY,
+               m_state->viewportWidth,
+               m_state->viewportHeight);
+}
+
 void wyGLES2Renderer::pushClipRect(const wyRect& r) {
 	// ensure capacity
 	while(m_clipStackCount >= m_clipStackCapacity) {

@@ -121,6 +121,9 @@ public:
 
 	/// @see wyRenderer::setViewport
 	virtual void setViewport(float x, float y, float w, float h);
+    
+    /// @see wyRenderer::getViewport
+    virtual wyRect getViewport();
 
 	/// @see wyRenderer::pushClipRect
 	virtual void pushClipRect(const wyRect& r);

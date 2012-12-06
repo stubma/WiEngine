@@ -82,6 +82,11 @@ public:
 	 * @param h height of viewport
 	 */
 	virtual void setViewport(float x, float y, float w, float h) = 0;
+    
+    /**
+     * Get viewport bound
+     */
+    virtual wyRect getViewport() = 0;
 
 	/**
 	 * Push a clip rect to clip rect stack top and enable it
