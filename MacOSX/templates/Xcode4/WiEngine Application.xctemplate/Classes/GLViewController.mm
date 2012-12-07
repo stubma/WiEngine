@@ -31,7 +31,7 @@ static void onSurfaceChanged(int w, int h, void* data) {
 }
 
 // life cycle listener
-static const wyDirectorLifecycleListener s_surfaceLifeCycleListener = {
+static wyDirectorLifecycleListener s_surfaceLifeCycleListener = {
 	NULL,
 	onSurfaceChanged,
 	NULL,

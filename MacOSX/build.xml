@@ -156,6 +156,8 @@
 				<exclude name="expat/**"/>
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
+                <exclude name="bzip2/**"/>
+                <exclude name="cegui/src/**"/>
 				<exclude name="kazmath/src/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
@@ -251,6 +253,20 @@
 			<arg value="-create"/>
 			<arg value="-output"/>
 			<arg value="${dist.libs.dir}/libiap.dylib"/>
+		</exec>
+        <exec executable="lipo">
+			<arg value="${build.i386.dir}/Release/libkazmath.dylib"/>
+			<arg value="${build.x86_64.dir}/Release/libkazmath.dylib"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libkazmath.dylib"/>
+		</exec>
+        <exec executable="lipo">
+			<arg value="${build.i386.dir}/Release/libcegui.dylib"/>
+			<arg value="${build.x86_64.dir}/Release/libcegui.dylib"/>
+			<arg value="-create"/>
+			<arg value="-output"/>
+			<arg value="${dist.libs.dir}/libcegui.dylib"/>
 		</exec>
 	</target>
 </project>
