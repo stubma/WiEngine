@@ -29,6 +29,7 @@ public class Skeleton extends Activity {
 		System.loadLibrary("json");
 		System.loadLibrary("iap");
 		System.loadLibrary("winetwork");
+		System.loadLibrary("cegui");
 		System.loadLibrary("wiengineskeleton");
 	}
 	
