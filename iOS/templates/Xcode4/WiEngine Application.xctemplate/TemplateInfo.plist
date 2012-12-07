@@ -325,7 +325,7 @@
 				<key>GCC_THUMB_SUPPORT[arch=armv6]</key>
 				<string></string>
 				<key>OTHER_LDFLAGS</key>
-				<string>-all_load -ObjC -lsqlite3 -lz -lxml2</string>
+				<string>-all_load -ObjC -lsqlite3 -lz -lxml2 -lbz2</string>
 				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
 				<string>YES</string>
 				<key>GCC_PREFIX_HEADER</key>

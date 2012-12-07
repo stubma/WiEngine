@@ -42,6 +42,7 @@
 #import "WYConfirmDialogDelegate.h"
 #import "WYUIEvent.h"
 #import "WYUITouch.h"
+#import <fnmatch.h>
 
 // global decoder
 extern wyResourceDecoder* gResDecoder;
@@ -1115,6 +1116,39 @@ void wyUtils::addAndroidStrings(const char* fileName, const char* langId) {
     NSString* nsFileName = wyUtils_ios::to_NSString(fileName);
     NSString* nsLangId = wyUtils_ios::to_NSString(langId);
     [[WYAndroidStrings sharedInstance] addStrings:nsFileName forLanguage:nsLangId];
+}
+
+const char** wyUtils::listAssetFiles(const char* path, size_t* outLen, const char* pattern) {
+    // get subpaths
+    NSFileManager* fm = [NSFileManager defaultManager];
+    const char* mappedPath = mapAssetsPath(path);
+    NSString* nsPath = wyUtils_ios::to_NSString(mappedPath);
+    wyFree((void*)mappedPath);
+    NSArray* subpaths = [fm contentsOfDirectoryAtPath:nsPath error:nil];
+    
+    // allocate returned array
+    int maxSize = subpaths == nil ? 0 : (int)[subpaths count];
+    char** files = (char**)malloc(sizeof(char*) * maxSize);
+    int count = 0;
+    
+    // check every path
+    if(subpaths != nil) {
+        for(NSString* path in subpaths) {
+            const char* cPath = [path cStringUsingEncoding:NSUTF8StringEncoding];
+            if(!pattern || fnmatch(pattern, cPath, 0) == 0) {
+                int len = (int)[path lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+                files[count] = (char*)calloc(sizeof(char), len + 1);
+                memcpy(files[count], cPath, len);
+                count++;
+            }
+        }
+    }
+    
+    // save count
+    if(outLen)
+        *outLen = count;
+    
+    return (const char**)files;
 }
 
 #endif // #if IOS

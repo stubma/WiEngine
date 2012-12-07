@@ -89,6 +89,19 @@
 
 #endif /* !FT_CONFIG_OPTION_SYSTEM_ZLIB */
 
+/*
+ * XXX: workaround for IOS, it reports can't find
+ * z_verbose and z_error, so currently we defined them here
+ */
+#ifdef IOS
+int z_verbose = 0;
+
+void z_error (char* message)
+{
+    (message);
+}
+#endif
+
 
 /***************************************************************************/
 /***************************************************************************/
