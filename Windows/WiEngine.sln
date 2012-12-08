@@ -60,6 +60,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libexpat", "libexpat\libexp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcegui", "libcegui\libcegui.vcxproj", "{741C3D6A-0FA0-471F-B065-0901A39B16BD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libbz2", "libbz2\libbz2.vcxproj", "{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -330,6 +332,16 @@ Global
 		{741C3D6A-0FA0-471F-B065-0901A39B16BD}.Release|Win32.ActiveCfg = Release|Win32
 		{741C3D6A-0FA0-471F-B065-0901A39B16BD}.Release|Win32.Build.0 = Release|Win32
 		{741C3D6A-0FA0-471F-B065-0901A39B16BD}.Release|x86.ActiveCfg = Release|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Debug|Win32.Build.0 = Debug|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Debug|x86.ActiveCfg = Debug|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Release|Win32.ActiveCfg = Release|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Release|Win32.Build.0 = Release|Win32
+		{DCDD70F7-B8CA-4B86-BA5E-B733B751A8BE}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

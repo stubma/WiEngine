@@ -132,7 +132,7 @@ mkdir $(Configuration)\assets
 mkdir $(Configuration)\values
 copy /Y ..\samples\WiEngineDemos_native\res\drawable\* $(Configuration)\drawable
 copy /Y ..\samples\WiEngineDemos_native\res\raw\* $(Configuration)\raw
-copy /Y ..\samples\WiEngineDemos_native\assets\* $(Configuration)\assets
+xcopy /Y /S ..\samples\WiEngineDemos_native\assets\* $(Configuration)\assets
 copy /Y ..\samples\WiEngineDemos_native\res\values\strings.xml $(Configuration)\values\strings-en.xml
 copy /Y ..\samples\WiEngineDemos_native\res\values-zh\strings.xml $(Configuration)\values\strings-zh.xml
 copy /Y ..\samples\WiEngineDemos_native\AndroidManifest.xml $(Configuration)\values
@@ -168,7 +168,7 @@ mkdir $(Configuration)\assets
 mkdir $(Configuration)\values
 copy /Y ..\samples\WiEngineDemos_native\res\drawable\* $(Configuration)\drawable
 copy /Y ..\samples\WiEngineDemos_native\res\raw\* $(Configuration)\raw
-copy /Y ..\samples\WiEngineDemos_native\assets\* $(Configuration)\assets
+xcopy /Y /S ..\samples\WiEngineDemos_native\assets\* $(Configuration)\assets
 copy /Y ..\samples\WiEngineDemos_native\res\values\strings.xml $(Configuration)\values\strings-en.xml
 copy /Y ..\samples\WiEngineDemos_native\res\values-zh\strings.xml $(Configuration)\values\strings-zh.xml
 copy /Y ..\samples\WiEngineDemos_native\AndroidManifest.xml $(Configuration)\values

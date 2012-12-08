@@ -110,7 +110,13 @@ static demoEntryFunc sDemoMap[17][50] = {
 		DEMO_ENTRY_NAME(box2d, WebTest),
 	},
 	{
-		DEMO_ENTRY_NAME(cegui, WindowTest),
+        DEMO_ENTRY_NAME(cegui, ControlSetTest),
+        DEMO_ENTRY_NAME(cegui, DragDropTest),
+        DEMO_ENTRY_NAME(cegui, FontTest),
+        DEMO_ENTRY_NAME(cegui, ScrollablePaneTest),
+        DEMO_ENTRY_NAME(cegui, TabControlTest),
+        DEMO_ENTRY_NAME(cegui, TreeTest),
+        DEMO_ENTRY_NAME(cegui, WindowTest),
 	},
 	{
 		DEMO_ENTRY_NAME(ease, EaseBackInOutTest),

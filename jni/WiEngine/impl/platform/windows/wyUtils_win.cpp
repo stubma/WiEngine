@@ -1203,8 +1203,46 @@ const char* wyUtils::mapAssetsPath(const char* path) {
 }
 
 const char** wyUtils::listAssetFiles(const char* path, size_t* outLen, const char* pattern) {
-	// TODO
-	return NULL;
+	// map to platform path
+	const char* mappedPath = mapAssetsPath(path);
+
+	// append pattern
+	const char* patternPath = appendPathComponent(mappedPath, pattern);
+
+	// variable
+	intptr_t f;
+    struct _finddata_t fd;
+	vector<const char*> files;
+
+	// iterate every file in path
+    if ((f = _findfirst(patternPath, &fd)) != -1) {
+        do {
+			// if entry is a folder, continue
+            if((fd.attrib & _A_SUBDIR))
+                continue;
+
+			// otherwise copy file name and save to vector
+			files.push_back(copy(fd.name));
+        } while(_findnext(f, &fd) == 0);
+
+        _findclose(f);
+    }
+
+	// free
+	wyFree((void*)mappedPath);
+	wyFree((void*)patternPath);
+
+	// outLen
+	if(outLen)
+		*outLen = files.size();
+
+	// create returned array
+	int i = 0;
+	char** ret = (char**)malloc(sizeof(char*) * files.size());
+	for(vector<const char*>::iterator iter = files.begin(); iter != files.end(); iter++) {
+		ret[i++] = (char*)*iter;
+	}
+	return (const char**)ret;
 }
 
 void wyUtils::playVideo(int resId) {

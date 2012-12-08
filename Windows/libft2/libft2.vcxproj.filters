@@ -49,6 +49,39 @@
     <Filter Include="src\truetype">
       <UniqueIdentifier>{668ef16d-e059-4644-82b0-b2fa066527ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\bdf">
+      <UniqueIdentifier>{702bd915-c4ba-4c11-b9d8-04545667b867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\bzip2">
+      <UniqueIdentifier>{1fe0172e-0cf7-408a-9feb-0b1631243ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\cid">
+      <UniqueIdentifier>{75ae9ad6-4c8e-4c79-a0a5-184ea9bf47c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gzip">
+      <UniqueIdentifier>{e10c6bfd-53bf-4235-b348-4f1e76ffe2b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lzw">
+      <UniqueIdentifier>{155e6080-3394-46ab-bd1f-71b843976e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\pcf">
+      <UniqueIdentifier>{98a09b59-52db-4e23-a7a9-f06d4003007f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\pfr">
+      <UniqueIdentifier>{4aebb767-63b1-4968-9be8-14f5269d0ea6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\psaux">
+      <UniqueIdentifier>{8c20a53a-e061-4db0-9863-eae9cdbff838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\type1">
+      <UniqueIdentifier>{7c31e847-05e6-4a99-916a-c9ba625bd217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\type42">
+      <UniqueIdentifier>{4ec5147b-25f4-4322-a54f-560fa26c176f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\winfonts">
+      <UniqueIdentifier>{4eca7f55-6774-4c38-a25c-fb709c01238f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\jni\freetype\builds\ft2unix.h">
@@ -361,6 +394,39 @@
     </ClCompile>
     <ClCompile Include="..\..\jni\freetype\src\truetype\truetype.c">
       <Filter>src\truetype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\bdf\bdf.c">
+      <Filter>src\bdf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\bzip2\ftbzip2.c">
+      <Filter>src\bzip2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\cid\type1cid.c">
+      <Filter>src\cid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\gzip\ftgzip.c">
+      <Filter>src\gzip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\lzw\ftlzw.c">
+      <Filter>src\lzw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\pcf\pcf.c">
+      <Filter>src\pcf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\pfr\pfr.c">
+      <Filter>src\pfr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\psaux\psaux.c">
+      <Filter>src\psaux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\type1\type1.c">
+      <Filter>src\type1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\type42\type42.c">
+      <Filter>src\type42</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\freetype\src\winfonts\winfnt.c">
+      <Filter>src\winfonts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

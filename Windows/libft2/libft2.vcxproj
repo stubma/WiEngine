@@ -109,13 +109,29 @@
     <ClCompile Include="..\..\jni\freetype\src\base\ftstroke.c" />
     <ClCompile Include="..\..\jni\freetype\src\base\ftsystem.c" />
     <ClCompile Include="..\..\jni\freetype\src\base\ftxf86.c" />
+    <ClCompile Include="..\..\jni\freetype\src\bdf\bdf.c" />
+    <ClCompile Include="..\..\jni\freetype\src\bzip2\ftbzip2.c" />
     <ClCompile Include="..\..\jni\freetype\src\cff\cff.c" />
+    <ClCompile Include="..\..\jni\freetype\src\cid\type1cid.c" />
+    <ClCompile Include="..\..\jni\freetype\src\gzip\ftgzip.c" />
+    <ClCompile Include="..\..\jni\freetype\src\lzw\ftlzw.c" />
+    <ClCompile Include="..\..\jni\freetype\src\pcf\pcf.c" />
+    <ClCompile Include="..\..\jni\freetype\src\pfr\pfr.c" />
+    <ClCompile Include="..\..\jni\freetype\src\psaux\psaux.c" />
     <ClCompile Include="..\..\jni\freetype\src\pshinter\pshinter.c" />
     <ClCompile Include="..\..\jni\freetype\src\psnames\psnames.c" />
     <ClCompile Include="..\..\jni\freetype\src\raster\raster.c" />
     <ClCompile Include="..\..\jni\freetype\src\sfnt\sfnt.c" />
     <ClCompile Include="..\..\jni\freetype\src\smooth\smooth.c" />
     <ClCompile Include="..\..\jni\freetype\src\truetype\truetype.c" />
+    <ClCompile Include="..\..\jni\freetype\src\type1\type1.c" />
+    <ClCompile Include="..\..\jni\freetype\src\type42\type42.c" />
+    <ClCompile Include="..\..\jni\freetype\src\winfonts\winfnt.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libbz2\libbz2.vcxproj">
+      <Project>{dcdd70f7-b8ca-4b86-ba5e-b733b751a8be}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A3722D31-1761-4101-BCCB-1D5F62D8802F}</ProjectGuid>
@@ -152,7 +168,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;DARWIN_NO_CARBON;FT2_BUILD_LIBRARY;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\jni\freetype\include;..\..\jni\freetype\builds;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\jni\bzip2;..\..\jni\freetype\include;..\..\jni\freetype\builds;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -170,7 +186,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;DARWIN_NO_CARBON;FT2_BUILD_LIBRARY;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\jni\freetype\include;..\..\jni\freetype\builds;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\jni\bzip2;..\..\jni\freetype\include;..\..\jni\freetype\builds;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
