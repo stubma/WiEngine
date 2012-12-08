@@ -111,6 +111,7 @@ function AddCustomConfig(proj, strProjectName)
         var useWiNetwork = wizard.FindSymbol("OPTION_WINETWORK");
         var useLua = wizard.FindSymbol("OPTION_LUA");
         var useJSON = wizard.FindSymbol("OPTION_JSON");
+        var useCEGUI = wizard.FindSymbol("OPTION_CEGUI");
 
         // for debug mode
 		var config = proj.Object.Configurations("Debug");
@@ -136,6 +137,7 @@ function AddCustomConfig(proj, strProjectName)
             WiEngine\\headers\\lua; \
             WiEngine\\headers\\lua\\tolua++; \
             WiEngine\\headers\\pthread; \
+            WiEngine\\headers\\cegui\\include; \
             WiEngine\\headers\\kazmath\\include; \
             WiEngine\\headers\\WiEngine\\include; \
             WiEngine\\headers\\WiEngine\\include\\wisound; \
@@ -168,6 +170,7 @@ function AddCustomConfig(proj, strProjectName)
             WiEngine\\headers\\WiEngine\\include\\material; \
             WiEngine\\headers\\WiEngine\\include\\render; \
             WiEngine\\headers\\WiEngine\\include\\shader; \
+            WiEngine\\headers\\WiEngine\\include\\cegui; \
             WiEngine\\headers\\WiEngine\\include\\actions;";
         CLTool.AdditionalIncludeDirectories = includes + CLTool.AdditionalIncludeDirectories;
 
@@ -189,6 +192,8 @@ function AddCustomConfig(proj, strProjectName)
             LinkTool.AdditionalDependencies = "liblua.lib " + LinkTool.AdditionalDependencies;
         if (useJSON)
             LinkTool.AdditionalDependencies = "libjson.lib " + LinkTool.AdditionalDependencies;
+        if (useCEGUI)
+            LinkTool.AdditionalDependencies = "libcegui.lib " + LinkTool.AdditionalDependencies;
 
         // post build event
         PostBuildTool.CommandLine = "copy /Y WiEngine\\libs\\*.dll ..\\$(Configuration)";
@@ -232,6 +237,8 @@ function AddCustomConfig(proj, strProjectName)
 		    LinkTool.AdditionalDependencies = "liblua.lib " + LinkTool.AdditionalDependencies;
 		if (useJSON)
 		    LinkTool.AdditionalDependencies = "libjson.lib " + LinkTool.AdditionalDependencies;
+		if (useCEGUI)
+		    LinkTool.AdditionalDependencies = "libcegui.lib " + LinkTool.AdditionalDependencies;
 
 		// post build event
 		PostBuildTool.CommandLine = "copy /Y WiEngine\\libs\\*.dll ..\\$(Configuration)";
