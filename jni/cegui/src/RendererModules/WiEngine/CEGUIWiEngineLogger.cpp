@@ -39,7 +39,6 @@ WiEngineLogger::~WiEngineLogger() {
 
 void WiEngineLogger::logEvent(const String& message, LoggingLevel level) {
     switch(level) {
-        case Insane:
         case Errors:
             LOGE("%s", message.c_str());
             break;
