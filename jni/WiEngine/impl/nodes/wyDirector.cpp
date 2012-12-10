@@ -696,7 +696,7 @@ void wyDirector::setProjection(wyProjectionType projection) {
 			// set projection matrix
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
-			gluPerspective(60, (GLfloat)wyDevice::winWidth / wyDevice::winHeight, 0.5, 1500);
+			gluPerspective(60, (GLfloat)wyDevice::winWidth / wyDevice::winHeight, 0.5, wyDevice::winHeight / GOLDEN_MEAN + 100);
 
 			// set model view matrix
 			glMatrixMode(GL_MODELVIEW);
