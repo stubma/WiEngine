@@ -2,6 +2,7 @@
 [new] add new make method for wyToast
 [fix] make wyProgressTimer works with atlas texture
 [fix] fix bug #7, see https://github.com/stubma/WiEngine/issues/7#issuecomment-10745676
+[fix] fix projection error in new ipad
 
 +++ 3.10.2 +++
 [new] add changeBaseSize method to wyDirector, support changing base size at running time
