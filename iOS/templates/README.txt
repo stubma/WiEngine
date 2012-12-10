@@ -1,6 +1,6 @@
--------------- 说明 -------------
-提供了Xcode4的WiEngine工程模版, 目前没有提供Xcode3的模版
+-------------- Intro -------------
+This is WiEngine template for Xcode4. We don't plan to support Xcode3.
 
--------------- 使用 -------------
-请把Xcode4目录下的所有模版拷贝到/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/Application下, 
-之后在Xcode4中新建工程时, 选择iOS -> Application 即可看到该模版
+-------------- Installation -------------
+Copy all templates in Xcode4 folder to [Your Xcode App Path]/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Templates/Project Templates/Application,
+then when you create project in Xcode4, select iOS -> Application and you will see it
