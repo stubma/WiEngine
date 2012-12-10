@@ -395,7 +395,7 @@ void wyDirector::onSurfaceCreated() {
 
 		// create main view port
 		wyCamera* cam = wyCamera::make();
-		cam->setPerspective(60, 1, 1, 0.5f, 1500.0f);
+		cam->setPerspective(60, 1, 1, 0.5f, wyDevice::winHeight / GOLDEN_MEAN + 100);
 		cam->setEye(0.5f, 0.5f, 1 / GOLDEN_MEAN);
 		cam->setCenter(0.5f, 0.5f, 0);
 		cam->setUp(0, 1, 0);
