@@ -621,6 +621,7 @@ void wyNode::setAnchor(float x, float y) {
 		m_anchorY = y;
 		m_anchorPointX = m_width * x;
 		m_anchorPointY = m_height * y;
+		setTransformDirty();
 	}
 }
 
@@ -628,6 +629,7 @@ void wyNode::setAnchorX(float x) {
 	if(m_anchorX != x) {
 		m_anchorX = x;
 		m_anchorPointX = m_width * x;
+		setTransformDirty();
 	}
 }
 
@@ -635,6 +637,7 @@ void wyNode::setAnchorY(float y) {
 	if(m_anchorY != y) {
 		m_anchorY = y;
 		m_anchorPointY = m_height * y;
+		setTransformDirty();
 	}
 }
 
