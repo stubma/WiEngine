@@ -70,6 +70,14 @@ static wyDirectorLifecycleListener s_surfaceLifeCycleListener = {
 #endif
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+#if LANDSCAPE
+    return UIInterfaceOrientationMaskLandscape;
+#else
+    return UIInterfaceOrientationMaskPortrait;
+#endif
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
