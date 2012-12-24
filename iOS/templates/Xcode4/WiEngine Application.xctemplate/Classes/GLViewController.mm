@@ -41,6 +41,14 @@
 #endif
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+#if LANDSCAPE
+    return UIInterfaceOrientationMaskLandscape;
+#else
+    return UIInterfaceOrientationMaskPortrait;
+#endif
+}
+
 - (void)eaglView:(WYEAGLView*)v frameBufferCreatedWithWidth:(int)width height:(int)height {
 	wyDirector* director = wyDirector::getInstance();
 	if(director->getRunningScene() == NULL) {
