@@ -23,6 +23,8 @@ extern "C" {
 #define com_wiyun_engine_particle_ParticleSystem_FREE 1L
 #undef com_wiyun_engine_particle_ParticleSystem_GROUPED
 #define com_wiyun_engine_particle_ParticleSystem_GROUPED 2L
+#undef com_wiyun_engine_particle_ParticleSystem_RELATIVE
+#define com_wiyun_engine_particle_ParticleSystem_RELATIVE 3L
 /*
  * Class:     com_wiyun_engine_particle_ParticleSystem
  * Method:    setDuration
