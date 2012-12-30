@@ -62,7 +62,7 @@ public abstract class ParticleSystem extends Node implements IBlendableTextureOw
 	/** If the emitter is repositioned, the living particles will be repositioned too */
 	public static final int GROUPED = 2;
 
-         /** If the emitter is repositioned, the living particles won't be repositioned, relative to its parents*/
+	/** If the emitter is repositioned, the living particles won't be repositioned, relative to its parents*/
 	public static final int RELATIVE = 3;
 	
 	protected ParticleSystem() {

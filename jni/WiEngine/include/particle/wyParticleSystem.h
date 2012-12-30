@@ -116,18 +116,16 @@ typedef enum {
 	 * 表示当粒子释放位置发生了变化时, 已经释放的粒子跟随释放点而移动, 保持和释放点的相对距离不变
 	 * \endif
 	 */
-	GROUPED = 2,
+	GROUPED,
          
-         /**
+	/**
 	 * \if English
 	 * If the emitter is repositioned, the living particles won't be repositioned, node to its parents
 	 * \else
 	 * 表示当粒子释放位置发生了变化时, 已经释放出的粒子保持位置不变,相对于其父节点
 	 * \endif
 	 */
-	RELATIVE,
-
-
+	RELATIVE
 } wyParticleSystemPositionType;
 
 /**
