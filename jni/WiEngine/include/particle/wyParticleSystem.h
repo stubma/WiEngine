@@ -82,6 +82,11 @@ typedef enum {
 	 * If the emitter is repositioned, the living particles will be repositioned too
 	 */
 	GROUPED,
+
+	/**
+	 * If the emitter is repositioned, the living particles won't be repositioned, node to its parents
+	 */
+	RELATIVE
 } wyParticleSystemPositionType;
 
 /**
