@@ -143,12 +143,14 @@ ssize_t wyAssetInputStream_android::read(char* buffer, size_t length) {
 }
 
 size_t wyAssetInputStream_android::seek(int offset, int mode) {
-	if(m_asset != NULL)
+	if(m_asset != NULL) {
 		return gAAL.seekAsset(m_asset, offset, mode);
-	else if(m_fp != NULL)
-		return fseek(m_fp, offset, mode);
-	else
+	} else if(m_fp != NULL) {
+		fseek(m_fp, offset, mode);
+		return ftell(m_fp);
+	} else {
 		return 0;
+	}
 }
 
 #endif // #if ANDROID

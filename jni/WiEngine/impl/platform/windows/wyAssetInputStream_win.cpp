@@ -129,10 +129,12 @@ ssize_t wyAssetInputStream_win::read(char* buffer, size_t length) {
 }
 
 size_t wyAssetInputStream_win::seek(int offset, int mode) {
-	if(m_fp != NULL)
-		return fseek(m_fp, offset, mode);
-	else
+	if(m_fp != NULL) {
+		fseek(m_fp, offset, mode);
+		return ftell(m_fp);
+	} else {
 		return 0;
+	}
 }
 
 #endif // #if WINDOWS
