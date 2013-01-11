@@ -1020,7 +1020,9 @@ char* wyUtils::loadImage(int resId, float* w, float* h, bool sizeOnly) {
 	if(!raw)
 		return NULL;
 
-	return loadImage(raw, length, w, h, sizeOnly, scale, scale);
+	char* rgba = loadImage(raw, length, w, h, sizeOnly, scale, scale);
+	wyFree(raw);
+	return rgba;
 }
 
 char* wyUtils::loadImage(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
@@ -1030,7 +1032,9 @@ char* wyUtils::loadImage(FILE* f, float* w, float* h, bool sizeOnly, float scale
 	if(!raw)
 		return NULL;
 
-	return loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
+	char* rgba = loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
+	wyFree(raw);
+	return rgba;
 }
 
 char* wyUtils::loadImage(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
@@ -1040,7 +1044,9 @@ char* wyUtils::loadImage(const char* path, bool isFile, float* w, float* h, bool
 	if(!raw)
 		return NULL;
 
-	return loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
+	char* rgba = loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
+	wyFree(raw);
+	return rgba;
 }
 
 char* wyUtils::loadImage(const char* mfsName, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
@@ -1050,7 +1056,9 @@ char* wyUtils::loadImage(const char* mfsName, float* w, float* h, bool sizeOnly,
 	if(!raw)
 		return NULL;
 
-	return loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
+	char* rgba = loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
+	wyFree(raw);
+	return rgba;
 }
 
 char* wyUtils::loadRaw(FILE* f, size_t* outLen, bool noDecode) {
@@ -1430,4 +1438,9 @@ bool wyUtils::isBMP(const char* p, size_t size) {
 		return true;
 	else
 		return false;
+}
+
+bool wyUtils::isPVR(const char* p, size_t size) {
+	// TODO
+	return false;
 }

@@ -261,7 +261,7 @@ public:
 	/**
 	 * Check a image is png or not
 	 *
-	 * @param image raw data
+	 * @param p raw data
 	 * @param size raw data length in bytes
 	 * @return true means the raw data is a png image, or false if not
 	 */
@@ -270,7 +270,7 @@ public:
 	/**
 	 * Check a image is jpg or not
 	 *
-	 * @param image raw data
+	 * @param p raw data
 	 * @param size raw data length in bytes
 	 * @return true means the raw data is a jpg image, or false if not
 	 */
@@ -279,11 +279,20 @@ public:
 	/**
 	 * Check a image is bmp or not
 	 *
-	 * @param image raw data
+	 * @param p raw data
 	 * @param size raw data length in bytes
 	 * @return true means the raw data is a bmp image, or false if not
 	 */
 	static bool isBMP(const char* p, size_t size);
+
+	/**
+	 * check a image is PVR or not
+	 *
+	 * @param p image raw data
+	 * @param size raw data length in bytes
+	 * @return true means the raw data is a PVR image, or false if not
+	 */
+	static bool isPVR(const char* p, size_t size);
 
 	/**
 	 * Load RGBA8888 data from image resource id, it will auto detect

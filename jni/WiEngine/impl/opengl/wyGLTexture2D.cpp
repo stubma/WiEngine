@@ -265,34 +265,38 @@ void wyGLTexture2D::initSize(float realWidth, float realHeight) {
 	m_heightScale = m_height / m_pixelHeight;
 }
 
-char* wyGLTexture2D::loadImage() {
+char* wyGLTexture2D::loadRaw(size_t* outLen, float* outScale) {
 	// decompress bmp data in RGBA8888
-	float scale = wyDevice::density / m_inDensity;
+	*outScale = wyDevice::density / m_inDensity;
 	char* raw = NULL;
-	float w, h;
 	if(m_resId != 0) {
-		size_t len;
-		char* tmp = wyUtils::loadRaw(m_resId, &len, &scale);
-		raw = wyUtils::loadImage(tmp, len, &w, &h, false, 1.f, 1.f);
-		wyFree(tmp);
+		raw = wyUtils::loadRaw(m_resId, outLen, outScale);
 	} else if(m_path != NULL) {
-		raw = wyUtils::loadImage(m_path, m_isFile, &w, &h, false, 1.f, 1.f);
+		raw = wyUtils::loadRaw(m_path, m_isFile, outLen);
 	} else if(m_data != NULL) {
-		raw = wyUtils::loadImage(m_data, m_length, &w, &h, false, 1.f, 1.f);
+		raw = wyUtils::loadRaw(m_data, m_length, outLen);
 	} else if(m_mfsName != NULL) {
-		raw = wyUtils::loadImage(m_mfsName, &w, &h, false, 1.f, 1.f);
+		raw = wyUtils::loadRaw(m_mfsName, outLen);
 	} else {
 		LOGE("texture doesn't has any input!");
 	}
+
+	return raw;
+}
+
+char* wyGLTexture2D::loadImage(char* raw, size_t len, float scale) {
+	// get image data in rgba8888
+	float w, h;
+	char* rgba = wyUtils::loadImage(raw, len, &w, &h, false, 1.f, 1.f);
 
 	/*
 	 * post processing
 	 * we must apply filter first because scaling may change some color
 	 */
-	if(raw) {
+	if(rgba) {
 		// check transparent color
 		if(m_transparentColor != 0) {
-			char* p = raw;
+			char* p = rgba;
 			for(int y = 0; y < h; y++) {
 				for(int x = 0; x < w; x++) {
 					// get pixel color
@@ -313,17 +317,17 @@ char* wyGLTexture2D::loadImage() {
 		}
 
 		// apply filter
-		applyFilter(raw, w, h);
+		applyFilter(rgba, w, h);
 
 		// scale
-		char* scaled = wyUtils::scaleImage(raw, w, h, scale, scale);
-		if(raw != scaled) {
-			wyFree(raw);
-			raw = scaled;
+		char* scaled = wyUtils::scaleImage(rgba, w, h, scale, scale);
+		if(rgba != scaled) {
+			wyFree(rgba);
+			rgba = scaled;
 		}
 	}
 
-	return raw;
+	return rgba;
 }
 
 void wyGLTexture2D::load() {
@@ -380,42 +384,57 @@ void wyGLTexture2D::doLoad() {
 		}
 		case SOURCE_IMG:
 		{
-			// generate texture and set parameter
-			glGenTextures(1, (GLuint*)&m_texture);
-			glBindTexture(GL_TEXTURE_2D, m_texture);
-			applyParameters();
+			// get raw data of image
+			size_t len;
+			float scale;
+			char* raw = loadRaw(&len, &scale);
 
-			// decompress data in RGBA8888
-			char* raw = loadImage();
-			if(raw == NULL)
-				return;
+			// special case for PVR
+			if(wyUtils::isPVR(raw, len)) {
+				// TODO
+			} else {
+				// generate texture and set parameter
+				glGenTextures(1, (GLuint*)&m_texture);
+				glBindTexture(GL_TEXTURE_2D, m_texture);
+				applyParameters();
 
-			// convert data format
-			const char* data = convertPixelFormat(raw);
-			if(data != raw) {
-				wyFree(raw);
+				// decompress data in RGBA8888
+				char* rgba = loadImage(raw, len, scale);
+				if(rgba == NULL)
+					return;
+
+				// convert data format
+				const char* data = convertPixelFormat(rgba);
+				if(data != rgba) {
+					wyFree(rgba);
+				}
+
+				// generate texture
+				switch(m_pixelFormat) {
+					case WY_TEXTURE_PIXEL_FORMAT_RGBA8888:
+						glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+						break;
+					case WY_TEXTURE_PIXEL_FORMAT_RGB565:
+						glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_pixelWidth, m_pixelHeight, 0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, data);
+						break;
+					case WY_TEXTURE_PIXEL_FORMAT_RGBA4444:
+						glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4, data);
+						break;
+					case WY_TEXTURE_PIXEL_FORMAT_RGBA5551:
+						glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, data);
+						break;
+					case WY_TEXTURE_PIXEL_FORMAT_A8:
+						glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, m_pixelWidth, m_pixelHeight, 0, GL_ALPHA, GL_UNSIGNED_BYTE, data);
+						break;
+				}
+
+				// free data
+				wyFree((void*)data);
 			}
 
-			// generate texture
-			switch(m_pixelFormat) {
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA8888:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGB565:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_pixelWidth, m_pixelHeight, 0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA4444:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_RGBA5551:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pixelWidth, m_pixelHeight, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, data);
-					break;
-				case WY_TEXTURE_PIXEL_FORMAT_A8:
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, m_pixelWidth, m_pixelHeight, 0, GL_ALPHA, GL_UNSIGNED_BYTE, data);
-					break;
-			}
+			// free raw data
+			wyFree(raw);
 
-			wyFree((void*)data);
 			break;
 		}
 		case SOURCE_RAW8888:
@@ -830,22 +849,36 @@ void wyGLTexture2D::applyFilter(void* data, int width, int height) {
 }
 
 void wyGLTexture2D::doApplyFilter() {
-	char* raw = NULL;
+	char* rgba = NULL;
 	switch(m_source) {
 		case SOURCE_IMG:
 		{
-			raw = loadImage();
-			if(raw == NULL)
+			// get raw data of image
+			size_t len;
+			float scale;
+			char* raw = loadRaw(&len, &scale);
+			if(!raw)
 				return;
+
+			// special case for PVR
+			if(!wyUtils::isPVR(raw, len)) {
+				// decompress data in RGBA8888
+				rgba = loadImage(raw, len, scale);
+				if(rgba == NULL)
+					return;
+			}
+
+			// free raw
+			wyFree(raw);
 
 			break;
 		}
 		case SOURCE_RAW8888:
 		{
 			size_t len = sizeof(char) * m_width * m_height * 4;
-			raw = (char*)wyMalloc(len);
-			memcpy(raw, m_data, len);
-			applyFilter(raw, m_width, m_height);
+			rgba = (char*)wyMalloc(len);
+			memcpy(rgba, m_data, len);
+			applyFilter(rgba, m_width, m_height);
 
 			break;
 		}
@@ -854,12 +887,12 @@ void wyGLTexture2D::doApplyFilter() {
 			return;
 	}
 
-	if(raw) {
+	if(rgba) {
 		// bind texture and update
 		glBindTexture(GL_TEXTURE_2D, m_texture);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_width, m_height, GL_RGBA, GL_UNSIGNED_BYTE, raw);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_width, m_height, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
 
 		// free
-		wyFree(raw);
+		wyFree(rgba);
 	}
 }
