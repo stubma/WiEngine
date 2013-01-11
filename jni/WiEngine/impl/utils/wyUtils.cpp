@@ -33,6 +33,7 @@
 #include "wyGlobal.h"
 #include "wyEventDispatcher.h"
 #include "PVRTMemoryFileSystem.h"
+#include "PVRTTexture.h"
 #include "wyResourceDecoder.h"
 #include "wyAssetInputStream.h"
 #include "wyMD5.h"
@@ -1230,6 +1231,19 @@ bool wyUtils::isBMP(const char* p, size_t size) {
 }
 
 bool wyUtils::isPVR(const char* p, size_t size) {
-	// TODO
+	// check version 2 pvr file
+	if(size >= sizeof(PVR_Texture_Header)) {
+		// the start of magic number
+		size_t start = sizeof(PVR_Texture_Header) - 2 * sizeof(PVRTuint32);
+		if(p[start] == 'P' && p[start + 1] == 'V' && p[start + 2] == 'R' && p[start + 3] == '!')
+			return true;
+
+		// if failed, check version 3 pvr file
+		if(size >= sizeof(PVRTextureHeaderV3)) {
+			if(p[0] == 'P' && p[1] == 'V' && p[2] == 'R' && p[3] == '3')
+				return true;
+		}
+	}
+
 	return false;
 }
