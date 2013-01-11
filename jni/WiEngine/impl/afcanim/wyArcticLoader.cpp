@@ -242,10 +242,10 @@ wyArcticFileData* wyArcticLoader::load(const char* asPath, bool isFile) {
 }
 
 wyArcticFileData* wyArcticLoader::loadMemory(const char* mfsName) {
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-	wyArcticFileData* as = load(mfsData, length, wyDevice::density / wyDevice::defaultInDensity);
+	size_t len;
+	char* data = wyUtils::loadRaw(mfsName, &len);
+	wyArcticFileData* as = load(data, len, wyDevice::density / wyDevice::defaultInDensity);
 	as->m_dataId = wyUtils::strHash(mfsName);
+	wyFree(data);
 	return as;
 }

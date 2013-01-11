@@ -1,6 +1,6 @@
 /*
 ** Lua binding: utils
-** Generated automatically by tolua++-1.0.92 on Wed Nov 21 17:05:37 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Jan 11 11:11:13 2013.
 */
 
 #ifndef __cplusplus
@@ -4358,41 +4358,6 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getFile of class  wyUtils */
-#ifndef TOLUA_DISABLE_tolua_utils_wyUtils_getFile00
-static int tolua_utils_wyUtils_getFile00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyUtils",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,4,"size_t",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* filename = ((const char*)  tolua_tostring(tolua_S,2,0));
-  const char* buffer = ((const char*)  tolua_tostring(tolua_S,3,0));
-  size_t* size = ((size_t*)  tolua_tousertype(tolua_S,4,0));
-  {
-   bool tolua_ret = (bool)  wyUtils::getFile(filename,&buffer,size);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-   tolua_pushstring(tolua_S,(const char*)buffer);
-  }
- }
- return 2;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getFile'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: makeScreenshot of class  wyUtils */
 #ifndef TOLUA_DISABLE_tolua_utils_wyUtils_makeScreenshot00
 static int tolua_utils_wyUtils_makeScreenshot00(lua_State* tolua_S)
@@ -8214,7 +8179,6 @@ TOLUA_API int tolua_utils_open (lua_State* tolua_S)
    tolua_function(tolua_S,"calculateTextSize",tolua_utils_wyUtils_calculateTextSize01);
    tolua_function(tolua_S,"createLabelBitmap",tolua_utils_wyUtils_createLabelBitmap00);
    tolua_function(tolua_S,"createLabelBitmap",tolua_utils_wyUtils_createLabelBitmap01);
-   tolua_function(tolua_S,"getFile",tolua_utils_wyUtils_getFile00);
    tolua_function(tolua_S,"makeScreenshot",tolua_utils_wyUtils_makeScreenshot00);
    tolua_function(tolua_S,"makeScreenshot",tolua_utils_wyUtils_makeScreenshot01);
    tolua_function(tolua_S,"getFileSize",tolua_utils_wyUtils_getFileSize00);

@@ -124,10 +124,10 @@ wyAFCClipMapping* wyAFCClipMapping::makeAurora(int tag, const char* ammPath, boo
 }
 
 wyAFCClipMapping* wyAFCClipMapping::makeMemoryAurora(int tag, const char* mfsName) {
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-	wyAFCClipMapping* m = makeAurora(tag, mfsData, length);
+	size_t len;
+	char* data = wyUtils::loadRaw(mfsName, &len);
+	wyAFCClipMapping* m = makeAurora(tag, data, len);
+	wyFree(data);
 	return m;
 }
 

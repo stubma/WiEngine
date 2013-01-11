@@ -291,10 +291,10 @@ wyAuroraFileData* wyAuroraLoader::load(const char* asPath, bool isFile) {
 }
 
 wyAuroraFileData* wyAuroraLoader::loadMemory(const char* mfsName) {
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-	wyAuroraFileData* as = load(mfsData, length, wyDevice::density / wyDevice::defaultInDensity);
+	size_t len;
+	char* data = wyUtils::loadRaw(mfsName, &len);
+	wyAuroraFileData* as = load(data, len, wyDevice::density / wyDevice::defaultInDensity);
 	as->m_dataId = wyUtils::strHash(mfsName);
+	wyFree(data);
 	return as;
 }

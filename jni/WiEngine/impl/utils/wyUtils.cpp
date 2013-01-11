@@ -768,10 +768,6 @@ int wyUtils::binarySearch(int* a, size_t len, int key) {
 	return -(low + 1); // key not found.
 }
 
-bool wyUtils::getFile(const char* filename, const char** buffer, size_t* size) {
-	return CPVRTMemoryFileSystem::GetFile(filename, (const void**)buffer, (size_t*)size);
-}
-
 int64_t wyUtils::currentTimeMillis() {
 	struct timeval tv;
 	gettimeofday(&tv, (struct timezone *) NULL);
@@ -980,12 +976,13 @@ const char* wyUtils::decodeObfuscatedData(const char* data, size_t length, size_
 }
 
 char* wyUtils::loadCString(const char* mfsName) {
-	char* buffer = NULL;
 	size_t len;
-	if(getFile(mfsName, (const char**)&buffer, &len)) {
+	char* buffer = loadRaw(mfsName, &len);
+	if(buffer) {
 		char* cstr = (char*)wyMalloc(sizeof(char) * (len + 1));
 		memcpy(cstr, buffer, len);
 		cstr[len] = 0;
+		free(buffer);
 		return cstr;
 	} else {
 		return NULL;
@@ -1048,13 +1045,12 @@ char* wyUtils::loadImage(const char* path, bool isFile, float* w, float* h, bool
 
 char* wyUtils::loadImage(const char* mfsName, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// get data from memory file system
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-	if(!mfsData)
+	size_t length;
+	char* raw = loadRaw(mfsName, &length);
+	if(!raw)
 		return NULL;
 
-	return loadImage(mfsData, length, w, h, sizeOnly, scaleX, scaleY);
+	return loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
 }
 
 char* wyUtils::loadRaw(FILE* f, size_t* outLen, bool noDecode) {
@@ -1099,6 +1095,34 @@ char* wyUtils::loadRaw(FILE* f, size_t* outLen, bool noDecode) {
 	}
 
 	return data;
+}
+
+char* wyUtils::loadRaw(const char* mfsName, size_t* outLen, bool noDecode) {
+	char* raw = NULL;
+	if(CPVRTMemoryFileSystem::GetFile(mfsName, (const void**)&raw, outLen)) {
+		// make a copy of raw data because GetFile returns a constant data which should not be released
+		char* tmp = (char*)copy(raw, 0, *outLen);
+		raw = tmp;
+
+		// check decoder flag
+		if(!noDecode) {
+			if(gResDecoder != NULL && !gResDecoder->hasFlag(wyResourceDecoder::DECODE_FILE))
+				noDecode = true;
+		}
+
+		// decode data or not
+		if(!noDecode) {
+			const char* decoded = decodeObfuscatedData(raw, *outLen, outLen);
+			if(decoded != raw) {
+				wyFree(raw);
+				raw = (char*)decoded;
+			}
+		}
+
+		return raw;
+	} else {
+		return NULL;
+	}
 }
 
 bool wyUtils::getPVRSize(const char* data, size_t length, float* w, float* h, float scale) {
