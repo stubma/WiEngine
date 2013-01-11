@@ -385,6 +385,16 @@ public:
 	static char* loadRaw(int resId, size_t* outLen = NULL, float* outScale = NULL, bool noDecode = false);
 
 	/**
+	 * load raw data from a memory file
+	 *
+	 * @param mfsName memory file name
+	 * @param outLen optional, returns file length
+	 * @param noDecode true means don't decode even if the data is encoded
+	 * @return raw data, caller should release it. or NULL if loading failed
+	 */
+	static char* loadRaw(const char* mfsName, size_t* outLen = NULL, bool noDecode = false);
+
+	/**
 	 * Load a C string from resource id, null terminator is appended automatically.
 	 * This resource must be a plain text resource.
 	 *
@@ -934,20 +944,6 @@ public:
 	 * @return generated bitmap data, in RGBA8888 format, caller should release it
 	 */
 	static const char* createLabelBitmap(const char* text, float fontSize, wyFontStyle style = NORMAL, const char* fontName = NULL, float width = 0, wyTexture2D::TextAlignment alignment = wyTexture2D::LEFT);
-	
-	/*
-	 * memory file system
-	 */
-
-	/**
-	 * Get memory file data
-	 *
-	 * @param filename file name to identify a memory file
-	 * @param buffer buffer to hold file data, you don't need release it
-	 * @param size returns length of file data
-	 * @return true if successful, or false if failed
-	 */
-	static bool getFile(const char* filename, const char** buffer, size_t* size);
 	
 	/*
 	 * opengl screenshot

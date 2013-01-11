@@ -1819,13 +1819,6 @@ public:
 	static const char* createLabelBitmap(const char* text, float fontSize, wyFontStyle style = NORMAL, const char* fontName = NULL, float width = 0, wyTexture2D::TextAlignment alignment = wyTexture2D::LEFT);
 	
 	/*
-	 * memory file system
-	 */
-
-	// get file data
-	static bool getFile(const char* filename, const char** buffer, size_t* size);
-	
-	/*
 	 * opengl screenshot
 	 */
 

@@ -133,14 +133,9 @@ wyGLTexture2D* wyGLTexture2D::makeMemory(const char* mfsName, int transparentCol
 		inDensity = wyDevice::defaultInDensity;
 	tex->m_inDensity = inDensity;
 
-	// get data from memory file system
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-
 	// init size
 	float width, height;
-	wyUtils::loadImage(mfsData, length, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
+	wyUtils::loadImage(mfsName, &width, &height, true, wyDevice::density / inDensity, wyDevice::density / inDensity);
 	tex->initSize(width, height);
 
 	return tex;
@@ -390,7 +385,7 @@ void wyGLTexture2D::doLoad() {
 			glBindTexture(GL_TEXTURE_2D, m_texture);
 			applyParameters();
 
-			// decompress jpg data in RGBA8888
+			// decompress data in RGBA8888
 			char* raw = loadImage();
 			if(raw == NULL)
 				return;
