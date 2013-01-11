@@ -37,7 +37,6 @@ extern "C" {
 #endif
 
 char* scaleImage(int config, char* originData, int originWidth, int originHeight, float scaleX, float scaleY);
-char* scalePVR(int format, char* originData, int originWidth, int originHeight, float scale);
 void calculateTextSizeWithFont(const char* text, float fontSize, bool bold, bool italic, const char* fontName, float width, size_t* w, size_t* h);
 void calculateTextSizeWithCustomFont(const char* text, float fontSize, const char* fontData, int dataLength, float width, size_t* w, size_t* h);
 const char* createLabelBitmapWithFont(const char* text, float fontSize, bool bold, bool italic, const char* fontName, float width, int alignment);

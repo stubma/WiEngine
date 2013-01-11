@@ -40,7 +40,6 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/json \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/lua \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/iap \
-	$(LOCAL_PATH)/../../../jni/WiEngine/include/mfs \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/material \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/mesh \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/nodes \
@@ -55,7 +54,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/winetwork \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/wisound \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/utils \
-	$(LOCAL_PATH)/../../../jni/libxml2/include
+	$(LOCAL_PATH)/../../../jni/libxml2/include \
+	$(LOCAL_PATH)/../../../jni/libpvr
 LOCAL_SRC_FILES := $(call all-cpp-files-under,Demos)
 	
 include $(BUILD_SHARED_LIBRARY)

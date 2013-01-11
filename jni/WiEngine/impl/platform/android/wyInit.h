@@ -59,7 +59,6 @@
 
 // sal definition
 typedef char* (*scaleImageFunc)(int config, char* originData, int originWidth, int originHeight, float scaleX, float scaleY);
-typedef char* (*scalePVRFunc)(int format, char* originData, int originWidth, int originHeight, float scale);
 typedef void (*calculateTextSizeWithFontFunc)(const char* text, float fontSize, bool bold, bool italic, const char* fontName, float width, size_t* w, size_t* h);
 typedef void (*calculateTextSizeWithCustomFontFunc)(const char* text, float fontSize, const char* fontData, int dataLength, float width, size_t* w, size_t* h);
 typedef const char* (*createLabelBitmapWithFontFunc)(const char* text, float fontSize, bool bold, bool italic, const char* fontName, float width, int alignment);
@@ -84,7 +83,6 @@ typedef const char16_t* (*toUTF16Func)(const char* s8);
 typedef const char* (*wctoutf8Func)(const wchar_t* ws);
 typedef struct wyAAL {
 	scaleImageFunc scaleImage;
-	scalePVRFunc scalePVR;
 	calculateTextSizeWithFontFunc calculateTextSizeWithFont;
 	calculateTextSizeWithCustomFontFunc calculateTextSizeWithCustomFont;
 	createLabelBitmapWithFontFunc createLabelBitmapWithFont;
