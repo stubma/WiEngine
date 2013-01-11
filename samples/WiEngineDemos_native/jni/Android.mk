@@ -58,6 +58,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(WIENGINE_JNI)/WiEngine/include/wisound \
 	$(WIENGINE_JNI)/WiEngine/include/utils \
 	$(WIENGINE_JNI)/libxml2/include \
+	$(WIENGINE_JNI)/libpvr \
 	$(WIENGINE_JNI)/cegui/include
 LOCAL_SRC_FILES := $(call all-cpp-files-under,Demos)
 	

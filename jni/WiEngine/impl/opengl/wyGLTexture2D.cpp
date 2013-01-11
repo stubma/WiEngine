@@ -37,6 +37,7 @@
 #include "wyDirector.h"
 #include "wyGlobal.h"
 #include "wyColorFilter.h"
+#include "PVRTTextureAPI.h"
 
 extern wyDirector* gDirector;
 extern pthread_mutex_t gCondMutex;
@@ -391,7 +392,10 @@ void wyGLTexture2D::doLoad() {
 
 			// special case for PVR
 			if(wyUtils::isPVR(raw, len)) {
-				// TODO
+				EPVRTError error = PVRTTextureLoadFromPointer(raw, (GLuint*)&m_texture);
+				if(error != PVR_SUCCESS) {
+					LOGW("wyGLTexture2D::doLoad: failed to load PVR texture");
+				}
 			} else {
 				// generate texture and set parameter
 				glGenTextures(1, (GLuint*)&m_texture);
