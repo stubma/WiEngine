@@ -4,9 +4,9 @@
 
  @Title        PVRTResourceFile.cpp
 
- @Version      
+ @Version       @Version      
 
- @Copyright    Copyright (C)  Imagination Technologies Limited.
+ @Copyright    Copyright (c) Imagination Technologies Limited.
 
  @Platform     ANSI compatible
 
@@ -23,6 +23,52 @@
 #include "PVRTMemoryFileSystem.h"
 
 CPVRTString CPVRTResourceFile::s_ReadPath;
+
+static void* LoadFileFunc(const char* pFilename, char** pData, size_t &size)
+{
+	size = 0;
+	
+	FILE* pFile = fopen(pFilename, "rb");
+
+	if (pFile)
+	{
+		// Get the file size
+		fseek(pFile, 0, SEEK_END);
+		size = ftell(pFile);
+		fseek(pFile, 0, SEEK_SET);
+
+		// read the data
+		char* pTmp = new char[size];
+		size_t BytesRead = fread(pTmp, 1, size, pFile);
+
+		if (BytesRead != size)
+		{
+			delete [] pTmp;
+			size = 0;
+		}
+		else
+			*pData = pTmp;
+
+		fclose(pFile);
+		return pTmp;
+	}
+
+	return 0;
+}
+
+static bool ReleaseFileFunc(void* handle)
+{
+	if(handle)
+	{
+		delete[] (char*) handle;
+		return true;
+	}
+
+	return false;
+}
+
+PFNLoadFileFunc CPVRTResourceFile::s_pLoadFileFunc = &LoadFileFunc;
+PFNReleaseFileFunc CPVRTResourceFile::s_pReleaseFileFunc = &ReleaseFileFunc;
 
 /*!***************************************************************************
 @Function			SetReadPath
@@ -45,6 +91,27 @@ CPVRTString CPVRTResourceFile::GetReadPath()
 }
 
 /*!***************************************************************************
+@Function			SetLoadReleaseFunctions
+@Input				pLoadFileFunc Function to use for opening a file
+@Input				pReleaseFileFunc Function to release any data allocated by the load function
+@Description		This function is used to override the CPVRTResource file loading functions. If
+                    you pass NULL in as the load function CPVRTResource will use the default functions.
+*****************************************************************************/
+void CPVRTResourceFile::SetLoadReleaseFunctions(void* pLoadFileFunc, void* pReleaseFileFunc)
+{
+	if(pLoadFileFunc)
+	{
+		s_pLoadFileFunc = (PFNLoadFileFunc) pLoadFileFunc;
+		s_pReleaseFileFunc = (PFNReleaseFileFunc) pReleaseFileFunc;
+	}
+	else
+	{
+		s_pLoadFileFunc = &LoadFileFunc;
+		s_pReleaseFileFunc = &ReleaseFileFunc;
+	}
+}
+
+/*!***************************************************************************
 @Function			CPVRTResourceFile
 @Input				pszFilename Name of the file you would like to open
 @Description		Constructor
@@ -53,36 +120,14 @@ CPVRTResourceFile::CPVRTResourceFile(const char* const pszFilename) :
 	m_bOpen(false),
 	m_bMemoryFile(false),
 	m_Size(0),
-	m_pData(0)
+	m_pData(0),
+	m_Handle(0)
 {
 	CPVRTString Path(s_ReadPath);
 	Path += pszFilename;
 
-	FILE* pFile = fopen(Path.c_str(), "rb");
-	if (pFile)
-	{
-		// Get the file size
-		fseek(pFile, 0, SEEK_END);
-		m_Size = ftell(pFile);
-		fseek(pFile, 0, SEEK_SET);
-
-		// read the data, append a 0 byte as the data might represent a string
-		char* pData = new char[m_Size + 1];
-		pData[m_Size] = '\0';
-		size_t BytesRead = fread(pData, 1, m_Size, pFile);
-
-		if (BytesRead != m_Size)
-		{
-			delete [] pData;
-			m_Size = 0;
-		}
-		else
-		{
-			m_pData = pData;
-			m_bOpen = true;
-		}
-		fclose(pFile);
-	}
+	m_Handle = s_pLoadFileFunc(Path.c_str(), (char**) &m_pData, m_Size);
+	m_bOpen = (m_pData && m_Size) != 0;
 
 	if (!m_bOpen)
 	{
@@ -100,7 +145,8 @@ CPVRTResourceFile::CPVRTResourceFile(const char* pData, size_t i32Size) :
 	m_bOpen(true),
 	m_bMemoryFile(true),
 	m_Size(i32Size),
-	m_pData(pData)
+	m_pData(pData),
+	m_Handle(0)
 {
 }
 
@@ -154,16 +200,6 @@ const void* CPVRTResourceFile::DataPtr() const
 }
 
 /*!***************************************************************************
-@Function			StringPtr
-@Returns			The file data as a string
-@Description		Returns the file as a null-terminated string
-*****************************************************************************/
-const char* CPVRTResourceFile::StringPtr() const
-{
-	return m_pData;
-}
-
-/*!***************************************************************************
 @Function			Close
 @Description		Closes the file
 *****************************************************************************/
@@ -171,17 +207,17 @@ void CPVRTResourceFile::Close()
 {
 	if (m_bOpen)
 	{
-		if (!m_bMemoryFile)
+		if (!m_bMemoryFile && s_pReleaseFileFunc)
 		{
-			delete [] (char*)m_pData;
+			s_pReleaseFileFunc(m_Handle);
 		}
+
 		m_bMemoryFile = false;
 		m_bOpen = false;
 		m_pData = 0;
 		m_Size = 0;
 	}
 }
-
 
 /****************************************************************************
 ** class CPVRTMemoryFileSystem
@@ -239,7 +275,7 @@ void CPVRTMemoryFileSystem::RegisterMemoryFile(const char* pszFilename, const vo
 	s_pFileInfo[s_i32NumFiles].pBuffer = pBuffer;
 	if (bCopy)
 	{
-		char* pszNewFilename = new char[strlen(pszFilename)];
+		char* pszNewFilename = new char[strlen(pszFilename) + 1];
 		strcpy(pszNewFilename, pszFilename);
 		s_pFileInfo[s_i32NumFiles].pszFilename = pszNewFilename;
 

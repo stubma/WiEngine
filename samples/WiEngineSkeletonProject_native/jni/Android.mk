@@ -45,7 +45,6 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 	$(WIENGINE_JNI)/WiEngine/include/json \
 	$(WIENGINE_JNI)/WiEngine/include/material \
 	$(WIENGINE_JNI)/WiEngine/include/mesh \
-	$(WIENGINE_JNI)/WiEngine/include/mfs \
 	$(WIENGINE_JNI)/WiEngine/include/network \
 	$(WIENGINE_JNI)/WiEngine/include/nodes \
 	$(WIENGINE_JNI)/WiEngine/include/opengl \

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: utils
-** Generated automatically by tolua++-1.0.92 on Fri Jan 11 11:11:13 2013.
+** Generated automatically by tolua++-1.0.92 on Fri Jan 11 13:52:59 2013.
 */
 
 #ifndef __cplusplus
@@ -151,29 +151,27 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyScroller");
  tolua_usertype(tolua_S,"wyTargetSelector");
  tolua_usertype(tolua_S,"wyMath");
- tolua_usertype(tolua_S,"wyZwoptexFrame");
- tolua_usertype(tolua_S,"wyImagePickerCallback");
  tolua_usertype(tolua_S,"wyPoint");
- tolua_usertype(tolua_S,"wySpriteEx");
  tolua_usertype(tolua_S,"wyZwoptexManager");
- tolua_usertype(tolua_S,"wyZwoptex");
+ tolua_usertype(tolua_S,"wyImagePickerCallback");
+ tolua_usertype(tolua_S,"wySpriteEx");
  tolua_usertype(tolua_S,"char16_t");
- tolua_usertype(tolua_S,"wyObject");
+ tolua_usertype(tolua_S,"wyRect");
  tolua_usertype(tolua_S,"wyImagePicker");
- tolua_usertype(tolua_S,"wyVerletStick");
- tolua_usertype(tolua_S,"wyPVRHeader");
+ tolua_usertype(tolua_S,"wyZwoptex");
+ tolua_usertype(tolua_S,"wyZwoptexFrame");
  tolua_usertype(tolua_S,"wyUtils");
  tolua_usertype(tolua_S,"wyMotionEvent");
  tolua_usertype(tolua_S,"wyAssetInputStream");
  tolua_usertype(tolua_S,"wyVerletPoint");
- tolua_usertype(tolua_S,"wyColor3B");
+ tolua_usertype(tolua_S,"wyVerletStick");
  tolua_usertype(tolua_S,"wyTexture2D");
- tolua_usertype(tolua_S,"wyArray");
+ tolua_usertype(tolua_S,"wyColor3B");
  tolua_usertype(tolua_S,"wyQuad2D");
- tolua_usertype(tolua_S,"wyRect");
- tolua_usertype(tolua_S,"wyPVRFormat");
- tolua_usertype(tolua_S,"wyQuad3D");
+ tolua_usertype(tolua_S,"wyArray");
  tolua_usertype(tolua_S,"wyColor4B");
+ tolua_usertype(tolua_S,"wyQuad3D");
+ tolua_usertype(tolua_S,"wyObject");
  tolua_usertype(tolua_S,"wyTGA");
  tolua_usertype(tolua_S,"wyBezierConfig");
  tolua_usertype(tolua_S,"wyRunnable");
@@ -2983,245 +2981,6 @@ static int tolua_utils_wyUtils_loadCString01(lua_State* tolua_S)
  return 1;
 tolua_lerror:
  return tolua_utils_wyUtils_loadCString00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getPVRSize of class  wyUtils */
-#ifndef TOLUA_DISABLE_tolua_utils_wyUtils_getPVRSize00
-static int tolua_utils_wyUtils_getPVRSize00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyUtils",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"size_t",0,&tolua_err)) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
-  size_t length = *((size_t*)  tolua_tousertype(tolua_S,3,0));
-  float w = ((float)  tolua_tonumber(tolua_S,4,0));
-  float h = ((float)  tolua_tonumber(tolua_S,5,0));
-  float scale = ((float)  tolua_tonumber(tolua_S,6,0));
-  {
-   bool tolua_ret = (bool)  wyUtils::getPVRSize(data,length,&w,&h,scale);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-   tolua_pushnumber(tolua_S,(lua_Number)w);
-   tolua_pushnumber(tolua_S,(lua_Number)h);
-  }
- }
- return 3;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getPVRSize'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getPVRSize of class  wyUtils */
-#ifndef TOLUA_DISABLE_tolua_utils_wyUtils_getPVRSize01
-static int tolua_utils_wyUtils_getPVRSize01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyUtils",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  int resId = ((int)  tolua_tonumber(tolua_S,2,0));
-  float w = ((float)  tolua_tonumber(tolua_S,3,0));
-  float h = ((float)  tolua_tonumber(tolua_S,4,0));
-  float outScale = ((float)  tolua_tonumber(tolua_S,5,0));
-  {
-   bool tolua_ret = (bool)  wyUtils::getPVRSize(resId,&w,&h,&outScale);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-   tolua_pushnumber(tolua_S,(lua_Number)w);
-   tolua_pushnumber(tolua_S,(lua_Number)h);
-   tolua_pushnumber(tolua_S,(lua_Number)outScale);
-  }
- }
- return 4;
-tolua_lerror:
- return tolua_utils_wyUtils_getPVRSize00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getPVRSize of class  wyUtils */
-#ifndef TOLUA_DISABLE_tolua_utils_wyUtils_getPVRSize02
-static int tolua_utils_wyUtils_getPVRSize02(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyUtils",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"FILE",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  FILE* f = ((FILE*)  tolua_tousertype(tolua_S,2,0));
-  float w = ((float)  tolua_tonumber(tolua_S,3,0));
-  float h = ((float)  tolua_tonumber(tolua_S,4,0));
-  float scale = ((float)  tolua_tonumber(tolua_S,5,0));
-  {
-   bool tolua_ret = (bool)  wyUtils::getPVRSize(f,&w,&h,scale);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-   tolua_pushnumber(tolua_S,(lua_Number)w);
-   tolua_pushnumber(tolua_S,(lua_Number)h);
-  }
- }
- return 3;
-tolua_lerror:
- return tolua_utils_wyUtils_getPVRSize01(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getPVRSize of class  wyUtils */
-#ifndef TOLUA_DISABLE_tolua_utils_wyUtils_getPVRSize03
-static int tolua_utils_wyUtils_getPVRSize03(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyUtils",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
- )
-  goto tolua_lerror;
- else
- {
-  const char* path = ((const char*)  tolua_tostring(tolua_S,2,0));
-  bool isFile = ((bool)  tolua_toboolean(tolua_S,3,0));
-  float w = ((float)  tolua_tonumber(tolua_S,4,0));
-  float h = ((float)  tolua_tonumber(tolua_S,5,0));
-  float scale = ((float)  tolua_tonumber(tolua_S,6,0));
-  {
-   bool tolua_ret = (bool)  wyUtils::getPVRSize(path,isFile,&w,&h,scale);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-   tolua_pushnumber(tolua_S,(lua_Number)w);
-   tolua_pushnumber(tolua_S,(lua_Number)h);
-  }
- }
- return 3;
-tolua_lerror:
- return tolua_utils_wyUtils_getPVRSize02(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: convertPVRHeaderEndian of class  wyUtils */
-#ifndef TOLUA_DISABLE_tolua_utils_wyUtils_convertPVRHeaderEndian00
-static int tolua_utils_wyUtils_convertPVRHeaderEndian00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyUtils",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyPVRHeader",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyPVRHeader* header = ((wyPVRHeader*)  tolua_tousertype(tolua_S,2,0));
-  {
-   wyUtils::convertPVRHeaderEndian(header);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'convertPVRHeaderEndian'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: scalePVR of class  wyUtils */
-#ifndef TOLUA_DISABLE_tolua_utils_wyUtils_scalePVR00
-static int tolua_utils_wyUtils_scalePVR00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyUtils",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyPVRFormat",0,&tolua_err)) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyPVRFormat format = *((wyPVRFormat*)  tolua_tousertype(tolua_S,2,0));
-  char* originData = ((char*)  tolua_tostring(tolua_S,3,0));
-  int originWidth = ((int)  tolua_tonumber(tolua_S,4,0));
-  int originHeight = ((int)  tolua_tonumber(tolua_S,5,0));
-  float scale = ((float)  tolua_tonumber(tolua_S,6,0));
-  {
-   char* tolua_ret = (char*)  wyUtils::scalePVR(format,originData,originWidth,originHeight,scale);
-   tolua_pushstring(tolua_S,(const char*)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'scalePVR'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: canScalePVR of class  wyUtils */
-#ifndef TOLUA_DISABLE_tolua_utils_wyUtils_canScalePVR00
-static int tolua_utils_wyUtils_canScalePVR00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyUtils",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"wyPVRFormat",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyPVRFormat format = *((wyPVRFormat*)  tolua_tousertype(tolua_S,2,0));
-  {
-   bool tolua_ret = (bool)  wyUtils::canScalePVR(format);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'canScalePVR'.",&tolua_err);
- return 0;
-#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -8138,13 +7897,6 @@ TOLUA_API int tolua_utils_open (lua_State* tolua_S)
    tolua_function(tolua_S,"loadRaw",tolua_utils_wyUtils_loadRaw02);
    tolua_function(tolua_S,"loadCString",tolua_utils_wyUtils_loadCString00);
    tolua_function(tolua_S,"loadCString",tolua_utils_wyUtils_loadCString01);
-   tolua_function(tolua_S,"getPVRSize",tolua_utils_wyUtils_getPVRSize00);
-   tolua_function(tolua_S,"getPVRSize",tolua_utils_wyUtils_getPVRSize01);
-   tolua_function(tolua_S,"getPVRSize",tolua_utils_wyUtils_getPVRSize02);
-   tolua_function(tolua_S,"getPVRSize",tolua_utils_wyUtils_getPVRSize03);
-   tolua_function(tolua_S,"convertPVRHeaderEndian",tolua_utils_wyUtils_convertPVRHeaderEndian00);
-   tolua_function(tolua_S,"scalePVR",tolua_utils_wyUtils_scalePVR00);
-   tolua_function(tolua_S,"canScalePVR",tolua_utils_wyUtils_canScalePVR00);
    tolua_function(tolua_S,"scaleImage",tolua_utils_wyUtils_scaleImage00);
    tolua_function(tolua_S,"convertToGL",tolua_utils_wyUtils_convertToGL00);
    tolua_function(tolua_S,"convertToGL",tolua_utils_wyUtils_convertToGL01);

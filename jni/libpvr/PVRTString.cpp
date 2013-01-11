@@ -4,9 +4,9 @@
 
  @Title        PVRTString
 
- @Version      
+ @Version       @Version      
 
- @Copyright    Copyright (C)  Imagination Technologies Limited.
+ @Copyright    Copyright (c) Imagination Technologies Limited.
 
  @Platform     ANSI compatible
 
@@ -21,10 +21,16 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 #include "PVRTGlobal.h"
 
 const size_t CPVRTString::npos = (size_t) -1;
+
+#if defined(_WIN32)
+#define vsnprintf _vsnprintf
+#define snprintf _snprintf
+#endif
 
 /*!***********************************************************************
 @Function			CPVRTString
@@ -36,7 +42,16 @@ CPVRTString::CPVRTString(const char* _Ptr, size_t _Count) :
 m_pString(0), m_Capacity(0)
 {
 	if (_Count == npos)
-		assign(_Ptr);
+	{
+		if (_Ptr == NULL)
+		{
+			 assign(_Ptr, 0);
+		}
+		else
+		{
+			assign(_Ptr);
+		}				 		
+	}
 	else
 		assign(_Ptr, _Count);
 }
@@ -73,7 +88,7 @@ m_pString(0), m_Capacity(0)
 *************************************************************************/
 CPVRTString::CPVRTString(const char _Ch) :
 m_pString(0), m_Capacity(0)
-{
+{  	
 	assign( 1, _Ch);
 }
 
@@ -93,7 +108,11 @@ m_Size(0), m_Capacity(1)
 *************************************************************************/
 CPVRTString::~CPVRTString()
 {
-	free(m_pString);
+	if (m_pString)
+	{
+		free(m_pString);
+		m_pString=NULL;
+	}
 }
 
 /*!***********************************************************************
@@ -104,6 +123,10 @@ CPVRTString::~CPVRTString()
 *************************************************************************/
 CPVRTString& CPVRTString::append(const char* _Ptr)
 {
+	if (_Ptr==NULL)
+	{
+		return *this;
+	}
 	return append(_Ptr,strlen(_Ptr));
 }
 
@@ -123,7 +146,7 @@ CPVRTString& CPVRTString::append(const char* _Ptr, size_t _Count)
 	if (m_Capacity < newCapacity)
 	{
 		pString = (char*)malloc(newCapacity);
-		m_Capacity = newCapacity;
+		m_Capacity = newCapacity;				 // Using low memory profile (but very slow append)
 		memmove(pString, m_pString, m_Size);
 		pString[m_Capacity-1]='\0';
 	}
@@ -136,7 +159,11 @@ CPVRTString& CPVRTString::append(const char* _Ptr, size_t _Count)
 	// remove old CPVRTString if necessary
 	if (pString != m_pString)
 	{
-		free(m_pString);
+		if (m_pString)
+		{
+			free(m_pString);
+			m_pString=NULL;
+		}
 		m_pString = pString;
 	}
 	return *this;
@@ -163,6 +190,18 @@ CPVRTString& CPVRTString::append(const CPVRTString& _Str)
 *************************************************************************/
 CPVRTString& CPVRTString::append(const CPVRTString& _Str, size_t _Off, size_t _Count)
 {
+	if (_Str.length() < _Off + _Count)
+	{
+		int i32NewCount = (signed)(_Str.length())-(signed)_Off;
+
+		if(i32NewCount < 0 )
+		{
+			return *this;
+		}
+
+		_Count = (size_t) i32NewCount;
+	}
+
 	return append(_Str.m_pString+_Off,_Count);
 }
 
@@ -191,13 +230,17 @@ CPVRTString& CPVRTString::append(size_t _Count, char _Ch)
 	{
 		*newChar++ = _Ch;
 	}
-	*newChar = '\0';		// set null terminato
+	*newChar = '\0';		// set null terminator
 	m_Size+=_Count;			// adjust length of string for new characters
 
 	// remove old CPVRTString if necessary
 	if (pString != m_pString)
 	{
-		free(m_pString);
+		if (m_pString)
+		{
+			free(m_pString);
+			m_pString=NULL;
+		}
 		m_pString = pString;
 	}
 	return *this;
@@ -211,6 +254,10 @@ CPVRTString& CPVRTString::append(size_t _Count, char _Ch)
 *************************************************************************/
 CPVRTString& CPVRTString::assign(const char* _Ptr)
 {
+	if (_Ptr == NULL)
+	{
+		return assign(_Ptr, 0);
+	}
 	return assign(_Ptr, strlen(_Ptr));
 }
 
@@ -222,23 +269,20 @@ CPVRTString& CPVRTString::assign(const char* _Ptr)
 @Description		Assigns the string to the string _Ptr
 *************************************************************************/
 CPVRTString& CPVRTString::assign(const char* _Ptr, size_t _Count)
-{
-	char* pString = m_pString;
-	if (m_Capacity <= _Count)
-	{
-		pString = (char*)malloc(_Count + 1);
-		m_Capacity = _Count+1;
-	}
-	m_Size = _Count;
-
-	memmove(pString, _Ptr, m_Size);
-	pString[m_Size] = 0;
-
-	if (pString != m_pString)
+{	
+	if(m_Capacity <= _Count)
 	{
 		free(m_pString);
-		m_pString = pString;
+		m_Capacity = _Count+1;
+		m_pString = (char*)malloc(m_Capacity);
+		memcpy(m_pString, _Ptr, _Count);
 	}
+	else
+		memmove(m_pString, _Ptr, _Count);
+
+	m_Size = _Count;
+	m_pString[m_Size] = 0;
+
 	return *this;
 }
 
@@ -281,7 +325,11 @@ CPVRTString& CPVRTString::assign(size_t _Count,char _Ch)
 {
 	if (m_Capacity <= _Count)
 	{
-		free(m_pString);
+		if (m_pString)
+		{
+			free(m_pString);
+			m_pString=NULL;
+		}
 		m_pString = (char*)malloc(_Count + 1);
 		m_Capacity = _Count+1;
 	}
@@ -321,7 +369,11 @@ size_t CPVRTString::capacity() const
 *************************************************************************/
 void CPVRTString::clear()
 {
-	free(m_pString);
+	if (m_pString)
+	{
+		free(m_pString);
+		m_pString=NULL;
+	}
 	m_pString = (char*)calloc(1, 1);
 	m_Size = 0;
 	m_Capacity = 1;
@@ -558,6 +610,9 @@ bool CPVRTString::operator==(const CPVRTString& _Str) const
 *************************************************************************/
 bool CPVRTString::operator==(const char* const _Ptr) const
 {
+	if(!_Ptr)
+		return false;
+
 	return strcmp(m_pString, _Ptr)==0;
 }
 
@@ -580,6 +635,9 @@ bool CPVRTString::operator!=(const CPVRTString& _Str) const
 *************************************************************************/
 bool CPVRTString::operator!=(const char* const _Ptr) const
 {
+	if(!_Ptr)
+		return true;
+
 	return strcmp(m_pString, _Ptr)!=0;
 }
 
@@ -637,6 +695,47 @@ CPVRTString& CPVRTString::erase(size_t _Pos, size_t _Count)
 		memmove(&m_pString[_Pos], &m_pString[_Pos + _Count], m_Size + 1 - (_Pos + _Count));
 	}
 	return *this;
+}
+
+/*!***********************************************************************
+@Function			find
+@Input				_Ptr	String to search.
+@Input				_Off	Offset to search from.
+@Input				_Count	Number of characters in this string.
+@Returns			Position of the first matched string.
+@Description		Finds a substring within this string.
+*************************************************************************/
+size_t CPVRTString::find(const char* _Ptr, size_t _Off, size_t _Count) const
+{
+	if(!_Ptr)
+		return npos;
+
+	if(_Count > m_Size)
+		return npos;
+
+	while(_Off < m_Size)
+	{
+		if(_Ptr[0] == m_pString[_Off])
+		{
+			if(compare(_Off, _Count, _Ptr) == 0)
+				return _Off;
+		}
+		_Off++;
+	}
+
+	return npos;
+}
+
+/*!***********************************************************************
+@Function			find
+@Input				_Str	String to search.
+@Input				_Off	Offset to search from.
+@Returns			Position of the first matched string.
+@Description		Erases a portion of the string
+*************************************************************************/
+size_t CPVRTString::find(const CPVRTString& _Str, size_t _Off) const
+{
+	return find(_Str.c_str(), _Off, _Str.length());
 }
 
 /*!***********************************************************************
@@ -792,6 +891,50 @@ size_t CPVRTString::find_first_of(const char* _Ptr, size_t _Off, size_t _Count) 
 	return npos;
 }
 
+
+/*!***********************************************************************
+@Function			find_first_of
+@Input				_Ptr	A string
+@Input				_Off	Start position of the find
+@Input				_Count	Size of _Ptr
+@Returns			Position of the first char that matches a char in _Ptr
+@Description		Returns the position of the first char that matches a char in _Ptr
+*************************************************************************/
+size_t CPVRTString::find_first_ofn(const char* _Ptr, size_t _Off, size_t _Count) const
+{
+	if (_Ptr == NULL)
+	{
+		return npos;
+	}
+
+	if (strlen(m_pString) < _Count)
+	{
+	   return npos;
+	}
+
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		if (m_pString[i] ==_Ptr[0])
+		{
+			if (i+_Count-1>=m_Size)  // There are not enough caracters in current String
+			{
+				return npos;
+			}
+
+			bool compare = true;
+			for(size_t k=1;k<_Count;++k)
+			{	 				
+				compare &= (m_pString[i+k] ==_Ptr[k]);
+			}
+			if (compare == true)
+			{
+				return i;
+			}
+		}		
+	}
+	return npos;
+}
+
 /*!***********************************************************************
 @Function			find_first_of
 @Input				_Str	A string
@@ -843,14 +986,14 @@ size_t CPVRTString::find_last_not_of(const char* _Ptr, size_t _Off) const
 {
 	for(size_t i=m_Size-_Off-1;i<m_Size;--i)
 	{
-		bool bFound = false;
+		bool bFound = true;
 		// compare against each char from _Ptr
 		for(size_t j=0;_Ptr[j]!=0;++j)
 		{
-			bFound = bFound || (m_pString[i]!=_Ptr[j]);
+			bFound = bFound && (m_pString[i]!=_Ptr[j]);
 		}
-		if(!bFound)
-		{	// return if no match
+		if(bFound)
+		{	// return if considered character differed from all characters from _Ptr
 			return i;
 		}
 	}
@@ -869,14 +1012,15 @@ size_t CPVRTString::find_last_not_of(const char* _Ptr, size_t _Off, size_t _Coun
 {
 	for(size_t i=m_Size-_Off-1;i<m_Size;--i)
 	{
-		bool bFound = false;
+		bool bFound = true;
 		// compare against each char from _Ptr
 		for(size_t j=0;j<_Count;++j)
 		{
-			bFound = bFound || (m_pString[i]!=_Ptr[j]);
+			bFound = bFound && (m_pString[i]!=_Ptr[j]);
 		}
-		if(!bFound)
-		{	// return if no match
+		if(bFound)
+		{
+		    // return if considered character differed from all characters from _Ptr
 			return i;
 		}
 	}
@@ -894,14 +1038,15 @@ size_t CPVRTString::find_last_not_of(const CPVRTString& _Str, size_t _Off) const
 {
 	for(size_t i=m_Size-_Off-1;i<m_Size;--i)
 	{
-		bool bFound = false;
+		bool bFound = true;
 		// compare against each char from _Ptr
 		for(size_t j=0;j<_Str.m_Size;++j)
 		{
-			bFound = bFound || (m_pString[i]!=_Str[j]);
+			bFound = bFound && (m_pString[i]!=_Str[j]);
 		}
-		if(!bFound)
-		{	// return if no match
+		if(bFound)
+		{
+            // return if considered character differed from all characters from _Ptr
 			return i;
 		}
 	}
@@ -991,6 +1136,318 @@ size_t CPVRTString::find_last_of(const CPVRTString& _Str, size_t _Off) const
 	return npos;
 }
 
+/*!***********************************************************************
+@Function			find_number_of
+@Input				_Ch		A char
+@Input				_Off	Start position of the find
+@Returns			Number of occurances of _Ch in the parent string.
+@Description		Returns the number of occurances of _Ch in the parent string.
+*************************************************************************/
+size_t CPVRTString::find_number_of(char _Ch, size_t _Off) const
+{
+	size_t occurances=0;
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		if(m_pString[i]==_Ch)
+			occurances++;
+	}
+	return occurances;
+}
+
+/*!***********************************************************************
+@Function			find_number_of
+@Input				_Ptr	A string
+@Input				_Off	Start position of the find
+@Returns			Number of occurances of _Ptr in the parent string.
+@Description		Returns the number of occurances of _Ptr in the parent string.
+*************************************************************************/
+size_t CPVRTString::find_number_of(const char* _Ptr, size_t _Off) const
+{
+	size_t occurances=0;
+	bool bNotHere=false;
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		// compare against each char from _Ptr
+		for(size_t j=0;_Ptr[j]!=0;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Ptr[j]) bNotHere=true;
+			if(bNotHere) break;
+		}
+		if(!bNotHere) occurances++;
+		else bNotHere = false;
+	}
+	return occurances;
+}
+
+/*!***********************************************************************
+@Function			find_number_of
+@Input				_Ptr	A string
+@Input				_Off	Start position of the find
+@Input				_Count	Size of _Ptr
+@Returns			Number of occurances of _Ptr in the parent string.
+@Description		Returns the number of occurances of _Ptr in the parent string.
+*************************************************************************/
+size_t CPVRTString::find_number_of(const char* _Ptr, size_t _Off, size_t _Count) const
+{
+	size_t occurances=0;
+	bool bNotHere=false;
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		// compare against each char from _Ptr
+		for(size_t j=0;j<_Count;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Ptr[j]) bNotHere=true;
+			if(bNotHere) break;
+		}
+		if(!bNotHere) occurances++;
+		else bNotHere = false;
+	}
+	return occurances;
+}
+
+/*!***********************************************************************
+@Function			find_number_of
+@Input				_Str	A string
+@Input				_Off	Start position of the find
+@Returns			Number of occurances of _Str in the parent string.
+@Description		Returns the number of occurances of _Str in the parent string.
+*************************************************************************/
+size_t CPVRTString::find_number_of(const CPVRTString& _Str, size_t _Off) const
+{
+	size_t occurances=0;
+	bool bNotHere=false;
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		// compare against each char from _Ptr
+		for(size_t j=0;j<_Str.m_Size;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Str[j])
+				bNotHere=true;
+			if(bNotHere) 
+				break;
+		}
+		if(!bNotHere) occurances++;
+		else bNotHere = false;
+	}
+	return occurances;
+}
+
+/*!***********************************************************************
+@Function			find_next_occurance_of
+@Input				_Ch		A char
+@Input				_Off	Start position of the find
+@Returns			Next occurance of _Ch in the parent string.
+@Description		Returns the next occurance of _Ch in the parent string
+					after or at _Off.	If not found, returns the length of the string.
+*************************************************************************/
+int CPVRTString::find_next_occurance_of(char _Ch, size_t _Off) const
+{
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		if(m_pString[i]==_Ch)
+			return (int)i;
+	}
+	return (int)m_Size;
+}
+
+/*!***********************************************************************
+@Function			find_next_occurance_of
+@Input				_Ptr	A string
+@Input				_Off	Start position of the find
+@Returns			Next occurance of _Ptr in the parent string.
+@Description		Returns the next occurance of _Ptr in the parent string
+					after or at _Off.	If not found, returns the length of the string.
+*************************************************************************/
+int CPVRTString::find_next_occurance_of(const char* _Ptr, size_t _Off) const
+{
+	bool bHere=true;
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		// compare against each char from _Ptr
+		for(size_t j=0;_Ptr[j]!=0;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Ptr[j]) bHere=false;
+			if(!bHere) break;
+		}
+		if(bHere) return (int)i;
+		bHere=true;
+	}
+	return (int)m_Size;
+}
+
+/*!***********************************************************************
+@Function			find_next_occurance_of
+@Input				_Ptr	A string
+@Input				_Off	Start position of the find
+@Input				_Count	Size of _Ptr
+@Returns			Next occurance of _Ptr in the parent string.
+@Description		Returns the next occurance of _Ptr in the parent string
+					after or at _Off.	If not found, returns the length of the string.
+*************************************************************************/
+int CPVRTString::find_next_occurance_of(const char* _Ptr, size_t _Off, size_t _Count) const
+{
+	bool bHere=true;
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		// compare against each char from _Ptr
+		for(size_t j=0;j<_Count;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Ptr[j]) bHere=false;
+			if(!bHere) break;
+		}
+		if(bHere) return (int)i;
+		bHere=true;
+	}
+	return (int)m_Size;
+}
+
+/*!***********************************************************************
+@Function			find_next_occurance_of
+@Input				_Str	A string
+@Input				_Off	Start position of the find
+@Returns			Next occurance of _Str in the parent string.
+@Description		Returns the next occurance of _Str in the parent string
+					after or at _Off.	If not found, returns the length of the string.
+*************************************************************************/
+int CPVRTString::find_next_occurance_of(const CPVRTString& _Str, size_t _Off) const
+{
+	bool bHere=true;
+	for(size_t i=_Off;i<m_Size;++i)
+	{
+		// compare against each char from _Str
+		for(size_t j=0;j<_Str.m_Size;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Str[j]) bHere=false;
+			if(!bHere) break;
+		}
+		if(bHere) return (int)i;
+		bHere=true;
+	}
+	return (int)m_Size;
+}
+
+/*!***********************************************************************
+@Function			find_previous_occurance_of
+@Input				_Ch		A char
+@Input				_Off	Start position of the find
+@Returns			Previous occurance of _Ch in the parent string.
+@Description		Returns the previous occurance of _Ch in the parent string
+					before _Off.	If not found, returns -1.
+*************************************************************************/
+int CPVRTString::find_previous_occurance_of(char _Ch, size_t _Off) const
+{
+	for(size_t i=_Off;i>0;--i)
+	{
+		if(m_pString[i]==_Ch)
+			return (int)i;
+	}
+	return -1;
+}
+
+/*!***********************************************************************
+@Function			find_previous_occurance_of
+@Input				_Ptr	A string
+@Input				_Off	Start position of the find
+@Returns			Previous occurance of _Ptr in the parent string.
+@Description		Returns the previous occurance of _Ptr in the parent string
+					before _Off.	If not found, returns -1.
+*************************************************************************/
+int CPVRTString::find_previous_occurance_of(const char* _Ptr, size_t _Off) const
+{
+	bool bHere=true;
+	for(size_t i=_Off;i>0;--i)
+	{
+		// compare against each char from _Ptr
+		for(size_t j=0;_Ptr[j]!=0;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Ptr[j]) bHere=false;
+			if(!bHere) break;
+		}
+		if(bHere) return (int)i;
+		bHere=true;
+	}
+	return -1;
+}
+
+/*!***********************************************************************
+@Function			find_previous_occurance_of
+@Input				_Ptr	A string
+@Input				_Off	Start position of the find
+@Input				_Count	Size of _Ptr
+@Returns			Previous occurance of _Ptr in the parent string.
+@Description		Returns the previous occurance of _Ptr in the parent string
+					before _Off.	If not found, returns -1.
+*************************************************************************/
+int CPVRTString::find_previous_occurance_of(const char* _Ptr, size_t _Off, size_t _Count) const
+{
+	bool bHere=true;
+	for(size_t i=_Off;i>0;--i)
+	{
+		// compare against each char from _Ptr
+		for(size_t j=0;j<_Count;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Ptr[j]) bHere=false;
+			if(!bHere) break;
+		}
+		if(bHere) return (int)i;
+		bHere=true;
+	}
+	return -1;
+}
+
+/*!***********************************************************************
+@Function			find_previous_occurance_of
+@Input				_Str	A string
+@Input				_Off	Start position of the find
+@Returns			Previous occurance of _Str in the parent string.
+@Description		Returns the previous occurance of _Str in the parent string
+					before _Off.	If not found, returns -1.
+*************************************************************************/
+int CPVRTString::find_previous_occurance_of(const CPVRTString& _Str, size_t _Off) const
+{
+	bool bHere=true;
+	for(size_t i=_Off;i>0;--i)
+	{
+		// compare against each char from _Str
+		for(size_t j=0;j<_Str.m_Size;++j)
+		{
+			if(i+j>m_Size || m_pString[i+j]!=_Str[j]) bHere=false;
+			if(!bHere) break;
+		}
+		if(bHere) return (int)i;
+		bHere=true;
+	}
+	return -1;
+}
+
+/*!***********************************************************************
+@Function			left
+@Input				iSize	number of characters to return (excluding null character)
+@Returns			The leftmost 'iSize' characters of the string.
+@Description		Returns the leftmost characters of the string (excluding 
+					the null character) in a new CPVRTString. If iSize is
+					larger than the string, a copy of the original string is returned.
+*************************************************************************/
+CPVRTString CPVRTString::left(size_t iSize) const
+{
+	if(iSize>=m_Size) return *this;
+	return CPVRTString(m_pString,iSize);
+}
+
+/*!***********************************************************************
+@Function			right
+@Input				iSize	number of characters to return (excluding null character)
+@Returns			The rightmost 'iSize' characters of the string.
+@Description		Returns the rightmost characters of the string (excluding 
+					the null character) in a new CPVRTString. If iSize is
+					larger than the string, a copy of the original string is returned.
+*************************************************************************/
+CPVRTString CPVRTString::right(size_t iSize) const
+{
+	if(iSize>=m_Size) return *this;
+	return CPVRTString(m_pString+(m_Size-iSize),iSize);
+}
+
 //CPVRTString& CPVRTString::insert(size_t _P0, const char* _Ptr)
 //{
 //	return replace(_P0, 0, _Ptr);
@@ -1043,7 +1500,7 @@ size_t CPVRTString::max_size() const
 *************************************************************************/
 void CPVRTString::push_back(char _Ch)
 {
-	append(_Ch, 1);
+	append(1, _Ch);
 }
 
 //CPVRTString& replace(size_t _Pos1, size_t _Num1, const char* _Ptr)
@@ -1143,6 +1600,44 @@ CPVRTString&  CPVRTString::toLower()
 }
 
 /*!***********************************************************************
+@Function			toUpper
+@Returns			An updated string
+@Description		Converts the string to upper case
+*************************************************************************/
+CPVRTString&  CPVRTString::toUpper()
+{
+	int i = 0;
+	while ( (m_pString[i] = (m_pString[i]>='a'&&m_pString[i]<='z') ? ('A'+m_pString[i])-'a': m_pString[i]) != 0) i++;
+	return *this;
+}
+
+/*!***********************************************************************
+@Function			Format
+@Input				pFormat A string containing the formating
+@Returns			A formatted string
+@Description		return the formatted string
+************************************************************************/
+CPVRTString CPVRTString::format(const char *pFormat, ...)
+{
+	va_list arg;
+
+	va_start(arg, pFormat);
+	size_t	bufSize = vsnprintf(NULL,0,pFormat,arg);
+	va_end(arg);
+	
+	char*	buf=new char[bufSize + 1];
+	
+	va_start(arg, pFormat);
+	vsnprintf(buf, bufSize + 1, pFormat, arg);
+	va_end(arg);
+
+	CPVRTString returnString(buf);
+	delete [] buf;
+	*this = returnString;
+	return returnString;
+}
+
+/*!***********************************************************************
 @Function			+=
 @Input				_Ch A char
 @Returns			An updated string
@@ -1150,7 +1645,7 @@ CPVRTString&  CPVRTString::toLower()
 *************************************************************************/
 CPVRTString& CPVRTString::operator+=(char _Ch)
 {
-	return append(_Ch, 1);
+	return append(1, _Ch);
 }
 
 /*!***********************************************************************
@@ -1183,7 +1678,7 @@ CPVRTString& CPVRTString::operator+=(const CPVRTString& _Right)
 *************************************************************************/
 CPVRTString& CPVRTString::operator=(char _Ch)
 {
-	return assign(_Ch, 1);
+	return assign(1, _Ch);
 }
 
 /*!***********************************************************************
@@ -1358,13 +1853,114 @@ CPVRTString PVRTStringGetFileName(const CPVRTString& strFilePath)
 ************************************************************************/
 CPVRTString PVRTStringStripWhiteSpaceFromStartOf(const CPVRTString& strLine)
 {
-	size_t start = strLine.find_first_not_of(" \t	");
+	size_t start = strLine.find_first_not_of(" \t	\n\r");
 	if(start!=strLine.npos)
-		return strLine.substr(start,strLine.length()-start);
+		return strLine.substr(start,strLine.length()-(start));
 	return strLine;
 }
 
+
+/*!***********************************************************************
+@Function			PVRTStringStripWhiteSpaceFromEndOf
+@Input				strLine A string
+@Returns			Result of the white space stripping
+@Description		strips white space characters from the end of a CPVRTString.
+************************************************************************/
+CPVRTString PVRTStringStripWhiteSpaceFromEndOf(const CPVRTString& strLine)
+{
+	size_t end = strLine.find_last_not_of(" \t	\n\r");
+	if(end!=strLine.npos)
+		return strLine.substr(0,end+1);
+	return strLine;
+}
+
+/*!***********************************************************************
+@Function			PVRTStringFromFormattedStr
+@Input				pFormat A string containing the formating
+@Returns			A formatted string
+@Description		Creates a formatted string
+************************************************************************/
+CPVRTString PVRTStringFromFormattedStr(const char *pFormat, ...)
+{
+	va_list arg;
+
+	va_start(arg, pFormat);
+	size_t bufSize = vsnprintf(NULL,0,pFormat,arg);
+	va_end(arg);
+
+	char* buf = new char[bufSize + 1];
+
+	va_start(arg, pFormat);
+	vsnprintf(buf, bufSize + 1, pFormat, arg);
+	va_end(arg);
+
+	CPVRTString returnString(buf);
+	delete [] buf;
+	return returnString;
+}
+
 ///*!***************************************************************************
+
+
+// Substitute one character by another
+CPVRTString& CPVRTString::substitute(char _src,char _subDes, bool _all)
+{
+	int len = (int) length();
+	char  c=_src;
+	char  s=_subDes;
+	int  i=0;
+	while(i<len)
+	{
+		if(m_pString[i]==c)
+		{
+			m_pString[i]=s;
+			if(!_all) break;
+		}
+		i++;
+	}
+	return *this;
+}
+
+
+// Substitute one string by another ( Need time to improved )
+CPVRTString& CPVRTString::substitute(const char* _src, const char* _dest, bool _all)
+{	
+	if (this->length() == 0)
+	{
+		return *this;
+	}
+	unsigned int pos=0;
+	CPVRTString src = _src;
+	CPVRTString dest = _dest;
+	CPVRTString ori;
+	
+	while(pos<=m_Size-src.length())
+	{		
+		if(this->compare(pos,src.length(),_src)==0)
+		{
+			ori = this->c_str();
+			CPVRTString sub1, sub2, result;
+			sub1.assign(ori,0,pos);
+			sub2.assign(ori,pos+src.length(),m_Size - (pos+src.length()));
+			
+			this->assign("");
+			this->append(sub1);
+			this->append(dest);
+			this->append(sub2);
+			
+			if(!_all)
+			{
+					break;
+			}
+			pos += (unsigned int) dest.length();
+			continue;
+		}
+		pos++;
+	}
+	
+	return *this;
+}
+
 
 #endif // _USING_PVRTSTRING_
 

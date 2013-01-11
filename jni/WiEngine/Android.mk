@@ -17,6 +17,12 @@ include $(LOCAL_PATH)/libjpeg/Android.mk
 include $(LOCAL_PATH)/libnsbmp/Android.mk
 
 ###########################################################
+# build libpvr
+###########################################################
+
+include $(LOCAL_PATH)/libpvr/Android.mk
+
+###########################################################
 # build libxml2
 ###########################################################
 
@@ -52,7 +58,6 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/WiEngine/include \
 	$(LOCAL_PATH)/WiEngine/include/lua \
 	$(LOCAL_PATH)/WiEngine/include/material \
 	$(LOCAL_PATH)/WiEngine/include/mesh \
-	$(LOCAL_PATH)/WiEngine/include/mfs \
 	$(LOCAL_PATH)/WiEngine/include/nodes \
 	$(LOCAL_PATH)/WiEngine/include/opengl \
 	$(LOCAL_PATH)/WiEngine/include/particle \
@@ -74,7 +79,7 @@ LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES) \
 	$(LOCAL_PATH)/WiEngine/impl/render \
 	$(LOCAL_PATH)/WiEngine/impl/tmx \
 	$(LOCAL_PATH)/sqlite3
-LOCAL_STATIC_LIBRARIES := png jpeg nsbmp
+LOCAL_STATIC_LIBRARIES := png jpeg nsbmp pvr
 LOCAL_SHARED_LIBRARIES := xml2 kazmath
 LOCAL_SRC_FILES := $(call all-cpp-files-under,WiEngine)
 	

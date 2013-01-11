@@ -385,7 +385,6 @@
 #include "wyLagrangeConfig.h"
 #include "wyPoint.h"
 #include "wyPointList.h"
-#include "wyPVR.h"
 #include "wyQuad2D.h"
 #include "wyQuad3D.h"
 #include "wyRect.h"

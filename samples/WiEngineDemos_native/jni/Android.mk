@@ -43,7 +43,6 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(WIENGINE_JNI)/WiEngine/include/json \
 	$(WIENGINE_JNI)/WiEngine/include/lua \
 	$(WIENGINE_JNI)/WiEngine/include/iap \
-	$(WIENGINE_JNI)/WiEngine/include/mfs \
 	$(WIENGINE_JNI)/WiEngine/include/material \
 	$(WIENGINE_JNI)/WiEngine/include/mesh \
 	$(WIENGINE_JNI)/WiEngine/include/nodes \
