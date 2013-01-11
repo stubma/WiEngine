@@ -321,9 +321,22 @@ private:
 	void load();
 
 	/**
-	 * Do actual image parsing work
+	 * load raw data from texture source
+	 *
+	 * @param outLen returns length of raw data
+	 * @param outScale returns scale rate of resource
 	 */
-	char* loadImage();
+	char* loadRaw(size_t* outLen, float* outScale);
+
+	/**
+	 * It load normal image format, such as jpg, png, bmp, into rgba8888 format
+	 *
+	 * @param raw raw data of image
+	 * @param len byte size of raw data
+	 * @param scale scale rate of image
+	 * @return rgba8888 format data of image
+	 */
+	char* loadImage(char* raw, size_t len, float scale);
 
 	/**
 	 * 设置显示的字符串内容
