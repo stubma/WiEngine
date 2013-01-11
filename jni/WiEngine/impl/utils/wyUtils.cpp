@@ -995,7 +995,27 @@ char* wyUtils::loadImage(const char* raw, size_t length, float* w, float* h, boo
 	}
 
 	// detect image type
-	if(isPNG(raw, length)) {
+	if(isPVR(raw, length)) {
+		// for pvr, this method only support detect its size, so we
+		// return NULL always
+		if(sizeOnly && (w || h)) {
+			// get pvr header
+			PVRTextureHeaderV3 header;
+			if((*(PVRTuint32*)raw) != PVRTEX3_IDENT) {
+				PVRTConvertOldTextureHeaderToV3((PVR_Texture_Header*)raw, header, NULL);
+			} else {
+				header = *(PVRTextureHeaderV3*)raw;
+			}
+
+			// return size
+			if(w)
+				*w = header.u32Width;
+			if(h)
+				*h = header.u32Height;
+		}
+
+		return NULL;
+	} else if(isPNG(raw, length)) {
 		char* data = loadPNG(raw, length, w, h, sizeOnly, scaleX, scaleY);
 		return data;
 	} else if(isJPG(raw, length)) {
