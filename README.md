@@ -1,5 +1,9 @@
 <img src="http://blog.wiyun.com/wp-content/uploads/2012/03/02.png"/>
 
+NOTE
+-----------------------------------
+3D branch is in active development, so everything listed in this README.md may change.
+
 WiEngine
 -----------------------------------
 C++ implemented, cocos2d-like cross-platform game engine. Any question, please visit our forum: <a href="http://wiengine.forumer.com/">http://wiengine.forumer.com/</a>
@@ -7,7 +11,7 @@ C++ implemented, cocos2d-like cross-platform game engine. Any question, please v
 Platform Supported
 -----------------------------------
  * iOS(3.2+)
- * Android(2.0+)
+ * Android(2.2+)
  * Mac OS X(10.6+)
  * Windows (XP or above)
  
