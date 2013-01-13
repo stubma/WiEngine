@@ -7,7 +7,7 @@ C++ implemented, cocos2d-like cross-platform game engine. Any question, please v
 Platform Supported
 -----------------------------------
  * iOS(3.2+)
- * Android(2.0+)
+ * Android(2.2+)
  * Mac OS X(10.6+)
  * Windows (XP or above)
  
