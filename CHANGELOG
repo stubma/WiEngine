@@ -1,8 +1,10 @@
 +++ 3.10.3 +++
 [new] add new make method for wyToast
+[new] wyParticleSystem add relative position mode
 [fix] make wyProgressTimer works with atlas texture
-[fix] fix bug #7, see https://github.com/stubma/WiEngine/issues/7#issuecomment-10745676
+[fix] fix bug #7, #8, #14, #17, view github for more detail
 [fix] fix projection error in new ipad
+[fix] null pointer error in wyNode.pause/resumeAllTimers
 
 +++ 3.10.2 +++
 [new] add changeBaseSize method to wyDirector, support changing base size at running time
