@@ -1372,9 +1372,9 @@ public:
 
 	void addNewSprite(float posx, float posy) {
 #if ANDROID || MACOSX || WINDOWS
-		int index = rand() % 7;
-#elif IOS
 		int index = rand() % 9;
+#elif IOS
+		int index = rand() % 11;
 #endif
 		char buf[128];
 		switch(index) {
@@ -1399,11 +1399,19 @@ public:
 			case 6:
 				sprintf(buf, "grossini_ai_8");
 				break;
+            case 7:
+                // version 3 pvr
+				sprintf(buf, "tex_arm");
+				break;
+            case 8:
+                // version 3 pvr
+				sprintf(buf, "tex_base");
+				break;
 #if IOS
-			case 7:
+			case 9:
 				sprintf(buf, "grossini_pvrtc_2");
 				break;
-			case 8:
+			case 10:
 				sprintf(buf, "grossini_pvrtc_4");
 				break;
 #endif
