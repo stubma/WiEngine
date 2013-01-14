@@ -1541,12 +1541,14 @@ void wyNode::scheduleLocked(wyTimer* t) {
 
 void wyNode::resumeAllTimers(bool includeChildren) {
 	// set
-	pthread_mutex_lock(&gMutex);
-	for(int i = 0; i < m_timers->num; i++) {
-		wyTimer* t = (wyTimer*)wyArrayGet(m_timers, i);
-		t->setPaused(false);
+	if(m_timers) {
+		pthread_mutex_lock(&gMutex);
+		for(int i = 0; i < m_timers->num; i++) {
+			wyTimer* t = (wyTimer*)wyArrayGet(m_timers, i);
+			t->setPaused(false);
+		}
+		pthread_mutex_unlock(&gMutex);
 	}
-	pthread_mutex_unlock(&gMutex);
 
 	if(includeChildren) {
 		for(int i = 0; i < m_children->num; i++) {
@@ -1558,12 +1560,14 @@ void wyNode::resumeAllTimers(bool includeChildren) {
 
 void wyNode::pauseAllTimers(bool includeChildren) {
 	// set
-	pthread_mutex_lock(&gMutex);
-	for(int i = 0; i < m_timers->num; i++) {
-		wyTimer* t = (wyTimer*)wyArrayGet(m_timers, i);
-		t->setPaused(true);
+	if(m_timers) {
+		pthread_mutex_lock(&gMutex);
+		for(int i = 0; i < m_timers->num; i++) {
+			wyTimer* t = (wyTimer*)wyArrayGet(m_timers, i);
+			t->setPaused(true);
+		}
+		pthread_mutex_unlock(&gMutex);
 	}
-	pthread_mutex_unlock(&gMutex);
 
 	if(includeChildren) {
 		for(int i = 0; i < m_children->num; i++) {
