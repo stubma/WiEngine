@@ -86,7 +86,7 @@ void wyParticleSystem::initParticle(wyParticle* particle) {
 	// position
 	if(m_positionType == FREE)
 		particle->startPos = nodeToWorldSpace(particle->startPos);
-	else if(m_positionType == RELATIVE)
+	else if(m_positionType == RELATIVE_TO_PARENT)
 		particle->startPos = nodeToParentSpace(particle->startPos);
 
 	// direction
@@ -275,7 +275,7 @@ void wyParticleSystem::update(wyTargetSelector* ts) {
 	wyPoint currentPosition = wypZero;
 	if(m_positionType == FREE)
 		currentPosition = nodeToWorldSpace(currentPosition);
-	else if(m_positionType == RELATIVE)
+	else if(m_positionType == RELATIVE_TO_PARENT)
 		currentPosition = nodeToParentSpace(currentPosition);
 
 	while(m_particleIdx < m_particleCount) {
@@ -337,7 +337,7 @@ void wyParticleSystem::update(wyTargetSelector* ts) {
 			// update values in quad
 			//
 			wyPoint newPos;
-			if(m_positionType == FREE || m_positionType == RELATIVE) {
+			if(m_positionType == FREE || m_positionType == RELATIVE_TO_PARENT) {
 				wyPoint diff = wypSub(currentPosition, p->startPos);
 				newPos = wypSub(p->pos, diff);
 			} else
