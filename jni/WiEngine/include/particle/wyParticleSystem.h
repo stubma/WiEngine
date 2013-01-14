@@ -51,201 +51,198 @@
 #define PARTICLE_START_RADIUS_EQUAL_TO_END_RADIUS -1
 
 /**
- * @typedef wyParticleSystemMode
- *
- * Particle system mode
- */
-typedef enum {
-	/**
-	 * Gravity mode (A mode)
-	 */
-	GRAVITY = 1,
-
-	/**
-	 * Radius mode (B mode)
-	 */
-	RADIUS
-} wyParticleSystemMode;
-
-/**
- * @typedef wyParticleSystemPositionType
- *
- * Particle system emission mode
- */
-typedef enum {
-	/**
-	 * If the emitter is repositioned, the living particles won't be repositioned
-	 */
-	FREE = 1,
-
-	/**
-	 * If the emitter is repositioned, the living particles will be repositioned too
-	 */
-	GROUPED,
-
-	/**
-	 * If the emitter is repositioned, the living particles won't be repositioned, node to its parents
-	 */
-	RELATIVE
-} wyParticleSystemPositionType;
-
-/**
  * @class wyParticleSystem
  *
  * Particle system node
  */
 class WIENGINE_API wyParticleSystem : public wyNode {
+public:
+	/**
+	 * Particle system mode
+	 */
+	enum Mode {
+		/**
+		 * Gravity mode (A mode)
+		 */
+		GRAVITY = 1,
+
+		/**
+		 * Radius mode (B mode)
+		 */
+		RADIUS,
+	};
+
+	/**
+	 * Particle system emission mode
+	 */
+	enum PositionType {
+		/**
+		 * If the emitter is repositioned, the living particles won't be repositioned
+		 */
+		FREE = 1,
+
+		/**
+		 * If the emitter is repositioned, the living particles will be repositioned too
+		 */
+		GROUPED,
+
+		/**
+		 * If the emitter is repositioned, the living particles won't be repositioned, node to its parents
+		 */
+		RELATIVE_TO_PARENT,
+	};
+
 protected:
-	/// flag，true表示粒子系统update函数正被调用
+	/// true means update method is in processing
 	bool m_updating;
 
-	/// 标识粒子系统是否正处于运行状态
+	/// true means particle system is active
 	bool m_active;
 
-	/// 粒子系统的生命周期，-1表示一直运行
+	/// duration of emission, -1 means forever
 	float m_duration;
 
-	/// 粒子系统从开始到现在时间，单位妙
+	/// elapsed time, seconds
 	float m_elapsed;
 
-	/// 粒子发射器的位置
+	/// the position of emission
 	wyPoint m_centerOfGravity;
 
-	/// 粒子发射器的位置变化量，用于随机微调
+	/// variance of emission
 	wyPoint m_centerOfGravityVar;
 
-	/// 粒子角度(方向)，单位度
+	/// particle direction in degree
 	float m_angle;
 
-	/// 粒子角度变化量，单位度
+	/// variance of particle direction
 	float m_angleVar;
 
-	/// 粒子起始大小
+	/// start size of particle
 	float m_startSize;
 
-	/// 粒子起始大小变化量
+	/// variance of particle start size
 	float m_startSizeVar;
 
-	/// 粒子结束大小
+	/// end size of particle
 	float m_endSize;
 
-	/// 粒子结束大小变化量
+	/// variance of particle end size
 	float m_endSizeVar;
 
-	/// 粒子生存期，单位秒
+	/// particle life in second
 	float m_life;
 	
-	/// 粒子生存期变化量，单位秒
+	/// variance of particle life
 	float m_lifeVar;
 
-	/// 粒子起始颜色
+	/// start color of particle
 	wyColor4F m_startColor;
 
-	/// 粒子起始颜色变化量
+	/// variance of particle start color
 	wyColor4F m_startColorVar;
 
-	/// 粒子结束颜色
+	/// end color of particle
 	wyColor4F m_endColor;
 
-	/// 粒子结束颜色变化量
+	/// variance of particle end color
 	wyColor4F m_endColorVar;
 
-	/// 粒子起始自转角度，单位度
+	/// start rotation angle in degree
 	float m_startSpin;
 
-	/// 粒子起始自转角度变化量
+	/// variance of start rotation angle
 	float m_startSpinVar;
 
-	/// 粒子结束自转角度，单位度
+	/// end rotation angle in degree
 	float m_endSpin;
 
-	/// 粒子结束自转角度变化量
+	/// variance of end rotation angle
 	float m_endSpinVar;
 
-	/// 粒子数组指针
+	/// particle array
 	wyArray* m_particles;
 
-	/// 最大粒子数
+	/// max live particle allowed
 	int m_maxParticles;
 
-	/// 活动状态的粒子数
+	/// current number of live particle
 	int m_particleCount;
 
-	/// 每秒发射的粒子数 
+	/// number of particle emitted every second
 	float m_emissionRate;
 	
-	/// 本次发射器需要发射的粒子数
+	/// a helper variable used when emit particle
 	float m_emitCounter;
 
-	/// 运动模式，free or grouped
-	wyParticleSystemPositionType m_positionType;
+	/// position mode
+	PositionType m_positionType;
 
-	/// 表示该wyNode节点是否从父节点中删除
+	/// remove particle when no particle will be emitted
 	bool m_autoRemoveOnFinish;
 
-	/// 粒子数组索引，标识当前正在操作的粒子
+	/// current particle index on which is operated
 	int m_particleIdx;
 
-	/// 发射器发射模式
-	wyParticleSystemMode m_emitterMode;
+	/// emitter mode
+	Mode m_emitterMode;
 
-	/// bool flag， 标识是否改变发射器位置
+	/// true means emitter position will be updated
 	bool m_pendingPosition;
 
-	/// 发射器的新x坐标
+	/// new x position of emitter
 	float m_pendingX;
 
-	/// 发射器的新y坐标
+	/// new y position of emitter
 	float m_pendingY;
 
-	/// 回调函数update的timer
+	/// timer for update method
 	wyTimer* m_timer;
 
 	///////////////////////////////
 	//gravity mode only
 	///////////////////////////////
 
-	/// 系统的重力
+	/// gravity force
 	wyPoint m_gravity;
 
-	/// 粒子的运动速度(大小).
+	/// initial speed of particle
 	float m_speed;
 
-	/// 粒子的运动速度变化量
+	/// variance of particle speed
 	float m_speedVar;
 
-	/// 粒子的角加速度
+	/// tangential acceleration of particle
 	float m_tangentialAccel;
 
-	/// 粒子的角加速度变化量
+	/// variance of particle tangential acceleration
 	float m_tangentialAccelVar;
 
-	/// 粒子的线加速度
+	/// radial acceleration of particle
 	float m_radialAccel;
 
-	/// 粒子的线加速度变化量
+	/// variance of radial acceleration
 	float m_radialAccelVar;
 
 	///////////////////////////////
 	//radius mode only
 	///////////////////////////////
 
-	/// 粒子的起始半径
+	/// start radius of particle
 	float m_startRadius;
 
-	/// 粒子的起始半径变化量
+	/// variance of particle start radius
 	float m_startRadiusVar;
 
-	/// 粒子的结束半径
+	/// end radius of particle
 	float m_endRadius;
 
-	/// 粒子的结束半径变化量
+	/// variance of particle end radius
 	float m_endRadiusVar;
 
-	/// 粒子绕起始位置每秒钟的旋转角度
+	/// particle revolution speed in degree, the pivot is particle emission position
 	float m_rotationDegree;
 
-	/// 旋转角度变化量
+	/// variance of particle revolution
 	float m_rotationDegreeVar;
 
 private:
@@ -405,7 +402,7 @@ public:
 	 *
 	 * @return mode of particle system
 	 */
-	wyParticleSystemMode getEmitterMode() { return m_emitterMode; }
+	Mode getEmitterMode() { return m_emitterMode; }
 
 	/**
 	 * Set particle system mode
@@ -418,14 +415,14 @@ public:
 	 *
 	 * @param mode mode of particle system
 	 */
-	void setEmitterMode(wyParticleSystemMode mode) { m_emitterMode = mode; }
+	void setEmitterMode(Mode mode) { m_emitterMode = mode; }
 
 	/**
 	 * Get particle position mode
 	 *
 	 * @return mode of particle position, relative to emission spot or not
 	 */
-	wyParticleSystemPositionType getPositionType() { return m_positionType; }
+	PositionType getPositionType() { return m_positionType; }
 
 	/**
 	 * Set particle position mode
@@ -438,7 +435,7 @@ public:
 	 *
 	 * @param type particle position mode constant
 	 */
-	void setPositionType(wyParticleSystemPositionType type) { m_positionType = type; }
+	void setPositionType(PositionType type) { m_positionType = type; }
 
 	/**
 	 * Get current particle count

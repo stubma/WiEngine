@@ -412,7 +412,7 @@ wyQuadParticleSystem* wyParticleLoader::load(const char* data, size_t length, fl
 
 	// create particle system
 	wyQuadParticleSystem* ps = wyQuadParticleSystem::make(pd->maxParticles);
-	ps->setEmitterMode(pd->emitterType == 0 ? GRAVITY : RADIUS);
+	ps->setEmitterMode(pd->emitterType == 0 ? wyParticleSystem::GRAVITY : wyParticleSystem::RADIUS);
 	ps->setDirectionAngleVariance(pd->angle, pd->angleVariance);
     if(pd->blendAdditive) {
     	ps->setBlendMode(wyRenderState::ALPHA_ADDITIVE);
@@ -434,13 +434,13 @@ wyQuadParticleSystem* wyParticleLoader::load(const char* data, size_t length, fl
 	ps->setEndSpinVariance(pd->rotationEnd, pd->rotationEndVariance);
 	ps->setEmissionRate(pd->maxParticles / pd->particleLifespan);
 	switch(ps->getEmitterMode()) {
-		case GRAVITY:
+		case wyParticleSystem::GRAVITY:
 			ps->setParticleGravity(pd->gravityx, pd->gravityy);
 			ps->setRadialAccelerationVariance(pd->radialAcceleration, pd->radialAccelVariance);
 			ps->setSpeedVariance(pd->speed, pd->speedVariance);
 			ps->setTangentialAccelerationVariance(pd->tangentialAcceleration, pd->tangentialAccelVariance);
 			break;
-		case RADIUS:
+		case wyParticleSystem::RADIUS:
 			ps->setStartRadiusVariance(pd->maxRadius, pd->maxRadiusVariance);
 			ps->setEndRadiusVariance(pd->minRadius, pd->minRadiusVariance);
 			ps->setRotationVariance(pd->rotatePerSecond, pd->rotatePerSecondVariance);
