@@ -14,7 +14,7 @@
 	</condition>
 	
 	<!-- properties -->
-	<property name="version" value="3.10.2"/>
+	<property name="version" value="3.10.3"/>
 	<property name="android.dir" value=".."/>
 	<property name="android.jni.dir" value="${android.dir}/jni"/>
 	<property name="android.native.demo.dir" value="${android.dir}/samples/WiEngineDemos_native"/>
