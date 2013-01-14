@@ -16,6 +16,17 @@
 #ifndef _PVRTGLOBAL_H_
 #define _PVRTGLOBAL_H_
 
+// export definition
+#if WINDOWS
+	#if LIBPVR_EXPORTS
+		#define PVR_API __declspec(dllexport)
+	#else
+		#define PVR_API __declspec(dllimport)
+	#endif
+#else
+	#define PVR_API
+#endif
+
 /*!***************************************************************************
  Macros
 *****************************************************************************/
