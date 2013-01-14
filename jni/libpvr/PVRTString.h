@@ -18,6 +18,7 @@
 #ifndef _PVRTSTRING_H_
 #define _PVRTSTRING_H_
 
+#include "PVRTGlobal.h"
 #include <stdio.h>
 #define _USING_PVRTSTRING_
 
@@ -25,7 +26,7 @@
 @Class CPVRTString
 @Brief A string class
 *****************************************************************************/
-class CPVRTString
+class PVR_API CPVRTString
 {
 
 private:
