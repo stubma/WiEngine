@@ -523,9 +523,6 @@ void wyDirector::drawFrame() {
 		m_needCheckTexture = false;
 	}
 
-	// set default state
-	glDisable(GL_TEXTURE_2D);
-
 	// if we have next scene to set, reset delta time
 	if(!m_UIPaused) {
 		if(m_nextScene != NULL) {

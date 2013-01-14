@@ -32,6 +32,15 @@
 ** Functions
 ****************************************************************************/
 
+static PVRTuint32 getNextPOT(PVRTuint32 x) {
+	x = x - 1;
+	x = x | (x >> 1);
+	x = x | (x >> 2);
+	x = x | (x >> 4);
+	x = x | (x >> 8);
+	x = x | (x >> 16);
+	return x + 1;
+}
 
 /*!***********************************************************************
 	@Function:		PVRTGetOGLESTextureFormat
@@ -790,7 +799,22 @@ EPVRTError PVRTTextureLoadFromPointer(	const void* pointer,
 				}
 				else
 				{
-					glTexImage2D(eTextureTarget,uiMIPLevel-nLoadFromLevel,eTextureInternalFormat, u32MIPWidth, u32MIPHeight, 0, eTextureFormat, eTextureType, pTempData);
+                    unsigned int bpp = PVRTTextureFormatGetBPP(eTextureInternalFormat, eTextureType);
+                    PVRTuint32 uPOTWidth = getNextPOT(u32MIPWidth);
+                    PVRTuint32 uPOTHeight = getNextPOT(u32MIPHeight);
+                    bool nPOT = uPOTWidth != u32MIPWidth || uPOTHeight != u32MIPHeight;
+                    if(nPOT) {
+                        GLubyte* pixels = (GLubyte*)malloc(uPOTWidth * uPOTHeight * bpp / 8 * sizeof(GLubyte));
+                        int rowBytes = u32MIPWidth * bpp / 8;
+                        int potRowBytes = uPOTWidth * bpp / 8;
+                        for(int y = 0; y < u32MIPHeight; y++) {
+                            memcpy(pixels + potRowBytes * y, pTempData + rowBytes * y, rowBytes);
+                        }
+                        glTexImage2D(eTextureTarget, uiMIPLevel - nLoadFromLevel, eTextureInternalFormat, uPOTWidth, uPOTHeight, 0, eTextureFormat, eTextureType, pixels);
+                        free(pixels);
+                    } else {
+                        glTexImage2D(eTextureTarget,uiMIPLevel-nLoadFromLevel,eTextureInternalFormat, u32MIPWidth, u32MIPHeight, 0, eTextureFormat, eTextureType, pTempData);   
+                    }
 				}
 				pTempData+=uiCurrentMIPSize;
 
@@ -832,6 +856,7 @@ EPVRTError PVRTTextureLoadFromPointer(	const void* pointer,
 				}
 				else
 				{
+                    
 					glTexImage2D(eTextureTarget,uiMIPLevel-nLoadFromLevel,eTextureInternalFormat, u32MIPWidth, u32MIPHeight, 0, eTextureFormat, eTextureType, pTempData);
 				}
 				pTempData+=uiCurrentMIPSize;
@@ -1098,27 +1123,61 @@ unsigned int PVRTTextureFormatGetBPP(const GLuint nFormat, const GLuint nType)
 	switch(nFormat)
 	{
 #ifndef MACOSX
-	case GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG:
-	case GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG:
-		return 2;
-	case GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG:
-	case GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG:
-		return 4;
+        case GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG:
+        case GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG:
+            return 2;
+        case GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG:
+        case GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG:
+            return 4;
 #endif
-	case GL_UNSIGNED_BYTE:
-		switch(nType)
-		{
-		case GL_RGBA:
-//		case GL_BGRA:
-			return 32;
-		}
-	case GL_UNSIGNED_SHORT_5_5_5_1:
-		switch(nType)
-		{
-		case GL_RGBA:
-			return 16;
-		}
-	}
+        default:
+            switch(nType) {
+                case GL_HALF_FLOAT_OES:
+                    switch(nFormat) {
+                        case GL_RGBA:
+                            return 64;
+                        case GL_RGB:
+                            return 48;
+                        case GL_LUMINANCE_ALPHA:
+                            return 32;
+                        case GL_LUMINANCE:
+                        case GL_ALPHA:
+                            return 16;
+                    }
+                    break;
+                case GL_FLOAT:
+                    switch(nFormat) {
+                        case GL_RGBA:
+                            return 128;
+                        case GL_RGB:
+                            return 96;
+                        case GL_LUMINANCE_ALPHA:
+                            return 64;
+                        case GL_LUMINANCE:
+                        case GL_ALPHA:
+                            return 32;
+                    }
+                    break;
+                case GL_UNSIGNED_BYTE:
+                    switch(nFormat) {
+                        case GL_RGBA:
+                            return 32;
+                        case GL_RGB:
+                            return 24;
+                        case GL_LUMINANCE_ALPHA:
+                            return 16;
+                        case GL_LUMINANCE:
+                        case GL_ALPHA:
+                            return 8;
+                    }
+                    break;
+                case GL_UNSIGNED_SHORT_4_4_4_4:
+                case GL_UNSIGNED_SHORT_5_5_5_1:
+                case GL_UNSIGNED_SHORT_5_6_5:
+                    return 16;
+            }
+            break;
+    }
 
 	return 0xFFFFFFFF;
 }
