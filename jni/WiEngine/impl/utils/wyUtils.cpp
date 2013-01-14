@@ -1260,7 +1260,7 @@ bool wyUtils::isPVR(const char* p, size_t size) {
 
 		// if failed, check version 3 pvr file
 		if(size >= sizeof(PVRTextureHeaderV3)) {
-			if(p[0] == 'P' && p[1] == 'V' && p[2] == 'R' && p[3] == '3')
+			if(p[0] == 'P' && p[1] == 'V' && p[2] == 'R' && p[3] == 0x3)
 				return true;
 		}
 	}
