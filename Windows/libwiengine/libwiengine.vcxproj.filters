@@ -34,9 +34,6 @@
     <Filter Include="gridactions">
       <UniqueIdentifier>{1f0a21fc-9d69-465f-b3b5-14df5a2b39c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="mfs">
-      <UniqueIdentifier>{c5549f67-d56d-47f7-839f-a10880e1bc72}</UniqueIdentifier>
-    </Filter>
     <Filter Include="nodes">
       <UniqueIdentifier>{091eb826-7667-4b17-a2d3-2736c185ec52}</UniqueIdentifier>
     </Filter>
@@ -606,18 +603,6 @@
     <ClInclude Include="..\..\jni\WiEngine\include\gridactions\wyGridFlipX.h">
       <Filter>gridactions</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTResourceFile.h">
-      <Filter>mfs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTString.h">
-      <Filter>mfs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTGlobal.h">
-      <Filter>mfs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\mfs\PVRTMemoryFileSystem.h">
-      <Filter>mfs</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyButton.h">
       <Filter>nodes</Filter>
     </ClInclude>
@@ -976,9 +961,6 @@
       <Filter>types</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\types\wyPointList.h">
-      <Filter>types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\jni\WiEngine\include\types\wyPVR.h">
       <Filter>types</Filter>
     </ClInclude>
     <ClInclude Include="..\..\jni\WiEngine\include\types\wyQuad2D.h">
@@ -1756,12 +1738,6 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\gridactions\wyGrid3DAction.cpp">
       <Filter>gridactions</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\mfs\PVRTString.cpp">
-      <Filter>mfs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\mfs\PVRTResourceFile.cpp">
-      <Filter>mfs</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_TextBox.cpp">
       <Filter>nodes</Filter>
     </ClCompile>
@@ -2087,9 +2063,6 @@
       <Filter>types</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\types\wyPointList.cpp">
-      <Filter>types</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\jni\WiEngine\impl\types\wyPVR.cpp">
       <Filter>types</Filter>
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\types\wyQuad2D.cpp">
