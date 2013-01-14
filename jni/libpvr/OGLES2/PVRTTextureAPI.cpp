@@ -1132,6 +1132,7 @@ unsigned int PVRTTextureFormatGetBPP(const GLuint nFormat, const GLuint nType)
 #endif
         default:
             switch(nType) {
+#ifndef MACOSX
                 case GL_HALF_FLOAT_OES:
                     switch(nFormat) {
                         case GL_RGBA:
@@ -1145,6 +1146,7 @@ unsigned int PVRTTextureFormatGetBPP(const GLuint nFormat, const GLuint nType)
                             return 16;
                     }
                     break;
+#endif
                 case GL_FLOAT:
                     switch(nFormat) {
                         case GL_RGBA:
