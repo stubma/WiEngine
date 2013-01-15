@@ -39,7 +39,7 @@ namespace Particle {
 	        setEmissionRate(getMaxParticles() / getLife());
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.stars")));
 
 	    	// additive
 	    	setBlendAdditive(true);
@@ -75,7 +75,7 @@ namespace Particle {
 	        setEndColorVariance(0.5f, 0.5f, 0.5f, 0.0f, 0.5f, 0.5f, 0.5f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.stars")));
 		}
 	};
 
@@ -105,7 +105,7 @@ namespace Particle {
 	        setEndColorVariance(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.fire")));
 
 	    	// additive
 	    	setBlendAdditive(true);
@@ -145,7 +145,7 @@ namespace Particle {
 	        setEmissionRate(getMaxParticles() / getLife());
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.fire")));
 
 	    	// additive
 	    	setBlendAdditive(false);
@@ -184,7 +184,7 @@ namespace Particle {
 	        setEndColorVariance(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.stars")));
 
 	    	// additive
 	    	setBlendAdditive(true);
@@ -223,7 +223,7 @@ namespace Particle {
 	        setEndColorVariance(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.fire")));
 
 	    	// additive
 	    	setBlendAdditive(true);
@@ -259,7 +259,7 @@ namespace Particle {
 	        setEndColorVariance(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.fire")));
 
 	    	// additive
 	    	setBlendAdditive(true);
@@ -299,7 +299,7 @@ namespace Particle {
 	        setEndSizeVariance(32.0f, 8.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.fire")));
 
 	    	// additive
 	    	setBlendAdditive(false);
@@ -343,7 +343,7 @@ namespace Particle {
 	        setEndColorVariance(0.7f, 0.8f, 1.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.stars")));
 
 	    	// additive
 	    	setBlendAdditive(false);
@@ -382,7 +382,7 @@ namespace Particle {
 	        setEndColorVariance(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.stars")));
 
 	    	// additive
 	    	setBlendAdditive(true);
@@ -425,7 +425,7 @@ namespace Particle {
 	        setEmissionRate(getMaxParticles() / getLife());
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.stars2")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.stars2")));
 
 	    	// additive
 	    	setBlendAdditive(false);
@@ -461,7 +461,7 @@ namespace Particle {
 	        setEndColorVariance(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.fire")));
 
 	    	// additive
 	    	setBlendAdditive(false);
@@ -506,7 +506,7 @@ namespace Particle {
 	        setEndColorVariance(1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.snow")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.snow")));
 
 	    	// additive
 	    	setBlendAdditive(false);
@@ -545,7 +545,7 @@ namespace Particle {
 	        setEndColorVariance(0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.5f, 0.5f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.fire")));
 
 	    	// additive
 	    	setBlendAdditive(false);
@@ -581,7 +581,7 @@ namespace Particle {
 	        setEndColorVariance(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	        //set texture
-	        setTexture(wyTexture2D::makePNG(RES("R.drawable.fire")));
+	        setTexture(wyTexture2D::make(RES("R.drawable.fire")));
 		}
 	};
 
@@ -628,7 +628,7 @@ namespace Particle {
 		virtual ~wyHGETestLayer() {}
 
 		virtual wyParticleSystem* createParticleSystem() {
-			return wyHGEParticleLoader::load(RES("R.raw.hgeparticle1"), 200, wyTexture2D::makePNG(RES("R.drawable.hgeparticles_8")));
+			return wyHGEParticleLoader::load(RES("R.raw.hgeparticle1"), 200, wyTexture2D::make(RES("R.drawable.hgeparticles_8")));
 		}
 	};
 

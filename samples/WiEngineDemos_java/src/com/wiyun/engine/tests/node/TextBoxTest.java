@@ -80,11 +80,11 @@ public class TextBoxTest extends WiEngineTestActivity {
             label.setColor(new WYColor3B(0, 0, 0));
             
     		// sprite for button
-    		NinePatchSprite normal = NinePatchSprite.make(Texture2D.makePNG(R.drawable.textbox_normal), 
+    		NinePatchSprite normal = NinePatchSprite.make(Texture2D.make(R.drawable.textbox_normal), 
     				ResolutionIndependent.resolve(WYRect.make(11, 21, 1, 1)));
-    		NinePatchSprite pressed = NinePatchSprite.make(Texture2D.makePNG(R.drawable.textbox_pressed), 
+    		NinePatchSprite pressed = NinePatchSprite.make(Texture2D.make(R.drawable.textbox_pressed), 
     				ResolutionIndependent.resolve(WYRect.make(11, 21, 1, 1)));
-    		NinePatchSprite focused = NinePatchSprite.make(Texture2D.makePNG(R.drawable.textbox_focused), 
+    		NinePatchSprite focused = NinePatchSprite.make(Texture2D.make(R.drawable.textbox_focused), 
     				ResolutionIndependent.resolve(WYRect.make(11, 21, 1, 1)));
     		normal.setContentSize(DP(280), DP(42));
     		pressed.setContentSize(DP(280), DP(42));

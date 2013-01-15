@@ -85,45 +85,45 @@ public class TextureLoadUnloadTest extends WiEngineTestActivity {
 				@Override
 				public void run() {
             		// load textures
-            		((Texture2D)Texture2D.makePNG(R.drawable.atlastest).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.atlastest).autoRelease()).loadTexture();
             		updateLoadHintLabel(1);
-            		((Texture2D)Texture2D.makePNG(R.drawable.background).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.background).autoRelease()).loadTexture();
             		updateLoadHintLabel(2);
-            		((Texture2D)Texture2D.makePNG(R.drawable.bitmapfont).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.bitmapfont).autoRelease()).loadTexture();
             		updateLoadHintLabel(3);
-            		((Texture2D)Texture2D.makePNG(R.drawable.powered).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.powered).autoRelease()).loadTexture();
             		updateLoadHintLabel(4);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_01).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_01).autoRelease()).loadTexture();
             		updateLoadHintLabel(5);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_02).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_02).autoRelease()).loadTexture();
             		updateLoadHintLabel(6);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_03).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_03).autoRelease()).loadTexture();
             		updateLoadHintLabel(7);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_04).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_04).autoRelease()).loadTexture();
             		updateLoadHintLabel(8);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_05).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_05).autoRelease()).loadTexture();
             		updateLoadHintLabel(9);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_06).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_06).autoRelease()).loadTexture();
             		updateLoadHintLabel(10);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_07).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_07).autoRelease()).loadTexture();
             		updateLoadHintLabel(11);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_08).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_08).autoRelease()).loadTexture();
             		updateLoadHintLabel(12);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_09).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_09).autoRelease()).loadTexture();
             		updateLoadHintLabel(13);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_10).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_10).autoRelease()).loadTexture();
             		updateLoadHintLabel(14);
-            		((Texture2D)Texture2D.makePNG(R.drawable.ortho_test1).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.ortho_test1).autoRelease()).loadTexture();
             		updateLoadHintLabel(15);
-            		((Texture2D)Texture2D.makePNG(R.drawable.ortho_test1_bw).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.ortho_test1_bw).autoRelease()).loadTexture();
             		updateLoadHintLabel(16);
-            		((Texture2D)Texture2D.makeJPG(R.drawable.test_jpg).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.test_jpg).autoRelease()).loadTexture();
             		updateLoadHintLabel(17);
-            		((Texture2D)Texture2D.makePNG(R.drawable.tiles).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.tiles).autoRelease()).loadTexture();
             		updateLoadHintLabel(18);
-            		((Texture2D)Texture2D.makePNG(R.drawable.grossini_dance_atlas).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.grossini_dance_atlas).autoRelease()).loadTexture();
             		updateLoadHintLabel(19);
-            		((Texture2D)Texture2D.makePNG(R.drawable.hexa_tiles).autoRelease()).loadTexture();
+            		((Texture2D)Texture2D.make(R.drawable.hexa_tiles).autoRelease()).loadTexture();
             		updateLoadHintLabel(20);
             		
             		Director.getInstance().runOnGLThread(new Runnable() {

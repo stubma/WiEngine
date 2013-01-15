@@ -69,7 +69,7 @@ public class ParticleFire extends QuadParticleSystem {
         
         // set texture
         // TODO support fire.pvr
-        setTexture(Texture2D.makePNG(R.drawable.fire));
+        setTexture(Texture2D.make(R.drawable.fire));
 
         // additive
         setBlendAdditive(true);

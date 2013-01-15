@@ -76,7 +76,7 @@ public class BatchRenderSpriteTest extends WiEngineTestActivity {
 			m_count = 0;
 
 			// batch node
-			m_batchNode = SpriteBatchNode.make(Texture2D.makePNG(R.drawable.blocks));
+			m_batchNode = SpriteBatchNode.make(Texture2D.make(R.drawable.blocks));
 			m_batchNode.setPosition(0, 0);
 			addChild(m_batchNode, -1);
 		}
@@ -90,9 +90,9 @@ public class BatchRenderSpriteTest extends WiEngineTestActivity {
 		}
 		
 	    void createButton(String label, Layer layer, float x, float y, TargetSelector ts) {
-	    	Texture2D normalTex = Texture2D.makePNG(R.drawable.btn_normal);
+	    	Texture2D normalTex = Texture2D.make(R.drawable.btn_normal);
 	    	normalTex.autoRelease();
-	    	Texture2D pressedTex = Texture2D.makePNG(R.drawable.btn_pressed);
+	    	Texture2D pressedTex = Texture2D.make(R.drawable.btn_pressed);
 	    	pressedTex.autoRelease();
 			NinePatchSprite normal1 = NinePatchSprite.make(normalTex, WYRect.make(DP(9), DP(7), DP(22), DP(28)));
 			NinePatchSprite pressed1 = NinePatchSprite.make(pressedTex, WYRect.make(DP(9), DP(7), DP(22), DP(28)));

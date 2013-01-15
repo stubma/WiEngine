@@ -78,7 +78,7 @@ public class HGETest extends WiEngineTestActivity {
 			setTouchEnabled(true);
 
 			// create particle system
-			emitter = HGEParticleLoader.load(R.raw.hgeparticle1, 200, Texture2D.makePNG(R.drawable.hgeparticles_8));
+			emitter = HGEParticleLoader.load(R.raw.hgeparticle1, 200, Texture2D.make(R.drawable.hgeparticles_8));
 			addChild(emitter);
 
 			setEmitterPosition();

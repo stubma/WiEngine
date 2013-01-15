@@ -299,11 +299,11 @@ wyMWFileData* wyMWLoader::load(const char* path, bool isFile) {
 
 wyMWFileData* wyMWLoader::loadMemory(const char* mfsName) {
 	// get data from memory file system
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-	wyMWFileData* data = load(mfsData, length, wyDevice::density / wyDevice::defaultInDensity);
+	size_t len;
+	char* raw = wyUtils::loadRaw(mfsName, &len);
+	wyMWFileData* data = load(raw, len, wyDevice::density / wyDevice::defaultInDensity);
 	data->m_dataId = wyUtils::strHash(mfsName);
+	wyFree(raw);
 
 	// return
 	return data;

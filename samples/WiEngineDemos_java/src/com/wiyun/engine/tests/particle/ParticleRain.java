@@ -80,7 +80,7 @@ public class ParticleRain extends QuadParticleSystem {
         setEndColorVariance(0.7f, 0.8f, 1f, 0.5f, 0f, 0f, 0f, 0f);
 
         // TODO support fire.pvr
-        setTexture(Texture2D.makePNG(R.drawable.fire));
+        setTexture(Texture2D.make(R.drawable.fire));
 
         // additive
         setBlendAdditive(false);

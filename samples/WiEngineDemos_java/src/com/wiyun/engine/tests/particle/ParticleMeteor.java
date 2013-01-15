@@ -71,7 +71,7 @@ public class ParticleMeteor extends QuadParticleSystem {
         setEndColorVariance(0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f);
         
         // TODO support fire.pvr
-        setTexture(Texture2D.makePNG(R.drawable.fire));
+        setTexture(Texture2D.make(R.drawable.fire));
 
         // additive
         setBlendAdditive(true);

@@ -79,12 +79,12 @@ public class ClipInOutTest extends WiEngineTestActivity {
     	
         public MyLayer() {
         	WYSize s = Director.getInstance().getWindowSize();
-    		Sprite normal = Sprite.make(Texture2D.makePNG(R.drawable.icon));
+    		Sprite normal = Sprite.make(Texture2D.make(R.drawable.icon));
     		m_button = Button.make(normal, null, null, null, null, new TargetSelector(this, "onToggle(float)", new Object[] { 0f }));
     		m_button.setPosition(DP(40), s.height / 2);
     		addChild(m_button);
 
-    		m_sprite = Sprite.make(Texture2D.makeJPG(R.drawable.test_jpg));
+    		m_sprite = Sprite.make(Texture2D.make(R.drawable.test_jpg));
     		m_sprite.setAnchor(0, 0.5f);
     		m_sprite.setPosition(m_button.getOriginX() + m_button.getWidth(), s.height / 2);
     		m_sprite.setClipRect(WYRect.makeZero(), true);

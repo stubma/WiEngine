@@ -290,60 +290,33 @@ public class Utilities {
 	}
 	
 	/**
-	 * 载入一个png文件，得到这个png文件的RGBA8888数据，得到的数据遵循当前适配模式的缩放规则。
+	 * 载入一个图像文件，得到这个图像文件的RGBA8888数据，得到的数据遵循当前适配模式的缩放规则。
+	 * 图像的格式引擎会自动判断. 这个方法不支持PVR图片格式
 	 * 
-	 * @param resId png文件的资源id
+	 * @param resId 图像文件的资源id
 	 * @return {@link BitmapRawData}
 	 */
-	public static BitmapRawData loadPNG(int resId) {
+	public static BitmapRawData loadImage(int resId) {
 		BitmapRawData data = new BitmapRawData();
-		nativeLoadPNG(resId, data);
+		nativeloadImage(resId, data);
 		return data;
 	}
 	
-	private static native void nativeLoadPNG(int resId, BitmapRawData data);
+	private static native void nativeloadImage(int resId, BitmapRawData data);
 	
 	/**
-	 * 载入一个png文件，得到这个png文件的RGBA8888数据，得到的数据遵循当前适配模式的缩放规则。
+	 * 载入一个图像文件，得到这个图像文件的RGBA8888数据，得到的数据遵循当前适配模式的缩放规则。
+	 * 图像的格式引擎会自动判断. 这个方法不支持PVR图片格式
 	 * 
-	 * @param path png文件的路径
+	 * @param path 图像文件的路径
 	 * @param isFile true表示path是一个文件系统路径，false表示是一个assets路径
 	 * @return {@link BitmapRawData}
 	 */
-	public static BitmapRawData loadPNG(String path, boolean isFile) {
+	public static BitmapRawData loadImage(String path, boolean isFile) {
 		BitmapRawData data = new BitmapRawData();
-		nativeLoadPNG(path, isFile, data);
+		nativeloadImage(path, isFile, data);
 		return data;
 	}
 	
-	private static native void nativeLoadPNG(String path, boolean isFile, BitmapRawData data);
-	
-	/**
-	 * 载入一个jpg文件，得到这个jpg文件的RGBA8888数据，得到的数据遵循当前适配模式的缩放规则。
-	 * 
-	 * @param resId jpg文件的资源id
-	 * @return {@link BitmapRawData}
-	 */
-	public static BitmapRawData loadJPG(int resId) {
-		BitmapRawData data = new BitmapRawData();
-		nativeLoadJPG(resId, data);
-		return data;
-	}
-	
-	private static native void nativeLoadJPG(int resId, BitmapRawData data);
-	
-	/**
-	 * 载入一个jpg文件，得到这个jpg文件的RGBA8888数据，得到的数据遵循当前适配模式的缩放规则。
-	 * 
-	 * @param path jpg文件的路径
-	 * @param isFile true表示path是一个文件系统路径，false表示是一个assets路径
-	 * @return {@link BitmapRawData}
-	 */
-	public static BitmapRawData loadJPG(String path, boolean isFile) {
-		BitmapRawData data = new BitmapRawData();
-		nativeLoadJPG(path, isFile, data);
-		return data;
-	}
-	
-	private static native void nativeLoadJPG(String path, boolean isFile, BitmapRawData data);
+	private static native void nativeloadImage(String path, boolean isFile, BitmapRawData data);
 }

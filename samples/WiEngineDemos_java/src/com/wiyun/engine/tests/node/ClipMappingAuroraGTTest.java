@@ -62,7 +62,7 @@ public class ClipMappingAuroraGTTest extends WiEngineTestActivity {
 			
     		// animation 1
     		WYSize s = Director.getInstance().getWindowSize();
-    		Texture2D tex1 = Texture2D.makeBMP(R.drawable.prince, 0x00ff00ff);
+    		Texture2D tex1 = Texture2D.make(R.drawable.prince, 0x00ff00ff);
     		tex1.autoRelease();
     		m_sprite1 = AuroraSprite.make(R.raw.prince, 78, tex1);
     		m_sprite1.setLoopCount(-1);
@@ -99,9 +99,9 @@ public class ClipMappingAuroraGTTest extends WiEngineTestActivity {
     		m_sprite1.addClipMapping(mapping);
 			
 			// add a button to manipulate line
-    		NinePatchSprite normal = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_normal), 
+    		NinePatchSprite normal = NinePatchSprite.make(Texture2D.make(R.drawable.btn_normal), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
-    		NinePatchSprite pressed = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_pressed), 
+    		NinePatchSprite pressed = NinePatchSprite.make(Texture2D.make(R.drawable.btn_pressed), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
     		normal.setContentSize(DP(300), DP(44));
     		pressed.setContentSize(DP(300), DP(44));

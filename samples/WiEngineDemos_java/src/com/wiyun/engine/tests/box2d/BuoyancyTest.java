@@ -139,8 +139,8 @@ public class BuoyancyTest extends WiEngineTestActivity {
 	        addChild(waterLayer, 1);
 			
 			// freq. down button
-			NinePatchSprite normal = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_normal), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
-			NinePatchSprite pressed = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_pressed), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
+			NinePatchSprite normal = NinePatchSprite.make(Texture2D.make(R.drawable.btn_normal), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
+			NinePatchSprite pressed = NinePatchSprite.make(Texture2D.make(R.drawable.btn_pressed), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
 			normal.setContentSize(DP(150), DP(44));
 			pressed.setContentSize(DP(150), DP(44));
 			Button button = Button.make(normal, pressed, null, null, this, "onCreateShape");

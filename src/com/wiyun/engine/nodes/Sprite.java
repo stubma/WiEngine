@@ -44,7 +44,7 @@ public class Sprite extends TextureNode implements Node.IFrames {
      * @return 图片对象
      */
     public static Sprite make(int resId) {
-    	return new Sprite((Texture2D)Texture2D.makePNG(resId).autoRelease());
+    	return new Sprite((Texture2D)Texture2D.make(resId).autoRelease());
     }
 
     /**

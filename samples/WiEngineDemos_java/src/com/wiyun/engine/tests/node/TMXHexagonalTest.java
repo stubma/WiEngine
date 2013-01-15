@@ -75,13 +75,13 @@ public class TMXHexagonalTest extends WiEngineTestActivity {
     	private float mLastY;
     	
     	public MyLayer() {
-    		Texture2D tex1 = Texture2D.makePNG(R.drawable.hexa_tiles);
+    		Texture2D tex1 = Texture2D.make(R.drawable.hexa_tiles);
     		tex1.autoRelease();
     		mMap = TMXTileMap.make(R.raw.hexa_test, tex1);
             addChild(mMap);
             
     		// add click feedback sprite
-    		Texture2D tex = Texture2D.makePNG(R.drawable.blocks);
+    		Texture2D tex = Texture2D.make(R.drawable.blocks);
     		mSprite = Sprite.make(tex, ResolutionIndependent.resolve(WYRect.make(0, 0, 32, 32)));
     		mSprite.setVisible(false);
     		mMap.addChild(mSprite, 10);

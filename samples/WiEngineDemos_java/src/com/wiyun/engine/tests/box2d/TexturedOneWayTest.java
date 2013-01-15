@@ -109,7 +109,7 @@ public class TexturedOneWayTest extends WiEngineTestActivity {
 				m_top = 10.0f + 0.5f;
 				
 				// bind texture
-				Texture2D tex = Texture2D.makePNG(R.drawable.bar);
+				Texture2D tex = Texture2D.make(R.drawable.bar);
 				render.bindTexture(m_platform, tex);
 			}
 
@@ -132,7 +132,7 @@ public class TexturedOneWayTest extends WiEngineTestActivity {
 				m_state = e_unknown;
 				
 				// bind texture
-				Texture2D tex = Texture2D.makePNG(R.drawable.blocks);
+				Texture2D tex = Texture2D.make(R.drawable.blocks);
 				render.bindTexture(m_character, tex, WYRect.make(mRandom.nextInt(2) * size * 2, mRandom.nextInt(2) * size * 2, size * 2, size * 2));
 			}
 

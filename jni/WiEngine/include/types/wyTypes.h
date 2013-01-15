@@ -195,7 +195,6 @@ typedef unsigned int char32_t;
 #endif
 
 // other includes
-#include "wyPVR.h"
 #include "wyPoint.h"
 #include "wyDimension.h"
 #include "wySize.h"

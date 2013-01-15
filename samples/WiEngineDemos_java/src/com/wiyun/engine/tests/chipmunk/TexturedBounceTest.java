@@ -112,7 +112,7 @@ public class TexturedBounceTest extends WiEngineTestActivity {
 			shape = Segment.make(body, -150, 0, 150, 0, 15);
 			shape.setRestitution(1);
 			shape.setFriction(1);
-			shape.setTexture(Texture2D.makePNG(R.drawable.bar));
+			shape.setTexture(Texture2D.make(R.drawable.bar));
 			mSpace.addShape(shape);
 			
 			Constraint joint = PivotJoint.make(body, staticBody, WYPoint.makeZero(), WYPoint.makeZero());
@@ -145,7 +145,7 @@ public class TexturedBounceTest extends WiEngineTestActivity {
 			Shape shape = Poly.make(body, verts, WYPoint.makeZero());
 			shape.setRestitution(1);
 			shape.setFriction(0);
-			shape.setTexture(Texture2D.makePNG(R.drawable.blocks),
+			shape.setTexture(Texture2D.make(R.drawable.blocks),
 				WYRect.make(random.nextInt(2) * size * 2, random.nextInt(2) * size * 2, size * 2, size * 2));
 			mSpace.addShape(shape);
 		}

@@ -92,7 +92,7 @@ public class FollowTest extends WiEngineTestActivity {
             fAction.autoRelease();
             
             // background layer: another image
-			TiledSprite ts = TiledSprite.make(Texture2D.makePNG(R.drawable.tiled_bg));
+			TiledSprite ts = TiledSprite.make(Texture2D.make(R.drawable.tiled_bg));
 			ts.setContentSize(s.width, ResolutionIndependent.resolveDp(115));
 			ts.setTileDirection(true, false);
 			ts.setAnchor(0, 0);

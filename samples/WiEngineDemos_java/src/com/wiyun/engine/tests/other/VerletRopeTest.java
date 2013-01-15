@@ -57,7 +57,7 @@ public class VerletRopeTest extends WiEngineTestActivity {
 			WYSize s = Director.getInstance().getWindowSize();
 			m_a = WYPoint.make(s.width / 2, s.height - 100);
 			m_b = WYPoint.make(50, s.height / 2);
-			m_rope = VerletRope.make(m_a, m_b, Texture2D.makePNG(R.drawable.rope));
+			m_rope = VerletRope.make(m_a, m_b, Texture2D.make(R.drawable.rope));
 
 			// enable touch
 			setTouchEnabled(true);

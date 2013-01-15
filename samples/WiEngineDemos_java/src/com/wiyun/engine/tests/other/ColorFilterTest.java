@@ -69,16 +69,16 @@ public class ColorFilterTest extends WiEngineTestActivity {
 			WYSize s = Director.getInstance().getWindowSize();
 			
 			// load texture and create sprite
-			mTex = Texture2D.makePNG(R.drawable.grossini);
+			mTex = Texture2D.make(R.drawable.grossini);
 			mTex.autoRelease();
 			Sprite sprite = Sprite.make(mTex);
 			sprite.setPosition(s.width / 2, s.height / 2);
 			addChild(sprite);
 			
 			// add a button to manipulate line
-    		NinePatchSprite normal = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_normal), 
+    		NinePatchSprite normal = NinePatchSprite.make(Texture2D.make(R.drawable.btn_normal), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
-    		NinePatchSprite pressed = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_pressed), 
+    		NinePatchSprite pressed = NinePatchSprite.make(Texture2D.make(R.drawable.btn_pressed), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
     		normal.setContentSize(DP(300), DP(44));
     		pressed.setContentSize(DP(300), DP(44));

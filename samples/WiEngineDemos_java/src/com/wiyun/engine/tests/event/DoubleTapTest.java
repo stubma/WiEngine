@@ -71,7 +71,7 @@ public class DoubleTapTest extends WiEngineTestActivity {
         	int idx = Utilities.rand(14) + 1;
         	Context context = Director.getInstance().getContext();
         	int id = context.getResources().getIdentifier(String.format("grossini_dance_%02d", idx), "drawable", context.getPackageName());
-			mSprite.setTexture(Texture2D.makePNG(id));
+			mSprite.setTexture(Texture2D.make(id));
 			return true;
 		}
 	}

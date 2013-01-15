@@ -80,7 +80,7 @@ public class ProgressByTest extends WiEngineTestActivity {
         	left.runAction((Action)ProgressBy.make(2, 100).autoRelease());
         	
             int idx = rand(14) + 1;
-            ZwoptexManager.addZwoptex("grossini", R.raw.grossini_dance_atlas, Texture2D.makePNG(R.drawable.grossini_dance_atlas));
+            ZwoptexManager.addZwoptex("grossini", R.raw.grossini_dance_atlas, Texture2D.make(R.drawable.grossini_dance_atlas));
             Sprite sprite = ZwoptexManager.makeSprite(String.format("grossini_dance_%02d.png", idx));
             sprite.autoRelease();
             ProgressTimer right = ProgressTimer.make(sprite);

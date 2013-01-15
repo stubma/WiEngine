@@ -64,8 +64,8 @@ public class DialogTest extends WiEngineTestActivity {
 		}
     	
     	void createButton(String label, Layer layer, float x, float y, TargetSelector ts) {
-    		NinePatchSprite normal1 = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_normal), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
-    		NinePatchSprite pressed1 = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_pressed), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
+    		NinePatchSprite normal1 = NinePatchSprite.make(Texture2D.make(R.drawable.btn_normal), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
+    		NinePatchSprite pressed1 = NinePatchSprite.make(Texture2D.make(R.drawable.btn_pressed), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
     		normal1.setContentSize(DP(300), DP(44));
     		pressed1.setContentSize(DP(300), DP(44));
 
@@ -99,18 +99,18 @@ public class DialogTest extends WiEngineTestActivity {
     		content.autoRelease();
 
     		// background of dialog
-    		NinePatchSprite bg = NinePatchSprite.make(Texture2D.makePNG(R.drawable.dialog_bg), WYRect.make(DP(130), DP(20), DP(1), DP(1)));
+    		NinePatchSprite bg = NinePatchSprite.make(Texture2D.make(R.drawable.dialog_bg), WYRect.make(DP(130), DP(20), DP(1), DP(1)));
     		bg.autoRelease();
 
     		// ok button
-    		Sprite okBtn = Sprite.make(Texture2D.makePNG(R.drawable.dialog_btn));
+    		Sprite okBtn = Sprite.make(Texture2D.make(R.drawable.dialog_btn));
     		Label okLabel = Label.make("OK", 20);
     		okLabel.setColor(new WYColor3B(96, 56, 19));
     		okBtn.autoRelease();
     		okLabel.autoRelease();
 
     		// cancel button
-    		Sprite cancelBtn = Sprite.make(Texture2D.makePNG(R.drawable.dialog_btn));
+    		Sprite cancelBtn = Sprite.make(Texture2D.make(R.drawable.dialog_btn));
     		Label cancelLabel = Label.make("Cancel", 20);
     		cancelLabel.setColor(new WYColor3B(96, 56, 19));
     		cancelBtn.autoRelease();

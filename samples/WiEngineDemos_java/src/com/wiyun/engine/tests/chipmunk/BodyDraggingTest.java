@@ -134,7 +134,7 @@ public class BodyDraggingTest extends WiEngineTestActivity {
 			Shape shape = Poly.make(body, verts, WYPoint.makeZero());
 			shape.setRestitution(1);
 			shape.setFriction(0);
-			shape.setTexture(Texture2D.makePNG(R.drawable.blocks));
+			shape.setTexture(Texture2D.make(R.drawable.blocks));
 			mSpace.addShape(shape);
 			
 			return body;

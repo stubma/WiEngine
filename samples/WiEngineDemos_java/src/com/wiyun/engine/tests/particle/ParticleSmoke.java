@@ -71,7 +71,7 @@ public class ParticleSmoke extends QuadParticleSystem {
         setEndColorVariance(0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f);
 
         // set texture
-        setTexture(Texture2D.makePNG(R.drawable.fire));
+        setTexture(Texture2D.make(R.drawable.fire));
 
         // additive
         setBlendAdditive(false);

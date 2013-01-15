@@ -116,7 +116,7 @@ public class AStarTest extends WiEngineTestActivity {
 			
 			ZwoptexManager.addZwoptex("astar", R.raw.astar);
 			
-			Texture2D tex = Texture2D.makePNG(R.drawable.astar);
+			Texture2D tex = Texture2D.make(R.drawable.astar);
 			SpriteBatchNode batchNode = SpriteBatchNode.make(tex);
 			addChild(batchNode);
 

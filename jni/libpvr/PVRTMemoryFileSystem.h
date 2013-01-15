@@ -6,7 +6,7 @@
 
  @Version      
 
- @Copyright    Copyright (C)  Imagination Technologies Limited.
+ @Copyright    Copyright (c) Imagination Technologies Limited.
 
  @Platform     ANSI compatible
 
@@ -19,7 +19,7 @@
 #include "PVRTGlobal.h"
 #include <stddef.h>
 
-class PVRTEXPORT CPVRTMemoryFileSystem
+class CPVRTMemoryFileSystem
 {
 public:
 	CPVRTMemoryFileSystem(const char* pszFilename, const void* pBuffer, size_t Size, bool bCopy = false);

@@ -53,17 +53,17 @@ public class NinePatchButtonTest extends WiEngineTestActivity {
     class MyLayer extends Layer {
         public MyLayer() {
     		// sprite for button1
-    		NinePatchSprite normal1 = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_normal), 
+    		NinePatchSprite normal1 = NinePatchSprite.make(Texture2D.make(R.drawable.btn_normal), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
-    		NinePatchSprite pressed1 = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_pressed), 
+    		NinePatchSprite pressed1 = NinePatchSprite.make(Texture2D.make(R.drawable.btn_pressed), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
     		normal1.setContentSize(ResolutionIndependent.resolveDp(300), ResolutionIndependent.resolveDp(44));
     		pressed1.setContentSize(ResolutionIndependent.resolveDp(300), ResolutionIndependent.resolveDp(44));
 
     		// sprite for button2
-    		NinePatchSprite normal2 = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_normal), 
+    		NinePatchSprite normal2 = NinePatchSprite.make(Texture2D.make(R.drawable.btn_normal), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
-    		NinePatchSprite pressed2 = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_pressed), 
+    		NinePatchSprite pressed2 = NinePatchSprite.make(Texture2D.make(R.drawable.btn_pressed), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
     		normal2.setContentSize(ResolutionIndependent.resolveDp(100), ResolutionIndependent.resolveDp(44));
     		pressed2.setContentSize(ResolutionIndependent.resolveDp(100), ResolutionIndependent.resolveDp(44));

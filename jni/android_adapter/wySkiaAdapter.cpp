@@ -41,22 +41,6 @@ using namespace std;
 // max value
 #define MAX_FLOAT 3.4028235E38f
 
-// PVR format type
-enum wyPVRFormat {
-	PVR_RGBA_4444 = 0x10,
-	PVR_RGBA_5551 = 0x11,
-	PVR_RGBA_8888 = 0x12,
-	PVR_RGB_565 = 0x13,
-	PVR_RGB_555 = 0x14,
-	PVR_RGB_888 = 0x15,
-	PVR_I_8 = 0x16,
-	PVR_AI_88 = 0x17,
-	PVR_PVRTC_2 = 0x18,
-	PVR_PVRTC_4 = 0x19,
-	PVR_BGRA_8888 = 0x1A,
-	PVR_A_8 = 0x1B
-};
-
 // text alignment
 enum Alignment {
 	LEFT,
@@ -441,25 +425,6 @@ static const char* createLabelBitmap(const char* text, SkTypeface* typeface, flo
     return (const char*)pixels;
 }
 
-static SkBitmap::Config pvr2Config(int format) {
-	SkBitmap::Config config = SkBitmap::kNo_Config;
-	switch(format) {
-		case PVR_RGBA_4444:
-			config = SkBitmap::kARGB_4444_Config;
-			break;
-		case PVR_RGBA_8888:
-			config = SkBitmap::kARGB_8888_Config;
-			break;
-		case PVR_RGB_565:
-			config = SkBitmap::kRGB_565_Config;
-			break;
-		case PVR_A_8:
-			config = SkBitmap::kA8_Config;
-			break;
-	}
-	return config;
-}
-
 char* scaleImage(int config, char* originData, int originWidth, int originHeight, float scaleX, float scaleY) {
 	// get byte per pixel
 	SkBitmap::Config c = (SkBitmap::Config)config;
@@ -512,16 +477,6 @@ char* scaleImage(int config, char* originData, int originWidth, int originHeight
 
 	// return scaled data
 	return (char*)pixels;
-}
-
-char* scalePVR(int format, char* originData, int originWidth, int originHeight, float scale) {
-	SkBitmap::Config config = pvr2Config(format);
-	if(config == SkBitmap::kNo_Config) {
-		LOGW("scalePVR: can't map PVR format to SkBitmap::Config");
-		return originData;
-	}
-
-	return scaleImage(config, originData, originWidth, originHeight, scale, scale);
 }
 
 void calculateTextSizeWithCustomFont(const char* text, float fontSize, const char* fontData, int dataLength, float width, size_t* w, size_t* h) {

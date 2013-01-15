@@ -88,7 +88,7 @@ public class CharacterMoveTest extends WiEngineTestActivity {
 			
 			// add player
 			WYSize s = Director.getInstance().getWindowSize();
-			Texture2D tex = Texture2D.makePNG(R.drawable.player);
+			Texture2D tex = Texture2D.make(R.drawable.player);
 			mPlayer = Sprite.make(tex, WYRect.make(0, ITEM_HEIGHT * 2, ITEM_WIDTH, ITEM_HEIGHT));
 			mPlayer.setPosition(s.width / 2, s.height / 2);
 			addChild(mPlayer);

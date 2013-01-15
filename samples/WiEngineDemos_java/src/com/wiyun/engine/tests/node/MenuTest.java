@@ -61,7 +61,7 @@ public class MenuTest extends WiEngineTestActivity {
         public MyLayer() {
             // Font Item
             // AtlasSprite Item
-			Texture2D tex = Texture2D.makePNG(R.drawable.menuitemsprite);
+			Texture2D tex = Texture2D.make(R.drawable.menuitemsprite);
 
             Sprite spriteNormal = Sprite.make(tex,
             		ResolutionIndependent.resolve(WYRect.make(0, 23 * 2, 115, 23)));
@@ -89,7 +89,7 @@ public class MenuTest extends WiEngineTestActivity {
     		map.mapChar(WYRect.make(ResolutionIndependent.resolveDp(135), 0, ResolutionIndependent.resolveDp(21), ResolutionIndependent.resolveDp(25)), '7');
     		map.mapChar(WYRect.make(ResolutionIndependent.resolveDp(156), 0, ResolutionIndependent.resolveDp(21), ResolutionIndependent.resolveDp(25)), '8');
     		map.mapChar(WYRect.make(ResolutionIndependent.resolveDp(177), 0, ResolutionIndependent.resolveDp(21), ResolutionIndependent.resolveDp(25)), '9');
-            AtlasLabel labelAtlas = AtlasLabel.make("0123456789", Texture2D.makePNG(R.drawable.number), map);
+            AtlasLabel labelAtlas = AtlasLabel.make("0123456789", Texture2D.make(R.drawable.number), map);
             MenuItemAtlasLabel item3 = MenuItemAtlasLabel.make(labelAtlas, 
             	null,
             	new TargetSelector(this, "onOtherMenuItemClicked(Object)", new Object[] { "you click label menu item" }));

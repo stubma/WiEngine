@@ -300,8 +300,8 @@ public:
 		setKeyEnabled(true);
 
 		// speed button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(100), DP(44));
 		pressed->setContentSize(DP(100), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyApplyForceTestLayer::onSpeed)));
@@ -487,8 +487,8 @@ public:
 		setKeyEnabled(true);
 
 		// dynamic button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(100), DP(44));
 		pressed->setContentSize(DP(100), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyBodyTypesTestLayer::onDynamic)));
@@ -1093,8 +1093,8 @@ public:
         addChildLocked(waterLayer, 1);
 
         // create button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(150), DP(44));
 		pressed->setContentSize(DP(150), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyBuoyancyTestLayer::onCreate)));
@@ -1611,8 +1611,8 @@ public:
 		}
 
 		// backward button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(100), DP(44));
 		pressed->setContentSize(DP(100), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyCarTestLayer::onBackward)));
@@ -1652,8 +1652,8 @@ public:
 		addChildLocked(label, 1);
 
 		// freq. down button
-		normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(150), DP(44));
 		pressed->setContentSize(DP(150), DP(44));
 		button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyCarTestLayer::onFreqDown)));
@@ -1837,7 +1837,7 @@ public:
 	wyCollisionDetectionTestLayer() {
 		// create sprite1
 		float size = DP(32.0f);
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 		m_sprite1 = wySprite::make(tex, wyr(wyMath::randMax(1) * size, wyMath::randMax(1) * size, size, size));
 		addChildLocked(m_sprite1, -1);
 
@@ -2247,8 +2247,8 @@ public:
 		setKeyEnabled(true);
 
 		// create circle button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(200), DP(44));
 		pressed->setContentSize(DP(200), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyConfinedTestLayer::onCreate)));
@@ -2629,8 +2629,8 @@ public:
 		setKeyEnabled(true);
 
 		// create button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(150), DP(44));
 		pressed->setContentSize(DP(150), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyEdgeShapesTestLayer::onCreate)));
@@ -3153,37 +3153,37 @@ public:
 	    switch(randNum) {
 	        case 0:
 	            body = m_bodyLoader->createBodyByName(m_box2d, "drink");
-	            sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("drink", "drawable", NULL)));
+	            sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("drink", "drawable", NULL)));
 	            anchorPercent = m_bodyLoader->getAnchorPercent("drink");
 	            break;
 	        case 1:
 	            body = m_bodyLoader->createBodyByName(m_box2d, "hamburger");
-	            sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("hamburger", "drawable", NULL)));
+	            sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("hamburger", "drawable", NULL)));
 	            anchorPercent = m_bodyLoader->getAnchorPercent("hamburger");
 	            break;
 	        case 2:
 	            body = m_bodyLoader->createBodyByName(m_box2d, "hotdog");
-	            sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("hotdog", "drawable", NULL)));
+	            sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("hotdog", "drawable", NULL)));
 	            anchorPercent = m_bodyLoader->getAnchorPercent("hotdog");
 	            break;
 	        case 3:
 	            body = m_bodyLoader->createBodyByName(m_box2d, "icecream");
-	            sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("icecream", "drawable", NULL)));
+	            sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("icecream", "drawable", NULL)));
 	            anchorPercent = m_bodyLoader->getAnchorPercent("icecream");
 	            break;
 	        case 4:
 	            body = m_bodyLoader->createBodyByName(m_box2d, "icecream2");
-	            sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("icecream2", "drawable", NULL)));
+	            sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("icecream2", "drawable", NULL)));
 	            anchorPercent = m_bodyLoader->getAnchorPercent("icecream2");
 	            break;
 	        case 5:
 	            body = m_bodyLoader->createBodyByName(m_box2d, "icecream3");
-	            sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("icecream3", "drawable", NULL)));
+	            sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("icecream3", "drawable", NULL)));
 	            anchorPercent = m_bodyLoader->getAnchorPercent("icecream3");
 	            break;
 	        case 6:
 	            body = m_bodyLoader->createBodyByName(m_box2d, "orange");
-	            sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("orange", "drawable", NULL)));
+	            sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("orange", "drawable", NULL)));
 	            anchorPercent = m_bodyLoader->getAnchorPercent("orange");
 	            break;
 	    }
@@ -3417,8 +3417,8 @@ public:
 		setKeyEnabled(true);
 
 		// toggle button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(300), DP(44));
 		pressed->setContentSize(DP(300), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyRopeTestLayer::onUpdate)));
@@ -3679,8 +3679,8 @@ public:
 		setKeyEnabled(true);
 
 		// create button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(150), DP(44));
 		pressed->setContentSize(DP(150), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyShapeEditingTestLayer::onCreate)));
@@ -3914,8 +3914,8 @@ public:
 		setKeyEnabled(true);
 
 		// toggle friction button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(150), DP(44));
 		pressed->setContentSize(DP(150), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL,  NULL, wyTargetSelector::make(this, SEL(wySliderCrankTestLayer::onToggleFriction)));
@@ -4191,8 +4191,8 @@ public:
 		}
 
 		// left button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(80), DP(44));
 		pressed->setContentSize(DP(80), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL,
@@ -4354,7 +4354,7 @@ public:
 		}
 
 		// boxes
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 		float size = DP(32.0f) / 2;
 		float meterSize = m_box2d->pixel2Meter(size);
 		for (int i = 0; i < 10; i++) {
@@ -4402,7 +4402,7 @@ public:
 			world->CreateJoint(&jd);
 
 			// bind texture
-			tex = wyTexture2D::makePNG(RES("R.drawable.bar"));
+			tex = wyTexture2D::make(RES("R.drawable.bar"));
 			render->bindTexture(f, tex);
 		}
 
@@ -4454,7 +4454,7 @@ public:
 			fixDef.shape = ls;
 			b2Fixture* f = body->CreateFixture(&fixDef);
 
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.rope"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.rope"));
 			render->bindTexture(f, tex);
 		}
 
@@ -4504,7 +4504,7 @@ public:
 
 			float32 x1 = -20.0f;
 			float32 y1 = 2.0f * cosf(x1 / 10.0f * b2_pi);
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.rope"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.rope"));
 			for (int32 i = 0; i < 80; ++i)
 			{
 				float32 x2 = x1 + 0.5f;
@@ -4562,8 +4562,8 @@ public:
 		setKeyEnabled(true);
 
 		// create button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(150), DP(44));
 		pressed->setContentSize(DP(150), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyTexturedEdgeShapesTestLayer::onCreate)));
@@ -4675,7 +4675,7 @@ public:
 		}
 
 		// bind texture
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 		float size = DP(32.0f) / 2;
 		m_box2d->getBox2DRender()->bindTexture(f, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
 
@@ -4776,7 +4776,7 @@ public:
 			m_top = 10.0f + 0.5f;
 
 			// bind texture
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.bar"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.bar"));
 			render->bindTexture(m_platform, tex);
 		}
 
@@ -4798,7 +4798,7 @@ public:
 			m_state = e_unknown;
 
 			// bind texture
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 			render->bindTexture(m_character, tex, wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2));
 		}
 
@@ -5140,8 +5140,8 @@ public:
 		setKeyEnabled(true);
 
 		// delete body button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(150), DP(44));
 		pressed->setContentSize(DP(150), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyWebTestLayer::onDestroyBody)));

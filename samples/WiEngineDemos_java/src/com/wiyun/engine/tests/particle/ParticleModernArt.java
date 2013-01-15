@@ -74,7 +74,7 @@ public class ParticleModernArt extends QuadParticleSystem {
         setStartSizeVariance(1f, 1f);
         setEndSizeVariance(32f, 8f);
     	
-        setTexture(Texture2D.makePNG(R.drawable.fire));
+        setTexture(Texture2D.make(R.drawable.fire));
 
     	// additive
     	setBlendAdditive(false);

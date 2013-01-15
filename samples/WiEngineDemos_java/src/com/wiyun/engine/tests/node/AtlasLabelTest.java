@@ -88,7 +88,7 @@ public class AtlasLabelTest extends WiEngineTestActivity {
     		map.mapChar(WYRect.make(ResolutionIndependent.resolveDp(177), 0, ResolutionIndependent.resolveDp(21), ResolutionIndependent.resolveDp(25)), '9');
         	
         	// The size of the texture should be a power of 2
-        	Texture2D texture = Texture2D.makePNG(R.drawable.number);
+        	Texture2D texture = Texture2D.make(R.drawable.number);
             label[0] = AtlasLabel.make("1", texture, map);
             label[0].setAnchor(0, 0);
             label[0].setPosition(ResolutionIndependent.resolveDp(10), ResolutionIndependent.resolveDp(100));
@@ -119,7 +119,7 @@ public class AtlasLabelTest extends WiEngineTestActivity {
         	map.mapChar(ResolutionIndependent.resolve(WYRect.make(97, 1, 17, 21)), '擎', ResolutionIndependent.resolveDp(2), ResolutionIndependent.resolveDp(1));
             
             // The size of the texture should be a power of 2
-        	texture = Texture2D.makePNG(R.drawable.bitmapfont);
+        	texture = Texture2D.make(R.drawable.bitmapfont);
         	AtlasLabel chinese = AtlasLabel.make("微云 游戏\t引擎微\n云游戏引擎", texture, map);
         	chinese.setAnchor(0, 0);
         	chinese.setColor(new WYColor3B(255, 255, 0));

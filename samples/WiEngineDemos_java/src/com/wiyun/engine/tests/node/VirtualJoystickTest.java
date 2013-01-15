@@ -86,7 +86,7 @@ public class VirtualJoystickTest extends WiEngineTestActivity {
 
     		// red spx
     		WYSize s = Director.getInstance().getWindowSize();
-    		Texture2D tex = Texture2D.makePNG(R.drawable.spx_test);
+    		Texture2D tex = Texture2D.make(R.drawable.spx_test);
     		tex.autoRelease();
     		m_spx = SPXSprite.make(R.raw.spx_test, tex, IDLE_ANIM);
     		m_spx.setLoopCount(-1);

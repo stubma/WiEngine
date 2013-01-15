@@ -29,59 +29,59 @@ extern "C" {
 #define com_wiyun_engine_opengl_Texture2D_SOURCE_RAW 7L
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    nativeNew
+ * Method:    nativeInitBitmap
  * Signature: (Lcom/wiyun/engine/utils/BitmapRawData;I)I
  */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__Lcom_wiyun_engine_utils_BitmapRawData_2I
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitBitmap
   (JNIEnv *, jobject, jobject, jint);
 
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    nativeNew
+ * Method:    nativeInitGL
  * Signature: (III)I
  */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__III
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitGL
   (JNIEnv *, jobject, jint, jint, jint);
 
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    nativeNew
- * Signature: (IIII)I
+ * Method:    nativeInit
+ * Signature: (III)I
  */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__IIII
-  (JNIEnv *, jobject, jint, jint, jint, jint);
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInit__III
+  (JNIEnv *, jobject, jint, jint, jint);
 
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    nativeNew
- * Signature: (ILjava/lang/String;IIF)I
+ * Method:    nativeInit
+ * Signature: (Ljava/lang/String;IIF)I
  */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__ILjava_lang_String_2IIF
-  (JNIEnv *, jobject, jint, jstring, jint, jint, jfloat);
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInit__Ljava_lang_String_2IIF
+  (JNIEnv *, jobject, jstring, jint, jint, jfloat);
 
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    nativeNew
+ * Method:    nativeInitLabel
  * Signature: (Ljava/lang/String;FLjava/lang/String;ZFI)I
  */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__Ljava_lang_String_2FLjava_lang_String_2ZFI
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitLabel__Ljava_lang_String_2FLjava_lang_String_2ZFI
   (JNIEnv *, jobject, jstring, jfloat, jstring, jboolean, jfloat, jint);
 
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    nativeNew
+ * Method:    nativeInitLabel
  * Signature: (Ljava/lang/String;FILjava/lang/String;FI)I
  */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__Ljava_lang_String_2FILjava_lang_String_2FI
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitLabel__Ljava_lang_String_2FILjava_lang_String_2FI
   (JNIEnv *, jobject, jstring, jfloat, jint, jstring, jfloat, jint);
 
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    nativeNewFile
- * Signature: (ILjava/lang/String;IIF)I
+ * Method:    nativeInitFile
+ * Signature: (Ljava/lang/String;IIF)I
  */
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNewFile
-  (JNIEnv *, jobject, jint, jstring, jint, jint, jfloat);
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitFile
+  (JNIEnv *, jobject, jstring, jint, jint, jfloat);
 
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D

@@ -4,9 +4,9 @@
 
  @Title        PVRTString
 
- @Version      
+ @Version       @Version      
 
- @Copyright    Copyright (C)  Imagination Technologies Limited.
+ @Copyright    Copyright (c) Imagination Technologies Limited.
 
  @Platform     ANSI compatible
 
@@ -19,15 +19,26 @@
 #define _PVRTSTRING_H_
 
 #include <stdio.h>
-#include "PVRTGlobal.h"
 #define _USING_PVRTSTRING_
 
 /*!***************************************************************************
- @Class CPVRTString
- @Brief A string class
+@Class CPVRTString
+@Brief A string class
 *****************************************************************************/
-class PVRTEXPORT CPVRTString
+class CPVRTString
 {
+
+private:
+
+	// Checking printf and scanf format strings
+#if defined(_CC_GNU_) || defined(__GNUG__) || defined(__GNUC__)
+#define FX_PRINTF(fmt,arg) __attribute__((format(printf,fmt,arg)))
+#define FX_SCANF(fmt,arg)  __attribute__((format(scanf,fmt,arg)))
+#else
+#define FX_PRINTF(fmt,arg)
+#define FX_SCANF(fmt,arg)
+#endif
+
 public:
 	typedef	size_t	size_type;
 	typedef	char value_type;
@@ -35,6 +46,9 @@ public:
 	typedef	const char& const_reference;
 
 	static const size_type npos;
+
+
+	
 
 	/*!***********************************************************************
 	@Function			CPVRTString
@@ -255,7 +269,7 @@ public:
 	@Returns			0 if the strings match
 	@Description		Compares the string with _Str
 	*************************************************************************/
-	int compare(size_t _Pos1, size_t _Num1, const char* _Ptr, size_t _Count = npos) const;
+	int compare(size_t _Pos1, size_t _Num1, const char* _Ptr, size_t _Count) const;
 
 	/*!***********************************************************************
 	@Function			<
@@ -336,10 +350,47 @@ public:
 	*************************************************************************/
 	CPVRTString& erase(size_t _Pos = 0, size_t _Count = npos);
 
+	/*!***********************************************************************
+	@Function			substitute
+	@Input				_src	Character to search
+	@Input				_subDes	Character to substitute for
+	@Input				_all	Substitute all
+	@Returns			An updated string
+	@Description		Erases a portion of the string
+	*************************************************************************/
+	CPVRTString& substitute(char _src,char _subDes, bool _all = true);
+
+	/*!***********************************************************************
+	@Function			substitute
+	@Input				_src	Character to search
+	@Input				_subDes	Character to substitute for
+	@Input				_all	Substitute all
+	@Returns			An updated string
+	@Description		Erases a portion of the string
+	*************************************************************************/
+	CPVRTString& substitute(const char* _src, const char* _subDes, bool _all = true);
+
 	//size_t find(char _Ch, size_t _Off = 0) const;
 	//size_t find(const char* _Ptr, size_t _Off = 0) const;
-	//size_t find(const char* _Ptr, size_t _Off = 0, size_t _Count) const;
-	//size_t find(const CPVRTString& _Str, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find
+	@Input				_Ptr	String to search.
+	@Input				_Off	Offset to search from.
+	@Input				_Count	Number of characters in this string.
+	@Returns			Position of the first matched string.
+	@Description		Finds a substring within this string.
+	*************************************************************************/
+	size_t find(const char* _Ptr, size_t _Off, size_t _Count) const;
+	
+	/*!***********************************************************************
+	@Function			find
+	@Input				_Str	String to search.
+	@Input				_Off	Offset to search from.
+	@Returns			Position of the first matched string.
+	@Description		Finds a substring within this string.
+	*************************************************************************/
+	size_t find(const CPVRTString& _Str, size_t _Off = 0) const;
 
 	/*!***********************************************************************
 	@Function			find_first_not_of
@@ -405,6 +456,17 @@ public:
 	@Description		Returns the position of the first char that matches a char in _Ptr
 	*************************************************************************/
 	size_t find_first_of(const char* _Ptr, size_t _Off, size_t _Count) const;
+
+	/*!***********************************************************************
+	@Function			find_first_ofn
+	@Input				_Ptr	A string
+	@Input				_Off	Start position of the find
+	@Input				_Count	Size of _Ptr
+	@Returns			Position of the first char that matches a char in _Ptr
+	@Description		Returns the position of the first char that matches all chars in _Ptr
+	*************************************************************************/
+	size_t find_first_ofn(const char* _Ptr, size_t _Off, size_t _Count) const;
+	
 
 	/*!***********************************************************************
 	@Function			find_first_of
@@ -488,6 +550,145 @@ public:
 	@Description		Returns the position of the last char that is in _Str
 	*************************************************************************/
 	size_t find_last_of(const CPVRTString& _Str, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_number_of
+	@Input				_Ch		A char
+	@Input				_Off	Start position of the find
+	@Returns			Number of occurances of _Ch in the parent string.
+	@Description		Returns the number of occurances of _Ch in the parent string.
+	*************************************************************************/
+	size_t find_number_of(char _Ch, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_number_of
+	@Input				_Ptr	A string
+	@Input				_Off	Start position of the find
+	@Returns			Number of occurances of _Ptr in the parent string.
+	@Description		Returns the number of occurances of _Ptr in the parent string.
+	*************************************************************************/
+	size_t find_number_of(const char* _Ptr, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_number_of
+	@Input				_Ptr	A string
+	@Input				_Off	Start position of the find
+	@Input				_Count	Size of _Ptr
+	@Returns			Number of occurances of _Ptr in the parent string.
+	@Description		Returns the number of occurances of _Ptr in the parent string.
+	*************************************************************************/
+	size_t find_number_of(const char* _Ptr, size_t _Off, size_t _Count) const;
+
+	/*!***********************************************************************
+	@Function			find_number_of
+	@Input				_Str	A string
+	@Input				_Off	Start position of the find
+	@Returns			Number of occurances of _Str in the parent string.
+	@Description		Returns the number of occurances of _Str in the parent string.
+	*************************************************************************/
+	size_t find_number_of(const CPVRTString& _Str, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_next_occurance_of
+	@Input				_Ch		A char
+	@Input				_Off	Start position of the find
+	@Returns			Next occurance of _Ch in the parent string.
+	@Description		Returns the next occurance of _Ch in the parent string
+	after or at _Off.	If not found, returns the length of the string.
+	*************************************************************************/
+	int find_next_occurance_of(char _Ch, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_next_occurance_of
+	@Input				_Ptr	A string
+	@Input				_Off	Start position of the find
+	@Returns			Next occurance of _Ptr in the parent string.
+	@Description		Returns the next occurance of _Ptr in the parent string
+	after or at _Off.	If not found, returns the length of the string.
+	*************************************************************************/
+	int find_next_occurance_of(const char* _Ptr, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_next_occurance_of
+	@Input				_Ptr	A string
+	@Input				_Off	Start position of the find
+	@Input				_Count	Size of _Ptr
+	@Returns			Next occurance of _Ptr in the parent string.
+	@Description		Returns the next occurance of _Ptr in the parent string
+	after or at _Off.	If not found, returns the length of the string.
+	*************************************************************************/
+	int find_next_occurance_of(const char* _Ptr, size_t _Off, size_t _Count) const;
+
+	/*!***********************************************************************
+	@Function			find_next_occurance_of
+	@Input				_Str	A string
+	@Input				_Off	Start position of the find
+	@Returns			Next occurance of _Str in the parent string.
+	@Description		Returns the next occurance of _Str in the parent string
+	after or at _Off.	If not found, returns the length of the string.
+	*************************************************************************/
+	int find_next_occurance_of(const CPVRTString& _Str, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_previous_occurance_of
+	@Input				_Ch		A char
+	@Input				_Off	Start position of the find
+	@Returns			Previous occurance of _Ch in the parent string.
+	@Description		Returns the previous occurance of _Ch in the parent string
+	before _Off.	If not found, returns -1.
+	*************************************************************************/
+	int find_previous_occurance_of(char _Ch, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_previous_occurance_of
+	@Input				_Ptr	A string
+	@Input				_Off	Start position of the find
+	@Returns			Previous occurance of _Ptr in the parent string.
+	@Description		Returns the previous occurance of _Ptr in the parent string
+	before _Off.	If not found, returns -1.
+	*************************************************************************/
+	int find_previous_occurance_of(const char* _Ptr, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			find_previous_occurance_of
+	@Input				_Ptr	A string
+	@Input				_Off	Start position of the find
+	@Input				_Count	Size of _Ptr
+	@Returns			Previous occurance of _Ptr in the parent string.
+	@Description		Returns the previous occurance of _Ptr in the parent string
+	before _Off.	If not found, returns -1.
+	*************************************************************************/
+	int find_previous_occurance_of(const char* _Ptr, size_t _Off, size_t _Count) const;
+
+	/*!***********************************************************************
+	@Function			find_previous_occurance_of
+	@Input				_Str	A string
+	@Input				_Off	Start position of the find
+	@Returns			Previous occurance of _Str in the parent string.
+	@Description		Returns the previous occurance of _Str in the parent string
+	before _Off.	If not found, returns -1.
+	*************************************************************************/
+	int find_previous_occurance_of(const CPVRTString& _Str, size_t _Off = 0) const;
+
+	/*!***********************************************************************
+	@Function			left
+	@Input				iSize	number of characters to return (excluding null character)
+	@Returns			The leftmost 'iSize' characters of the string.
+	@Description		Returns the leftmost characters of the string (excluding 
+	the null character) in a new CPVRTString. If iSize is
+	larger than the string, a copy of the original string is returned.
+	*************************************************************************/
+	CPVRTString left(size_t iSize) const;
+
+	/*!***********************************************************************
+	@Function			right
+	@Input				iSize	number of characters to return (excluding null character)
+	@Returns			The rightmost 'iSize' characters of the string.
+	@Description		Returns the rightmost characters of the string (excluding 
+	the null character) in a new CPVRTString. If iSize is
+	larger than the string, a copy of the original string is returned.
+	*************************************************************************/
+	CPVRTString right(size_t iSize) const;
 
 	//allocator_type get_allocator( ) const;
 
@@ -588,7 +789,22 @@ public:
 	@Description		Converts the string to lower case
 	*************************************************************************/
 	CPVRTString& toLower();
+	
+	/*!***********************************************************************
+	@Function			toUpper
+	@Returns			An updated string
+	@Description		Converts the string to upper case
+	*************************************************************************/
+	CPVRTString& toUpper();
 
+	/*!***********************************************************************
+	@Function			format
+	@Input				pFormat A string containing the formating
+	@Returns			A formatted string
+	@Description		return the formatted string
+	************************************************************************/
+	CPVRTString format(const char *pFormat, ...);
+	
 	/*!***********************************************************************
 	@Function			+=
 	@Input				_Ch A char
@@ -713,7 +929,7 @@ protected:
 @Input				strFilePath A string
 @Returns			Extension
 @Description		Extracts the file extension from a file path.
-					Returns an empty CPVRTString if no extension is found.
+Returns an empty CPVRTString if no extension is found.
 ************************************************************************/
 CPVRTString PVRTStringGetFileExtension(const CPVRTString& strFilePath);
 
@@ -741,10 +957,29 @@ CPVRTString PVRTStringGetFileName(const CPVRTString& strFilePath);
 ************************************************************************/
 CPVRTString PVRTStringStripWhiteSpaceFromStartOf(const CPVRTString& strLine);
 
+/*!***********************************************************************
+@Function			PVRTStringStripWhiteSpaceFromEndOf
+@Input				strLine A string
+@Returns			Result of the white space stripping
+@Description		strips white space characters from the end of a CPVRTString.
+************************************************************************/
+CPVRTString PVRTStringStripWhiteSpaceFromEndOf(const CPVRTString& strLine);
+
+/*!***********************************************************************
+@Function			PVRTStringFromFormattedStr
+@Input				pFormat A string containing the formating
+@Returns			A formatted string
+@Description		Creates a formatted string
+************************************************************************/
+CPVRTString PVRTStringFromFormattedStr(const char *pFormat, ...);
 
 #endif // _PVRTSTRING_H_
+
 
 /*****************************************************************************
 End of file (PVRTString.h)
 *****************************************************************************/
+
+
+
 

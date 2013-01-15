@@ -74,7 +74,7 @@ wyToast::wyToast(wyNode* bg, wyNode* content, float duration) :
 		m_useDefaultPosition(true),
 		m_immediately(false) {
 	// get default background texture size
-	wyTexture2D* bgTex = wyTexture2D::makeRawPNG((const char*)_toast_bg_png, sizeof(_toast_bg_png) - 2);
+	wyTexture2D* bgTex = wyTexture2D::makeRaw((const char*)_toast_bg_png, sizeof(_toast_bg_png) - 2);
 	m_defaultBgWidth = bgTex->getWidth();
 	m_defaultBgHeight = bgTex->getHeight();
 
@@ -103,7 +103,7 @@ wyToast* wyToast::make(wyNode* bg, const char* text, float duration) {
 
 wyToast* wyToast::make(wyNode* content, float duration) {
 	// create texture of default toast background
-	wyTexture2D* bgTex = wyTexture2D::makeRawPNG((const char*)_toast_bg_png, sizeof(_toast_bg_png) - 2);
+	wyTexture2D* bgTex = wyTexture2D::makeRaw((const char*)_toast_bg_png, sizeof(_toast_bg_png) - 2);
 	wyNinePatchSprite* bg = wyNinePatchSprite::make(bgTex, wyr(DP(24), DP(24), 1, 1));
 
 	// create toast and set default margin
@@ -115,7 +115,7 @@ wyToast* wyToast::make(wyNode* content, float duration) {
 
 wyToast* wyToast::make(const char* text, float duration) {
 	// create texture of default toast background
-	wyTexture2D* bgTex = wyTexture2D::makeRawPNG((const char*)_toast_bg_png, sizeof(_toast_bg_png) - 2);
+	wyTexture2D* bgTex = wyTexture2D::makeRaw((const char*)_toast_bg_png, sizeof(_toast_bg_png) - 2);
 	wyNinePatchSprite* bg = wyNinePatchSprite::make(bgTex, wyr(DP(24), DP(24), 1, 1));
 
 	// create label as content

@@ -51,7 +51,7 @@ public class ResourceDecoderTest extends WiEngineTestActivity {
 			Director.setResourceDecoder(this);
 			
 			WYSize s = Director.getInstance().getWindowSize();
-			Sprite sprite = Sprite.make(Texture2D.makePNG(R.drawable.grossini_encoded));
+			Sprite sprite = Sprite.make(Texture2D.make(R.drawable.grossini_encoded));
 			sprite.setPosition(s.width / 2, s.height / 2);
 		    addChild(sprite);
 		    

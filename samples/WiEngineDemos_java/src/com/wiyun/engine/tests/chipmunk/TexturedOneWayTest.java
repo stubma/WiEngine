@@ -105,7 +105,7 @@ public class TexturedOneWayTest extends WiEngineTestActivity {
 			shape.setCollisionType(1);
 			shape.setLayerMask(Chipmunk.NOT_GRABABLE_MASK);
 			shape.setData(new ArrayList<Shape>());
-			shape.setTexture(Texture2D.makePNG(R.drawable.bar));
+			shape.setTexture(Texture2D.make(R.drawable.bar));
 			mSpace.addStaticShape(shape);
 			
 			float radius = ResolutionIndependent.resolveDp(32f) / 2f;
@@ -118,7 +118,7 @@ public class TexturedOneWayTest extends WiEngineTestActivity {
 			shape = Circle.make(body, radius);
 			shape.setFriction(0.9f);
 			shape.setCollisionType(2);
-			shape.setTexture(Texture2D.makePNG(R.drawable.blocks),
+			shape.setTexture(Texture2D.make(R.drawable.blocks),
 				WYRect.make(random.nextInt(2) * radius * 2, random.nextInt(2) * radius * 2, radius * 2, radius * 2));
 			mSpace.addShape(shape);
 			

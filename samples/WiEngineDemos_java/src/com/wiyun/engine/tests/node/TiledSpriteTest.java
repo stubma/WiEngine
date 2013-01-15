@@ -56,7 +56,7 @@ public class TiledSpriteTest extends WiEngineTestActivity {
     	private TiledSprite mTS;
     	
     	public MyLayer() {
-    		mTS = TiledSprite.make(Texture2D.makeJPG(R.drawable.test_jpg));
+    		mTS = TiledSprite.make(Texture2D.make(R.drawable.test_jpg));
     		mTS.setTileDirection(true, true); // 可以设置平铺的方向, 缺省就是x, y方向都平铺S
     		mTS.setSpacing(DP(10), DP(20));
     		addChild(mTS);

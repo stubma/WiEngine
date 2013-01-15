@@ -73,15 +73,15 @@ public class TMXOrthogonalTest extends WiEngineTestActivity {
     	private float mLastY;
     	
     	public MyLayer() {
-    		Texture2D tex1 = Texture2D.makePNG(R.drawable.ortho_test1);
+    		Texture2D tex1 = Texture2D.make(R.drawable.ortho_test1);
     		tex1.autoRelease();
-    		Texture2D tex2 = Texture2D.makePNG(R.drawable.ortho_test1_bw);
+    		Texture2D tex2 = Texture2D.make(R.drawable.ortho_test1_bw);
     		tex2.autoRelease();
     		mMap = TMXTileMap.make(R.raw.orthogonal_test5, tex1, tex2);
             addChild(mMap);
             
     		// add click feedback sprite
-    		Texture2D tex = Texture2D.makePNG(R.drawable.blocks);
+    		Texture2D tex = Texture2D.make(R.drawable.blocks);
     		mSprite = Sprite.make(tex, ResolutionIndependent.resolve(WYRect.make(0, 0, 32, 32)));
     		mSprite.setVisible(false);
     		mMap.addChild(mSprite, 10);

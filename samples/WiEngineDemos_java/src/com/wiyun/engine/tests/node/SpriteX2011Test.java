@@ -61,7 +61,7 @@ public class SpriteX2011Test extends WiEngineTestActivity {
     		// SpriteX是不支持tick模式播放的, 但是可以使用setForceTickMode强行设置使用tick模式
     		// 为了看效果, 把unit interval设置的比较大, 这样可以看到动画变慢了
     		WYSize s = Director.getInstance().getWindowSize();
-    		Texture2D tex1 = Texture2D.makePNG(R.drawable.spx3_test);
+    		Texture2D tex1 = Texture2D.make(R.drawable.spx3_test);
     		tex1.autoRelease();
     		m_sprite1 = SPX3Sprite.make(R.raw.spx3_test, 0, tex1);
     		m_sprite1.setLoopCount(-1);

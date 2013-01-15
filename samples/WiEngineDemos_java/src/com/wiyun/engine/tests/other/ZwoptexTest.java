@@ -72,7 +72,7 @@ public class ZwoptexTest extends WiEngineTestActivity {
 
     class MyLayer extends Layer {
         public MyLayer() {
-        	Texture2D tex = Texture2D.makePNG(R.drawable.grossini_dance_atlas);
+        	Texture2D tex = Texture2D.make(R.drawable.grossini_dance_atlas);
         	ZwoptexManager.addZwoptex("grossini", R.raw.grossini_dance_atlas, tex);
         	
             float x, y;

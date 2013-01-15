@@ -80,7 +80,7 @@ public class ParticleSnow extends QuadParticleSystem {
         setStartColorVariance(0.9f, 0.9f, 0.9f, 1f, 0f, 0f, 0.1f, 0f);
         setEndColorVariance(1f, 1f, 1f, 0f, 0f, 0f, 0f, 0f);
 
-        setTexture(Texture2D.makePNG(R.drawable.snow));
+        setTexture(Texture2D.make(R.drawable.snow));
 
         // additive
         setBlendAdditive(false);

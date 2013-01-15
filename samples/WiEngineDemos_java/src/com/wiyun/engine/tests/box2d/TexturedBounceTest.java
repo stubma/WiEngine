@@ -113,7 +113,7 @@ public class TexturedBounceTest extends WiEngineTestActivity {
 			}
 			
 			// boxes
-			Texture2D tex = Texture2D.makePNG(R.drawable.blocks);
+			Texture2D tex = Texture2D.make(R.drawable.blocks);
 			float size = ResolutionIndependent.resolveDp(32f) / 2;
 			float meterSize = mBox2D.pixel2Meter(size);
 			for (int i = 0; i < 10; i++) {
@@ -165,7 +165,7 @@ public class TexturedBounceTest extends WiEngineTestActivity {
 				jd.destroy();
 				
 				// bind texture
-				tex = Texture2D.makePNG(R.drawable.bar);
+				tex = Texture2D.make(R.drawable.bar);
 				render.bindTexture(f, tex);
 			}
 			

@@ -99,7 +99,7 @@ public class MotionStreakTest extends WiEngineTestActivity {
             mTarget.setPosition(100, 0);
 
             // create the streak object and add it to the scene
-            mStreak1 = MotionStreak.make(2, Texture2D.makePNG(R.drawable.icon), new WYColor4B(0, 255, 0, 255));
+            mStreak1 = MotionStreak.make(2, Texture2D.make(R.drawable.icon), new WYColor4B(0, 255, 0, 255));
             addChild(mStreak1);
             
             // run actions
@@ -115,7 +115,7 @@ public class MotionStreakTest extends WiEngineTestActivity {
              */
             
     		// create second streak, fade time is 0 so it doesn't disappear until you call reset
-    		mStreak2 = MotionStreak.make(0, Texture2D.makePNG(R.drawable.track), new WYColor4B(55, 66, 200, 255), MotionStreak.STYLE_SPOT);
+    		mStreak2 = MotionStreak.make(0, Texture2D.make(R.drawable.track), new WYColor4B(55, 66, 200, 255), MotionStreak.STYLE_SPOT);
     		SpotRibbon.from(mStreak2.getRibbon()).setDistance(ResolutionIndependent.resolveDp(20));
     		addChild(mStreak2);
             
@@ -162,11 +162,11 @@ public class MotionStreakTest extends WiEngineTestActivity {
 			fixDef.destroy();
 			
             // create thrid streak object and add it to the scene
-            mStreak3 = MotionStreak.make(0.01f, Texture2D.makePNG(R.drawable.streak), new WYColor4B(255, 255, 255, 255), MotionStreak.STYLE_BLADE);
+            mStreak3 = MotionStreak.make(0.01f, Texture2D.make(R.drawable.streak), new WYColor4B(255, 255, 255, 255), MotionStreak.STYLE_BLADE);
             addChild(mStreak3);
             
             // create fourth streak object in line style
-            mStreak4 = MotionStreak.make(0, Texture2D.makePNG(R.drawable.line), new WYColor4B(255, 0, 0, 255), MotionStreak.STYLE_LINE);
+            mStreak4 = MotionStreak.make(0, Texture2D.make(R.drawable.line), new WYColor4B(255, 0, 0, 255), MotionStreak.STYLE_LINE);
             LineRibbon.from(mStreak4.getRibbon()).setLineWidth(8);
             addChild(mStreak4);
             

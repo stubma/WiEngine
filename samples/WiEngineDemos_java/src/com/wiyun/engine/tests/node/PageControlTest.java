@@ -60,9 +60,9 @@ public class PageControlTest extends WiEngineTestActivity {
     	
     	public MyLayer() {
     		// create pages
-    		Sprite page1 = Sprite.make(Texture2D.makePNG(R.drawable.grossini_dance_05));
-    		Sprite page2 = Sprite.make(Texture2D.makePNG(R.drawable.grossini_dance_09));
-    		Sprite page3 = Sprite.make(Texture2D.makePNG(R.drawable.grossini_dance_04));
+    		Sprite page1 = Sprite.make(Texture2D.make(R.drawable.grossini_dance_05));
+    		Sprite page2 = Sprite.make(Texture2D.make(R.drawable.grossini_dance_09));
+    		Sprite page3 = Sprite.make(Texture2D.make(R.drawable.grossini_dance_04));
 
     		// page control
     		PageControl pageControl = PageControl.make();
@@ -79,8 +79,8 @@ public class PageControlTest extends WiEngineTestActivity {
     		// set page indicator
     		WYSize s = Director.getInstance().getWindowSize();
     		DotPageIndicator indicator = DotPageIndicator.make(
-    				Texture2D.makePNG(R.drawable.thumb),
-    				Texture2D.makePNG(R.drawable.joystick_rocker));
+    				Texture2D.make(R.drawable.thumb),
+    				Texture2D.make(R.drawable.joystick_rocker));
     		indicator.setPosition(s.width / 2, s.height - DP(60));
     		pageControl.setPageIndicator(indicator);
     		

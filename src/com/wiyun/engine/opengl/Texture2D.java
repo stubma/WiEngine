@@ -95,174 +95,103 @@ public class Texture2D extends BaseWYObject {
 	public static final int SOURCE_RAW = 7;
 	
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
+	 * Create texture from image file which is specified by resource id.
+	 * It will auto detect image file format.
 	 *
-	 * @param resId 资源id
-	 * @return \link Texture2D Texture2D\endlink
+	 * @param resId resource id
+	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	public static Texture2D makeBMP(int resId) {
-		return makeBMP(resId, 0);
+	public static Texture2D make(int resId) {
+		return make(resId, 0);
 	}
 	
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过资源id指定, 创建的贴图格式由format参数指定.
+	 * Create texture from image file which is specified by resource id.
+	 * It will auto detect image file format.
 	 *
-	 * @param resId 资源id
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link Texture2D Texture2D\endlink
+	 * @param resId resource id
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	public static Texture2D makeBMP(int resId, int transparentColor) {
-		return makeBMP(resId, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
+	public static Texture2D make(int resId, int transparentColor) {
+		return make(resId, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
 	}
 	
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过资源id指定, 创建的贴图格式由format参数指定.
+	 * Create texture from image file which is specified by resource id.
+	 * It will auto detect image file format.
 	 *
-	 * @param resId 资源id
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
+	 * @param resId resource id
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param format destination opengl texture format
+	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	public static Texture2D makeBMP(int resId, int transparentColor, int format) {
-		Texture2D tex = new Texture2D(SOURCE_BMP, resId, transparentColor, format);
+	public static Texture2D make(int resId, int transparentColor, int format) {
+		Texture2D tex = new Texture2D();
+		tex.mPointer = tex.nativeInit(resId, transparentColor, format);
 		return tex;
 	}
 	
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由当前缺省贴图格式确定
+	 * Create texture from an image file which is specified by assets relative path. It
+	 * will auto detect image file format
 	 *
-	 * @param path BMP文件在assets下的路径
-	 * @return \link Texture2D Texture2D\endlink
+	 * @param assetPath relative path of image file in assets
+	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	public static Texture2D makeBMP(String path) {
-		return makeBMP(path, 0);
+	public static Texture2D make(String path) {
+		return make(path, 0);
 	}
 	
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由当前缺省贴图格式确定
+	 * Create texture from an image file which is specified by assets relative path. It
+	 * will auto detect image file format
 	 *
-	 * @param path BMP文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link Texture2D Texture2D\endlink
+	 * @param assetPath relative path of image file in assets
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	public static Texture2D makeBMP(String path, int transparentColor) {
-		return makeBMP(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
+	public static Texture2D make(String path, int transparentColor) {
+		return make(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
 	}
 	
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由当前缺省贴图格式确定
+	 * Create texture from an image file which is specified by assets relative path. It
+	 * will auto detect image file format
 	 *
-	 * @param path BMP文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
+	 * @param assetPath relative path of image file in assets
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param format destination opengl texture format
+	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	public static Texture2D makeBMP(String path, int transparentColor, int format) {
-		return makeBMP(path, transparentColor, format, Director.getDefaultInDensity());
+	public static Texture2D make(String path, int transparentColor, int format) {
+		return make(path, transparentColor, format, Director.getDefaultInDensity());
 	}
 	
 	/**
-	 * 从BMP文件创建贴图，BMP文件通过assets路径指定, 创建的贴图格式由format参数指定.
+	 * Create texture from an image file which is specified by assets relative path. It
+	 * will auto detect image file format
 	 *
-	 * @param path BMP文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过Director::setDefaultInDensity指定
-	 * @return \link Texture2D Texture2D\endlink
+	 * @param assetPath relative path of image file in assets
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param format destination opengl texture format
+	 * @param inDensity density of image file, zero means uses system default setting.
+	 * 		By default, density is 1 and can be changed by setting wyDevice::defaultInDensity value
+	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	public static Texture2D makeBMP(String path, int transparentColor, int format, float inDensity) {
-		Texture2D tex = new Texture2D(SOURCE_BMP, path, transparentColor, format, inDensity);
-		return tex;
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param resId 资源id
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeJPG(int resId) {
-		return makeJPG(resId, 0);
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param resId 资源id
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeJPG(int resId, int transparentColor) {
-		return makeJPG(resId, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过资源id指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param resId 资源id
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeJPG(int resId, int transparentColor, int format) {
-		Texture2D tex = new Texture2D(SOURCE_JPG, resId, transparentColor, format);
-		return tex;
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param path JPG文件在assets下的路径
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeJPG(String path) {
-		return makeJPG(path, 0);
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param path JPG文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeJPG(String path, int transparentColor) {
-		return makeJPG(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param path JPG文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeJPG(String path, int transparentColor, int format) {
-		return makeJPG(path, transparentColor, format, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path JPG文件在assets下的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过Director::setDefaultInDensity指定
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeJPG(String path, int transparentColor, int format, float inDensity) {
-		Texture2D tex = new Texture2D(SOURCE_JPG, path, transparentColor, format, inDensity);
+	public static Texture2D make(String path, int transparentColor, int format, float inDensity) {
+		Texture2D tex = new Texture2D();
+		tex.mPointer = tex.nativeInit(path, transparentColor, format, inDensity);
 		return tex;
 	}
 	
@@ -274,7 +203,9 @@ public class Texture2D extends BaseWYObject {
 	 * @return {@link Texture2D}
 	 */
 	public static Texture2D make(BitmapRawData raw) {
-		return make(raw, TextureManager.getInstance().getTexturePixelFormat());
+		Texture2D tex = new Texture2D();
+		tex.mPointer = tex.nativeInitBitmap(raw, TextureManager.getInstance().getTexturePixelFormat());
+		return tex;
 	}
 	
 	/**
@@ -345,304 +276,77 @@ public class Texture2D extends BaseWYObject {
 	 * 通过一个OpenGL贴图id创建{@link Texture2D}. 但是, 通过这种方式创建的贴图
 	 * 是不会被WiEngine自动拉伸的. 其次, 通过这种方式创建的贴图不会被底层缓冲.
 	 * 
-	 * @param tex OpenGL贴图id
+	 * @param t OpenGL贴图id
 	 * @param w OpenGL贴图的宽度
 	 * @param h OpenGL贴图的高度
 	 * @return {@link Texture2D}
 	 * \endif
 	 */
-	public static Texture2D makeGL(int tex, int w, int h) {
-		return new Texture2D(tex, w, h);
-	}
-	
-	/**
-	 * 通过一个{@link BitmapRawData}对象创建贴图. 通过这种方法创建的贴图最好在不用的手动删除，不然有可能
-	 * 造成内存浪费
-	 * 
-	 * @param raw {@link BitmapRawData}
-	 * @param format 期望生成的贴图格式
-	 * @return {@link Texture2D}
-	 */
-	public static Texture2D make(BitmapRawData raw, int format) {
-		Texture2D tex = new Texture2D(raw, format);
+	public static Texture2D makeGL(int t, int w, int h) {
+		Texture2D tex = new Texture2D();
+		tex.mPointer = tex.nativeInitGL(t, w, h);
 		return tex;
 	}
 	
 	/**
-	 * 从PNG文件创建贴图，PNG文件通过资源id指定, 创建的贴图格式由当前缺省贴图格式确定
+	 * Create texture from an image file and the file is saved in file system. It will
+	 * auto detect image file format
 	 *
-	 * @param resId 资源id
-	 * @return \link Texture2D Texture2D\endlink
+	 * @param fsPath image file path in file system, it should be an absolute file path
+	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
-	public static Texture2D makePNG(int resId) {
-		Texture2D tex = new Texture2D(SOURCE_PNG, resId, 0, TextureManager.getInstance().getTexturePixelFormat());
+	public static Texture2D makeFile(String path) {
+		return makeFile(path, 0);
+	}
+	
+	/**
+	 * Create texture from an image file and the file is saved in file system. It will
+	 * auto detect image file format
+	 *
+	 * @param fsPath image file path in file system, it should be an absolute file path
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	public static Texture2D makeFile(String path, int transparentColor) {
+		return makeFile(path, 0, TextureManager.getInstance().getTexturePixelFormat());
+	}
+	
+	/**
+	 * Create texture from an image file and the file is saved in file system. It will
+	 * auto detect image file format
+	 *
+	 * @param fsPath image file path in file system, it should be an absolute file path
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param format destination opengl texture format
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	public static Texture2D makeFile(String path, int transparentColor, int format) {
+		return makeFile(path, 0, format, Director.getDefaultInDensity());
+	}
+	
+	/**
+	 * Create texture from an image file and the file is saved in file system. It will
+	 * auto detect image file format
+	 *
+	 * @param fsPath image file path in file system, it should be an absolute file path
+	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
+	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
+	 * 		rgb value is same as it will be cleared
+	 * @param format destination opengl texture format
+	 * @param inDensity density of image file, zero means uses system default setting.
+	 * 		By default, density is 1 and can be changed by setting wyDevice::defaultInDensity value
+	 * @return \link wyTexture2D wyTexture2D\endlink
+	 */
+	public static Texture2D makeFile(String path, int transparentColor, int format, float inDensity) {
+		Texture2D tex = new Texture2D();
+		tex.mPointer = tex.nativeInit(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat(), inDensity);
 		return tex;
 	}
 	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过资源id指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param resId 资源id
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makePNG(int resId, int format) {
-		Texture2D tex = new Texture2D(SOURCE_PNG, resId, 0, format);
-		return tex;
-	}
-	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param path PNG文件在assets下的路径
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makePNG(String path) {
-		return makePNG(path, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path PNG文件在assets下的路径
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makePNG(String path, int format) {
-		return makePNG(path, format, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path PNG文件在assets下的路径
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过Director::setDefaultInDensity指定
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makePNG(String path, float inDensity) {
-		Texture2D tex = new Texture2D(SOURCE_PNG, path, 0, TextureManager.getInstance().getTexturePixelFormat(), inDensity);
-		return tex;
-	}
-	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过assets路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path PNG文件在assets下的路径
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过Director::setDefaultInDensity指定
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makePNG(String path, int format, float inDensity) {
-		Texture2D tex = new Texture2D(SOURCE_PNG, path, 0, format, inDensity);
-		return tex;
-	}
-	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由当前缺省贴图格式确定
-	 *
-	 * @param path PNG文件在文件系统中的路径
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFilePNG(String path) {
-		return makeFilePNG(path, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path PNG文件在文件系统中的路径
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFilePNG(String path, int format) {
-		return makeFilePNG(path, format, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path PNG文件在文件系统中的路径
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过Director::setDefaultInDensity指定
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFilePNG(String path, float inDensity) {
-		Texture2D tex = new Texture2D(0, SOURCE_PNG, path, 0, TextureManager.getInstance().getTexturePixelFormat(), inDensity);
-		return tex;
-	}
-	
-	/**
-	 * 从PNG文件创建贴图，PNG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path PNG文件在文件系统中的路径
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过Director::setDefaultInDensity指定
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFilePNG(String path, int format, float inDensity) {
-		Texture2D tex = new Texture2D(0, SOURCE_PNG, path, 0, format, inDensity);
-		return tex;
-	}
-	
-	/**
-	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path BMP文件在文件系统中的路径
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFileBMP(String path) {
-		return makeFileBMP(path, 0);
-	}
-	
-	/**
-	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path BMP文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFileBMP(String path, int transparentColor) {
-		return makeFileBMP(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
-	}
-	
-	/**
-	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path BMP文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFileBMP(String path, int transparentColor, int format) {
-		return makeFileBMP(path, transparentColor, format, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 从BMP文件创建贴图，BMP文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path BMP文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过Director::setDefaultInDensity指定
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFileBMP(String path, int transparentColor, int format, float inDensity) {
-		Texture2D tex = new Texture2D(0, SOURCE_BMP, path, transparentColor, format, inDensity);
-		return tex;
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path JPG文件在文件系统中的路径
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFileJPG(String path) {
-		return makeFileJPG(path, 0);
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path JPG文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFileJPG(String path, int transparentColor) {
-		return makeFileJPG(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path JPG文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFileJPG(String path, int transparentColor, int format) {
-		return makeFileJPG(path, transparentColor, format, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 从JPG文件创建贴图，JPG文件通过文件系统路径指定, 创建的贴图格式由format参数指定.
-	 *
-	 * @param path JPG文件在文件系统中的路径
-	 * @param transparentColor 透明色, 格式为0xaarrggbb, 但是检查时会忽略alpha字段, 只要
-	 * 		匹配rgb值的地方都会被设置为透明
-	 * @param format 贴图格式
-	 * @param inDensity 图片的density, 缺省为0, 表示使用缺省设置，缺省设置是1，可以通过Director::setDefaultInDensity指定
-	 * @return \link Texture2D Texture2D\endlink
-	 */
-	public static Texture2D makeFileJPG(String path, int transparentColor, int format, float inDensity) {
-		Texture2D tex = new Texture2D(0, SOURCE_JPG, path, transparentColor, format, inDensity);
-		return tex;
-	}
-	
-	/**
-	 * 创建一个贴图代理对象
-	 * 
-	 * @param path pvr图片在文件系统中的路径
-	 * @return {@link Texture2D}，如果打开文件失败，则返回null
-	 */
-	public static Texture2D makeFilePVR(String path) {
-		return makeFilePVR(path, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 创建一个贴图代理对象
-	 * 
-	 * @param path pvr图片在文件系统中的路径
-	 * @param inDensity 
-	 * 				得到图片的缺省density, 如果不设置, 缺省值是1.0f, 也就是把缺省图片做为
-	 * 				mdpi处理
-	 * @return {@link Texture2D}，如果打开文件失败，则返回null
-	 */
-	public static Texture2D makeFilePVR(String path, float inDensity) {
-		Texture2D tex = new Texture2D(0, SOURCE_PVR, path, 0, TextureManager.getInstance().getTexturePixelFormat(), inDensity);
-		return tex;
-	}
-	
-	/**
-	 * 从PVR文件创建一个Texture2D对象。Texture2D不能被直接创建，必须通过TextureManager创建
-	 * 
-	 * @param resId
-	 *            PVR文件的资源id
-	 * @return {@link Texture2D}
-	 */
-	public static Texture2D makePVR(int resId) {
-		Texture2D tex = new Texture2D(SOURCE_PVR, resId, 0, TextureManager.getInstance().getTexturePixelFormat());
-		return tex;
-	}
-	
-	/**
-	 * 创建一个贴图代理对象
-	 * 
-	 * @param path PVR文件在assets目录下的路径
-	 * @return {@link Texture2D}
-	 */
-	public static Texture2D makePVR(String path) {
-		return makePVR(path, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * 创建一个贴图代理对象
-	 * 
-	 * @param path PVR文件在assets目录下的路径
-	 * @param inDensity 
-	 * 				得到图片的缺省density, 如果不设置, 缺省值是1.0f, 也就是把缺省图片做为
-	 * 				mdpi处理
-	 * @return {@link Texture2D}
-	 */
-	public static Texture2D makePVR(String path, float inDensity) {
-		Texture2D tex = new Texture2D(SOURCE_PVR, path, 0, TextureManager.getInstance().getTexturePixelFormat(), inDensity);
-		return tex;
-	}
-
 	/**
 	 * 创建一个贴图代理对象
 	 * 
@@ -657,8 +361,9 @@ public class Texture2D extends BaseWYObject {
 	 * @see Texture2D::CENTER
 	 * @see Texture2D::RIGHT
 	 */
-	public static Texture2D make(String text, float fontSize, String fontPath, boolean isFile, float width, int alignment) {
-		Texture2D tex = new Texture2D(text, fontSize, fontPath, isFile, width, alignment);
+	public static Texture2D makeLabel(String text, float fontSize, String fontPath, boolean isFile, float width, int alignment) {
+		Texture2D tex = new Texture2D();
+		tex.mPointer = tex.nativeInitLabel(text, fontSize, fontPath, isFile, width, alignment);
 		return tex;
 	}
 	
@@ -676,18 +381,19 @@ public class Texture2D extends BaseWYObject {
 	 * @see Texture2D::CENTER
 	 * @see Texture2D::RIGHT
 	 */
-	public static Texture2D make(String text, float fontSize, int style, String fontName, float width, int alignment) {
-		Texture2D tex = new Texture2D(text, fontSize, style, fontName, width, alignment);
+	public static Texture2D makeLabel(String text, float fontSize, int style, String fontName, float width, int alignment) {
+		Texture2D tex = new Texture2D();
+		tex.mPointer = tex.nativeInitLabel(text, fontSize, style, fontName, width, alignment);
 		return tex;
 	}
 
-	private native int nativeNew(BitmapRawData raw, int pixelFormat);
-	private native int nativeNew(int tex, int w, int h);
-	private native int nativeNew(int source, int resId, int transparentColor, int pixelFormat);
-	private native int nativeNew(int source, String path, int transparentColor, int pixelFormat, float inDensity);
-	private native int nativeNew(String text, float fontSize, String fontPath, boolean isFile, float width, int alignment);
-	private native int nativeNew(String text, float fontSize, int style, String fontName, float width, int alignment);
-	private native int nativeNewFile(int source, String path, int transparentColor, int pixelFormat, float inDensity);
+	native int nativeInitBitmap(BitmapRawData raw, int pixelFormat);
+	native int nativeInitGL(int tex, int w, int h);
+	native int nativeInit(int resId, int transparentColor, int pixelFormat);
+	native int nativeInit(String path, int transparentColor, int pixelFormat, float inDensity);
+	native int nativeInitLabel(String text, float fontSize, String fontPath, boolean isFile, float width, int alignment);
+	native int nativeInitLabel(String text, float fontSize, int style, String fontName, float width, int alignment);
+	native int nativeInitFile(String path, int transparentColor, int pixelFormat, float inDensity);
 
 	/**
 	 * 设置贴图的反锯齿效果，缺省情况下是true
@@ -715,34 +421,7 @@ public class Texture2D extends BaseWYObject {
 	 */
 	public native void setTexParameters(int min, int mag, int wrapS, int wrapT);
 
-	/**
-	 * 构造函数
-	 * 
-	 * @param raw {@link BitmapRawData}
-	 * @param pixelFormat 贴图格式
-	 */
-	Texture2D(BitmapRawData raw, int pixelFormat) {
-		mPointer = nativeNew(raw, pixelFormat);
-	}
-	
-	Texture2D(int source, int resId, int transparentColor, int pixelFormat) {
-		mPointer = nativeNew(source, resId, transparentColor, pixelFormat);
-	}
-	
-	Texture2D(int source, String path, int transparentColor, int pixelFormat, float inDensity) {
-		mPointer = nativeNew(source, path, transparentColor, pixelFormat, inDensity);
-	}
-	
-	Texture2D(int dummy, int source, String path, int transparentColor, int pixelFormat, float inDensity) {
-		mPointer = nativeNewFile(source, path, transparentColor, pixelFormat, inDensity);
-	}
-
-	Texture2D(String text, float fontSize, String fontPath, boolean isFile, float width, int alignment) {
-		mPointer = nativeNew(text, fontSize, fontPath, isFile, width, alignment);
-	}
-	
-	Texture2D(String text, float fontSize, int style, String fontName, float width, int alignment) {
-		mPointer = nativeNew(text, fontSize, style, fontName, width, alignment);
+	protected Texture2D() {
 	}
 	
 	public static Texture2D from(int pointer) {
@@ -756,10 +435,6 @@ public class Texture2D extends BaseWYObject {
 		super(pointer);
 	}
 	
-	protected Texture2D(int tex, int w, int h) {
-		mPointer = nativeNew(tex, w, h);
-	}
-
 	/**
 	 * 在OpenGL中设置贴图参数
 	 */

@@ -115,7 +115,7 @@ wyFixtureAnimation* wyFixtureAnimation::make(float duration, ...) {
 
 	wyFixtureAnimation* anim = WYNEW wyFixtureAnimation();
 	for(int id = va_arg(ids, int); id != 0; id = va_arg(ids, int)) {
-		wyTexture2D* tex = wyTexture2D::makePNG(id);
+		wyTexture2D* tex = wyTexture2D::make(id);
 		anim->addFrame(duration, tex);
 	}
 

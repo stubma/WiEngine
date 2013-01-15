@@ -7,8 +7,8 @@
 namespace Node {
 
 static void createButton(const char* label, wyLayer* layer, float x, float y, wyTargetSelector* ts) {
-	wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-	wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+	wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+	wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 	normal1->setContentSize(DP(300), DP(44));
 	pressed1->setContentSize(DP(300), DP(44));
 
@@ -57,8 +57,8 @@ public:
 		m_TileMap = NULL;
 
 		// a button used to switch clip
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(200), DP(44));
 		pressed->setContentSize(DP(200), DP(44));
 		wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL,
@@ -132,9 +132,9 @@ private:
 public:
 	wyArcticTestLayer() {
 		// texture
-		wyTexture2D* tex1 = wyTexture2D::makePNG(RES("R.drawable.fighterboby001"));
-		wyTexture2D* tex2 = wyTexture2D::makePNG(RES("R.drawable.fighterarmor001"));
-		wyTexture2D* tex3 = wyTexture2D::makePNG(RES("R.drawable.fighterweapon001"));
+		wyTexture2D* tex1 = wyTexture2D::make(RES("R.drawable.fighterboby001"));
+		wyTexture2D* tex2 = wyTexture2D::make(RES("R.drawable.fighterarmor001"));
+		wyTexture2D* tex3 = wyTexture2D::make(RES("R.drawable.fighterweapon001"));
 
 		// animation 1
 		m_sprite1 = wyArcticSprite::make(RES("R.raw.fighter"), 0, tex1, tex2, tex3, NULL);
@@ -200,7 +200,7 @@ public:
 		/*
 		 * Here we specified a transparent color for this texture
 		 */
-		wyTexture2D* tex = wyTexture2D::makeBMP(RES("R.drawable.prince"), 0x00ff00ff);
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.prince"), 0x00ff00ff);
 
 		// animation 1
 		m_sprite1 = wyAuroraSprite::make(RES("R.raw.prince"), 78, tex, NULL);
@@ -267,7 +267,7 @@ public:
 		/*
 		 * Here we specified a transparent color for this texture
 		 */
-		wyTexture2D* tex = wyTexture2D::makeBMP(RES("R.drawable.prince"), 0x00ff00ff);
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.prince"), 0x00ff00ff);
 
 		// animation 1
 		m_sprite1 = wyAuroraSprite::make(RES("R.raw.prince"), 78, tex, NULL);
@@ -297,8 +297,8 @@ public:
 		m_sprite1->addClipMapping(mapping);
 
 		// sprite for button
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal->setContentSize(DP(300), DP(44));
 		pressed->setContentSize(DP(300), DP(44));
 
@@ -378,7 +378,7 @@ public:
 		}
 
 		// create tile map
-		wyArrayTileMapAtlas* tilemap = wyArrayTileMapAtlas::make(wyTexture2D::makePNG(RES("R.drawable.tiles")),
+		wyArrayTileMapAtlas* tilemap = wyArrayTileMapAtlas::make(wyTexture2D::make(RES("R.drawable.tiles")),
 				DP(16), DP(16), 20, 20, &(tiles[0][0]));
 		tilemap->getTexture()->setAntiAlias(false);
 
@@ -395,7 +395,7 @@ class wyAtlasButtonTestLayer: public wyLayer {
 public:
 	wyAtlasButtonTestLayer() {
 		// create sprites
-        wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.menuitemsprite"));
+        wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.menuitemsprite"));
 		wySprite* spriteNormal = new wySprite(tex, wyUtils::resolveRect(wyr(0, 23 * 2, 115, 23)));
 		wySprite* spriteSelected = new wySprite(tex, wyUtils::resolveRect(wyr(0, 23 * 1, 115, 23)));
 		wySprite* spriteDisabled = new wySprite(tex, wyUtils::resolveRect(wyr(0, 23 * 0, 115, 23)));
@@ -445,7 +445,7 @@ public:
 		map->mapChar(wyr(DP(177), 0, DP(21), DP(25)), '9');
 
 		// The size of the texture should be a power of 2
-		wyTexture2D* texture = wyTexture2D::makePNG(RES("R.drawable.number"));
+		wyTexture2D* texture = wyTexture2D::make(RES("R.drawable.number"));
 		label[0] = new wyAtlasLabel("1", texture, map);
 		label[0]->setAnchor(0, 0);
 		label[0]->setPosition(10, DP(100));
@@ -481,7 +481,7 @@ public:
     	map->mapChar(wyr(DP(61), DP(1), DP(20), DP(21)), 0xe6888f /* '戏' */);
     	map->mapChar(wyr(DP(82), DP(1), DP(14), DP(21)), 0xe5bc95 /* '引' */, DP(3), DP(3));
     	map->mapChar(wyr(DP(97), DP(1), DP(17), DP(21)), 0xe6938e /* '擎' */, DP(2), DP(1));
-		texture = wyTexture2D::makePNG(RES("R.drawable.bitmapfont"));
+		texture = wyTexture2D::make(RES("R.drawable.bitmapfont"));
 		const char* s = wyUtils::wctoutf8(L"微云 游戏\t引擎微\n云游戏引擎");
 		wyAtlasLabel* chinese = new wyAtlasLabel(s, texture, map);
 		chinese->setAnchor(0, 0);
@@ -521,7 +521,7 @@ public:
 class wyAtlasSpriteTestLayer: public wyNodeTestLayer {
 public:
 	wyAtlasSpriteTestLayer() {
-    	wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+    	wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.grossini_dance_atlas"));
 		wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
 		addNewSprite(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 	}
@@ -553,8 +553,8 @@ public:
 class wyButtonTestLayer: public wyLayer {
 public:
 	wyButtonTestLayer() {
-		wySprite* normal = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_send_score_normal")));
-		wySprite* pressed = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_send_score_pressed")));
+		wySprite* normal = wySprite::make(wyTexture2D::make(RES("R.drawable.btn_send_score_normal")));
+		wySprite* pressed = wySprite::make(wyTexture2D::make(RES("R.drawable.btn_send_score_pressed")));
 
 		/*
 		 * targetselector也是可以指定一个类的任意方法的, 用法如下, 用SEL宏, 传入这个方法的指针, targetselector第一次
@@ -583,14 +583,14 @@ class wyNinePatchButtonTestLayer: public wyLayer {
 public:
 	wyNinePatchButtonTestLayer() {
 		// sprite for button1
-		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal1->setContentSize(DP(300), DP(44));
 		pressed1->setContentSize(DP(300), DP(44));
 
 		// sprite for button2
-		wyNinePatchSprite* normal2 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed2 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal2 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed2 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal2->setContentSize(DP(100), DP(44));
 		pressed2->setContentSize(DP(100), DP(44));
 
@@ -651,7 +651,7 @@ public:
 		char buf[128];
 		int idx = rand() % 14 + 1;
 		sprintf(buf, "grossini_dance_%02d", idx);
-		wySprite* sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId(buf, "drawable", NULL)));
+		wySprite* sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId(buf, "drawable", NULL)));
 
 		// can set flip
 		sprite->setFlipX(rand() % 2);
@@ -716,7 +716,7 @@ public:
 	wyMenuTestLayer() {
 		// Font Item
 		// AtlasSprite Item
-        wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.menuitemsprite"));
+        wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.menuitemsprite"));
 		wySprite* spriteNormal = wySprite::make(tex, wyUtils::resolveRect(wyr(0, 23 * 2, 115, 23)));
 		wySprite* spriteSelected = wySprite::make(tex, wyUtils::resolveRect(wyr(0, 23 * 1, 115, 23)));
 		wySprite* spriteDisabled = wySprite::make(tex, wyUtils::resolveRect(wyr(0, 23 * 0, 115, 23)));
@@ -728,8 +728,8 @@ public:
 		// Image Item
 		wyMenuItem* item2 = wyMenuItemSprite::make(NULL,
 				wyTargetSelector::make(this, SEL(wyMenuTestLayer::onSpriteMenuItemClicked)),
-				wySprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_send_score_normal"))),
-				wySprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_send_score_pressed"))),
+				wySprite::make(wyTexture2D::make(RES("R.drawable.btn_send_score_normal"))),
+				wySprite::make(wyTexture2D::make(RES("R.drawable.btn_send_score_pressed"))),
 				NULL);
 
 		// Label Item (AtlasLabel)
@@ -744,7 +744,7 @@ public:
 		map->mapChar(wyr(DP(135), 0, DP(21), DP(25)), '7');
 		map->mapChar(wyr(DP(156), 0, DP(21), DP(25)), '8');
 		map->mapChar(wyr(DP(177), 0, DP(21), DP(25)), '9');
-		wyAtlasLabel* labelAtlas = wyAtlasLabel::make("0123456789", wyTexture2D::makePNG(RES("R.drawable.number")), map);
+		wyAtlasLabel* labelAtlas = wyAtlasLabel::make("0123456789", wyTexture2D::make(RES("R.drawable.number")), map);
 		wyMenuItemAtlasLabel* item3 = wyMenuItemAtlasLabel::make(NULL,
 				wyTargetSelector::make(this, SEL(wyMenuTestLayer::onLabelMenuItemClicked)), labelAtlas);
 
@@ -834,17 +834,17 @@ public:
 		 */
 
 		// the root object just rotates around
-		m_root = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.r1")));
+		m_root = wySprite::make(wyTexture2D::make(RES("R.drawable.r1")));
 		m_root->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 		addChildLocked(m_root, 1);
 
 		// the target object is offset from root, and the streak is moved to follow it
-		m_target = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.r1")));
+		m_target = wySprite::make(wyTexture2D::make(RES("R.drawable.r1")));
 		m_target->setPosition(DP(100), 0);
 		m_root->addChildLocked(m_target);
 
 		// create the streak object and add it to the scene
-		m_streak1 = wyMotionStreak::make(2, wyTexture2D::makePNG(RES("R.drawable.icon")), wyc4b(0, 255, 0, 255));
+		m_streak1 = wyMotionStreak::make(2, wyTexture2D::make(RES("R.drawable.icon")), wyc4b(0, 255, 0, 255));
 		addChildLocked(m_streak1);
 
 		// schedule an update on each frame so we can synchronize the streak with the target
@@ -863,7 +863,7 @@ public:
 		 */
 
 		// create second streak, fade time is 0 so it doesn't disappear until you call reset
-		m_streak2 = wyMotionStreak::make(0, wyTexture2D::makePNG(RES("R.drawable.track")), wyc4b(55, 66, 200, 255), MS_STYLE_SPOT);
+		m_streak2 = wyMotionStreak::make(0, wyTexture2D::make(RES("R.drawable.track")), wyc4b(55, 66, 200, 255), MS_STYLE_SPOT);
 		((wySpotRibbon*)m_streak2->getRibbon())->setDistance(DP(20));
 		addChildLocked(m_streak2);
 
@@ -917,13 +917,13 @@ public:
 		/*
 		 * create third streak with blade style
 		 */
-		m_streak3 = wyMotionStreak::make(0.01f, wyTexture2D::makePNG(RES("R.drawable.streak")), wyc4bWhite, MS_STYLE_BLADE);
+		m_streak3 = wyMotionStreak::make(0.01f, wyTexture2D::make(RES("R.drawable.streak")), wyc4bWhite, MS_STYLE_BLADE);
 		addChildLocked(m_streak3);
 
 		/*
 		 * create fourth streak with line style
 		 */
-		m_streak4 = wyMotionStreak::make(0, wyTexture2D::makePNG(RES("R.drawable.line")), wyc4bRed, MS_STYLE_LINE);
+		m_streak4 = wyMotionStreak::make(0, wyTexture2D::make(RES("R.drawable.line")), wyc4bRed, MS_STYLE_LINE);
 		((wyLineRibbon*)m_streak4->getRibbon())->setLineWidth(8);
 		addChildLocked(m_streak4);
 
@@ -1033,7 +1033,7 @@ private:
 public:
 	wyMotionWelderTestLayer() {
 		// texture
-		wyTexture2D* tex1 = wyTexture2D::makePNG(RES("R.drawable.mongo"));
+		wyTexture2D* tex1 = wyTexture2D::make(RES("R.drawable.mongo"));
 
 		// animation 1
 		m_sprite1 = wyMWSprite::make(RES("R.raw.test_motion_welder"), 0, tex1, NULL);
@@ -1149,9 +1149,9 @@ private:
 public:
 	wyPageControlTestLayer() {
 		// create pages
-		wySprite* page1 = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini_dance_05")));
-		wySprite* page2 = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini_dance_09")));
-		wySprite* page3 = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini_dance_04")));
+		wySprite* page1 = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini_dance_05")));
+		wySprite* page2 = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini_dance_09")));
+		wySprite* page3 = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini_dance_04")));
 
 		// page control
 		// call setCallback first so that you won't miss some callback
@@ -1174,8 +1174,8 @@ public:
 
 		// set page indicator
 		wyDotPageIndicator* indicator = wyDotPageIndicator::make(
-				wyTexture2D::makePNG(RES("R.drawable.thumb")),
-				wyTexture2D::makePNG(RES("R.drawable.joystick_rocker")));
+				wyTexture2D::make(RES("R.drawable.thumb")),
+				wyTexture2D::make(RES("R.drawable.joystick_rocker")));
 		indicator->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight - DP(60));
 		pageControl->setPageIndicator(indicator);
 
@@ -1238,11 +1238,11 @@ private:
 public:
 	wyParallaxTestLayer() {
 		// Top Layer, a simple image
-		wySprite* image = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.powered")));
+		wySprite* image = wySprite::make(wyTexture2D::make(RES("R.drawable.powered")));
 		image->setAnchor(0, 0);
 		image->setPosition(wyDevice::winWidth, 100);
 
-		wyTiledSprite* ts = wyTiledSprite::make(wyTexture2D::makePNG(RES("R.drawable.tiled_bg")));
+		wyTiledSprite* ts = wyTiledSprite::make(wyTexture2D::make(RES("R.drawable.tiled_bg")));
 		ts->setContentSize(wyDevice::winWidth, DP(115));
 		ts->setTileDirection(true, false);
 		ts->setAnchor(0, 0);
@@ -1316,7 +1316,7 @@ public:
 	wyProgressTimerTestLayer() {
 		// 逆时针进度条
 		wyProgressTimer* pt1 = new wyProgressTimer(
-				wyTexture2D::makePNG(RES("R.drawable.grossini")));
+				wyTexture2D::make(RES("R.drawable.grossini")));
 		pt1->setStyle(RADIAL_CCW);
 		pt1->setPercentage(75);
 		pt1->setAnchor(0, 0);
@@ -1324,7 +1324,7 @@ public:
 		addChildLocked((wyNode*) pt1->autoRelease());
 
 		// 使用atlas sprite构造进度条, 顺时针进度条
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.grossini_dance_atlas"));
 		wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
 		int idx = abs(rand()) % 14 + 1;
 		char buf[128];
@@ -1339,7 +1339,7 @@ public:
 
 		// 水平形式的进度条
 		wyProgressTimer* pt3 = new wyProgressTimer(
-				wyTexture2D::makePNG(RES("R.drawable.grossini")));
+				wyTexture2D::make(RES("R.drawable.grossini")));
 		pt3->setStyle(HORIZONTAL_BAR_LR);
 		pt3->setPercentage(60);
 		pt3->setAnchor(1, 1);
@@ -1372,9 +1372,9 @@ public:
 
 	void addNewSprite(float posx, float posy) {
 #if ANDROID || MACOSX || WINDOWS
-		int index = rand() % 7;
-#elif IOS
 		int index = rand() % 9;
+#elif IOS
+		int index = rand() % 11;
 #endif
 		char buf[128];
 		switch(index) {
@@ -1399,16 +1399,24 @@ public:
 			case 6:
 				sprintf(buf, "grossini_ai_8");
 				break;
+            case 7:
+                // version 3 pvr
+				sprintf(buf, "tex_arm");
+				break;
+            case 8:
+                // version 3 pvr
+				sprintf(buf, "tex_base");
+				break;
 #if IOS
-			case 7:
+			case 9:
 				sprintf(buf, "grossini_pvrtc_2");
 				break;
-			case 8:
+			case 10:
 				sprintf(buf, "grossini_pvrtc_4");
 				break;
 #endif
 		}
-		wySprite* sprite = wySprite::make(wyTexture2D::makePVR(wyUtils::getResId(buf, "raw", NULL)));
+		wySprite* sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId(buf, "raw", NULL)));
 		addChildLocked(sprite);
 		sprite->setPosition(posx, posy);
 	}
@@ -1440,10 +1448,10 @@ public:
 	virtual bool touchesBegan(wyMotionEvent& event) {
 		// prepare src image and mask image, blend function must be set
 		// correctly
-		wySprite* src = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+		wySprite* src = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
 		src->setAnchor(0, 0);
 		src->setBlendFunc(wybf(GL_DST_COLOR, GL_ZERO));
-		wySprite* mask = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.mask")));
+		wySprite* mask = wySprite::make(wyTexture2D::make(RES("R.drawable.mask")));
 		mask->setAnchor(0, 0);
 
 		// use a rendertexture to combine two images, mask first
@@ -1476,7 +1484,7 @@ private:
 public:
 	wySpriteX2011TestLayer() {
 		// texture
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.spx3_test"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.spx3_test"));
 
 		// animation 1
 		// SpriteX是不支持tick模式播放的, 但是可以使用setForceTickMode强行设置使用tick模式
@@ -1573,7 +1581,7 @@ private:
 public:
 	wySpriteXTestLayer() {
 		// texture
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.spx_test"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.spx_test"));
 
 		// animation 1
 		// SpriteX是不支持tick模式播放的, 但是可以使用setForceTickMode强行设置使用tick模式
@@ -1664,9 +1672,9 @@ public:
 		label->setColor(wyc3bBlack);
 
         // create state sprite for text box
-		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.textbox_normal")), wyr(DP(11), DP(21), DP(1), DP(1)));
-		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.textbox_pressed")), wyr(DP(11), DP(21), DP(1), DP(1)));
-		wyNinePatchSprite* focused = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.textbox_focused")), wyr(DP(11), DP(21), DP(1), DP(1)));
+		wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.textbox_normal")), wyr(DP(11), DP(21), DP(1), DP(1)));
+		wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.textbox_pressed")), wyr(DP(11), DP(21), DP(1), DP(1)));
+		wyNinePatchSprite* focused = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.textbox_focused")), wyr(DP(11), DP(21), DP(1), DP(1)));
 		normal->setContentSize(DP(280), DP(42));
 		pressed->setContentSize(DP(280), DP(42));
 		focused->setContentSize(DP(280), DP(42));
@@ -1711,7 +1719,7 @@ public:
 class wyTGATileMapAtlasTestLayer: public wyTilemapTestLayer {
 public:
 	wyTGATileMapAtlasTestLayer() {
-		wyTGATileMapAtlas* tilemap = wyTGATileMapAtlas::make(wyTexture2D::makePNG(RES("R.drawable.tiles")),
+		wyTGATileMapAtlas* tilemap = wyTGATileMapAtlas::make(wyTexture2D::make(RES("R.drawable.tiles")),
 														   RES("R.drawable.levelmap"), 
 														   DP(16),
 														   DP(16));
@@ -1739,7 +1747,7 @@ public:
 		addChildLocked(m_TileMap);
 
 		// add click feedback sprite
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 		m_sprite = wySprite::make(tex, wyr(0, 0, DP(32), DP(32)));
 		m_sprite->setVisible(false);
 		m_TileMap->addChildLocked(m_sprite, 10);
@@ -1749,7 +1757,7 @@ public:
 	}
 
 	wyTMXTileMap* createTMXMap() {
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.hexa_tiles"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.hexa_tiles"));
 		return wyTMXTileMap::make(RES("R.raw.hexa_test"), tex, NULL);
 	}
 
@@ -1792,7 +1800,7 @@ public:
 		addChildLocked(m_TileMap);
 		
 		// add click feedback sprite
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 		m_sprite = wySprite::make(tex, wyr(0, 0, DP(32), DP(32)));
 		m_sprite->setVisible(false);
 		m_TileMap->addChildLocked(m_sprite, 10);
@@ -1812,7 +1820,7 @@ public:
 	}
 
 	wyTMXTileMap* createTMXMap() {
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.iso"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.iso"));
 		wyTMXTileMap* map = wyTMXTileMap::make(RES("R.raw.iso_test1"), tex, NULL);
 		map->setDebugDrawObjects(true);
 		return map;
@@ -1848,7 +1856,7 @@ public:
 		addChildLocked(m_TileMap);
 		
 		// add click feedback sprite
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 		m_sprite = wySprite::make(tex, wyr(0, 0, DP(32), DP(32)));
 		m_sprite->setVisible(false);
 		m_TileMap->addChildLocked(m_sprite, 10);
@@ -1858,8 +1866,8 @@ public:
 	}
 
 	wyTMXTileMap* createTMXMap() {
-		wyTexture2D* tex1 = wyTexture2D::makePNG(RES("R.drawable.ortho_test1"));
-		wyTexture2D* tex2 = wyTexture2D::makePNG(RES("R.drawable.ortho_test1_bw"));
+		wyTexture2D* tex1 = wyTexture2D::make(RES("R.drawable.ortho_test1"));
+		wyTexture2D* tex2 = wyTexture2D::make(RES("R.drawable.ortho_test1_bw"));
 		return wyTMXTileMap::make(RES("R.raw.orthogonal_test5"), tex1, tex2, NULL);
 	}
 	
@@ -2006,8 +2014,8 @@ public:
 		};
 
 		// slider 1
-		wySprite* bar = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.bar")));
-		wySprite* thumb1 = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.thumb")));
+		wySprite* bar = wySprite::make(wyTexture2D::make(RES("R.drawable.bar")));
+		wySprite* thumb1 = wySprite::make(wyTexture2D::make(RES("R.drawable.thumb")));
 		wySlider* slider1 = new wySlider(NULL, bar, thumb1);
 		slider1->setValue(50);
 		slider1->setShowFullBar(true);
@@ -2018,7 +2026,7 @@ public:
 		slider1->release();
 
 		// slider2
-		wySprite* thumb2 = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.thumb")));
+		wySprite* thumb2 = wySprite::make(wyTexture2D::make(RES("R.drawable.thumb")));
 		wySlider* slider2 = new wySlider(NULL, bar, thumb2);
 		slider2->setValue(50);
 		slider2->setAnchor(0, 0);
@@ -2028,8 +2036,8 @@ public:
 		slider2->release();
 
 		// slider3
-		wySprite* vbar = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.vbar")));
-		wySprite* thumb3 = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.thumb")));
+		wySprite* vbar = wySprite::make(wyTexture2D::make(RES("R.drawable.vbar")));
+		wySprite* thumb3 = wySprite::make(wyTexture2D::make(RES("R.drawable.thumb")));
 		wySlider* slider3 = new wySlider(NULL, vbar, thumb3, true);
 		slider3->setValue(50);
 		slider3->setShowFullBar(true);
@@ -2039,7 +2047,7 @@ public:
 		slider3->release();
 
 		// slider4
-		wySprite* thumb4 = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.thumb")));
+		wySprite* thumb4 = wySprite::make(wyTexture2D::make(RES("R.drawable.thumb")));
 		wySlider* slider4 = new wySlider(NULL, vbar, thumb4, true);
 		slider4->setValue(50);
 		slider4->setPosition(wyDevice::winWidth - DP(50), wyDevice::winHeight / 4);
@@ -2078,7 +2086,7 @@ private:
 
 public:
 	wyTiledSpriteTestLayer() {
-		ts = new wyTiledSprite(wyTexture2D::makeJPG(RES("R.drawable.test_jpg")));
+		ts = new wyTiledSprite(wyTexture2D::make(RES("R.drawable.test_jpg")));
 		ts->setTileDirection(true, true); // 可以设置平铺的方向, 缺省就是x, y方向都平铺S
 		ts->setSpacing(DP(10), DP(20));
 		addChildLocked(ts);
@@ -2130,7 +2138,7 @@ private:
 public:
 	wySpriteExBatchNodeTestLayer() {
 		// add zwoptex
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.grossini_dance_atlas"));
 		wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
 
 		// set width and height
@@ -2194,7 +2202,7 @@ public:
 		char buf[128];
 		int idx = rand() % 14 + 1;
 		sprintf(buf, "grossini_dance_%02d", idx);
-		wyTexture2D* tex = wyTexture2D::makePNG(wyUtils::getResId(buf, "drawable", NULL));
+		wyTexture2D* tex = wyTexture2D::make(wyUtils::getResId(buf, "drawable", NULL));
 		wySpriteEx* spriteEx = wySpriteEx::make(tex);
 
 		// can set flip
@@ -2236,9 +2244,9 @@ public:
 
         for(int i = 0; i < 9; ++i) {
         	if(i % 2 == 0) {
-        		m_covers[i] = wyCover::make(wyTexture2D::makePNG(id1));
+        		m_covers[i] = wyCover::make(wyTexture2D::make(id1));
         	} else {
-        		m_covers[i] = wyCover::make(wyTexture2D::makeJPG(id2));
+        		m_covers[i] = wyCover::make(wyTexture2D::make(id2));
         	}
             m_coverFlow->addCover(m_covers[i]);
         }
@@ -2298,16 +2306,16 @@ public:
 		content->setAlignment(wyBitmapFontLabel::CENTER);
 
 		// background of dialog
-		wyNinePatchSprite* bg = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.dialog_bg")), wyr(DP(130), DP(20), DP(1), DP(1)));
+		wyNinePatchSprite* bg = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.dialog_bg")), wyr(DP(130), DP(20), DP(1), DP(1)));
 
 		// ok button
-		wySprite* okBtnNormal = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.dialog_btn")));
+		wySprite* okBtnNormal = wySprite::make(wyTexture2D::make(RES("R.drawable.dialog_btn")));
 		wyButton* okBtn = wyButton::make(okBtnNormal, NULL, NULL, NULL, NULL, NULL);
 		wyLabel* okLabel = wyLabel::make("OK", SP(20));
 		okLabel->setColor(wyc3b(96, 56, 19));
 
 		// cancel button
-		wySprite* cancelBtnNormal = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.dialog_btn")));
+		wySprite* cancelBtnNormal = wySprite::make(wyTexture2D::make(RES("R.drawable.dialog_btn")));
 		wyButton* cancelBtn = wyButton::make(cancelBtnNormal, NULL, NULL, NULL, NULL, NULL);
 		wyLabel* cancelLabel = wyLabel::make("Cancel", SP(20));
 		cancelLabel->setColor(wyc3b(96, 56, 19));
@@ -2417,8 +2425,8 @@ public:
 		addChildLocked(layer);
 
 		// create thumb bar
-		wyNinePatchSprite* hThumb = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.horizontal_thumb")), wyr(DP(7), DP(5), DP(1), DP(1)));
-		wyNinePatchSprite* vThumb = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.vertical_thumb")), wyr(DP(5), DP(7), DP(1), DP(1)));
+		wyNinePatchSprite* hThumb = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.horizontal_thumb")), wyr(DP(7), DP(5), DP(1), DP(1)));
+		wyNinePatchSprite* vThumb = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.vertical_thumb")), wyr(DP(5), DP(7), DP(1), DP(1)));
 
 		// set thumb bar
 		layer->setHorizontalThumb(hThumb);
@@ -2428,8 +2436,8 @@ public:
 		// add scrollable item to layer, you can't use addChildLocked
 		char buf[32];
 		wyBitmapFont* font = wyBitmapFont::loadFont(RES("R.raw.bitmapfont"));
-		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal1->setContentSize(DP(300), DP(44));
 		pressed1->setContentSize(DP(300), DP(44));
 		for(int i = 0; i < 100; i++) {
@@ -2506,15 +2514,15 @@ public:
 	}
 
 	void onCustom(wyTargetSelector* ts) {
-		wyNinePatchSprite* bg = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* bg = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		wyToast* t = wyToast::make(bg, "Now the background is customized, but text is still default", 2.0f);
 		t->setMargin(DP(10), DP(10), DP(10), DP(10));
 		t->show();
 	}
 
 	void onCustom2(wyTargetSelector* ts) {
-		wyNinePatchSprite* bg = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wySprite* s = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+		wyNinePatchSprite* bg = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wySprite* s = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
 		s->setScale(0.4f);
 		s->setRotation(90);
 		wyToast* t = wyToast::make(bg, s, 5.0f);
@@ -2557,9 +2565,9 @@ public:
 		m_action = IDLE;
 		
 		// create joystick
-		wySprite* bg = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.joystick_bg")));
+		wySprite* bg = wySprite::make(wyTexture2D::make(RES("R.drawable.joystick_bg")));
 		bg->setDither(true);
-		wySprite* rocker = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.joystick_rocker")));
+		wySprite* rocker = wySprite::make(wyTexture2D::make(RES("R.drawable.joystick_rocker")));
 		wyVirtualJoystick* vj = wyVirtualJoystick::make(bg, rocker);
 		vj->setAnchor(0, 0);
 		vj->setPosition(DP(20), DP(20));
@@ -2572,7 +2580,7 @@ public:
 		addChildLocked(vj);
 
 		// texture
-		wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.spx_test"));
+		wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.spx_test"));
 
 		// up animation
 		m_spx = wySPXSprite::make(RES("R.raw.spx_test"), tex, IDLE_ANIM);

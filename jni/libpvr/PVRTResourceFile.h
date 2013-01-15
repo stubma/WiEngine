@@ -4,9 +4,9 @@
 
  @Title        PVRTResourceFile
 
- @Version      
+ @Version       @Version      
 
- @Copyright    Copyright (C)  Imagination Technologies Limited.
+ @Copyright    Copyright (c) Imagination Technologies Limited.
 
  @Platform     ANSI compatible
 
@@ -19,11 +19,14 @@
 #include <stdlib.h>
 #include "PVRTString.h"
 
+typedef void* (*PFNLoadFileFunc)(const char*, char** pData, size_t &size);
+typedef bool  (*PFNReleaseFileFunc)(void* handle);
+
 /*!***************************************************************************
  @Class CPVRTResourceFile
  @Brief Simple resource file wrapper
 *****************************************************************************/
-class PVRTEXPORT CPVRTResourceFile
+class CPVRTResourceFile
 {
 public:
 	/*!***************************************************************************
@@ -39,6 +42,15 @@ public:
 	@Description		Returns the currently set read path
 	*****************************************************************************/
 	static CPVRTString GetReadPath();
+
+	/*!***************************************************************************
+	@Function			SetLoadReleaseFunctions
+	@Input				pLoadFileFunc Function to use for opening a file
+	@Input				pReleaseFileFunc Function to release any data allocated by the load function
+	@Description		This function is used to override the CPVRTResource file loading functions. If
+	                    you pass NULL in as the load function CPVRTResource will use the default functions.
+	*****************************************************************************/
+	static void SetLoadReleaseFunctions(void* pLoadFileFunc, void* pReleaseFileFunc);
 
 	/*!***************************************************************************
 	@Function			CPVRTResourceFile
@@ -85,17 +97,10 @@ public:
 	/*!***************************************************************************
 	@Function			DataPtr
 	@Returns			A pointer to the file data
-	@Description		Returns a pointer to the file data
+	@Description		Returns a pointer to the file data. If the data is expected
+						to be a string don't assume that it is null-terminated.
 	*****************************************************************************/
 	const void* DataPtr() const;
-
-	/*!***************************************************************************
-	@Function			StringPtr
-	@Returns			The file data as a string
-	@Description		Returns the file as a null-terminated string
-	*****************************************************************************/
-	// convenience getter. Also makes it clear that you get a null-terminated buffer.
-	const char* StringPtr() const;
 
 	/*!***************************************************************************
 	@Function			Close
@@ -108,8 +113,11 @@ protected:
 	bool m_bMemoryFile;
 	size_t m_Size;
 	const char* m_pData;
+	void *m_Handle;
 
 	static CPVRTString s_ReadPath;
+	static PFNLoadFileFunc s_pLoadFileFunc;
+	static PFNReleaseFileFunc s_pReleaseFileFunc;
 };
 
 #endif // _PVRTRESOURCEFILE_H_

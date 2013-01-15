@@ -96,7 +96,7 @@ public class ScreenshotTest extends WiEngineTestActivity {
 		TextureManager.getInstance().removeTexture("/sdcard/WiEngine/screenshot.png");
 		
 		// 从新的截图中创建贴图对象, texture2d对象其实不调用autoRelease也没事, 为了风格统一, 调用一下无妨
-    	Texture2D tex = Texture2D.makeFilePNG("/sdcard/WiEngine/screenshot.png");
+    	Texture2D tex = Texture2D.makeFile("/sdcard/WiEngine/screenshot.png");
     	tex.autoRelease();
     	
     	// 创建新的截图sprite, 添加到屏幕下方

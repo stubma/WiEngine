@@ -105,18 +105,20 @@ void wyAngelCodeTXTFontLoader::load(wyBitmapFont* font, const char* data, size_t
 		            // append png file name
 		            sprintf(lastSolidus, "%s.png", value);
 		            if(font->isFile()) {
-		            	font->addTexture(wyTexture2D::makeFilePNG(fullPngPath,
+		            	font->addTexture(wyTexture2D::makeFile(fullPngPath,
+		            			0,
 		            			wyTextureManager::getInstance()->getTexturePixelFormat(),
 		            			wyDevice::density / resScale));
 		            } else {
-		            	font->addTexture(wyTexture2D::makePNG(fullPngPath,
+		            	font->addTexture(wyTexture2D::make(fullPngPath,
+		            			0,
 		            			wyTextureManager::getInstance()->getTexturePixelFormat(),
 		            			wyDevice::density / resScale));
 		            }
 		            wyFree(fullPngPath);
 		        }
 		    } else {
-		    	font->addTexture(wyTexture2D::makePNG(wyUtils::getResId(value, "drawable", NULL)));
+		    	font->addTexture(wyTexture2D::make(wyUtils::getResId(value, "drawable", NULL)));
 		    }
 		} else if(wyUtils::startsWith(line, "char")) {
 			// create char info

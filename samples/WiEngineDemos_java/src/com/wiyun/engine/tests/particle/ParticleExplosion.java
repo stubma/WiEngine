@@ -70,6 +70,6 @@ public class ParticleExplosion extends QuadParticleSystem {
         setStartColorVariance(0.7f, 0.1f, 0.2f, 1f, 0.5f, 0.5f, 0.5f, 0f);
         setEndColorVariance(0.5f, 0.5f, 0.5f, 0f, 0.5f, 0.5f, 0.5f, 0f);
 
-        setTexture(Texture2D.makePNG(R.drawable.stars));
+        setTexture(Texture2D.make(R.drawable.stars));
     }
 }

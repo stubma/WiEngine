@@ -9,7 +9,7 @@ namespace Action {
 		wySprite* m_Sprite;
 	public:
 		wyActionTestLayer(){
-			m_Sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+			m_Sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
 			m_Sprite->retain();
 			addChildLocked(m_Sprite);
 			m_Sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight/ 2);
@@ -34,7 +34,7 @@ namespace Action {
             for (int i = 0; i < 14; i++){
                 char name[256];
                 sprintf(name, "grossini_dance_%.2d", i + 1);
-                anim->addFrame(0.2f, wyTexture2D::makePNG(wyUtils::getResId(name, "drawable", NULL)));
+                anim->addFrame(0.2f, wyTexture2D::make(wyUtils::getResId(name, "drawable", NULL)));
             }
             wyAnimationCallback callback = {
             		onAnimationFrameChanged,
@@ -73,7 +73,7 @@ namespace Action {
     public:
         wyAtlasAnimationTestLayer(){
         	wyZwoptexManager* zm = wyZwoptexManager::getInstance();
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.grossini_dance_atlas"));
 			zm->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
             
             // add sprite
@@ -164,12 +164,12 @@ namespace Action {
 
     public:
     	wyClipInOutTestLayer() : m_expanded(false), m_toggling(false) {
-    		wySprite* normal = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.icon")));
+    		wySprite* normal = wySprite::make(wyTexture2D::make(RES("R.drawable.icon")));
     		m_button = wyButton::make(normal, NULL, NULL, NULL, NULL, wyTargetSelector::make(this, SEL(wyClipInOutTestLayer::onToggle)));
     		m_button->setPosition(DP(40), wyDevice::winHeight / 2);
     		addChildLocked(m_button);
 
-    		m_sprite = wySprite::make(wyTexture2D::makeJPG(RES("R.drawable.test_jpg")));
+    		m_sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.test_jpg")));
     		m_sprite->setAnchor(0, 0.5f);
     		m_sprite->setPosition(m_button->getOriginX() + m_button->getWidth(), wyDevice::winHeight / 2);
     		m_sprite->setClipRect(wyrZero, true);
@@ -274,7 +274,7 @@ namespace Action {
 			wyIntervalAction* a = wyMoveTo::make(3, startx, y, endx, y);
 			wyIntervalAction* t = wySequence::make(a, (wyFiniteTimeAction*)a->reverse(), NULL);
 
-			wyTiledSprite* ts = wyTiledSprite::make(wyTexture2D::makePNG(RES("R.drawable.tiled_bg")));
+			wyTiledSprite* ts = wyTiledSprite::make(wyTexture2D::make(RES("R.drawable.tiled_bg")));
 			ts->setContentSize(wyDevice::winWidth, DP(115));
 			ts->setTileDirection(true, false);
 			ts->setAnchor(0, 0);
@@ -344,7 +344,7 @@ namespace Action {
     	}
 
     	void addTrace(wyHypotrochoidConfig c) {
-    		wySprite* r = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+    		wySprite* r = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
     		r->setScale(0.2f);
 			addChildLocked(r);
 			r->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
@@ -713,14 +713,14 @@ namespace Action {
     class wyProgressByTestLayer : public wyLayer {
     public:
         wyProgressByTestLayer(){
-        	wyProgressTimer* left = wyProgressTimer::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+        	wyProgressTimer* left = wyProgressTimer::make(wyTexture2D::make(RES("R.drawable.grossini")));
             left->setStyle(RADIAL_CW);
         	left->setPosition(100, wyDevice::winHeight / 2);
         	wyProgressBy* action = wyProgressBy::make(2, 100);
         	addChildLocked(left);
         	left->runAction(action);
 
-        	wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+        	wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.grossini_dance_atlas"));
 			wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
 			int idx = abs(rand()) % 14 + 1;
 			char buf[128];
@@ -740,7 +740,7 @@ namespace Action {
     class wyProgressToTestLayer : public wyLayer {
     public:
         wyProgressToTestLayer(){
-        	wyProgressTimer* left = wyProgressTimer::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+        	wyProgressTimer* left = wyProgressTimer::make(wyTexture2D::make(RES("R.drawable.grossini")));
             left->setStyle(RADIAL_CW);
         	left->setPosition(100, wyDevice::winHeight / 2);
         	wyProgressTo* action = wyProgressTo::make(2, 0, 100);
@@ -748,7 +748,7 @@ namespace Action {
         	left->runAction(r);
         	addChildLocked(left);
             
-        	wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+        	wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.grossini_dance_atlas"));
 			wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
 			int idx = abs(rand()) % 14 + 1;
 			char buf[128];
@@ -804,7 +804,7 @@ namespace Action {
             wyIntervalAction* action = wyOrbitCamera::make(3, 1, 0, 0, 360, 0, 0);
             m_Sprite->runAction(action);
 
-        	wySprite* bg = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.background")));
+        	wySprite* bg = wySprite::make(wyTexture2D::make(RES("R.drawable.background")));
         	bg->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
         	addChildLocked(bg, -1);
         };

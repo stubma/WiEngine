@@ -288,10 +288,10 @@ wySPX3FileData* wySPX3Loader::load(const char* spxPath, bool isFile) {
 
 wySPX3FileData* wySPX3Loader::loadMemory(const char* mfsName) {
 	// get data from memory file system
-	const char* mfsData = NULL;
-	size_t length = 0;
-	wyUtils::getFile(mfsName, &mfsData, &length);
-	wySPX3FileData* spx = load(mfsData, length, wyDevice::density / wyDevice::defaultInDensity);
+	size_t len;
+	char* data = wyUtils::loadRaw(mfsName, &len);
+	wySPX3FileData* spx = load(data, len, wyDevice::density / wyDevice::defaultInDensity);
 	spx->m_dataId = wyUtils::strHash(mfsName);
+	wyFree(data);
 	return spx;
 }

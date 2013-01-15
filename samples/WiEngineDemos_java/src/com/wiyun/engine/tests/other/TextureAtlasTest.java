@@ -76,7 +76,7 @@ public class TextureAtlasTest extends WiEngineTestActivity {
         	setNoDraw(true);
         	setJavaVirtualMethods(this);
         	
-            mTextureAtlas = TextureAtlas.make(Texture2D.makeJPG(R.drawable.test_jpg));
+            mTextureAtlas = TextureAtlas.make(Texture2D.make(R.drawable.test_jpg));
             
             // get window size
             WYSize winSize = Director.getInstance().getWindowSize();

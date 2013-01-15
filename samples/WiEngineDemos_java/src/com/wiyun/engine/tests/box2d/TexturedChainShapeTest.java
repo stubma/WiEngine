@@ -85,7 +85,7 @@ public class TexturedChainShapeTest extends WiEngineTestActivity {
 			fixDef.destroy();
 			
 			// bind texture
-			Texture2D tex = Texture2D.makePNG(R.drawable.rope);
+			Texture2D tex = Texture2D.make(R.drawable.rope);
 			render.bindTexture(f, tex);
 			
 			schedule(new TargetSelector(this, "update(float)", new Object[] { 0f }));

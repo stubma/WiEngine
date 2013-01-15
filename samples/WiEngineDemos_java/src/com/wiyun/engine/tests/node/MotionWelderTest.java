@@ -57,7 +57,7 @@ public class MotionWelderTest extends WiEngineTestActivity {
     	public MyLayer() {
     		// animation 1
     		WYSize s = Director.getInstance().getWindowSize();
-    		Texture2D tex1 = Texture2D.makePNG(R.drawable.mongo);
+    		Texture2D tex1 = Texture2D.make(R.drawable.mongo);
     		m_sprite1 = MWSprite.make(R.raw.test_motion_welder, 0, tex1);
     		m_sprite1.setLoopCount(-1);
     		m_sprite1.setPosition(s.width / 2, s.height * 5 / 6);

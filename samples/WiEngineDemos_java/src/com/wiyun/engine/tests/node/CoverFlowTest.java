@@ -86,9 +86,9 @@ public class CoverFlowTest extends WiEngineTestActivity {
        		int id2 = context.getResources().getIdentifier("test_jpg", "drawable", context.getPackageName());
         	for(int i = 0; i < 9; ++i) {
         		if(i % 2 == 0) {
-        			covers[i] = Cover.make(Texture2D.makePNG(id1));
+        			covers[i] = Cover.make(Texture2D.make(id1));
         		} else {
-        			covers[i] = Cover.make(Texture2D.makeJPG(id2));
+        			covers[i] = Cover.make(Texture2D.make(id2));
         		}
         		m_coverFlow.addCover(covers[i]);
         	}

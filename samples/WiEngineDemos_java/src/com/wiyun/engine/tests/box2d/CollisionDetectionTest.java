@@ -65,7 +65,7 @@ public class CollisionDetectionTest extends WiEngineTestActivity {
 		public MyLayer() {
 			// create sprite1
 			float size = DP(32.0f);
-			Texture2D tex = Texture2D.makePNG(R.drawable.blocks);
+			Texture2D tex = Texture2D.make(R.drawable.blocks);
 			m_sprite1 = Sprite.make(tex, WYRect.make(Utilities.rand(2) * size, Utilities.rand(2) * size, size, size));
 			addChild(m_sprite1, -1);
 

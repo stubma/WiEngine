@@ -82,7 +82,7 @@ public class SpriteEx extends TextureNode {
 	 * @param resId 图片的资源Id,要求为png格式
 	 */	
     public static SpriteEx make(int resId) {
-    	return new SpriteEx((Texture2D)Texture2D.makePNG(resId).autoRelease());
+    	return new SpriteEx((Texture2D)Texture2D.make(resId).autoRelease());
     }
 
 	/**

@@ -77,7 +77,7 @@ public class ParticleRotateFlower extends QuadParticleSystem {
     	// emits per second
         setEmissionRate(getMaxParticleCount() / getLife());
     	
-        setTexture(Texture2D.makePNG(R.drawable.stars2));
+        setTexture(Texture2D.make(R.drawable.stars2));
 
     	// additive
     	setBlendAdditive(false);

@@ -103,7 +103,7 @@ public class ProgressTimer extends Node {
 	 * @param resId 图象资源id
 	 */
 	protected ProgressTimer(int resId) {
-		this((Texture2D)Texture2D.makePNG(resId).autoRelease());
+		this((Texture2D)Texture2D.make(resId).autoRelease());
 	}
 
 	/**

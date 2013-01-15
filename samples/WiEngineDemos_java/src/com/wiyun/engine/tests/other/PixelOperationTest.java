@@ -65,7 +65,7 @@ public class PixelOperationTest extends WiEngineTestActivity {
 			WYSize s = Director.getInstance().getWindowSize();
 			
 			// load raw data and create texture from raw data
-			mRawData = Utilities.loadPNG(R.drawable.grossini);
+			mRawData = Utilities.loadImage(R.drawable.grossini);
 			mRawBuffer = mRawData.asIntBuffer();
 			mTex = Texture2D.make(mRawData);
 			mTex.autoRelease();
@@ -74,9 +74,9 @@ public class PixelOperationTest extends WiEngineTestActivity {
 			addChild(sprite);
 			
 			// add a button to manipulate line
-    		NinePatchSprite normal = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_normal), 
+    		NinePatchSprite normal = NinePatchSprite.make(Texture2D.make(R.drawable.btn_normal), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
-    		NinePatchSprite pressed = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_pressed), 
+    		NinePatchSprite pressed = NinePatchSprite.make(Texture2D.make(R.drawable.btn_pressed), 
     				ResolutionIndependent.resolve(WYRect.make(9, 7, 22, 28)));
     		normal.setContentSize(DP(300), DP(44));
     		pressed.setContentSize(DP(300), DP(44));

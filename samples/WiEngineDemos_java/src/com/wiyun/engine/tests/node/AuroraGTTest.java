@@ -53,7 +53,7 @@ public class AuroraGTTest extends WiEngineTestActivity {
     	public MyLayer() {
     		// animation 1
     		WYSize s = Director.getInstance().getWindowSize();
-    		Texture2D tex1 = Texture2D.makeBMP(R.drawable.prince, 0x00ff00ff);
+    		Texture2D tex1 = Texture2D.make(R.drawable.prince, 0x00ff00ff);
     		tex1.autoRelease();
     		m_sprite1 = AuroraSprite.make(R.raw.prince, 78, tex1);
     		m_sprite1.setLoopCount(-1);

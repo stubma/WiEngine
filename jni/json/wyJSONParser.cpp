@@ -304,7 +304,8 @@ wyObject* wyJSONParser::load(const char* path, bool isFile) {
 
 wyObject* wyJSONParser::loadMemory(const char* mfsName) {
 	size_t len;
-	const char* buf = NULL;
-	wyUtils::getFile(mfsName, &buf, &len);
-	return load(buf, len);
+	char* data = wyUtils::loadRaw(mfsName, &len);
+	wyObject* ret = load(data, len);
+	wyFree(data);
+	return ret;
 }

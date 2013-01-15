@@ -74,7 +74,7 @@ public class ParticleBigFlower extends QuadParticleSystem {
     	// emits per second
         setEmissionRate(getMaxParticleCount() / getLife());
     	
-        setTexture(Texture2D.makePNG(R.drawable.stars));
+        setTexture(Texture2D.make(R.drawable.stars));
     	
     	// additive
     	setBlendAdditive(true);

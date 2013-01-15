@@ -76,8 +76,8 @@ public class ScrollableLayerTest extends WiEngineTestActivity {
     		addChild(layer);
     		
     		// create thumb bar
-    		NinePatchSprite hThumb = NinePatchSprite.make(Texture2D.makePNG(R.drawable.horizontal_thumb), WYRect.make(DP(7), DP(5), DP(1), DP(1)));
-    		NinePatchSprite vThumb = NinePatchSprite.make(Texture2D.makePNG(R.drawable.vertical_thumb), WYRect.make(DP(5), DP(7), DP(1), DP(1)));
+    		NinePatchSprite hThumb = NinePatchSprite.make(Texture2D.make(R.drawable.horizontal_thumb), WYRect.make(DP(7), DP(5), DP(1), DP(1)));
+    		NinePatchSprite vThumb = NinePatchSprite.make(Texture2D.make(R.drawable.vertical_thumb), WYRect.make(DP(5), DP(7), DP(1), DP(1)));
     		
     		// set thumb bar
     		layer.setHorizontalThumb(hThumb);
@@ -86,8 +86,8 @@ public class ScrollableLayerTest extends WiEngineTestActivity {
 
     		// add scrollable item to layer, you can't use addChild
     		BitmapFont font = BitmapFont.loadFont(R.raw.bitmapfont);
-    		NinePatchSprite normal1 = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_normal), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
-    		NinePatchSprite pressed1 = NinePatchSprite.make(Texture2D.makePNG(R.drawable.btn_pressed), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
+    		NinePatchSprite normal1 = NinePatchSprite.make(Texture2D.make(R.drawable.btn_normal), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
+    		NinePatchSprite pressed1 = NinePatchSprite.make(Texture2D.make(R.drawable.btn_pressed), WYRect.make(DP(9), DP(7), DP(22), DP(28)));
     		normal1.setContentSize(DP(300), DP(44));
     		pressed1.setContentSize(DP(300), DP(44));
     		for(int i = 0; i < 100; i++) {

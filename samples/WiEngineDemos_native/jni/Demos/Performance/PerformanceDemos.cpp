@@ -5,8 +5,8 @@
 namespace Performance {
 
     static void createButton(const char* label, wyLayer* layer, float x, float y, wyTargetSelector* ts) {
-		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal1->setContentSize(DP(300), DP(44));
 		pressed1->setContentSize(DP(300), DP(44));
         
@@ -42,7 +42,7 @@ namespace Performance {
 			m_count = 0;
 
 			// batch node
-			m_batchNode = wySpriteBatchNode::make(wyTexture2D::makePNG(RES("R.drawable.blocks")));
+			m_batchNode = wySpriteBatchNode::make(wyTexture2D::make(RES("R.drawable.blocks")));
 			m_batchNode->setPosition(0, 0);
 			addChildLocked(m_batchNode, -1);
 		}
@@ -90,7 +90,7 @@ namespace Performance {
 		}
 
 		void onAddSprite(wyTargetSelector* ts) {
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 			float size = DP(32.0f);
 			for(int i = 0; i < 50; i++) {
 				wySprite* s = wySprite::make(tex, wyr(wyMath::randMax(1) * size, wyMath::randMax(1) * size, size, size));
@@ -131,7 +131,7 @@ namespace Performance {
 		}
 
 		void onAddSprite(wyTargetSelector* ts) {
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.blocks"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.blocks"));
 			float size = DP(32.0f);
 			for(int i = 0; i < 50; i++) {
 				wySprite* s = wySprite::make(tex, wyr(wyMath::randMax(1) * size, wyMath::randMax(1) * size, size, size));
@@ -158,7 +158,7 @@ namespace Performance {
 
 	public:
 		wyBigTMXTestLayer() {
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.tileset0"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.tileset0"));
 			m_map = wyTMXTileMap::make(RES("R.raw.b0"), tex, NULL);
 			addChildLocked(m_map);
 

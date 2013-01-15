@@ -1308,111 +1308,6 @@ public:
 	 */
 	static const char16_t* getString16(int resId);
 	
-	
-	/**
-	 * 从资源文件中载入png图片
-	 *
-	 * @param resId png图片资源id
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @return 经过解析后的png图片数据, RGBA8888格式, 调用者需要负责释放返回的数据
-	 */
-	static char* loadPNG(int resId, float* w, float* h, bool sizeOnly);
-
-	/**
-	 * 从内存的数组中载入png图片
-	 *
-	 * @param data png文件的字节数组, 这必须是png文件的原始文件数据，即未经任何解码的png文件数据
-	 * @param length data的长度
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 经过解析后的png图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
-	 */
-	static char* loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * 从一个标准FILE指针中读取png图片，这个方法会负责关闭文件
-	 *
-	 * @param f FILE指针
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 */
-	static char* loadPNG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * 从文件系统或者asset中载入png图片
-	 *
-	 * @param path png图片的路径
-	 * @param isFile true表示这是一个文件系统上的文件, false表示这是一个asset中的文件
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 */
-	static char* loadPNG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * 从一个标准FILE指针中读取jpg图片，这个方法会负责关闭文件
-	 *
-	 * @param f FILE指针
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 */
-	static char* loadJPG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * 从文件系统或者asset中载入jpg图片
-	 *
-	 * @param path jpg图片的路径
-	 * @param isFile true表示这是一个文件系统上的文件, false表示这是一个asset中的文件
-	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 */
-	static char* loadJPG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * 从内存的数组中载入jpg图片
-	 *
-	 * @param data jpg文件的字节数组, 这必须是jpg文件的原始文件数据，即未经任何解码的jpg文件数据
-	 * @param length data的长度
-	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 */
-	static char* loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * 从资源文件中载入jpg图片
-	 *
-	 * @param resId jpg图片资源id
-	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
-	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
-	 */
-	static char* loadJPG(int resId, float* w, float* h, bool sizeOnly);
-	
 	/**
 	 * 从某个FILE指针中读取所有内容
 	 *
@@ -1444,6 +1339,16 @@ public:
 	static char* loadRaw(int resId, size_t* outLen = NULL, float* outScale = NULL);
 
 	/**
+	 * load raw data from a memory file
+	 *
+	 * @param mfsName memory file name
+	 * @param outLen optional, returns file length
+	 * @param noDecode true means don't decode even if the data is encoded
+	 * @return raw data, caller should release it. or NULL if loading failed
+	 */
+	static char* loadRaw(const char* mfsName, size_t* outLen = NULL, bool noDecode = false);
+
+	/**
 	 * 从资源文件中读取一个0结尾字符串, 0是由方法自动
 	 * 追加的. 这个资源文件必须是一个纯文本文件
 	 *
@@ -1461,80 +1366,6 @@ public:
 	 */
 	static char* loadCString(const char* path, bool isFile);
 
-	/**
-	 * 得到PVR图片的大小
-	 *
-	 * @param data PVR数据数组
-	 * @param length PVR数据数组长度
-	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
-	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return true表示获得大小成功, false表示失败
-	 */
-	static bool getPVRSize(const char* data, size_t length, float* w, float* h, float scale);
-
-	/**
-	 * 得到PVR图片的大小
-	 *
-	 * @param resId pvr图片资源id
-	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
-	 * @param outScale 用于返回缩放比例，这个比例从资源的density中获得，如果资源的density
-	 * 		是160, 而当前屏幕是hdpi(即240)，则scale会等于1.5. 这个参数一般只对图片有用，
-	 * 		如果不需要，可以传NULL
-	 * @return true表示获得大小成功, false表示失败
-	 */
-	static bool getPVRSize(int resId, float* w, float* h, float* outScale);
-
-	/**
-	 * 得到PVR图片的大小
-	 *
-	 * @param f pvr文件的FILE指针
-	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
-	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return true表示获得大小成功, false表示失败
-	 */
-	static bool getPVRSize(FILE* f, float* w, float* h, float scale);
-
-	/**
-	 * 得到PVR图片的大小
-	 *
-	 * @param path pvr文件在文件系统或者asset中的路径
-	 * @param isFile true表示path是一个文件系统路径
-	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
-	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return true表示获得大小成功, false表示失败
-	 */
-	static bool getPVRSize(const char* path, bool isFile, float* w, float* h, float scale);
-	
-	/**
-	 * PVR头部的字段是little endian的, 这个方法把它们转换为host endian
-	 *
-	 * @param header \link wyPVRHeader wyPVRHeader\endlink
-	 */
-	static void convertPVRHeaderEndian(wyPVRHeader* header);
-
-	/**
-	 * 缩放PVR图片
-	 *
-	 * @param format PVR文件格式
-	 * @param originData PVR原始数据
-	 * @param originWidth PVR原始宽度
-	 * @param originHeight PVR与原始高度
-	 * @param scale 缩放比例
-	 */
-	static char* scalePVR(wyPVRFormat format, char* originData, int originWidth, int originHeight, float scale);
-
-	/**
-	 * 检查PVR格式是否可以被自动拉伸
-	 *
-	 * @param format PVR格式常量
-	 * @return true表示PVR可以根据屏幕分辨率自动拉伸
-	 */
-	static bool canScalePVR(wyPVRFormat format);
-	
 	/**
 	 * \if English
 	 * Scale an image
@@ -1929,13 +1760,6 @@ public:
 	 * \endif
 	 */
 	static const char* createLabelBitmap(const char* text, float fontSize, wyFontStyle style = NORMAL, const char* fontName = NULL, float width = 0, wyTexture2D::TextAlignment alignment = wyTexture2D::LEFT);
-	
-	/*
-	 * memory file system
-	 */
-
-	// get file data
-	static bool getFile(const char* filename, const char** buffer, size_t* size);
 	
 	/*
 	 * opengl screenshot

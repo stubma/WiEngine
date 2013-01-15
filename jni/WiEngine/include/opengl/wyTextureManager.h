@@ -60,31 +60,37 @@ private:
 
 	/// hash for texture handle
 	struct wyTextureHash {
-		/// 资源的创建参数
+		/// creation parameter of texture
 		union {
-			// 通过资源id创建的
+			// from res id
 			struct {
 				int resId;
 			} rp;
 
-			// 通过内存文件创建的
+			// from memory file system
 			struct {
 				const char* mfsName;
 			} mp;
 
-			// 通过路径创建的
+			// from path
 			struct {
 				const char* path;
 				bool isFile;
 			} pp;
 
-			// 通过内存数据创建的
+			// from memory data
 			struct {
 				const char* data;
 				size_t length;
 				int width;
 				int height;
 			} dp;
+
+			// created from opengl texture id
+			struct {
+				/// how many wyTexture2D objects refer it
+				int ref;
+			} gp;
 		};
 
 		/// 创建类型
@@ -167,30 +173,15 @@ private:
 	wyGLTexture2D* getTexture(wyTexture2D* t);
 
 	// create texture proxy
-	wyTexture2D* makeBMP(int resId, int transparentColor, wyTexturePixelFormat format);
-	wyTexture2D* makeBMP(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeRawBMP(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeMemoryBMP(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeFileBMP(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeJPG(int resId, int transparentColor, wyTexturePixelFormat format);
-	wyTexture2D* makeJPG(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeRawJPG(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeMemoryJPG(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeFileJPG(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makePNG(int resId, wyTexturePixelFormat format);
-	wyTexture2D* makePNG(const char* assetPath, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeRawPNG(const char* data, size_t length, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeMemoryPNG(const char* mfsName, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makeFilePNG(const char* fsPath, wyTexturePixelFormat format, float inDensity);
-	wyTexture2D* makePVR(int resId);
-	wyTexture2D* makePVR(const char* assetPath, float inDensity);
-	wyTexture2D* makeRawPVR(const char* data, size_t length, float inDensity);
-	wyTexture2D* makeMemoryPVR(const char* mfsName, float inDensity);
-	wyTexture2D* makeFilePVR(const char* fsPath, float inDensity);
+	wyTexture2D* make(int resId, int transparentColor, wyTexturePixelFormat format);
+	wyTexture2D* make(const char* assetPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
+	wyTexture2D* makeRaw(const char* data, size_t length, int transparentColor, wyTexturePixelFormat format, float inDensity);
+	wyTexture2D* makeMemory(const char* mfsName, int transparentColor, wyTexturePixelFormat format, float inDensity);
+	wyTexture2D* makeFile(const char* fsPath, int transparentColor, wyTexturePixelFormat format, float inDensity);
 	wyTexture2D* makeLabel(const char* text, float fontSize, const char* fontPath, bool isFile, float width, wyTexture2D::TextAlignment alignment);
 	wyTexture2D* makeLabel(const char* text, float fontSize, wyFontStyle style, const char* fontName, float width, wyTexture2D::TextAlignment alignment);
 	wyTexture2D* makeGL(int texture, int w, int h);
-	wyTexture2D* makeRaw(const char* data, int width, int height, wyTexturePixelFormat format);
+	wyTexture2D* makeRaw8888(const char* data, int width, int height, wyTexturePixelFormat format);
 
 	/// clone a texture, with a given clone id
 	wyTexture2D* cloneTexture(wyTexture2D* t, int cloneId);

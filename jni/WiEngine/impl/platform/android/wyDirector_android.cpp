@@ -399,12 +399,6 @@ void wyDirector_android::setupAAL() {
 	    	dlclose(sAALHandler);
 	    	exit(1);
 	    }
-	    gAAL.scalePVR = (scalePVRFunc)dlsym(sAALHandler, "scalePVR");
-	    if(gAAL.scalePVR == NULL) {
-	    	LOGE("Cannot load symbol 'scalePVR'");
-	    	dlclose(sAALHandler);
-	    	exit(1);
-	    }
 	    gAAL.calculateTextSizeWithFont = (calculateTextSizeWithFontFunc)dlsym(sAALHandler, "calculateTextSizeWithFont");
 	    if(gAAL.calculateTextSizeWithFont == NULL) {
 	    	LOGE("Cannot load symbol 'calculateTextSizeWithFont'");

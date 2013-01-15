@@ -10,8 +10,8 @@
 namespace Other {
 
 	static void createButton(const char* label, wyLayer* layer, float x, float y, wyTargetSelector* ts) {
-		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* normal1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+		wyNinePatchSprite* pressed1 = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 		normal1->setContentSize(DP(300), DP(44));
 		pressed1->setContentSize(DP(300), DP(44));
 
@@ -66,7 +66,7 @@ namespace Other {
 			m_alphaFunc = ALPHA_FUNC[m_currentFunc];
 			
 			// create
-			m_sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.alpha_test")));
+			m_sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.alpha_test")));
 			m_sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2 + DP(80));
 			addChildLocked(m_sprite);
 			
@@ -76,8 +76,8 @@ namespace Other {
 			addChildLocked(m_hint);
 			
 			// alpha value slider
-			wySprite* bar = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.bar")));
-			wySprite* thumb = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.thumb")));
+			wySprite* bar = wySprite::make(wyTexture2D::make(RES("R.drawable.bar")));
+			wySprite* thumb = wySprite::make(wyTexture2D::make(RES("R.drawable.thumb")));
 			m_slider = wySlider::make(NULL, bar, thumb);
 			m_slider->setValue(0);
 			m_slider->setMax(255);
@@ -90,8 +90,8 @@ namespace Other {
 			addChildLocked(m_slider);
 			
 			// alpha func button
-			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 			normal->setContentSize(DP(280), DP(44));
 			pressed->setContentSize(DP(280), DP(44));
 			wyButton* button = wyButton::make(normal, pressed, NULL, NULL, NULL,
@@ -188,7 +188,7 @@ namespace Other {
 			m_tile_x = wyDevice::winWidth / m_tile_width;
 			m_tile_y = wyDevice::winHeight / m_tile_height;
 			
-			wyTexture2D* obj = wyTexture2D::makePNG(RES("R.drawable.astar"));
+			wyTexture2D* obj = wyTexture2D::make(RES("R.drawable.astar"));
 			wyZwoptexManager::getInstance()->addZwoptex("astar", RES("R.raw.astar"));
 			
 			m_findStartx = m_startx = m_tile_x / 2;
@@ -213,7 +213,7 @@ namespace Other {
 				}
 			}
 			
-			m_moveSprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.r1")));
+			m_moveSprite = wySprite::make(wyTexture2D::make(RES("R.drawable.r1")));
 			setStartPosition();
 			addChildLocked( m_moveSprite);
 			
@@ -329,14 +329,14 @@ namespace Other {
 			m_nextFilter = 0;
 			
 			// create texture
-			m_tex = wyTexture2D::makePNG(RES("R.drawable.grossini"));
+			m_tex = wyTexture2D::make(RES("R.drawable.grossini"));
 			wySprite* sprite = wySprite::make(m_tex);
 			sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 			addChildLocked(sprite);
 			
 			// sprite for button
-			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 			normal->setContentSize(DP(300), DP(44));
 			pressed->setContentSize(DP(300), DP(44));
 			
@@ -713,7 +713,7 @@ namespace Other {
 			char buf[128];
 			int idx = rand() % 14 + 1;
 			sprintf(buf, "grossini_dance_%02d.png", idx);
-			wyTexture2D* tex = wyTexture2D::makeMemoryPNG(buf);
+			wyTexture2D* tex = wyTexture2D::makeMemory(buf);
 			wySprite* sprite = wySprite::make(tex);
 			sprite->setFlipX(rand() % 2);
 			sprite->setFlipY(rand() % 2);
@@ -731,7 +731,7 @@ namespace Other {
 		
 	public:
 		wyNodePhysicsTestLayer() {
-			wySprite* sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+			wySprite* sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
 			sprite->setVelocity(100, 100);
 			sprite->setAcceleration(100, 100);
 			static wyNodePositionListener listener = {
@@ -775,7 +775,7 @@ namespace Other {
 		
 	public:
 		wyPauseResumeGameTestLayer() {
-			wySprite* sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+			wySprite* sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
 			addChildLocked(sprite);
 			sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight/ 2);
 			
@@ -972,17 +972,17 @@ namespace Other {
 			// load raw data and create texture from raw data
 			m_line = 0;
             float w, h;
-			m_raw = wyUtils::loadPNG(RES("R.drawable.grossini"), &w, &h, false);
+			m_raw = wyUtils::loadImage(RES("R.drawable.grossini"), &w, &h, false);
             m_rawWidth = w + 0.5f;
             m_rawHeight = h + 0.5f;
-			m_tex = wyTexture2D::makeRaw(m_raw, m_rawWidth, m_rawHeight);
+			m_tex = wyTexture2D::makeRaw8888(m_raw, m_rawWidth, m_rawHeight);
 			wySprite* sprite = wySprite::make(m_tex);
 			sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 			addChildLocked(sprite);
 			
 			// sprite for button
-			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 			normal->setContentSize(DP(300), DP(44));
 			pressed->setContentSize(DP(300), DP(44));
 			
@@ -1033,7 +1033,7 @@ namespace Other {
 	public:
 		wyResourceDecoderTestLayer() {
 			wyDirector::setResourceDecoder(this);
-			wySprite* s = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini_encoded")));
+			wySprite* s = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini_encoded")));
 		    s->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 2);
 		    addChildLocked(s);
 		}
@@ -1139,7 +1139,7 @@ namespace Other {
 	public:
 		wyScreenshotTestLayer() : m_screenshotSprite(NULL) {
 			// create a sprite
-			wySprite* sprite = wySprite::make(wyTexture2D::makePNG(RES("R.drawable.grossini")));
+			wySprite* sprite = wySprite::make(wyTexture2D::make(RES("R.drawable.grossini")));
 			sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight - DP(100));
 			addChildLocked(sprite);
 			
@@ -1191,7 +1191,7 @@ namespace Other {
 			wyTextureManager::getInstance()->removeTexture(path);
 			
 			/* 从新的截图中创建贴图对象 */
-			wyTexture2D* tex = wyTexture2D::makeFilePNG(path);
+			wyTexture2D* tex = wyTexture2D::makeFile(path);
 			
 			/*
 			 * 创建新的截图sprite, 添加到屏幕下方
@@ -1214,7 +1214,7 @@ namespace Other {
 		wyTextureAtlas* m_Atlas;
 	public:
 		wyTextureAtlasTestLayer() {
-			m_Atlas = (wyTextureAtlas*) wyTextureAtlas::make(wyTexture2D::makeJPG(RES("R.drawable.test_jpg")))->retain();
+			m_Atlas = (wyTextureAtlas*) wyTextureAtlas::make(wyTexture2D::make(RES("R.drawable.test_jpg")))->retain();
 			
 			float y = (wyDevice::winHeight - m_Atlas->getHeight()) / 2;
 			float x = (wyDevice::winWidth - m_Atlas->getWidth()) / 2;
@@ -1350,45 +1350,45 @@ namespace Other {
 		
 		void loadingThreadEntry(wyTargetSelector* sel) {
 			// load textures
-			wyTexture2D::makePNG(RES("R.drawable.atlastest"))->load();
+			wyTexture2D::make(RES("R.drawable.atlastest"))->load();
 			updateLoadHintLabel(1);
-			wyTexture2D::makePNG(RES("R.drawable.background"))->load();
+			wyTexture2D::make(RES("R.drawable.background"))->load();
 			updateLoadHintLabel(2);
-			wyTexture2D::makePNG(RES("R.drawable.bitmapfont"))->load();
+			wyTexture2D::make(RES("R.drawable.bitmapfont"))->load();
 			updateLoadHintLabel(3);
-			wyTexture2D::makePNG(RES("R.drawable.powered"))->load();
+			wyTexture2D::make(RES("R.drawable.powered"))->load();
 			updateLoadHintLabel(4);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_01"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_01"))->load();
 			updateLoadHintLabel(5);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_02"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_02"))->load();
 			updateLoadHintLabel(6);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_03"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_03"))->load();
 			updateLoadHintLabel(7);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_04"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_04"))->load();
 			updateLoadHintLabel(8);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_05"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_05"))->load();
 			updateLoadHintLabel(9);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_06"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_06"))->load();
 			updateLoadHintLabel(10);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_07"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_07"))->load();
 			updateLoadHintLabel(11);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_08"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_08"))->load();
 			updateLoadHintLabel(12);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_09"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_09"))->load();
 			updateLoadHintLabel(13);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_10"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_10"))->load();
 			updateLoadHintLabel(14);
-			wyTexture2D::makePNG(RES("R.drawable.ortho_test1"))->load();
+			wyTexture2D::make(RES("R.drawable.ortho_test1"))->load();
 			updateLoadHintLabel(15);
-			wyTexture2D::makePNG(RES("R.drawable.ortho_test1_bw"))->load();
+			wyTexture2D::make(RES("R.drawable.ortho_test1_bw"))->load();
 			updateLoadHintLabel(16);
-			wyTexture2D::makeJPG(RES("R.drawable.test_jpg"))->load();
+			wyTexture2D::make(RES("R.drawable.test_jpg"))->load();
 			updateLoadHintLabel(17);
-			wyTexture2D::makePNG(RES("R.drawable.tiles"))->load();
+			wyTexture2D::make(RES("R.drawable.tiles"))->load();
 			updateLoadHintLabel(18);
-			wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"))->load();
+			wyTexture2D::make(RES("R.drawable.grossini_dance_atlas"))->load();
 			updateLoadHintLabel(19);
-			wyTexture2D::makePNG(RES("R.drawable.hexa_tiles"))->load();
+			wyTexture2D::make(RES("R.drawable.hexa_tiles"))->load();
 			updateLoadHintLabel(20);
 			
 			// texture are all loaded, now go to next scene
@@ -1584,7 +1584,7 @@ namespace Other {
 		wyVerletRopeTestLayer() :
 		m_a(wyp(wyDevice::winWidth / 2, wyDevice::winHeight - 100)),
 		m_b(wyp(50, wyDevice::winHeight / 2)) {
-			m_rope = new wyVerletRope(m_a, m_b, wyTexture2D::makePNG(RES("R.drawable.rope")));
+			m_rope = new wyVerletRope(m_a, m_b, wyTexture2D::make(RES("R.drawable.rope")));
 			
 			setTouchEnabled(true);
 			
@@ -1643,7 +1643,7 @@ namespace Other {
 		
 	public:
 		wyZwoptexTestLayer() {
-			wyTexture2D* tex = wyTexture2D::makePNG(RES("R.drawable.grossini_dance_atlas"));
+			wyTexture2D* tex = wyTexture2D::make(RES("R.drawable.grossini_dance_atlas"));
 			wyZwoptexManager::getInstance()->addZwoptex("grossini", RES("R.raw.grossini_dance_atlas"), tex);
 			
 			addNewSprite(wyDevice::winWidth / 2, wyDevice::winHeight / 2);

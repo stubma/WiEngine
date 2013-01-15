@@ -37,6 +37,7 @@
 #include <zlib.h>
 #include <ctype.h>
 #include "PVRTMemoryFileSystem.h"
+#include "PVRTTexture.h"
 #include "wyGlobal.h"
 #include "wyResourceDecoder.h"
 #include "wyAssetInputStream.h"
@@ -52,9 +53,6 @@ extern wyResourceDecoder* gResDecoder;
 
 // base64 mapping table
 static const unsigned char base64_table[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-// pvr header sig
-static char sPVRTexIdentifier[5] = "PVR!";
 
 void wyUtils::makeScreenshot(const char* path, wyRect rect) {
 	if (endsWith(path, ".png") || endsWith(path, ".PNG")) {
@@ -764,10 +762,6 @@ int wyUtils::binarySearch(int* a, size_t len, int key) {
 	return -(low + 1); // key not found.
 }
 
-bool wyUtils::getFile(const char* filename, const char** buffer, size_t* size) {
-	return CPVRTMemoryFileSystem::GetFile(filename, (const void**)buffer, (size_t*)size);
-}
-
 int64_t wyUtils::currentTimeMillis() {
 	struct timeval tv;
 	gettimeofday(&tv, (struct timezone *) NULL);
@@ -975,124 +969,147 @@ const char* wyUtils::decodeObfuscatedData(const char* data, size_t length, size_
 	}
 }
 
-char* wyUtils::loadBMP(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(f, &length);
-	if(raw == NULL)
-		return NULL;
-
-	// then deliver to other method
-	char* data = loadBMP(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
+bool wyUtils::isPNG(const char* p, size_t size) {
+	if(size >= 8 &&
+			p[0] == (char)0x89 &&
+			p[1] == (char)0x50 &&
+			p[2] == (char)0x4E &&
+			p[3] == (char)0x47 &&
+			p[4] == (char)0x0D &&
+			p[5] == (char)0x0A &&
+			p[6] == (char)0x1A &&
+			p[7] == (char)0x0A)
+		return true;
+	else
+		return false;
 }
 
-char* wyUtils::loadBMP(int resId, float* w, float* h, bool sizeOnly) {
+bool wyUtils::isJPG(const char* p, size_t size) {
+	if(size >= 4 &&
+			p[0] == (char)0xFF &&
+			p[1] == (char)0xD8 &&
+			p[2] == (char)0xFF &&
+			p[3] == (char)0xE0)
+		return true;
+	else
+		return false;
+}
+
+bool wyUtils::isBMP(const char* p, size_t size) {
+	if(size >= 2 && p[0] == 'B' && p[1] == 'M')
+		return true;
+	else
+		return false;
+}
+
+bool wyUtils::isPVR(const char* p, size_t size) {
+	// check version 2 pvr file
+	if(size >= sizeof(PVR_Texture_Header)) {
+		// the start of magic number
+		size_t start = sizeof(PVR_Texture_Header) - 2 * sizeof(PVRTuint32);
+		if(p[start] == 'P' && p[start + 1] == 'V' && p[start + 2] == 'R' && p[start + 3] == '!')
+			return true;
+
+		// if failed, check version 3 pvr file
+		if(size >= sizeof(PVRTextureHeaderV3)) {
+			if(p[0] == 'P' && p[1] == 'V' && p[2] == 'R' && p[3] == 0x3)
+				return true;
+		}
+	}
+
+	return false;
+}
+
+char* wyUtils::loadImage(const char* raw, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
+	// basic validation
+	if(!raw) {
+		LOGW("wyUtils::loadImage: null data passed in");
+		return NULL;
+	}
+
+	// detect image type
+	if(isPVR(raw, length)) {
+		// for pvr, this method only support detect its size, so we
+		// return NULL always
+		if(sizeOnly && (w || h)) {
+			// get pvr header
+			PVRTextureHeaderV3 header;
+			if((*(PVRTuint32*)raw) != PVRTEX3_IDENT) {
+				PVRTConvertOldTextureHeaderToV3((PVR_Texture_Header*)raw, header, NULL);
+			} else {
+				header = *(PVRTextureHeaderV3*)raw;
+			}
+
+			// return size
+			if(w)
+				*w = header.u32Width;
+			if(h)
+				*h = header.u32Height;
+		}
+
+		return NULL;
+	} else if(isPNG(raw, length)) {
+		char* data = loadPNG(raw, length, w, h, sizeOnly, scaleX, scaleY);
+		return data;
+	} else if(isJPG(raw, length)) {
+		char* data = loadJPG(raw, length, w, h, sizeOnly, scaleX, scaleY);
+		return data;
+	} else if(isBMP(raw, length)) {
+		char* data = loadBMP(raw, length, w, h, sizeOnly, scaleX, scaleY);
+		return data;
+	} else {
+		LOGW("wyUtils::loadImage: unrecognized image format");
+		return NULL;
+	}
+}
+
+char* wyUtils::loadImage(int resId, float* w, float* h, bool sizeOnly) {
 	// load raw data
 	size_t length;
 	float scale;
 	char* raw = loadRaw(resId, &length, &scale);
-	if(raw == NULL)
+	if(!raw)
 		return NULL;
 
-	// then deliver to other method
-	char* data = loadBMP(raw, length, w, h, sizeOnly, scale, scale);
+	char* rgba = loadImage(raw, length, w, h, sizeOnly, scale, scale);
 	wyFree(raw);
-	return data;
+	return rgba;
 }
 
-char* wyUtils::loadBMP(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(path, isFile, &length);
-	if(raw == NULL)
-		return NULL;
-
-	// then deliver to other method
-	char* data = loadBMP(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
-}
-
-char* wyUtils::loadPNG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadImage(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(f, &length);
-	if(raw == NULL)
-		return NULL;
-	
-	// then deliver to other method
-	char* data = loadPNG(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
-}
-
-char* wyUtils::loadPNG(int resId, float* w, float* h, bool sizeOnly) {
-	// load raw data
-	size_t length;
-	float scale;
-	char* raw = loadRaw(resId, &length, &scale);
-	if(raw == NULL)
+	if(!raw)
 		return NULL;
 
-	// then deliver to other method
-	char* data = loadPNG(raw, length, w, h, sizeOnly, scale, scale);
+	char* rgba = loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
 	wyFree(raw);
-	return data;
+	return rgba;
 }
 
-char* wyUtils::loadPNG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
+char* wyUtils::loadImage(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
 	// load raw data
 	size_t length;
 	char* raw = loadRaw(path, isFile, &length);
-	if(raw == NULL)
+	if(!raw)
 		return NULL;
 
-	// then deliver to other method
-	char* data = loadPNG(raw, length, w, h, sizeOnly, scaleX, scaleY);
+	char* rgba = loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
 	wyFree(raw);
-	return data;
+	return rgba;
 }
 
-char* wyUtils::loadJPG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
-	// load raw data
+char* wyUtils::loadImage(const char* mfsName, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
+	// get data from memory file system
 	size_t length;
-	char* raw = loadRaw(f, &length);
-	if(raw == NULL)
-		return NULL;
-	
-	// then deliver to other method
-	char* data = loadJPG(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
-}
-
-char* wyUtils::loadJPG(int resId, float* w, float* h, bool sizeOnly) {
-	// load raw data
-	size_t length;
-	float scale;
-	char* raw = loadRaw(resId, &length, &scale);
-	if(raw == NULL)
+	char* raw = loadRaw(mfsName, &length);
+	if(!raw)
 		return NULL;
 
-	// then deliver to other method
-	char* data = loadJPG(raw, length, w, h, sizeOnly, scale, scale);
+	char* rgba = loadImage(raw, length, w, h, sizeOnly, scaleX, scaleY);
 	wyFree(raw);
-	return data;
-}
-
-char* wyUtils::loadJPG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(path, isFile, &length);
-	if(raw == NULL)
-		return NULL;
-
-	// then deliver to other method
-	char* data = loadJPG(raw, length, w, h, sizeOnly, scaleX, scaleY);
-	wyFree(raw);
-	return data;
+	return rgba;
 }
 
 char* wyUtils::loadRaw(FILE* f, size_t* outLen, bool noDecode) {
@@ -1139,211 +1156,31 @@ char* wyUtils::loadRaw(FILE* f, size_t* outLen, bool noDecode) {
 	return data;
 }
 
-bool wyUtils::getPVRSize(const char* data, size_t length, float* w, float* h, float scale) {
-	// create buffer
-	wyPVRHeader* header = NULL;
-	if ((header = (wyPVRHeader*)wyMalloc(sizeof(wyPVRHeader))) == NULL) {
-		LOGW("allocate pvr header buffer failed");
-		return false;
-	}
-	
-	// convert to pvr header
-	memcpy(header, data, sizeof(wyPVRHeader));
-	header->height = letoh32(header->height);
-	header->width = letoh32(header->width);
-	
-	// save result
-	if(w != NULL)
-		*w = header->width;
-	if(h != NULL)
-		*h = header->height;
-	
-	/*
-	 * XXX: 在iOS平台上缩放PVR有些麻烦, 暂不支持, 为了保持WiEngine在Android和iOS上的行为一致, 这里
-	 * 暂时不再缩放PVR贴图
-	 */
-	// check format if supports scaling
-//	wyPVRFormat format = (wyPVRFormat)(header->flags & PVR_TEXTURE_FLAG_TYPE_MASK);
-//	if(canScalePVR(format)) {
-//		*w = *w * scale;
-//		*h = *h * scale;
-//	}
-	
-	// free header
-	wyFree(header);
-	
-	return true;
-}
+char* wyUtils::loadRaw(const char* mfsName, size_t* outLen, bool noDecode) {
+	char* raw = NULL;
+	if(CPVRTMemoryFileSystem::GetFile(mfsName, (const void**)&raw, outLen)) {
+		// make a copy of raw data because GetFile returns a constant data which should not be released
+		char* tmp = (char*)copy(raw, 0, *outLen);
+		raw = tmp;
 
-bool wyUtils::getPVRSize(FILE* f, float* w, float* h, float scale) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(f, &length);
-	if(raw == NULL)
-		return NULL;
-	
-	// forward
-	bool ret = getPVRSize(raw, length, w, h, scale);
-	wyFree(raw);
-	
-	return ret;
-}
+		// check decoder flag
+		if(!noDecode) {
+			if(gResDecoder != NULL && !gResDecoder->hasFlag(wyResourceDecoder::DECODE_FILE))
+				noDecode = true;
+		}
 
-bool wyUtils::getPVRSize(int resId, float* w, float* h, float* outScale) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(resId, &length, outScale);
-	if(raw == NULL)
-		return NULL;
-
-	// then deliver to other method
-	bool ret = getPVRSize(raw, length, w, h, *outScale);
-	wyFree(raw);
-	return ret;
-}
-
-bool wyUtils::getPVRSize(const char* path, bool isFile, float* w, float* h, float scale) {
-	// load raw data
-	size_t length;
-	char* raw = loadRaw(path, isFile, &length);
-	if(raw == NULL)
-		return NULL;
-
-	// then deliver to other method
-	bool ret = getPVRSize(raw, length, w, h, scale);
-	wyFree(raw);
-	return ret;
-}
-
-void wyUtils::convertPVRHeaderEndian(wyPVRHeader* header) {
-	header->headerLength = letoh32(header->headerLength);
-	header->height = letoh32(header->height);
-	header->width = letoh32(header->width);
-	header->numMipmaps = letoh32(header->numMipmaps);
-	header->flags = letoh32(header->flags);
-	header->dataLength = letoh32(header->dataLength);
-	header->bpp = letoh32(header->bpp);
-	header->bitmaskRed = letoh32(header->bitmaskRed);
-	header->bitmaskGreen = letoh32(header->bitmaskGreen);
-	header->bitmaskBlue = letoh32(header->bitmaskBlue);
-	header->bitmaskAlpha = letoh32(header->bitmaskAlpha);
-	header->pvrTag = letoh32(header->pvrTag);
-	header->numSurfs = letoh32(header->numSurfs);
-}
-
-char** wyUtils::unpackPVRData(char* data, wyPVRHeader* header, int** mipmapLens, int* pvrFormatIndex, bool* hasAlpha) {
-	// to be returned
-	int index = 0;
-	char** mipmaps = (char**)wyCalloc(header->numMipmaps + 1, sizeof(char*));
-	*mipmapLens = (int*)wyCalloc(header->numMipmaps + 1, sizeof(int));
-
-	// check pvr sig
-	if((uint32_t)sPVRTexIdentifier[0] != ((header->pvrTag >> 0) & 0xff) ||
-			(uint32_t)sPVRTexIdentifier[1] != ((header->pvrTag >> 8) & 0xff) ||
-			(uint32_t)sPVRTexIdentifier[2] != ((header->pvrTag >> 16) & 0xff) ||
-			(uint32_t)sPVRTexIdentifier[3] != ((header->pvrTag >> 24) & 0xff)) {
-		LOGE("ERROR: PVR signature is not matched, may be corrupted");
-		return NULL;
-	}
-
-	int formatFlags = header->flags & PVR_TEXTURE_FLAG_TYPE_MASK;
-	bool flipped = (header->flags & PVR_TEXTURE_FLAG_FLIPPED_MASK) != 0;
-	if(flipped)
-		LOGW("WARNING: Image is flipped. Regenerate it using PVRTexTool");
-
-	bool success = false;
-	int pvrIndex = 0;
-	for(; pvrIndex < PVR_FORMAT_TABLE_ELEMENTS; pvrIndex++) {
-		if(gPVRFormats[pvrIndex][PVR_INDEX_TEXTURE_FORMAT] == formatFlags) {
-			if(header->bitmaskAlpha > 0)
-				*hasAlpha = true;
-			else
-				*hasAlpha = false;
-
-			// Calculate the data size for each texture level and respect
-			// the minimum number of blocks
-			int dataOffset = 0, dataSize = 0, blockSize = 0, widthBlocks = 0, heightBlocks = 0;
-			int dataLength = header->dataLength;
-			int width = header->width;
-			int height = header->height;
-			int bpp = 4;
-			while(dataOffset < dataLength) {
-				switch(formatFlags) {
-					case PVR_PVRTC_2:
-						// Pixel by pixel block size for 2bpp
-						blockSize = 8 * 4;
-						widthBlocks = width / 8;
-						heightBlocks = height / 4;
-						bpp = 2;
-						break;
-					case PVR_PVRTC_4:
-						// Pixel by pixel block size for 4bpp
-						blockSize = 4 * 4;
-						widthBlocks = width / 4;
-						heightBlocks = height / 4;
-						bpp = 4;
-						break;
-					default:
-						blockSize = 1;
-						widthBlocks = width;
-						heightBlocks = height;
-						bpp = gPVRFormats[pvrIndex][PVR_INDEX_BPP];
-						break;
-				}
-
-				// Clamp to minimum number of blocks
-				if(widthBlocks < 2)
-					widthBlocks = 2;
-				if(heightBlocks < 2)
-					heightBlocks = 2;
-
-				dataSize = widthBlocks * heightBlocks * blockSize * bpp / 8;
-				(*mipmapLens)[index] = dataSize;
-				mipmaps[index] = (char*)wyMalloc(dataSize);
-				memcpy(mipmaps[index], data + header->headerLength + dataOffset, dataSize);
-				index++;
-				dataOffset += dataSize;
-
-				width = MAX(width >> 1, 1);
-				height = MAX(height >> 1, 1);
+		// decode data or not
+		if(!noDecode) {
+			const char* decoded = decodeObfuscatedData(raw, *outLen, outLen);
+			if(decoded != raw) {
+				wyFree(raw);
+				raw = (char*)decoded;
 			}
-
-			success = true;
-			break;
 		}
-	}
 
-	if(!success) {
-		LOGW("WARNING: Unsupported PVR Pixel Format: %d", formatFlags);
-
-		// release memory allocated
-		for(int i = 0; i < header->numMipmaps + 1; i++) {
-			if(mipmaps[i] != NULL)
-				wyFree(mipmaps[i]);
-		}
-		wyFree(mipmaps);
-		wyFree(*mipmapLens);
-		*mipmapLens = NULL;
-
-		return NULL;
+		return raw;
 	} else {
-		// return pvr format index
-		*pvrFormatIndex = pvrIndex;
-
-		// return uncompressed data
-		return mipmaps;
-	}
-}
-
-bool wyUtils::canScalePVR(wyPVRFormat format) {
-	switch(format) {
-		case PVR_RGBA_4444:
-		case PVR_RGBA_8888:
-		case PVR_RGB_565:
-		case PVR_A_8:
-			return true;
-		default:
-			return false;
+		return NULL;
 	}
 }
 

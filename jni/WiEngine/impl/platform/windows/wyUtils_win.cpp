@@ -1180,10 +1180,6 @@ char* wyUtils::loadCString(int resId) {
 	return ret;
 }
 
-char* wyUtils::scalePVR(wyPVRFormat format, char* originData, int originWidth, int originHeight, float scale) {
-	return NULL;
-}
-
 char* wyUtils::scaleImage(char* originData, int originWidth, int originHeight, float scaleX, float scaleY) {
 	// no scale? just return
 	if(scaleX == 1.0f && scaleY == 1.0f)

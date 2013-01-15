@@ -94,7 +94,7 @@ public class TGATileMapAtlasTest extends WiEngineTestActivity {
         public MyLayer() {
             // create tile map
             mTileMap = TGATileMapAtlas.make(
-        		Texture2D.makePNG(R.drawable.tiles), 
+        		Texture2D.make(R.drawable.tiles), 
             	R.drawable.levelmap, 
             	(int)ResolutionIndependent.resolveDp(16), (int)ResolutionIndependent.resolveDp(16));
             mTileMap.getTexture().setAntiAlias(false);

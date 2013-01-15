@@ -146,7 +146,7 @@ public class Animation extends BaseWYObject {
      * @param resId 帧图片资源id
      */
     public void addFrame(float frameDuration, int resId) {
-    	Texture2D tex = (Texture2D)Texture2D.makePNG(resId).autoRelease();
+    	Texture2D tex = (Texture2D)Texture2D.make(resId).autoRelease();
     	addFrame(frameDuration, tex);
     }
     

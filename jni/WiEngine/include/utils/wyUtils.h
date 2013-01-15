@@ -232,6 +232,48 @@ private:
 	 */
 	static ssize_t lastDotIndex(const char* path);
 
+	/**
+	 * Load bmp RGBA8888 data from memory bmp data
+	 *
+	 * @param data bmp file data in memory
+	 * @param length \c data length
+	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
+	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
+	 * @param sizeOnly true indicating only get size, don't load data
+	 * @param scaleX x scale, 1 for no scale
+	 * @param scaleY y scale, 1 for no scale
+	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
+	 */
+	static char* loadBMP(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * Load png RGBA8888 data from memory png data
+	 *
+	 * @param data png file data in memory
+	 * @param length \c data length
+	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
+	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
+	 * @param sizeOnly true indicating only get size, don't load data
+	 * @param scaleX x scale, 1 for no scale
+	 * @param scaleY y scale, 1 for no scale
+	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
+	 */
+	static char* loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+
+	/**
+	 * Load jpg RGBA8888 data from memory png data
+	 *
+	 * @param data jpg file data in memory
+	 * @param length \c data length
+	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
+	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
+	 * @param sizeOnly true indicating only get size, don't load data
+	 * @param scaleX x scale, 1 for no scale
+	 * @param scaleY y scale, 1 for no scale
+	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
+	 */
+	static char* loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+
 public:
 	
 	/*
@@ -351,56 +393,56 @@ public:
 	static const char16_t* getString16(int resId);
 	
 	/**
-	 * \if English
-	 * Load bmp RGBA8888 data from bmp resource id
+	 * Check a image is png or not
 	 *
-	 * @param resId resource id of bmp file
+	 * @param p raw data
+	 * @param size raw data length in bytes
+	 * @return true means the raw data is a png image, or false if not
+	 */
+	static bool isPNG(const char* p, size_t size);
+
+	/**
+	 * Check a image is jpg or not
+	 *
+	 * @param p raw data
+	 * @param size raw data length in bytes
+	 * @return true means the raw data is a jpg image, or false if not
+	 */
+	static bool isJPG(const char* p, size_t size);
+
+	/**
+	 * Check a image is bmp or not
+	 *
+	 * @param p raw data
+	 * @param size raw data length in bytes
+	 * @return true means the raw data is a bmp image, or false if not
+	 */
+	static bool isBMP(const char* p, size_t size);
+
+	/**
+	 * check a image is PVR or not
+	 *
+	 * @param p image raw data
+	 * @param size raw data length in bytes
+	 * @return true means the raw data is a PVR image, or false if not
+	 */
+	static bool isPVR(const char* p, size_t size);
+
+	/**
+	 * Load RGBA8888 data from image resource id, it will auto detect
+	 * image file format
+	 *
+	 * @param resId resource id of image file
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
 	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
 	 * @param sizeOnly true indicating only get size, don't load data
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从资源文件中载入bmp图片
-	 *
-	 * @param resId bmp图片资源id
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得bmp图片大小, 不解析bmp图片数据
-	 * @return 经过解析后的png图片数据, RGBA8888格式, 调用者需要负责释放返回的数据
-	 * \endif
 	 */
-	static char* loadBMP(int resId, float* w, float* h, bool sizeOnly);
+	static char* loadImage(int resId, float* w, float* h, bool sizeOnly);
 
 	/**
-	 * \if English
-	 * Load bmp RGBA8888 data from memory bmp data
-	 *
-	 * @param data bmp file data in memory
-	 * @param length \c data length
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从内存的数组中载入bmp图片
-	 *
-	 * @param data bmp文件的字节数组, 这必须是bmp文件的原始文件数据，即未经任何解码的bmp文件数据
-	 * @param length data的长度
-	 * @param w 保存bmp图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存bmp图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得bmp图片大小, 不解析bmp图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 经过解析后的bmp图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
-	 * \endif
-	 */
-	static char* loadBMP(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * \if English
-	 * Load BMP RGBA8888 data from a C file pointer, it will close file pointer when done
+	 * Load RGBA8888 data from an image's C file pointer, it will close file pointer when done. It
+	 * will auto detect image file format
 	 *
 	 * @param f C FILE pointer
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
@@ -409,73 +451,13 @@ public:
 	 * @param scaleX x scale, 1 for no scale
 	 * @param scaleY y scale, 1 for no scale
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从一个标准FILE指针中读取BMP图片，这个方法会负责关闭文件
-	 *
-	 * @param f FILE指针
-	 * @param w 保存BMP图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存BMP图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得BMP图片大小, 不解析BMP图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 * \endif
 	 */
-	static char* loadBMP(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadImage(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
-	 * \if English
-	 * Load BMP RGBA8888 data from assets or file system
+	 * Load RGBA8888 data from memory image data, it will auto detect image file format
 	 *
-	 * @param path BMP file path
-	 * @param isFile true indicating \c path is an absolute path in file system, false if \c path is a relative path under assets
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从文件系统或者asset中载入png图片
-	 *
-	 * @param path BMP图片的路径
-	 * @param isFile true表示这是一个文件系统上的文件, false表示这是一个asset中的文件
-	 * @param w 保存BMP图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存BMP图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得BMP图片大小, 不解析BMP图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 * \endif
-	 */
-	static char* loadBMP(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * \if English
-	 * Load png RGBA8888 data from png resource id
-	 *
-	 * @param resId resource id of png file
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从资源文件中载入png图片
-	 *
-	 * @param resId png图片资源id
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @return 经过解析后的png图片数据, RGBA8888格式, 调用者需要负责释放返回的数据
-	 * \endif
-	 */
-	static char* loadPNG(int resId, float* w, float* h, bool sizeOnly);
-
-	/**
-	 * \if English
-	 * Load png RGBA8888 data from memory png data
-	 *
-	 * @param data png file data in memory
+	 * @param raw image file data in memory
 	 * @param length \c data length
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
 	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
@@ -483,51 +465,13 @@ public:
 	 * @param scaleX x scale, 1 for no scale
 	 * @param scaleY y scale, 1 for no scale
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从内存的数组中载入png图片
-	 *
-	 * @param data png文件的字节数组, 这必须是png文件的原始文件数据，即未经任何解码的png文件数据
-	 * @param length data的长度
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 经过解析后的png图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
-	 * \endif
 	 */
-	static char* loadPNG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadImage(const char* raw, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
-	 * \if English
-	 * Load png RGBA8888 data from a C file pointer, it will close file pointer when done
+	 * Load RGBA8888 data from assets or file system, it will auto detect image file format
 	 *
-	 * @param f C FILE pointer
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从一个标准FILE指针中读取png图片，这个方法会负责关闭文件
-	 *
-	 * @param f FILE指针
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 * \endif
-	 */
-	static char* loadPNG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * \if English
-	 * Load png RGBA8888 data from assets or file system
-	 *
-	 * @param path png file path
+	 * @param path image file path
 	 * @param isFile true indicating \c path is an absolute path in file system, false if \c path is a relative path under assets
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
 	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
@@ -535,121 +479,22 @@ public:
 	 * @param scaleX x scale, 1 for no scale
 	 * @param scaleY y scale, 1 for no scale
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从文件系统或者asset中载入png图片
-	 *
-	 * @param path png图片的路径
-	 * @param isFile true表示这是一个文件系统上的文件, false表示这是一个asset中的文件
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 * \endif
 	 */
-	static char* loadPNG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadImage(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
 	/**
-	 * \if English
-	 * Load jpg RGBA8888 data from C file pointer, it will close file pointer when done
+	 * Load RGBA8888 data from memory file system, it will auto detect image file format
 	 *
-	 * @param f C file pointer
+	 * @param mfsName image file name in memory file system
 	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
 	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
 	 * @param sizeOnly true indicating only get size, don't load data
 	 * @param scaleX x scale, 1 for no scale
 	 * @param scaleY y scale, 1 for no scale
 	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从一个标准FILE指针中读取jpg图片，这个方法会负责关闭文件
-	 *
-	 * @param f FILE指针
-	 * @param w 保存png图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存png图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得png图片大小, 不解析png图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 * \endif
 	 */
-	static char* loadJPG(FILE* f, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
+	static char* loadImage(const char* mfsName, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
 
-	/**
-	 * \if English
-	 * Load jpg RGBA8888 data from assets or file system
-	 *
-	 * @param path jpg file path
-	 * @param isFile true indicating \c path is an absolute path in file system, false if \c path is a relative path under assets
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从文件系统或者asset中载入jpg图片
-	 *
-	 * @param path jpg图片的路径
-	 * @param isFile true表示这是一个文件系统上的文件, false表示这是一个asset中的文件
-	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 适合于创建OpenGL贴图的数据, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 * \endif
-	 */
-	static char* loadJPG(const char* path, bool isFile, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * \if English
-	 * Load jpg RGBA8888 data from memory png data
-	 *
-	 * @param data jpg file data in memory
-	 * @param length \c data length
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @param scaleX x scale, 1 for no scale
-	 * @param scaleY y scale, 1 for no scale
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从内存的数组中载入jpg图片
-	 *
-	 * @param data jpg文件的字节数组, 这必须是jpg文件的原始文件数据，即未经任何解码的jpg文件数据
-	 * @param length data的长度
-	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
-	 * @param scaleX 缺省的X缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @param scaleY 缺省的Y缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL, 调用者需要负责释放返回的数据
-	 * \endif
-	 */
-	static char* loadJPG(const char* data, size_t length, float* w, float* h, bool sizeOnly, float scaleX, float scaleY);
-
-	/**
-	 * \if English
-	 * Load jpg RGBA8888 data from jpg resource id
-	 *
-	 * @param resId resource id of jpg file
-	 * @param w hold final image width, this width is result of original width and scaleX. NULL means you don't care
-	 * @param h hold final image height, this height is result of original height and scaleY. NULL means you don't care
-	 * @param sizeOnly true indicating only get size, don't load data
-	 * @return RGBA8888 data of image, if \c sizeOnly is true, returns NULL, caller should release returned data
-	 * \else
-	 * 从资源文件中载入jpg图片
-	 *
-	 * @param resId jpg图片资源id
-	 * @param w 保存jpg图片像素宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存jpg图片像素高度的指针, 为NULL则不返回高度
-	 * @param sizeOnly true表示仅获得jpg图片大小, 不解析jpg图片数据
-	 * @return 经过解析后的jpg图片数据, RGBA8888格式, 如果sizeOnly是true, 则返回NULL
-	 * \endif
-	 */
-	static char* loadJPG(int resId, float* w, float* h, bool sizeOnly);
-	
 	/**
 	 * \if English
 	 * Load raw data from a C file pointer, it will close file pointer when done
@@ -713,6 +558,16 @@ public:
 	static char* loadRaw(int resId, size_t* outLen = NULL, float* outScale = NULL, bool noDecode = false);
 
 	/**
+	 * load raw data from a memory file
+	 *
+	 * @param mfsName memory file name
+	 * @param outLen optional, returns file length
+	 * @param noDecode true means don't decode even if the data is encoded
+	 * @return raw data, caller should release it. or NULL if loading failed
+	 */
+	static char* loadRaw(const char* mfsName, size_t* outLen = NULL, bool noDecode = false);
+
+	/**
 	 * \if English
 	 * Load a C string from resource id, null terminator is appended automatically.
 	 * This resource must be a plain text resource.
@@ -746,170 +601,6 @@ public:
 	 * \endif
 	 */
 	static char* loadCString(const char* path, bool isFile);
-
-	/**
-	 * \if English
-	 * Get size of PVR image
-	 *
-	 * @param data PVR image data
-	 * @param length \c data length
-	 * @param w returns width of PVR, NULL if you don't care
-	 * @param h returns height of PVR, NULL if you don't care
-	 * @param scale scale rate, 1 for no scale
-	 * @return true means successful, or false if failed
-	 * \else
-	 * 得到PVR图片的大小
-	 *
-	 * @param data PVR数据数组
-	 * @param length PVR数据数组长度
-	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
-	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return true表示获得大小成功, false表示失败
-	 * \endif
-	 */
-	static bool getPVRSize(const char* data, size_t length, float* w, float* h, float scale);
-
-	/**
-	 * \if English
-	 * Get size of PVR image
-	 *
-	 * @param resId resource id of PVR file
-	 * @param w returns width of PVR, NULL if you don't care
-	 * @param h returns height of PVR, NULL if you don't care
-	 * @param outScale returns scale of PVR resource, decided from resource density
-	 * @return true means successful, or false if failed
-	 * \else
-	 * 得到PVR图片的大小
-	 *
-	 * @param resId pvr图片资源id
-	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
-	 * @param outScale 用于返回缩放比例，这个比例从资源的density中获得，如果资源的density
-	 * 		是160, 而当前屏幕是hdpi(即240)，则scale会等于1.5. 这个参数一般只对图片有用，
-	 * 		如果不需要，可以传NULL
-	 * @return true表示获得大小成功, false表示失败
-	 * \endif
-	 */
-	static bool getPVRSize(int resId, float* w, float* h, float* outScale);
-
-	/**
-	 * \if English
-	 * Get size of PVR image
-	 *
-	 * @param f C file pointer
-	 * @param w returns width of PVR, NULL if you don't care
-	 * @param h returns height of PVR, NULL if you don't care
-	 * @param scale scale rate, 1 for no scale
-	 * @return true means successful, or false if failed
-	 * \else
-	 * 得到PVR图片的大小
-	 *
-	 * @param f pvr文件的FILE指针
-	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
-	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return true表示获得大小成功, false表示失败
-	 * \endif
-	 */
-	static bool getPVRSize(FILE* f, float* w, float* h, float scale);
-
-	/**
-	 * \if English
-	 * Get size of PVR image
-	 *
-	 * @param path file path
-	 * @param isFile true indicating \c path is an absolute path in file system, false if \c path is a relative path under assets
-	 * @param w returns width of PVR, NULL if you don't care
-	 * @param h returns height of PVR, NULL if you don't care
-	 * @param scale scale rate, 1 for no scale
-	 * @return true means successful, or false if failed
-	 * \else
-	 * 得到PVR图片的大小
-	 *
-	 * @param path pvr文件在文件系统或者asset中的路径
-	 * @param isFile true表示path是一个文件系统路径
-	 * @param w 保存pvr图片宽度的指针, 为NULL则不返回宽度
-	 * @param h 保存pvr图片高度的指针, 为NULL则不返回高度
-	 * @param scale 缺省的缩放比例, 为1表示不缩放图片, 为2表示放大一倍
-	 * @return true表示获得大小成功, false表示失败
-	 * \endif
-	 */
-	static bool getPVRSize(const char* path, bool isFile, float* w, float* h, float scale);
-	
-	/**
-	 * \if English
-	 * Convert byte order of PVR header. It is little endian but we need host endian
-	 *
-	 * @param header \link wyPVRHeader wyPVRHeader\endlink
-	 * \else
-	 * PVR头部的字段是little endian的, 这个方法把它们转换为host endian
-	 *
-	 * @param header \link wyPVRHeader wyPVRHeader\endlink
-	 * \endif
-	 */
-	static void convertPVRHeaderEndian(wyPVRHeader* header);
-
-	/**
-	 * \if English
-	 * Unpack PVR data
-	 *
-	 * @param data PVR raw data
-	 * @param header \link wyPVRHeader wyPVRHeader\endlink
-	 * @param mipmapLens contains length of every mipmap
-	 * @param pvrFormatIndex PVR file format index in gPVRFormats array
-	 * @param hasAlpha returns flag about PVR alpha channel existence
-	 * @return PVR data array for every mipmap
-	 * \else
-	 * 解压PVR原始数据
-	 *
-	 * @param data PVR的原始数据
-	 * @param header \link wyPVRHeader wyPVRHeader\endlink
-	 * @param mipmapLens 返回PVR中每个mipmap图片数据的长度
-	 * @param pvrFormatIndex 用来返回PVR文件的格式, 这个索引是gPVRFormats数组中的索引
-	 * @param hasAlpha 用来返回PVR是否有alpha通道
-	 * @return PVR图像数据， 这是一个二级指针， 包含了所有mipmap的数据
-	 * \endif
-	 */
-	static char** unpackPVRData(char* data, wyPVRHeader* header, int** mipmapLens, int* pvrFormatIndex, bool* hasAlpha);
-
-	/**
-	 * \if English
-	 * Scale PVR image
-	 *
-	 * @param format PVR file format
-	 * @param originData image data
-	 * @param originWidth width of image
-	 * @param originHeight height of image
-	 * @param scale scale rate
-	 * @return scaled data
-	 * \else
-	 * 缩放PVR图片
-	 *
-	 * @param format PVR文件格式
-	 * @param originData PVR原始数据
-	 * @param originWidth PVR原始宽度
-	 * @param originHeight PVR与原始高度
-	 * @param scale 缩放比例
-	 * @return 缩放后的图片数据
-	 * \endif
-	 */
-	static char* scalePVR(wyPVRFormat format, char* originData, int originWidth, int originHeight, float scale);
-
-	/**
-	 * \if English
-	 * Check whether a PVR image can be scaled by WiEngine
-	 *
-	 * @param format PVR format
-	 * @return true means we can do that
-	 * \else
-	 * 检查PVR格式是否可以被自动拉伸
-	 *
-	 * @param format PVR格式常量
-	 * @return true表示PVR可以根据屏幕分辨率自动拉伸
-	 * \endif
-	 */
-	static bool canScalePVR(wyPVRFormat format);
 
 	/**
 	 * \if English
@@ -1706,29 +1397,6 @@ public:
 	 * \endif
 	 */
 	static const char* createLabelBitmap(const char* text, float fontSize, wyFontStyle style = NORMAL, const char* fontName = NULL, float width = 0, wyTexture2D::TextAlignment alignment = wyTexture2D::LEFT);
-	
-	/*
-	 * memory file system
-	 */
-
-	/**
-	 * \if English
-	 * Get memory file data
-	 *
-	 * @param filename file name to identify a memory file
-	 * @param buffer buffer to hold file data, you don't need release it
-	 * @param size returns length of file data
-	 * @return true if successful, or false if failed
-	 * \else
-	 * 得到一个内存文件
-	 *
-	 * @param filename 内存文件的标识名称，一般就是这个文件的文件名
-	 * @param buffer 返回内存文件数据的缓冲区二级指针，不需要释放因为数据并不是拷贝得到的
-	 * @param size 用来返回文件数据的长度
-	 * @return true表示成功， false表示失败
-	 * \endif
-	 */
-	static bool getFile(const char* filename, const char** buffer, size_t* size);
 	
 	/*
 	 * opengl screenshot

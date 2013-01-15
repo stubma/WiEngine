@@ -85,9 +85,9 @@ public class RunActionTest extends WiEngineTestActivity {
 		}
 		
 	    void createButton(String label, Layer layer, float x, float y, TargetSelector ts) {
-	    	Texture2D normalTex = Texture2D.makePNG(R.drawable.btn_normal);
+	    	Texture2D normalTex = Texture2D.make(R.drawable.btn_normal);
 	    	normalTex.autoRelease();
-	    	Texture2D pressedTex = Texture2D.makePNG(R.drawable.btn_pressed);
+	    	Texture2D pressedTex = Texture2D.make(R.drawable.btn_pressed);
 	    	pressedTex.autoRelease();
 			NinePatchSprite normal1 = NinePatchSprite.make(normalTex, WYRect.make(DP(9), DP(7), DP(22), DP(28)));
 			NinePatchSprite pressed1 = NinePatchSprite.make(pressedTex, WYRect.make(DP(9), DP(7), DP(22), DP(28)));
@@ -109,7 +109,7 @@ public class RunActionTest extends WiEngineTestActivity {
 		public void onAddSprite() {
 			WYSize s = Director.getInstance().getWindowSize();
 			Random r = new Random();
-			Texture2D tex = Texture2D.makePNG(R.drawable.blocks);
+			Texture2D tex = Texture2D.make(R.drawable.blocks);
 			tex.autoRelease();
 			float size = DP(32.0f);
 			for(int i = 0; i < 50; i++) {

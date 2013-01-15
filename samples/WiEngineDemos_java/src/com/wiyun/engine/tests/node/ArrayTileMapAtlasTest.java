@@ -111,7 +111,7 @@ public class ArrayTileMapAtlasTest extends WiEngineTestActivity {
             }
 
             // create tile map
-            mTileMap = ArrayTileMapAtlas.make(Texture2D.makePNG(R.drawable.tiles), 
+            mTileMap = ArrayTileMapAtlas.make(Texture2D.make(R.drawable.tiles), 
             	(int)ResolutionIndependent.resolveDp(16), (int)ResolutionIndependent.resolveDp(16),
             	20, 20);
             mTileMap.setTiles(tiles);

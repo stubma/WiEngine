@@ -74,7 +74,7 @@ public class ParticleSpiral extends QuadParticleSystem {
         setEndColorVariance(0.5f, 0.5f, 0.5f, 1f, 0.5f, 0.5f, 0.5f, 0f);
 
         // TODO support fire.pvr
-        setTexture(Texture2D.makePNG(R.drawable.fire));
+        setTexture(Texture2D.make(R.drawable.fire));
         
         // additive
         setBlendAdditive(false);

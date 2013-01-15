@@ -140,7 +140,7 @@ public:
 			
 			cpShape *shape = cpSpaceAddShape(space, cpPolyShapeNew(body, 4, verts,
 																   cpvzero));
-			cpShapeSetTexture(shape, wyTexture2D::makePNG(RES("R.drawable.blocks")), false);
+			cpShapeSetTexture(shape, wyTexture2D::make(RES("R.drawable.blocks")), false);
 			shape->e = 1.0f;
 			shape->u = 0.0f;
 			
@@ -1275,37 +1275,37 @@ public:
 			switch(randNum) {
 				case 0:
 					body = m_bodyLoader->createBodyByName(m_chipmunk, "drink");
-					sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("drink", "drawable", NULL)));
+					sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("drink", "drawable", NULL)));
 					anchorPercent = m_bodyLoader->getAnchorPercent("drink");
 					break;
 				case 1:
 					body = m_bodyLoader->createBodyByName(m_chipmunk, "hamburger");
-					sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("hamburger", "drawable", NULL)));
+					sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("hamburger", "drawable", NULL)));
 					anchorPercent = m_bodyLoader->getAnchorPercent("hamburger");
 					break;            
 				case 2:
 					body = m_bodyLoader->createBodyByName(m_chipmunk, "hotdog");
-					sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("hotdog", "drawable", NULL)));
+					sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("hotdog", "drawable", NULL)));
 					anchorPercent = m_bodyLoader->getAnchorPercent("hotdog");
 					break;
 				case 3:
 					body = m_bodyLoader->createBodyByName(m_chipmunk, "icecream");
-					sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("icecream", "drawable", NULL)));
+					sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("icecream", "drawable", NULL)));
 					anchorPercent = m_bodyLoader->getAnchorPercent("icecream");
 					break;            
 				case 4:
 					body = m_bodyLoader->createBodyByName(m_chipmunk, "icecream2");
-					sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("icecream2", "drawable", NULL)));
+					sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("icecream2", "drawable", NULL)));
 					anchorPercent = m_bodyLoader->getAnchorPercent("icecream2");
 					break;
 				case 5:
 					body = m_bodyLoader->createBodyByName(m_chipmunk, "icecream3");
-					sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("icecream3", "drawable", NULL)));
+					sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("icecream3", "drawable", NULL)));
 					anchorPercent = m_bodyLoader->getAnchorPercent("icecream3");
 					break;
 				case 6:
 					body = m_bodyLoader->createBodyByName(m_chipmunk, "orange");
-					sprite = wySprite::make(wyTexture2D::makePNG(wyUtils::getResId("orange", "drawable", NULL)));
+					sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId("orange", "drawable", NULL)));
 					anchorPercent = m_bodyLoader->getAnchorPercent("orange");
 					break;
 			} 
@@ -1562,8 +1562,8 @@ public:
 			setKeyEnabled(true);
 			
 			// up button
-			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 			normal->setContentSize(DP(78), DP(44));
 			pressed->setContentSize(DP(78), DP(44));
 			wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL,
@@ -1986,8 +1986,8 @@ public:
 			setKeyEnabled(true);
 			
 			// up button
-			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 			normal->setContentSize(DP(78), DP(44));
 			pressed->setContentSize(DP(78), DP(44));
 			wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL,
@@ -3121,7 +3121,7 @@ public:
 															 cpv(150, 0), 15.0f));
 			shape->e = 1.0f;
 			shape->u = 1.0f;
-			cpShapeSetTexture(shape, wyTexture2D::makePNG(RES("R.drawable.bar")), false);
+			cpShapeSetTexture(shape, wyTexture2D::make(RES("R.drawable.bar")), false);
 			
 			cpSpaceAddConstraint(space, cpPivotJointNew2(body, staticBody, cpvzero,
 														 cpvzero));
@@ -3154,7 +3154,7 @@ public:
 			
 			cpShape *shape = cpSpaceAddShape(space, cpPolyShapeNew(body, 4, verts,
 																   cpvzero));
-			cpShapeSetTexture2(shape, wyTexture2D::makePNG(RES("R.drawable.blocks")),
+			cpShapeSetTexture2(shape, wyTexture2D::make(RES("R.drawable.blocks")),
 							   wyr(wyMath::randMax(1) * size * 2, wyMath::randMax(1) * size * 2, size * 2, size * 2), false);
 			shape->e = 1.0f;
 			shape->u = 0.0f;
@@ -3215,7 +3215,7 @@ public:
 			shape->u = 1.0f;
 			shape->collision_type = 1;
 			shape->layers = NOT_GRABABLE_MASK;
-			cpShapeSetTexture(shape, wyTexture2D::makePNG(RES("R.drawable.bar")), false);
+			cpShapeSetTexture(shape, wyTexture2D::make(RES("R.drawable.bar")), false);
 			
 			// We'll use the data pointer for the OneWayPlatform struct
 			platformInstance.n = cpv(0, 1); // let objects pass upwards
@@ -3233,7 +3233,7 @@ public:
 			shape->e = 0.0f;
 			shape->u = 0.9f;
 			shape->collision_type = 2;
-			cpShapeSetTexture2(shape, wyTexture2D::makePNG(RES("R.drawable.blocks")),
+			cpShapeSetTexture2(shape, wyTexture2D::make(RES("R.drawable.blocks")),
 							   wyr(wyMath::randMax(1) * radius * 2, wyMath::randMax(1) * radius * 2, radius * 2, radius * 2), false);
 			
 			cpSpaceAddCollisionHandler(space, 1, 2, NULL, preSolve, NULL, separate,
@@ -3370,8 +3370,8 @@ public:
 			setKeyEnabled(true);
 			
 			// left button
-			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 			normal->setContentSize(DP(150), DP(44));
 			pressed->setContentSize(DP(150), DP(44));
 			wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL,
@@ -3665,8 +3665,8 @@ public:
 			setKeyEnabled(true);
 			
 			// up button
-			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
-			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::makePNG(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* normal = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_normal")), wyr(DP(9), DP(7), DP(22), DP(28)));
+			wyNinePatchSprite* pressed = wyNinePatchSprite::make(wyTexture2D::make(RES("R.drawable.btn_pressed")), wyr(DP(9), DP(7), DP(22), DP(28)));
 			normal->setContentSize(DP(78), DP(44));
 			pressed->setContentSize(DP(78), DP(44));
 			wyButton* button = new wyButton(normal, pressed, NULL, NULL, NULL,

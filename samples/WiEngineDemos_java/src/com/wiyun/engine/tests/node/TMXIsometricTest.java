@@ -76,14 +76,14 @@ public class TMXIsometricTest extends WiEngineTestActivity {
     	private float mLastY;
     	
     	public MyLayer() {
-    		Texture2D tex1 = Texture2D.makePNG(R.drawable.iso);
+    		Texture2D tex1 = Texture2D.make(R.drawable.iso);
     		tex1.autoRelease();
     		mMap = TMXTileMap.make(R.raw.iso_test1, tex1);
     		mMap.setDebugDrawObjects(true);
             addChild(mMap);
             
     		// add click feedback sprite
-    		Texture2D tex = Texture2D.makePNG(R.drawable.blocks);
+    		Texture2D tex = Texture2D.make(R.drawable.blocks);
     		mSprite = Sprite.make(tex, ResolutionIndependent.resolve(WYRect.make(0, 0, 32, 32)));
     		mSprite.setVisible(false);
     		mMap.addChild(mSprite, 10);

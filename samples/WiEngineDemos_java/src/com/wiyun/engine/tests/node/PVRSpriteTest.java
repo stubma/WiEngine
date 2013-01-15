@@ -91,7 +91,7 @@ public class PVRSpriteTest extends WiEngineTestActivity {
         
         private void addNewSprite(WYPoint pos) {
         	int index = (int)SystemClock.uptimeMillis() % IDS.length;
-        	Sprite sprite = Sprite.make(Texture2D.makePVR(IDS[index]));
+        	Sprite sprite = Sprite.make(Texture2D.make(IDS[index]));
             addChild(sprite);
             sprite.setPosition(pos.x, pos.y);
             sprite.autoRelease();

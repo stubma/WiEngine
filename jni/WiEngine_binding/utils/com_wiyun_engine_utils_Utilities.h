@@ -9,34 +9,18 @@ extern "C" {
 #endif
 /*
  * Class:     com_wiyun_engine_utils_Utilities
- * Method:    nativeLoadPNG
+ * Method:    nativeloadImage
  * Signature: (ILcom/wiyun/engine/utils/BitmapRawData;)V
  */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_Utilities_nativeLoadPNG__ILcom_wiyun_engine_utils_BitmapRawData_2
+JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_Utilities_nativeloadImage__ILcom_wiyun_engine_utils_BitmapRawData_2
   (JNIEnv *, jclass, jint, jobject);
 
 /*
  * Class:     com_wiyun_engine_utils_Utilities
- * Method:    nativeLoadPNG
+ * Method:    nativeloadImage
  * Signature: (Ljava/lang/String;ZLcom/wiyun/engine/utils/BitmapRawData;)V
  */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_Utilities_nativeLoadPNG__Ljava_lang_String_2ZLcom_wiyun_engine_utils_BitmapRawData_2
-  (JNIEnv *, jclass, jstring, jboolean, jobject);
-
-/*
- * Class:     com_wiyun_engine_utils_Utilities
- * Method:    nativeLoadJPG
- * Signature: (ILcom/wiyun/engine/utils/BitmapRawData;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_Utilities_nativeLoadJPG__ILcom_wiyun_engine_utils_BitmapRawData_2
-  (JNIEnv *, jclass, jint, jobject);
-
-/*
- * Class:     com_wiyun_engine_utils_Utilities
- * Method:    nativeLoadJPG
- * Signature: (Ljava/lang/String;ZLcom/wiyun/engine/utils/BitmapRawData;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_Utilities_nativeLoadJPG__Ljava_lang_String_2ZLcom_wiyun_engine_utils_BitmapRawData_2
+JNIEXPORT void JNICALL Java_com_wiyun_engine_utils_Utilities_nativeloadImage__Ljava_lang_String_2ZLcom_wiyun_engine_utils_BitmapRawData_2
   (JNIEnv *, jclass, jstring, jboolean, jobject);
 
 #ifdef __cplusplus

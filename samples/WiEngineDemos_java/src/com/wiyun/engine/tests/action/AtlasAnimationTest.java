@@ -78,7 +78,7 @@ public class AtlasAnimationTest extends WiEngineTestActivity {
             WYSize s = Director.getInstance().getWindowSize();
 
             // add sprite
-			ZwoptexManager.addZwoptex("grossini", R.raw.grossini_dance_atlas, Texture2D.makePNG(R.drawable.grossini_dance_atlas));
+			ZwoptexManager.addZwoptex("grossini", R.raw.grossini_dance_atlas, Texture2D.make(R.drawable.grossini_dance_atlas));
             Sprite sprite = ZwoptexManager.makeSprite("grossini_dance_01.png");
             addChild(sprite);
             sprite.setPosition(s.width / 2, s.height / 2);

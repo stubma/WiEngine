@@ -108,7 +108,7 @@ public class TexturedEdgeShapesTest extends WiEngineTestActivity {
 
 				float x1 = -20.0f;
 				float y1 = 2.0f * (float)Math.cos(x1 / 10.0f * Math.PI);
-				Texture2D tex = Texture2D.makePNG(R.drawable.rope);
+				Texture2D tex = Texture2D.make(R.drawable.rope);
 				for (int i = 0; i < 80; ++i)
 				{
 					float x2 = x1 + 0.5f;
@@ -259,7 +259,7 @@ public class TexturedEdgeShapesTest extends WiEngineTestActivity {
 			}
 			
 			// bind texture
-			Texture2D tex = Texture2D.makePNG(R.drawable.blocks);
+			Texture2D tex = Texture2D.make(R.drawable.blocks);
 			float size = ResolutionIndependent.resolveDp(32.0f) / 2;
 			mBox2D.getBox2DRender().bindTexture(f, tex, WYRect.make(mRandom.nextInt(2) * size * 2, mRandom.nextInt(2) * size * 2, size * 2, size * 2));
 

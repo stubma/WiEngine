@@ -72,7 +72,7 @@ public class ParticleFireworks extends QuadParticleSystem {
 		setEndSizeVariance(PARTICLE_START_SIZE_EQUAL_TO_END_SIZE, 0);
 
 		// set texture
-		setTexture(Texture2D.makePNG(R.drawable.fire));
+		setTexture(Texture2D.make(R.drawable.fire));
 
 		// additive
 		setBlendAdditive(false);

@@ -77,7 +77,7 @@ public class BigTMXTest extends WiEngineTestActivity {
     	private float mLastY;
     	
     	public MyLayer() {
-    		Texture2D tex1 = Texture2D.makePNG(R.drawable.tileset0);
+    		Texture2D tex1 = Texture2D.make(R.drawable.tileset0);
     		tex1.autoRelease();
     		mMap = TMXTileMap.make(R.raw.b0, tex1);
     		mMap.setDebugDrawObjects(true);

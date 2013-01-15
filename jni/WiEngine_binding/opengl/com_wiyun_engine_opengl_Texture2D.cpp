@@ -29,13 +29,13 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_setTexParameters
 	tex->setParameters(min, mag, wrapS, wrapT);
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__Lcom_wiyun_engine_utils_BitmapRawData_2I
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitBitmap
   (JNIEnv * env, jobject thiz, jobject raw, jint format) {
 	jbyteArray bytes = (jbyteArray)env->GetObjectField(raw, g_fid_BitmapRawData_data);
 	char* data = (char*)env->GetByteArrayElements(bytes, NULL);
 	int width = env->GetIntField(raw, g_fid_BitmapRawData_width);
 	int height = env->GetIntField(raw, g_fid_BitmapRawData_height);
-	wyTexture2D* tex = wyTexture2D::makeRaw(data, width, height, (wyTexturePixelFormat)format);
+	wyTexture2D* tex = wyTexture2D::makeRaw8888(data, width, height, (wyTexturePixelFormat)format);
 	env->ReleaseByteArrayElements(bytes, (jbyte*)data, 0);
 	tex->retain();
 	tex->lazyRelease();
@@ -51,31 +51,7 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_updateRaw
 	env->ReleaseByteArrayElements(bytes, (jbyte*)data, 0);
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNewFile
-  (JNIEnv * env, jobject thiz, jint source, jstring path, jint transparentColor, jint format, jfloat inDensity) {
-	const char* p = (const char*)env->GetStringUTFChars(path, NULL);
-	wyTexture2D* tex = NULL;
-	switch(source) {
-		case SOURCE_BMP:
-			tex = wyTexture2D::makeFileBMP(p, transparentColor, (wyTexturePixelFormat)format, inDensity);
-			break;
-		case SOURCE_JPG:
-			tex = wyTexture2D::makeFileJPG(p, transparentColor, (wyTexturePixelFormat)format, inDensity);
-			break;
-		case SOURCE_PNG:
-			tex = wyTexture2D::makeFilePNG(p, (wyTexturePixelFormat)format, inDensity);
-			break;
-		case SOURCE_PVR:
-			tex = wyTexture2D::makeFilePVR(p, inDensity);
-			break;
-	}
-	env->ReleaseStringUTFChars(path, p);
-	tex->retain();
-	tex->lazyRelease();
-	return (jint)tex;
-}
-
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__III
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitGL
   (JNIEnv * env, jobject thiz, jint t, jint w, jint h) {
 	wyTexture2D* tex = wyTexture2D::makeGL(t, w, h);
 	tex->retain();
@@ -83,54 +59,26 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__III
 	return (jint)tex;
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__IIII
-  (JNIEnv * env, jobject thiz, jint source, jint resId, jint transparentColor, jint format) {
-	wyTexture2D* tex = NULL;
-	switch(source) {
-		case SOURCE_BMP:
-			tex = wyTexture2D::makeBMP(resId, transparentColor, (wyTexturePixelFormat)format);
-			break;
-		case SOURCE_JPG:
-			tex = wyTexture2D::makeJPG(resId, transparentColor, (wyTexturePixelFormat)format);
-			break;
-		case SOURCE_PNG:
-			tex = wyTexture2D::makePNG(resId, (wyTexturePixelFormat)format);
-			break;
-		case SOURCE_PVR:
-			tex = wyTexture2D::makePVR(resId);
-			break;
-	}
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInit__III
+(JNIEnv * env, jobject thiz, jint resId, jint transparentColor, jint format) {
+	wyTexture2D* tex = wyTexture2D::make(resId, transparentColor, (wyTexturePixelFormat)format);
 	tex->retain();
 	tex->lazyRelease();
 	return (jint)tex;
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__ILjava_lang_String_2IIF
-  (JNIEnv * env, jobject thiz, jint source, jstring path, jint transparentColor, jint format, jfloat inDensity) {
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInit__Ljava_lang_String_2IIF
+(JNIEnv * env, jobject thiz, jstring path, jint transparentColor, jint format, jfloat inDensity) {
 	const char* p = (const char*)env->GetStringUTFChars(path, NULL);
-	wyTexture2D* tex = NULL;
-	switch(source) {
-		case SOURCE_BMP:
-			tex = wyTexture2D::makeBMP(p, transparentColor, (wyTexturePixelFormat)format, inDensity);
-			break;
-		case SOURCE_JPG:
-			tex = wyTexture2D::makeJPG(p, transparentColor, (wyTexturePixelFormat)format, inDensity);
-			break;
-		case SOURCE_PNG:
-			tex = wyTexture2D::makePNG(p, (wyTexturePixelFormat)format, inDensity);
-			break;
-		case SOURCE_PVR:
-			tex = wyTexture2D::makePVR(p, inDensity);
-			break;
-	}
+	wyTexture2D* tex = wyTexture2D::make(p, transparentColor, (wyTexturePixelFormat)format, inDensity);
 	env->ReleaseStringUTFChars(path, p);
 	tex->retain();
 	tex->lazyRelease();
 	return (jint)tex;
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__Ljava_lang_String_2FLjava_lang_String_2ZFI
-  (JNIEnv * env, jobject thiz, jstring text, jfloat fontSize, jstring fontPath, jboolean isFile, jfloat width, jint alignment) {
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitLabel__Ljava_lang_String_2FLjava_lang_String_2ZFI
+(JNIEnv * env, jobject thiz, jstring text, jfloat fontSize, jstring fontPath, jboolean isFile, jfloat width, jint alignment) {
 	const char* t = (const char*)env->GetStringUTFChars(text, NULL);
 	const char* p = fontPath == NULL ? NULL : (const char*)env->GetStringUTFChars(fontPath, NULL);
 	wyTexture2D* tex = wyTexture2D::makeLabel(t, fontSize, p, isFile, width, (wyTexture2D::TextAlignment)alignment);
@@ -141,13 +89,23 @@ JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__Ljava_l
 	return (jint)tex;
 }
 
-JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeNew__Ljava_lang_String_2FILjava_lang_String_2FI
-  (JNIEnv * env, jobject thiz, jstring text, jfloat fontSize, jint style, jstring fontName, jfloat width, jint alignment) {
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitLabel__Ljava_lang_String_2FILjava_lang_String_2FI
+(JNIEnv * env, jobject thiz, jstring text, jfloat fontSize, jint style, jstring fontName, jfloat width, jint alignment) {
 	const char* t = (const char*)env->GetStringUTFChars(text, NULL);
 	const char* n = fontName == NULL ? NULL : (const char*)env->GetStringUTFChars(fontName, NULL);
 	wyTexture2D* tex = wyTexture2D::makeLabel(t, fontSize, (wyFontStyle)style, n, width, (wyTexture2D::TextAlignment)alignment);
 	env->ReleaseStringUTFChars(text, t);
 	env->ReleaseStringUTFChars(fontName, n);
+	tex->retain();
+	tex->lazyRelease();
+	return (jint)tex;
+}
+
+JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeInitFile
+(JNIEnv * env, jobject thiz, jstring path, jint transparentColor, jint format, jfloat inDensity) {
+	const char* p = (const char*)env->GetStringUTFChars(path, NULL);
+	wyTexture2D* tex = wyTexture2D::makeFile(p, transparentColor, (wyTexturePixelFormat)format, inDensity);
+	env->ReleaseStringUTFChars(path, p);
 	tex->retain();
 	tex->lazyRelease();
 	return (jint)tex;

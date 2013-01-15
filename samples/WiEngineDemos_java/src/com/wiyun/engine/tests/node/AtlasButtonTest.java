@@ -58,7 +58,7 @@ public class AtlasButtonTest extends WiEngineTestActivity {
         	WYSize s = Director.getInstance().getWindowSize();
             
             // create sprites
-            Texture2D tex = Texture2D.makePNG(R.drawable.menuitemsprite);
+            Texture2D tex = Texture2D.make(R.drawable.menuitemsprite);
             Sprite spriteNormal = Sprite.make(tex,
             		ResolutionIndependent.resolve(WYRect.make(0, 23 * 2, 115, 23)));
             Sprite spriteSelected = Sprite.make(tex,

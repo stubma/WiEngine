@@ -55,11 +55,11 @@ public class ArcticTest extends WiEngineTestActivity {
     	public MyLayer() {
     		// get texture
     		WYSize s = Director.getInstance().getWindowSize();
-    		Texture2D tex1 = Texture2D.makePNG(R.drawable.fighterboby001);
+    		Texture2D tex1 = Texture2D.make(R.drawable.fighterboby001);
     		tex1.autoRelease();
-    		Texture2D tex2 = Texture2D.makePNG(R.drawable.fighterarmor001);
+    		Texture2D tex2 = Texture2D.make(R.drawable.fighterarmor001);
     		tex2.autoRelease();
-    		Texture2D tex3 = Texture2D.makePNG(R.drawable.fighterweapon001);
+    		Texture2D tex3 = Texture2D.make(R.drawable.fighterweapon001);
     		tex1.autoRelease();
     		
     		// sprite 1
