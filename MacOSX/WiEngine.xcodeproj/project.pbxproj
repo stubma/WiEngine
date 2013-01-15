@@ -321,8 +321,6 @@
 		929D4474146FEAB900267B99 /* wyWaves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BCC146FC646004757F9 /* wyWaves.cpp */; };
 		929D4475146FEAB900267B99 /* wyWaves3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BCD146FC646004757F9 /* wyWaves3D.cpp */; };
 		929D4476146FEAB900267B99 /* wyWavesTiles3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BCE146FC646004757F9 /* wyWavesTiles3D.cpp */; };
-		929D447B146FEAB900267B99 /* PVRTResourceFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BD0146FC646004757F9 /* PVRTResourceFile.cpp */; };
-		929D447C146FEAB900267B99 /* PVRTString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BD1146FC646004757F9 /* PVRTString.cpp */; };
 		929D44AF146FEABA00267B99 /* wyActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BD3146FC646004757F9 /* wyActionManager.cpp */; };
 		929D44B0146FEABA00267B99 /* wyAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BD4146FC646004757F9 /* wyAnimation.cpp */; };
 		929D44B2146FEABA00267B99 /* wyArrayTileMapAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7BD6146FC646004757F9 /* wyArrayTileMapAtlas.cpp */; };
@@ -435,7 +433,6 @@
 		929D45B7146FEABA00267B99 /* wyColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C98146FC646004757F9 /* wyColor4F.cpp */; };
 		929D45B8146FEABA00267B99 /* wyDimension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C99146FC646004757F9 /* wyDimension.cpp */; };
 		929D45B9146FEABA00267B99 /* wyPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C9A146FC646004757F9 /* wyPoint.cpp */; };
-		929D45BA146FEABA00267B99 /* wyPVR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C9B146FC646004757F9 /* wyPVR.cpp */; };
 		929D45BB146FEABA00267B99 /* wyQuad2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C9C146FC646004757F9 /* wyQuad2D.cpp */; };
 		929D45BC146FEABA00267B99 /* wyQuad3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C9D146FC646004757F9 /* wyQuad3D.cpp */; };
 		929D45BD146FEABA00267B99 /* wyRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7C9E146FC646004757F9 /* wyRect.cpp */; };
@@ -543,6 +540,17 @@
 		929D49531470082800267B99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7947146FA9AF004757F9 /* Foundation.framework */; };
 		929D49541470082800267B99 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
 		929D49571470087300267B99 /* wyTextBox_macosx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929D49551470087200267B99 /* wyTextBox_macosx.cpp */; };
+		92B0000116A53CED00477E2A /* PVRTFixedPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFE616A53CEC00477E2A /* PVRTFixedPoint.cpp */; };
+		92B0000816A53CED00477E2A /* PVRTMisc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFED16A53CED00477E2A /* PVRTMisc.cpp */; };
+		92B0000A16A53CED00477E2A /* PVRTResourceFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFEF16A53CED00477E2A /* PVRTResourceFile.cpp */; };
+		92B0000C16A53CED00477E2A /* PVRTString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFF116A53CED00477E2A /* PVRTString.cpp */; };
+		92B0000E16A53CED00477E2A /* PVRTTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFF316A53CED00477E2A /* PVRTTexture.cpp */; };
+		92B0001016A53D4100477E2A /* libpvr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B0FFC916A53CD300477E2A /* libpvr.a */; };
+		92B0FFCA16A53CD300477E2A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
+		92B0FFF616A53CED00477E2A /* PVRTgles2Ext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFD816A53CEC00477E2A /* PVRTgles2Ext.cpp */; };
+		92B0FFF816A53CED00477E2A /* PVRTTextureAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFDA16A53CEC00477E2A /* PVRTTextureAPI.cpp */; };
+		92B0FFFD16A53CED00477E2A /* PVRTDecompress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFE216A53CEC00477E2A /* PVRTDecompress.cpp */; };
+		92B0FFFF16A53CED00477E2A /* PVRTError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFE416A53CEC00477E2A /* PVRTError.cpp */; };
 		92BB799F1478D9FC00503912 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BB799E1478D9FB00503912 /* Carbon.framework */; };
 		92BB79A61478E67400503912 /* WYAlertDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92BB79A51478E67300503912 /* WYAlertDelegate.mm */; };
 		92BB79A81478EA4400503912 /* wyDevice_macosx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BB79A71478EA4400503912 /* wyDevice_macosx.cpp */; };
@@ -715,6 +723,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 929D46EE146FFA4A00267B99;
 			remoteInfo = libbox2d;
+		};
+		92B0001116A53D4500477E2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92B0FFC816A53CD300477E2A;
+			remoteInfo = libpvr;
 		};
 		92BB7BDE1478FF2C00503912 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1184,6 +1199,35 @@
 		929D49551470087200267B99 /* wyTextBox_macosx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTextBox_macosx.cpp; sourceTree = "<group>"; };
 		929D49561470087200267B99 /* wyTextBox_macosx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyTextBox_macosx.h; sourceTree = "<group>"; };
 		92AA64A31622A35E00690000 /* wyBuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBuildConfig.h; path = ../../include/common/wyBuildConfig.h; sourceTree = "<group>"; };
+		92B0FFC916A53CD300477E2A /* libpvr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpvr.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		92B0FFD516A53CEC00477E2A /* Android.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
+		92B0FFD716A53CEC00477E2A /* PVRTContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTContext.h; sourceTree = "<group>"; };
+		92B0FFD816A53CEC00477E2A /* PVRTgles2Ext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTgles2Ext.cpp; sourceTree = "<group>"; };
+		92B0FFD916A53CEC00477E2A /* PVRTgles2Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTgles2Ext.h; sourceTree = "<group>"; };
+		92B0FFDA16A53CEC00477E2A /* PVRTTextureAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTTextureAPI.cpp; sourceTree = "<group>"; };
+		92B0FFDB16A53CEC00477E2A /* PVRTTextureAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTTextureAPI.h; sourceTree = "<group>"; };
+		92B0FFDE16A53CEC00477E2A /* gl2platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl2platform.h; sourceTree = "<group>"; };
+		92B0FFE016A53CEC00477E2A /* khrplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
+		92B0FFE116A53CEC00477E2A /* PVRTArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTArray.h; sourceTree = "<group>"; };
+		92B0FFE216A53CEC00477E2A /* PVRTDecompress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTDecompress.cpp; sourceTree = "<group>"; };
+		92B0FFE316A53CEC00477E2A /* PVRTDecompress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTDecompress.h; sourceTree = "<group>"; };
+		92B0FFE416A53CEC00477E2A /* PVRTError.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTError.cpp; sourceTree = "<group>"; };
+		92B0FFE516A53CEC00477E2A /* PVRTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTError.h; sourceTree = "<group>"; };
+		92B0FFE616A53CEC00477E2A /* PVRTFixedPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTFixedPoint.cpp; sourceTree = "<group>"; };
+		92B0FFE716A53CEC00477E2A /* PVRTFixedPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTFixedPoint.h; sourceTree = "<group>"; };
+		92B0FFE816A53CEC00477E2A /* PVRTGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTGlobal.h; sourceTree = "<group>"; };
+		92B0FFE916A53CEC00477E2A /* PVRTMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTMap.h; sourceTree = "<group>"; };
+		92B0FFEA16A53CEC00477E2A /* PVRTMathTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTMathTable.h; sourceTree = "<group>"; };
+		92B0FFEB16A53CEC00477E2A /* PVRTMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTMatrix.h; sourceTree = "<group>"; };
+		92B0FFEC16A53CED00477E2A /* PVRTMemoryFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTMemoryFileSystem.h; sourceTree = "<group>"; };
+		92B0FFED16A53CED00477E2A /* PVRTMisc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTMisc.cpp; sourceTree = "<group>"; };
+		92B0FFEE16A53CED00477E2A /* PVRTMisc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTMisc.h; sourceTree = "<group>"; };
+		92B0FFEF16A53CED00477E2A /* PVRTResourceFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTResourceFile.cpp; sourceTree = "<group>"; };
+		92B0FFF016A53CED00477E2A /* PVRTResourceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTResourceFile.h; sourceTree = "<group>"; };
+		92B0FFF116A53CED00477E2A /* PVRTString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTString.cpp; sourceTree = "<group>"; };
+		92B0FFF216A53CED00477E2A /* PVRTString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTString.h; sourceTree = "<group>"; };
+		92B0FFF316A53CED00477E2A /* PVRTTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTTexture.cpp; sourceTree = "<group>"; };
+		92B0FFF416A53CED00477E2A /* PVRTTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTTexture.h; sourceTree = "<group>"; };
 		92BB799E1478D9FB00503912 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		92BB79A41478E67300503912 /* WYAlertDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYAlertDelegate.h; sourceTree = "<group>"; };
 		92BB79A51478E67300503912 /* WYAlertDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WYAlertDelegate.mm; sourceTree = "<group>"; };
@@ -1556,8 +1600,6 @@
 		92CA7BCC146FC646004757F9 /* wyWaves.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyWaves.cpp; sourceTree = "<group>"; };
 		92CA7BCD146FC646004757F9 /* wyWaves3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyWaves3D.cpp; sourceTree = "<group>"; };
 		92CA7BCE146FC646004757F9 /* wyWavesTiles3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyWavesTiles3D.cpp; sourceTree = "<group>"; };
-		92CA7BD0146FC646004757F9 /* PVRTResourceFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTResourceFile.cpp; sourceTree = "<group>"; };
-		92CA7BD1146FC646004757F9 /* PVRTString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTString.cpp; sourceTree = "<group>"; };
 		92CA7BD3146FC646004757F9 /* wyActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyActionManager.cpp; sourceTree = "<group>"; };
 		92CA7BD4146FC646004757F9 /* wyAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyAnimation.cpp; sourceTree = "<group>"; };
 		92CA7BD6146FC646004757F9 /* wyArrayTileMapAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyArrayTileMapAtlas.cpp; sourceTree = "<group>"; };
@@ -1669,7 +1711,6 @@
 		92CA7C98146FC646004757F9 /* wyColor4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyColor4F.cpp; sourceTree = "<group>"; };
 		92CA7C99146FC646004757F9 /* wyDimension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyDimension.cpp; sourceTree = "<group>"; };
 		92CA7C9A146FC646004757F9 /* wyPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyPoint.cpp; sourceTree = "<group>"; };
-		92CA7C9B146FC646004757F9 /* wyPVR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyPVR.cpp; sourceTree = "<group>"; };
 		92CA7C9C146FC646004757F9 /* wyQuad2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyQuad2D.cpp; sourceTree = "<group>"; };
 		92CA7C9D146FC646004757F9 /* wyQuad3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyQuad3D.cpp; sourceTree = "<group>"; };
 		92CA7C9E146FC646004757F9 /* wyRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyRect.cpp; sourceTree = "<group>"; };
@@ -1865,10 +1906,6 @@
 		92CA7EBC146FC6B3004757F9 /* wyWaves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyWaves.h; path = ../../include/gridactions/wyWaves.h; sourceTree = "<group>"; };
 		92CA7EBD146FC6B3004757F9 /* wyWaves3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyWaves3D.h; path = ../../include/gridactions/wyWaves3D.h; sourceTree = "<group>"; };
 		92CA7EBE146FC6B3004757F9 /* wyWavesTiles3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyWavesTiles3D.h; path = ../../include/gridactions/wyWavesTiles3D.h; sourceTree = "<group>"; };
-		92CA7EBF146FC6BA004757F9 /* PVRTGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVRTGlobal.h; path = ../../include/mfs/PVRTGlobal.h; sourceTree = "<group>"; };
-		92CA7EC0146FC6BA004757F9 /* PVRTMemoryFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVRTMemoryFileSystem.h; path = ../../include/mfs/PVRTMemoryFileSystem.h; sourceTree = "<group>"; };
-		92CA7EC1146FC6BA004757F9 /* PVRTResourceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVRTResourceFile.h; path = ../../include/mfs/PVRTResourceFile.h; sourceTree = "<group>"; };
-		92CA7EC2146FC6BA004757F9 /* PVRTString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVRTString.h; path = ../../include/mfs/PVRTString.h; sourceTree = "<group>"; };
 		92CA7EC3146FC6C1004757F9 /* wyActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyActionManager.h; path = ../../include/nodes/wyActionManager.h; sourceTree = "<group>"; };
 		92CA7EC4146FC6C1004757F9 /* wyAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyAnimation.h; path = ../../include/nodes/wyAnimation.h; sourceTree = "<group>"; };
 		92CA7EC6146FC6C1004757F9 /* wyArrayTileMapAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyArrayTileMapAtlas.h; path = ../../include/nodes/wyArrayTileMapAtlas.h; sourceTree = "<group>"; };
@@ -1982,7 +2019,6 @@
 		92CA7F34146FC6E7004757F9 /* wyHypotrochoidConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyHypotrochoidConfig.h; path = ../../include/types/wyHypotrochoidConfig.h; sourceTree = "<group>"; };
 		92CA7F35146FC6E7004757F9 /* wyLagrangeConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyLagrangeConfig.h; path = ../../include/types/wyLagrangeConfig.h; sourceTree = "<group>"; };
 		92CA7F36146FC6E7004757F9 /* wyPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyPoint.h; path = ../../include/types/wyPoint.h; sourceTree = "<group>"; };
-		92CA7F37146FC6E7004757F9 /* wyPVR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyPVR.h; path = ../../include/types/wyPVR.h; sourceTree = "<group>"; };
 		92CA7F38146FC6E7004757F9 /* wyQuad2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyQuad2D.h; path = ../../include/types/wyQuad2D.h; sourceTree = "<group>"; };
 		92CA7F39146FC6E7004757F9 /* wyQuad3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyQuad3D.h; path = ../../include/types/wyQuad3D.h; sourceTree = "<group>"; };
 		92CA7F3A146FC6E7004757F9 /* wyRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyRect.h; path = ../../include/types/wyRect.h; sourceTree = "<group>"; };
@@ -2077,6 +2113,7 @@
 				929D45F4146FF2C900267B99 /* libsqlite3.dylib in Frameworks */,
 				929D45F5146FF2C900267B99 /* libz.dylib in Frameworks */,
 				929D45F6146FF2C900267B99 /* libxml2.dylib in Frameworks */,
+				92B0001016A53D4100477E2A /* libpvr.a in Frameworks */,
 				9278E3DF147E772500713AFF /* QTKit.framework in Frameworks */,
 				92BB799F1478D9FC00503912 /* Carbon.framework in Frameworks */,
 				929D431A146FEA4200267B99 /* Cocoa.framework in Frameworks */,
@@ -2096,6 +2133,14 @@
 				929D4948147007C900267B99 /* libxml2.dylib in Frameworks */,
 				929D46F0146FFA4A00267B99 /* Cocoa.framework in Frameworks */,
 				929D4947147007B700267B99 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92B0FFC616A53CD300477E2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92B0FFCA16A53CD300477E2A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2830,6 +2875,74 @@
 			path = Joints;
 			sourceTree = "<group>";
 		};
+		92B0FFD416A53CEC00477E2A /* libpvr */ = {
+			isa = PBXGroup;
+			children = (
+				92B0FFD516A53CEC00477E2A /* Android.mk */,
+				92B0FFD616A53CEC00477E2A /* OGLES2 */,
+				92B0FFDC16A53CEC00477E2A /* platform */,
+				92B0FFE116A53CEC00477E2A /* PVRTArray.h */,
+				92B0FFE216A53CEC00477E2A /* PVRTDecompress.cpp */,
+				92B0FFE316A53CEC00477E2A /* PVRTDecompress.h */,
+				92B0FFE416A53CEC00477E2A /* PVRTError.cpp */,
+				92B0FFE516A53CEC00477E2A /* PVRTError.h */,
+				92B0FFE616A53CEC00477E2A /* PVRTFixedPoint.cpp */,
+				92B0FFE716A53CEC00477E2A /* PVRTFixedPoint.h */,
+				92B0FFE816A53CEC00477E2A /* PVRTGlobal.h */,
+				92B0FFE916A53CEC00477E2A /* PVRTMap.h */,
+				92B0FFEA16A53CEC00477E2A /* PVRTMathTable.h */,
+				92B0FFEB16A53CEC00477E2A /* PVRTMatrix.h */,
+				92B0FFEC16A53CED00477E2A /* PVRTMemoryFileSystem.h */,
+				92B0FFED16A53CED00477E2A /* PVRTMisc.cpp */,
+				92B0FFEE16A53CED00477E2A /* PVRTMisc.h */,
+				92B0FFEF16A53CED00477E2A /* PVRTResourceFile.cpp */,
+				92B0FFF016A53CED00477E2A /* PVRTResourceFile.h */,
+				92B0FFF116A53CED00477E2A /* PVRTString.cpp */,
+				92B0FFF216A53CED00477E2A /* PVRTString.h */,
+				92B0FFF316A53CED00477E2A /* PVRTTexture.cpp */,
+				92B0FFF416A53CED00477E2A /* PVRTTexture.h */,
+			);
+			name = libpvr;
+			path = ../jni/libpvr;
+			sourceTree = "<group>";
+		};
+		92B0FFD616A53CEC00477E2A /* OGLES2 */ = {
+			isa = PBXGroup;
+			children = (
+				92B0FFD716A53CEC00477E2A /* PVRTContext.h */,
+				92B0FFD816A53CEC00477E2A /* PVRTgles2Ext.cpp */,
+				92B0FFD916A53CEC00477E2A /* PVRTgles2Ext.h */,
+				92B0FFDA16A53CEC00477E2A /* PVRTTextureAPI.cpp */,
+				92B0FFDB16A53CEC00477E2A /* PVRTTextureAPI.h */,
+			);
+			path = OGLES2;
+			sourceTree = "<group>";
+		};
+		92B0FFDC16A53CEC00477E2A /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				92B0FFDD16A53CEC00477E2A /* macosx */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
+		92B0FFDD16A53CEC00477E2A /* macosx */ = {
+			isa = PBXGroup;
+			children = (
+				92B0FFDE16A53CEC00477E2A /* gl2platform.h */,
+				92B0FFDF16A53CEC00477E2A /* KHR */,
+			);
+			path = macosx;
+			sourceTree = "<group>";
+		};
+		92B0FFDF16A53CEC00477E2A /* KHR */ = {
+			isa = PBXGroup;
+			children = (
+				92B0FFE016A53CEC00477E2A /* khrplatform.h */,
+			);
+			path = KHR;
+			sourceTree = "<group>";
+		};
 		92BB79BD1478FA4A00503912 /* lua */ = {
 			isa = PBXGroup;
 			children = (
@@ -3113,6 +3226,7 @@
 				92BB79BD1478FA4A00503912 /* lua */,
 				92BB7C1E14790BDC00503912 /* vorbis */,
 				92BB7DE014793EA200503912 /* libmpg123 */,
+				92B0FFD416A53CEC00477E2A /* libpvr */,
 				92BB7CC414790CCE00503912 /* WiSound */,
 				9253E6D614FF630E003028B0 /* WiNetwork */,
 				9292BF8814E4ED1900ADE7E9 /* iap */,
@@ -3141,6 +3255,7 @@
 				925675CE14CC6C17005C1787 /* libyajl.a */,
 				9256760214CC6C7F005C1787 /* libjson.dylib */,
 				9292BF7C14E4ECB900ADE7E9 /* libiap.dylib */,
+				92B0FFC916A53CD300477E2A /* libpvr.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3255,7 +3370,6 @@
 				92CA7B9D146FC646004757F9 /* filters */,
 				92CA7BA9146FC646004757F9 /* grid */,
 				92CA7BAE146FC646004757F9 /* gridactions */,
-				92CA7BCF146FC646004757F9 /* mfs */,
 				92CA7BD2146FC646004757F9 /* nodes */,
 				92CA7C04146FC646004757F9 /* opengl */,
 				92CA7C0C146FC646004757F9 /* particle */,
@@ -3699,20 +3813,6 @@
 			path = ../jni/WiEngine/impl/gridactions;
 			sourceTree = "<group>";
 		};
-		92CA7BCF146FC646004757F9 /* mfs */ = {
-			isa = PBXGroup;
-			children = (
-				92CA7EBF146FC6BA004757F9 /* PVRTGlobal.h */,
-				92CA7EC0146FC6BA004757F9 /* PVRTMemoryFileSystem.h */,
-				92CA7EC1146FC6BA004757F9 /* PVRTResourceFile.h */,
-				92CA7EC2146FC6BA004757F9 /* PVRTString.h */,
-				92CA7BD0146FC646004757F9 /* PVRTResourceFile.cpp */,
-				92CA7BD1146FC646004757F9 /* PVRTString.cpp */,
-			);
-			name = mfs;
-			path = ../jni/WiEngine/impl/mfs;
-			sourceTree = "<group>";
-		};
 		92CA7BD2146FC646004757F9 /* nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -4047,7 +4147,6 @@
 				92CA7F35146FC6E7004757F9 /* wyLagrangeConfig.h */,
 				92CA7F36146FC6E7004757F9 /* wyPoint.h */,
 				9209371A152A94AB00645A7A /* wyPointList.h */,
-				92CA7F37146FC6E7004757F9 /* wyPVR.h */,
 				92CA7F38146FC6E7004757F9 /* wyQuad2D.h */,
 				92CA7F39146FC6E7004757F9 /* wyQuad3D.h */,
 				92CA7F3A146FC6E7004757F9 /* wyRect.h */,
@@ -4061,7 +4160,6 @@
 				92CA7C99146FC646004757F9 /* wyDimension.cpp */,
 				92CA7C9A146FC646004757F9 /* wyPoint.cpp */,
 				9209371C152A94B500645A7A /* wyPointList.cpp */,
-				92CA7C9B146FC646004757F9 /* wyPVR.cpp */,
 				92CA7C9C146FC646004757F9 /* wyQuad2D.cpp */,
 				92CA7C9D146FC646004757F9 /* wyQuad3D.cpp */,
 				92CA7C9E146FC646004757F9 /* wyRect.cpp */,
@@ -4198,6 +4296,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				92B0001216A53D4500477E2A /* PBXTargetDependency */,
 			);
 			name = libwiengine;
 			productName = libwiengine;
@@ -4219,6 +4318,22 @@
 			productName = libbox2d;
 			productReference = 929D46EF146FFA4A00267B99 /* libbox2d.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		92B0FFC816A53CD300477E2A /* libpvr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92B0FFD116A53CD300477E2A /* Build configuration list for PBXNativeTarget "libpvr" */;
+			buildPhases = (
+				92B0FFC516A53CD300477E2A /* Sources */,
+				92B0FFC616A53CD300477E2A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libpvr;
+			productName = libpvr;
+			productReference = 92B0FFC916A53CD300477E2A /* libpvr.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		92BB79AC1478F90B00503912 /* liblua */ = {
 			isa = PBXNativeTarget;
@@ -4362,6 +4477,7 @@
 				925675CD14CC6C17005C1787 /* libyajl */,
 				9256760114CC6C7F005C1787 /* libjson */,
 				9292BF7B14E4ECB900ADE7E9 /* libiap */,
+				92B0FFC816A53CD300477E2A /* libpvr */,
 			);
 		};
 /* End PBXProject section */
@@ -4652,8 +4768,6 @@
 				929D4474146FEAB900267B99 /* wyWaves.cpp in Sources */,
 				929D4475146FEAB900267B99 /* wyWaves3D.cpp in Sources */,
 				929D4476146FEAB900267B99 /* wyWavesTiles3D.cpp in Sources */,
-				929D447B146FEAB900267B99 /* PVRTResourceFile.cpp in Sources */,
-				929D447C146FEAB900267B99 /* PVRTString.cpp in Sources */,
 				929D44AF146FEABA00267B99 /* wyActionManager.cpp in Sources */,
 				929D44B0146FEABA00267B99 /* wyAnimation.cpp in Sources */,
 				929D44B2146FEABA00267B99 /* wyArrayTileMapAtlas.cpp in Sources */,
@@ -4766,7 +4880,6 @@
 				929D45B7146FEABA00267B99 /* wyColor4F.cpp in Sources */,
 				929D45B8146FEABA00267B99 /* wyDimension.cpp in Sources */,
 				929D45B9146FEABA00267B99 /* wyPoint.cpp in Sources */,
-				929D45BA146FEABA00267B99 /* wyPVR.cpp in Sources */,
 				929D45BB146FEABA00267B99 /* wyQuad2D.cpp in Sources */,
 				929D45BC146FEABA00267B99 /* wyQuad3D.cpp in Sources */,
 				929D45BD146FEABA00267B99 /* wyRect.cpp in Sources */,
@@ -4888,6 +5001,22 @@
 				929D48E5146FFAE500267B99 /* wyBox2DPELoader.cpp in Sources */,
 				929D48E6146FFAE500267B99 /* wyBox2DRender.cpp in Sources */,
 				929D48E7146FFAE500267B99 /* wyFixtureAnimation.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92B0FFC516A53CD300477E2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92B0FFF616A53CED00477E2A /* PVRTgles2Ext.cpp in Sources */,
+				92B0FFF816A53CED00477E2A /* PVRTTextureAPI.cpp in Sources */,
+				92B0FFFD16A53CED00477E2A /* PVRTDecompress.cpp in Sources */,
+				92B0FFFF16A53CED00477E2A /* PVRTError.cpp in Sources */,
+				92B0000116A53CED00477E2A /* PVRTFixedPoint.cpp in Sources */,
+				92B0000816A53CED00477E2A /* PVRTMisc.cpp in Sources */,
+				92B0000A16A53CED00477E2A /* PVRTResourceFile.cpp in Sources */,
+				92B0000C16A53CED00477E2A /* PVRTString.cpp in Sources */,
+				92B0000E16A53CED00477E2A /* PVRTTexture.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5117,6 +5246,11 @@
 			target = 929D46EE146FFA4A00267B99 /* libbox2d */;
 			targetProxy = 929D48E9146FFB0F00267B99 /* PBXContainerItemProxy */;
 		};
+		92B0001216A53D4500477E2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92B0FFC816A53CD300477E2A /* libpvr */;
+			targetProxy = 92B0001116A53D4500477E2A /* PBXContainerItemProxy */;
+		};
 		92BB7BDF1478FF2C00503912 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 928015EA1477F9B500806FD3 /* libchipmunk */;
@@ -5336,6 +5470,38 @@
 			};
 			name = Release;
 		};
+		92B0FFD216A53CD300477E2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MACOSX,
+					EGL_NOT_PRESENT,
+				);
+				PRODUCT_NAME = pvr;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libpvr/OGLES2 $(SRCROOT)/../jni/libpvr $(SRCROOT)/../jni/libpvr/platform/macosx";
+			};
+			name = Debug;
+		};
+		92B0FFD316A53CD300477E2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MACOSX,
+					EGL_NOT_PRESENT,
+				);
+				PRODUCT_NAME = pvr;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libpvr/OGLES2 $(SRCROOT)/../jni/libpvr $(SRCROOT)/../jni/libpvr/platform/macosx";
+			};
+			name = Release;
+		};
 		92BB79BA1478F90C00503912 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5527,7 +5693,7 @@
 		92CA795A146FA9B0004757F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -5552,7 +5718,7 @@
 		92CA795B146FA9B0004757F9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -5653,6 +5819,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		92B0FFD116A53CD300477E2A /* Build configuration list for PBXNativeTarget "libpvr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92B0FFD216A53CD300477E2A /* Debug */,
+				92B0FFD316A53CD300477E2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		92BB79B91478F90C00503912 /* Build configuration list for PBXNativeTarget "liblua" */ = {
 			isa = XCConfigurationList;
