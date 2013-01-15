@@ -177,7 +177,6 @@
 				<exclude name="libnsbmp/**"/>
 				<exclude name="libpng/**"/>
 				<exclude name="libxml2/**"/>
-				<exclude name="libpvr/platform/**"/>
 				<exclude name="lua/binding/**"/>
 				<exclude name="openal/**"/>
 				<exclude name="vorbis/**"/>
