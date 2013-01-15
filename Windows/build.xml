@@ -6,7 +6,7 @@
 	<!-- for different platform, doxygen path -->
 	<condition 
 		property="doxygen" 
-		value="C:\Software\doxygen\bin\doxygen"
+		value="C:\Develop\doxygen\bin\doxygen"
 		else="/usr/local/bin/doxygen">
 		<and>
 			<os family="windows"/>
@@ -118,47 +118,9 @@
 		</copy>
 		
 		<!-- copy WiEngine librarys to samples -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo">
-		    <fileset dir="${dist.dir}">
-		        <include name="WiEngine/**"/>
-		    </fileset>
-		</copy>
 		<copy todir="${dist.samples.dir}/WiEngineSkeletonProject/WiEngineSkeletonProject">
 		    <fileset dir="${dist.dir}">
 		        <include name="WiEngine/**"/>
-		    </fileset>
-		</copy>
-		
-		<!-- copy native demo code to WiEngineDemos -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo" flatten="true">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native/jni">
-		        <include name="**/*.h"/>
-		        <include name="**/*.cpp"/>
-		    </fileset>
-		</copy>
-		
-		<!-- copy resource to WiEngineDemos -->
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native/res">
-		        <include name="drawable/**"/>
-		        <include name="raw/**"/>
-		    </fileset>
-		</copy>
-		
-		<!-- copy xml to WiEngineDemos -->
-		<copy tofile="${dist.samples.dir}/WiEngineDemos/Demo/values/strings-en.xml">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native/res">
-		        <include name="values/strings.xml"/>
-		    </fileset>
-		</copy>
-		<copy tofile="${dist.samples.dir}/WiEngineDemos/Demo/values/strings-zh.xml">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native/res">
-		        <include name="values-zh/strings.xml"/>
-		    </fileset>
-		</copy>
-		<copy todir="${dist.samples.dir}/WiEngineDemos/Demo/values">
-		    <fileset dir="${android.dir}/samples/WiEngineDemos_native">
-		        <include name="AndroidManifest.xml"/>
 		    </fileset>
 		</copy>
 	</target>

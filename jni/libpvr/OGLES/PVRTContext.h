@@ -2,7 +2,7 @@
 
  @File         PVRTContext.h
 
- @Title        OGLES2/PVRTContext
+ @Title        OGLES/PVRTContext
 
  @Version      
 
@@ -17,34 +17,23 @@
 #define _PVRTCONTEXT_H_
 
 #include <stdio.h>
-#if defined(BUILD_OGLES2)
 #if defined(__APPLE__)
 #ifdef TARGET_OS_IPHONE
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
-#else	//OSX 
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#include <GLES2/gl2extimg.h>
-#endif
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
 #else
-#if defined(__PALMPDK__)
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
+#include <EGL/egl.h>
+#include <GLES/gl.h>
+#include <GLES/glext.h>
+#endif
 #else
 #if !defined(EGL_NOT_PRESENT)
 #include <EGL/egl.h>
 #endif
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
+#include <GLES/gl.h>
 #endif
-#include <GLES2/gl2extimg.h>
-#endif
-#elif defined(BUILD_OGLES3) 
-#include <GLES3/gl3.h>
-#include <GLES2/gl2ext.h>
-#include <GLES3/gl3extimg.h>
-#endif
+
+#include "PVRTglesExt.h"
 
 /****************************************************************************
 ** Macros
@@ -68,7 +57,7 @@
 ****************************************************************************/
 struct SPVRTContext
 {
-	int reserved;	// No context info for OGLES2.
+	CPVRTglesExt * pglesExt;
 };
 
 /****************************************************************************

@@ -19,13 +19,14 @@
 #define _PVRTSTRING_H_
 
 #include <stdio.h>
+#include "PVRTGlobal.h"
 #define _USING_PVRTSTRING_
 
 /*!***************************************************************************
 @Class CPVRTString
 @Brief A string class
 *****************************************************************************/
-class CPVRTString
+class PVR_API CPVRTString
 {
 
 private:

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\libpvr\PVRTArray.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTDecompress.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTError.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTFixedPoint.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTGlobal.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMap.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMathTable.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMatrix.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMemoryFileSystem.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMisc.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTResourceFile.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTString.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTTexture.h" />
+    <ClInclude Include="..\..\jni\libpvr\OGLES\PVRTglesExt.h">
+      <Filter>OGLES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\libpvr\OGLES\PVRTTextureAPI.h">
+      <Filter>OGLES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\libpvr\OGLES\PVRTContext.h">
+      <Filter>OGLES</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\libpvr\PVRTDecompress.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTError.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTFixedPoint.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTMisc.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTResourceFile.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTString.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTTexture.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\OGLES\PVRTglesExt.cpp">
+      <Filter>OGLES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\libpvr\OGLES\PVRTTextureAPI.cpp">
+      <Filter>OGLES</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="OGLES">
+      <UniqueIdentifier>{22a467af-0ff9-46fd-9500-80c6c75b6e6a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

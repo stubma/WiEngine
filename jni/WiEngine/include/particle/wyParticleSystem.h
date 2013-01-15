@@ -125,7 +125,7 @@ typedef enum {
 	 * 表示当粒子释放位置发生了变化时, 已经释放出的粒子保持位置不变,相对于其父节点
 	 * \endif
 	 */
-	RELATIVE
+	RELATIVE_TO_PARENT
 } wyParticleSystemPositionType;
 
 /**

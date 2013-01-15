@@ -26,7 +26,7 @@ typedef bool  (*PFNReleaseFileFunc)(void* handle);
  @Class CPVRTResourceFile
  @Brief Simple resource file wrapper
 *****************************************************************************/
-class CPVRTResourceFile
+class PVR_API CPVRTResourceFile
 {
 public:
 	/*!***************************************************************************

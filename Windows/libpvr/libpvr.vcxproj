@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\libpvr\OGLES\PVRTContext.h" />
+    <ClInclude Include="..\..\jni\libpvr\OGLES\PVRTglesExt.h" />
+    <ClInclude Include="..\..\jni\libpvr\OGLES\PVRTTextureAPI.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTArray.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTDecompress.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTError.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTFixedPoint.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTGlobal.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMap.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMathTable.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMatrix.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMemoryFileSystem.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMisc.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTResourceFile.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTString.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTTexture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\libpvr\OGLES\PVRTglesExt.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\OGLES\PVRTTextureAPI.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTDecompress.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTError.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTFixedPoint.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTMisc.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTResourceFile.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTString.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTTexture.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C245C21E-FC31-447C-A7A6-52E3829AF308}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libpvr</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WINDOWS;LIBPVR_EXPORTS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\WiEngine\include\platform\windows;..\..\jni\libpvr\OGLES;..\..\jni\libpvr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WINDOWS;LIBPVR_EXPORTS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\jni\WiEngine\include\platform\windows;..\..\jni\libpvr\OGLES;..\..\jni\libpvr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

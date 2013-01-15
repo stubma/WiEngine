@@ -19,7 +19,7 @@
 #include "PVRTGlobal.h"
 #include <stddef.h>
 
-class CPVRTMemoryFileSystem
+class PVR_API CPVRTMemoryFileSystem
 {
 public:
 	CPVRTMemoryFileSystem(const char* pszFilename, const void* pBuffer, size_t Size, bool bCopy = false);
