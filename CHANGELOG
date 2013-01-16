@@ -1,6 +1,8 @@
 +++ 3.10.3 +++
 [new] add new make method for wyToast
 [new] wyParticleSystem add relative position mode
+[new] support version 3 pvr image file
+[rev] remove file format suffix in Texture2D make methods, now engine will detect file format for you
 [fix] make wyProgressTimer works with atlas texture
 [fix] fix bug #7, #8, #14, #17, view github for more detail
 [fix] fix projection error in new ipad
