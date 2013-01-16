@@ -325,8 +325,9 @@ private:
 	 *
 	 * @param outLen returns length of raw data
 	 * @param outScale returns scale rate of resource
+     * @param outNeedFree returns flag indicating returned data need to be free or not
 	 */
-	char* loadRaw(size_t* outLen, float* outScale);
+	char* loadRaw(size_t* outLen, float* outScale, bool* outNeedFree);
 
 	/**
 	 * It load normal image format, such as jpg, png, bmp, into rgba8888 format
