@@ -21,6 +21,9 @@
 #ifdef TARGET_OS_IPHONE
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
+#elif MACOSX
+#import <OpenGL/gl.h>
+#import <OpenGL/glext.h>
 #else
 #include <EGL/egl.h>
 #include <GLES/gl.h>

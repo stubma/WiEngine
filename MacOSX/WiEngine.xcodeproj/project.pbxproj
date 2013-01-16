@@ -547,8 +547,6 @@
 		92B0000E16A53CED00477E2A /* PVRTTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFF316A53CED00477E2A /* PVRTTexture.cpp */; };
 		92B0001016A53D4100477E2A /* libpvr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B0FFC916A53CD300477E2A /* libpvr.a */; };
 		92B0FFCA16A53CD300477E2A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
-		92B0FFF616A53CED00477E2A /* PVRTgles2Ext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFD816A53CEC00477E2A /* PVRTgles2Ext.cpp */; };
-		92B0FFF816A53CED00477E2A /* PVRTTextureAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFDA16A53CEC00477E2A /* PVRTTextureAPI.cpp */; };
 		92B0FFFD16A53CED00477E2A /* PVRTDecompress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFE216A53CEC00477E2A /* PVRTDecompress.cpp */; };
 		92B0FFFF16A53CED00477E2A /* PVRTError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B0FFE416A53CEC00477E2A /* PVRTError.cpp */; };
 		92BB799F1478D9FC00503912 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BB799E1478D9FB00503912 /* Carbon.framework */; };
@@ -683,6 +681,8 @@
 		92CA7972146FAA27004757F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92CA796B146FAA27004757F9 /* InfoPlist.strings */; };
 		92CA7A92146FB3BC004757F9 /* ManifestXML.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92CA7A91146FB3BC004757F9 /* ManifestXML.mm */; };
 		92D4E5921480DCB20045CF13 /* WYTextBoxDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92D4E5911480DCB20045CF13 /* WYTextBoxDelegate.mm */; };
+		92E7A1AA16A6B4C500D560EE /* PVRTglesExt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E7A1A616A6B4C500D560EE /* PVRTglesExt.cpp */; };
+		92E7A1AB16A6B4C500D560EE /* PVRTTextureAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E7A1A816A6B4C500D560EE /* PVRTTextureAPI.cpp */; };
 		92EA49971476919800DEC8E2 /* back_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 92EA49951476919800DEC8E2 /* back_normal.png */; };
 		92EFAAF815271CFA00EF9BDC /* wyAutoReleasePool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92EFAAF715271CFA00EF9BDC /* wyAutoReleasePool.cpp */; };
 		92F40CDB15255C4400AF1636 /* wyTMXObjectGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F40CDA15255C4400AF1636 /* wyTMXObjectGroup.cpp */; };
@@ -1200,12 +1200,6 @@
 		929D49561470087200267B99 /* wyTextBox_macosx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyTextBox_macosx.h; sourceTree = "<group>"; };
 		92AA64A31622A35E00690000 /* wyBuildConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBuildConfig.h; path = ../../include/common/wyBuildConfig.h; sourceTree = "<group>"; };
 		92B0FFC916A53CD300477E2A /* libpvr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpvr.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		92B0FFD516A53CEC00477E2A /* Android.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
-		92B0FFD716A53CEC00477E2A /* PVRTContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTContext.h; sourceTree = "<group>"; };
-		92B0FFD816A53CEC00477E2A /* PVRTgles2Ext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTgles2Ext.cpp; sourceTree = "<group>"; };
-		92B0FFD916A53CEC00477E2A /* PVRTgles2Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTgles2Ext.h; sourceTree = "<group>"; };
-		92B0FFDA16A53CEC00477E2A /* PVRTTextureAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTTextureAPI.cpp; sourceTree = "<group>"; };
-		92B0FFDB16A53CEC00477E2A /* PVRTTextureAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTTextureAPI.h; sourceTree = "<group>"; };
 		92B0FFDE16A53CEC00477E2A /* gl2platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl2platform.h; sourceTree = "<group>"; };
 		92B0FFE016A53CEC00477E2A /* khrplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
 		92B0FFE116A53CEC00477E2A /* PVRTArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTArray.h; sourceTree = "<group>"; };
@@ -2059,6 +2053,11 @@
 		92E107B8153857B20086FDD2 /* mpg123_default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mpg123_default.h; sourceTree = "<group>"; };
 		92E107B9153857B20086FDD2 /* mpg123_win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mpg123_win.h; sourceTree = "<group>"; };
 		92E5737C14700F1000BB5F9D /* WYOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WYOpenGLView.h; path = ../../../include/platform/macosx/WYOpenGLView.h; sourceTree = "<group>"; };
+		92E7A1A516A6B4C500D560EE /* PVRTContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTContext.h; sourceTree = "<group>"; };
+		92E7A1A616A6B4C500D560EE /* PVRTglesExt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTglesExt.cpp; sourceTree = "<group>"; };
+		92E7A1A716A6B4C500D560EE /* PVRTglesExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTglesExt.h; sourceTree = "<group>"; };
+		92E7A1A816A6B4C500D560EE /* PVRTTextureAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTTextureAPI.cpp; sourceTree = "<group>"; };
+		92E7A1A916A6B4C500D560EE /* PVRTTextureAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTTextureAPI.h; sourceTree = "<group>"; };
 		92EA49951476919800DEC8E2 /* back_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_normal.png; sourceTree = "<group>"; };
 		92EFAAF715271CFA00EF9BDC /* wyAutoReleasePool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyAutoReleasePool.cpp; sourceTree = "<group>"; };
 		92EFAAFA15271D0100EF9BDC /* wyAutoReleasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyAutoReleasePool.h; path = ../../include/common/wyAutoReleasePool.h; sourceTree = "<group>"; };
@@ -2878,8 +2877,7 @@
 		92B0FFD416A53CEC00477E2A /* libpvr */ = {
 			isa = PBXGroup;
 			children = (
-				92B0FFD516A53CEC00477E2A /* Android.mk */,
-				92B0FFD616A53CEC00477E2A /* OGLES2 */,
+				92E7A1A416A6B4C500D560EE /* OGLES */,
 				92B0FFDC16A53CEC00477E2A /* platform */,
 				92B0FFE116A53CEC00477E2A /* PVRTArray.h */,
 				92B0FFE216A53CEC00477E2A /* PVRTDecompress.cpp */,
@@ -2904,18 +2902,6 @@
 			);
 			name = libpvr;
 			path = ../jni/libpvr;
-			sourceTree = "<group>";
-		};
-		92B0FFD616A53CEC00477E2A /* OGLES2 */ = {
-			isa = PBXGroup;
-			children = (
-				92B0FFD716A53CEC00477E2A /* PVRTContext.h */,
-				92B0FFD816A53CEC00477E2A /* PVRTgles2Ext.cpp */,
-				92B0FFD916A53CEC00477E2A /* PVRTgles2Ext.h */,
-				92B0FFDA16A53CEC00477E2A /* PVRTTextureAPI.cpp */,
-				92B0FFDB16A53CEC00477E2A /* PVRTTextureAPI.h */,
-			);
-			path = OGLES2;
 			sourceTree = "<group>";
 		};
 		92B0FFDC16A53CEC00477E2A /* platform */ = {
@@ -4218,6 +4204,18 @@
 			path = ../jni/WiEngine/impl/utils;
 			sourceTree = "<group>";
 		};
+		92E7A1A416A6B4C500D560EE /* OGLES */ = {
+			isa = PBXGroup;
+			children = (
+				92E7A1A516A6B4C500D560EE /* PVRTContext.h */,
+				92E7A1A616A6B4C500D560EE /* PVRTglesExt.cpp */,
+				92E7A1A716A6B4C500D560EE /* PVRTglesExt.h */,
+				92E7A1A816A6B4C500D560EE /* PVRTTextureAPI.cpp */,
+				92E7A1A916A6B4C500D560EE /* PVRTTextureAPI.h */,
+			);
+			path = OGLES;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5008,8 +5006,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92B0FFF616A53CED00477E2A /* PVRTgles2Ext.cpp in Sources */,
-				92B0FFF816A53CED00477E2A /* PVRTTextureAPI.cpp in Sources */,
 				92B0FFFD16A53CED00477E2A /* PVRTDecompress.cpp in Sources */,
 				92B0FFFF16A53CED00477E2A /* PVRTError.cpp in Sources */,
 				92B0000116A53CED00477E2A /* PVRTFixedPoint.cpp in Sources */,
@@ -5017,6 +5013,8 @@
 				92B0000A16A53CED00477E2A /* PVRTResourceFile.cpp in Sources */,
 				92B0000C16A53CED00477E2A /* PVRTString.cpp in Sources */,
 				92B0000E16A53CED00477E2A /* PVRTTexture.cpp in Sources */,
+				92E7A1AA16A6B4C500D560EE /* PVRTglesExt.cpp in Sources */,
+				92E7A1AB16A6B4C500D560EE /* PVRTTextureAPI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5482,7 +5480,7 @@
 					EGL_NOT_PRESENT,
 				);
 				PRODUCT_NAME = pvr;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libpvr/OGLES2 $(SRCROOT)/../jni/libpvr $(SRCROOT)/../jni/libpvr/platform/macosx";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libpvr/platform/macosx";
 			};
 			name = Debug;
 		};
@@ -5498,7 +5496,7 @@
 					EGL_NOT_PRESENT,
 				);
 				PRODUCT_NAME = pvr;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libpvr/OGLES2 $(SRCROOT)/../jni/libpvr $(SRCROOT)/../jni/libpvr/platform/macosx";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../jni/libpvr/platform/macosx";
 			};
 			name = Release;
 		};
@@ -5827,6 +5825,7 @@
 				92B0FFD316A53CD300477E2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		92BB79B91478F90C00503912 /* Build configuration list for PBXNativeTarget "liblua" */ = {
 			isa = XCConfigurationList;
