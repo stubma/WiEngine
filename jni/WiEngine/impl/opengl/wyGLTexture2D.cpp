@@ -266,18 +266,23 @@ void wyGLTexture2D::initSize(float realWidth, float realHeight) {
 	m_heightScale = m_height / m_pixelHeight;
 }
 
-char* wyGLTexture2D::loadRaw(size_t* outLen, float* outScale) {
+char* wyGLTexture2D::loadRaw(size_t* outLen, float* outScale, bool* outNeedFree) {
 	// decompress bmp data in RGBA8888
 	*outScale = wyDevice::density / m_inDensity;
 	char* raw = NULL;
 	if(m_resId != 0) {
 		raw = wyUtils::loadRaw(m_resId, outLen, outScale);
+        *outNeedFree = true;
 	} else if(m_path != NULL) {
 		raw = wyUtils::loadRaw(m_path, m_isFile, outLen);
+        *outNeedFree = true;
 	} else if(m_data != NULL) {
-		raw = wyUtils::loadRaw(m_data, m_length, outLen);
+        raw = (char*)m_data;
+        *outLen = m_length;
+        *outNeedFree = false;
 	} else if(m_mfsName != NULL) {
 		raw = wyUtils::loadRaw(m_mfsName, outLen);
+        *outNeedFree = true;
 	} else {
 		LOGE("texture doesn't has any input!");
 	}
@@ -388,7 +393,8 @@ void wyGLTexture2D::doLoad() {
 			// get raw data of image
 			size_t len;
 			float scale;
-			char* raw = loadRaw(&len, &scale);
+            bool needFree;
+			char* raw = loadRaw(&len, &scale, &needFree);
 
 			// special case for PVR
 			if(wyUtils::isPVR(raw, len)) {
@@ -437,7 +443,8 @@ void wyGLTexture2D::doLoad() {
 			}
 
 			// free raw data
-			wyFree(raw);
+            if(needFree)
+                wyFree(raw);
 
 			break;
 		}
@@ -860,7 +867,8 @@ void wyGLTexture2D::doApplyFilter() {
 			// get raw data of image
 			size_t len;
 			float scale;
-			char* raw = loadRaw(&len, &scale);
+            bool needFree;
+			char* raw = loadRaw(&len, &scale, &needFree);
 			if(!raw)
 				return;
 
@@ -873,7 +881,8 @@ void wyGLTexture2D::doApplyFilter() {
 			}
 
 			// free raw
-			wyFree(raw);
+            if(needFree)
+                wyFree(raw);
 
 			break;
 		}
