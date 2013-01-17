@@ -58,6 +58,7 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/WiEngine/include \
 	$(LOCAL_PATH)/WiEngine/include/lua \
 	$(LOCAL_PATH)/WiEngine/include/material \
 	$(LOCAL_PATH)/WiEngine/include/mesh \
+	$(LOCAL_PATH)/WiEngine/include/model \
 	$(LOCAL_PATH)/WiEngine/include/nodes \
 	$(LOCAL_PATH)/WiEngine/include/opengl \
 	$(LOCAL_PATH)/WiEngine/include/particle \

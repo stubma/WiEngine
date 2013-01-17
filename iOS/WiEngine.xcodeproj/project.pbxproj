@@ -600,6 +600,8 @@
 		9296921216A7D17E000135FF /* Model3DDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9296921016A7D17E000135FF /* Model3DDemos.cpp */; };
 		9296921516A7D39D000135FF /* PVRTMatrixF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9296921316A7D39D000135FF /* PVRTMatrixF.cpp */; };
 		9296921616A7D39D000135FF /* PVRTMatrixX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9296921416A7D39D000135FF /* PVRTMatrixX.cpp */; };
+		9296921B16A7E0DC000135FF /* wyPODModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9296921A16A7E0DC000135FF /* wyPODModel.cpp */; };
+		9296921F16A7F745000135FF /* wyModelNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9296921E16A7F745000135FF /* wyModelNode.cpp */; };
 		92974859135354D40025A34B /* GLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92974851135354D40025A34B /* GLViewController.mm */; };
 		9297485A135354D40025A34B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92974852135354D40025A34B /* main.m */; };
 		9297485B135354D40025A34B /* WiEngineAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92974854135354D40025A34B /* WiEngineAppDelegate.mm */; };
@@ -2223,6 +2225,12 @@
 		9296921116A7D17E000135FF /* Model3DDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model3DDemos.h; sourceTree = "<group>"; };
 		9296921316A7D39D000135FF /* PVRTMatrixF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTMatrixF.cpp; sourceTree = "<group>"; };
 		9296921416A7D39D000135FF /* PVRTMatrixX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTMatrixX.cpp; sourceTree = "<group>"; };
+		9296921816A7E0D2000135FF /* wyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyModel.h; path = ../jni/WiEngine/include/model/wyModel.h; sourceTree = "<group>"; };
+		9296921916A7E0D2000135FF /* wyPODModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyPODModel.h; path = ../jni/WiEngine/include/model/wyPODModel.h; sourceTree = "<group>"; };
+		9296921A16A7E0DC000135FF /* wyPODModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyPODModel.cpp; path = ../jni/WiEngine/impl/model/wyPODModel.cpp; sourceTree = "<group>"; };
+		9296921C16A7E3F8000135FF /* wyLoadableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyLoadableObject.h; path = ../../include/common/wyLoadableObject.h; sourceTree = "<group>"; };
+		9296921D16A7F730000135FF /* wyModelNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyModelNode.h; path = ../../include/nodes/wyModelNode.h; sourceTree = "<group>"; };
+		9296921E16A7F745000135FF /* wyModelNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyModelNode.cpp; sourceTree = "<group>"; };
 		92971E31143C768D005FD7C1 /* libbox2d-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libbox2d-Prefix.pch"; path = "pch/libbox2d-Prefix.pch"; sourceTree = "<group>"; };
 		92971E34143C768D005FD7C1 /* libwiengine-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libwiengine-Prefix.pch"; path = "pch/libwiengine-Prefix.pch"; sourceTree = "<group>"; };
 		92971E35143C768D005FD7C1 /* libwisound-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libwisound-Prefix.pch"; path = "pch/libwisound-Prefix.pch"; sourceTree = "<group>"; };
@@ -3993,6 +4001,7 @@
 				9262575D146EAB040043D85C /* gridactions */,
 				92261EF616439C06003D980F /* material */,
 				92261EF516439C00003D980F /* mesh */,
+				9296921716A7E09C000135FF /* model */,
 				92625781146EAB040043D85C /* nodes */,
 				926257B3146EAB040043D85C /* opengl */,
 				926257BB146EAB040043D85C /* particle */,
@@ -4239,6 +4248,7 @@
 				92625A6A146EAB430043D85C /* wyDevice.h */,
 				92625A6B146EAB430043D85C /* wyGlobal.h */,
 				92625A6C146EAB430043D85C /* wyHashSet.h */,
+				9296921C16A7E3F8000135FF /* wyLoadableObject.h */,
 				92625A6D146EAB430043D85C /* wyMemory.h */,
 				92625A6E146EAB430043D85C /* wyObject.h */,
 				92625A6F146EAB430043D85C /* wyThread.h */,
@@ -4457,6 +4467,7 @@
 				92625B29146EAB7E0043D85C /* wyMenuItemLabel.h */,
 				92625B2A146EAB7E0043D85C /* wyMenuItemSprite.h */,
 				92625B2B146EAB7E0043D85C /* wyMenuItemToggle.h */,
+				9296921D16A7F730000135FF /* wyModelNode.h */,
 				92625B2C146EAB7E0043D85C /* wyMotionStreak.h */,
 				92625B2D146EAB7E0043D85C /* wyMultiplexLayer.h */,
 				92625B2E146EAB7E0043D85C /* wyNinePatchSprite.h */,
@@ -4508,6 +4519,7 @@
 				92625796146EAB040043D85C /* wyMenuItemLabel.cpp */,
 				92625797146EAB040043D85C /* wyMenuItemSprite.cpp */,
 				92625798146EAB040043D85C /* wyMenuItemToggle.cpp */,
+				9296921E16A7F745000135FF /* wyModelNode.cpp */,
 				92625799146EAB040043D85C /* wyMotionStreak.cpp */,
 				9262579A146EAB040043D85C /* wyMultiplexLayer.cpp */,
 				9262579B146EAB040043D85C /* wyNinePatchSprite.cpp */,
@@ -5109,6 +5121,16 @@
 			);
 			name = Model3D;
 			path = ../../samples/WiEngineDemos_native/jni/Demos/Model3D;
+			sourceTree = "<group>";
+		};
+		9296921716A7E09C000135FF /* model */ = {
+			isa = PBXGroup;
+			children = (
+				9296921816A7E0D2000135FF /* wyModel.h */,
+				9296921916A7E0D2000135FF /* wyPODModel.h */,
+				9296921A16A7E0DC000135FF /* wyPODModel.cpp */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 		92AB7DE6136AFE45004660FA /* ant */ = {
@@ -7245,6 +7267,8 @@
 				92261F8616439C9C003D980F /* wyUniform.cpp in Sources */,
 				92261FE41643A0B3003D980F /* wyBuffer.cpp in Sources */,
 				92261FE61643A0D4003D980F /* wyCompoundNode.cpp in Sources */,
+				9296921B16A7E0DC000135FF /* wyPODModel.cpp in Sources */,
+				9296921F16A7F745000135FF /* wyModelNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

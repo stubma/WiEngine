@@ -135,6 +135,7 @@
 #include "wyAutoReleasePool.h"
 #include "wyHashSet.h"
 #include "wyObject.h"
+#include "wyLoadableObject.h"
 #include "wyThread.h"
 
 // dialog
@@ -261,6 +262,7 @@
 #include "wyMenuItemLabel.h"
 #include "wyMenuItemSprite.h"
 #include "wyMenuItemToggle.h"
+#include "wyModelNode.h"
 #include "wyMotionStreak.h"
 #include "wyMultiplexLayer.h"
 #include "wyNinePatchSprite.h"
@@ -413,5 +415,9 @@
 #include "wyVerletStick.h"
 #include "wyZwoptex.h"
 #include "wyZwoptexManager.h"
+
+// model
+#include "wyModel.h"
+#include "wyPODModel.h"
 
 #endif // __WiEngine_h__

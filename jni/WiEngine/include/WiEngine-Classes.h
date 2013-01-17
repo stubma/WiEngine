@@ -133,6 +133,7 @@ struct wyArray;
 class wyAutoReleasePool;
 struct wyHashSet;
 class wyObject;
+class wyLoadableObject;
 class wyThread;
 
 // dialog
@@ -261,6 +262,7 @@ class wyMenuItemAtlasLabel;
 class wyMenuItemLabel;
 class wyMenuItemSprite;
 class wyMenuItemToggle;
+class wyModelNode;
 class wyMotionStreak;
 class wyMultiplexLayer;
 class wyNinePatchSprite;
@@ -412,6 +414,10 @@ class wyVerletPoint;
 class wyVerletStick;
 class wyZwoptex;
 class wyZwoptexManager;
+
+// model
+class wyModel;
+class wyPODModel;
 
 // platform
 #ifdef IOS

@@ -2,20 +2,17 @@
 #include "common.h"
 #include "WiEngine.h"
 #include <stdio.h>
-#include "PVRTModelPOD.h"
 
 namespace Lua {
     class wyPODTestLayer : public wyLayer {
     public:
     	wyPODTestLayer() {
-            CPVRTModelPOD pod;
-            size_t len;
-            char* raw = wyUtils::loadRaw(RES("R.raw.scene"), &len);
-            pod.ReadFromMemory(raw, len);
-            wyFree(raw);
-            if(pod.IsLoaded()) {
-                LOGD("mesh: %d, material: %d, texture: %d, light: %d", pod.nNumMesh, pod.nNumMaterial, pod.nNumTexture, pod.nNumLight);
-            }
+            wyModel* model = wyPODModel::make(RES("R.raw.scene"));
+            wyModelNode* n = wyModelNode::make(model);
+            addChildLocked(n);
+            
+            // dump info
+            n->getModel()->dump();
         }
 
         virtual ~wyPODTestLayer() {
