@@ -23,6 +23,7 @@
     <string name="performance_desc">Test performance of WiEngine in your device</string>
     <string name="shader_desc">How to use custom shader to implement cool effect</string>
     <string name="cegui_desc">CEGUI(Crazy Eddie\'s GUI) System is a free library providing windowing and widgets for graphics APIs/engines where such functionality is not natively available, or severely lacking. The library is object orientated, written in C++, and targeted at games developers who should be spending their time creating great games, not building GUI sub-systems! WiEngine integrates CEGUI into wyCEGUINode so CEGUI elements can be embedded in WiEngine scene</string>
+    <string name="model_3d_desc">Demo model data format supported by WiEngine</string>
     
     <!-- activity description -->
     <string name="MenuTest_desc">How to create menu node and response events</string>
@@ -250,4 +251,5 @@
 	<string name="CEGUITreeTest_desc">How to use CEGUI tree control</string>
 	<string name="CEGUIControlSetTest_desc">A control collection demo, it shows you most common used controls of CEGUI</string>
 	<string name="CEGUIDragDropTest_desc">You can subscribe drag&amp;drop event, CEGUI has built-in drag&amp;drop event</string>
+	<string name="PODTest_desc">POD is PowerVR Object Data format, WiEngine supports reading model data from a POD file, and render it</string>
 </resources>

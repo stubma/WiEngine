@@ -44,6 +44,7 @@
 		<meta-data android:name="Performance_desc" android:resource="@string/performance_desc"></meta-data>
 		<meta-data android:name="Shader_desc" android:resource="@string/shader_desc"></meta-data>
 		<meta-data android:name="CEGUI_desc" android:resource="@string/cegui_desc"></meta-data>
+		<meta-data android:name="Model_3D_desc" android:resource="@string/model_3d_desc"></meta-data>
 		
 		<activity android:label="@string/app_name" android:name="WiEngineDemos">
 			<intent-filter>
@@ -1874,6 +1875,11 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.TEST" />
             </intent-filter><meta-data android:name="desc" android:resource="@string/CEGUIDragDropTest_desc"></meta-data>
+</activity>
+<activity android:name=".tests.model3d.PODTest" android:label="Model 3D/POD"><intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.TEST" />
+            </intent-filter><meta-data android:name="desc" android:resource="@string/PODTest_desc"></meta-data>
 </activity>
         <receiver android:name="com.wiyun.engine.iap.androidmarket.BillingReceiver">
             <intent-filter>

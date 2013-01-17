@@ -23,7 +23,8 @@
     <string name="performance_desc">在您的设备上测试WiEngine的性能</string>
     <string name="shader_desc">如何使用自定义的shader程序实现一些特殊效果</string>
     <string name="cegui_desc">CEGUI(Crazy Eddie\'s GUI)是一个免费开源的图形窗口组件库, 它使用C++开发, 主要针对游戏开发者而设计, 可以节省游戏开发者在用户界面上花费的精力, 而有更多时间专注于游戏逻辑. WiEngine通过wyCEGUINode类集成了CEGUI元素, 因此可以将CEGUI嵌入到WiEngine场景中.</string>
-        
+    <string name="model_3d_desc">演示如何解析并渲染WiEngine支持的模型文件格式</string>
+    
     <!-- activity description -->
     <string name="MenuTest_desc">如何创建菜单和菜单项并响应点击事件</string>
     <string name="ClickAndMoveTest_desc">响应点击事件并根据点击位置移动一个图片</string>
@@ -250,4 +251,5 @@
 	<string name="CEGUITreeTest_desc">CEGUI的树形控件的使用</string>
 	<string name="CEGUIControlSetTest_desc">这个demo展示了CEGUI中的大多数常用组件</string>
 	<string name="CEGUIDragDropTest_desc">CEGUI有内置的拖放事件支持, 只要设定处理拖放事件就可以了</string>
+	<string name="PODTest_desc">POD是PowerVR Object Data的缩写, WiEngine支持载入POD文件格式并渲染</string>
 </resources>

@@ -40,6 +40,7 @@
 #import "GridActionDemos.h"
 #import "IAPDemos.h"
 #import "LuaDemos.h"
+#import "Model3DDemos.h"
 #import "NetworkDemos.h"
 #import "NodeDemos.h"
 #import "OtherDemos.h"
@@ -51,7 +52,7 @@
 #import "TransitionDemos.h"
 
 // demo map
-static demoEntryFunc sDemoMap[17][50] = {
+static demoEntryFunc sDemoMap[18][50] = {
 	{
 		DEMO_ENTRY_NAME(action, AnimationTest),
 		DEMO_ENTRY_NAME(action, AtlasAnimationTest),
@@ -193,6 +194,9 @@ static demoEntryFunc sDemoMap[17][50] = {
 		DEMO_ENTRY_NAME(lua, CreateLabelTest),
 		DEMO_ENTRY_NAME(lua, SplitWordsTest),
 	},
+    {
+        DEMO_ENTRY_NAME(model3d, PODTest),
+    },
 	{
 		DEMO_ENTRY_NAME(network, DownloadImageTest),
 		DEMO_ENTRY_NAME(network, HttpPostTest),
