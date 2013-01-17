@@ -1,3 +1,6 @@
++++ 3.10.4 +++
+[fix] let setTag works before addChild
+
 +++ 3.10.3 +++
 [new] add new make method for wyToast
 [new] wyParticleSystem add relative position mode
