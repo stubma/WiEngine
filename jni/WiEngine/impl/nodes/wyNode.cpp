@@ -178,7 +178,8 @@ void wyNode::addChild(wyNode* child, int z, int tag) {
 	// insert and execute onEnter if running
 	insertChild(child, z);
 	wyObjectRetain(child);
-	child->m_tag = tag;
+	if(tag != INVALID_TAG)
+		child->m_tag = tag;
 
 	// callback, child has a chance to do something
 	child->onAttachToParent(this);
