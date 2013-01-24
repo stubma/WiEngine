@@ -985,11 +985,9 @@ bool wyUtils::isPNG(const char* p, size_t size) {
 }
 
 bool wyUtils::isJPG(const char* p, size_t size) {
-	if(size >= 4 &&
+	if(size >= 2 &&
 			p[0] == (char)0xFF &&
-			p[1] == (char)0xD8 &&
-			p[2] == (char)0xFF &&
-			p[3] == (char)0xE0)
+			p[1] == (char)0xD8)
 		return true;
 	else
 		return false;
