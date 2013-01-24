@@ -179,7 +179,10 @@ void wyPODModel::dump() {
     
     // dump node
     for(int i = 0; i < m_pod->nNumNode; i++) {
-        LOGD("Node %d: %s", i, m_pod->pNode[i].pszName);
+        LOGD("Node %d: %s, parent: %s",
+             i,
+             m_pod->pNode[i].pszName,
+             m_pod->pNode[i].nIdxParent == -1 ? "NONE" : m_pod->pNode[m_pod->pNode[i].nIdxParent].pszName);
     }
     
     // dump mesh
@@ -192,7 +195,11 @@ void wyPODModel::dump() {
     
     // dump material
     for(int i = 0; i < m_pod->nNumMaterial; i++) {
-        LOGD("Material %d: %s", i, m_pod->pMaterial[i].pszName);
+        LOGD("Material %d: %s, effect file: %s, effect: %s",
+             i,
+             m_pod->pMaterial[i].pszName,
+             m_pod->pMaterial[i].pszEffectFile == NULL ? "NONE" : m_pod->pMaterial[i].pszEffectFile,
+             m_pod->pMaterial[i].pszEffectName == NULL ? "NONE" : m_pod->pMaterial[i].pszEffectName);
     }
     
     // dump light
