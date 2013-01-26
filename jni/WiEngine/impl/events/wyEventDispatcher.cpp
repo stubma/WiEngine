@@ -39,89 +39,80 @@
 extern pthread_mutex_t gMutex;
 extern pthread_mutex_t gCondMutex;
 
-bool wyEventDispatcher::releaseHandler(wyArray* arr, void* ptr, int index, void* data) {
-	wyFree(ptr);
-	return true;
+void wyEventDispatcher::releaseEvents(EventPtrList& list) {
+	for(EventPtrList::iterator iter = list.begin(); iter != list.end(); iter++) {
+		recycleEvent(*iter);
+		wyFree(*iter);
+	}
 }
 
-bool wyEventDispatcher::releaseEvent(wyArray* arr, void* ptr, int index, void* data) {
-	wyEvent* e = (wyEvent*)ptr;
-	recycleEvent(e);
-	wyFree(ptr);
-	return true;
+int wyEventDispatcher::findHandler(HandlerList& list, wyNode* node) {
+	for(HandlerList::iterator iter = list.begin(); iter != list.end(); iter++) {
+		if(iter->node == node)
+			return iter - list.begin();
+	}
+
+	return -1;
 }
 
-bool wyEventDispatcher::releaseRunnable(wyArray* arr, void* ptr, int index, void* data) {
-	wyObjectRelease((wyObject*)ptr);
-	return true;
-}
-
-bool wyEventDispatcher::findHandler(void* elementPtr, void* ptr, void* data) {
-	wyPriorityHandler* h = (wyPriorityHandler*)elementPtr;
-	return h->node == ptr;
-}
-
-bool wyEventDispatcher::processEvent(wyArray* arr, void* ptr, int index, void* data) {
-	wyEvent* e = (wyEvent*)ptr;
-	wyEventDispatcher* d = (wyEventDispatcher*)data;
-
+void wyEventDispatcher::processEvent(wyEvent* e) {
 	switch(e->type) {
 		case ET_ACCELEROMETER:
-			d->wyAccelerometerChanged(e->ae.accelX, e->ae.accelY, e->ae.accelZ);
+			wyAccelerometerChanged(e->ae.accelX, e->ae.accelY, e->ae.accelZ);
 			break;
 		case ET_TOUCH_BEGAN:
-			d->wyTouchesBegan(e->me.pe);
+			wyTouchesBegan(e->me.pe);
 			break;
 		case ET_TOUCH_MOVED:
-			d->wyTouchesMoved(e->me.pe);
+			wyTouchesMoved(e->me.pe);
 			break;
 		case ET_TOUCH_ENDED:
-			d->wyTouchesEnded(e->me.pe);
+			wyTouchesEnded(e->me.pe);
 			break;
 		case ET_TOUCH_CANCELLED:
-			d->wyTouchesCancelled(e->me.pe);
+			wyTouchesCancelled(e->me.pe);
 			break;
 		case ET_TOUCH_POINTER_BEGAN:
-			d->wyTouchesPointerBegan(e->me.pe);
+			wyTouchesPointerBegan(e->me.pe);
 			break;
 		case ET_TOUCH_POINTER_END:
-			d->wyTouchesPointerEnded(e->me.pe);
+			wyTouchesPointerEnded(e->me.pe);
 			break;
 		case ET_DOUBLE_TAP:
-			d->wyOnDoubleTap(e->me.pe);
+			wyOnDoubleTap(e->me.pe);
 			break;
 		case ET_DOUBLE_TAP_EVENT:
-			d->wyOnDoubleTapEvent(e->me.pe);
+			wyOnDoubleTapEvent(e->me.pe);
 			break;
 		case ET_SINGLE_TAP_CONFIRMED:
-			d->wyOnSingleTapConfirmed(e->me.pe);
+			wyOnSingleTapConfirmed(e->me.pe);
 			break;
 		case ET_KEY_DOWN:
-			d->wyKeyDown(e->ke.pe);
+			wyKeyDown(e->ke.pe);
 			break;
 		case ET_KEY_UP:
-			d->wyKeyUp(e->ke.pe);
+			wyKeyUp(e->ke.pe);
 			break;
 		case ET_KEY_MULTIPLE:
-			d->wyKeyMultiple(e->ke.pe);
+			wyKeyMultiple(e->ke.pe);
 			break;
 		case ET_ON_DOWN:
-			d->wyOnDown(e->ge.pe1);
+			wyOnDown(e->ge.pe1);
 			break;
 		case ET_ON_FLING:
-			d->wyOnFling(e->ge.pe1, e->ge.pe2, e->ge.vx, -e->ge.vy);
+			wyOnFling(e->ge.pe1, e->ge.pe2, e->ge.vx, -e->ge.vy);
 			break;
 		case ET_ON_SCROLL:
-			d->wyOnScroll(e->ge.pe1, e->ge.pe2, e->ge.vx, -e->ge.vy);
+			wyOnScroll(e->ge.pe1, e->ge.pe2, e->ge.vx, -e->ge.vy);
 			break;
 		case ET_ON_LONG_PRESS:
-			d->wyOnLongPress(e->ge.pe1);
+			wyOnLongPress(e->ge.pe1);
 			break;
 		case ET_ON_SHOW_PRESS:
-			d->wyOnShowPress(e->ge.pe1);
+			wyOnShowPress(e->ge.pe1);
 			break;
 		case ET_ON_SINGLE_TAP_UP:
-			d->wyOnSingleTapUp(e->ge.pe1);
+			wyOnSingleTapUp(e->ge.pe1);
 			break;
 		case ET_LOAD_TEXTURE:
 			pthread_mutex_lock(&gCondMutex);
@@ -154,97 +145,125 @@ bool wyEventDispatcher::processEvent(wyArray* arr, void* ptr, int index, void* d
 			wyObjectRelease(e->oe.obj);
 			break;
 		default:
-			d->processUncommonEvent(e);
+			processUncommonEvent(e);
 			break;
 	}
 
-	d->poolEvent(e);
-	return true;
+	poolEvent(e);
 }
 
 wyEventDispatcher::wyEventDispatcher() :
-		m_dispatchEvents(true),
-		m_pendingAccelHandlers(wyArrayNew(5)),
-		m_pendingTouchHandlers(wyArrayNew(5)),
-		m_pendingKeyHandlers(wyArrayNew(5)),
-		m_pendingDoubleTapHandlers(wyArrayNew(5)),
-		m_pendingGestureHandlers(wyArrayNew(5)),
-		m_accelHandlers(wyArrayNew(5)),
-		m_keyHandlers(wyArrayNew(5)),
-		m_touchHandlers(wyArrayNew(5)),
-		m_doubleTapHandlers(wyArrayNew(5)),
-		m_gestureHandlers(wyArrayNew(5)),
-		m_eventQueue(wyArrayNew(50)),
-		m_pendingAddList(wyArrayNew(10)),
-		m_eventPool(wyArrayNew(50)),
-		m_runnables(wyArrayNew(10)) {
+		m_dispatchEvents(true) {
 }
 
 wyEventDispatcher::~wyEventDispatcher() {
 	removeAllHandlersLocked();
-	wyArrayDestroy(m_accelHandlers);
-	wyArrayDestroy(m_keyHandlers);
-	wyArrayDestroy(m_touchHandlers);
-	wyArrayDestroy(m_doubleTapHandlers);
-	wyArrayDestroy(m_gestureHandlers);
-	wyArrayDestroy(m_pendingAccelHandlers);
-	wyArrayDestroy(m_pendingTouchHandlers);
-	wyArrayDestroy(m_pendingKeyHandlers);
-	wyArrayDestroy(m_pendingDoubleTapHandlers);
-	wyArrayDestroy(m_pendingGestureHandlers);
-	wyArrayEach(m_eventQueue, releaseEvent, NULL);
-	wyArrayDestroy(m_eventQueue);
-	wyArrayEach(m_pendingAddList, releaseEvent, NULL);
-	wyArrayDestroy(m_pendingAddList);
-	wyArrayEach(m_runnables, releaseRunnable, NULL);
-	wyArrayDestroy(m_runnables);
-	wyArrayEach(m_eventPool, releaseEvent, NULL);
-	wyArrayDestroy(m_eventPool);
+	releaseEvents(m_eventQueue);
+	releaseEvents(m_pendingAddEvents);
+	releaseEvents(m_eventPool);
 }
 
 void wyEventDispatcher::processEventsLocked() {
 	pthread_mutex_lock(&gMutex);
 
 	// add pending events to queue
-	wyArrayPushAll(m_pendingAddList, m_eventQueue);
-	wyArrayClear(m_pendingAddList);
+	for(EventPtrList::iterator iter = m_pendingAddEvents.begin(); iter != m_pendingAddEvents.end(); iter++) {
+		m_eventQueue.push_back(*iter);
+	}
+	m_pendingAddEvents.clear();
+
+	// remove pending handlers from queue
+	for(NodePtrList::iterator iter = m_pendingRemoveAccelHandlerNodes.begin(); iter != m_pendingRemoveAccelHandlerNodes.end(); iter++) {
+		int index = findHandler(m_accelHandlers, *iter);
+		if(index != -1)
+			m_accelHandlers.erase(m_accelHandlers.begin() + index);
+	}
+	for(NodePtrList::iterator iter = m_pendingRemoveTouchHandlerNodes.begin(); iter != m_pendingRemoveTouchHandlerNodes.end(); iter++) {
+		int index = findHandler(m_touchHandlers, *iter);
+		if(index != -1)
+			m_touchHandlers.erase(m_touchHandlers.begin() + index);
+	}
+	for(NodePtrList::iterator iter = m_pendingRemoveKeyHandlerNodes.begin(); iter != m_pendingRemoveKeyHandlerNodes.end(); iter++) {
+		int index = findHandler(m_keyHandlers, *iter);
+		if(index != -1)
+			m_keyHandlers.erase(m_keyHandlers.begin() + index);
+	}
+	for(NodePtrList::iterator iter = m_pendingRemoveDoubleTapHandlerNodes.begin(); iter != m_pendingRemoveDoubleTapHandlerNodes.end(); iter++) {
+		int index = findHandler(m_doubleTapHandlers, *iter);
+		if(index != -1)
+			m_doubleTapHandlers.erase(m_doubleTapHandlers.begin() + index);
+	}
+	for(NodePtrList::iterator iter = m_pendingRemoveGestureHandlerNodes.begin(); iter != m_pendingRemoveGestureHandlerNodes.end(); iter++) {
+		int index = findHandler(m_gestureHandlers, *iter);
+		if(index != -1)
+			m_gestureHandlers.erase(m_gestureHandlers.begin() + index);
+	}
+	m_pendingRemoveAccelHandlerNodes.clear();
+	m_pendingRemoveTouchHandlerNodes.clear();
+	m_pendingRemoveKeyHandlerNodes.clear();
+	m_pendingRemoveDoubleTapHandlerNodes.clear();
+	m_pendingRemoveGestureHandlerNodes.clear();
 
 	// add pending handlers to queue
-	for(int i = 0; i < m_pendingAccelHandlers->num; i++)
-		addAccelHandler((wyPriorityHandler*)wyArrayGet(m_pendingAccelHandlers, i));
-	wyArrayClear(m_pendingAccelHandlers);
-	for(int i = 0; i < m_pendingTouchHandlers->num; i++)
-		addTouchHandler((wyPriorityHandler*)wyArrayGet(m_pendingTouchHandlers, i));
-	wyArrayClear(m_pendingTouchHandlers);
-	for(int i = 0; i < m_pendingKeyHandlers->num; i++)
-		addKeyHandler((wyPriorityHandler*)wyArrayGet(m_pendingKeyHandlers, i));
-	wyArrayClear(m_pendingKeyHandlers);
-	for(int i = 0; i < m_pendingDoubleTapHandlers->num; i++)
-		addDoubleTapHandler((wyPriorityHandler*)wyArrayGet(m_pendingDoubleTapHandlers, i));
-	wyArrayClear(m_pendingDoubleTapHandlers);
-	for(int i = 0; i < m_pendingGestureHandlers->num; i++)
-		addGestureHandler((wyPriorityHandler*)wyArrayGet(m_pendingGestureHandlers, i));
-	wyArrayClear(m_pendingGestureHandlers);
+	for(HandlerList::iterator iter = m_pendingAddAccelHandlers.begin(); iter != m_pendingAddAccelHandlers.end(); iter++) {
+		addAccelHandler(*iter);
+	}
+	for(HandlerList::iterator iter = m_pendingAddTouchHandlers.begin(); iter != m_pendingAddTouchHandlers.end(); iter++) {
+		addTouchHandler(*iter);
+	}
+	for(HandlerList::iterator iter = m_pendingAddKeyHandlers.begin(); iter != m_pendingAddKeyHandlers.end(); iter++) {
+		addKeyHandler(*iter);
+	}
+	for(HandlerList::iterator iter = m_pendingAddDoubleTapHandlers.begin(); iter != m_pendingAddDoubleTapHandlers.end(); iter++) {
+		addDoubleTapHandler(*iter);
+	}
+	for(HandlerList::iterator iter = m_pendingAddGestureHandlers.begin(); iter != m_pendingAddGestureHandlers.end(); iter++) {
+		addGestureHandler(*iter);
+	}
+	m_pendingAddAccelHandlers.clear();
+	m_pendingAddTouchHandlers.clear();
+	m_pendingAddKeyHandlers.clear();
+	m_pendingAddDoubleTapHandlers.clear();
+	m_pendingAddGestureHandlers.clear();
 
 	pthread_mutex_unlock(&gMutex);
 
 	// process events in queue
-	wyArrayEach(m_eventQueue, processEvent, this);
-	wyArrayClear(m_eventQueue);
+	for(EventPtrList::iterator iter = m_eventQueue.begin(); iter != m_eventQueue.end(); iter++) {
+		processEvent(*iter);
+	}
+	m_eventQueue.clear();
 }
 
 wyEvent* wyEventDispatcher::popEvent() {
-	wyEvent* e = (wyEvent*)wyArrayPop(m_eventPool);
-	if(e == NULL)
+	wyEvent* e = NULL;
+	if(m_eventPool.empty()) {
 		e = (wyEvent*)wyCalloc(1, sizeof(wyEvent));
-	else
+	} else {
+		EventPtrList::reverse_iterator iter = m_eventPool.rbegin();
+		e = *iter;
+		m_eventPool.pop_back();
 		memset(e, 0, sizeof(wyEvent));
+	}
+
 	return e;
 }
 
 void wyEventDispatcher::poolEvent(wyEvent* e) {
 	recycleEvent(e);
-	wyArrayPush(m_eventPool, e);
+	m_eventPool.push_back(e);
+}
+
+bool wyEventDispatcher::hasAccelHandlers() {
+	return !m_accelHandlers.empty() || !m_pendingAddAccelHandlers.empty();
+}
+
+void wyEventDispatcher::setDispatchEvent(bool flag) {
+	m_dispatchEvents = flag;
+}
+
+bool wyEventDispatcher::getDispatchEvent() {
+	return m_dispatchEvents;
 }
 
 void wyEventDispatcher::queueKeyEventLocked(wyEventType type, wyPlatformKeyEvent pe) {
@@ -255,7 +274,7 @@ void wyEventDispatcher::queueKeyEventLocked(wyEventType type, wyPlatformKeyEvent
 
 	// push to pending list
 	if(e) {
-		wyArrayPush(m_pendingAddList, e);
+		m_pendingAddEvents.push_back(e);
 	}
 
 	pthread_mutex_unlock(&gMutex);
@@ -283,7 +302,7 @@ void wyEventDispatcher::queueEventLocked(wyEventType type, wyGLTexture2D* tex, p
 	e->type = type;
 	e->lte.tex = tex;
 	e->lte.cond = cond;
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 
 	pthread_mutex_unlock(&gMutex);
 }
@@ -294,7 +313,7 @@ void wyEventDispatcher::queueEventLocked(wyEventType type, wyObject* obj) {
 	wyEvent* e = popEvent();
 	e->type = type;
 	e->oe.obj = obj;
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 
 	pthread_mutex_unlock(&gMutex);
 }
@@ -307,7 +326,7 @@ void wyEventDispatcher::queueEventLocked(float accelX, float accelY, float accel
 	e->ae.accelX = accelX;
 	e->ae.accelY = accelY;
 	e->ae.accelZ = accelZ;
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 
 	pthread_mutex_unlock(&gMutex);
 }
@@ -319,56 +338,54 @@ void wyEventDispatcher::queueRunnableLocked(wyRunnable* runnable) {
 	e->type = ET_RUNNABLE;
 	e->r.runnable = runnable;
 	wyObjectRetain(runnable);
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 
 	pthread_mutex_unlock(&gMutex);
 }
 
-void wyEventDispatcher::addKeyHandler(wyPriorityHandler* h) {
-    int i = 0;
-    for(; i < m_keyHandlers->num; i++) {
-    	wyPriorityHandler* p = (wyPriorityHandler*)wyArrayGet(m_keyHandlers, i);
-    	if(p->priority <= h->priority) {
-    		break;
-    	}
-    }
-    wyArrayInsert(m_keyHandlers, h, i);
+void wyEventDispatcher::addKeyHandler(PriorityHandler& h) {
+	HandlerList::iterator iter = m_keyHandlers.begin();
+	for(; iter != m_keyHandlers.end(); iter++) {
+		if(iter->priority <= h.priority) {
+			break;
+		}
+	}
+	m_keyHandlers.insert(iter, h);
 }
 
 void wyEventDispatcher::addKeyHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-    if(wyArrayIndexOf(m_keyHandlers, node, findHandler, NULL) == -1 &&
-		wyArrayIndexOf(m_pendingKeyHandlers, node, findHandler, NULL) == -1) {
-    	wyPriorityHandler* h = (wyPriorityHandler*)wyCalloc(1, sizeof(wyPriorityHandler));
-    	h->priority = priority;
-    	h->node = node;
-		wyArrayPush(m_pendingKeyHandlers, h);
+	if(findHandler(m_keyHandlers, node) == -1 &&
+			findHandler(m_pendingAddKeyHandlers, node) == -1) {
+    	PriorityHandler h;
+    	h.priority = priority;
+    	h.node = node;
+    	m_pendingAddKeyHandlers.push_back(h);
     }
 
 	pthread_mutex_unlock(&gMutex);
 }
 
-void wyEventDispatcher::addAccelHandler(wyPriorityHandler* h) {
-    int i = 0;
-    for(; i < m_accelHandlers->num; i++) {
-    	wyPriorityHandler* p = (wyPriorityHandler*)wyArrayGet(m_accelHandlers, i);
-    	if(p->priority <= h->priority) {
-    		break;
-    	}
-    }
-    wyArrayInsert(m_accelHandlers, h, i);
+void wyEventDispatcher::addAccelHandler(PriorityHandler& h) {
+	HandlerList::iterator iter = m_accelHandlers.begin();
+	for(; iter != m_accelHandlers.end(); iter++) {
+		if(iter->priority <= h.priority) {
+			break;
+		}
+	}
+	m_accelHandlers.insert(iter, h);
 }
 
 void wyEventDispatcher::addAccelHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-    if(wyArrayIndexOf(m_accelHandlers, node, findHandler, NULL) == -1 &&
-		wyArrayIndexOf(m_pendingAccelHandlers, node, findHandler, NULL) == -1) {
-    	wyPriorityHandler* h = (wyPriorityHandler*)wyCalloc(1, sizeof(wyPriorityHandler));
-    	h->priority = priority;
-    	h->node = node;
-		wyArrayPush(m_pendingAccelHandlers, h);
+	if(findHandler(m_accelHandlers, node) == -1 &&
+			findHandler(m_pendingAddAccelHandlers, node) == -1) {
+    	PriorityHandler h;
+    	h.priority = priority;
+    	h.node = node;
+    	m_pendingAddAccelHandlers.push_back(h);
 
     	// check accelerometer listener
     	checkAccelHandlers();
@@ -377,51 +394,49 @@ void wyEventDispatcher::addAccelHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_unlock(&gMutex);
 }
 
-void wyEventDispatcher::addTouchHandler(wyPriorityHandler* h) {
-    int i = 0;
-    for(; i < m_touchHandlers->num; i++) {
-    	wyPriorityHandler* p = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-    	if(p->priority <= h->priority) {
-    		break;
-    	}
-    }
-    wyArrayInsert(m_touchHandlers, h, i);
+void wyEventDispatcher::addTouchHandler(PriorityHandler& h) {
+	HandlerList::iterator iter = m_touchHandlers.begin();
+	for(; iter != m_touchHandlers.end(); iter++) {
+		if(iter->priority <= h.priority) {
+			break;
+		}
+	}
+	m_touchHandlers.insert(iter, h);
 }
 
 void wyEventDispatcher::addTouchHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-    if(wyArrayIndexOf(m_touchHandlers, node, findHandler, NULL) == -1 &&
-		wyArrayIndexOf(m_pendingTouchHandlers, node, findHandler, NULL) == -1) {
-    	wyPriorityHandler* h = (wyPriorityHandler*)wyCalloc(1, sizeof(wyPriorityHandler));
-    	h->priority = priority;
-    	h->node = node;
-		wyArrayPush(m_pendingTouchHandlers, h);
+	if(findHandler(m_touchHandlers, node) == -1 &&
+			findHandler(m_pendingAddTouchHandlers, node) == -1) {
+    	PriorityHandler h;
+    	h.priority = priority;
+    	h.node = node;
+    	m_pendingAddTouchHandlers.push_back(h);
     }
 
 	pthread_mutex_unlock(&gMutex);
 }
 
-void wyEventDispatcher::addDoubleTapHandler(wyPriorityHandler* h) {
-    int i = 0;
-    for(; i < m_doubleTapHandlers->num; i++) {
-    	wyPriorityHandler* p = (wyPriorityHandler*)wyArrayGet(m_doubleTapHandlers, i);
-    	if(p->priority <= h->priority) {
-    		break;
-    	}
-    }
-    wyArrayInsert(m_doubleTapHandlers, h, i);
+void wyEventDispatcher::addDoubleTapHandler(PriorityHandler& h) {
+	HandlerList::iterator iter = m_doubleTapHandlers.begin();
+	for(; iter != m_doubleTapHandlers.end(); iter++) {
+		if(iter->priority <= h.priority) {
+			break;
+		}
+	}
+	m_doubleTapHandlers.insert(iter, h);
 }
 
 void wyEventDispatcher::addDoubleTapHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-    if(wyArrayIndexOf(m_doubleTapHandlers, node, findHandler, NULL) == -1 &&
-		wyArrayIndexOf(m_pendingDoubleTapHandlers, node, findHandler, NULL) == -1) {
-    	wyPriorityHandler* h = (wyPriorityHandler*)wyCalloc(1, sizeof(wyPriorityHandler));
-    	h->priority = priority;
-    	h->node = node;
-		wyArrayPush(m_pendingDoubleTapHandlers, h);
+	if(findHandler(m_doubleTapHandlers, node) == -1 &&
+			findHandler(m_pendingAddDoubleTapHandlers, node) == -1) {
+    	PriorityHandler h;
+    	h.priority = priority;
+    	h.node = node;
+    	m_pendingAddDoubleTapHandlers.push_back(h);
 
     	checkDoubleTapHandlers();
     }
@@ -429,26 +444,25 @@ void wyEventDispatcher::addDoubleTapHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_unlock(&gMutex);
 }
 
-void wyEventDispatcher::addGestureHandler(wyPriorityHandler* h) {
-    int i = 0;
-    for(; i < m_gestureHandlers->num; i++) {
-    	wyPriorityHandler* p = (wyPriorityHandler*)wyArrayGet(m_gestureHandlers, i);
-    	if(p->priority <= h->priority) {
-    		break;
-    	}
-    }
-    wyArrayInsert(m_gestureHandlers, h, i);
+void wyEventDispatcher::addGestureHandler(PriorityHandler& h) {
+	HandlerList::iterator iter = m_gestureHandlers.begin();
+	for(; iter != m_gestureHandlers.end(); iter++) {
+		if(iter->priority <= h.priority) {
+			break;
+		}
+	}
+	m_gestureHandlers.insert(iter, h);
 }
 
 void wyEventDispatcher::addGestureHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-    if(wyArrayIndexOf(m_gestureHandlers, node, findHandler, NULL) == -1 && 
-		wyArrayIndexOf(m_pendingGestureHandlers, node, findHandler, NULL) == -1) {
-    	wyPriorityHandler* h = (wyPriorityHandler*)wyCalloc(1, sizeof(wyPriorityHandler));
-    	h->priority = priority;
-    	h->node = node;
-		wyArrayPush(m_pendingGestureHandlers, h);
+	if(findHandler(m_gestureHandlers, node) == -1 &&
+			findHandler(m_pendingAddGestureHandlers, node) == -1) {
+    	PriorityHandler h;
+    	h.priority = priority;
+    	h.node = node;
+    	m_pendingAddGestureHandlers.push_back(h);
 
     	checkGestureHandlers();
     }
@@ -459,26 +473,17 @@ void wyEventDispatcher::addGestureHandlerLocked(wyNode* node, int priority) {
 void wyEventDispatcher::removeAllHandlersLocked() {
 	pthread_mutex_lock(&gMutex);
 
-	wyArrayEach(m_accelHandlers, releaseHandler, NULL);
-	wyArrayClear(m_accelHandlers);
-	wyArrayEach(m_keyHandlers, releaseHandler, NULL);
-	wyArrayClear(m_keyHandlers);
-	wyArrayEach(m_touchHandlers, releaseHandler, NULL);
-	wyArrayClear(m_touchHandlers);
-	wyArrayEach(m_doubleTapHandlers, releaseHandler, NULL);
-	wyArrayClear(m_doubleTapHandlers);
-	wyArrayEach(m_gestureHandlers, releaseHandler, NULL);
-	wyArrayClear(m_gestureHandlers);
-	wyArrayEach(m_pendingAccelHandlers, releaseHandler, NULL);
-	wyArrayClear(m_pendingAccelHandlers);
-	wyArrayEach(m_pendingTouchHandlers, releaseHandler, NULL);
-	wyArrayClear(m_pendingTouchHandlers);
-	wyArrayEach(m_pendingKeyHandlers, releaseHandler, NULL);
-	wyArrayClear(m_pendingKeyHandlers);
-	wyArrayEach(m_pendingDoubleTapHandlers, releaseHandler, NULL);
-	wyArrayClear(m_pendingDoubleTapHandlers);
-	wyArrayEach(m_pendingGestureHandlers, releaseHandler, NULL);
-	wyArrayClear(m_pendingGestureHandlers);
+	// clear all handlers
+	m_accelHandlers.clear();
+	m_keyHandlers.clear();
+	m_touchHandlers.clear();
+	m_doubleTapHandlers.clear();
+	m_gestureHandlers.clear();
+	m_pendingAddAccelHandlers.clear();
+	m_pendingAddTouchHandlers.clear();
+	m_pendingAddKeyHandlers.clear();
+	m_pendingAddDoubleTapHandlers.clear();
+	m_pendingAddGestureHandlers.clear();
 
 	// check accelerometer listener
 	checkAccelHandlers();
@@ -489,13 +494,11 @@ void wyEventDispatcher::removeAllHandlersLocked() {
 void wyEventDispatcher::removeKeyHandlerLocked(wyNode* node) {
 	pthread_mutex_lock(&gMutex);
 
-	int index = wyArrayIndexOf(m_keyHandlers, node, findHandler, NULL);
-	if(index != -1)
-		wyFree(wyArrayDeleteIndex(m_keyHandlers, index));
-	else {
-		index = wyArrayIndexOf(m_pendingKeyHandlers, node, findHandler, NULL);
-		if(index != -1)
-			wyFree(wyArrayDeleteIndex(m_pendingKeyHandlers, index));
+	int index = findHandler(m_pendingAddKeyHandlers, node);
+	if(index != -1) {
+		m_pendingAddKeyHandlers.erase(m_pendingAddKeyHandlers.begin() + index);
+	} else {
+		m_pendingRemoveKeyHandlerNodes.push_back(node);
 	}
 
 	pthread_mutex_unlock(&gMutex);
@@ -504,17 +507,15 @@ void wyEventDispatcher::removeKeyHandlerLocked(wyNode* node) {
 void wyEventDispatcher::removeAccelHandlerLocked(wyNode* node) {
 	pthread_mutex_lock(&gMutex);
 
-	int index = wyArrayIndexOf(m_accelHandlers, node, findHandler, NULL);
+	int index = findHandler(m_pendingAddAccelHandlers, node);
 	if(index != -1) {
-		wyFree(wyArrayDeleteIndex(m_accelHandlers, index));
-	} else {
-		index = wyArrayIndexOf(m_pendingAccelHandlers, node, findHandler, NULL);
-		if(index != -1)
-			wyFree(wyArrayDeleteIndex(m_pendingAccelHandlers, index));
-	}
+		m_pendingAddAccelHandlers.erase(m_pendingAddAccelHandlers.begin() + index);
 
-	// check accelerometer listener
-	checkAccelHandlers();
+		// check accelerometer listener
+		checkAccelHandlers();
+	} else {
+		m_pendingRemoveAccelHandlerNodes.push_back(node);
+	}
 
 	pthread_mutex_unlock(&gMutex);
 }
@@ -522,13 +523,11 @@ void wyEventDispatcher::removeAccelHandlerLocked(wyNode* node) {
 void wyEventDispatcher::removeTouchHandlerLocked(wyNode* node) {
 	pthread_mutex_lock(&gMutex);
 
-	int index = wyArrayIndexOf(m_touchHandlers, node, findHandler, NULL);
+	int index = findHandler(m_pendingAddTouchHandlers, node);
 	if(index != -1) {
-		wyFree(wyArrayDeleteIndex(m_touchHandlers, index));
+		m_pendingAddTouchHandlers.erase(m_pendingAddTouchHandlers.begin() + index);
 	} else {
-		index = wyArrayIndexOf(m_pendingTouchHandlers, node, findHandler, NULL);
-		if(index != -1)
-			wyFree(wyArrayDeleteIndex(m_pendingTouchHandlers, index));
+		m_pendingRemoveTouchHandlerNodes.push_back(node);
 	}
 
 	pthread_mutex_unlock(&gMutex);
@@ -537,16 +536,15 @@ void wyEventDispatcher::removeTouchHandlerLocked(wyNode* node) {
 void wyEventDispatcher::removeDoubleTapHandlerLocked(wyNode* node) {
 	pthread_mutex_lock(&gMutex);
 
-	int index = wyArrayIndexOf(m_doubleTapHandlers, node, findHandler, NULL);
+	int index = findHandler(m_pendingAddDoubleTapHandlers, node);
 	if(index != -1) {
-		wyFree(wyArrayDeleteIndex(m_doubleTapHandlers, index));
-	} else {
-		index = wyArrayIndexOf(m_pendingDoubleTapHandlers, node, findHandler, NULL);
-		if(index != -1)
-			wyFree(wyArrayDeleteIndex(m_pendingDoubleTapHandlers, index));
-	}
+		m_pendingAddDoubleTapHandlers.erase(m_pendingAddDoubleTapHandlers.begin() + index);
 
-	checkDoubleTapHandlers();
+		// becuase pending add list changed, need re-check
+		checkDoubleTapHandlers();
+	} else {
+		m_pendingRemoveDoubleTapHandlerNodes.push_back(node);
+	}
 
 	pthread_mutex_unlock(&gMutex);
 }
@@ -554,16 +552,15 @@ void wyEventDispatcher::removeDoubleTapHandlerLocked(wyNode* node) {
 void wyEventDispatcher::removeGestureHandlerLocked(wyNode* node) {
 	pthread_mutex_lock(&gMutex);
 
-	int index = wyArrayIndexOf(m_gestureHandlers, node, findHandler, NULL);
+	int index = findHandler(m_pendingAddGestureHandlers, node);
 	if(index != -1) {
-		wyFree(wyArrayDeleteIndex(m_gestureHandlers, index));
-	} else {
-		index = wyArrayIndexOf(m_pendingGestureHandlers, node, findHandler, NULL);
-		if(index != -1)
-			wyFree(wyArrayDeleteIndex(m_pendingGestureHandlers, index));
-	}
+		m_pendingAddGestureHandlers.erase(m_pendingAddGestureHandlers.begin() + index);
 
-	checkGestureHandlers();
+		// becuase pending add list changed, need re-check
+		checkGestureHandlers();
+	} else {
+		m_pendingRemoveGestureHandlerNodes.push_back(node);
+	}
 
 	pthread_mutex_unlock(&gMutex);
 }
@@ -595,9 +592,9 @@ void wyEventDispatcher::setGestureHandlerPriorityLocked(wyNode* node, int priori
 
 void wyEventDispatcher::cancelTouch(wyMotionEvent& e, wyNode* parent) {
 	if(m_dispatchEvents) {
-		for(int i = 0; i < m_touchHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_touchHandlers.begin(); iter != m_touchHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->hasTouch() && parent->isAncestor(node)) {
 				node->clearTouch();
 				node->touchesCancelled(e);
@@ -608,9 +605,9 @@ void wyEventDispatcher::cancelTouch(wyMotionEvent& e, wyNode* parent) {
 
 void wyEventDispatcher::cancelTouchExcept(wyMotionEvent& e, wyNode* excludeNode) {
 	if(m_dispatchEvents) {
-		for(int i = 0; i < m_touchHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_touchHandlers.begin(); iter != m_touchHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(excludeNode != node && node->hasTouch()) {
 				node->clearTouch();
 				node->touchesCancelled(e);
@@ -625,9 +622,9 @@ void wyEventDispatcher::dispatchAccelerometerChanged(wyNode* node, float accelX,
 
 void wyEventDispatcher::wyAccelerometerChanged(float accelX, float accelY, float accelZ) {
 	if(m_dispatchEvents) {
-		for(int i = 0; i < m_accelHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_accelHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_accelHandlers.begin(); iter != m_accelHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot()) {
 				dispatchAccelerometerChanged(node, accelX, accelY, accelZ);
 			}
@@ -644,9 +641,9 @@ bool wyEventDispatcher::wyKeyDown(wyPlatformKeyEvent event) {
 		wyKeyEvent ke;
 		wyUtils::convertKeyEvent(event, &ke);
 
-		for(int i = 0; i < m_keyHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_keyHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_keyHandlers.begin(); iter != m_keyHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot()) {
 				if(dispatchKeyDown(node, event, ke))
 					return true;
@@ -665,9 +662,9 @@ bool wyEventDispatcher::wyKeyUp(wyPlatformKeyEvent event) {
 		wyKeyEvent ke;
 		wyUtils::convertKeyEvent(event, &ke);
 
-		for(int i = 0; i < m_keyHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_keyHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_keyHandlers.begin(); iter != m_keyHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot()) {
 				if(dispatchKeyUp(node, event, ke))
 					return true;
@@ -686,9 +683,9 @@ bool wyEventDispatcher::wyKeyMultiple(wyPlatformKeyEvent event) {
 		wyKeyEvent ke;
 		wyUtils::convertKeyEvent(event, &ke);
 
-		for(int i = 0; i < m_keyHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_keyHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_keyHandlers.begin(); iter != m_keyHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot()) {
 				if(dispatchKeyMultiple(node, event, ke))
 					return true;
@@ -707,9 +704,9 @@ bool wyEventDispatcher::wyTouchesBegan(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_touchHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_touchHandlers.begin(); iter != m_touchHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me.x[0], me.y[0]))) {
 				node->trackTouch(me.pid[0]);
@@ -731,9 +728,9 @@ bool wyEventDispatcher::wyTouchesMoved(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_touchHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_touchHandlers.begin(); iter != m_touchHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->hasTouch()) {
 				if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot()) {
 					if(dispatchTouchesMoved(node, event, me)) {
@@ -767,9 +764,9 @@ bool wyEventDispatcher::wyTouchesEnded(wyPlatformMotionEvent event) {
 		wyUtils::convertMotionEvent(event, &me);
 
 		bool end = false;
-		for(int i = 0; i < m_touchHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_touchHandlers.begin(); iter != m_touchHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->hasPid(me.pid[0])) {
 				node->clearTouch();
 				node->setSelected(false);
@@ -796,9 +793,9 @@ bool wyEventDispatcher::wyTouchesCancelled(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_touchHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_touchHandlers.begin(); iter != m_touchHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->hasPid(me.pid[0])) {
 				node->clearTouch();
 
@@ -821,9 +818,9 @@ bool wyEventDispatcher::wyTouchesPointerBegan(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me, (int)ET_TOUCH_POINTER_BEGAN);
 
-		for(int i = 0; i < m_touchHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_touchHandlers.begin(); iter != m_touchHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 
 			// decide whether node can receive this event
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
@@ -847,9 +844,9 @@ bool wyEventDispatcher::wyTouchesPointerEnded(wyPlatformMotionEvent event) {
 		wyUtils::convertMotionEvent(event, &me, (int)ET_TOUCH_POINTER_END);
 
 		bool end = false;
-		for(int i = 0; i < m_touchHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_touchHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_touchHandlers.begin(); iter != m_touchHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			if(node->hasPid(me.pid[me.index])) {
 				// place clearPid before deliver event in case node is released in touchesPointerEnded
 				node->clearPid(me.pid[me.index]);
@@ -873,9 +870,9 @@ bool wyEventDispatcher::wyOnDoubleTap(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_doubleTapHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_doubleTapHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_doubleTapHandlers.begin(); iter != m_doubleTapHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me.x[0], me.y[0]))) {
 				if(dispatchOnDoubleTap(node, event, me))
@@ -895,9 +892,9 @@ bool wyEventDispatcher::wyOnDoubleTapEvent(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_doubleTapHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_doubleTapHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_doubleTapHandlers.begin(); iter != m_doubleTapHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me.x[0], me.y[0]))) {
 				if(dispatchOnDoubleTapEvent(node, event, me))
@@ -917,9 +914,9 @@ bool wyEventDispatcher::wyOnSingleTapConfirmed(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_doubleTapHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_doubleTapHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_doubleTapHandlers.begin(); iter != m_doubleTapHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me.x[0], me.y[0]))) {
 				if(dispatchOnSingleTapConfirmed(node, event, me))
@@ -939,9 +936,9 @@ bool wyEventDispatcher::wyOnDown(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_gestureHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_gestureHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_gestureHandlers.begin(); iter != m_gestureHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me.x[0], me.y[0]))) {
 				if(dispatchOnDown(node, event, me))
@@ -963,9 +960,9 @@ bool wyEventDispatcher::wyOnFling(wyPlatformMotionEvent e1, wyPlatformMotionEven
 		wyMotionEvent me2;
 		wyUtils::convertMotionEvent(e2, &me2);
 
-		for(int i = 0; i < m_gestureHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_gestureHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_gestureHandlers.begin(); iter != m_gestureHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
             bool hit = zeroSize || node->hitTest(me1.x[0], me1.y[0]) && node->hitTest(me2.x[0], me2.y[0]);
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (hit || node->hasTouch())) {
@@ -986,9 +983,9 @@ void wyEventDispatcher::wyOnLongPress(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_gestureHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_gestureHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_gestureHandlers.begin(); iter != m_gestureHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me.x[0], me.y[0]))) {
 				dispatchOnLongPress(node, event, me);
@@ -1008,9 +1005,9 @@ bool wyEventDispatcher::wyOnScroll(wyPlatformMotionEvent e1, wyPlatformMotionEve
 		wyMotionEvent me2;
 		wyUtils::convertMotionEvent(e2, &me2);
 
-		for(int i = 0; i < m_gestureHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_gestureHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_gestureHandlers.begin(); iter != m_gestureHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me1.x[0], me1.y[0]) && node->hitTest(me2.x[0], me2.y[0]))) {
 				if(dispatchOnScroll(node, e1, e2, me1, me2, distanceX, distanceY))
@@ -1030,9 +1027,9 @@ void wyEventDispatcher::wyOnShowPress(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_gestureHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_gestureHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_gestureHandlers.begin(); iter != m_gestureHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me.x[0], me.y[0]))) {
 				dispatchOnShowPress(node, event, me);
@@ -1050,9 +1047,9 @@ bool wyEventDispatcher::wyOnSingleTapUp(wyPlatformMotionEvent event) {
 		wyMotionEvent me;
 		wyUtils::convertMotionEvent(event, &me);
 
-		for(int i = 0; i < m_gestureHandlers->num; i++) {
-			wyPriorityHandler* h = (wyPriorityHandler*)wyArrayGet(m_gestureHandlers, i);
-			wyNode* node = h->node;
+		for(HandlerList::iterator iter = m_gestureHandlers.begin(); iter != m_gestureHandlers.end(); iter++) {
+			PriorityHandler& h = *iter;
+			wyNode* node = h.node;
 			bool zeroSize = node->getWidth() == 0 || node->getHeight() == 0;
 			if(node->isRunning() && node->isVisibleFromRoot() && node->isEnabledFromRoot() && (zeroSize || node->hitTest(me.x[0], me.y[0]))) {
 				if(dispatchOnSingleTapUp(node, event, me))

@@ -33,17 +33,17 @@
 #include "wyEventDispatcher.h"
 #include "wyArray.h"
 
-extern wyEventDispatcher* gEventDispatcher;
-
 JNIEXPORT jboolean JNICALL Java_com_wiyun_engine_events_Accelerometer_hasAccelHandlers
 (JNIEnv * env, jobject thiz) {
-	return gEventDispatcher == NULL ? false : gEventDispatcher->hasAccelHandlers();
+	wyEventDispatcher* d = wyEventDispatcher::getInstanceNoCreate();
+	return d == NULL ? false : d->hasAccelHandlers();
 }
 
 JNIEXPORT void JNICALL Java_com_wiyun_engine_events_Accelerometer_accelerometerChanged
 (JNIEnv * env, jobject thiz, jfloat accelX, jfloat accelY, jfloat accelZ) {
-	if(gEventDispatcher != NULL)
-		gEventDispatcher->queueEventLocked(accelX, accelY, accelZ);
+	wyEventDispatcher* d = wyEventDispatcher::getInstanceNoCreate();
+	if(d != NULL)
+		d->queueEventLocked(accelX, accelY, accelZ);
 }
 
 #endif // #if ANDROID

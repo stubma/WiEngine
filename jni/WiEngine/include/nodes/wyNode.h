@@ -1831,27 +1831,27 @@ public:
 	/**
 	 * Set priority of touch event handling
 	 */
-	void setTouchPriority(int p) { m_touchPriority = p; }
+	void setTouchPriority(int p);
 
 	/**
 	 * Set priority of key event handling
 	 */
-	void setKeyPriority(int p) { m_keyPriority = p; }
+	void setKeyPriority(int p);
 
 	/**
 	 * Set priority of gesture event handling
 	 */
-	void setGesturePriority(int p) { m_gesturePriority = p; }
+	void setGesturePriority(int p);
 
 	/**
 	 * Set priority of double tap handling
 	 */
-	void setDoubleTapPriority(int p) { m_doubleTapPriority = p; }
+	void setDoubleTapPriority(int p);
 
 	/**
 	 * Set priority of accelerometer event handling
 	 */
-	void setAccelerometerPriority(int p) { m_accelerometerPriority = p; }
+	void setAccelerometerPriority(int p);
 
 	/**
 	 * Get priority of touch event handling

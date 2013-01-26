@@ -110,12 +110,12 @@ void wyEventDispatcher_win::checkAccelHandlers() {
 
 void wyEventDispatcher_win::checkDoubleTapHandlers() {
 	wyGLSurfaceView glView = gDirector->getGLView();
-	glView->setDetectGesture((m_doubleTapHandlers->num + m_gestureHandlers->num + m_pendingDoubleTapHandlers->num + m_pendingGestureHandlers->num) > 0);
+	glView->setDetectGesture((m_doubleTapHandlers.size() + m_gestureHandlers.size() + m_pendingAddDoubleTapHandlers.size() + m_pendingAddGestureHandlers.size()) > 0);
 }
 
 void wyEventDispatcher_win::checkGestureHandlers() {
 	wyGLSurfaceView glView = gDirector->getGLView();
-	glView->setDetectGesture((m_doubleTapHandlers->num + m_gestureHandlers->num + m_pendingDoubleTapHandlers->num + m_pendingGestureHandlers->num) > 0);
+	glView->setDetectGesture((m_doubleTapHandlers.size() + m_gestureHandlers.size() + m_pendingAddDoubleTapHandlers.size() + m_pendingAddGestureHandlers.size()) > 0);
 }
 
 wyEvent* wyEventDispatcher_win::buildKeyEvent(wyEventType type, wyPlatformKeyEvent pe) {
@@ -132,7 +132,7 @@ void wyEventDispatcher_win::queueMotionEvent(wyEventType type, wyPlatformMotionE
 	e->type = type;
 	e->me.pe = (wyMotionEvent*)wyMalloc(sizeof(wyMotionEvent));
 	memcpy(e->me.pe, pe, sizeof(wyMotionEvent));
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 }
 
 void wyEventDispatcher_win::queueMotionEvent(wyEventType type, wyPlatformMotionEvent pe1, wyPlatformMotionEvent pe2, float vx, float vy) {
@@ -145,7 +145,7 @@ void wyEventDispatcher_win::queueMotionEvent(wyEventType type, wyPlatformMotionE
 	e->ge.pe2 = (wyMotionEvent*)wyMalloc(sizeof(wyMotionEvent));
 	memcpy(e->ge.pe2, pe2, sizeof(wyMotionEvent));
 	
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 }
 
 #endif // #if WINDOWS
