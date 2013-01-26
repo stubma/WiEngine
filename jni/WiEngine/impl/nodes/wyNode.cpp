@@ -278,6 +278,7 @@ void wyNode::onEnter() {
 		if(m_doubleTabEnabled)
 			gEventDispatcher->addDoubleTapHandlerLocked(this, m_doubleTapPriority);
 
+		LOGD("m_accelerometerEnabled: %d", m_accelerometerEnabled);
 		if(m_accelerometerEnabled)
 			gEventDispatcher->addAccelHandlerLocked(this, m_accelerometerPriority);
 
@@ -1258,6 +1259,51 @@ void wyNode::setGestureEnabled(bool enabled) {
 			else
 				gEventDispatcher->removeGestureHandlerLocked(this);
 		}
+	}
+}
+
+void wyNode::setTouchPriority(int p) {
+	m_touchPriority = p;
+
+	// if node is running, dynamically change its order
+	if(m_running) {
+		gEventDispatcher->setTouchHandlerPriorityLocked(this, m_touchPriority);
+	}
+}
+
+void wyNode::setKeyPriority(int p) {
+	m_keyPriority = p;
+
+	// if node is running, dynamically change its order
+	if(m_running) {
+		gEventDispatcher->setKeyHandlerPriorityLocked(this, m_keyPriority);
+	}
+}
+
+void wyNode::setGesturePriority(int p) {
+	m_gesturePriority = p;
+
+	// if node is running, dynamically change its order
+	if(m_running) {
+		gEventDispatcher->setGestureHandlerPriorityLocked(this, m_gesturePriority);
+	}
+}
+
+void wyNode::setDoubleTapPriority(int p) {
+	m_doubleTapPriority = p;
+
+	// if node is running, dynamically change its order
+	if(m_running) {
+		gEventDispatcher->setDoubleTapHandlerPriorityLocked(this, m_doubleTapPriority);
+	}
+}
+
+void wyNode::setAccelerometerPriority(int p) {
+	m_accelerometerPriority = p;
+
+	// if node is running, dynamically change its order
+	if(m_running) {
+		gEventDispatcher->setAccelHandlerPriorityLocked(this, m_accelerometerPriority);
 	}
 }
 

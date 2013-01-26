@@ -103,12 +103,12 @@ void wyEventDispatcher_macosx::checkAccelHandlers() {
 
 void wyEventDispatcher_macosx::checkDoubleTapHandlers() {
 	wyGLSurfaceView glView = gDirector->getGLView();
-	[glView setDetectGesture:(m_doubleTapHandlers->num + m_gestureHandlers->num + m_pendingDoubleTapHandlers->num + m_pendingGestureHandlers->num) > 0];
+	[glView setDetectGesture:(m_doubleTapHandlers.size() + m_gestureHandlers.size() + m_pendingAddDoubleTapHandlers.size() + m_pendingAddGestureHandlers.size()) > 0];
 }
 
 void wyEventDispatcher_macosx::checkGestureHandlers() {
 	wyGLSurfaceView glView = gDirector->getGLView();
-	[glView setDetectGesture:(m_doubleTapHandlers->num + m_gestureHandlers->num + m_pendingDoubleTapHandlers->num + m_pendingGestureHandlers->num) > 0];
+	[glView setDetectGesture:(m_doubleTapHandlers.size() + m_gestureHandlers.size() + m_pendingAddDoubleTapHandlers.size() + m_pendingAddGestureHandlers.size()) > 0];
 }
 
 wyEvent* wyEventDispatcher_macosx::buildKeyEvent(wyEventType type, wyPlatformKeyEvent pe) {
@@ -134,7 +134,7 @@ void wyEventDispatcher_macosx::queueMotionEvent(wyEventType type, wyPlatformMoti
 			e->type = type;
 			e->ge.pe1 = pe;
 			[e->ge.pe1 retain];
-			wyArrayPush(m_pendingAddList, e);
+			m_pendingAddEvents.push_back(e);
 			break;
 		}
 		default:
@@ -143,7 +143,7 @@ void wyEventDispatcher_macosx::queueMotionEvent(wyEventType type, wyPlatformMoti
 			e->type = type;
 			e->me.pe = pe;
 			[e->me.pe retain];
-			wyArrayPush(m_pendingAddList, e);
+			m_pendingAddEvents.push_back(e);
 			break;
 		}
 	}
@@ -162,7 +162,7 @@ void wyEventDispatcher_macosx::queueMotionEvent(wyEventType type, wyPlatformMoti
 	[e->ge.pe1 retain];
 	[e->ge.pe2 retain];
 	
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 }
 
 #endif // #if MACOSX

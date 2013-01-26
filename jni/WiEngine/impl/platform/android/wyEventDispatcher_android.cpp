@@ -138,7 +138,7 @@ void wyEventDispatcher_android::queueRunnableLocked(jobject runnable) {
 		wyEvent* e = popEvent();
 		e->type = ET_JAVA_RUNNABLE;
 		e->jr.runnable = env->NewGlobalRef(runnable);
-		wyArrayPush(m_pendingAddList, e);
+		m_pendingAddEvents.push_back(e);
 
 		pthread_mutex_unlock(&gMutex);
 	}
@@ -174,7 +174,7 @@ void wyEventDispatcher_android::queueMotionEvent(wyEventType type, wyPlatformMot
 	wyEvent* e = popEvent();
 	e->type = type;
 	e->me.pe = env->NewGlobalRef(pe);
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 }
 
 void wyEventDispatcher_android::queueMotionEvent(wyEventType type, wyPlatformMotionEvent pe1, wyPlatformMotionEvent pe2, float vx, float vy) {
@@ -186,7 +186,7 @@ void wyEventDispatcher_android::queueMotionEvent(wyEventType type, wyPlatformMot
 	e->ge.pe1 = pe1 == NULL ? NULL : env->NewGlobalRef(pe1);
 	e->ge.pe2 = pe2 == NULL ? NULL : env->NewGlobalRef(pe2);
 
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 }
 
 void wyEventDispatcher_android::processUncommonEvent(wyEvent* e) {
