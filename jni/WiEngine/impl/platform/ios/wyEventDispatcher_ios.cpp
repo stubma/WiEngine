@@ -155,17 +155,17 @@ int wyEventDispatcher_ios::indexOfUITouch(int pointer) {
 
 void wyEventDispatcher_ios::checkAccelHandlers() {
 	wyGLSurfaceView glView = gDirector->getGLView();
-	[glView setDetectAcceleration:(m_accelHandlers->num + m_pendingAccelHandlers->num > 0)];
+	[glView setDetectAcceleration:(m_accelHandlers.size() + m_pendingAddAccelHandlers.size() > 0)];
 }
 
 void wyEventDispatcher_ios::checkDoubleTapHandlers() {
 	wyGLSurfaceView glView = gDirector->getGLView();
-	[glView setDetectGesture:(m_doubleTapHandlers->num + m_gestureHandlers->num + m_pendingDoubleTapHandlers->num + m_pendingGestureHandlers->num) > 0];
+	[glView setDetectGesture:(m_doubleTapHandlers.size() + m_gestureHandlers.size() + m_pendingAddDoubleTapHandlers.size() + m_pendingAddGestureHandlers.size()) > 0];
 }
 
 void wyEventDispatcher_ios::checkGestureHandlers() {
 	wyGLSurfaceView glView = gDirector->getGLView();
-	[glView setDetectGesture:(m_doubleTapHandlers->num + m_gestureHandlers->num + m_pendingDoubleTapHandlers->num + m_pendingGestureHandlers->num) > 0];
+	[glView setDetectGesture:(m_doubleTapHandlers.size() + m_gestureHandlers.size() + m_pendingAddDoubleTapHandlers.size() + m_pendingAddGestureHandlers.size()) > 0];
 }
 
 wyEvent* wyEventDispatcher_ios::buildKeyEvent(wyEventType type, wyPlatformKeyEvent pe) {
@@ -235,7 +235,7 @@ void wyEventDispatcher_ios::queueMotionEvent(wyEventType type, wyPlatformMotionE
 				// to queue
 				e->me.pe = pe;
 				[e->me.pe retain];
-				wyArrayPush(m_pendingAddList, e);
+				m_pendingAddEvents.push_back(e);
 			} else {
 				// collect began touches
 				NSMutableArray* beganTouches = [NSMutableArray array];
@@ -281,7 +281,7 @@ void wyEventDispatcher_ios::queueMotionEvent(wyEventType type, wyPlatformMotionE
 						e->type = ET_TOUCH_POINTER_BEGAN;
 					e->me.pe = wyuie;
 					[e->me.pe retain];
-					wyArrayPush(m_pendingAddList, e);
+					m_pendingAddEvents.push_back(e);
 				}
 
 				// recycle event and touch
@@ -313,7 +313,7 @@ void wyEventDispatcher_ios::queueMotionEvent(wyEventType type, wyPlatformMotionE
 				// to queue
 				e->me.pe = pe;
 				[e->me.pe retain];
-				wyArrayPush(m_pendingAddList, e);
+				m_pendingAddEvents.push_back(e);
 			} else {
 				// collect end touches
 				NSMutableArray* endTouches = [NSMutableArray array];
@@ -357,7 +357,7 @@ void wyEventDispatcher_ios::queueMotionEvent(wyEventType type, wyPlatformMotionE
 						e->type = ET_TOUCH_POINTER_END;
 					e->me.pe = wyuie;
 					[e->me.pe retain];
-					wyArrayPush(m_pendingAddList, e);
+					m_pendingAddEvents.push_back(e);
 				}
 
 				// recycle event and touch
@@ -382,7 +382,7 @@ void wyEventDispatcher_ios::queueMotionEvent(wyEventType type, wyPlatformMotionE
 			e->type = type;
 			e->ge.pe1 = pe;
 			[e->ge.pe1 retain];
-			wyArrayPush(m_pendingAddList, e);
+			m_pendingAddEvents.push_back(e);
 			break;
 		}
 		default:
@@ -391,7 +391,7 @@ void wyEventDispatcher_ios::queueMotionEvent(wyEventType type, wyPlatformMotionE
 			e->type = type;
 			e->me.pe = pe;
 			[e->me.pe retain];
-			wyArrayPush(m_pendingAddList, e);
+			m_pendingAddEvents.push_back(e);
 			break;
 		}
 	}
@@ -410,7 +410,7 @@ void wyEventDispatcher_ios::queueMotionEvent(wyEventType type, wyPlatformMotionE
 	[e->ge.pe1 retain];
 	[e->ge.pe2 retain];
 
-	wyArrayPush(m_pendingAddList, e);
+	m_pendingAddEvents.push_back(e);
 }
 
 #endif // #if IOS

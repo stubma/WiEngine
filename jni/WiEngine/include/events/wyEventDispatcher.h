@@ -30,7 +30,6 @@
 #define __wyEventDispatcher_h__
 
 #include <stdbool.h>
-#include "wyArray.h"
 #include "wyNode.h"
 #include <pthread.h>
 #include "wyEvents.h"
@@ -52,7 +51,7 @@ class WIENGINE_API wyEventDispatcher : public wyObject {
 
 private:
 	/// handler of event
-	struct wyPriorityHandler {
+	struct PriorityHandler {
 		// priority
 		int priority;
 	
@@ -60,51 +59,68 @@ private:
 		wyNode* node;
 	};
 
+	/// list type
+	typedef vector<PriorityHandler> HandlerList;
+	typedef vector<wyEvent*> EventPtrList;
+	typedef vector<wyNode*> NodePtrList;
+
 protected:
-	/// 标识是否启用事件机制
+	/// true means event should be delivered
 	bool m_dispatchEvents;
 
 	/// pending accelerator handlers
-	wyArray* m_pendingAccelHandlers;
+	HandlerList m_pendingAddAccelHandlers;
 
 	/// pending touch handlers
-	wyArray* m_pendingTouchHandlers;
+	HandlerList m_pendingAddTouchHandlers;
 
 	/// pending key handlers
-	wyArray* m_pendingKeyHandlers;
+	HandlerList m_pendingAddKeyHandlers;
 
 	/// pending double tap handlers
-	wyArray* m_pendingDoubleTapHandlers;
+	HandlerList m_pendingAddDoubleTapHandlers;
 
 	/// pending gesture handlers
-	wyArray* m_pendingGestureHandlers;
+	HandlerList m_pendingAddGestureHandlers;
 
-	/// 加速事件\link wyArray wyArray对象\endlink
-	wyArray* m_accelHandlers;
+	/// pending remove accelerator handlers
+	NodePtrList m_pendingRemoveAccelHandlerNodes;
 
-	/// 键盘事件\link wyArray wyArray对象\endlink
-	wyArray* m_keyHandlers;
+	/// pending remove touch handlers
+	NodePtrList m_pendingRemoveTouchHandlerNodes;
 
-	/// 屏幕触摸事件\link wyArray wyArray对象\endlink
-	wyArray* m_touchHandlers;
+	/// pending remove key handlers
+	NodePtrList m_pendingRemoveKeyHandlerNodes;
 
-	/// 屏幕双击事件\link wyArray wyArray对象\endlink
-	wyArray* m_doubleTapHandlers;
+	/// pending remove double tap handlers
+	NodePtrList m_pendingRemoveDoubleTapHandlerNodes;
 
-	/// 手势事件\link wyArray wyArray对象\endlink
-	wyArray* m_gestureHandlers;
+	/// pending remove gesture handlers
+	NodePtrList m_pendingRemoveGestureHandlerNodes;
 
-	/// 事件队列\link wyArray wyArray对象\endlink，事件放入队列等待处理
-	wyArray* m_eventQueue;
+	/// handlers of accelerometer event
+	HandlerList m_accelHandlers;
 
-	/// 事件池\link wyArray wyArray对象\endlink，用来保存执行过的事件，为下次使用避免分配内存问题
-	wyArray* m_eventPool;
+	/// handlers of key event
+	HandlerList m_keyHandlers;
 
-	/// 需要加入到事件队列里的事件
-	wyArray* m_pendingAddList;
+	/// handlers of touch event
+	HandlerList m_touchHandlers;
 
-	/// 需要执行的\link wyRunnable wyRunnable\endlink 对象
-	wyArray* m_runnables;
+	/// handlers of double tap event
+	HandlerList m_doubleTapHandlers;
+
+	/// handlers of gesture event
+	HandlerList m_gestureHandlers;
+
+	/// event queue
+	EventPtrList m_eventQueue;
+
+	/// event reuse pool
+	EventPtrList m_eventPool;
+
+	/// events need to be added to queue
+	EventPtrList m_pendingAddEvents;
 
 protected:
 	/**
@@ -203,20 +219,25 @@ protected:
 	virtual bool dispatchOnSingleTapUp(wyNode* node, wyPlatformMotionEvent event, wyMotionEvent& me);
 
 	/**
-	 * \if English
 	 * Recycle an event object, different platform may have different implementation
-	 * \else
-	 * 回收一个事件封装对象, 不同的平台需要不同的实现
-	 * \endif
 	 */
-	static void recycleEvent(wyEvent* e);
+	void recycleEvent(wyEvent* e);
 
-	static bool releaseHandler(wyArray* arr, void* ptr, int index, void* data);
-	static bool findHandler(void* elementPtr, void* ptr, void* data);
-	static bool processEvent(wyArray* arr, void* ptr, int index, void* data);
-	static bool releaseEvent(wyArray* arr, void* ptr, int index, void* data);
-	static bool releaseRunnable(wyArray* arr, void* ptr, int index, void* data);
+	/**
+	 * find handlers in a handler list
+	 *
+	 * @param list handler list
+	 * @param node node
+	 * @return index, or -1 if not found
+	 */
+	int findHandler(HandlerList& list, wyNode* node);
+
+	/// process one event
+	void processEvent(wyEvent* e);
 	
+	/// release all events in an event list
+	void releaseEvents(EventPtrList& list);
+
 	/**
 	 * 获得wyEvent指针，从事件池中，如果事件池没有中创建一个新的返回
 	 *
@@ -248,19 +269,19 @@ protected:
 	void queueEventLocked(wyEventType type, wyObject* obj);
 
 	/// move pending handler to real queue
-	void addAccelHandler(wyPriorityHandler* h);
+	void addAccelHandler(PriorityHandler& h);
 
 	/// move pending handler to real queue
-	void addKeyHandler(wyPriorityHandler* h);
+	void addKeyHandler(PriorityHandler& h);
 
 	/// move pending handler to real queue
-	void addTouchHandler(wyPriorityHandler* h);
+	void addTouchHandler(PriorityHandler& h);
 
 	/// move pending handler to real queue
-	void addDoubleTapHandler(wyPriorityHandler* h);
+	void addDoubleTapHandler(PriorityHandler& h);
 
 	/// move pending handler to real queue
-	void addGestureHandler(wyPriorityHandler* h);
+	void addGestureHandler(PriorityHandler& h);
 
 public:
 	/**
@@ -298,21 +319,21 @@ public:
 	 *
 	 * @return true 存在加速事件的Handler
 	 */
-	bool hasAccelHandlers() { return !wyArrayIsEmpty(m_accelHandlers) || !wyArrayIsEmpty(m_pendingAccelHandlers); }
+	bool hasAccelHandlers();
 
 	/**
 	 * 设置是否发送事件标记
 	 *
 	 * @param flag 是否发送事件标记，true为发送
 	 */
-	void setDispatchEvent(bool flag) { m_dispatchEvents = flag; }
+	void setDispatchEvent(bool flag);
 
 	/**
 	 * 获得当前是否发送事件标记
 	 *
 	 * @return 当前是否发送事件标记，true为发送
 	 */
-	bool getDispatchEvent() { return m_dispatchEvents; }
+	bool getDispatchEvent();
 
 	/**
 	 * 执行Key Down事件，并根据键盘事件Handler，派发到具体监听的节点
