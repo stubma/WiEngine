@@ -232,6 +232,11 @@ protected:
 	 */
 	int findHandler(HandlerList& list, wyNode* node);
 
+	/**
+	 * find nodes in a node pointer list
+	 */
+	int findNode(NodePtrList& list, wyNode* node);
+
 	/// process one event
 	void processEvent(wyEvent* e);
 	

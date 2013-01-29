@@ -55,6 +55,15 @@ int wyEventDispatcher::findHandler(HandlerList& list, wyNode* node) {
 	return -1;
 }
 
+int wyEventDispatcher::findNode(NodePtrList& list, wyNode* node) {
+	for(NodePtrList::iterator iter = list.begin(); iter != list.end(); iter++) {
+		if(*iter == node)
+			return iter - list.begin();
+	}
+
+	return -1;
+}
+
 void wyEventDispatcher::processEvent(wyEvent* e) {
 	switch(e->type) {
 		case ET_ACCELEROMETER:
@@ -356,8 +365,7 @@ void wyEventDispatcher::addKeyHandler(PriorityHandler& h) {
 void wyEventDispatcher::addKeyHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-	if(findHandler(m_keyHandlers, node) == -1 &&
-			findHandler(m_pendingAddKeyHandlers, node) == -1) {
+	if(findHandler(m_pendingAddKeyHandlers, node) == -1) {
     	PriorityHandler h;
     	h.priority = priority;
     	h.node = node;
@@ -380,8 +388,7 @@ void wyEventDispatcher::addAccelHandler(PriorityHandler& h) {
 void wyEventDispatcher::addAccelHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-	if(findHandler(m_accelHandlers, node) == -1 &&
-			findHandler(m_pendingAddAccelHandlers, node) == -1) {
+	if(findHandler(m_pendingAddAccelHandlers, node) == -1) {
     	PriorityHandler h;
     	h.priority = priority;
     	h.node = node;
@@ -407,8 +414,7 @@ void wyEventDispatcher::addTouchHandler(PriorityHandler& h) {
 void wyEventDispatcher::addTouchHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-	if(findHandler(m_touchHandlers, node) == -1 &&
-			findHandler(m_pendingAddTouchHandlers, node) == -1) {
+	if(findHandler(m_pendingAddTouchHandlers, node) == -1) {
     	PriorityHandler h;
     	h.priority = priority;
     	h.node = node;
@@ -431,8 +437,7 @@ void wyEventDispatcher::addDoubleTapHandler(PriorityHandler& h) {
 void wyEventDispatcher::addDoubleTapHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-	if(findHandler(m_doubleTapHandlers, node) == -1 &&
-			findHandler(m_pendingAddDoubleTapHandlers, node) == -1) {
+	if(findHandler(m_pendingAddDoubleTapHandlers, node) == -1) {
     	PriorityHandler h;
     	h.priority = priority;
     	h.node = node;
@@ -457,8 +462,7 @@ void wyEventDispatcher::addGestureHandler(PriorityHandler& h) {
 void wyEventDispatcher::addGestureHandlerLocked(wyNode* node, int priority) {
 	pthread_mutex_lock(&gMutex);
 
-	if(findHandler(m_gestureHandlers, node) == -1 &&
-			findHandler(m_pendingAddGestureHandlers, node) == -1) {
+	if(findHandler(m_pendingAddGestureHandlers, node) == -1) {
     	PriorityHandler h;
     	h.priority = priority;
     	h.node = node;
@@ -498,7 +502,9 @@ void wyEventDispatcher::removeKeyHandlerLocked(wyNode* node) {
 	if(index != -1) {
 		m_pendingAddKeyHandlers.erase(m_pendingAddKeyHandlers.begin() + index);
 	} else {
-		m_pendingRemoveKeyHandlerNodes.push_back(node);
+		index = findNode(m_pendingRemoveKeyHandlerNodes, node);
+		if(index == -1)
+			m_pendingRemoveKeyHandlerNodes.push_back(node);
 	}
 
 	pthread_mutex_unlock(&gMutex);
@@ -514,7 +520,9 @@ void wyEventDispatcher::removeAccelHandlerLocked(wyNode* node) {
 		// check accelerometer listener
 		checkAccelHandlers();
 	} else {
-		m_pendingRemoveAccelHandlerNodes.push_back(node);
+		index = findNode(m_pendingRemoveAccelHandlerNodes, node);
+		if(index == -1)
+			m_pendingRemoveAccelHandlerNodes.push_back(node);
 	}
 
 	pthread_mutex_unlock(&gMutex);
@@ -527,7 +535,9 @@ void wyEventDispatcher::removeTouchHandlerLocked(wyNode* node) {
 	if(index != -1) {
 		m_pendingAddTouchHandlers.erase(m_pendingAddTouchHandlers.begin() + index);
 	} else {
-		m_pendingRemoveTouchHandlerNodes.push_back(node);
+		index = findNode(m_pendingRemoveTouchHandlerNodes, node);
+		if(index == -1)
+			m_pendingRemoveTouchHandlerNodes.push_back(node);
 	}
 
 	pthread_mutex_unlock(&gMutex);
@@ -543,7 +553,9 @@ void wyEventDispatcher::removeDoubleTapHandlerLocked(wyNode* node) {
 		// becuase pending add list changed, need re-check
 		checkDoubleTapHandlers();
 	} else {
-		m_pendingRemoveDoubleTapHandlerNodes.push_back(node);
+		index = findNode(m_pendingRemoveDoubleTapHandlerNodes, node);
+		if(index == -1)
+			m_pendingRemoveDoubleTapHandlerNodes.push_back(node);
 	}
 
 	pthread_mutex_unlock(&gMutex);
@@ -559,7 +571,9 @@ void wyEventDispatcher::removeGestureHandlerLocked(wyNode* node) {
 		// becuase pending add list changed, need re-check
 		checkGestureHandlers();
 	} else {
-		m_pendingRemoveGestureHandlerNodes.push_back(node);
+		index = findNode(m_pendingRemoveGestureHandlerNodes, node);
+		if(index == -1)
+			m_pendingRemoveGestureHandlerNodes.push_back(node);
 	}
 
 	pthread_mutex_unlock(&gMutex);
