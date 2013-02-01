@@ -179,6 +179,7 @@ wyShape* WiEngineGeometryBuffer::pickMesh() {
         // init material
         wyMaterial* mat = wyMaterial::make();
         mat->retain();
+        mat->getTechnique()->setRenderState(wyRenderState::make2D());
         mat->getTechnique()->getRenderState()->blendMode = wyRenderState::ALPHA;
         
         // update material
