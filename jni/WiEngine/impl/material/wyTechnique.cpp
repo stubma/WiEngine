@@ -57,7 +57,7 @@ void wyTechnique::setRenderState(wyRenderState* state) {
 
 wyRenderState* wyTechnique::getRenderState() {
 	if(!m_renderState)
-		setRenderState(wyRenderState::make2D());
+		setRenderState(wyRenderState::make3D());
 	return m_renderState;
 }
 
