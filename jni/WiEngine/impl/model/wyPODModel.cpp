@@ -179,10 +179,11 @@ void wyPODModel::dump() {
     
     // dump node
     for(int i = 0; i < m_pod->nNumNode; i++) {
-        LOGD("Node %d: %s, parent: %s",
+        LOGD("Node %d: %s, parent: %s, material: %d",
              i,
              m_pod->pNode[i].pszName,
-             m_pod->pNode[i].nIdxParent == -1 ? "NONE" : m_pod->pNode[m_pod->pNode[i].nIdxParent].pszName);
+             m_pod->pNode[i].nIdxParent == -1 ? "NONE" : m_pod->pNode[m_pod->pNode[i].nIdxParent].pszName,
+             m_pod->pNode[i].nIdxMaterial);
     }
     
     // dump mesh
@@ -191,6 +192,21 @@ void wyPODModel::dump() {
              i,
              m_pod->pMesh[i].nNumVertex,
              m_pod->pMesh[i].nNumFaces);
+    }
+
+    // dump light
+    for(int i = 0; i < m_pod->nNumLight; i++) {
+        LOGD("Light %d: type: %s", i, lightTypeString(m_pod->pLight[i].eType));
+    }
+
+    // dump camera
+    for(int i = 0; i < m_pod->nNumCamera; i++) {
+    	LOGD("Camera %d: target: %d, fov: %f, far: %f, near: %f",
+    			i,
+    			m_pod->pCamera[i].nIdxTarget,
+    			m_pod->pCamera[i].fFOV,
+    			m_pod->pCamera[i].fFar,
+    			m_pod->pCamera[i].fNear);
     }
     
     // dump material
@@ -202,10 +218,11 @@ void wyPODModel::dump() {
              m_pod->pMaterial[i].pszEffectName == NULL ? "NONE" : m_pod->pMaterial[i].pszEffectName);
     }
     
-    // dump light
-    for(int i = 0; i < m_pod->nNumLight; i++) {
-        LOGD("Light %d: type: %s", i, lightTypeString(m_pod->pLight[i].eType));
-    }
-    
+    // other info
+    LOGD("number of animation frame: %d", m_pod->nNumFrame);
+    LOGD("animation fps: %d", m_pod->nFPS);
+    LOGD("user data size: %d", m_pod->nUserDataSize);
+    LOGD("flags: %d", m_pod->nFlags);
+
     LOGD("--- end of POD dump ---");
 }
