@@ -15,7 +15,7 @@
 
 <manifest 
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.wiyun.engine" android:versionCode="70" android:versionName="4.0.0" android:installLocation="preferExternal">
+	package="com.wiyun.engine" android:versionCode="71" android:versionName="4.0.1" android:installLocation="preferExternal">
 	<uses-sdk android:minSdkVersion="8"></uses-sdk>
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.CAMERA" />
