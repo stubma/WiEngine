@@ -97,6 +97,11 @@ wySpriteEx::wySpriteEx(wyTexture2D* pTex, wyRect r) : wyTextureNode(pTex) {
     init();
     
 	setTextureRect(r);
+    setContentSize(r.width, r.height);
+    
+    wyMesh* mesh = getMesh();
+    mesh->setTexSourceWidth(r.width);
+    mesh->setTexSourceHeight(r.height);
 }
 
 wySpriteEx::wySpriteEx(wyTexture2D* pTex, wyZwoptexFrame* f) : wyTextureNode(pTex) {
@@ -106,6 +111,10 @@ wySpriteEx::wySpriteEx(wyTexture2D* pTex, wyZwoptexFrame* f) : wyTextureNode(pTe
 	setContentSize(f->sourceSize.width, f->sourceSize.height);
 	setRotatedZwoptex(f->rotated);
 	setRenderOffset(f->offset);
+    
+    wyMesh* mesh = getMesh();
+    mesh->setTexSourceWidth(f->sourceSize.width);
+    mesh->setTexSourceHeight(f->sourceSize.height);
 }
 
 wySpriteEx::~wySpriteEx() {
