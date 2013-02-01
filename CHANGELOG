@@ -1,3 +1,15 @@
++++ 4.0.1 +++
+[new] add new make method for wyToast
+[new] wyParticleSystem add relative position mode
+[new] support version 3 pvr image file
+[rev] remove file format suffix in Texture2D make methods, now engine will detect file format for you
+[fix] make wyProgressTimer works with atlas texture
+[fix] fix bug #7, #8, #14, #17, #19, #20, view github for more detail
+[fix] fix projection error in new ipad
+[fix] null pointer error in wyNode.pause/resumeAllTimers
+[fix] some position bug of wySprite/wySpriteEx introduced in 4.0 
+[fix] let setTag works before addChild
+
 +++ 4.0.0 +++
 [new] use OpenGL ES 2.0 technique, support shader
 [rev] remove Java API binding, java demos and java skeleton project
