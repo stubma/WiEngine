@@ -52,6 +52,11 @@ wySprite* wySprite::make(wyTexture2D* tex, wyRect texRect) {
 wySprite::wySprite(wyTexture2D* tex, wyRect texRect) :
 		wyTextureNode(tex) {
 	setTextureRect(texRect);
+    setContentSize(texRect.width, texRect.height);
+            
+    wyMesh* mesh = getMesh();
+    mesh->setTexSourceWidth(texRect.width);
+    mesh->setTexSourceHeight(texRect.height);
 }
 
 wySprite::wySprite(wyTexture2D* tex, wyZwoptexFrame* f) :
