@@ -482,7 +482,6 @@ void wyNode::onEnter() {
 		if(m_doubleTabEnabled)
 			gEventDispatcher->addDoubleTapHandlerLocked(this, m_doubleTapPriority);
 
-		LOGD("m_accelerometerEnabled: %d", m_accelerometerEnabled);
 		if(m_accelerometerEnabled)
 			gEventDispatcher->addAccelHandlerLocked(this, m_accelerometerPriority);
 
