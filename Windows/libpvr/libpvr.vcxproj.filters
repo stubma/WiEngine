@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="OGLES2">
+      <UniqueIdentifier>{83927215-7229-4488-9a29-128f6d2bea28}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\jni\libpvr\OGLES2\PVRTTextureAPI.cpp">
+      <Filter>OGLES2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\libpvr\OGLES2\PVRTgles2Ext.cpp">
+      <Filter>OGLES2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\libpvr\PVRTDecompress.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTError.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTFixedPoint.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTMisc.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTResourceFile.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTString.cpp" />
+    <ClCompile Include="..\..\jni\libpvr\PVRTTexture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\jni\libpvr\OGLES2\PVRTTextureAPI.h">
+      <Filter>OGLES2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\libpvr\OGLES2\PVRTContext.h">
+      <Filter>OGLES2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\libpvr\OGLES2\PVRTgles2Ext.h">
+      <Filter>OGLES2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\libpvr\PVRTArray.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTDecompress.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTError.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTFixedPoint.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTGlobal.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMap.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMathTable.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMatrix.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMemoryFileSystem.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTMisc.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTResourceFile.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTString.h" />
+    <ClInclude Include="..\..\jni\libpvr\PVRTTexture.h" />
+  </ItemGroup>
+</Project>
