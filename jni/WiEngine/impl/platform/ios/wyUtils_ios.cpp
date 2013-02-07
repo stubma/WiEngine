@@ -1112,4 +1112,8 @@ void wyUtils::addAndroidStrings(const char* fileName, const char* langId) {
     [[WYAndroidStrings sharedInstance] addStrings:nsFileName forLanguage:nsLangId];
 }
 
+bool wyUtils::verifySignature(void* validSign, size_t len) {
+	return true;
+}
+
 #endif // #if IOS

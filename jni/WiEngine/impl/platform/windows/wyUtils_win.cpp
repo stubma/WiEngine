@@ -1234,4 +1234,8 @@ void wyUtils::addAndroidStrings(const char* fileName, const char* langId) {
 	wyAndroidStrings::getInstance()->addStrings(fileName, langId);
 }
 
+bool wyUtils::verifySignature(void* validSign, size_t len) {
+	return true;
+}
+
 #endif // #if WINDOWS
