@@ -35,6 +35,7 @@
 #include "png.h"
 #include "wyDirector.h"
 #include "wyLog.h"
+#include "wyMD5.h"
 #include <errno.h>
 #include <unistd.h>
 #include <math.h>
@@ -1459,7 +1460,84 @@ JNIEnv* wyUtils::getJNIEnv() {
 }
 
 void wyUtils::addAndroidStrings(const char* fileName, const char* langId) {
-	// do nothing for android platform
+	// no need to add android strings in android platform
+}
+
+bool wyUtils::verifySignature(void* validSign, size_t len) {
+	// basic check
+	if(!validSign)
+		return true;
+
+	// get env
+	JNIEnv* env = getJNIEnv();
+
+	// get package manager
+	wyGLContext ctx = wyDirector::getInstance()->getContext();
+	jclass klazz = env->GetObjectClass(ctx);
+	jmethodID mid = env->GetMethodID(klazz, "getPackageManager", "()Landroid/content/pm/PackageManager;");
+	jobject packageManager = env->CallObjectMethod(ctx, mid);
+
+	// get package name
+	mid = env->GetMethodID(klazz, "getPackageName", "()Ljava/lang/String;");
+	jstring packageName = (jstring) env->CallObjectMethod(ctx, mid);
+
+	// release context class reference
+	env->DeleteLocalRef(klazz);
+
+	// get package info
+	klazz = env->GetObjectClass(packageManager);
+	mid = env->GetMethodID(klazz, "getPackageInfo", "(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;");
+	jint flags = env->GetStaticIntField(klazz, env->GetStaticFieldID(klazz, "GET_SIGNATURES", "I"));
+	jobject packageInfo = env->CallObjectMethod(packageManager, mid, packageName, flags);
+
+	// clea reference
+	env->DeleteLocalRef(klazz);
+	env->DeleteLocalRef(packageName);
+
+	// get first signature java object
+	klazz = env->GetObjectClass(packageInfo);
+	jobjectArray signatures = (jobjectArray)env->GetObjectField(packageInfo,
+			env->GetFieldID(klazz, "signatures", "[Landroid/content/pm/Signature;"));
+	jobject signature = env->GetObjectArrayElement(signatures, 0);
+
+	// clear reference
+	env->DeleteLocalRef(klazz);
+
+	// get byte array of signature
+	klazz = env->GetObjectClass(signature);
+	mid = env->GetMethodID(klazz, "toByteArray", "()[B");
+	jbyteArray certificate = (jbyteArray)env->CallObjectMethod(signature, mid);
+
+	// clear reference
+	env->DeleteLocalRef(klazz);
+	env->DeleteLocalRef(signature);
+
+	// md5
+	bool valid = true;
+	jsize cLen = env->GetArrayLength(certificate);
+	jbyte* cData = env->GetByteArrayElements(certificate, JNI_FALSE);
+	if (cLen > 0) {
+		const char* md5 = wyMD5::md5(cData, cLen);
+		size_t md5Len = strlen(md5);
+		if(md5Len != len) {
+			valid = false;
+		} else {
+			char* p = (char*)validSign;
+			for(size_t i = 0; i < md5Len; i++) {
+				if(md5[i] != p[i]) {
+					valid = false;
+					break;
+				}
+			}
+		}
+	}
+
+	// release
+	env->ReleaseByteArrayElements(certificate, cData, 0);
+	env->DeleteLocalRef(certificate);
+
+	// return
+	return valid;
 }
 
 #endif // #if ANDROID

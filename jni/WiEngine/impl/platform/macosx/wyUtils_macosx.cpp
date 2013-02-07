@@ -1294,4 +1294,8 @@ const char** wyUtils::listAssetFiles(const char* path, size_t* outLen, const cha
     return (const char**)files;
 }
 
+bool wyUtils::verifySignature(void* validSign, size_t len) {
+	return true;
+}
+
 #endif // #if MACOSX
