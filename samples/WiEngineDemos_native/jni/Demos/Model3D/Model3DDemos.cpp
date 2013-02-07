@@ -7,7 +7,7 @@ namespace Lua {
     class wyPODTestLayer : public wyLayer {
     public:
     	wyPODTestLayer() {
-            wyModel* model = wyPODModel::make(RES("R.raw.scene"));
+            wyModel* model = wyPODModel::make("model/pod/scene.pod");
             wyModelNode* n = wyModelNode::make(model);
             addChildLocked(n);
             

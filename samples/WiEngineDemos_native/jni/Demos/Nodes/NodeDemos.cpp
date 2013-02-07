@@ -1401,11 +1401,11 @@ public:
 				break;
             case 7:
                 // version 3 pvr
-				sprintf(buf, "tex_arm");
+				sprintf(buf, "model/pod/tex_arm.pvr");
 				break;
             case 8:
                 // version 3 pvr
-				sprintf(buf, "tex_base");
+				sprintf(buf, "model/pod/tex_base.pvr");
 				break;
 #if IOS
 			case 9:
@@ -1416,7 +1416,12 @@ public:
 				break;
 #endif
 		}
-		wySprite* sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId(buf, "raw", NULL)));
+
+		wySprite* sprite = NULL;
+		if(index == 7 || index == 8)
+			sprite = wySprite::make(wyTexture2D::make(buf));
+		else
+			sprite = wySprite::make(wyTexture2D::make(wyUtils::getResId(buf, "raw", NULL)));
 		addChildLocked(sprite);
 		sprite->setPosition(posx, posy);
 	}
