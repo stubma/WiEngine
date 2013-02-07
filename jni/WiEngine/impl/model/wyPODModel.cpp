@@ -216,6 +216,16 @@ void wyPODModel::dump() {
              m_pod->pMaterial[i].pszName,
              m_pod->pMaterial[i].pszEffectFile == NULL ? "NONE" : m_pod->pMaterial[i].pszEffectFile,
              m_pod->pMaterial[i].pszEffectName == NULL ? "NONE" : m_pod->pMaterial[i].pszEffectName);
+        LOGD("    nIdxTexDiffuse: %d", m_pod->pMaterial[i].nIdxTexDiffuse);
+        LOGD("    nIdxTexAmbient: %d", m_pod->pMaterial[i].nIdxTexAmbient);
+        LOGD("    nIdxTexSpecularColour: %d", m_pod->pMaterial[i].nIdxTexSpecularColour);
+        LOGD("    nIdxTexSpecularLevel: %d", m_pod->pMaterial[i].nIdxTexSpecularLevel);
+        LOGD("    nIdxTexBump: %d", m_pod->pMaterial[i].nIdxTexBump);
+        LOGD("    nIdxTexEmissive: %d", m_pod->pMaterial[i].nIdxTexEmissive);
+        LOGD("    nIdxTexGlossiness: %d", m_pod->pMaterial[i].nIdxTexGlossiness);
+        LOGD("    nIdxTexOpacity: %d", m_pod->pMaterial[i].nIdxTexOpacity);
+        LOGD("    nIdxTexReflection: %d", m_pod->pMaterial[i].nIdxTexReflection);
+        LOGD("    nIdxTexRefraction: %d", m_pod->pMaterial[i].nIdxTexRefraction);
     }
     
     // other info
