@@ -1113,6 +1113,18 @@ public:
 	 */
 	static void addAndroidStrings(const char* fileName, const char* langId);
 
+	/*
+	 * security helper
+	 */
+
+	/**
+	 * verify signature of app, if has. used to anti crack.
+	 *
+	 * @param validSign the correct sign data should be compared with real one
+	 * @return true means signature is accepted, or false means signature is not trusted
+	 */
+	static bool verifySignature(void* validSign, size_t len);
+
 #if ANDROID
 	/*
 	 * jni helper, only for android
