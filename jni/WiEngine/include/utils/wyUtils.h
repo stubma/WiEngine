@@ -1850,6 +1850,7 @@ public:
 	 * verify signature of app, if has. used to anti crack.
 	 *
 	 * @param validSign the correct sign data should be compared with real one
+	 * @param len length of validSign data
 	 * @return true means signature is accepted, or false means signature is not trusted
 	 */
 	static bool verifySignature(void* validSign, size_t len);
