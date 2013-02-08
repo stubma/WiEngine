@@ -90,6 +90,9 @@
 			</fileset>
 		</copy>
 		
+		<!-- ensure script has permission -->
+		<chmod dir="${dist.templates.dir}" perm="755" includes="**/*.sh"/>
+		
 		<!-- generate base template -->
 		<antcall target="generate_base_template"/>
 	</target>
