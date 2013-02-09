@@ -164,10 +164,13 @@
 		<copy todir="${dist.headers.dir}">
 			<fileset dir="${android.jni.dir}">
 				<include name="**/*.h"/>
+
 				<include name="**/*.hpp"/>
 				<include name="**/*.inl"/>
+				<exclude name="**/*-Chipmunk.h"/>
+				<exclude name="**/chipmunk/**"/>
 				<exclude name="**/jni_init.h"/>
-                <exclude name="android_adapter/**"/>
+				<exclude name="android_adapter/**"/>
 				<exclude name="cutils/**"/>
 				<exclude name="utils/**"/>
 				<exclude name="expat/**"/>
@@ -200,7 +203,7 @@
 	<target name="compile">
 		<exec dir="${ios.dir}" executable="xcodebuild">
 			<arg value="-scheme"/>
-			<arg value="WiEngine"/>
+			<arg value="WiEngineNoChipmunk"/>
 			<arg value="-configuration"/>
 			<arg value="Release"/>
 			<arg value="-sdk"/>
@@ -209,7 +212,7 @@
 		</exec>
 		<exec dir="${ios.dir}" executable="xcodebuild">
 			<arg value="-scheme"/>
-			<arg value="WiEngine"/>
+			<arg value="WiEngineNoChipmunk"/>
 			<arg value="-configuration"/>
 			<arg value="Release"/>
 			<arg value="-sdk"/>
@@ -233,13 +236,6 @@
 			<arg value="-create"/>
 			<arg value="-output"/>
 			<arg value="${dist.libs.dir}/libbox2d.a"/>
-		</exec>
-		<exec executable="lipo">
-			<arg value="${device.build.dir}/libchipmunk.a"/>
-			<arg value="${simulator.build.dir}/libchipmunk.a"/>
-			<arg value="-create"/>
-			<arg value="-output"/>
-			<arg value="${dist.libs.dir}/libchipmunk.a"/>
 		</exec>
 		<exec executable="lipo">
 			<arg value="${device.build.dir}/libwisound.a"/>

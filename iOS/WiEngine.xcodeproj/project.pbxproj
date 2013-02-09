@@ -53,7 +53,6 @@
 		9213105114DA7D5F00EBABFD /* com_wiyun_engine_iap_androidmarket_PurchaseObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213104F14DA7D5F00EBABFD /* com_wiyun_engine_iap_androidmarket_PurchaseObserver.cpp */; };
 		9213568A1515A33900037896 /* ActionDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921356581515A33900037896 /* ActionDemos.cpp */; };
 		9213568B1515A33900037896 /* Box2DDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213565B1515A33900037896 /* Box2DDemos.cpp */; };
-		9213568C1515A33900037896 /* ChipmunkDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213565E1515A33900037896 /* ChipmunkDemos.cpp */; };
 		9213568D1515A33900037896 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921356601515A33900037896 /* common.cpp */; };
 		9213568E1515A33900037896 /* EaseActionDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921356631515A33900037896 /* EaseActionDemos.cpp */; };
 		9213568F1515A33900037896 /* EventDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921356661515A33900037896 /* EventDemos.cpp */; };
@@ -211,34 +210,6 @@
 		9243623113641A7B001653B1 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9243622713641952001653B1 /* OpenAL.framework */; };
 		9243623413641B0F001653B1 /* libwisound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9243623313641B03001653B1 /* libwisound.a */; };
 		9249A862135968BF001B04A4 /* libbox2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 928AE855135966C300EF9BC9 /* libbox2d.a */; };
-		9249A8DF13597E5F001B04A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9265F9521348774C00CBF61F /* Foundation.framework */; };
-		9249A97513597EB3001B04A4 /* chipmunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A91213597EB3001B04A4 /* chipmunk.cpp */; };
-		9249A97A13597EB3001B04A4 /* cpConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A91813597EB3001B04A4 /* cpConstraint.cpp */; };
-		9249A97C13597EB3001B04A4 /* cpDampedRotarySpring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A91A13597EB3001B04A4 /* cpDampedRotarySpring.cpp */; };
-		9249A97E13597EB3001B04A4 /* cpDampedSpring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A91C13597EB3001B04A4 /* cpDampedSpring.cpp */; };
-		9249A98013597EB3001B04A4 /* cpGearJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A91E13597EB3001B04A4 /* cpGearJoint.cpp */; };
-		9249A98213597EB3001B04A4 /* cpGrooveJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A92013597EB3001B04A4 /* cpGrooveJoint.cpp */; };
-		9249A98413597EB3001B04A4 /* cpPinJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A92213597EB3001B04A4 /* cpPinJoint.cpp */; };
-		9249A98613597EB3001B04A4 /* cpPivotJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A92413597EB3001B04A4 /* cpPivotJoint.cpp */; };
-		9249A98813597EB3001B04A4 /* cpRatchetJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A92613597EB3001B04A4 /* cpRatchetJoint.cpp */; };
-		9249A98A13597EB3001B04A4 /* cpRotaryLimitJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A92813597EB3001B04A4 /* cpRotaryLimitJoint.cpp */; };
-		9249A98C13597EB3001B04A4 /* cpSimpleMotor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A92A13597EB3001B04A4 /* cpSimpleMotor.cpp */; };
-		9249A98E13597EB3001B04A4 /* cpSlideJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A92C13597EB3001B04A4 /* cpSlideJoint.cpp */; };
-		9249A99113597EB3001B04A4 /* cpArbiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A92F13597EB3001B04A4 /* cpArbiter.cpp */; };
-		9249A99313597EB3001B04A4 /* cpArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A93113597EB3001B04A4 /* cpArray.cpp */; };
-		9249A99513597EB3001B04A4 /* cpBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A93313597EB3001B04A4 /* cpBB.cpp */; };
-		9249A99713597EB3001B04A4 /* cpBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A93513597EB3001B04A4 /* cpBody.cpp */; };
-		9249A99913597EB3001B04A4 /* cpCollision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A93713597EB3001B04A4 /* cpCollision.cpp */; };
-		9249A99B13597EB3001B04A4 /* cpHashSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A93913597EB3001B04A4 /* cpHashSet.cpp */; };
-		9249A99D13597EB3001B04A4 /* cpPolyShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A93B13597EB3001B04A4 /* cpPolyShape.cpp */; };
-		9249A99F13597EB3001B04A4 /* cpShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A93D13597EB3001B04A4 /* cpShape.cpp */; };
-		9249A9A113597EB3001B04A4 /* cpSpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A93F13597EB3001B04A4 /* cpSpace.cpp */; };
-		9249A9A313597EB3001B04A4 /* cpSpaceHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A94113597EB3001B04A4 /* cpSpaceHash.cpp */; };
-		9249A9A513597EB3001B04A4 /* cpVect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A94313597EB3001B04A4 /* cpVect.cpp */; };
-		9249A9A713597EB3001B04A4 /* drawSpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A94513597EB3001B04A4 /* drawSpace.cpp */; };
-		9249A9AC13597EB3001B04A4 /* wyChipmunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A94A13597EB3001B04A4 /* wyChipmunk.cpp */; };
-		9249A9AD13597EB3001B04A4 /* wyShapeAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9249A94B13597EB3001B04A4 /* wyShapeAnimation.cpp */; };
-		9249A9B013597EDB001B04A4 /* libchipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249A8DE13597E5F001B04A4 /* libchipmunk.a */; };
 		9250D53514D8D66C00315D67 /* NSData-Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9250D53414D8D66C00315D67 /* NSData-Base64.mm */; };
 		9250D53914D8D85F00315D67 /* wyIAPVerifyDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9250D53814D8D85F00315D67 /* wyIAPVerifyDelegate.mm */; };
 		9254D1F714ADAAD2009BA47B /* wyAudioPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9254D1F614ADAAD2009BA47B /* wyAudioPlayer.cpp */; };
@@ -678,10 +649,6 @@
 		92F916AA13652E06003BC2AF /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F916A813652E06003BC2AF /* logo@2x.png */; };
 		92FCFF0013514367002DE138 /* GLViewController-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92FCFEFF13514367002DE138 /* GLViewController-iPhone.xib */; };
 		92FCFF07135148CF002DE138 /* GLViewController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92FCFF06135148CF002DE138 /* GLViewController-iPad.xib */; };
-		B64F4F591372BF0B00A99CB4 /* wyChipmunkPELoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B64F4F581372BF0B00A99CB4 /* wyChipmunkPELoader.cpp */; };
-		B6FC053113710F94003E6C16 /* cpSpaceComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6FC052B13710F94003E6C16 /* cpSpaceComponent.cpp */; };
-		B6FC053313710F94003E6C16 /* cpSpaceQuery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6FC052C13710F94003E6C16 /* cpSpaceQuery.cpp */; };
-		B6FC053513710F94003E6C16 /* cpSpaceStep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6FC052D13710F94003E6C16 /* cpSpaceStep.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -726,13 +693,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 928AE854135966C300EF9BC9;
 			remoteInfo = libbox2d;
-		};
-		9249A9AE13597ED4001B04A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9265F9431348774C00CBF61F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9249A8DD13597E5F001B04A4;
-			remoteInfo = libchipmunk;
 		};
 		92A656DA13A3A05000CCF7DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1100,7 +1060,6 @@
 		9242935D1437464D002004DD /* afcanim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = afcanim.cpp; sourceTree = "<group>"; };
 		9243622713641952001653B1 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		9243623313641B03001653B1 /* libwisound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libwisound.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9249A8DE13597E5F001B04A4 /* libchipmunk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libchipmunk.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9249A91213597EB3001B04A4 /* chipmunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chipmunk.cpp; sourceTree = "<group>"; };
 		9249A91313597EB3001B04A4 /* chipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk.h; sourceTree = "<group>"; };
 		9249A91413597EB3001B04A4 /* chipmunk_ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chipmunk_ffi.h; sourceTree = "<group>"; };
@@ -2125,14 +2084,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9249A8DB13597E5F001B04A4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9249A8DF13597E5F001B04A4 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9265F9491348774C00CBF61F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2143,7 +2094,6 @@
 				9207BC5D134F4D41005B1B6F /* libwiengine.a in Frameworks */,
 				9243623413641B0F001653B1 /* libwisound.a in Frameworks */,
 				9249A862135968BF001B04A4 /* libbox2d.a in Frameworks */,
-				9249A9B013597EDB001B04A4 /* libchipmunk.a in Frameworks */,
 				92ED7FFF137C2B5B00991FFB /* libwinetwork.a in Frameworks */,
 				92E27B8914D6A8CD00D5DFC1 /* libiap.a in Frameworks */,
 				9233587D14CC4905009E2DF9 /* libjson.a in Frameworks */,
@@ -3804,7 +3754,6 @@
 				9265F94C1348774C00CBF61F /* WiEngine.app */,
 				9207BAD6134F499E005B1B6F /* libwiengine.a */,
 				928AE855135966C300EF9BC9 /* libbox2d.a */,
-				9249A8DE13597E5F001B04A4 /* libchipmunk.a */,
 				9243623313641B03001653B1 /* libwisound.a */,
 				92ED7FFE137C2B4B00991FFB /* libwinetwork.a */,
 				92CE531B1397439000778800 /* libmpg123.a */,
@@ -4292,22 +4241,6 @@
 			productReference = 9233585B14CC484F009E2DF9 /* libjson.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		9249A8DD13597E5F001B04A4 /* libchipmunk */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9249A8E313597E60001B04A4 /* Build configuration list for PBXNativeTarget "libchipmunk" */;
-			buildPhases = (
-				9249A8DA13597E5F001B04A4 /* Sources */,
-				9249A8DB13597E5F001B04A4 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = libchipmunk;
-			productName = libchipmunk;
-			productReference = 9249A8DE13597E5F001B04A4 /* libchipmunk.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		9265F94B1348774C00CBF61F /* WiEngine */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9265F9781348774C00CBF61F /* Build configuration list for PBXNativeTarget "WiEngine" */;
@@ -4324,7 +4257,6 @@
 				9233587C14CC4901009E2DF9 /* PBXTargetDependency */,
 				9207BC5C134F4C33005B1B6F /* PBXTargetDependency */,
 				9249A861135968B6001B04A4 /* PBXTargetDependency */,
-				9249A9AF13597ED4001B04A4 /* PBXTargetDependency */,
 				92C456AA136406300021B2FB /* PBXTargetDependency */,
 				9246F2D11378128900E10F5C /* PBXTargetDependency */,
 				92A656DB13A3A05000CCF7DF /* PBXTargetDependency */,
@@ -4471,7 +4403,6 @@
 				9265F94B1348774C00CBF61F /* WiEngine */,
 				9207BAD5134F499E005B1B6F /* libwiengine */,
 				928AE854135966C300EF9BC9 /* libbox2d */,
-				9249A8DD13597E5F001B04A4 /* libchipmunk */,
 				929E14B9137806BA001D4D90 /* libwinetwork */,
 				92C4568B136404A90021B2FB /* libwisound */,
 				92CE531A1397439000778800 /* libmpg123 */,
@@ -4932,43 +4863,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9249A8DA13597E5F001B04A4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B64F4F591372BF0B00A99CB4 /* wyChipmunkPELoader.cpp in Sources */,
-				9249A97513597EB3001B04A4 /* chipmunk.cpp in Sources */,
-				9249A97A13597EB3001B04A4 /* cpConstraint.cpp in Sources */,
-				9249A97C13597EB3001B04A4 /* cpDampedRotarySpring.cpp in Sources */,
-				9249A97E13597EB3001B04A4 /* cpDampedSpring.cpp in Sources */,
-				9249A98013597EB3001B04A4 /* cpGearJoint.cpp in Sources */,
-				9249A98213597EB3001B04A4 /* cpGrooveJoint.cpp in Sources */,
-				9249A98413597EB3001B04A4 /* cpPinJoint.cpp in Sources */,
-				9249A98613597EB3001B04A4 /* cpPivotJoint.cpp in Sources */,
-				9249A98813597EB3001B04A4 /* cpRatchetJoint.cpp in Sources */,
-				9249A98A13597EB3001B04A4 /* cpRotaryLimitJoint.cpp in Sources */,
-				9249A98C13597EB3001B04A4 /* cpSimpleMotor.cpp in Sources */,
-				9249A98E13597EB3001B04A4 /* cpSlideJoint.cpp in Sources */,
-				9249A99113597EB3001B04A4 /* cpArbiter.cpp in Sources */,
-				9249A99313597EB3001B04A4 /* cpArray.cpp in Sources */,
-				9249A99513597EB3001B04A4 /* cpBB.cpp in Sources */,
-				9249A99713597EB3001B04A4 /* cpBody.cpp in Sources */,
-				9249A99913597EB3001B04A4 /* cpCollision.cpp in Sources */,
-				9249A99B13597EB3001B04A4 /* cpHashSet.cpp in Sources */,
-				9249A99D13597EB3001B04A4 /* cpPolyShape.cpp in Sources */,
-				9249A99F13597EB3001B04A4 /* cpShape.cpp in Sources */,
-				9249A9A113597EB3001B04A4 /* cpSpace.cpp in Sources */,
-				9249A9A313597EB3001B04A4 /* cpSpaceHash.cpp in Sources */,
-				9249A9A513597EB3001B04A4 /* cpVect.cpp in Sources */,
-				9249A9A713597EB3001B04A4 /* drawSpace.cpp in Sources */,
-				9249A9AC13597EB3001B04A4 /* wyChipmunk.cpp in Sources */,
-				9249A9AD13597EB3001B04A4 /* wyShapeAnimation.cpp in Sources */,
-				B6FC053113710F94003E6C16 /* cpSpaceComponent.cpp in Sources */,
-				B6FC053313710F94003E6C16 /* cpSpaceQuery.cpp in Sources */,
-				B6FC053513710F94003E6C16 /* cpSpaceStep.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9265F9481348774C00CBF61F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4980,7 +4874,6 @@
 				9297485C135354D40025A34B /* WiEngineViewController.mm in Sources */,
 				9213568A1515A33900037896 /* ActionDemos.cpp in Sources */,
 				9213568B1515A33900037896 /* Box2DDemos.cpp in Sources */,
-				9213568C1515A33900037896 /* ChipmunkDemos.cpp in Sources */,
 				9213568D1515A33900037896 /* common.cpp in Sources */,
 				9213568E1515A33900037896 /* EaseActionDemos.cpp in Sources */,
 				9213568F1515A33900037896 /* EventDemos.cpp in Sources */,
@@ -5268,11 +5161,6 @@
 			target = 928AE854135966C300EF9BC9 /* libbox2d */;
 			targetProxy = 9249A860135968B6001B04A4 /* PBXContainerItemProxy */;
 		};
-		9249A9AF13597ED4001B04A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9249A8DD13597E5F001B04A4 /* libchipmunk */;
-			targetProxy = 9249A9AE13597ED4001B04A4 /* PBXContainerItemProxy */;
-		};
 		92A656DB13A3A05000CCF7DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 92A6562313A39FA000CCF7DF /* liblua */;
@@ -5417,47 +5305,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = json;
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9249A8E413597E60001B04A4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				DSTROOT = /tmp/libchipmunk.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pch/libchipmunk-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					NDEBUG,
-					DEBUG,
-					IOS,
-				);
-				HEADER_SEARCH_PATHS = (
-					"${PROJECT_DIR}/../jni/chipmunk",
-					/usr/include/libxml2,
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = chipmunk;
-			};
-			name = Debug;
-		};
-		9249A8E513597E60001B04A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				DSTROOT = /tmp/libchipmunk.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pch/libchipmunk-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					NDEBUG,
-					IOS,
-				);
-				HEADER_SEARCH_PATHS = (
-					"${PROJECT_DIR}/../jni/chipmunk",
-					/usr/include/libxml2,
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = chipmunk;
 			};
 			name = Release;
 		};
@@ -5858,15 +5705,6 @@
 			buildConfigurations = (
 				9233586414CC484F009E2DF9 /* Debug */,
 				9233586514CC484F009E2DF9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9249A8E313597E60001B04A4 /* Build configuration list for PBXNativeTarget "libchipmunk" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9249A8E413597E60001B04A4 /* Debug */,
-				9249A8E513597E60001B04A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

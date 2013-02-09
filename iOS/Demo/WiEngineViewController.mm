@@ -34,7 +34,6 @@
 #import "common.h"
 #import "ActionDemos.h"
 #import "Box2DDemos.h"
-#import "ChipmunkDemos.h"
 #import "EaseActionDemos.h"
 #import "EventDemos.h"
 #import "GridActionDemos.h"
@@ -122,31 +121,6 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(box2d, VaryingFrictionTest),
 		DEMO_ENTRY_NAME(box2d, VaryingRestitutionTest),
 		DEMO_ENTRY_NAME(box2d, WebTest),
-	},
-	{
-		DEMO_ENTRY_NAME(chipmunk, BodyDraggingTest),
-		DEMO_ENTRY_NAME(chipmunk, BounceTest),
-		DEMO_ENTRY_NAME(chipmunk, JointsTest),
-		DEMO_ENTRY_NAME(chipmunk, MagnetsElectricTest),
-		DEMO_ENTRY_NAME(chipmunk, OneWayTest),
-        DEMO_ENTRY_NAME(chipmunk, PhysicsEditorTest),
-		DEMO_ENTRY_NAME(chipmunk, PlanetTest),
-		DEMO_ENTRY_NAME(chipmunk, PlayerTest),
-		DEMO_ENTRY_NAME(chipmunk, PlinkTest),
-		DEMO_ENTRY_NAME(chipmunk, PumpTest),
-		DEMO_ENTRY_NAME(chipmunk, PyramidStackTest),
-		DEMO_ENTRY_NAME(chipmunk, PyramidToppleTest),
-		DEMO_ENTRY_NAME(chipmunk, QueryTest),
-		DEMO_ENTRY_NAME(chipmunk, SensorTest),
-		DEMO_ENTRY_NAME(chipmunk, ShapeAnimationTest),
-		DEMO_ENTRY_NAME(chipmunk, SimpleTest),
-		DEMO_ENTRY_NAME(chipmunk, SpringTest),
-		DEMO_ENTRY_NAME(chipmunk, TankTest),
-		DEMO_ENTRY_NAME(chipmunk, TexturedBounceTest),
-		DEMO_ENTRY_NAME(chipmunk, TexturedOneWayTest),
-		DEMO_ENTRY_NAME(chipmunk, TheoJansenTest),
-		DEMO_ENTRY_NAME(chipmunk, TumbleTest),
-		DEMO_ENTRY_NAME(chipmunk, UnsafeOpsTest),
 	},
 	{
 		DEMO_ENTRY_NAME(ease, EaseBackInOutTest),
