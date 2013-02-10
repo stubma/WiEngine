@@ -12,6 +12,11 @@
 		9209371D152A94B500645A7A /* wyPointList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9209371C152A94B500645A7A /* wyPointList.cpp */; };
 		92093720152A94D000645A7A /* wyTMXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9209371F152A94D000645A7A /* wyTMXObject.cpp */; };
 		92093723152A94D600645A7A /* wyTMXObjectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92093721152A94D600645A7A /* wyTMXObjectLayer.cpp */; };
+		921A26A016C7AD00004A587C /* wyJSONArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921A269C16C7AD00004A587C /* wyJSONArray.cpp */; };
+		921A26A116C7AD00004A587C /* wyJSONObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921A269D16C7AD00004A587C /* wyJSONObject.cpp */; };
+		921A26A216C7AD00004A587C /* wyJSONParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921A269E16C7AD00004A587C /* wyJSONParser.cpp */; };
+		921A26A316C7AD00004A587C /* wyJSONValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921A269F16C7AD00004A587C /* wyJSONValue.cpp */; };
+		921A26A816C7AE7E004A587C /* libyajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 925675CE14CC6C17005C1787 /* libyajl.a */; };
 		921F7DA31515A9AA002FA148 /* ActionDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D711515A9AA002FA148 /* ActionDemos.cpp */; };
 		921F7DA41515A9AA002FA148 /* Box2DDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D741515A9AA002FA148 /* Box2DDemos.cpp */; };
 		921F7DA51515A9AA002FA148 /* ChipmunkDemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921F7D771515A9AA002FA148 /* ChipmunkDemos.cpp */; };
@@ -74,14 +79,6 @@
 		925675FB14CC6C5E005C1787 /* yajl_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 925675F114CC6C5E005C1787 /* yajl_parser.c */; };
 		925675FC14CC6C5E005C1787 /* yajl_tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 925675F314CC6C5E005C1787 /* yajl_tree.c */; };
 		925675FD14CC6C5E005C1787 /* yajl_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 925675F414CC6C5E005C1787 /* yajl_version.c */; };
-		9256760314CC6C7F005C1787 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA7942146FA9AF004757F9 /* Cocoa.framework */; };
-		9256760D14CC6CDA005C1787 /* libyajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 925675CE14CC6C17005C1787 /* libyajl.a */; };
-		9256760E14CC6CE0005C1787 /* libwiengine.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 929D4319146FEA4100267B99 /* libwiengine.dylib */; };
-		9256761914CC6CF6005C1787 /* wyJSONArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9256761314CC6CF6005C1787 /* wyJSONArray.cpp */; };
-		9256761A14CC6CF6005C1787 /* wyJSONObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9256761414CC6CF6005C1787 /* wyJSONObject.cpp */; };
-		9256761B14CC6CF6005C1787 /* wyJSONParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9256761514CC6CF6005C1787 /* wyJSONParser.cpp */; };
-		9256761C14CC6CF6005C1787 /* wyJSONValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9256761714CC6CF6005C1787 /* wyJSONValue.cpp */; };
-		9256762214CC6F6A005C1787 /* libjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9256760214CC6C7F005C1787 /* libjson.dylib */; };
 		925DE51415047E8B00A8B7B5 /* wyReachability.mm in Sources */ = {isa = PBXBuildFile; fileRef = 925DE51115047E8B00A8B7B5 /* wyReachability.mm */; };
 		925DE51515047E8B00A8B7B5 /* wyReachabilityDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 925DE51315047E8B00A8B7B5 /* wyReachabilityDelegate.mm */; };
 		925DE5191504808A00A8B7B5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925DE51715047E9F00A8B7B5 /* SystemConfiguration.framework */; };
@@ -689,19 +686,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9256760F14CC6CEA005C1787 /* PBXContainerItemProxy */ = {
+		921A269916C7ACE6004A587C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 925675CD14CC6C17005C1787;
 			remoteInfo = libyajl;
-		};
-		9256762014CC6D6E005C1787 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 92CA7935146FA9AF004757F9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9256760114CC6C7F005C1787;
-			remoteInfo = libjson;
 		};
 		9292BFB214E4ED5B00ADE7E9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -789,6 +779,14 @@
 		9209371F152A94D000645A7A /* wyTMXObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTMXObject.cpp; sourceTree = "<group>"; };
 		92093721152A94D600645A7A /* wyTMXObjectLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTMXObjectLayer.cpp; sourceTree = "<group>"; };
 		92093722152A94D600645A7A /* wyTMXObjectLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyTMXObjectLayer.h; sourceTree = "<group>"; };
+		921A269C16C7AD00004A587C /* wyJSONArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyJSONArray.cpp; path = ../jni/WiEngine/impl/json/wyJSONArray.cpp; sourceTree = "<group>"; };
+		921A269D16C7AD00004A587C /* wyJSONObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyJSONObject.cpp; path = ../jni/WiEngine/impl/json/wyJSONObject.cpp; sourceTree = "<group>"; };
+		921A269E16C7AD00004A587C /* wyJSONParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyJSONParser.cpp; path = ../jni/WiEngine/impl/json/wyJSONParser.cpp; sourceTree = "<group>"; };
+		921A269F16C7AD00004A587C /* wyJSONValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyJSONValue.cpp; path = ../jni/WiEngine/impl/json/wyJSONValue.cpp; sourceTree = "<group>"; };
+		921A26A416C7AD08004A587C /* wyJSONArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONArray.h; path = ../jni/WiEngine/include/json/wyJSONArray.h; sourceTree = "<group>"; };
+		921A26A516C7AD08004A587C /* wyJSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONObject.h; path = ../jni/WiEngine/include/json/wyJSONObject.h; sourceTree = "<group>"; };
+		921A26A616C7AD08004A587C /* wyJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONParser.h; path = ../jni/WiEngine/include/json/wyJSONParser.h; sourceTree = "<group>"; };
+		921A26A716C7AD08004A587C /* wyJSONValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONValue.h; path = ../jni/WiEngine/include/json/wyJSONValue.h; sourceTree = "<group>"; };
 		921F7D711515A9AA002FA148 /* ActionDemos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionDemos.cpp; sourceTree = "<group>"; };
 		921F7D721515A9AA002FA148 /* ActionDemos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionDemos.h; sourceTree = "<group>"; };
 		921F7D741515A9AA002FA148 /* Box2DDemos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Box2DDemos.cpp; sourceTree = "<group>"; };
@@ -846,7 +844,6 @@
 		923492D314754CA500046437 /* ZFont.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZFont.mm; sourceTree = "<group>"; };
 		923492E21475584200046437 /* GLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLViewController.h; sourceTree = "<group>"; };
 		923492E31475584200046437 /* GLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLViewController.mm; sourceTree = "<group>"; };
-		9236036015357369002C05F0 /* wyJSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONObject.h; path = ../WiEngine/include/json/wyJSONObject.h; sourceTree = "<group>"; };
 		9236036115357376002C05F0 /* wyNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyNetworkConfig.h; path = ../WiEngine/include/winetwork/wyNetworkConfig.h; sourceTree = "<group>"; };
 		923D63F5147750B200196C55 /* AMCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCollectionView.h; sourceTree = "<group>"; };
 		923D63F6147750B200196C55 /* AMCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCollectionView.m; sourceTree = "<group>"; };
@@ -916,16 +913,6 @@
 		925675F214CC6C5E005C1787 /* yajl_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yajl_parser.h; sourceTree = "<group>"; };
 		925675F314CC6C5E005C1787 /* yajl_tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yajl_tree.c; sourceTree = "<group>"; };
 		925675F414CC6C5E005C1787 /* yajl_version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yajl_version.c; sourceTree = "<group>"; };
-		9256760214CC6C7F005C1787 /* libjson.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libjson.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		9256761314CC6CF6005C1787 /* wyJSONArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyJSONArray.cpp; sourceTree = "<group>"; };
-		9256761414CC6CF6005C1787 /* wyJSONObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyJSONObject.cpp; sourceTree = "<group>"; };
-		9256761514CC6CF6005C1787 /* wyJSONParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyJSONParser.cpp; sourceTree = "<group>"; };
-		9256761614CC6CF6005C1787 /* wyJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJSONParser.h; sourceTree = "<group>"; };
-		9256761714CC6CF6005C1787 /* wyJSONValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyJSONValue.cpp; sourceTree = "<group>"; };
-		9256761814CC6CF6005C1787 /* wyJSONValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJSONValue.h; sourceTree = "<group>"; };
-		9256761D14CC6D08005C1787 /* wyJSONArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONArray.h; path = ../WiEngine/include/json/wyJSONArray.h; sourceTree = "<group>"; };
-		9256761E14CC6D08005C1787 /* wyJSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONObject.h; path = ../WiEngine/include/json/wyJSONObject.h; sourceTree = "<group>"; };
-		9256761F14CC6D2B005C1787 /* WiEngine-JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WiEngine-JSON.h"; path = "../jni/WiEngine/include/WiEngine-JSON.h"; sourceTree = "<group>"; };
 		925DE51015047E8B00A8B7B5 /* wyReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyReachability.h; sourceTree = "<group>"; };
 		925DE51115047E8B00A8B7B5 /* wyReachability.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wyReachability.mm; sourceTree = "<group>"; };
 		925DE51215047E8B00A8B7B5 /* wyReachabilityDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyReachabilityDelegate.h; sourceTree = "<group>"; };
@@ -2047,7 +2034,6 @@
 		92CA7F64146FD375004757F9 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		92D4E5901480DCB20045CF13 /* WYTextBoxDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYTextBoxDelegate.h; sourceTree = "<group>"; };
 		92D4E5911480DCB20045CF13 /* WYTextBoxDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WYTextBoxDelegate.mm; sourceTree = "<group>"; };
-		92E107B41538577A0086FDD2 /* wyJSONConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONConfig.h; path = ../WiEngine/include/json/wyJSONConfig.h; sourceTree = "<group>"; };
 		92E107B6153857A50086FDD2 /* config_default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config_default.h; sourceTree = "<group>"; };
 		92E107B7153857A50086FDD2 /* config_win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config_win.h; sourceTree = "<group>"; };
 		92E107B8153857B20086FDD2 /* mpg123_default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mpg123_default.h; sourceTree = "<group>"; };
@@ -2071,16 +2057,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				925675CF14CC6C17005C1787 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		925675FF14CC6C7F005C1787 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9256760314CC6C7F005C1787 /* Cocoa.framework in Frameworks */,
-				9256760E14CC6CE0005C1787 /* libwiengine.dylib in Frameworks */,
-				9256760D14CC6CDA005C1787 /* libyajl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2112,6 +2088,7 @@
 				929D45F4146FF2C900267B99 /* libsqlite3.dylib in Frameworks */,
 				929D45F5146FF2C900267B99 /* libz.dylib in Frameworks */,
 				929D45F6146FF2C900267B99 /* libxml2.dylib in Frameworks */,
+				921A26A816C7AE7E004A587C /* libyajl.a in Frameworks */,
 				92B0001016A53D4100477E2A /* libpvr.a in Frameworks */,
 				9278E3DF147E772500713AFF /* QTKit.framework in Frameworks */,
 				92BB799F1478D9FC00503912 /* Carbon.framework in Frameworks */,
@@ -2206,7 +2183,6 @@
 				92BB7A7A1478FABE00503912 /* liblua.dylib in Frameworks */,
 				92BB7BDD1478FF2000503912 /* libwinetwork.dylib in Frameworks */,
 				9292BFB114E4ED5600ADE7E9 /* libiap.dylib in Frameworks */,
-				9256762214CC6F6A005C1787 /* libjson.dylib in Frameworks */,
 				929D494C1470082800267B99 /* libxml2.dylib in Frameworks */,
 				929D494D1470082800267B99 /* CoreFoundation.framework in Frameworks */,
 				929D494E1470082800267B99 /* CoreAudio.framework in Frameworks */,
@@ -2229,6 +2205,21 @@
 				920490871482256A00EDCD7C /* WiTool.jar */,
 			);
 			path = ant;
+			sourceTree = "<group>";
+		};
+		921A269B16C7ACEF004A587C /* json */ = {
+			isa = PBXGroup;
+			children = (
+				921A26A416C7AD08004A587C /* wyJSONArray.h */,
+				921A26A516C7AD08004A587C /* wyJSONObject.h */,
+				921A26A616C7AD08004A587C /* wyJSONParser.h */,
+				921A26A716C7AD08004A587C /* wyJSONValue.h */,
+				921A269C16C7AD00004A587C /* wyJSONArray.cpp */,
+				921A269D16C7AD00004A587C /* wyJSONObject.cpp */,
+				921A269E16C7AD00004A587C /* wyJSONParser.cpp */,
+				921A269F16C7AD00004A587C /* wyJSONValue.cpp */,
+			);
+			name = json;
 			sourceTree = "<group>";
 		};
 		921F7D701515A9AA002FA148 /* Actions */ = {
@@ -2526,24 +2517,6 @@
 				925675F414CC6C5E005C1787 /* yajl_version.c */,
 			);
 			path = src;
-			sourceTree = "<group>";
-		};
-		9256761114CC6CF6005C1787 /* json */ = {
-			isa = PBXGroup;
-			children = (
-				9256761314CC6CF6005C1787 /* wyJSONArray.cpp */,
-				9256761414CC6CF6005C1787 /* wyJSONObject.cpp */,
-				9256761514CC6CF6005C1787 /* wyJSONParser.cpp */,
-				9256761714CC6CF6005C1787 /* wyJSONValue.cpp */,
-				92E107B41538577A0086FDD2 /* wyJSONConfig.h */,
-				9236036015357369002C05F0 /* wyJSONObject.h */,
-				9256761D14CC6D08005C1787 /* wyJSONArray.h */,
-				9256761E14CC6D08005C1787 /* wyJSONObject.h */,
-				9256761614CC6CF6005C1787 /* wyJSONParser.h */,
-				9256761814CC6CF6005C1787 /* wyJSONValue.h */,
-			);
-			name = json;
-			path = ../jni/json;
 			sourceTree = "<group>";
 		};
 		927EDD5514BFFDA8008A847F /* dialog */ = {
@@ -3216,7 +3189,6 @@
 				92BB7CC414790CCE00503912 /* WiSound */,
 				9253E6D614FF630E003028B0 /* WiNetwork */,
 				9292BF8814E4ED1900ADE7E9 /* iap */,
-				9256761114CC6CF6005C1787 /* json */,
 				925675DD14CC6C5E005C1787 /* yajl */,
 				92CA7968146FAA27004757F9 /* Resources */,
 				920490861482256900EDCD7C /* ant */,
@@ -3239,7 +3211,6 @@
 				92BB7C0F14790B5600503912 /* libvorbis.a */,
 				92BB7C6B14790C3A00503912 /* libmpg123.a */,
 				925675CE14CC6C17005C1787 /* libyajl.a */,
-				9256760214CC6C7F005C1787 /* libjson.dylib */,
 				9292BF7C14E4ECB900ADE7E9 /* libiap.dylib */,
 				92B0FFC916A53CD300477E2A /* libpvr.a */,
 			);
@@ -3356,6 +3327,7 @@
 				92CA7B9D146FC646004757F9 /* filters */,
 				92CA7BA9146FC646004757F9 /* grid */,
 				92CA7BAE146FC646004757F9 /* gridactions */,
+				921A269B16C7ACEF004A587C /* json */,
 				92CA7BD2146FC646004757F9 /* nodes */,
 				92CA7C04146FC646004757F9 /* opengl */,
 				92CA7C0C146FC646004757F9 /* particle */,
@@ -3368,7 +3340,6 @@
 				92CA7E0C146FC665004757F9 /* WiEngine-Box2D.h */,
 				92CA7E0D146FC665004757F9 /* WiEngine-Chipmunk.h */,
 				9264163C14E4F6A500806B38 /* WiEngine-IAP.h */,
-				9256761F14CC6D2B005C1787 /* WiEngine-JSON.h */,
 				92CA7E0E146FC665004757F9 /* WiEngine-Lua.h */,
 				92CA7E0F146FC665004757F9 /* WiEngine-Network.h */,
 				92CA7E11146FC665004757F9 /* WiEngine-WiSound.h */,
@@ -4235,23 +4206,6 @@
 			productReference = 925675CE14CC6C17005C1787 /* libyajl.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		9256760114CC6C7F005C1787 /* libjson */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9256760A14CC6C7F005C1787 /* Build configuration list for PBXNativeTarget "libjson" */;
-			buildPhases = (
-				925675FE14CC6C7F005C1787 /* Sources */,
-				925675FF14CC6C7F005C1787 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9256761014CC6CEA005C1787 /* PBXTargetDependency */,
-			);
-			name = libjson;
-			productName = libjson;
-			productReference = 9256760214CC6C7F005C1787 /* libjson.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
 		928015EA1477F9B500806FD3 /* libchipmunk */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 928015F71477F9B600806FD3 /* Build configuration list for PBXNativeTarget "libchipmunk" */;
@@ -4294,6 +4248,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				921A269A16C7ACE6004A587C /* PBXTargetDependency */,
 				92B0001216A53D4500477E2A /* PBXTargetDependency */,
 			);
 			name = libwiengine;
@@ -4428,7 +4383,6 @@
 			);
 			dependencies = (
 				9292BFB314E4ED5B00ADE7E9 /* PBXTargetDependency */,
-				9256762114CC6D6E005C1787 /* PBXTargetDependency */,
 				92BB7C6414790C2800503912 /* PBXTargetDependency */,
 				92BB7BDF1478FF2C00503912 /* PBXTargetDependency */,
 				92BB7BE11478FF2C00503912 /* PBXTargetDependency */,
@@ -4473,7 +4427,6 @@
 				92BB7C0E14790B5600503912 /* libvorbis */,
 				92BB7C6A14790C3A00503912 /* libmpg123 */,
 				925675CD14CC6C17005C1787 /* libyajl */,
-				9256760114CC6C7F005C1787 /* libjson */,
 				9292BF7B14E4ECB900ADE7E9 /* libiap */,
 				92B0FFC816A53CD300477E2A /* libpvr */,
 			);
@@ -4530,17 +4483,6 @@
 				925675FB14CC6C5E005C1787 /* yajl_parser.c in Sources */,
 				925675FC14CC6C5E005C1787 /* yajl_tree.c in Sources */,
 				925675FD14CC6C5E005C1787 /* yajl_version.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		925675FE14CC6C7F005C1787 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9256761914CC6CF6005C1787 /* wyJSONArray.cpp in Sources */,
-				9256761A14CC6CF6005C1787 /* wyJSONObject.cpp in Sources */,
-				9256761B14CC6CF6005C1787 /* wyJSONParser.cpp in Sources */,
-				9256761C14CC6CF6005C1787 /* wyJSONValue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4936,6 +4878,10 @@
 				9278E71D1549449100339303 /* wySkewBy.cpp in Sources */,
 				9278E71E1549449100339303 /* wySkewTo.cpp in Sources */,
 				92C92E3F1557E24C00E1B93C /* wyToast.cpp in Sources */,
+				921A26A016C7AD00004A587C /* wyJSONArray.cpp in Sources */,
+				921A26A116C7AD00004A587C /* wyJSONObject.cpp in Sources */,
+				921A26A216C7AD00004A587C /* wyJSONParser.cpp in Sources */,
+				921A26A316C7AD00004A587C /* wyJSONValue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5219,15 +5165,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9256761014CC6CEA005C1787 /* PBXTargetDependency */ = {
+		921A269A16C7ACE6004A587C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 925675CD14CC6C17005C1787 /* libyajl */;
-			targetProxy = 9256760F14CC6CEA005C1787 /* PBXContainerItemProxy */;
-		};
-		9256762114CC6D6E005C1787 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9256760114CC6C7F005C1787 /* libjson */;
-			targetProxy = 9256762014CC6D6E005C1787 /* PBXContainerItemProxy */;
+			targetProxy = 921A269916C7ACE6004A587C /* PBXContainerItemProxy */;
 		};
 		9292BFB314E4ED5B00ADE7E9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5313,30 +5254,6 @@
 				GCC_INPUT_FILETYPE = automatic;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = yajl;
-			};
-			name = Release;
-		};
-		9256760B14CC6C7F005C1787 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INSTALL_PATH = "@executable_path";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		9256760C14CC6C7F005C1787 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				INSTALL_PATH = "@executable_path";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -5769,15 +5686,6 @@
 			buildConfigurations = (
 				925675DB14CC6C17005C1787 /* Debug */,
 				925675DC14CC6C17005C1787 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9256760A14CC6C7F005C1787 /* Build configuration list for PBXNativeTarget "libjson" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9256760B14CC6C7F005C1787 /* Debug */,
-				9256760C14CC6C7F005C1787 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

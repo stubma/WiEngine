@@ -183,7 +183,6 @@
 				<exclude name="lua/binding/**"/>
 				<exclude name="openal/**"/>
 				<exclude name="vorbis/**"/>
-				<exclude name="json/**"/>
 				<exclude name="yajl/**"/>
 				<exclude name="iap/**"/>
 				<exclude name="sqlite3/**"/>
@@ -264,13 +263,6 @@
 			<arg value="-create"/>
 			<arg value="-output"/>
 			<arg value="${dist.libs.dir}/liblua.dylib"/>
-		</exec>
-		<exec executable="lipo">
-			<arg value="${build.i386.dir}/Release/libjson.dylib"/>
-			<arg value="${build.x86_64.dir}/Release/libjson.dylib"/>
-			<arg value="-create"/>
-			<arg value="-output"/>
-			<arg value="${dist.libs.dir}/libjson.dylib"/>
 		</exec>
 		<exec executable="lipo">
 			<arg value="${build.i386.dir}/Release/libiap.dylib"/>
