@@ -365,6 +365,14 @@ public:
 	 * @return count of elements in json object
 	 */
 	int getLength() { return m_keyvalues.size(); }
+
+	/**
+	 * get key by index
+	 *
+	 * @param index index of element
+	 * @return key, or NULL if index is invalid, returned key is not a copy, caller should NOT release it
+	 */
+	const char* keyAt(int index);
 };
 
 #endif // __wyJSONObject_h__
