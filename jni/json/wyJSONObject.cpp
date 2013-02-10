@@ -34,21 +34,16 @@
 #include "wyJSONParser.h"
 #include "wyJSONValue.h"
 
-#define KEYVALUE_MAP map<const char*, KeyValue, wyStrPredicate>
-#define KEYVALUE_ITER KEYVALUE_MAP::iterator
-
 // tmp buffer
 static char s_buf[4096];
 
 wyJSONObject::wyJSONObject() {
-	m_pairs = WYNEW KEYVALUE_MAP();
 }
 
 wyJSONObject::~wyJSONObject() {
-	for(KEYVALUE_ITER iter = m_pairs->begin(); iter != m_pairs->end(); iter++) {
+	for(PairMap::iterator iter = m_pairs.begin(); iter != m_pairs.end(); iter++) {
 		releaseKeyValue(iter->first, iter->second);
 	}
-	WYDELETE(m_pairs);
 }
 
 void wyJSONObject::releaseKeyValue(const char* key, KeyValue& kv) {
@@ -119,7 +114,8 @@ void wyJSONObject::addNull(const char* key) {
 			NIL,
 			{ false }
 	};
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 void wyJSONObject::addBool(const char* key, bool b) {
@@ -135,7 +131,8 @@ void wyJSONObject::addBool(const char* key, bool b) {
 			BOOLEAN,
 			v
 	};
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 void wyJSONObject::addInt(const char* key, int i) {
@@ -153,7 +150,8 @@ void wyJSONObject::addInt(const char* key, int i) {
 			STRING,
 			v
 	};
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 void wyJSONObject::addLong(const char* key, long l) {
@@ -171,7 +169,8 @@ void wyJSONObject::addLong(const char* key, long l) {
 			STRING,
 			v
 	};
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 void wyJSONObject::addFloat(const char* key, float f) {
@@ -189,7 +188,8 @@ void wyJSONObject::addFloat(const char* key, float f) {
 			STRING,
 			v
 	};
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 void wyJSONObject::addDouble(const char* key, double d) {
@@ -207,7 +207,8 @@ void wyJSONObject::addDouble(const char* key, double d) {
 			STRING,
 			v
 	};
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 void wyJSONObject::addString(const char* key, const char* s) {
@@ -223,7 +224,8 @@ void wyJSONObject::addString(const char* key, const char* s) {
 			STRING,
 			v
 	};
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 void wyJSONObject::addObject(const char* key, wyJSONObject* jo) {
@@ -240,7 +242,8 @@ void wyJSONObject::addObject(const char* key, wyJSONObject* jo) {
 			v
 	};
 	wyObjectRetain(jo);
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 void wyJSONObject::addArray(const char* key, wyJSONArray* ja) {
@@ -257,12 +260,13 @@ void wyJSONObject::addArray(const char* key, wyJSONArray* ja) {
 			v
 	};
 	wyObjectRetain(ja);
-	(*m_pairs)[k] = kv;
+	m_pairs[k] = kv;
+	m_keyvalues.push_back(kv);
 }
 
 bool wyJSONObject::optBool(const char* key, bool def) {
-	KEYVALUE_ITER iter = m_pairs->find(key);
-	if(iter != m_pairs->end()) {
+	PairMap::iterator iter = m_pairs.find(key);
+	if(iter != m_pairs.end()) {
 		return wyJSONValue::castToBool(iter->second);
 	} else {
 		return def;
@@ -270,8 +274,8 @@ bool wyJSONObject::optBool(const char* key, bool def) {
 }
 
 int wyJSONObject::optInt(const char* key, int def) {
-	KEYVALUE_ITER iter = m_pairs->find(key);
-	if(iter != m_pairs->end()) {
+	PairMap::iterator iter = m_pairs.find(key);
+	if(iter != m_pairs.end()) {
 		return wyJSONValue::castToInt(iter->second);
 	} else {
 		return def;
@@ -279,8 +283,8 @@ int wyJSONObject::optInt(const char* key, int def) {
 }
 
 long wyJSONObject::optLong(const char* key, long def) {
-	KEYVALUE_ITER iter = m_pairs->find(key);
-	if(iter != m_pairs->end()) {
+	PairMap::iterator iter = m_pairs.find(key);
+	if(iter != m_pairs.end()) {
 		return wyJSONValue::castToLong(iter->second);
 	} else {
 		return def;
@@ -288,8 +292,8 @@ long wyJSONObject::optLong(const char* key, long def) {
 }
 
 float wyJSONObject::optFloat(const char* key, float def) {
-	KEYVALUE_ITER iter = m_pairs->find(key);
-	if(iter != m_pairs->end()) {
+	PairMap::iterator iter = m_pairs.find(key);
+	if(iter != m_pairs.end()) {
 		return wyJSONValue::castToFloat(iter->second);
 	} else {
 		return def;
@@ -297,8 +301,8 @@ float wyJSONObject::optFloat(const char* key, float def) {
 }
 
 double wyJSONObject::optDouble(const char* key, double def) {
-	KEYVALUE_ITER iter = m_pairs->find(key);
-	if(iter != m_pairs->end()) {
+	PairMap::iterator iter = m_pairs.find(key);
+	if(iter != m_pairs.end()) {
 		return wyJSONValue::castToDouble(iter->second);
 	} else {
 		return def;
@@ -306,8 +310,8 @@ double wyJSONObject::optDouble(const char* key, double def) {
 }
 
 wyJSONObject* wyJSONObject::optJSONObject(const char* key) {
-	KEYVALUE_ITER iter = m_pairs->find(key);
-	if(iter != m_pairs->end()) {
+	PairMap::iterator iter = m_pairs.find(key);
+	if(iter != m_pairs.end()) {
 		return wyJSONValue::castToObject(iter->second);
 	} else {
 		return NULL;
@@ -315,8 +319,8 @@ wyJSONObject* wyJSONObject::optJSONObject(const char* key) {
 }
 
 wyJSONArray* wyJSONObject::optJSONArray(const char* key) {
-	KEYVALUE_ITER iter = m_pairs->find(key);
-	if(iter != m_pairs->end()) {
+	PairMap::iterator iter = m_pairs.find(key);
+	if(iter != m_pairs.end()) {
 		return wyJSONValue::castToArray(iter->second);
 	} else {
 		return NULL;
@@ -324,12 +328,76 @@ wyJSONArray* wyJSONObject::optJSONArray(const char* key) {
 }
 
 const char* wyJSONObject::optString(const char* key, const char* def) {
-	KEYVALUE_ITER iter = m_pairs->find(key);
-	if(iter != m_pairs->end()) {
+	PairMap::iterator iter = m_pairs.find(key);
+	if(iter != m_pairs.end()) {
 		return wyJSONValue::castToString(iter->second);
 	} else {
 		return wyJSONValue::copyString(def);
 	}
+}
+
+bool wyJSONObject::optBool(int index, bool def) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return def;
+	}
+
+	return wyJSONValue::castToBool(m_keyvalues.at(index));
+}
+
+int wyJSONObject::optInt(int index, int def) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return def;
+	}
+
+	return wyJSONValue::castToInt(m_keyvalues.at(index));
+}
+
+long wyJSONObject::optLong(int index, long def) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return def;
+	}
+
+	return wyJSONValue::castToLong(m_keyvalues.at(index));
+}
+
+float wyJSONObject::optFloat(int index, float def) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return def;
+	}
+
+	return wyJSONValue::castToFloat(m_keyvalues.at(index));
+}
+
+double wyJSONObject::optDouble(int index, double def) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return def;
+	}
+
+	return wyJSONValue::castToDouble(m_keyvalues.at(index));
+}
+
+wyJSONObject* wyJSONObject::optJSONObject(int index) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return NULL;
+	}
+
+	return wyJSONValue::castToObject(m_keyvalues.at(index));
+}
+
+wyJSONArray* wyJSONObject::optJSONArray(int index) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return NULL;
+	}
+
+	return wyJSONValue::castToArray(m_keyvalues.at(index));
+}
+
+const char* wyJSONObject::optString(int index, const char* def) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return wyJSONValue::copyString(def);
+	}
+
+	return wyJSONValue::castToString(m_keyvalues.at(index));
 }
 
 void wyJSONObject::output(wyAssetOutputStream* aos, int level) {
@@ -339,7 +407,7 @@ void wyJSONObject::output(wyAssetOutputStream* aos, int level) {
 	aos->write(s_buf, 2);
 
 	int count = 0;
-	for(KEYVALUE_ITER iter = m_pairs->begin(); iter != m_pairs->end(); iter++) {
+	for(PairMap::iterator iter = m_pairs.begin(); iter != m_pairs.end(); iter++) {
 		// output key indentation
 		for(int i = 0; i < level; i++) {
 			s_buf[i] = '\t';
@@ -356,7 +424,7 @@ void wyJSONObject::output(wyAssetOutputStream* aos, int level) {
 				iter->second.v.jo->output(aos, level + 1);
 
 				// comma
-				if(count != m_pairs->size() - 1)
+				if(count != m_pairs.size() - 1)
 					aos->write(",", 1);
 
 				break;
@@ -365,13 +433,13 @@ void wyJSONObject::output(wyAssetOutputStream* aos, int level) {
 				iter->second.v.ja->output(aos, level + 1);
 
 				// comma
-				if(count != m_pairs->size() - 1)
+				if(count != m_pairs.size() - 1)
 					aos->write(",", 1);
 
 				break;
 			case BOOLEAN:
 				// output value
-				if(count == m_pairs->size() - 1)
+				if(count == m_pairs.size() - 1)
 					sprintf(s_buf, "%s\n", iter->second.v.b ? "true" : "false");
 				else
 					sprintf(s_buf, "%s,\n", iter->second.v.b ? "true" : "false");
@@ -379,7 +447,7 @@ void wyJSONObject::output(wyAssetOutputStream* aos, int level) {
 				break;
 			default:
 				// output value
-				if(count == m_pairs->size() - 1)
+				if(count == m_pairs.size() - 1)
 					sprintf(s_buf, "\"%s\"\n", wyJSONValue::castToString(iter->second));
 				else
 					sprintf(s_buf, "\"%s\",\n", wyJSONValue::castToString(iter->second));

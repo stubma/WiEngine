@@ -75,7 +75,12 @@ public:
 
 private:
 	/// json key value map
-	map<const char*, KeyValue, wyStrPredicate>* m_pairs;
+	typedef map<const char*, KeyValue, wyStrPredicate> PairMap;
+	PairMap m_pairs;
+
+	/// a sequential key value
+	typedef vector<KeyValue> KeyValueList;
+	KeyValueList m_keyvalues;
 
 protected:
 	wyJSONObject();
@@ -285,6 +290,84 @@ public:
 	 * 		copy it if you want to save it
 	 */
 	const char* optString(const char* key, const char* def = NULL);
+
+	/**
+	 * Get boolean value at given index
+	 *
+	 * @param index index of element
+	 * @param def default boolean to be returned
+	 * @return boolean value
+	 */
+	bool optBool(int index, bool def = false);
+
+	/**
+	 * Get integer value at given index
+	 *
+	 * @param index index of element
+	 * @param def default integer to be returned
+	 * @return integer value
+	 */
+	int optInt(int index, int def = 0);
+
+	/**
+	 * Get long value at given index
+	 *
+	 * @param index index of element
+	 * @param def default long to be returned
+	 * @return long value
+	 */
+	long optLong(int index, long def = 0);
+
+	/**
+	 * Get float value at given index
+	 *
+	 * @param index index of element
+	 * @param def default float to be returned
+	 * @return float value
+	 */
+	float optFloat(int index, float def = 0);
+
+	/**
+	 * Get double value at given index
+	 *
+	 * @param index index of element
+	 * @param def default double to be returned
+	 * @return double value
+	 */
+	double optDouble(int index, double def = 0);
+
+	/**
+	 * Get json object at given index
+	 *
+	 * @param index index of element
+	 * @return json object value
+	 */
+	wyJSONObject* optJSONObject(int index);
+
+	/**
+	 * Get json array at given index
+	 *
+	 * @param index index of element
+	 * @return json array
+	 */
+	wyJSONArray* optJSONArray(int index);
+
+	/**
+	 * Get string value at given index
+	 *
+	 * @param index index of element
+	 * @param def default string to be returned
+	 * @return value string, this string should not released by caller, it is managed by json object and you must
+	 * 		copy it if you want to save it
+	 */
+	const char* optString(int index, const char* def = NULL);
+
+	/**
+	 * Get count of elements in json object
+	 *
+	 * @return count of elements in json object
+	 */
+	int getLength() { return m_keyvalues.size(); }
 };
 
 #endif // __wyJSONObject_h__
