@@ -400,6 +400,14 @@ const char* wyJSONObject::optString(int index, const char* def) {
 	return wyJSONValue::castToString(m_keyvalues.at(index));
 }
 
+const char* wyJSONObject::keyAt(int index) {
+	if(index < 0 || index >= m_keyvalues.size()) {
+		return NULL;
+	}
+
+	return m_keyvalues.at(index).k;
+}
+
 void wyJSONObject::output(wyAssetOutputStream* aos, int level) {
 	// bracket of object
 	s_buf[0] = '{';
