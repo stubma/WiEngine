@@ -87,7 +87,6 @@
 				<exclude name="skia/**"/>
 				<exclude name="Box2D/binding/**"/>
 				<exclude name="chipmunk/binding/**"/>
-				<exclude name="libcurl/lib/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
 				<exclude name="libnsbmp/**"/>
