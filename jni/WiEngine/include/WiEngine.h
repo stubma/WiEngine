@@ -347,4 +347,8 @@
 #include "wyImagePicker.h"
 #include "wyResourceDecoder.h"
 
+// json
+#include "wyJSONObject.h"
+#include "wyJSONArray.h"
+
 #endif // __WiEngine_h__

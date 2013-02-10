@@ -54,7 +54,6 @@ public abstract class WiEngineTestActivity extends Activity implements IDirector
 		System.loadLibrary("box2d");
 		System.loadLibrary("wisound");
 		System.loadLibrary("winetwork");
-		System.loadLibrary("json");
 		System.loadLibrary("iap");
 		System.loadLibrary("wienginedemos");
 	}

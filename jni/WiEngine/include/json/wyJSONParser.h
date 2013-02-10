@@ -33,8 +33,6 @@
 #include "wyObject.h"
 
 /**
- * @class wyJSONParser
- *
  * JSON parser
  */
 class wyJSONParser {

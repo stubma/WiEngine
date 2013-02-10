@@ -2,7 +2,6 @@
 #include "common.h"
 #include "WiEngine.h"
 #include "WiEngine-Network.h"
-#include "WiEngine-JSON.h"
 
 namespace Network {
 	class wyDownloadImageTestLayer : public wyLayer, public wyHttpListener {

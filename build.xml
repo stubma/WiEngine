@@ -97,7 +97,6 @@
 				<exclude name="lua/binding/**"/>
 				<exclude name="openal/**"/>
 				<exclude name="vorbis/**"/>
-				<exclude name="json/**"/>
 				<exclude name="yajl/**"/>
 				<exclude name="iap/**"/>
 				<exclude name="sqlite3/**"/>

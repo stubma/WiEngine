@@ -28,6 +28,12 @@ include $(LOCAL_PATH)/libpvr/Android.mk
 
 include $(LOCAL_PATH)/libxml2/Android.mk
 
+###########################################################
+# build libyajl
+###########################################################
+
+include $(LOCAL_PATH)/yajl/Android.mk
+
 #################################################################################
 # build wiengine lib
 #################################################################################
@@ -69,7 +75,7 @@ LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES) \
 	$(LOCAL_PATH)/WiEngine/impl/render \
 	$(LOCAL_PATH)/WiEngine/impl/tmx \
 	$(LOCAL_PATH)/sqlite3
-LOCAL_STATIC_LIBRARIES := png jpeg nsbmp pvr
+LOCAL_STATIC_LIBRARIES := png jpeg nsbmp pvr yajl
 LOCAL_SHARED_LIBRARIES := xml2
 LOCAL_SRC_FILES := $(call all-cpp-files-under,WiEngine)
 	
