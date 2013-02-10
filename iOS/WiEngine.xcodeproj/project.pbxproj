@@ -99,13 +99,6 @@
 		9233585314CC4812009E2DF9 /* yajl_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 9233583F14CC4812009E2DF9 /* yajl_parser.c */; };
 		9233585514CC4812009E2DF9 /* yajl_tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 9233584114CC4812009E2DF9 /* yajl_tree.c */; };
 		9233585614CC4812009E2DF9 /* yajl_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 9233584214CC4812009E2DF9 /* yajl_version.c */; };
-		9233585C14CC484F009E2DF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9265F9521348774C00CBF61F /* Foundation.framework */; };
-		9233586E14CC488E009E2DF9 /* wyJSONArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233586814CC488E009E2DF9 /* wyJSONArray.cpp */; };
-		9233586F14CC488E009E2DF9 /* wyJSONObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233586914CC488E009E2DF9 /* wyJSONObject.cpp */; };
-		9233587014CC488E009E2DF9 /* wyJSONParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233586A14CC488E009E2DF9 /* wyJSONParser.cpp */; };
-		9233587214CC488E009E2DF9 /* wyJSONValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233586C14CC488E009E2DF9 /* wyJSONValue.cpp */; };
-		9233587814CC48EF009E2DF9 /* libyajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9233582014CC47B6009E2DF9 /* libyajl.a */; };
-		9233587D14CC4905009E2DF9 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9233585B14CC484F009E2DF9 /* libjson.a */; };
 		9234521F142A29B900C56838 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923451B5142A29B900C56838 /* b2BroadPhase.cpp */; };
 		92345221142A29B900C56838 /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923451B7142A29B900C56838 /* b2CollideCircle.cpp */; };
 		92345222142A29B900C56838 /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923451B8142A29B900C56838 /* b2CollideEdge.cpp */; };
@@ -242,6 +235,11 @@
 		9250D53514D8D66C00315D67 /* NSData-Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9250D53414D8D66C00315D67 /* NSData-Base64.mm */; };
 		9250D53914D8D85F00315D67 /* wyIAPVerifyDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9250D53814D8D85F00315D67 /* wyIAPVerifyDelegate.mm */; };
 		9254D1F714ADAAD2009BA47B /* wyAudioPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9254D1F614ADAAD2009BA47B /* wyAudioPlayer.cpp */; };
+		9255CCE516C7AB7600FBFA63 /* libyajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9233582014CC47B6009E2DF9 /* libyajl.a */; };
+		9255CCEF16C7ABAA00FBFA63 /* wyJSONArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9255CCEB16C7ABAA00FBFA63 /* wyJSONArray.cpp */; };
+		9255CCF016C7ABAA00FBFA63 /* wyJSONObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9255CCEC16C7ABAA00FBFA63 /* wyJSONObject.cpp */; };
+		9255CCF116C7ABAA00FBFA63 /* wyJSONParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9255CCED16C7ABAA00FBFA63 /* wyJSONParser.cpp */; };
+		9255CCF216C7ABAA00FBFA63 /* wyJSONValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9255CCEE16C7ABAA00FBFA63 /* wyJSONValue.cpp */; };
 		9258DE68152A91C400DC1C6F /* wyPointList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9258DE67152A91C400DC1C6F /* wyPointList.cpp */; };
 		9258DE6A152A91DB00DC1C6F /* wyTMXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9258DE69152A91DB00DC1C6F /* wyTMXObject.cpp */; };
 		9258DE6D152A91E500DC1C6F /* wyTMXObjectLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9258DE6B152A91E500DC1C6F /* wyTMXObjectLayer.cpp */; };
@@ -699,20 +697,6 @@
 			remoteGlobalIDString = 922B063516A52D6900C782E6;
 			remoteInfo = libpvr;
 		};
-		9233587914CC48FA009E2DF9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9265F9431348774C00CBF61F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9233581F14CC47B6009E2DF9;
-			remoteInfo = libyajl;
-		};
-		9233587B14CC4901009E2DF9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9265F9431348774C00CBF61F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9233585A14CC484F009E2DF9;
-			remoteInfo = libjson;
-		};
 		9246F2D01378128900E10F5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9265F9431348774C00CBF61F /* Project object */;
@@ -733,6 +717,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9249A8DD13597E5F001B04A4;
 			remoteInfo = libchipmunk;
+		};
+		9255CCE316C7AB6B00FBFA63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9265F9431348774C00CBF61F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9233581F14CC47B6009E2DF9;
+			remoteInfo = libyajl;
 		};
 		92A656DA13A3A05000CCF7DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -854,7 +845,6 @@
 		9213AC601557E0720023E73A /* wyToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyToast.h; path = ../../include/nodes/wyToast.h; sourceTree = "<group>"; };
 		9213AC621557E07C0023E73A /* wyToast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyToast.cpp; sourceTree = "<group>"; };
 		921412AF1535724B00DB9464 /* wyNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyNetworkConfig.h; path = ../WiEngine/include/winetwork/wyNetworkConfig.h; sourceTree = "<group>"; };
-		921412B11535725800DB9464 /* wyJSONConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONConfig.h; path = ../WiEngine/include/json/wyJSONConfig.h; sourceTree = "<group>"; };
 		921B878B1355D9A100955A79 /* back_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_normal.png; sourceTree = "<group>"; };
 		921B878C1355D9A100955A79 /* back_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_pressed.png; sourceTree = "<group>"; };
 		921EDBAA14C079C600C876D5 /* wyDialogPopupTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyDialogPopupTransition.h; path = ../jni/WiEngine/include/dialog/wyDialogPopupTransition.h; sourceTree = "<group>"; };
@@ -911,16 +901,6 @@
 		9233584014CC4812009E2DF9 /* yajl_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yajl_parser.h; sourceTree = "<group>"; };
 		9233584114CC4812009E2DF9 /* yajl_tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yajl_tree.c; sourceTree = "<group>"; };
 		9233584214CC4812009E2DF9 /* yajl_version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yajl_version.c; sourceTree = "<group>"; };
-		9233585B14CC484F009E2DF9 /* libjson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjson.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9233586814CC488E009E2DF9 /* wyJSONArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyJSONArray.cpp; sourceTree = "<group>"; };
-		9233586914CC488E009E2DF9 /* wyJSONObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyJSONObject.cpp; sourceTree = "<group>"; };
-		9233586A14CC488E009E2DF9 /* wyJSONParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyJSONParser.cpp; sourceTree = "<group>"; };
-		9233586B14CC488E009E2DF9 /* wyJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJSONParser.h; sourceTree = "<group>"; };
-		9233586C14CC488E009E2DF9 /* wyJSONValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyJSONValue.cpp; sourceTree = "<group>"; };
-		9233586D14CC488E009E2DF9 /* wyJSONValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyJSONValue.h; sourceTree = "<group>"; };
-		9233587414CC48A0009E2DF9 /* wyJSONArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONArray.h; path = ../WiEngine/include/json/wyJSONArray.h; sourceTree = "<group>"; };
-		9233587514CC48A0009E2DF9 /* wyJSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONObject.h; path = ../WiEngine/include/json/wyJSONObject.h; sourceTree = "<group>"; };
-		9233587E14CC4A43009E2DF9 /* WiEngine-JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WiEngine-JSON.h"; path = "../jni/WiEngine/include/WiEngine-JSON.h"; sourceTree = "<group>"; };
 		923451B5142A29B900C56838 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
 		923451B6142A29B900C56838 /* b2BroadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2BroadPhase.h; sourceTree = "<group>"; };
 		923451B7142A29B900C56838 /* b2CollideCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2CollideCircle.cpp; sourceTree = "<group>"; };
@@ -1162,6 +1142,14 @@
 		9250D53814D8D85F00315D67 /* wyIAPVerifyDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wyIAPVerifyDelegate.mm; sourceTree = "<group>"; };
 		9254D1F314ADAA90009BA47B /* wyAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyAudioPlayer.h; sourceTree = "<group>"; };
 		9254D1F614ADAAD2009BA47B /* wyAudioPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyAudioPlayer.cpp; sourceTree = "<group>"; };
+		9255CCE716C7ABA000FBFA63 /* wyJSONArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONArray.h; path = ../jni/WiEngine/include/json/wyJSONArray.h; sourceTree = "<group>"; };
+		9255CCE816C7ABA000FBFA63 /* wyJSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONObject.h; path = ../jni/WiEngine/include/json/wyJSONObject.h; sourceTree = "<group>"; };
+		9255CCE916C7ABA000FBFA63 /* wyJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONParser.h; path = ../jni/WiEngine/include/json/wyJSONParser.h; sourceTree = "<group>"; };
+		9255CCEA16C7ABA000FBFA63 /* wyJSONValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONValue.h; path = ../jni/WiEngine/include/json/wyJSONValue.h; sourceTree = "<group>"; };
+		9255CCEB16C7ABAA00FBFA63 /* wyJSONArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyJSONArray.cpp; path = ../jni/WiEngine/impl/json/wyJSONArray.cpp; sourceTree = "<group>"; };
+		9255CCEC16C7ABAA00FBFA63 /* wyJSONObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyJSONObject.cpp; path = ../jni/WiEngine/impl/json/wyJSONObject.cpp; sourceTree = "<group>"; };
+		9255CCED16C7ABAA00FBFA63 /* wyJSONParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyJSONParser.cpp; path = ../jni/WiEngine/impl/json/wyJSONParser.cpp; sourceTree = "<group>"; };
+		9255CCEE16C7ABAA00FBFA63 /* wyJSONValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyJSONValue.cpp; path = ../jni/WiEngine/impl/json/wyJSONValue.cpp; sourceTree = "<group>"; };
 		9258DE64152A91BA00DC1C6F /* wyPointList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyPointList.h; path = ../../include/types/wyPointList.h; sourceTree = "<group>"; };
 		9258DE67152A91C400DC1C6F /* wyPointList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyPointList.cpp; sourceTree = "<group>"; };
 		9258DE69152A91DB00DC1C6F /* wyTMXObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyTMXObject.cpp; sourceTree = "<group>"; };
@@ -2091,6 +2079,7 @@
 				920CADE013D28CB20058C41B /* libsqlite3.dylib in Frameworks */,
 				9207BC56134F4C1C005B1B6F /* libz.dylib in Frameworks */,
 				9207BC57134F4C1C005B1B6F /* libxml2.dylib in Frameworks */,
+				9255CCE516C7AB7600FBFA63 /* libyajl.a in Frameworks */,
 				922B066C16A52E1E00C782E6 /* libpvr.a in Frameworks */,
 				9207BAD7134F499E005B1B6F /* Foundation.framework in Frameworks */,
 				9207BC55134F4C13005B1B6F /* OpenGLES.framework in Frameworks */,
@@ -2116,15 +2105,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9233585814CC484F009E2DF9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9233585C14CC484F009E2DF9 /* Foundation.framework in Frameworks */,
-				9233587814CC48EF009E2DF9 /* libyajl.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9249A8DB13597E5F001B04A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2146,7 +2126,6 @@
 				9249A9B013597EDB001B04A4 /* libchipmunk.a in Frameworks */,
 				92ED7FFF137C2B5B00991FFB /* libwinetwork.a in Frameworks */,
 				92E27B8914D6A8CD00D5DFC1 /* libiap.a in Frameworks */,
-				9233587D14CC4905009E2DF9 /* libjson.a in Frameworks */,
 				929982C113A3AD990015DC97 /* liblua.a in Frameworks */,
 				929956FE1500CB4700A0369C /* SystemConfiguration.framework in Frameworks */,
 				92E27B9114D6AA0C00D5DFC1 /* StoreKit.framework in Frameworks */,
@@ -2536,23 +2515,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		9233586614CC488E009E2DF9 /* json */ = {
-			isa = PBXGroup;
-			children = (
-				9233586814CC488E009E2DF9 /* wyJSONArray.cpp */,
-				9233586914CC488E009E2DF9 /* wyJSONObject.cpp */,
-				9233586A14CC488E009E2DF9 /* wyJSONParser.cpp */,
-				9233586C14CC488E009E2DF9 /* wyJSONValue.cpp */,
-				921412B11535725800DB9464 /* wyJSONConfig.h */,
-				9233587414CC48A0009E2DF9 /* wyJSONArray.h */,
-				9233587514CC48A0009E2DF9 /* wyJSONObject.h */,
-				9233586B14CC488E009E2DF9 /* wyJSONParser.h */,
-				9233586D14CC488E009E2DF9 /* wyJSONValue.h */,
-			);
-			name = json;
-			path = ../jni/json;
-			sourceTree = "<group>";
-		};
 		923451B4142A29B900C56838 /* Collision */ = {
 			isa = PBXGroup;
 			children = (
@@ -2891,6 +2853,21 @@
 			path = constraints;
 			sourceTree = "<group>";
 		};
+		9255CCE616C7AB7E00FBFA63 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				9255CCE716C7ABA000FBFA63 /* wyJSONArray.h */,
+				9255CCE816C7ABA000FBFA63 /* wyJSONObject.h */,
+				9255CCE916C7ABA000FBFA63 /* wyJSONParser.h */,
+				9255CCEA16C7ABA000FBFA63 /* wyJSONValue.h */,
+				9255CCEB16C7ABAA00FBFA63 /* wyJSONArray.cpp */,
+				9255CCEC16C7ABAA00FBFA63 /* wyJSONObject.cpp */,
+				9255CCED16C7ABAA00FBFA63 /* wyJSONParser.cpp */,
+				9255CCEE16C7ABAA00FBFA63 /* wyJSONValue.cpp */,
+			);
+			name = json;
+			sourceTree = "<group>";
+		};
 		926256CC146EAAF50043D85C /* WiEngine */ = {
 			isa = PBXGroup;
 			children = (
@@ -2905,6 +2882,7 @@
 				9262574C146EAB040043D85C /* filters */,
 				92625758146EAB040043D85C /* grid */,
 				9262575D146EAB040043D85C /* gridactions */,
+				9255CCE616C7AB7E00FBFA63 /* json */,
 				92625781146EAB040043D85C /* nodes */,
 				926257B3146EAB040043D85C /* opengl */,
 				926257BB146EAB040043D85C /* particle */,
@@ -2917,7 +2895,6 @@
 				926259A7146EAB1D0043D85C /* WiEngine-Box2D.h */,
 				926259A8146EAB1D0043D85C /* WiEngine-Chipmunk.h */,
 				92E27B8E14D6A98000D5DFC1 /* WiEngine-IAP.h */,
-				9233587E14CC4A43009E2DF9 /* WiEngine-JSON.h */,
 				926259A9146EAB1D0043D85C /* WiEngine-Lua.h */,
 				926259AA146EAB1D0043D85C /* WiEngine-Network.h */,
 				926259AC146EAB1D0043D85C /* WiEngine-WiSound.h */,
@@ -3788,7 +3765,6 @@
 				92030E4B14FF439D0008B367 /* WiNetwork */,
 				92E27B7014D6A89D00D5DFC1 /* iap */,
 				923F6E6213A3AB34007F6915 /* lua */,
-				9233586614CC488E009E2DF9 /* json */,
 				9233582B14CC4812009E2DF9 /* yajl */,
 				9265F988134890A800CBF61F /* Resources */,
 				92AB7DE6136AFE45004660FA /* ant */,
@@ -3811,7 +3787,6 @@
 				92CE54581397553800778800 /* libvorbis.a */,
 				92A6562413A39FA000CCF7DF /* liblua.a */,
 				9233582014CC47B6009E2DF9 /* libyajl.a */,
-				9233585B14CC484F009E2DF9 /* libjson.a */,
 				92E27B6514D6A82700D5DFC1 /* libiap.a */,
 				922B063616A52D6900C782E6 /* libpvr.a */,
 			);
@@ -4236,6 +4211,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9255CCE416C7AB6B00FBFA63 /* PBXTargetDependency */,
 				922B066E16A52E2700C782E6 /* PBXTargetDependency */,
 			);
 			name = libwiengine;
@@ -4275,23 +4251,6 @@
 			productReference = 9233582014CC47B6009E2DF9 /* libyajl.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		9233585A14CC484F009E2DF9 /* libjson */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9233586314CC484F009E2DF9 /* Build configuration list for PBXNativeTarget "libjson" */;
-			buildPhases = (
-				9233585714CC484F009E2DF9 /* Sources */,
-				9233585814CC484F009E2DF9 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9233587A14CC48FA009E2DF9 /* PBXTargetDependency */,
-			);
-			name = libjson;
-			productName = libjson;
-			productReference = 9233585B14CC484F009E2DF9 /* libjson.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		9249A8DD13597E5F001B04A4 /* libchipmunk */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9249A8E313597E60001B04A4 /* Build configuration list for PBXNativeTarget "libchipmunk" */;
@@ -4321,7 +4280,6 @@
 			);
 			dependencies = (
 				92E27B8814D6A8C800D5DFC1 /* PBXTargetDependency */,
-				9233587C14CC4901009E2DF9 /* PBXTargetDependency */,
 				9207BC5C134F4C33005B1B6F /* PBXTargetDependency */,
 				9249A861135968B6001B04A4 /* PBXTargetDependency */,
 				9249A9AF13597ED4001B04A4 /* PBXTargetDependency */,
@@ -4477,7 +4435,6 @@
 				92CE531A1397439000778800 /* libmpg123 */,
 				92CE54571397553800778800 /* libvorbis */,
 				92A6562313A39FA000CCF7DF /* liblua */,
-				9233585A14CC484F009E2DF9 /* libjson */,
 				9233581F14CC47B6009E2DF9 /* libyajl */,
 				92E27B6414D6A82700D5DFC1 /* libiap */,
 				922B063516A52D6900C782E6 /* libpvr */,
@@ -4886,6 +4843,10 @@
 				927933A6154943D7004FF433 /* wySkewBy.cpp in Sources */,
 				927933A7154943D7004FF433 /* wySkewTo.cpp in Sources */,
 				9213AC631557E07C0023E73A /* wyToast.cpp in Sources */,
+				9255CCEF16C7ABAA00FBFA63 /* wyJSONArray.cpp in Sources */,
+				9255CCF016C7ABAA00FBFA63 /* wyJSONObject.cpp in Sources */,
+				9255CCF116C7ABAA00FBFA63 /* wyJSONParser.cpp in Sources */,
+				9255CCF216C7ABAA00FBFA63 /* wyJSONValue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4918,17 +4879,6 @@
 				9233585314CC4812009E2DF9 /* yajl_parser.c in Sources */,
 				9233585514CC4812009E2DF9 /* yajl_tree.c in Sources */,
 				9233585614CC4812009E2DF9 /* yajl_version.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9233585714CC484F009E2DF9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9233586E14CC488E009E2DF9 /* wyJSONArray.cpp in Sources */,
-				9233586F14CC488E009E2DF9 /* wyJSONObject.cpp in Sources */,
-				9233587014CC488E009E2DF9 /* wyJSONParser.cpp in Sources */,
-				9233587214CC488E009E2DF9 /* wyJSONValue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5248,16 +5198,6 @@
 			target = 922B063516A52D6900C782E6 /* libpvr */;
 			targetProxy = 922B066D16A52E2700C782E6 /* PBXContainerItemProxy */;
 		};
-		9233587A14CC48FA009E2DF9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9233581F14CC47B6009E2DF9 /* libyajl */;
-			targetProxy = 9233587914CC48FA009E2DF9 /* PBXContainerItemProxy */;
-		};
-		9233587C14CC4901009E2DF9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9233585A14CC484F009E2DF9 /* libjson */;
-			targetProxy = 9233587B14CC4901009E2DF9 /* PBXContainerItemProxy */;
-		};
 		9246F2D11378128900E10F5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 929E14B9137806BA001D4D90 /* libwinetwork */;
@@ -5272,6 +5212,11 @@
 			isa = PBXTargetDependency;
 			target = 9249A8DD13597E5F001B04A4 /* libchipmunk */;
 			targetProxy = 9249A9AE13597ED4001B04A4 /* PBXContainerItemProxy */;
+		};
+		9255CCE416C7AB6B00FBFA63 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9233581F14CC47B6009E2DF9 /* libyajl */;
+			targetProxy = 9255CCE316C7AB6B00FBFA63 /* PBXContainerItemProxy */;
 		};
 		92A656DB13A3A05000CCF7DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5395,27 +5340,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = yajl;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9233586414CC484F009E2DF9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				DSTROOT = /tmp/libjson.dst;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = json;
-			};
-			name = Debug;
-		};
-		9233586514CC484F009E2DF9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				DSTROOT = /tmp/libjson.dst;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = json;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -5849,15 +5773,6 @@
 			buildConfigurations = (
 				9233582914CC47B6009E2DF9 /* Debug */,
 				9233582A14CC47B6009E2DF9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9233586314CC484F009E2DF9 /* Build configuration list for PBXNativeTarget "libjson" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9233586414CC484F009E2DF9 /* Debug */,
-				9233586514CC484F009E2DF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

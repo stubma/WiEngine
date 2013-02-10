@@ -184,7 +184,6 @@
 				<exclude name="lua/binding/**"/>
 				<exclude name="openal/**"/>
 				<exclude name="vorbis/**"/>
-				<exclude name="json/**"/>
 				<exclude name="yajl/**"/>
 				<exclude name="iap/**"/>
 				<exclude name="sqlite3/**"/>
@@ -261,13 +260,6 @@
 			<arg value="-create"/>
 			<arg value="-output"/>
 			<arg value="${dist.libs.dir}/liblua.a"/>
-		</exec>
-		<exec executable="lipo">
-			<arg value="${device.build.dir}/libjson.a"/>
-			<arg value="${simulator.build.dir}/libjson.a"/>
-			<arg value="-create"/>
-			<arg value="-output"/>
-			<arg value="${dist.libs.dir}/libjson.a"/>
 		</exec>
         <exec executable="lipo">
 			<arg value="${device.build.dir}/libiap.a"/>
