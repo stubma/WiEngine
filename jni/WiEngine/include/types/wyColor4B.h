@@ -60,6 +60,10 @@ static inline wyColor4B wyc4bFromInteger(int argb) {
 	wyColor4B c = { (argb >> 16) & 0xff, (argb >> 8) & 0xff, argb & 0xff, (argb >> 24) & 0xff };
 	return c;
 }
+	
+static inline int wyc4bToInteger(wyColor4B c) {
+	return ((c.a << 24) & 0xff000000) | ((c.r << 16) & 0xff0000) | ((c.g << 8) & 0xff00) | (c.b & 0xff);
+}
 
 #ifdef __cplusplus
 }

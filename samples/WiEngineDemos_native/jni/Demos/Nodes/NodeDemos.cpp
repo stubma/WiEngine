@@ -2074,6 +2074,19 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
+class wySpineTestLayer : public wyLayer {
+public:
+	wySpineTestLayer() {
+		wySkeleton* skeleton = wySpineLoader::loadSkeleton("spine/example-skeleton.json", false);
+		skeleton->dump();
+	}
+
+	virtual ~wySpineTestLayer() {
+	}
+};
+
+///////////////////////////////////////////////////////////////////////////////
+
 class wyTiledSpriteTestLayer: public wyLayer {
 private:
 	wyTiledSprite* ts;
@@ -2709,6 +2722,7 @@ DEMO_ENTRY_IMPL(RenderTextureTest);
 DEMO_ENTRY_IMPL(SceneTest);
 DEMO_ENTRY_IMPL(ScrollableLayerTest);
 DEMO_ENTRY_IMPL(SliderTest);
+DEMO_ENTRY_IMPL(SpineTest);
 DEMO_ENTRY_IMPL(SpriteExBatchNodeTest);
 DEMO_ENTRY_IMPL(SpriteExSelfRenderTest);
 DEMO_ENTRY_IMPL(SpriteX2011Test);

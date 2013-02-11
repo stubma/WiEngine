@@ -46,6 +46,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/Demos \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/opengl \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/particle \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/persistence \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/skeletalanim \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/tmx \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/transitions \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/types \

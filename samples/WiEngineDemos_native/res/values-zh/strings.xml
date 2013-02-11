@@ -257,4 +257,5 @@
 	<string name="BigTMXTest_desc">测试渲染一个巨大TMX地图时的性能. 该demo使用的地图为500x25大小, 共12500个瓦片</string>
 	<string name="ToastTest_desc">如何使用wyToast类显示一个浮动提示, 其类似于Android上的Toast组件, 只不过是完全OpenGL实现的, 并具有更高的定制性</string>
 	<string name="RenderTextureTest_desc">用RenderTexture可以将多个渲染操作组合起来形成一张贴图, 这可以用于实现一些特殊效果, 比如聚光灯</string>
+	<string name="SpineTest_desc">Spine是一个骨骼动画设计工具, WiEngine支持载入它的导出文件, 通过wySkeletalSprite节点播放动画</string>
 </resources>

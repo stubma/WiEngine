@@ -351,4 +351,12 @@
 #include "wyJSONObject.h"
 #include "wyJSONArray.h"
 
+// skeletal animation
+#include "wyAttachment.h"
+#include "wyBone.h"
+#include "wySkeleton.h"
+#include "wySkinAttachment.h"
+#include "wySlot.h"
+#include "wySpineLoader.h"
+
 #endif // __WiEngine_h__

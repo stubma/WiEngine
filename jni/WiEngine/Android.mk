@@ -60,6 +60,7 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/WiEngine/include \
 	$(LOCAL_PATH)/WiEngine/include/opengl \
 	$(LOCAL_PATH)/WiEngine/include/particle \
 	$(LOCAL_PATH)/WiEngine/include/persistence \
+	$(LOCAL_PATH)/WiEngine/include/skeletalanim \
 	$(LOCAL_PATH)/WiEngine/include/tmx \
 	$(LOCAL_PATH)/WiEngine/include/transitions \
 	$(LOCAL_PATH)/WiEngine/include/types \

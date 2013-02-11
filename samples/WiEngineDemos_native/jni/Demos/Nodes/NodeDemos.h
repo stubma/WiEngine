@@ -38,6 +38,7 @@ DEMO_ENTRY(node, RenderTextureTest);
 DEMO_ENTRY(node, SceneTest);
 DEMO_ENTRY(node, ScrollableLayerTest);
 DEMO_ENTRY(node, SliderTest);
+DEMO_ENTRY(node, SpineTest);
 DEMO_ENTRY(node, SpriteExBatchNodeTest);
 DEMO_ENTRY(node, SpriteExSelfRenderTest);
 DEMO_ENTRY(node, SpriteX2011Test);

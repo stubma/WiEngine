@@ -261,6 +261,13 @@
 			</intent-filter>
 			<meta-data android:name="desc" android:resource="@string/SliderTest_desc"></meta-data>
 		</activity>
+		<activity android:name=".tests.node.SpineTest" android:label="Node/Spine">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/SpineTest_desc"></meta-data>
+		</activity>
 		<activity android:name=".tests.node.ToastTest" android:label="Node/Toast">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
