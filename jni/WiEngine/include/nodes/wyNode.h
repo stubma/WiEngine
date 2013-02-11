@@ -466,6 +466,11 @@ public:
 	 */
 	virtual void transformAncestors();
 
+	/**
+	 * perform transformation until to a node, the node is known as end node
+	 */
+	void transformAncestorsUntil(wyNode* endNode);
+
     /**
      * \if English
      * Invoked when node will become active. Active means related scene is running.

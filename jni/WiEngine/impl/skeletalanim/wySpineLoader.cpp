@@ -49,7 +49,11 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 		wyBone* parent = parentKey == NULL ? NULL : skeleton->getBone(parentKey);
 
 		// create this bone
-		wyBone* bone = wyBone::make(parent);
+		wyBone* bone = wyBone::make();
+		
+		// add to parent
+		if(parent)
+			parent->addChild(bone);
 
 		// set other property
 		bone->setName(key);
@@ -309,19 +313,23 @@ wySkeleton* wySpineLoader::loadSkeleton(int resId) {
 	float scale;
 	char* data = wyUtils::loadRaw(resId, NULL, &scale);
 	wyFree(data);
-	return loadSkeleton(wyJSONObject::make(resId), scale);
+	wySkeleton* skeleton = loadSkeleton(wyJSONObject::make(resId), scale);
+	skeleton->setSource(wySkeleton::RESOURCE);
+	return skeleton;
 }
 
 wySkeleton* wySpineLoader::loadSkeleton(const char* path, bool isFile) {
-	return loadSkeleton(wyJSONObject::make(path, isFile), wyDevice::density / wyDevice::defaultInDensity);
-}
-
-wySkeleton* wySpineLoader::loadSkeleton(const char* raw, size_t length) {
-	return loadSkeleton(wyJSONObject::make(raw, length), wyDevice::density / wyDevice::defaultInDensity);
+	wySkeleton* skeleton = loadSkeleton(wyJSONObject::make(path, isFile), wyDevice::density / wyDevice::defaultInDensity);
+	skeleton->setSource(isFile ? wySkeleton::FILE_SYSTEM : wySkeleton::ASSETS);
+	skeleton->setPath(path);
+	return skeleton;
 }
 
 wySkeleton* wySpineLoader::loadMemorySkeleton(const char* mfsName) {
-	return loadSkeleton(wyJSONObject::make(mfsName), wyDevice::density / wyDevice::defaultInDensity);
+	wySkeleton* skeleton = loadSkeleton(wyJSONObject::make(mfsName), wyDevice::density / wyDevice::defaultInDensity);
+	skeleton->setSource(wySkeleton::MEMORY_FILE_SYSTEM);
+	skeleton->setPath(mfsName);
+	return skeleton;
 }
 
 wySkeletalAnimation* wySpineLoader::loadAnimation(int resId) {
@@ -333,10 +341,6 @@ wySkeletalAnimation* wySpineLoader::loadAnimation(int resId) {
 
 wySkeletalAnimation* wySpineLoader::loadAnimation(const char* path, bool isFile) {
 	return loadAnimation(wyJSONObject::make(path, isFile), wyDevice::density / wyDevice::defaultInDensity);
-}
-
-wySkeletalAnimation* wySpineLoader::loadAnimation(const char* raw, size_t length) {
-	return loadAnimation(wyJSONObject::make(raw, length), wyDevice::density / wyDevice::defaultInDensity);
 }
 
 wySkeletalAnimation* wySpineLoader::loadMemoryAnimation(const char* mfsName) {

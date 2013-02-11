@@ -2077,14 +2077,19 @@ public:
 class wySpineTestLayer : public wyLayer {
 public:
 	wySpineTestLayer() {
-		// load skeleton and dump info
+		// load skeleton
 		wySkeleton* skeleton = wySpineLoader::loadSkeleton("spine/example-skeleton.json", false);
-		skeleton->dump();
 		
-		// load animation and dump info
+		// load animation
 		wySkeletalAnimation* anim = wySpineLoader::loadAnimation("spine/example-animation.json", false);
 		wySkeletalAnimationCache::getInstance()->addAnimation("jump", anim);
-		anim->dump();
+		
+		// create skeletal sprite and play animation
+		wySkeletalSprite* sprite = wySkeletalSprite::make(skeleton);
+		sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 5);
+		addChildLocked(sprite);
+		sprite->playAnimation("jump");
+		sprite->setLoopCount(-1);
 	}
 
 	virtual ~wySpineTestLayer() {

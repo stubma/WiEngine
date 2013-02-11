@@ -149,6 +149,7 @@
 		9234527D142A29B900C56838 /* b2RopeJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92345219142A29B900C56838 /* b2RopeJoint.cpp */; };
 		9234527F142A29B900C56838 /* b2WeldJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9234521B142A29B900C56838 /* b2WeldJoint.cpp */; };
 		92345281142A29B900C56838 /* b2WheelJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9234521D142A29B900C56838 /* b2WheelJoint.cpp */; };
+		9236F88616C8E75500FB35B0 /* wySkeletalSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9236F88416C8E75500FB35B0 /* wySkeletalSprite.cpp */; };
 		923F6EC513A3AB34007F6915 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 923F6E6413A3AB34007F6915 /* lapi.c */; };
 		923F6EC713A3AB34007F6915 /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 923F6E6613A3AB34007F6915 /* lauxlib.c */; };
 		923F6EC913A3AB34007F6915 /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = 923F6E6813A3AB34007F6915 /* lbaselib.c */; };
@@ -1010,6 +1011,8 @@
 		9234521C142A29B900C56838 /* b2WeldJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2WeldJoint.h; sourceTree = "<group>"; };
 		9234521D142A29B900C56838 /* b2WheelJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2WheelJoint.cpp; sourceTree = "<group>"; };
 		9234521E142A29B900C56838 /* b2WheelJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2WheelJoint.h; sourceTree = "<group>"; };
+		9236F88416C8E75500FB35B0 /* wySkeletalSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wySkeletalSprite.cpp; path = ../jni/WiEngine/impl/skeletalanim/wySkeletalSprite.cpp; sourceTree = "<group>"; };
+		9236F88816C8E76400FB35B0 /* wySkeletalSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySkeletalSprite.h; path = ../jni/WiEngine/include/skeletalanim/wySkeletalSprite.h; sourceTree = "<group>"; };
 		923F6E6413A3AB34007F6915 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
 		923F6E6513A3AB34007F6915 /* lapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lapi.h; sourceTree = "<group>"; };
 		923F6E6613A3AB34007F6915 /* lauxlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lauxlib.c; sourceTree = "<group>"; };
@@ -3949,6 +3952,8 @@
 				9287EA9D16C8B12600C1D0A3 /* wySkeletalAnimationCache.cpp */,
 				9287EAA416C8B4B400C1D0A3 /* wyBoneTransform.h */,
 				9287EAA116C8B49A00C1D0A3 /* wyBoneTransform.cpp */,
+				9236F88816C8E76400FB35B0 /* wySkeletalSprite.h */,
+				9236F88416C8E75500FB35B0 /* wySkeletalSprite.cpp */,
 			);
 			name = skeletalanim;
 			sourceTree = "<group>";
@@ -4909,6 +4914,7 @@
 				9287EA9C16C89E2D00C1D0A3 /* wySkeletalAnimation.cpp in Sources */,
 				9287EA9F16C8B12600C1D0A3 /* wySkeletalAnimationCache.cpp in Sources */,
 				9287EAA316C8B49B00C1D0A3 /* wyBoneTransform.cpp in Sources */,
+				9236F88616C8E75500FB35B0 /* wySkeletalSprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

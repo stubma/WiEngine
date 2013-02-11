@@ -29,36 +29,59 @@
 #ifndef __wyBone_h__
 #define __wyBone_h__
 
-#include "wyObject.h"
+#include "wyNode.h"
 
 /**
  * bone
  */
 class WIENGINE_API wyBone : public wyObject {
+public:
+	typedef vector<wyBone*> BonePtrList;
+	
+private:
+	/// bone transform state
+	struct State {
+		/// x offset
+		float x;
+		
+		/// y offset
+		float y;
+		
+		/// rotation in degree, positive value means counter-clockwise, x axis is zero degree
+		float rotation;
+		
+		/// x scale
+		float scaleX;
+		
+		/// y scale
+		float scaleY;
+	};
+	
 private:
 	/// parent bone
 	wyBone* m_parent;
 
 	/// bone length
 	float m_length;
-
-	/// x offset
-	float m_x;
-
-	/// y offset
-	float m_y;
-
-	/// rotation in degree, positive value means counter-clockwise, x axis is zero degree
-	float m_rotation;
-
-	/// x scale
-	float m_scaleX;
-
-	/// y scale
-	float m_scaleY;
+	
+	/// current state
+	State m_curState;
+	
+	/// state stack
+	typedef vector<State> StateList;
+	StateList m_stateStack;
+	
+	/// child bones
+	BonePtrList m_children;
+	
+	/// related node
+	wyNode* m_node;
 
 protected:
-	wyBone(wyBone* parent);
+	wyBone();
+	
+	/// set parent
+	void setParent(wyBone* parent) { m_parent = parent; }
 
 public:
 	virtual ~wyBone();
@@ -68,7 +91,25 @@ public:
 	 *
 	 * @param parent parent bone, or NULL if no parent
 	 */
-	static wyBone* make(wyBone* parent = NULL);
+	static wyBone* make();
+	
+	/// add child bone
+	void addChild(wyBone* bone);
+	
+	/// save transform state
+	void pushSnapshot();
+	
+	/// restore top snapshot
+	void popSnapshot();
+	
+	/// set bone node
+	void setNode(wyNode* node) { m_node = node; }
+	
+	/// get related node
+	wyNode* getNode() { return m_node; }
+	
+	/// get children bone list
+	BonePtrList& getChildren() { return m_children; }
 
 	/// get parent bone
 	wyBone* getParent() { return m_parent; }
@@ -80,34 +121,34 @@ public:
 	float getLength() { return m_length; }
 
 	/// set x offset
-	void setX(float x) { m_x = x; }
+	void setX(float x) { m_curState.x = x; }
 
 	/// get x offset
-	float getX() { return m_x; }
+	float getX() { return m_curState.x; }
 
 	/// set y offset
-	void setY(float y) { m_y = y; }
+	void setY(float y) { m_curState.y = y; }
 
 	/// get y offset
-	float getY() { return m_y; }
+	float getY() { return m_curState.y; }
 
 	/// set rotation
-	void setRotation(float r) { m_rotation = r; }
+	void setRotation(float r) { m_curState.rotation = r; }
 
 	/// get rotation
-	float getRotation() { return m_rotation; }
+	float getRotation() { return m_curState.rotation; }
 
 	/// set x scale
-	void setScaleX(float x) { m_scaleX = x; }
+	void setScaleX(float x) { m_curState.scaleX = x; }
 
 	/// get x scale
-	float getScaleX() { return m_scaleX; }
+	float getScaleX() { return m_curState.scaleX; }
 
 	/// set y scale
-	void setScaleY(float y) { m_scaleY = y; }
+	void setScaleY(float y) { m_curState.scaleY = y; }
 
 	/// get y scale
-	float getScaleY() { return m_scaleY; }
+	float getScaleY() { return m_curState.scaleY; }
 };
 
 #endif // __wyBone_h__

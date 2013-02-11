@@ -77,15 +77,6 @@ public:
 	static wySkeleton* loadSkeleton(const char* path, bool isFile = false);
 
 	/**
-	 * load a spine skeleton model from raw data
-	 *
-	 * @param raw raw data of skeleton file
-	 * @param length byte length of \c raw
-	 * @return \link wySkeleton wySkeleton\endlink
-	 */
-	static wySkeleton* loadSkeleton(const char* raw, size_t length);
-
-	/**
 	 * load a spine skeleton model from memory file
 	 *
 	 * @param mfsName memory file name
@@ -110,15 +101,6 @@ public:
 	 * @return \link wySkeletalAnimation wySkeletalAnimation\endlink
 	 */
 	static wySkeletalAnimation* loadAnimation(const char* path, bool isFile = false);
-	
-	/**
-	 * load a spine skeletal animation from raw data
-	 *
-	 * @param raw raw data of skeleton file
-	 * @param length byte length of \c raw
-	 * @return \link wySkeletalAnimation wySkeletalAnimation\endlink
-	 */
-	static wySkeletalAnimation* loadAnimation(const char* raw, size_t length);
 	
 	/**
 	 * load a spine skeletal animation from memory file

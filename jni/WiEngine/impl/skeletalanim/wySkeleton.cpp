@@ -29,10 +29,15 @@
 #include "wySkeleton.h"
 #include "wyLog.h"
 
-wySkeleton::wySkeleton() {
+wySkeleton::wySkeleton() :
+		m_source(RESOURCE),
+		m_path(NULL) {
 }
 
 wySkeleton::~wySkeleton() {
+	if(m_path) {
+		wyFree((void*)m_path);
+	}
 	for(BoneMap::iterator iter = m_boneMap.begin(); iter != m_boneMap.end(); iter++) {
 		wyObjectRelease(iter->second);
 	}
@@ -58,8 +63,17 @@ void wySkeleton::addSlot(wySlot* slot) {
 	SlotMap::iterator iter = m_slotMap.find(slot->getName());
 	if(iter == m_slotMap.end()) {
 		m_slotMap[slot->getName()] = slot;
+		m_slotDisplayList.push_back(slot);
 		wyObjectRetain(slot);
 	}
+}
+
+wyBone* wySkeleton::getRootBone() {
+	for(BoneMap::iterator iter = m_boneMap.begin(); iter != m_boneMap.end(); iter++) {
+		if(!iter->second->getParent())
+			return iter->second;
+	}
+	return NULL;
 }
 
 wyBone* wySkeleton::getBone(const char* name) {
@@ -78,6 +92,14 @@ wySlot* wySkeleton::getSlot(const char* name) {
 	} else {
 		return NULL;
 	}
+}
+
+void wySkeleton::setPath(const char* path) {
+	if(m_path) {
+		wyFree((void*)m_path);
+		m_path = NULL;
+	}
+	m_path = wyUtils::copy(path);
 }
 
 void wySkeleton::dump() {

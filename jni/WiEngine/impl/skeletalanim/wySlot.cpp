@@ -34,7 +34,8 @@
 wySlot::wySlot(wyBone* bone) :
 		m_bone(bone),
 		m_color(wyc4bWhite),
-		m_activeSkinAttachmentName(NULL) {
+		m_activeSkinAttachmentName(NULL),
+		m_sprite(NULL) {
 	wyObjectRetain(m_bone);
 }
 

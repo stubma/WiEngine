@@ -37,6 +37,18 @@
  * general skeleton model
  */
 class WIENGINE_API wySkeleton : public wyObject {
+public:
+	/// where the skeleton is loaded from
+	enum Source {
+		RESOURCE,
+		ASSETS,
+		FILE_SYSTEM,
+		MEMORY_FILE_SYSTEM
+	};
+	
+	/// slot list type
+	typedef vector<wySlot*> SlotPtrList;
+	
 private:
 	/// bone map
 	typedef map<const char*, wyBone*, wyStrPredicate> BoneMap;
@@ -47,8 +59,13 @@ private:
 	SlotMap m_slotMap;
 
 	/// slot display list
-	typedef vector<wySlot*> SlotList;
-	SlotList m_slotDisplayList;
+	SlotPtrList m_slotDisplayList;
+	
+	/// source to load related resource
+	Source m_source;
+	
+	/// path of skeleton file, used when source is not resource
+	const char* m_path;
 
 protected:
 	wySkeleton();
@@ -62,12 +79,30 @@ public:
 
 	/// add a slot, do nothing if slot with same name is existent
 	void addSlot(wySlot* slot);
+	
+	/// get root bone
+	wyBone* getRootBone();
 
 	/// get bone by name
 	wyBone* getBone(const char* name);
 
 	/// get slot by name
 	wySlot* getSlot(const char* name);
+	
+	/// get slot display list
+	SlotPtrList& getSlotDisplaySlot() { return m_slotDisplayList; }
+	
+	/// set source
+	void setSource(Source s) { m_source = s; }
+	
+	/// get source
+	Source getSource() { return m_source; }
+	
+	/// set path
+	void setPath(const char* path);
+	
+	/// get path, caller should NOT release it
+	const char* getPath() { return m_path; }
 
 	/// dump info, for debug
 	void dump();

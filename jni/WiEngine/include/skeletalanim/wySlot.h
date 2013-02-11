@@ -53,6 +53,9 @@ private:
 
 	/// active skin attachment name
 	const char* m_activeSkinAttachmentName;
+	
+	/// related sprite
+	wySpriteEx* m_sprite;
 
 protected:
 	wySlot(wyBone* bone);
@@ -66,6 +69,12 @@ public:
 	 * @param parent parent bone, or NULL if no parent
 	 */
 	static wySlot* make(wyBone* bone);
+	
+	/// set sprite
+	void setSprite(wySpriteEx* sprite) { m_sprite = sprite; }
+	
+	/// get sprite
+	wySpriteEx* getSprite() { return m_sprite; }
 
 	/// get bone
 	wyBone* getBone() { return m_bone; }

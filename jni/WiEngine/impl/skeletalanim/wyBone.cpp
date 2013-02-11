@@ -29,22 +29,38 @@
 #include "wyBone.h"
 #include "wyLog.h"
 
-wyBone::wyBone(wyBone* parent) :
-		m_parent(parent),
-		m_length(0),
-		m_x(0),
-		m_y(0),
-		m_rotation(0),
-		m_scaleX(1),
-		m_scaleY(1) {
-	wyObjectRetain(parent);
+wyBone::wyBone() :
+		m_parent(NULL),
+		m_length(0) {
+	m_curState.x = 0;
+	m_curState.y = 0;
+	m_curState.rotation = 0;
+	m_curState.scaleX = 1;
+	m_curState.scaleY = 1;
 }
 
 wyBone::~wyBone() {
-	wyObjectRelease(m_parent);
+	for(BonePtrList::iterator iter = m_children.begin(); iter != m_children.end(); iter++) {
+		wyObjectRelease(*iter);
+	}
 }
 
-wyBone* wyBone::make(wyBone* parent) {
-	wyBone* b = WYNEW wyBone(parent);
+wyBone* wyBone::make() {
+	wyBone* b = WYNEW wyBone();
 	return (wyBone*)b->autoRelease();
+}
+
+void wyBone::pushSnapshot() {
+	m_stateStack.push_back(m_curState);
+}
+
+void wyBone::popSnapshot() {
+	m_curState = m_stateStack.back();
+	m_stateStack.pop_back();
+}
+
+void wyBone::addChild(wyBone* bone) {
+	m_children.push_back(bone);
+	wyObjectRetain(bone);
+	bone->setParent(this);
 }

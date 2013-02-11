@@ -447,6 +447,13 @@ void wyNode::transformAncestors() {
 	}
 }
 
+void wyNode::transformAncestorsUntil(wyNode* endNode) {
+	if(m_parent && m_parent != endNode) {
+		m_parent->transformAncestorsUntil(endNode);
+		m_parent->transform();
+	}
+}
+
 void wyNode::doClip() {
 	// get clip rect relative to base size
 	wyRect r = m_clipRect;

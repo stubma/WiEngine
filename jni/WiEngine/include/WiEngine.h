@@ -357,6 +357,7 @@
 #include "wyBoneTransform.h"
 #include "wySkeletalAnimation.h"
 #include "wySkeletalAnimationCache.h"
+#include "wySkeletalSprite.h"
 #include "wySkeleton.h"
 #include "wySkinAttachment.h"
 #include "wySlot.h"
