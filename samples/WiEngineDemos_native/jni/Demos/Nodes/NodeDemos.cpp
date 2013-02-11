@@ -2075,6 +2075,9 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 class wySpineTestLayer : public wyLayer {
+private:
+	wySkeletalSprite* mSk1;
+	
 public:
 	wySpineTestLayer() {
 		// load skeleton
@@ -2085,14 +2088,22 @@ public:
 		wySkeletalAnimationCache::getInstance()->addAnimation("jump", anim);
 		
 		// create skeletal sprite and play animation
-		wySkeletalSprite* sprite = wySkeletalSprite::make(skeleton);
-		sprite->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 5);
-		addChildLocked(sprite);
-		sprite->playAnimation("jump");
-		sprite->setLoopCount(-1);
+		mSk1 = wySkeletalSprite::make(skeleton);
+		mSk1->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 5);
+		addChildLocked(mSk1);
+		mSk1->playAnimation("jump");
+		mSk1->setLoopCount(-1);
+		
+		// start to update
+		wyTimer* timer = wyTimer::make(wyTargetSelector::make(this, SEL(wySpineTestLayer::onUpdateSprite)));
+		scheduleLocked(timer);
 	}
 
 	virtual ~wySpineTestLayer() {
+	}
+	
+	void onUpdateSprite(wyTargetSelector* ts) {
+		mSk1->tick(ts->getDelta());
 	}
 };
 

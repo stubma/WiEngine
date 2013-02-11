@@ -55,8 +55,10 @@ void wyBone::pushSnapshot() {
 }
 
 void wyBone::popSnapshot() {
-	m_curState = m_stateStack.back();
-	m_stateStack.pop_back();
+	if(!m_stateStack.empty()) {
+		m_curState = m_stateStack.back();
+		m_stateStack.pop_back();
+	}
 }
 
 void wyBone::addChild(wyBone* bone) {

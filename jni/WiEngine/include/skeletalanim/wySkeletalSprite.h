@@ -54,6 +54,12 @@ private:
 	/// root bone
 	wyBone* m_rootBone;
 	
+	/// current animation time
+	float m_frameTime;
+	
+	/// animation if paused?
+	bool m_paused;
+	
 protected:
 	wySkeletalSprite();
 	
@@ -78,10 +84,10 @@ protected:
 	void createSlotSprites();
 	
 	/// save original bone info
-	void saveOriginalBoneInfo(wyBone* bone);
+	void saveBoneInfo(wyBone* bone);
 	
 	/// restore to original bone state
-	void restoreOriginalBoneInfo(wyBone* bone);
+	void restoreBoneInfo(wyBone* bone);
 	
 	/// sync bone state to bone node
 	void syncBoneStates(wyBone* bone);
@@ -105,6 +111,9 @@ public:
 	
 	/// stop any animation which is ongoing
 	void stopAnimation();
+	
+	/// tick animation
+	void tick(float delta);
 	
 	/// set skeleton, this will stop current animation if any
 	void setSkeleton(wySkeleton* s);

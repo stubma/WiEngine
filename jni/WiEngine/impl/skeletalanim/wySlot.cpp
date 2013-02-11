@@ -30,6 +30,7 @@
 #include "wyBone.h"
 #include "wyUtils.h"
 #include "wySkinAttachment.h"
+#include "wySpriteEx.h"
 
 wySlot::wySlot(wyBone* bone) :
 		m_bone(bone),

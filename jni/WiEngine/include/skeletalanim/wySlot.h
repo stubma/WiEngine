@@ -35,6 +35,7 @@
 
 class wyBone;
 class wySkinAttachment;
+class wySpriteEx;
 
 /**
  * slot act as a container for something, and a slot is bound with a bone.

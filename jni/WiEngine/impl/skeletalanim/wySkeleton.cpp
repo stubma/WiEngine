@@ -28,6 +28,7 @@
  */
 #include "wySkeleton.h"
 #include "wyLog.h"
+#include "wyUtils.h"
 
 wySkeleton::wySkeleton() :
 		m_source(RESOURCE),
@@ -77,6 +78,9 @@ wyBone* wySkeleton::getRootBone() {
 }
 
 wyBone* wySkeleton::getBone(const char* name) {
+	if(!name)
+	   return NULL;
+	
 	BoneMap::iterator iter = m_boneMap.find(name);
 	if(iter != m_boneMap.end()) {
 		return iter->second;
@@ -86,6 +90,9 @@ wyBone* wySkeleton::getBone(const char* name) {
 }
 
 wySlot* wySkeleton::getSlot(const char* name) {
+	if(!name)
+		return NULL;
+	
 	SlotMap::iterator iter = m_slotMap.find(name);
 	if(iter != m_slotMap.end()) {
 		return iter->second;

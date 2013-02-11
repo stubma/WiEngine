@@ -29,13 +29,18 @@
 #include "wySkeletalSprite.h"
 #include "wySkeletalAnimationCache.h"
 #include "wyDirector.h"
+#include "wySkinAttachment.h"
+#include "wyUtils.h"
+#include "wyLog.h"
 
 extern wyDirector* gDirector;
 
 wySkeletalSprite::wySkeletalSprite() :
 		m_skeleton(NULL),
 		m_animation(NULL),
-		m_loop(0) {
+		m_loop(0),
+		m_paused(false),
+		m_rootBone(NULL) {
 }
 
 wySkeletalSprite::~wySkeletalSprite() {
@@ -52,6 +57,10 @@ wySkeletalSprite* wySkeletalSprite::make(wySkeleton* s) {
 void wySkeletalSprite::visit() {
 	if(!m_visible)
 		return;
+	
+	// sync bone state
+	if(m_rootBone)
+		syncBoneStates(m_rootBone);
 	
 	// should push matrix to avoid disturb current matrix
 	glPushMatrix();
@@ -104,7 +113,15 @@ void wySkeletalSprite::visit() {
 }
 
 void wySkeletalSprite::stopAnimation() {
+	// clear animation
+	wyObjectRelease(m_animation);
+	m_animation = NULL;
 	
+	// restore original state
+	if(m_rootBone) {
+		restoreBoneInfo(m_rootBone);
+		syncBoneStates(m_rootBone);
+	}
 }
 
 void wySkeletalSprite::playAnimation(wySkeletalAnimation* anim) {
@@ -115,6 +132,9 @@ void wySkeletalSprite::playAnimation(wySkeletalAnimation* anim) {
 	wyObjectRetain(anim);
 	wyObjectRelease(m_animation);
 	m_animation = anim;
+	
+	// save original frame info
+	saveBoneInfo(m_rootBone);
 	
 	// init for first frame
 	setupFirstFrameState();
@@ -128,12 +148,65 @@ void wySkeletalSprite::playAnimation(const char* animName) {
 }
 
 void wySkeletalSprite::setupFirstFrameState() {
+	// reset time to zero
+	m_frameTime = 0;
+	
+	// reset flag
+	m_paused = false;
+	
 	// set animation to the very beginning
-	setFrame(0);
+	setFrame(m_frameTime);
+}
+
+void wySkeletalSprite::tick(float delta) {
+	// is paused?
+	if(m_paused)
+		return;
+	
+	// basic checking
+	if(!m_animation)
+		return;
+	
+	// set frame
+	m_frameTime += delta;
+	if(m_frameTime > m_animation->getDuration()) {
+		m_frameTime = fmod(m_frameTime, m_animation->getDuration());
+	}
+	
+	// update frame state
+	setFrame(m_frameTime);
 }
 
 void wySkeletalSprite::setFrame(float time) {
+	// basic checking
+	if(!m_animation || !m_skeleton)
+		return;
 	
+	wySkeletalAnimation::BoneTransformPtrList& btList = m_animation->getBoneTransformList();
+	for(wySkeletalAnimation::BoneTransformPtrList::iterator iter = btList.begin(); iter != btList.end(); iter++) {
+		// try to get bone, if can't, continue
+		wyBoneTransform* bt = *iter;
+		wyBone* bone = m_skeleton->getBone(bt->getBoneName());
+		if(!bone)
+			continue;
+		
+		// calculate info
+		bt->populateFrame(time);
+		
+		// set rotation
+		wyBoneTransform::RotationKeyFrame& rkf = bt->getRotationFrame();
+		bone->setRotation(rkf.angle);
+		
+		// set translation
+		wyBoneTransform::TranslationKeyFrame& tkf = bt->getTranslationFrame();
+		bone->setX(tkf.x);
+		bone->setY(tkf.y);
+		
+		// set scale
+		wyBoneTransform::ScaleKeyFrame& skf = bt->getScaleFrame();
+		bone->setScaleX(skf.scaleX);
+		bone->setScaleY(skf.scaleY);
+	}
 }
 
 void wySkeletalSprite::setSkeleton(wySkeleton* s) {
@@ -154,9 +227,6 @@ void wySkeletalSprite::setSkeleton(wySkeleton* s) {
 	
 	// re-create slot sprite
 	createSlotSprites();
-	
-	// save original frame info
-	saveOriginalBoneInfo(m_rootBone);
 	
 	// sync states
 	syncBoneStates(m_rootBone);
@@ -193,21 +263,21 @@ void wySkeletalSprite::syncSkinAttachmentStates() {
 	}
 }
 
-void wySkeletalSprite::saveOriginalBoneInfo(wyBone* bone) {
+void wySkeletalSprite::saveBoneInfo(wyBone* bone) {
 	bone->pushSnapshot();
 	
 	wyBone::BonePtrList& children = bone->getChildren();
 	for(wyBone::BonePtrList::iterator iter = children.begin(); iter != children.end(); iter++) {
-		saveOriginalBoneInfo(*iter);
+		saveBoneInfo(*iter);
 	}
 }
 
-void wySkeletalSprite::restoreOriginalBoneInfo(wyBone* bone) {
+void wySkeletalSprite::restoreBoneInfo(wyBone* bone) {
 	bone->popSnapshot();
 	
 	wyBone::BonePtrList& children = bone->getChildren();
 	for(wyBone::BonePtrList::iterator iter = children.begin(); iter != children.end(); iter++) {
-		restoreOriginalBoneInfo(*iter);
+		restoreBoneInfo(*iter);
 	}
 }
 

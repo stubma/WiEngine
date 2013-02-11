@@ -32,14 +32,24 @@
 #include "wyObject.h"
 #include "wyBoneTransform.h"
 
+class wySpineLoader;
+
 /**
  * general model of skeletal animation
  */
 class WIENGINE_API wySkeletalAnimation : public wyObject {
+	friend class wySpineLoader;
+	
+public:
+	/// bone transform list
+	typedef vector<wyBoneTransform*> BoneTransformPtrList;
+	
 private:
 	/// list of bone transform
-	typedef vector<wyBoneTransform*> BoneTransformList;
-	BoneTransformList m_btList;
+	BoneTransformPtrList m_btList;
+	
+	/// duration time of this animation
+	float m_duration;
 	
 protected:
 	wySkeletalAnimation();
@@ -50,6 +60,12 @@ public:
 	
 	/// add bone transform
 	void addBoneTransform(wyBoneTransform* bt);
+	
+	/// get list of bone transform
+	BoneTransformPtrList& getBoneTransformList() { return m_btList; }
+	
+	/// get duration time
+	float getDuration() { return m_duration; }
 	
 	/// dump info, for debug purpose
 	void dump();

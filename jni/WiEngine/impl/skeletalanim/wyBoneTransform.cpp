@@ -36,6 +36,7 @@ wyBoneTransform::wyBoneTransform() :
 
 wyBoneTransform::~wyBoneTransform() {
 	for(SlotSkinKeyFrameList::iterator iter = m_sskfList.begin(); iter != m_sskfList.end(); iter++) {
+		wyFree((void*)iter->slotName);
 		wyFree((void*)iter->skinName);
 	}
 }
@@ -71,6 +72,143 @@ void wyBoneTransform::addSlotSkinKeyFrame(SlotSkinKeyFrame kf) {
 
 void wyBoneTransform::addSlotColorKeyFrame(SlotColorKeyFrame kf) {
 	m_sckfList.push_back(kf);
+}
+
+void wyBoneTransform::populateFrame(float time) {
+	// process rotation frame
+	{
+		// set time to current time
+		m_currentRotation.time = time;
+		
+		// if empty, just set to zero
+		// if not, found key frame, do interpolation if needed
+		if(m_rkfList.empty()) {
+			m_currentRotation.angle = 0;
+		} else {
+			RotationKeyFrameList::iterator iter = m_rkfList.begin();
+			for(; iter != m_rkfList.end(); iter++) {
+				RotationKeyFrame& kf = *iter;
+				if(time < kf.time) {
+					if(iter == m_rkfList.begin()) {
+						m_currentRotation.angle = kf.angle;
+					} else {
+						RotationKeyFrame& prevKf = *(iter - 1);
+						wyPoint t = getInterpolationTime(prevKf.time, kf.time, time, prevKf.interpolator);
+						m_currentRotation.angle = t.x * (kf.angle - prevKf.angle) + prevKf.angle;
+					}
+					break;
+				} else if(time == kf.time) {
+					m_currentRotation = kf;
+					break;
+				}
+			}
+			
+			// if exceed last one
+			if(iter == m_rkfList.end()) {
+				m_currentRotation.angle = m_rkfList.rbegin()->angle;
+			}
+		}
+	}
+	
+	// process translation
+	{
+		// set time to current time
+		m_currentTranslation.time = time;
+		
+		// if empty, just set to zero
+		// if not, found key frame, do interpolation if needed
+		if(m_tkfList.empty()) {
+			m_currentTranslation.x = 0;
+			m_currentTranslation.y = 0;
+		} else {
+			TranslationKeyFrameList::iterator iter = m_tkfList.begin();
+			for(; iter != m_tkfList.end(); iter++) {
+				TranslationKeyFrame& kf = *iter;
+				if(time < kf.time) {
+					if(iter == m_tkfList.begin()) {
+						m_currentTranslation.x = kf.x;
+						m_currentTranslation.y = kf.y;
+					} else {
+						TranslationKeyFrame& prevKf = *(iter - 1);
+						wyPoint t = getInterpolationTime(prevKf.time, kf.time, time, prevKf.interpolator);
+						m_currentTranslation.x = t.x * (kf.x - prevKf.x) + prevKf.x;
+						m_currentTranslation.y = t.y * (kf.y - prevKf.y) + prevKf.y;
+					}
+					break;
+				} else if(time == kf.time) {
+					m_currentTranslation = kf;
+					break;
+				}
+			}
+			
+			// if exceed last one
+			if(iter == m_tkfList.end()) {
+				TranslationKeyFrame& kf = *m_tkfList.rbegin();
+				m_currentTranslation.x = kf.x;
+				m_currentTranslation.y = kf.y;
+			}
+		}
+	}
+	
+	// process scale
+	{
+		// set time to current time
+		m_currentScale.time = time;
+		
+		// if empty, just set to zero
+		// if not, found key frame, do interpolation if needed
+		if(m_skfList.empty()) {
+			m_currentScale.scaleX = 1;
+			m_currentScale.scaleY = 1;
+		} else {
+			ScaleKeyFrameList::iterator iter = m_skfList.begin();
+			for(; iter != m_skfList.end(); iter++) {
+				ScaleKeyFrame& kf = *iter;
+				if(time < kf.time) {
+					if(iter == m_skfList.begin()) {
+						m_currentScale.scaleX = kf.scaleX;
+						m_currentScale.scaleY = kf.scaleY;
+					} else {
+						ScaleKeyFrame& prevKf = *(iter - 1);
+						wyPoint t = getInterpolationTime(prevKf.time, kf.time, time, prevKf.interpolator);
+						m_currentScale.scaleX = t.x * (kf.scaleX - prevKf.scaleX) + prevKf.scaleX;
+						m_currentScale.scaleY = t.y * (kf.scaleY - prevKf.scaleY) + prevKf.scaleY;
+					}
+					break;
+				} else if(time == kf.time) {
+					m_currentScale = kf;
+					break;
+				}
+			}
+			
+			// if exceed last one
+			if(iter == m_skfList.end()) {
+				ScaleKeyFrame& kf = *m_skfList.rbegin();
+				m_currentScale.scaleX = kf.scaleX;
+				m_currentScale.scaleY = kf.scaleY;
+			}
+		}
+	}
+}
+
+wyPoint wyBoneTransform::getInterpolationTime(float startTime, float endTime, float curTime, Interpolator& interpolator) {
+	switch(interpolator.type) {
+		case LINEAR:
+		{
+			float t = (curTime - startTime) / (endTime - startTime);
+			return wyp(t, t);
+		}
+		case BEZIER:
+		{
+			wyBezierConfig bc = wybcCubic(0, 0, 1, 1, interpolator.cp1X, interpolator.cp1Y, interpolator.cp2X, interpolator.cp2Y);
+			float t = (curTime - startTime) / (endTime - startTime);
+			return wybcPointAt(bc, t);
+		}
+		case STEP:
+			return curTime >= endTime ? wyp(1, 1) : wypZero;
+		default:
+			return wypZero;
+	}
 }
 
 void wyBoneTransform::dump() {

@@ -29,11 +29,12 @@
 #include "wySkeletalAnimation.h"
 #include "wyLog.h"
 
-wySkeletalAnimation::wySkeletalAnimation() {
+wySkeletalAnimation::wySkeletalAnimation() :
+		m_duration(0) {
 }
 
 wySkeletalAnimation::~wySkeletalAnimation() {
-	for(BoneTransformList::iterator iter = m_btList.begin(); iter != m_btList.end(); iter++) {
+	for(BoneTransformPtrList::iterator iter = m_btList.begin(); iter != m_btList.end(); iter++) {
 		wyObjectRelease(*iter);
 	}
 }
@@ -53,7 +54,7 @@ void wySkeletalAnimation::dump() {
 		 getName() ? getName() : "null",
 		 m_btList.size());
 	
-	for(BoneTransformList::iterator iter = m_btList.begin(); iter != m_btList.end(); iter++) {
+	for(BoneTransformPtrList::iterator iter = m_btList.begin(); iter != m_btList.end(); iter++) {
 		(*iter)->dump();
 	}
 }

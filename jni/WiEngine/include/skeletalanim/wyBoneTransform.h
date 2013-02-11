@@ -30,6 +30,7 @@
 #define __wyBoneTransform_h__
 
 #include "wyObject.h"
+#include "wyTypes.h"
 
 /**
  * transform of bone, it records key frames of one bone
@@ -97,6 +98,9 @@ public:
 	
 	/// key frame of slot skin attachment
 	struct SlotSkinKeyFrame : public KeyFrame {
+		/// slot name
+		const char* slotName;
+		
 		/// skin attachment name
 		const char* skinName;
 	};
@@ -108,9 +112,6 @@ public:
 	};
 	
 private:
-	/// current time
-	float m_currentTime;
-	
 	/// boen name
 	const char* m_boneName;
 	
@@ -152,6 +153,9 @@ private:
 protected:
 	wyBoneTransform();
 	
+	/// get interpolation time, from 0 to 1
+	wyPoint getInterpolationTime(float startTime, float endTime, float curTime, Interpolator& interpolator);
+	
 public:
 	virtual ~wyBoneTransform();
 	static wyBoneTransform* make();
@@ -176,6 +180,24 @@ public:
 
 	/// add slot color key frame
 	void addSlotColorKeyFrame(SlotColorKeyFrame kf);
+	
+	/// calculate current frame
+	void populateFrame(float time);
+	
+	/// get current rotation frame
+	RotationKeyFrame& getRotationFrame() { return m_currentRotation; }
+	
+	/// get current translation frame
+	TranslationKeyFrame& getTranslationFrame() { return m_currentTranslation; }
+	
+	/// get current scale frame
+	ScaleKeyFrame& getScaleFrame() { return m_currentScale; }
+	
+	/// get slot skin frame
+	SlotSkinKeyFrame& getSlotSkinFrame() { return m_currentSlotSkin; }
+	
+	/// get slot color frame
+	SlotColorKeyFrame& getSlotColorFrame() { return m_currentSlotColor; }
 	
 	/// dump info for debug purpose
 	void dump();
