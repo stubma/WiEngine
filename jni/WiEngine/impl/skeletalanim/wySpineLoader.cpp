@@ -53,9 +53,9 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 
 		// set other property
 		bone->setName(key);
-		bone->setLength(boneJO->optFloat("length"));
-		bone->setX(boneJO->optFloat("x"));
-		bone->setY(boneJO->optFloat("y"));
+		bone->setLength(boneJO->optFloat("length") * scale);
+		bone->setX(boneJO->optFloat("x") * scale);
+		bone->setY(boneJO->optFloat("y") * scale);
 		bone->setRotation(boneJO->optFloat("rotation"));
 		bone->setScaleX(boneJO->optFloat("scale_x", 1));
 		bone->setScaleY(boneJO->optFloat("scale_y", 1));
@@ -124,8 +124,8 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 				skinAtt->setName(attKey);
 
 				// set other property
-				skinAtt->setX(attachmentJO->optFloat("x"));
-				skinAtt->setY(attachmentJO->optFloat("y"));
+				skinAtt->setX(attachmentJO->optFloat("x") * scale);
+				skinAtt->setY(attachmentJO->optFloat("y") * scale);
 				skinAtt->setRotation(attachmentJO->optFloat("rotation"));
 				skinAtt->setScaleX(attachmentJO->optFloat("scale_x", 1));
 				skinAtt->setScaleY(attachmentJO->optFloat("scale_y", 1));
@@ -138,6 +138,171 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 
 	// return
 	return skeleton;
+}
+
+wySkeletalAnimation* wySpineLoader::loadAnimation(wyJSONObject* jo, float scale) {
+	wySkeletalAnimation* anim = wySkeletalAnimation::make();
+	
+	// get bones object
+	wyJSONObject* bonesJO = jo->optJSONObject("bones");
+	if(!bonesJO)
+		return anim;
+	
+	// iterate every bone
+	int size = bonesJO->getLength();
+	for(int i = 0; i < size; i++) {
+		// get bone key and bone transform json object
+		const char* boneKey = bonesJO->keyAt(i);
+		wyJSONObject* btJO = bonesJO->optJSONObject(i);
+		
+		// create transform
+		wyBoneTransform* bt = wyBoneTransform::make();
+		bt->setBoneName(boneKey);
+		
+		// get rotation key frames
+		wyJSONObject* rkfListJO = btJO->optJSONObject("rotate");
+		if(rkfListJO) {
+			int kfCount = rkfListJO->getLength();
+			for(int j = 0; j < kfCount; j++) {
+				// get time and angle
+				wyJSONObject* rkfJO = rkfListJO->optJSONObject(j);
+				wyBoneTransform::RotationKeyFrame kf;
+				kf.time = atof(rkfListJO->keyAt(j));
+				kf.angle = rkfJO->optFloat("angle");
+				
+				// get interpolator
+				wyJSONArray* curveJA = rkfJO->optJSONArray("curve");
+				if(curveJA) {
+					kf.interpolator.type = wyBoneTransform::BEZIER;
+					kf.interpolator.cp1X = curveJA->optFloat(0);
+					kf.interpolator.cp1Y = curveJA->optFloat(1);
+					kf.interpolator.cp2X = curveJA->optFloat(2);
+					kf.interpolator.cp2Y = curveJA->optFloat(3);
+				} else {
+					// TODO we need check step interpolator
+					kf.interpolator.type = wyBoneTransform::LINEAR;
+				}
+				
+				// add key frame
+				bt->addRotationKeyFrame(kf);
+			}
+		}
+		
+		// get translation key frames
+		wyJSONObject* tkfListJO = btJO->optJSONObject("translate");
+		if(tkfListJO) {
+			int kfCount = tkfListJO->getLength();
+			for(int j = 0; j < kfCount; j++) {
+				// get time, x and y
+				wyJSONObject* tkfJO = tkfListJO->optJSONObject(j);
+				wyBoneTransform::TranslationKeyFrame kf;
+				kf.time = atof(tkfListJO->keyAt(j));
+				kf.x = tkfJO->optFloat("x") * scale;
+				kf.y = tkfJO->optFloat("y") * scale;
+				
+				// get interpolator
+				wyJSONArray* curveJA = tkfJO->optJSONArray("curve");
+				if(curveJA) {
+					kf.interpolator.type = wyBoneTransform::BEZIER;
+					kf.interpolator.cp1X = curveJA->optFloat(0);
+					kf.interpolator.cp1Y = curveJA->optFloat(1);
+					kf.interpolator.cp2X = curveJA->optFloat(2);
+					kf.interpolator.cp2Y = curveJA->optFloat(3);
+				} else {
+					// TODO we need check step interpolator
+					kf.interpolator.type = wyBoneTransform::LINEAR;
+				}
+				
+				// add key frame
+				bt->addTranslationKeyFrame(kf);
+			}
+		}
+		
+		// get scale key frames
+		wyJSONObject* skfListJO = btJO->optJSONObject("scale");
+		if(skfListJO) {
+			int kfCount = skfListJO->getLength();
+			for(int j = 0; j < kfCount; j++) {
+				// get time, x and y
+				wyJSONObject* skfJO = skfListJO->optJSONObject(j);
+				wyBoneTransform::ScaleKeyFrame kf;
+				kf.time = atof(skfListJO->keyAt(j));
+				kf.scaleX = skfJO->optFloat("scale_x");
+				kf.scaleY = skfJO->optFloat("scale_y");
+				
+				// get interpolator
+				wyJSONArray* curveJA = skfJO->optJSONArray("curve");
+				if(curveJA) {
+					kf.interpolator.type = wyBoneTransform::BEZIER;
+					kf.interpolator.cp1X = curveJA->optFloat(0);
+					kf.interpolator.cp1Y = curveJA->optFloat(1);
+					kf.interpolator.cp2X = curveJA->optFloat(2);
+					kf.interpolator.cp2Y = curveJA->optFloat(3);
+				} else {
+					// TODO we need check step interpolator
+					kf.interpolator.type = wyBoneTransform::LINEAR;
+				}
+				
+				// add key frame
+				bt->addScaleKeyFrame(kf);
+			}
+		}
+		
+		// get slot skin key frames
+		wyJSONObject* sskfListJO = btJO->optJSONObject("skin");
+		if(sskfListJO) {
+			int kfCount = sskfListJO->getLength();
+			for(int j = 0; j < kfCount; j++) {
+				// get time and skin name
+				wyJSONObject* sskfJO = sskfListJO->optJSONObject(j);
+				wyBoneTransform::SlotSkinKeyFrame kf;
+				kf.time = atof(sskfListJO->keyAt(j));
+				kf.skinName = wyUtils::copy(sskfJO->optString("attachment"));
+				
+				// interpolator for skin transform is always STEP
+				kf.interpolator.type = wyBoneTransform::STEP;
+				
+				// add key frame
+				// addSlotSkinKeyFrame doesn't copy skin name, so no need to release it
+				bt->addSlotSkinKeyFrame(kf);
+			}
+		}
+		
+		// get slot color key frame
+		wyJSONObject* sckfListJO = btJO->optJSONObject("color");
+		if(sckfListJO) {
+			int kfCount = sckfListJO->getLength();
+			for(int j = 0; j < kfCount; j++) {
+				// get time and color
+				wyJSONObject* sckfJO = sckfListJO->optJSONObject(j);
+				wyBoneTransform::SlotColorKeyFrame kf;
+				kf.time = atof(sckfListJO->keyAt(j));
+				kf.color = sckfJO->optInt("color", 0xffffffff);
+				
+				// get interpolator
+				wyJSONArray* curveJA = sckfJO->optJSONArray("curve");
+				if(curveJA) {
+					kf.interpolator.type = wyBoneTransform::BEZIER;
+					kf.interpolator.cp1X = curveJA->optFloat(0);
+					kf.interpolator.cp1Y = curveJA->optFloat(1);
+					kf.interpolator.cp2X = curveJA->optFloat(2);
+					kf.interpolator.cp2Y = curveJA->optFloat(3);
+				} else {
+					// TODO we need check step interpolator
+					kf.interpolator.type = wyBoneTransform::LINEAR;
+				}
+				
+				// add key frame
+				bt->addSlotColorKeyFrame(kf);
+			}
+		}
+		
+		// add transform
+		anim->addBoneTransform(bt);
+	}
+	
+	// return
+	return anim;
 }
 
 wySkeleton* wySpineLoader::loadSkeleton(int resId) {
@@ -157,4 +322,23 @@ wySkeleton* wySpineLoader::loadSkeleton(const char* raw, size_t length) {
 
 wySkeleton* wySpineLoader::loadMemorySkeleton(const char* mfsName) {
 	return loadSkeleton(wyJSONObject::make(mfsName), wyDevice::density / wyDevice::defaultInDensity);
+}
+
+wySkeletalAnimation* wySpineLoader::loadAnimation(int resId) {
+	float scale;
+	char* data = wyUtils::loadRaw(resId, NULL, &scale);
+	wyFree(data);
+	return loadAnimation(wyJSONObject::make(resId), scale);
+}
+
+wySkeletalAnimation* wySpineLoader::loadAnimation(const char* path, bool isFile) {
+	return loadAnimation(wyJSONObject::make(path, isFile), wyDevice::density / wyDevice::defaultInDensity);
+}
+
+wySkeletalAnimation* wySpineLoader::loadAnimation(const char* raw, size_t length) {
+	return loadAnimation(wyJSONObject::make(raw, length), wyDevice::density / wyDevice::defaultInDensity);
+}
+
+wySkeletalAnimation* wySpineLoader::loadMemoryAnimation(const char* mfsName) {
+	return loadAnimation(wyJSONObject::make(mfsName), wyDevice::density / wyDevice::defaultInDensity);
 }

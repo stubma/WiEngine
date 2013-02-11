@@ -30,6 +30,7 @@
 #define __wySpineLoader_h__
 
 #include "wySkeleton.h"
+#include "wySkeletalAnimation.h"
 
 class wyJSONObject;
 
@@ -46,6 +47,15 @@ private:
 	 * @return \link wySkeleton wySkeleton\endlink
 	 */
 	static wySkeleton* loadSkeleton(wyJSONObject* jo, float scale);
+	
+	/**
+	 * load a spine skeletal animation from json object
+	 *
+	 * @param jo \link wyJSONObject wyJSONObject\endlink
+	 * @param scale scale rate for position value
+	 * @return \link wySkeletalAnimation wySkeletalAnimation\endlink
+	 */
+	static wySkeletalAnimation* loadAnimation(wyJSONObject* jo, float scale);
 
 public:
 	/**
@@ -82,6 +92,41 @@ public:
 	 * @return \link wySkeleton wySkeleton\endlink
 	 */
 	static wySkeleton* loadMemorySkeleton(const char* mfsName);
+	
+	/**
+	 * load a spine skeletal animation from skeleton resource file
+	 *
+	 * @param resId resource id of skeleton resource file
+	 * @return \link wySkeletalAnimation wySkeletalAnimation\endlink
+	 */
+	static wySkeletalAnimation* loadAnimation(int resId);
+	
+	/**
+	 * load a spine skeletal animation from file
+	 *
+	 * @param path path of file
+	 * @param isFile false means \c path is a relative path to assets folder, or true means
+	 * 		\c path is an absolute path in file system
+	 * @return \link wySkeletalAnimation wySkeletalAnimation\endlink
+	 */
+	static wySkeletalAnimation* loadAnimation(const char* path, bool isFile = false);
+	
+	/**
+	 * load a spine skeletal animation from raw data
+	 *
+	 * @param raw raw data of skeleton file
+	 * @param length byte length of \c raw
+	 * @return \link wySkeletalAnimation wySkeletalAnimation\endlink
+	 */
+	static wySkeletalAnimation* loadAnimation(const char* raw, size_t length);
+	
+	/**
+	 * load a spine skeletal animation from memory file
+	 *
+	 * @param mfsName memory file name
+	 * @return \link wySkeletalAnimation wySkeletalAnimation\endlink
+	 */
+	static wySkeletalAnimation* loadMemoryAnimation(const char* mfsName);
 };
 
 #endif // __wySpineLoader_h__

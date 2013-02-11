@@ -354,6 +354,9 @@
 // skeletal animation
 #include "wyAttachment.h"
 #include "wyBone.h"
+#include "wyBoneTransform.h"
+#include "wySkeletalAnimation.h"
+#include "wySkeletalAnimationCache.h"
 #include "wySkeleton.h"
 #include "wySkinAttachment.h"
 #include "wySlot.h"

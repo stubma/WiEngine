@@ -2077,8 +2077,14 @@ public:
 class wySpineTestLayer : public wyLayer {
 public:
 	wySpineTestLayer() {
+		// load skeleton and dump info
 		wySkeleton* skeleton = wySpineLoader::loadSkeleton("spine/example-skeleton.json", false);
 		skeleton->dump();
+		
+		// load animation and dump info
+		wySkeletalAnimation* anim = wySpineLoader::loadAnimation("spine/example-animation.json", false);
+		wySkeletalAnimationCache::getInstance()->addAnimation("jump", anim);
+		anim->dump();
 	}
 
 	virtual ~wySpineTestLayer() {

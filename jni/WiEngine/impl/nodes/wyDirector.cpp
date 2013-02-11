@@ -52,6 +52,7 @@
 #include "wyToast.h"
 #include "wyAutoReleasePool.h"
 #include "wyMath.h"
+#include "wySkeletalAnimationCache.h"
 
 /// global director instance
 extern wyDirector* gDirector;
@@ -81,6 +82,7 @@ extern wySPXManager* gSPXManager;
 extern wySPX3Manager* gSPX3Manager;
 extern wyArcticManager* gArcticManager;
 extern wyAuroraManager* gAuroraManager;
+extern wySkeletalAnimationCache* gSkeletalAnimationCache;
 
 #ifdef __cplusplus
 extern "C" {
@@ -640,6 +642,7 @@ void wyDirector::commonDestroy() {
 	wyObjectRelease(gSPX3Manager);
 	wyObjectRelease(gArcticManager);
 	wyObjectRelease(gAuroraManager);
+	wyObjectRelease(gSkeletalAnimationCache);
 	wyBitmapFont::unloadAll();
     wyToast::clear();
 
