@@ -54,12 +54,6 @@ include $(LOCAL_PATH)/android_adapter/Android.mk
 include $(LOCAL_PATH)/WiSound/Android.mk
 
 ###########################################################
-# build chipmunk lib
-###########################################################
-
-include $(LOCAL_PATH)/chipmunk/Android.mk
-
-###########################################################
 # build box2d lib
 ###########################################################
 

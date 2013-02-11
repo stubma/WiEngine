@@ -22,7 +22,7 @@
 	<condition 
 		property="doxygen" 
 		value="C:\Software\doxygen\bin\doxygen"
-		else="/usr/local/bin/doxygen">
+		else="doxygen">
 		<and>
 			<os family="windows"/>
 		</and>
@@ -63,7 +63,7 @@
 		
 		<!-- build jar -->
 		<antcall target="jar-core"/>
-		<antcall target="jar-chipmunk"/>
+		<!-- antcall target="jar-chipmunk"/ -->
 		<antcall target="jar-box2d"/>
 		<antcall target="jar-lua"/>
 		<antcall target="jar-iap"/>
@@ -86,7 +86,7 @@
 				<exclude name="freetype/**"/>
 				<exclude name="skia/**"/>
 				<exclude name="Box2D/binding/**"/>
-				<exclude name="chipmunk/binding/**"/>
+				<exclude name="**/chipmunk/**"/>
 				<exclude name="libcurl/lib/**"/>
 				<exclude name="libmpg123/**"/>
 				<exclude name="libjpeg/**"/>
