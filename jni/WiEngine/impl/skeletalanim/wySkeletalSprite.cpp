@@ -195,17 +195,23 @@ void wySkeletalSprite::setFrame(float time) {
 		
 		// set rotation
 		wyBoneTransform::RotationKeyFrame& rkf = bt->getRotationFrame();
-		bone->setRotation(rkf.angle);
+		if(rkf.valid) {
+			bone->setRotationRelativeToTop(rkf.angle);
+		}
 		
 		// set translation
 		wyBoneTransform::TranslationKeyFrame& tkf = bt->getTranslationFrame();
-		bone->setX(tkf.x);
-		bone->setY(tkf.y);
+		if(tkf.valid) {
+			bone->setXRelativeToTop(tkf.x);
+			bone->setYRelativeToTop(tkf.y);
+		}
 		
 		// set scale
 		wyBoneTransform::ScaleKeyFrame& skf = bt->getScaleFrame();
-		bone->setScaleX(skf.scaleX);
-		bone->setScaleY(skf.scaleY);
+		if(skf.valid) {
+			bone->setScaleXRelativeToTop(skf.scaleX);
+			bone->setScaleYRelativeToTop(skf.scaleY);
+		}
 	}
 }
 

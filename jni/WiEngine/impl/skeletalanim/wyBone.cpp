@@ -66,3 +66,38 @@ void wyBone::addChild(wyBone* bone) {
 	wyObjectRetain(bone);
 	bone->setParent(this);
 }
+
+void wyBone::setRotationRelativeToTop(float dr) {
+	if(!m_stateStack.empty()) {
+		State& top = m_stateStack.back();
+		m_curState.rotation = top.rotation + dr;
+	}
+}
+
+void wyBone::setXRelativeToTop(float dx) {
+	if(!m_stateStack.empty()) {
+		State& top = m_stateStack.back();
+		m_curState.x = top.x + dx;
+	}
+}
+
+void wyBone::setYRelativeToTop(float dy) {
+	if(!m_stateStack.empty()) {
+		State& top = m_stateStack.back();
+		m_curState.y = top.y + dy;
+	}
+}
+
+void wyBone::setScaleXRelativeToTop(float dx) {
+	if(!m_stateStack.empty()) {
+		State& top = m_stateStack.back();
+		m_curState.scaleX = top.scaleX + dx;
+	}
+}
+
+void wyBone::setScaleYRelativeToTop(float dy) {
+	if(!m_stateStack.empty()) {
+		State& top = m_stateStack.back();
+		m_curState.scaleY = top.scaleY + dy;
+	}
+}

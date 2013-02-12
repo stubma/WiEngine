@@ -2085,13 +2085,13 @@ public:
 		
 		// load animation
 		wySkeletalAnimation* anim = wySpineLoader::loadAnimation("spine/example-animation.json", false);
-		wySkeletalAnimationCache::getInstance()->addAnimation("jump", anim);
+		wySkeletalAnimationCache::getInstance()->addAnimation("walk", anim);
 		
 		// create skeletal sprite and play animation
 		mSk1 = wySkeletalSprite::make(skeleton);
 		mSk1->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 5);
 		addChildLocked(mSk1);
-		mSk1->playAnimation("jump");
+		mSk1->playAnimation("walk");
 		mSk1->setLoopCount(-1);
 		
 		// start to update

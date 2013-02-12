@@ -119,7 +119,37 @@ public:
 
 	/// get length
 	float getLength() { return m_length; }
+	
+	/**
+	 * instead setting x value directly, it adds a delta value to top state
+	 * a state must be saved before invoking this method, otherwise nothing changed
+	 */
+	void setXRelativeToTop(float dx);
 
+	/**
+	 * instead setting y value directly, it adds a delta value to top state
+	 * a state must be saved before invoking this method, otherwise nothing changed
+	 */
+	void setYRelativeToTop(float dy);
+	
+	/**
+	 * instead setting rotation directly, it adds a delta value to top state
+	 * a state must be saved before invoking this method, otherwise nothing changed
+	 */
+	void setRotationRelativeToTop(float dr);
+	
+	/**
+	 * instead setting x scale directly, it adds a delta value to top state
+	 * a state must be saved before invoking this method, otherwise nothing changed
+	 */
+	void setScaleXRelativeToTop(float dx);
+	
+	/**
+	 * instead setting y scale directly, it adds a delta value to top state
+	 * a state must be saved before invoking this method, otherwise nothing changed
+	 */
+	void setScaleYRelativeToTop(float dy);
+	
 	/// set x offset
 	void setX(float x) { m_curState.x = x; }
 

@@ -79,11 +79,12 @@ void wyBoneTransform::populateFrame(float time) {
 	{
 		// set time to current time
 		m_currentRotation.time = time;
+		m_currentRotation.valid = true;
 		
 		// if empty, just set to zero
 		// if not, found key frame, do interpolation if needed
 		if(m_rkfList.empty()) {
-			m_currentRotation.angle = 0;
+			m_currentRotation.valid = false;
 		} else {
 			RotationKeyFrameList::iterator iter = m_rkfList.begin();
 			for(; iter != m_rkfList.end(); iter++) {
@@ -114,12 +115,12 @@ void wyBoneTransform::populateFrame(float time) {
 	{
 		// set time to current time
 		m_currentTranslation.time = time;
+		m_currentTranslation.valid = true;
 		
 		// if empty, just set to zero
 		// if not, found key frame, do interpolation if needed
 		if(m_tkfList.empty()) {
-			m_currentTranslation.x = 0;
-			m_currentTranslation.y = 0;
+			m_currentTranslation.valid = false;
 		} else {
 			TranslationKeyFrameList::iterator iter = m_tkfList.begin();
 			for(; iter != m_tkfList.end(); iter++) {
@@ -154,12 +155,12 @@ void wyBoneTransform::populateFrame(float time) {
 	{
 		// set time to current time
 		m_currentScale.time = time;
+		m_currentScale.valid = true;
 		
 		// if empty, just set to zero
 		// if not, found key frame, do interpolation if needed
 		if(m_skfList.empty()) {
-			m_currentScale.scaleX = 1;
-			m_currentScale.scaleY = 1;
+			m_currentScale.valid = false;
 		} else {
 			ScaleKeyFrameList::iterator iter = m_skfList.begin();
 			for(; iter != m_skfList.end(); iter++) {

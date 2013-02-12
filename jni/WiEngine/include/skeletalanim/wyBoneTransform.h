@@ -70,6 +70,9 @@ public:
 		
 		/// interpolator
 		Interpolator interpolator;
+		
+		/// true means this key frame is valid
+		bool valid;
 	};
 	
 	/// key frame of rotation
