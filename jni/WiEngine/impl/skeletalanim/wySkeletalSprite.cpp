@@ -299,7 +299,6 @@ void wySkeletalSprite::createSlotSprites() {
 			sprintf(buf, "%s.png", slot->getActiveSkinAttachmentName());
 			wySpriteEx* sprite = createRelatedSprite(buf);
 			if(sprite) {
-				sprite->getTexture()->setAntiAlias(false);
 				slot->setSprite(sprite);
 				slot->getBone()->getNode()->addChildLocked(sprite);
 			} 
