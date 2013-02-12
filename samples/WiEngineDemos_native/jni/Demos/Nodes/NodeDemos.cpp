@@ -2097,9 +2097,17 @@ public:
 		// start to update
 		wyTimer* timer = wyTimer::make(wyTargetSelector::make(this, SEL(wySpineTestLayer::onUpdateSprite)));
 		scheduleLocked(timer);
+		
+		// enable touch
+		setTouchEnabled(true);
 	}
 
 	virtual ~wySpineTestLayer() {
+	}
+	
+	virtual bool touchesBegan(wyMotionEvent& event) {
+		mSk1->setPaused(!mSk1->isPaused());
+		return true;
 	}
 	
 	void onUpdateSprite(wyTargetSelector* ts) {

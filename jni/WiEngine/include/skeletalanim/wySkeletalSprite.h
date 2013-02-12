@@ -140,6 +140,12 @@ public:
 	
 	/// get loop flag, -1 means infinite loop, 0 means no loop, larger than 0 means loop times
 	int getLoopCount() { return m_loop; }
+	
+	/// pause animation
+	void setPaused(bool flag) { m_paused = flag; }
+
+	/// is paused?
+	bool isPaused() { return m_paused; }
 };
 
 #endif // __wySkeletalSprite_h__
