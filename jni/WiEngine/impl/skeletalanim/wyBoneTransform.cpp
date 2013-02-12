@@ -29,15 +29,16 @@
 #include "wyBoneTransform.h"
 #include "wyUtils.h"
 #include "wyLog.h"
+#include "wySkeleton.h"
 
 wyBoneTransform::wyBoneTransform() :
 		m_boneName(NULL) {
 }
 
 wyBoneTransform::~wyBoneTransform() {
-	for(SlotSkinKeyFrameList::iterator iter = m_sskfList.begin(); iter != m_sskfList.end(); iter++) {
-		wyFree((void*)iter->slotName);
-		wyFree((void*)iter->skinName);
+	if(m_boneName) {
+		wyFree((void*)m_boneName);
+		m_boneName = NULL;
 	}
 }
 
@@ -64,14 +65,6 @@ void wyBoneTransform::addTranslationKeyFrame(TranslationKeyFrame kf) {
 
 void wyBoneTransform::addScaleKeyFrame(ScaleKeyFrame kf) {
 	m_skfList.push_back(kf);
-}
-
-void wyBoneTransform::addSlotSkinKeyFrame(SlotSkinKeyFrame kf) {
-	m_sskfList.push_back(kf);
-}
-
-void wyBoneTransform::addSlotColorKeyFrame(SlotColorKeyFrame kf) {
-	m_sckfList.push_back(kf);
 }
 
 void wyBoneTransform::populateFrame(float time) {
@@ -192,24 +185,29 @@ void wyBoneTransform::populateFrame(float time) {
 	}
 }
 
-wyPoint wyBoneTransform::getInterpolationTime(float startTime, float endTime, float curTime, Interpolator& interpolator) {
-	switch(interpolator.type) {
-		case LINEAR:
-		{
-			float t = (curTime - startTime) / (endTime - startTime);
-			return wyp(t, t);
-		}
-		case BEZIER:
-		{
-			wyBezierConfig bc = wybcCubic(0, 0, 1, 1, interpolator.cp1X, interpolator.cp1Y, interpolator.cp2X, interpolator.cp2Y);
-			float t = (curTime - startTime) / (endTime - startTime);
-			return wybcPointAt(bc, t);
-		}
-		case STEP:
-			return curTime >= endTime ? wyp(1, 1) : wypZero;
-		default:
-			return wypZero;
+bool wyBoneTransform::applyTo(wySkeleton* s) {
+	wyBone* bone = s->getBone(m_boneName);
+	if(!bone)
+		return false;
+	
+	// set rotation
+	if(m_currentRotation.valid) {
+		bone->setRotationRelativeToTop(m_currentRotation.angle);
 	}
+	
+	// set translation
+	if(m_currentTranslation.valid) {
+		bone->setXRelativeToTop(m_currentTranslation.x);
+		bone->setYRelativeToTop(m_currentTranslation.y);
+	}
+	
+	// set scale
+	if(m_currentScale.valid) {
+		bone->setScaleXRelativeToTop(m_currentScale.scaleX);
+		bone->setScaleYRelativeToTop(m_currentScale.scaleY);
+	}
+	
+	return true;
 }
 
 void wyBoneTransform::dump() {
@@ -229,17 +227,5 @@ void wyBoneTransform::dump() {
 	for(ScaleKeyFrameList::iterator iter = m_skfList.begin(); iter != m_skfList.end(); iter++) {
 		ScaleKeyFrame& kf = *iter;
 		LOGD("scale key frame, time: %f, scalex: %f, scaley: %f", kf.time, kf.scaleX, kf.scaleY);
-	}
-	
-	// dump slot skin key frame
-	for(SlotSkinKeyFrameList::iterator iter = m_sskfList.begin(); iter != m_sskfList.end(); iter++) {
-		SlotSkinKeyFrame& kf = *iter;
-		LOGD("slot skin key frame, time: %f, skin: %s", kf.time, kf.skinName);
-	}
-	
-	// dump slot color key frame
-	for(SlotColorKeyFrameList::iterator iter = m_sckfList.begin(); iter != m_sckfList.end(); iter++) {
-		SlotColorKeyFrame& kf = *iter;
-		LOGD("slot color key frame, time: %f, color: 0x%x", kf.time, kf.color);
 	}
 }

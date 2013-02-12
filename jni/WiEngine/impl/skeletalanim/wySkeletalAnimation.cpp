@@ -34,7 +34,7 @@ wySkeletalAnimation::wySkeletalAnimation() :
 }
 
 wySkeletalAnimation::~wySkeletalAnimation() {
-	for(BoneTransformPtrList::iterator iter = m_btList.begin(); iter != m_btList.end(); iter++) {
+	for(TransformPtrList::iterator iter = m_transList.begin(); iter != m_transList.end(); iter++) {
 		wyObjectRelease(*iter);
 	}
 }
@@ -44,17 +44,17 @@ wySkeletalAnimation* wySkeletalAnimation::make() {
 	return (wySkeletalAnimation*)a->autoRelease();
 }
 
-void wySkeletalAnimation::addBoneTransform(wyBoneTransform* bt) {
-	m_btList.push_back(bt);
-	wyObjectRetain(bt);
+void wySkeletalAnimation::addTransform(wyTransform* t) {
+	m_transList.push_back(t);
+	wyObjectRetain(t);
 }
 
 void wySkeletalAnimation::dump() {
 	LOGD("skeletal animation: %s, transform count: %ld",
 		 getName() ? getName() : "null",
-		 m_btList.size());
+		 m_transList.size());
 	
-	for(BoneTransformPtrList::iterator iter = m_btList.begin(); iter != m_btList.end(); iter++) {
+	for(TransformPtrList::iterator iter = m_transList.begin(); iter != m_transList.end(); iter++) {
 		(*iter)->dump();
 	}
 }

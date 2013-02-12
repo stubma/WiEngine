@@ -26,49 +26,79 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef __wySkeletalAnimation_h__
-#define __wySkeletalAnimation_h__
+#ifndef __wyTransform_h__
+#define __wyTransform_h__
 
 #include "wyObject.h"
-#include "wyTransform.h"
+#include "wyTypes.h"
 
-class wySpineLoader;
+class wySkeleton;
 
 /**
- * general model of skeletal animation
+ * transform base class
  */
-class WIENGINE_API wySkeletalAnimation : public wyObject {
-	friend class wySpineLoader;
-	
+class WIENGINE_API wyTransform : public wyObject {
 public:
-	/// transform list
-	typedef vector<wyTransform*> TransformPtrList;
+	/// interpolator type
+	enum InterpolatorType {
+		/// linear change
+		LINEAR,
+		
+		/// change in a bezier style, controled by two control points
+		BEZIER,
+		
+		/// instantly changed at the end
+		STEP
+	};
 	
-private:
-	/// list of transform
-	TransformPtrList m_transList;
+	/// interpolator
+	struct Interpolator {
+		/// type
+		InterpolatorType type;
+		
+		/// control point 1, for bezier interpolator only
+		/// they are relative value, between 0 and 1
+		float cp1X, cp1Y;
+		
+		/// control point 2, for bezier interpolator only
+		/// they are relative value, between 0 and 1
+		float cp2X, cp2Y;
+	};
 	
-	/// duration time of this animation
-	float m_duration;
+	/// key frame base
+	struct KeyFrame {
+		/// time
+		float time;
+		
+		/// interpolator
+		Interpolator interpolator;
+		
+		/// true means this key frame is valid
+		bool valid;
+	};
 	
 protected:
-	wySkeletalAnimation();
+	wyTransform();
+	
+	/// get interpolation time, from 0 to 1
+	wyPoint getInterpolationTime(float startTime, float endTime, float curTime, Interpolator& interpolator);
 	
 public:
-	virtual ~wySkeletalAnimation();
-	static wySkeletalAnimation* make();
+	virtual ~wyTransform();
 	
-	/// add transform
-	void addTransform(wyTransform* t);
+	/// calculate current frame
+	virtual void populateFrame(float time) = 0;
 	
-	/// get list of transform
-	TransformPtrList& getTransformList() { return m_transList; }
-	
-	/// get duration time
-	float getDuration() { return m_duration; }
+	/**
+	 * apply current frame to a skeleton
+	 *
+	 * @param s skeleton
+	 * @return true if frame is applied, or false if not applied
+	 */
+	virtual bool applyTo(wySkeleton* s) = 0;
 	
 	/// dump info, for debug purpose
-	void dump();
+	virtual void dump() {}
 };
 
-#endif // __wySkeletalAnimation_h__
+#endif // __wyTransform_h__

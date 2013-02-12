@@ -235,6 +235,8 @@
 		9249A9B013597EDB001B04A4 /* libchipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249A8DE13597E5F001B04A4 /* libchipmunk.a */; };
 		9250D53514D8D66C00315D67 /* NSData-Base64.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9250D53414D8D66C00315D67 /* NSData-Base64.mm */; };
 		9250D53914D8D85F00315D67 /* wyIAPVerifyDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9250D53814D8D85F00315D67 /* wyIAPVerifyDelegate.mm */; };
+		9253576316CA279F00B73E2A /* wySlotTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9253576116CA279F00B73E2A /* wySlotTransform.cpp */; };
+		9253576816CA283400B73E2A /* wyTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9253576616CA283400B73E2A /* wyTransform.cpp */; };
 		9254D1F714ADAAD2009BA47B /* wyAudioPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9254D1F614ADAAD2009BA47B /* wyAudioPlayer.cpp */; };
 		9255CCE516C7AB7600FBFA63 /* libyajl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9233582014CC47B6009E2DF9 /* libyajl.a */; };
 		9255CCEF16C7ABAA00FBFA63 /* wyJSONArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9255CCEB16C7ABAA00FBFA63 /* wyJSONArray.cpp */; };
@@ -1152,6 +1154,10 @@
 		9250D53414D8D66C00315D67 /* NSData-Base64.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSData-Base64.mm"; sourceTree = "<group>"; };
 		9250D53714D8D85F00315D67 /* wyIAPVerifyDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyIAPVerifyDelegate.h; sourceTree = "<group>"; };
 		9250D53814D8D85F00315D67 /* wyIAPVerifyDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wyIAPVerifyDelegate.mm; sourceTree = "<group>"; };
+		9253576116CA279F00B73E2A /* wySlotTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wySlotTransform.cpp; path = ../jni/WiEngine/impl/skeletalanim/wySlotTransform.cpp; sourceTree = "<group>"; };
+		9253576516CA27CD00B73E2A /* wySlotTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySlotTransform.h; path = ../jni/WiEngine/include/skeletalanim/wySlotTransform.h; sourceTree = "<group>"; };
+		9253576616CA283400B73E2A /* wyTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyTransform.cpp; path = ../jni/WiEngine/impl/skeletalanim/wyTransform.cpp; sourceTree = "<group>"; };
+		9253576916CA284C00B73E2A /* wyTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyTransform.h; path = ../jni/WiEngine/include/skeletalanim/wyTransform.h; sourceTree = "<group>"; };
 		9254D1F314ADAA90009BA47B /* wyAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wyAudioPlayer.h; sourceTree = "<group>"; };
 		9254D1F614ADAAD2009BA47B /* wyAudioPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyAudioPlayer.cpp; sourceTree = "<group>"; };
 		9255CCE716C7ABA000FBFA63 /* wyJSONArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyJSONArray.h; path = ../jni/WiEngine/include/json/wyJSONArray.h; sourceTree = "<group>"; };
@@ -3950,8 +3956,12 @@
 				9287EA9A16C89E2D00C1D0A3 /* wySkeletalAnimation.cpp */,
 				9287EAA016C8B14700C1D0A3 /* wySkeletalAnimationCache.h */,
 				9287EA9D16C8B12600C1D0A3 /* wySkeletalAnimationCache.cpp */,
+				9253576916CA284C00B73E2A /* wyTransform.h */,
+				9253576616CA283400B73E2A /* wyTransform.cpp */,
 				9287EAA416C8B4B400C1D0A3 /* wyBoneTransform.h */,
 				9287EAA116C8B49A00C1D0A3 /* wyBoneTransform.cpp */,
+				9253576516CA27CD00B73E2A /* wySlotTransform.h */,
+				9253576116CA279F00B73E2A /* wySlotTransform.cpp */,
 				9236F88816C8E76400FB35B0 /* wySkeletalSprite.h */,
 				9236F88416C8E75500FB35B0 /* wySkeletalSprite.cpp */,
 			);
@@ -4915,6 +4925,8 @@
 				9287EA9F16C8B12600C1D0A3 /* wySkeletalAnimationCache.cpp in Sources */,
 				9287EAA316C8B49B00C1D0A3 /* wyBoneTransform.cpp in Sources */,
 				9236F88616C8E75500FB35B0 /* wySkeletalSprite.cpp in Sources */,
+				9253576316CA279F00B73E2A /* wySlotTransform.cpp in Sources */,
+				9253576816CA283400B73E2A /* wyTransform.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

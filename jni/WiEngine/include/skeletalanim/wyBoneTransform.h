@@ -29,52 +29,13 @@
 #ifndef __wyBoneTransform_h__
 #define __wyBoneTransform_h__
 
-#include "wyObject.h"
-#include "wyTypes.h"
+#include "wyTransform.h"
 
 /**
  * transform of bone, it records key frames of one bone
  */
-class WIENGINE_API wyBoneTransform : public wyObject {
-public:
-	/// interpolator type
-	enum InterpolatorType {
-		/// linear change
-		LINEAR,
-		
-		/// change in a bezier style, controled by two control points
-		BEZIER,
-		
-		/// instantly changed at the end
-		STEP
-	};
-	
-	/// interpolator
-	struct Interpolator {
-		/// type
-		InterpolatorType type;
-		
-		/// control point 1, for bezier interpolator only
-		/// they are relative value, between 0 and 1
-		float cp1X, cp1Y;
-		
-		/// control point 2, for bezier interpolator only
-		/// they are relative value, between 0 and 1
-		float cp2X, cp2Y;
-	};
-	
-	/// key frame base
-	struct KeyFrame {
-		/// time
-		float time;
-		
-		/// interpolator
-		Interpolator interpolator;
-		
-		/// true means this key frame is valid
-		bool valid;
-	};
-	
+class WIENGINE_API wyBoneTransform : public wyTransform {
+public:			
 	/// key frame of rotation
 	struct RotationKeyFrame : public KeyFrame {
 		/// angle in degree, positive value is counter-clockwise
@@ -99,21 +60,6 @@ public:
 		float scaleY;
 	};
 	
-	/// key frame of slot skin attachment
-	struct SlotSkinKeyFrame : public KeyFrame {
-		/// slot name
-		const char* slotName;
-		
-		/// skin attachment name
-		const char* skinName;
-	};
-	
-	/// key frame of slot color
-	struct SlotColorKeyFrame : public KeyFrame {
-		/// color in argb format
-		int color;
-	};
-	
 private:
 	/// boen name
 	const char* m_boneName;
@@ -127,12 +73,6 @@ private:
 	/// current scale
 	ScaleKeyFrame m_currentScale;
 	
-	/// current slot image
-	SlotSkinKeyFrame m_currentSlotSkin;
-	
-	/// current slot color
-	SlotColorKeyFrame m_currentSlotColor;
-	
 	/// key frame list of rotation
 	typedef vector<RotationKeyFrame> RotationKeyFrameList;
 	RotationKeyFrameList m_rkfList;
@@ -145,23 +85,21 @@ private:
 	typedef vector<ScaleKeyFrame> ScaleKeyFrameList;
 	ScaleKeyFrameList m_skfList;
 	
-	/// key frame of slot skin
-	typedef vector<SlotSkinKeyFrame> SlotSkinKeyFrameList;
-	SlotSkinKeyFrameList m_sskfList;
-	
-	/// key frame of slot color
-	typedef vector<SlotColorKeyFrame> SlotColorKeyFrameList;
-	SlotColorKeyFrameList m_sckfList;
-	
 protected:
 	wyBoneTransform();
-	
-	/// get interpolation time, from 0 to 1
-	wyPoint getInterpolationTime(float startTime, float endTime, float curTime, Interpolator& interpolator);
 	
 public:
 	virtual ~wyBoneTransform();
 	static wyBoneTransform* make();
+	
+	/// @see wyTransform::populateFrame
+	virtual void populateFrame(float time);
+	
+	/// @see wyTransform::applyTo
+	virtual bool applyTo(wySkeleton* s);
+	
+	/// @see wyTransform::dump
+	virtual void dump();
 	
 	/// set bone name
 	void setBoneName(const char* name);
@@ -177,15 +115,6 @@ public:
 
 	/// add scale key frame
 	void addScaleKeyFrame(ScaleKeyFrame kf);
-
-	/// add slot skin key frame, the skin name will be copied, so caller can release the original one after returns
-	void addSlotSkinKeyFrame(SlotSkinKeyFrame kf);
-
-	/// add slot color key frame
-	void addSlotColorKeyFrame(SlotColorKeyFrame kf);
-	
-	/// calculate current frame
-	void populateFrame(float time);
 	
 	/// get current rotation frame
 	RotationKeyFrame& getRotationFrame() { return m_currentRotation; }
@@ -195,15 +124,6 @@ public:
 	
 	/// get current scale frame
 	ScaleKeyFrame& getScaleFrame() { return m_currentScale; }
-	
-	/// get slot skin frame
-	SlotSkinKeyFrame& getSlotSkinFrame() { return m_currentSlotSkin; }
-	
-	/// get slot color frame
-	SlotColorKeyFrame& getSlotColorFrame() { return m_currentSlotColor; }
-	
-	/// dump info for debug purpose
-	void dump();
 };
 
 #endif // __wyBoneTransform_h__

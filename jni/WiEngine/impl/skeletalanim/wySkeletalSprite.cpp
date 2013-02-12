@@ -182,36 +182,14 @@ void wySkeletalSprite::setFrame(float time) {
 	if(!m_animation || !m_skeleton)
 		return;
 	
-	wySkeletalAnimation::BoneTransformPtrList& btList = m_animation->getBoneTransformList();
-	for(wySkeletalAnimation::BoneTransformPtrList::iterator iter = btList.begin(); iter != btList.end(); iter++) {
-		// try to get bone, if can't, continue
-		wyBoneTransform* bt = *iter;
-		wyBone* bone = m_skeleton->getBone(bt->getBoneName());
-		if(!bone)
-			continue;
-		
+	wySkeletalAnimation::TransformPtrList& tList = m_animation->getTransformList();
+	for(wySkeletalAnimation::TransformPtrList::iterator iter = tList.begin(); iter != tList.end(); iter++) {
 		// calculate info
-		bt->populateFrame(time);
+		wyTransform* t = *iter;
+		t->populateFrame(time);
 		
-		// set rotation
-		wyBoneTransform::RotationKeyFrame& rkf = bt->getRotationFrame();
-		if(rkf.valid) {
-			bone->setRotationRelativeToTop(rkf.angle);
-		}
-		
-		// set translation
-		wyBoneTransform::TranslationKeyFrame& tkf = bt->getTranslationFrame();
-		if(tkf.valid) {
-			bone->setXRelativeToTop(tkf.x);
-			bone->setYRelativeToTop(tkf.y);
-		}
-		
-		// set scale
-		wyBoneTransform::ScaleKeyFrame& skf = bt->getScaleFrame();
-		if(skf.valid) {
-			bone->setScaleXRelativeToTop(skf.scaleX);
-			bone->setScaleYRelativeToTop(skf.scaleY);
-		}
+		// apply frame
+		t->applyTo(m_skeleton);
 	}
 }
 

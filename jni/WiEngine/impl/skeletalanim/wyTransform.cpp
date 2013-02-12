@@ -26,49 +26,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef __wySkeletalAnimation_h__
-#define __wySkeletalAnimation_h__
-
-#include "wyObject.h"
 #include "wyTransform.h"
 
-class wySpineLoader;
+wyTransform::wyTransform() {
+}
 
-/**
- * general model of skeletal animation
- */
-class WIENGINE_API wySkeletalAnimation : public wyObject {
-	friend class wySpineLoader;
-	
-public:
-	/// transform list
-	typedef vector<wyTransform*> TransformPtrList;
-	
-private:
-	/// list of transform
-	TransformPtrList m_transList;
-	
-	/// duration time of this animation
-	float m_duration;
-	
-protected:
-	wySkeletalAnimation();
-	
-public:
-	virtual ~wySkeletalAnimation();
-	static wySkeletalAnimation* make();
-	
-	/// add transform
-	void addTransform(wyTransform* t);
-	
-	/// get list of transform
-	TransformPtrList& getTransformList() { return m_transList; }
-	
-	/// get duration time
-	float getDuration() { return m_duration; }
-	
-	/// dump info, for debug purpose
-	void dump();
-};
+wyTransform::~wyTransform() {
+}
 
-#endif // __wySkeletalAnimation_h__
+wyPoint wyTransform::getInterpolationTime(float startTime, float endTime, float curTime, Interpolator& interpolator) {
+	switch(interpolator.type) {
+		case LINEAR:
+		{
+			float t = (curTime - startTime) / (endTime - startTime);
+			return wyp(t, t);
+		}
+		case BEZIER:
+		{
+			wyBezierConfig bc = wybcCubic(0, 0, 1, 1, interpolator.cp1X, interpolator.cp1Y, interpolator.cp2X, interpolator.cp2Y);
+			float t = (curTime - startTime) / (endTime - startTime);
+			return wybcPointAt(bc, t);
+		}
+		case STEP:
+			return curTime >= endTime ? wyp(1, 1) : wypZero;
+		default:
+			return wypZero;
+	}
+}

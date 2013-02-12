@@ -361,6 +361,8 @@
 #include "wySkeleton.h"
 #include "wySkinAttachment.h"
 #include "wySlot.h"
+#include "wySlotTransform.h"
 #include "wySpineLoader.h"
+#include "wyTransform.h"
 
 #endif // __WiEngine_h__

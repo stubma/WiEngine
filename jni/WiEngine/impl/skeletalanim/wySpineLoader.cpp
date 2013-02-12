@@ -32,6 +32,8 @@
 #include "wyJSONParser.h"
 #include "wyUtils.h"
 #include "wySkinAttachment.h"
+#include "wyBoneTransform.h"
+#include "wySlotTransform.h"
 
 wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 	wySkeleton* skeleton = wySkeleton::make();
@@ -147,199 +149,216 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 wySkeletalAnimation* wySpineLoader::loadAnimation(wyJSONObject* jo, float scale) {
 	wySkeletalAnimation* anim = wySkeletalAnimation::make();
 	
-	// get bones object
-	wyJSONObject* bonesJO = jo->optJSONObject("bones");
-	if(!bonesJO)
-		return anim;
-	
 	// duration time
 	float duration = 0;
 	
-	// iterate every bone
-	int size = bonesJO->getLength();
-	for(int i = 0; i < size; i++) {
-		// get bone key and bone transform json object
-		const char* boneKey = bonesJO->keyAt(i);
-		wyJSONObject* btJO = bonesJO->optJSONObject(i);
-		
-		// create transform
-		wyBoneTransform* bt = wyBoneTransform::make();
-		bt->setBoneName(boneKey);
-		
-		// get rotation key frames
-		wyJSONObject* rkfListJO = btJO->optJSONObject("rotate");
-		if(rkfListJO) {
-			int kfCount = rkfListJO->getLength();
-			for(int j = 0; j < kfCount; j++) {
-				// get time and angle
-				wyJSONObject* rkfJO = rkfListJO->optJSONObject(j);
-				wyBoneTransform::RotationKeyFrame kf;
-				kf.time = atof(rkfListJO->keyAt(j));
-				kf.angle = rkfJO->optFloat("angle");
-				
-				// save max time as duration
-				duration = MAX(duration, kf.time);
-				
-				// get interpolator
-				wyJSONArray* curveJA = rkfJO->optJSONArray("curve");
-				if(curveJA) {
-					kf.interpolator.type = wyBoneTransform::BEZIER;
-					kf.interpolator.cp1X = curveJA->optFloat(0);
-					kf.interpolator.cp1Y = curveJA->optFloat(1);
-					kf.interpolator.cp2X = curveJA->optFloat(2);
-					kf.interpolator.cp2Y = curveJA->optFloat(3);
-				} else {
-					const char* curveStr = rkfJO->optString("curve");
-					if(curveStr && !strcmp(curveStr, "stepped"))
-						kf.interpolator.type = wyBoneTransform::STEP;
-					else
-						kf.interpolator.type = wyBoneTransform::LINEAR;
+	// get bones object
+	wyJSONObject* bonesJO = jo->optJSONObject("bones");
+	if(bonesJO) {
+		// iterate every bone
+		int size = bonesJO->getLength();
+		for(int i = 0; i < size; i++) {
+			// get bone key and bone transform json object
+			const char* boneKey = bonesJO->keyAt(i);
+			wyJSONObject* btJO = bonesJO->optJSONObject(i);
+			
+			// create transform
+			wyBoneTransform* bt = wyBoneTransform::make();
+			bt->setBoneName(boneKey);
+			
+			// get rotation key frames
+			wyJSONObject* rkfListJO = btJO->optJSONObject("rotate");
+			if(rkfListJO) {
+				int kfCount = rkfListJO->getLength();
+				for(int j = 0; j < kfCount; j++) {
+					// get time and angle
+					wyJSONObject* rkfJO = rkfListJO->optJSONObject(j);
+					wyBoneTransform::RotationKeyFrame kf;
+					kf.time = atof(rkfListJO->keyAt(j));
+					kf.angle = rkfJO->optFloat("angle");
+					
+					// save max time as duration
+					duration = MAX(duration, kf.time);
+					
+					// get interpolator
+					wyJSONArray* curveJA = rkfJO->optJSONArray("curve");
+					if(curveJA) {
+						kf.interpolator.type = wyTransform::BEZIER;
+						kf.interpolator.cp1X = curveJA->optFloat(0);
+						kf.interpolator.cp1Y = curveJA->optFloat(1);
+						kf.interpolator.cp2X = curveJA->optFloat(2);
+						kf.interpolator.cp2Y = curveJA->optFloat(3);
+					} else {
+						const char* curveStr = rkfJO->optString("curve");
+						if(curveStr && !strcmp(curveStr, "stepped"))
+							kf.interpolator.type = wyTransform::STEP;
+						else
+							kf.interpolator.type = wyTransform::LINEAR;
+					}
+					
+					// add key frame
+					bt->addRotationKeyFrame(kf);
 				}
-				
-				// add key frame
-				bt->addRotationKeyFrame(kf);
-			}
-		}
-		
-		// get translation key frames
-		wyJSONObject* tkfListJO = btJO->optJSONObject("translate");
-		if(tkfListJO) {
-			int kfCount = tkfListJO->getLength();
-			for(int j = 0; j < kfCount; j++) {
-				// get time, x and y
-				wyJSONObject* tkfJO = tkfListJO->optJSONObject(j);
-				wyBoneTransform::TranslationKeyFrame kf;
-				kf.time = atof(tkfListJO->keyAt(j));
-				kf.x = tkfJO->optFloat("x") * scale;
-				kf.y = tkfJO->optFloat("y") * scale;
-				
-				// save max time as duration
-				duration = MAX(duration, kf.time);
-				
-				// get interpolator
-				wyJSONArray* curveJA = tkfJO->optJSONArray("curve");
-				if(curveJA) {
-					kf.interpolator.type = wyBoneTransform::BEZIER;
-					kf.interpolator.cp1X = curveJA->optFloat(0);
-					kf.interpolator.cp1Y = curveJA->optFloat(1);
-					kf.interpolator.cp2X = curveJA->optFloat(2);
-					kf.interpolator.cp2Y = curveJA->optFloat(3);
-				} else {
-					const char* curveStr = tkfJO->optString("curve");
-					if(curveStr && !strcmp(curveStr, "stepped"))
-						kf.interpolator.type = wyBoneTransform::STEP;
-					else
-						kf.interpolator.type = wyBoneTransform::LINEAR;
+			} // end if(rkfListJO)
+			
+			// get translation key frames
+			wyJSONObject* tkfListJO = btJO->optJSONObject("translate");
+			if(tkfListJO) {
+				int kfCount = tkfListJO->getLength();
+				for(int j = 0; j < kfCount; j++) {
+					// get time, x and y
+					wyJSONObject* tkfJO = tkfListJO->optJSONObject(j);
+					wyBoneTransform::TranslationKeyFrame kf;
+					kf.time = atof(tkfListJO->keyAt(j));
+					kf.x = tkfJO->optFloat("x") * scale;
+					kf.y = tkfJO->optFloat("y") * scale;
+					
+					// save max time as duration
+					duration = MAX(duration, kf.time);
+					
+					// get interpolator
+					wyJSONArray* curveJA = tkfJO->optJSONArray("curve");
+					if(curveJA) {
+						kf.interpolator.type = wyTransform::BEZIER;
+						kf.interpolator.cp1X = curveJA->optFloat(0);
+						kf.interpolator.cp1Y = curveJA->optFloat(1);
+						kf.interpolator.cp2X = curveJA->optFloat(2);
+						kf.interpolator.cp2Y = curveJA->optFloat(3);
+					} else {
+						const char* curveStr = tkfJO->optString("curve");
+						if(curveStr && !strcmp(curveStr, "stepped"))
+							kf.interpolator.type = wyTransform::STEP;
+						else
+							kf.interpolator.type = wyTransform::LINEAR;
+					}
+					
+					// add key frame
+					bt->addTranslationKeyFrame(kf);
 				}
-				
-				// add key frame
-				bt->addTranslationKeyFrame(kf);
-			}
-		}
-		
-		// get scale key frames
-		wyJSONObject* skfListJO = btJO->optJSONObject("scale");
-		if(skfListJO) {
-			int kfCount = skfListJO->getLength();
-			for(int j = 0; j < kfCount; j++) {
-				// get time, x and y
-				wyJSONObject* skfJO = skfListJO->optJSONObject(j);
-				wyBoneTransform::ScaleKeyFrame kf;
-				kf.time = atof(skfListJO->keyAt(j));
-				kf.scaleX = skfJO->optFloat("scale_x");
-				kf.scaleY = skfJO->optFloat("scale_y");
-				
-				// save max time as duration
-				duration = MAX(duration, kf.time);
-				
-				// get interpolator
-				wyJSONArray* curveJA = skfJO->optJSONArray("curve");
-				if(curveJA) {
-					kf.interpolator.type = wyBoneTransform::BEZIER;
-					kf.interpolator.cp1X = curveJA->optFloat(0);
-					kf.interpolator.cp1Y = curveJA->optFloat(1);
-					kf.interpolator.cp2X = curveJA->optFloat(2);
-					kf.interpolator.cp2Y = curveJA->optFloat(3);
-				} else {
-					const char* curveStr = skfJO->optString("curve");
-					if(curveStr && !strcmp(curveStr, "stepped"))
-						kf.interpolator.type = wyBoneTransform::STEP;
-					else
-						kf.interpolator.type = wyBoneTransform::LINEAR;
+			} // end if(tkfListJO)
+			
+			// get scale key frames
+			wyJSONObject* skfListJO = btJO->optJSONObject("scale");
+			if(skfListJO) {
+				int kfCount = skfListJO->getLength();
+				for(int j = 0; j < kfCount; j++) {
+					// get time, x and y
+					wyJSONObject* skfJO = skfListJO->optJSONObject(j);
+					wyBoneTransform::ScaleKeyFrame kf;
+					kf.time = atof(skfListJO->keyAt(j));
+					kf.scaleX = skfJO->optFloat("scale_x");
+					kf.scaleY = skfJO->optFloat("scale_y");
+					
+					// save max time as duration
+					duration = MAX(duration, kf.time);
+					
+					// get interpolator
+					wyJSONArray* curveJA = skfJO->optJSONArray("curve");
+					if(curveJA) {
+						kf.interpolator.type = wyTransform::BEZIER;
+						kf.interpolator.cp1X = curveJA->optFloat(0);
+						kf.interpolator.cp1Y = curveJA->optFloat(1);
+						kf.interpolator.cp2X = curveJA->optFloat(2);
+						kf.interpolator.cp2Y = curveJA->optFloat(3);
+					} else {
+						const char* curveStr = skfJO->optString("curve");
+						if(curveStr && !strcmp(curveStr, "stepped"))
+							kf.interpolator.type = wyTransform::STEP;
+						else
+							kf.interpolator.type = wyTransform::LINEAR;
+					}
+					
+					// add key frame
+					bt->addScaleKeyFrame(kf);
 				}
-				
-				// add key frame
-				bt->addScaleKeyFrame(kf);
-			}
-		}
-		
-		// TODO wait final json schema
-		// get slot skin key frames
-		wyJSONObject* sskfListJO = btJO->optJSONObject("skin");
-		if(sskfListJO) {
-			int kfCount = sskfListJO->getLength();
-			for(int j = 0; j < kfCount; j++) {
-				// get time and skin name
-				wyJSONObject* sskfJO = sskfListJO->optJSONObject(j);
-				wyBoneTransform::SlotSkinKeyFrame kf;
-				kf.time = atof(sskfListJO->keyAt(j));
-				kf.skinName = wyUtils::copy(sskfJO->optString("attachment"));
-				kf.slotName = wyUtils::copy(sskfJO->optString("slot"));
-				
-				// save max time as duration
-				duration = MAX(duration, kf.time);
-				
-				// interpolator for skin transform is always STEP
-				kf.interpolator.type = wyBoneTransform::STEP;
-				
-				// add key frame
-				// addSlotSkinKeyFrame doesn't copy skin name, so no need to release it
-				bt->addSlotSkinKeyFrame(kf);
-			}
-		}
-		
-		// get slot color key frame
-		wyJSONObject* sckfListJO = btJO->optJSONObject("color");
-		if(sckfListJO) {
-			int kfCount = sckfListJO->getLength();
-			for(int j = 0; j < kfCount; j++) {
-				// get time and color
-				wyJSONObject* sckfJO = sckfListJO->optJSONObject(j);
-				wyBoneTransform::SlotColorKeyFrame kf;
-				kf.time = atof(sckfListJO->keyAt(j));
-				kf.color = sckfJO->optInt("color", 0xffffffff);
-				
-				// save max time as duration
-				duration = MAX(duration, kf.time);
-				
-				// get interpolator
-				wyJSONArray* curveJA = sckfJO->optJSONArray("curve");
-				if(curveJA) {
-					kf.interpolator.type = wyBoneTransform::BEZIER;
-					kf.interpolator.cp1X = curveJA->optFloat(0);
-					kf.interpolator.cp1Y = curveJA->optFloat(1);
-					kf.interpolator.cp2X = curveJA->optFloat(2);
-					kf.interpolator.cp2Y = curveJA->optFloat(3);
-				} else {
-					const char* curveStr = sckfJO->optString("curve");
-					if(curveStr && !strcmp(curveStr, "stepped"))
-						kf.interpolator.type = wyBoneTransform::STEP;
-					else
-						kf.interpolator.type = wyBoneTransform::LINEAR;
+			} // end if(skfListJO)
+			
+			// add transform
+			anim->addTransform(bt);
+		} // end for
+	} // end if(bonesJO)
+
+	// get slots json
+	wyJSONObject* slotsJO = jo->optJSONObject("slots");
+	if(slotsJO) {
+		// iterate every slot
+		int size = slotsJO->getLength();
+		for(int i = 0; i < size; i++) {
+			// get slot key and slot transform json object
+			const char* slotKey = slotsJO->keyAt(i);
+			wyJSONObject* stJO = slotsJO->optJSONObject(i);
+			
+			// create transform
+			wySlotTransform* st = wySlotTransform::make();
+			st->setSlotName(slotKey);
+			
+			// get slot skin key frames
+			wyJSONObject* skfListJO = stJO->optJSONObject("attachment");
+			if(skfListJO) {
+				int kfCount = skfListJO->getLength();
+				for(int j = 0; j < kfCount; j++) {
+					// get time and skin name
+					const char* timeKey = skfListJO->keyAt(j);
+					const char* skinName = skfListJO->optString(j);
+					wySlotTransform::SkinKeyFrame kf;
+					kf.time = atof(timeKey);
+					kf.skinName = wyUtils::copy(skinName);
+					
+					// save max time as duration
+					duration = MAX(duration, kf.time);
+					
+					// interpolator for skin transform is always STEP
+					kf.interpolator.type = wyTransform::STEP;
+					
+					// add key frame
+					// addSkinKeyFrame doesn't copy skin name, so no need to release it
+					st->addSkinKeyFrame(kf);
 				}
-				
-				// add key frame
-				bt->addSlotColorKeyFrame(kf);
 			}
-		}
-		
-		// set duration
-		anim->m_duration = duration;
-		
-		// add transform
-		anim->addBoneTransform(bt);
-	}
-	
+			
+			// get slot color key frame
+			wyJSONObject* ckfListJO = stJO->optJSONObject("color");
+			if(ckfListJO) {
+				int kfCount = ckfListJO->getLength();
+				for(int j = 0; j < kfCount; j++) {
+					// get time and color
+					wyJSONObject* ckfJO = ckfListJO->optJSONObject(j);
+					wySlotTransform::ColorKeyFrame kf;
+					kf.time = atof(ckfListJO->keyAt(j));
+					kf.color = ckfJO->optInt("color", 0xffffffff);
+					
+					// save max time as duration
+					duration = MAX(duration, kf.time);
+					
+					// get interpolator
+					wyJSONArray* curveJA = ckfJO->optJSONArray("curve");
+					if(curveJA) {
+						kf.interpolator.type = wyBoneTransform::BEZIER;
+						kf.interpolator.cp1X = curveJA->optFloat(0);
+						kf.interpolator.cp1Y = curveJA->optFloat(1);
+						kf.interpolator.cp2X = curveJA->optFloat(2);
+						kf.interpolator.cp2Y = curveJA->optFloat(3);
+					} else {
+						const char* curveStr = ckfJO->optString("curve");
+						if(curveStr && !strcmp(curveStr, "stepped"))
+							kf.interpolator.type = wyBoneTransform::STEP;
+						else
+							kf.interpolator.type = wyBoneTransform::LINEAR;
+					}
+					
+					// add key frame
+					st->addColorKeyFrame(kf);
+				}
+			}
+			
+			// add transform
+			anim->addTransform(st);
+		} // end for
+	} // end if(slotsJO)
+
+	// set duration
+	anim->m_duration = duration;
+
 	// return
 	return anim;
 }
