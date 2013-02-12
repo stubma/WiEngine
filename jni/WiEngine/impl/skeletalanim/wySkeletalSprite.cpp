@@ -40,7 +40,8 @@ wySkeletalSprite::wySkeletalSprite() :
 		m_animation(NULL),
 		m_loop(0),
 		m_paused(false),
-		m_rootBone(NULL) {
+		m_rootBone(NULL),
+		m_fillAfter(false) {
 }
 
 wySkeletalSprite::~wySkeletalSprite() {
@@ -112,13 +113,13 @@ void wySkeletalSprite::visit() {
 	glPopMatrix();
 }
 
-void wySkeletalSprite::stopAnimation() {
+void wySkeletalSprite::stopAnimation(bool restore) {
 	// clear animation
 	wyObjectRelease(m_animation);
 	m_animation = NULL;
 	
 	// restore original state
-	if(m_rootBone) {
+	if(m_rootBone && restore) {
 		restoreBoneInfo(m_rootBone);
 		syncBoneStates(m_rootBone);
 	}
@@ -126,7 +127,7 @@ void wySkeletalSprite::stopAnimation() {
 
 void wySkeletalSprite::playAnimation(wySkeletalAnimation* anim) {
 	// stop current
-	stopAnimation();
+	stopAnimation(false);
 	
 	// hold this animation
 	wyObjectRetain(anim);
@@ -167,14 +168,30 @@ void wySkeletalSprite::tick(float delta) {
 	if(!m_animation)
 		return;
 	
-	// set frame
+	// update frame time
 	m_frameTime += delta;
 	if(m_frameTime > m_animation->getDuration()) {
-		m_frameTime = fmod(m_frameTime, m_animation->getDuration());
-	}
-	
-	// update frame state
-	setFrame(m_frameTime);
+		if(m_loop < 0) {
+			m_frameTime = fmod(m_frameTime, m_animation->getDuration());
+			setFrame(m_frameTime);
+		} else if(m_loop > 1) {
+			m_loop--;
+			m_frameTime = fmod(m_frameTime, m_animation->getDuration());
+			setFrame(m_frameTime);
+		} else {
+			// ensure last frame is set
+			if(m_fillAfter)
+				setFrame(m_animation->getDuration());
+			
+			// stop animation
+			stopAnimation(!m_fillAfter);
+			
+			// reset some members
+			m_loop = 0;
+		}
+	} else {
+		setFrame(m_frameTime);
+	}		
 }
 
 void wySkeletalSprite::setFrame(float time) {
@@ -195,7 +212,7 @@ void wySkeletalSprite::setFrame(float time) {
 
 void wySkeletalSprite::setSkeleton(wySkeleton* s) {
 	// stop current animation
-	stopAnimation();
+	stopAnimation(false);
 	
 	// hold skeleton
 	wyObjectRetain(s);

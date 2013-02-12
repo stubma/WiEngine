@@ -60,6 +60,9 @@ private:
 	/// animation if paused?
 	bool m_paused;
 	
+	/// false means restore original state after animation is done
+	bool m_fillAfter;
+	
 protected:
 	wySkeletalSprite();
 	
@@ -109,8 +112,12 @@ public:
 	/// @see wyNode::visit
 	virtual void visit();
 	
-	/// stop any animation which is ongoing
-	void stopAnimation();
+	/**
+	 * stop any animation which is ongoing
+	 *
+	 * @param true means restore original state, or false means keep last frame state
+	 */
+	void stopAnimation(bool restore);
 	
 	/// tick animation
 	void tick(float delta);
@@ -146,6 +153,12 @@ public:
 
 	/// is paused?
 	bool isPaused() { return m_paused; }
+	
+	/// set fill after flag, false means restore original state when animation is done
+	void setFillAfter(bool flag) { m_fillAfter = flag; }
+
+	/// get fill after flag
+	bool isFillAfter() { return m_fillAfter; }
 };
 
 #endif // __wySkeletalSprite_h__
