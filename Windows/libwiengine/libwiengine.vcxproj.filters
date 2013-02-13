@@ -73,6 +73,12 @@
     <Filter Include="platform\windows\KHR">
       <UniqueIdentifier>{258f8cf1-df79-48c5-9ddb-a47559a5d890}</UniqueIdentifier>
     </Filter>
+    <Filter Include="skeletalanim">
+      <UniqueIdentifier>{1fad25db-8a2f-416f-b38b-dd7c5720bfdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="json">
+      <UniqueIdentifier>{01c11f85-6604-48c0-8095-b7df79d41860}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\jni\WiEngine\include\actions\wyAction.h">
@@ -1147,6 +1153,57 @@
     <ClInclude Include="..\..\jni\WiEngine\include\common\wyBuildConfig.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeleton.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkinAttachment.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySlot.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySlotTransform.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySpineLoader.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wyTransform.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wyAttachment.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wyBone.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wyBoneTransform.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeletalAnimation.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeletalAnimationCache.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeletalAnimationListener.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeletalSprite.h">
+      <Filter>skeletalanim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\json\wyJSONObject.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\json\wyJSONParser.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\json\wyJSONValue.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jni\WiEngine\include\json\wyJSONArray.h">
+      <Filter>json</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\jni\WiEngine\impl\actions\wyAnimate.cpp">
@@ -2138,6 +2195,54 @@
     </ClCompile>
     <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\dllmain.cpp">
       <Filter>platform\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkeletalSprite.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkeleton.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkinAttachment.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySlot.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySlotTransform.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySpineLoader.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wyTransform.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wyAttachment.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wyBone.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wyBoneTransform.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkeletalAnimation.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkeletalAnimationCache.cpp">
+      <Filter>skeletalanim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\json\wyJSONArray.cpp">
+      <Filter>json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\json\wyJSONObject.cpp">
+      <Filter>json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\json\wyJSONParser.cpp">
+      <Filter>json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jni\WiEngine\impl\json\wyJSONValue.cpp">
+      <Filter>json</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

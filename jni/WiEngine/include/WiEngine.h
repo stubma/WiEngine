@@ -350,6 +350,8 @@
 // json
 #include "wyJSONObject.h"
 #include "wyJSONArray.h"
+#include "wyJSONValue.h"
+#include "wyJSONParser.h"
 
 // skeletal animation
 #include "wyAttachment.h"

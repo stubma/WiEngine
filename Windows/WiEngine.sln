@@ -32,8 +32,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiEngineDemos_shell", "WiEn
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libbox2d", "libbox2d\libbox2d.vcxproj", "{DF17E696-5188-4116-AC4A-8B7FA613D4DB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjson", "libjson\libjson.vcxproj", "{9F501AFF-2C19-4993-A801-9182D4D01EFA}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libyajl", "libyajl\libyajl.vcxproj", "{F52794F2-0C77-4BE3-9D2F-F7E886E67A78}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libwinetwork", "libwinetwork\libwinetwork.vcxproj", "{9574B958-3056-43CC-BBD3-14FD1423B264}"
@@ -186,16 +184,6 @@ Global
 		{DF17E696-5188-4116-AC4A-8B7FA613D4DB}.Release|Win32.ActiveCfg = Release|Win32
 		{DF17E696-5188-4116-AC4A-8B7FA613D4DB}.Release|Win32.Build.0 = Release|Win32
 		{DF17E696-5188-4116-AC4A-8B7FA613D4DB}.Release|x86.ActiveCfg = Release|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Debug|Win32.Build.0 = Debug|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Debug|x86.ActiveCfg = Debug|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Release|Win32.ActiveCfg = Release|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Release|Win32.Build.0 = Release|Win32
-		{9F501AFF-2C19-4993-A801-9182D4D01EFA}.Release|x86.ActiveCfg = Release|Win32
 		{F52794F2-0C77-4BE3-9D2F-F7E886E67A78}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{F52794F2-0C77-4BE3-9D2F-F7E886E67A78}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{F52794F2-0C77-4BE3-9D2F-F7E886E67A78}.Debug|Win32.ActiveCfg = Debug|Win32

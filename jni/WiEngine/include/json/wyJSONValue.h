@@ -38,7 +38,7 @@
  *
  * help class of json value casting
  */
-class wyJSONValue {
+class WIENGINE_API wyJSONValue {
 public:
 	/// cast value to boolean
 	static bool castToBool(wyJSONObject::KeyValue& kv);

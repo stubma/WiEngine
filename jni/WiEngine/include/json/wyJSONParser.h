@@ -35,7 +35,7 @@
 /**
  * JSON parser
  */
-class wyJSONParser {
+class WIENGINE_API wyJSONParser {
 public:
 	/// parse json from a memory json string
 	static wyObject* load(const char* json, size_t length);

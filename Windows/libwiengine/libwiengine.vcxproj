@@ -35,6 +35,9 @@
     <ProjectReference Include="..\libxml2\libxml2.vcxproj">
       <Project>{478ee92c-bf93-4e4e-850c-50d6a863199d}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\libyajl\libyajl.vcxproj">
+      <Project>{f52794f2-0c77-4be3-9d2f-f7e886e67a78}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\libz\libz.vcxproj">
       <Project>{a84811e2-e408-475d-95c8-3810ec8a64a2}</Project>
     </ProjectReference>
@@ -236,6 +239,10 @@
     <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGrabber.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\grid\wyGrid3D.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\grid\wyTiledGrid3D.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\json\wyJSONArray.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\json\wyJSONObject.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\json\wyJSONParser.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\json\wyJSONValue.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyActionManager.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyAnimation.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\nodes\wyArrayTileMapAtlas.h" />
@@ -317,6 +324,19 @@
     <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\unistd.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\wyGestureRecognizerListener.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\platform\windows\wyWinGLView.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wyAttachment.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wyBone.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wyBoneTransform.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeletalAnimation.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeletalAnimationCache.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeletalAnimationListener.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeletalSprite.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkeleton.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySkinAttachment.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySlot.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySlotTransform.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wySpineLoader.h" />
+    <ClInclude Include="..\..\jni\WiEngine\include\skeletalanim\wyTransform.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyLayerInfo.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyMapInfo.h" />
     <ClInclude Include="..\..\jni\WiEngine\include\tmx\wyTileSetInfo.h" />
@@ -572,6 +592,10 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGrabber.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyGrid3D.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\grid\wyTiledGrid3D.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\json\wyJSONArray.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\json\wyJSONObject.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\json\wyJSONParser.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\json\wyJSONValue.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_Director.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\com_wiyun_engine_nodes_TextBox.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\nodes\wyActionManager.cpp" />
@@ -655,6 +679,18 @@
     <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyThread_win.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyUtils_win.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\platform\windows\wyWinGLView.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wyAttachment.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wyBone.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wyBoneTransform.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkeletalAnimation.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkeletalAnimationCache.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkeletalSprite.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkeleton.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySkinAttachment.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySlot.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySlotTransform.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wySpineLoader.cpp" />
+    <ClCompile Include="..\..\jni\WiEngine\impl\skeletalanim\wyTransform.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyLayerInfo.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyMapInfo.cpp" />
     <ClCompile Include="..\..\jni\WiEngine\impl\tmx\wyTileSetInfo.cpp" />
@@ -774,7 +810,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;WINDOWS;_USRDLL;LIBWIENGINE_EXPORTS;_CRT_SECURE_NO_WARNINGS;GL_GLEXT_PROTOTYPES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config;..\..\jni\libpvr;..\..\jni\libpvr\OGLES</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\jni\yajl\include;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\skeletalanim;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config;..\..\jni\libpvr;..\..\jni\libpvr\OGLES</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819;4244;4018;4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>
@@ -794,7 +830,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>.;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config;..\..\jni\libpvr;..\..\jni\libpvr\OGLES</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\jni\yajl\include;..\..\jni\WiEngine\impl\tmx;..\..\jni\WiEngine\impl\platform\windows;..\..\jni\WiEngine\include\skeletalanim;..\..\jni\WiEngine\include\winetwork;..\..\jni\WiEngine\include\designer;..\..\jni\WiEngine\include\wisound;..\..\jni\WiEngine\include\tmx;..\..\jni\WiEngine\include\transitions;..\..\jni\WiEngine\include\iap;..\..\jni\WiEngine\include\json;..\..\jni\WiEngine\include\lua;..\..\jni\WiEngine\include\box2d;..\..\jni\WiEngine\include\chipmunk;..\..\jni\WiEngine\include\persistence;..\..\jni\WiEngine\include\mfs;..\..\jni\WiEngine\include\particle;..\..\jni\WiEngine\include\grid;..\..\jni\WiEngine\include\gridactions;..\..\jni\WiEngine\include\events;..\..\jni\WiEngine\include\filters;..\..\jni\WiEngine\include\easeactions;..\..\jni\WiEngine\include\dialog;..\..\jni\WiEngine\include\afcanim;..\..\jni\WiEngine\include\bitmapfont;..\..\jni\WiEngine\include\astar;..\..\jni\WiEngine\include\nodes;..\..\jni\WiEngine\include\actions;..\..\jni\WiEngine\include\types;..\..\jni\WiEngine\include\opengl;..\..\jni\WiEngine\include\utils;..\..\jni\WiEngine\include\common;..\..\jni\WiEngine\include\platform\windows;..\libpthread;..\..\jni\libnsbmp;..\..\jni\libpng;..\libz\include;..\..\jni\libjpeg;..\..\jni\libxml2\include;..\libsqlite;..\..\jni\skia\include\core;..\..\jni\skia\include\config;..\..\jni\libpvr;..\..\jni\libpvr\OGLES</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819;4244;4018;4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>
