@@ -29,6 +29,7 @@ Main Features
  * Memory file system
  * Sound engine which is named "WiSound"
  * AFC(Animation, Frame, Clip) animation format support
+ * Skeletal Animation support
  * texture color filter
  * Persistence support (preference, sqlite3)
  * flexible screen adaptation: by density, by base size
