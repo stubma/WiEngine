@@ -33,6 +33,7 @@
 #include "wySkeleton.h"
 #include "wySkeletalAnimation.h"
 #include "wySpriteEx.h"
+#include "wySkeletalAnimationListener.h"
 
 /**
  * sprite can play skeletal animation
@@ -62,6 +63,9 @@ private:
 	
 	/// false means restore original state after animation is done
 	bool m_fillAfter;
+	
+	/// listener
+	wySkeletalAnimationListener* m_listener;
 	
 protected:
 	wySkeletalSprite();
@@ -162,6 +166,12 @@ public:
 
 	/// get fill after flag
 	bool isFillAfter() { return m_fillAfter; }
+	
+	/// set listener
+	void setListener(wySkeletalAnimationListener* l) { m_listener = l; }
+	
+	/// get current listener
+	wySkeletalAnimationListener* getListener() { return m_listener; }
 };
 
 #endif // __wySkeletalSprite_h__

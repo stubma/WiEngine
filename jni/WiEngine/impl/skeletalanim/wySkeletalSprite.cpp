@@ -41,7 +41,8 @@ wySkeletalSprite::wySkeletalSprite() :
 		m_loop(0),
 		m_paused(false),
 		m_rootBone(NULL),
-		m_fillAfter(false) {
+		m_fillAfter(false),
+		m_listener(NULL) {
 }
 
 wySkeletalSprite::~wySkeletalSprite() {
@@ -118,6 +119,10 @@ void wySkeletalSprite::visit() {
 }
 
 void wySkeletalSprite::stopAnimation(bool restore) {
+	// no animation? return
+	if(!m_animation)
+		return;
+	
 	// clear animation
 	wyObjectRelease(m_animation);
 	m_animation = NULL;
@@ -126,6 +131,10 @@ void wySkeletalSprite::stopAnimation(bool restore) {
 	if(m_rootBone && restore) {
 		syncOriginalBoneStates(m_rootBone);
 	}
+	
+	// notify
+	if(m_listener)
+		m_listener->onSkeletalAnimationStopped(this);
 }
 
 void wySkeletalSprite::playAnimation(wySkeletalAnimation* anim) {
@@ -139,6 +148,10 @@ void wySkeletalSprite::playAnimation(wySkeletalAnimation* anim) {
 	
 	// init for first frame
 	setupFirstFrameState();
+	
+	// notify
+	if(m_listener)
+		m_listener->onSkeletalAnimationStarted(this);
 }
 
 void wySkeletalSprite::playAnimation(const char* animName) {
@@ -165,7 +178,7 @@ void wySkeletalSprite::tick(float delta) {
 		return;
 	
 	// basic checking
-	if(!m_animation)
+	if(!m_animation || !m_skeleton)
 		return;
 	
 	// update frame time
@@ -174,14 +187,27 @@ void wySkeletalSprite::tick(float delta) {
 		if(m_loop < 0) {
 			m_frameTime = fmod(m_frameTime, m_animation->getDuration());
 			setFrame(m_frameTime);
+			
+			// notify
+			if(m_listener)
+				m_listener->onSkeletalAnimationUpdated(this, m_frameTime);
 		} else if(m_loop > 1) {
 			m_loop--;
 			m_frameTime = fmod(m_frameTime, m_animation->getDuration());
 			setFrame(m_frameTime);
+			
+			// notify
+			if(m_listener)
+				m_listener->onSkeletalAnimationUpdated(this, m_frameTime);
 		} else {
 			// ensure last frame is set
-			if(m_fillAfter)
+			if(m_fillAfter) {
 				setFrame(m_animation->getDuration());
+				
+				// notify
+				if(m_listener)
+					m_listener->onSkeletalAnimationUpdated(this, m_frameTime);
+			}
 			
 			// stop animation
 			stopAnimation(!m_fillAfter);
@@ -191,14 +217,14 @@ void wySkeletalSprite::tick(float delta) {
 		}
 	} else {
 		setFrame(m_frameTime);
-	}		
+		
+		// notify
+		if(m_listener)
+			m_listener->onSkeletalAnimationUpdated(this, m_frameTime);
+	}
 }
 
 void wySkeletalSprite::setFrame(float time) {
-	// basic checking
-	if(!m_animation || !m_skeleton)
-		return;
-	
 	wySkeletalAnimation::TransformPtrList& tList = m_animation->getTransformList();
 	for(wySkeletalAnimation::TransformPtrList::iterator iter = tList.begin(); iter != tList.end(); iter++) {
 		// calculate info

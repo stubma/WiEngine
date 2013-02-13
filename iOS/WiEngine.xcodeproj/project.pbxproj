@@ -2008,6 +2008,7 @@
 		92CE54C913975C3500778800 /* window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		92CE54CA13975C3500778800 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
 		92CE54CB13975C3500778800 /* window_lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window_lookup.h; sourceTree = "<group>"; };
+		92D2DE4A16CB5066006C8C84 /* wySkeletalAnimationListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySkeletalAnimationListener.h; path = ../jni/WiEngine/include/skeletalanim/wySkeletalAnimationListener.h; sourceTree = "<group>"; };
 		92D62E6D14D9098C00FFA23C /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
 		92D62E6E14D9098C00FFA23C /* NSString+SBJSON.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+SBJSON.mm"; sourceTree = "<group>"; };
 		92D62E6F14D9098C00FFA23C /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
@@ -3964,6 +3965,7 @@
 				9253576116CA279F00B73E2A /* wySlotTransform.cpp */,
 				9236F88816C8E76400FB35B0 /* wySkeletalSprite.h */,
 				9236F88416C8E75500FB35B0 /* wySkeletalSprite.cpp */,
+				92D2DE4A16CB5066006C8C84 /* wySkeletalAnimationListener.h */,
 			);
 			name = skeletalanim;
 			sourceTree = "<group>";
