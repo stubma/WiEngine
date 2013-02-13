@@ -37,12 +37,14 @@ Main Features
  
 Tools Supported
 -----------------------------------
- * Animation Tools
+ * Frame Animation Tools
   * Motion Welder, please download it from [http://www.motionwelder.com][1]
   * SpriteX 3.9.4, download: [http://wiengine.wiyun.com/tools/spx3.rar][2]
   * SpriteX 2011, trail download: [http://wiengine.wiyun.com/tools/SpriteX_2011_free_version.rar][3], full version is not free
   * Arctic, download: [http://wiengine.wiyun.com/tools/Arctic_0.2.5.zip][4]
   * AuroraGT 0.7.3, search it in internet, I don't provide download link here.
+ * Skeletal Animation Tools
+  * Spine, download it from [http://esotericsoftware.com][19]. It is not free, but there is trail version with full functions except exporting.
  * Particle Tools 
   * Particle Designer, please download it from [http://particledesigner.71squared.com/][6]. This tool only support Mac OS X but somebody has ported it to Windows, you can download ported version here: [http://code.google.com/p/cocos2d-windows-particle-editor/][17]
   * HGE Particle Ed, please download it from [http://hge.relishgames.com/][7]
@@ -89,3 +91,4 @@ We organize all documentation in [github wiki][18]. Now it is just a beginning a
 [16]: http://www.mapeditor.org/
 [17]: http://code.google.com/p/cocos2d-windows-particle-editor/
 [18]: https://github.com/stubma/WiEngine/wiki
+[19]: http://esotericsoftware.com
