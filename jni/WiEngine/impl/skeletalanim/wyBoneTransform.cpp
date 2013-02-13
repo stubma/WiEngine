@@ -29,7 +29,7 @@
 #include "wyBoneTransform.h"
 #include "wyUtils.h"
 #include "wyLog.h"
-#include "wySkeleton.h"
+#include "wySkeletalSprite.h"
 
 wyBoneTransform::wyBoneTransform() :
 		m_boneName(NULL) {
@@ -199,26 +199,31 @@ void wyBoneTransform::populateFrame(float time) {
 	}
 }
 
-bool wyBoneTransform::applyTo(wySkeleton* s) {
+bool wyBoneTransform::applyTo(wySkeletalSprite* owner) {
+	wySkeleton* s = owner->getSkeleton();
 	wyBone* bone = s->getBone(m_boneName);
 	if(!bone)
 		return false;
 	
+	// get state of this owner, and original state
+	wyBone::State& ownerState = bone->getState(owner);
+	wyBone::State& originalState = bone->getOriginalState();
+	
 	// set rotation
 	if(m_currentRotation.valid) {
-		bone->setRotationRelativeToTop(m_currentRotation.angle);
+		ownerState.rotation = originalState.rotation + m_currentRotation.angle;
 	}
 	
 	// set translation
 	if(m_currentTranslation.valid) {
-		bone->setXRelativeToTop(m_currentTranslation.x);
-		bone->setYRelativeToTop(m_currentTranslation.y);
+		ownerState.x = originalState.x + m_currentTranslation.x;
+		ownerState.y = originalState.y + m_currentTranslation.y;
 	}
 	
 	// set scale
 	if(m_currentScale.valid) {
-		bone->setScaleXRelativeToTop(m_currentScale.scaleX);
-		bone->setScaleYRelativeToTop(m_currentScale.scaleY);
+		ownerState.scaleX = originalState.scaleX + m_currentScale.scaleX;
+		ownerState.scaleY = originalState.scaleY + m_currentScale.scaleY;
 	}
 	
 	return true;

@@ -113,24 +113,26 @@ void wySkeleton::dump() {
 	// dump bone
 	LOGD("bone count: %ld", m_boneMap.size());
 	for(BoneMap::iterator iter = m_boneMap.begin(); iter != m_boneMap.end(); iter++) {
+		wyBone::State& state = iter->second->getOriginalState();
 		LOGD("bone %s, parent: %s, len: %f, x: %f, y: %f, rotation: %f, scalex: %f, scaley: %f",
 			 iter->second->getName(),
 			 iter->second->getParent() ? iter->second->getParent()->getName() : "none",
 			 iter->second->getLength(),
-			 iter->second->getX(),
-			 iter->second->getY(),
-			 iter->second->getRotation(),
-			 iter->second->getScaleX(),
-			 iter->second->getScaleY());
+			 state.x,
+			 state.y,
+			 state.rotation,
+			 state.scaleX,
+			 state.scaleY);
 	}
 
 	// dump slot
 	LOGD("slot count: %ld", m_slotMap.size());
 	for(SlotMap::iterator iter = m_slotMap.begin(); iter != m_slotMap.end(); iter++) {
+		wySlot::State& state = iter->second->getOriginalState();
 		LOGD("slot %s, bone: %s, activeskin: %s, color: 0x%x",
 			 iter->second->getName(),
 			 iter->second->getBone()->getName(),
-			 iter->second->getActiveSkinAttachmentName() ? iter->second->getActiveSkinAttachmentName() : "null",
-			 wyc4bToInteger(iter->second->getColor()));
+			 state.activeSkinAttachmentName ? state.activeSkinAttachmentName : "null",
+			 state.color);
 	}
 }

@@ -27,7 +27,7 @@
  * THE SOFTWARE.
  */
 #include "wySlotTransform.h"
-#include "wySkeleton.h"
+#include "wySkeletalSprite.h"
 #include "wyUtils.h"
 #include "wyLog.h"
 #include "wySpriteEx.h"
@@ -146,22 +146,30 @@ void wySlotTransform::populateFrame(float time) {
 	}
 }
 
-bool wySlotTransform::applyTo(wySkeleton* s) {
+bool wySlotTransform::applyTo(wySkeletalSprite* owner) {
+	wySkeleton* s = owner->getSkeleton();
 	wySlot* slot = s->getSlot(m_slotName);
 	if(!slot)
 		return false;
 	
-	// sprite
-	wySpriteEx* sprite = slot->getSprite();
+	// get state of this owner
+	wySlot::State& state = slot->getState(owner);
+	wySpriteEx* sprite = state.sprite;
+	
+	// check sprite
+	if(!sprite)
+		return false;
 	
 	// set skin texture
 	if(m_currentSkin.valid) {
+		state.activeSkinAttachmentName = m_currentSkin.skinName;
 		wyTexture2D* tex = createRelatedTexture(s, m_currentSkin.skinName);
 		sprite->setTexture(tex);
 	}
 	
 	// set color
 	if(m_currentColor.valid) {
+		state.color = m_currentColor.color;
 		sprite->setColor(wyc4bFromInteger(m_currentColor.color));
 	}
 	

@@ -86,11 +86,14 @@ protected:
 	/// create slot sprites
 	void createSlotSprites();
 	
-	/// save original bone info
-	void saveBoneInfo(wyBone* bone);
+	/// clean cached bone state of this node
+	void clearBoneStates(wyBone* bone);
 	
-	/// restore to original bone state
-	void restoreBoneInfo(wyBone* bone);
+	/// clean cached slot state of this node
+	void cleanSlotStates();
+	
+	/// sync original bone state to bone node
+	void syncOriginalBoneStates(wyBone* bone);
 	
 	/// sync bone state to bone node
 	void syncBoneStates(wyBone* bone);

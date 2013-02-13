@@ -36,27 +36,40 @@
 class wyBone;
 class wySkinAttachment;
 class wySpriteEx;
+class wySkeletalSprite;
 
 /**
  * slot act as a container for something, and a slot is bound with a bone.
  */
 class WIENGINE_API wySlot : public wyObject {
+public:
+	/// slot transform state
+	struct State {
+		/// color
+		int color;
+		
+		/// active skin attachment name, wySlot doesn't copy it, so doesn't free it
+		const char* activeSkinAttachmentName;
+		
+		/// sprite, wySlot doesn't retain it
+		wySpriteEx* sprite;
+	};
+	
 private:
 	/// bone
 	wyBone* m_bone;
 
-	/// color
-	wyColor4B m_color;
-
 	/// attachments
 	typedef vector<wyAttachment*> AttachmentPtrList;
 	AttachmentPtrList m_attachments;
-
-	/// active skin attachment name
-	const char* m_activeSkinAttachmentName;
 	
-	/// related sprite
-	wySpriteEx* m_sprite;
+	/// original state
+	/// activeSkinAttachmentName of original state need to be releaseds
+	State m_originalState;
+	
+	/// state map for owner
+	typedef map<wySkeletalSprite*, State> StateMap;
+	StateMap m_stateMap;
 
 protected:
 	wySlot(wyBone* bone);
@@ -70,33 +83,24 @@ public:
 	 * @param parent parent bone, or NULL if no parent
 	 */
 	static wySlot* make(wyBone* bone);
-	
-	/// set sprite
-	void setSprite(wySpriteEx* sprite) { m_sprite = sprite; }
-	
-	/// get sprite
-	wySpriteEx* getSprite() { return m_sprite; }
 
 	/// get bone
 	wyBone* getBone() { return m_bone; }
 
-	/// set color
-	void setColor(wyColor4B color) { m_color = color; }
-
-	/// get color
-	wyColor4B getColor() { return m_color; }
-
 	/// add attachment
 	void addAttachment(wyAttachment* a);
 
-	/// set active skin attachment name
-	void setActiveSkinAttachmentName(const char* name);
-
-	/// get active skin attachment name, caller should NOT release returned string
-	const char* getActiveSkinAttachmentName() { return m_activeSkinAttachmentName; }
-
-	/// get active skin attachment, or NULL if not set
-	wySkinAttachment* getActiveSkinAttachment();
+	/// get active skin attachment for an owner, or NULL if not set
+	wySkinAttachment* getActiveSkinAttachment(wySkeletalSprite* owner);
+	
+	/// get original state
+	State& getOriginalState() { return m_originalState; }
+	
+	/// get state for an owner
+	State& getState(wySkeletalSprite* owner);
+	
+	/// clear state of an owner
+	void clearState(wySkeletalSprite* owner);
 };
 
 #endif // __wySlot_h__

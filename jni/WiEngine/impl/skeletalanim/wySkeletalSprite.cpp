@@ -45,6 +45,9 @@ wySkeletalSprite::wySkeletalSprite() :
 }
 
 wySkeletalSprite::~wySkeletalSprite() {
+	if(m_rootBone)
+		clearBoneStates(m_rootBone);
+	cleanSlotStates();
 	wyObjectRelease(m_skeleton);
 	wyObjectRelease(m_animation);
 }
@@ -83,7 +86,8 @@ void wySkeletalSprite::visit() {
 	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplaySlot();
 	for(wySkeleton::SlotPtrList::iterator iter = slotDisplayList.begin(); iter != slotDisplayList.end(); iter++) {
 		wySlot* slot = *iter;
-		wySpriteEx* sprite = slot->getSprite();
+		wySlot::State& state = slot->getState(this);
+		wySpriteEx* sprite = state.sprite;
 		if(sprite) {
 			// should push matrix for every slot sprite
 			glPushMatrix();
@@ -120,8 +124,7 @@ void wySkeletalSprite::stopAnimation(bool restore) {
 	
 	// restore original state
 	if(m_rootBone && restore) {
-		restoreBoneInfo(m_rootBone);
-		syncBoneStates(m_rootBone);
+		syncOriginalBoneStates(m_rootBone);
 	}
 }
 
@@ -133,9 +136,6 @@ void wySkeletalSprite::playAnimation(wySkeletalAnimation* anim) {
 	wyObjectRetain(anim);
 	wyObjectRelease(m_animation);
 	m_animation = anim;
-	
-	// save original frame info
-	saveBoneInfo(m_rootBone);
 	
 	// init for first frame
 	setupFirstFrameState();
@@ -206,7 +206,7 @@ void wySkeletalSprite::setFrame(float time) {
 		t->populateFrame(time);
 		
 		// apply frame
-		t->applyTo(m_skeleton);
+		t->applyTo(this);
 	}
 }
 
@@ -230,17 +230,44 @@ void wySkeletalSprite::setSkeleton(wySkeleton* s) {
 	createSlotSprites();
 	
 	// sync states
-	syncBoneStates(m_rootBone);
+	syncOriginalBoneStates(m_rootBone);
 	syncSkinAttachmentStates();
 }
 
-void wySkeletalSprite::syncBoneStates(wyBone* bone) {
-	wyNode* boneNode = bone->getNode();
+void wySkeletalSprite::clearBoneStates(wyBone* bone) {
+	bone->clearState(this);
+	
+	wyBone::BonePtrList& children = bone->getChildren();
+	for(wyBone::BonePtrList::iterator iter = children.begin(); iter != children.end(); iter++) {
+		clearBoneStates(*iter);
+	}
+}
+
+void wySkeletalSprite::syncOriginalBoneStates(wyBone* bone) {
+	wyBone::State& originalState = bone->getOriginalState();
+	wyBone::State& state = bone->getState(this);
+	wyNode* boneNode = state.node;
 	if(boneNode) {
-		boneNode->setPosition(bone->getX(), bone->getY());
-		boneNode->setRotation(-bone->getRotation());
-		boneNode->setScaleX(bone->getScaleX());
-		boneNode->setScaleY(bone->getScaleY());
+		boneNode->setPosition(originalState.x, originalState.y);
+		boneNode->setRotation(-originalState.rotation);
+		boneNode->setScaleX(originalState.scaleX);
+		boneNode->setScaleY(originalState.scaleY);
+	}
+	
+	wyBone::BonePtrList& children = bone->getChildren();
+	for(wyBone::BonePtrList::iterator iter = children.begin(); iter != children.end(); iter++) {
+		syncOriginalBoneStates(*iter);
+	}
+}
+
+void wySkeletalSprite::syncBoneStates(wyBone* bone) {
+	wyBone::State& state = bone->getState(this);
+	wyNode* boneNode = state.node;
+	if(boneNode) {
+		boneNode->setPosition(state.x, state.y);
+		boneNode->setRotation(-state.rotation);
+		boneNode->setScaleX(state.scaleX);
+		boneNode->setScaleY(state.scaleY);
 	}
 	
 	wyBone::BonePtrList& children = bone->getChildren();
@@ -249,36 +276,26 @@ void wySkeletalSprite::syncBoneStates(wyBone* bone) {
 	}
 }
 
+void wySkeletalSprite::cleanSlotStates() {
+	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplaySlot();
+	for(wySkeleton::SlotPtrList::iterator iter = slotDisplayList.begin(); iter != slotDisplayList.end(); iter++) {
+		(*iter)->clearState(this);
+	}
+}
+
 void wySkeletalSprite::syncSkinAttachmentStates() {
 	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplaySlot();
 	for(wySkeleton::SlotPtrList::iterator iter = slotDisplayList.begin(); iter != slotDisplayList.end(); iter++) {
 		wySlot* slot = *iter;
-		wySpriteEx* sprite = slot->getSprite();
-		wySkinAttachment* skin = slot->getActiveSkinAttachment();
+		wySlot::State& state = slot->getState(this);
+		wySpriteEx* sprite = state.sprite;
+		wySkinAttachment* skin = slot->getActiveSkinAttachment(this);
 		if(skin && sprite) {
 			sprite->setPosition(skin->getX(), skin->getY());
 			sprite->setRotation(-skin->getRotation());
 			sprite->setScaleX(skin->getScaleX());
 			sprite->setScaleY(skin->getScaleY());
 		}
-	}
-}
-
-void wySkeletalSprite::saveBoneInfo(wyBone* bone) {
-	bone->pushSnapshot();
-	
-	wyBone::BonePtrList& children = bone->getChildren();
-	for(wyBone::BonePtrList::iterator iter = children.begin(); iter != children.end(); iter++) {
-		saveBoneInfo(*iter);
-	}
-}
-
-void wySkeletalSprite::restoreBoneInfo(wyBone* bone) {
-	bone->popSnapshot();
-	
-	wyBone::BonePtrList& children = bone->getChildren();
-	for(wyBone::BonePtrList::iterator iter = children.begin(); iter != children.end(); iter++) {
-		restoreBoneInfo(*iter);
 	}
 }
 
@@ -289,13 +306,16 @@ void wySkeletalSprite::createSlotSprites() {
 		wySlot* slot = *iter;
 		
 		// create slot sprite
-		if(slot->getActiveSkinAttachmentName()) {
+		wySlot::State& state = slot->getState(this);
+		if(state.activeSkinAttachmentName) {
 			char buf[512];
-			sprintf(buf, "%s.png", slot->getActiveSkinAttachmentName());
+			sprintf(buf, "%s.png", state.activeSkinAttachmentName);
 			wySpriteEx* sprite = createRelatedSprite(buf);
 			if(sprite) {
-				slot->setSprite(sprite);
-				slot->getBone()->getNode()->addChildLocked(sprite);
+				state.sprite = sprite;
+				wyBone::State& state = slot->getBone()->getState(this);
+				if(state.node)
+					state.node->addChildLocked(sprite);
 			} 
 		}
 	}
@@ -303,10 +323,12 @@ void wySkeletalSprite::createSlotSprites() {
 
 void wySkeletalSprite::createBoneNodes(wyBone* bone) {
 	// this node is root bone node, so need skip root bone
+	wyBone::State& state = bone->getState(this);
 	wyNode* boneNode = wyNode::make();
-	bone->setNode(boneNode);
+	state.node = boneNode;
 	if(bone->getParent()) {
-		bone->getParent()->getNode()->addChildLocked(boneNode);
+		wyBone::State& parentState = bone->getParent()->getState(this);
+		parentState.node->addChildLocked(boneNode);
 	} else {
 		addChildLocked(boneNode);
 	}

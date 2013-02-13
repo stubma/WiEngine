@@ -96,7 +96,7 @@ public:
 	virtual void populateFrame(float time);
 	
 	/// @see wyTransform::applyTo
-	virtual bool applyTo(wySkeleton* s);
+	virtual bool applyTo(wySkeletalSprite* owner);
 	
 	/// @see wyTransform::dump
 	virtual void dump();

@@ -32,6 +32,7 @@
 #include "wyTransform.h"
 
 class wyTexture2D;
+class wySkeleton;
 
 /**
  * transform of slot, it records key frames of one slot
@@ -83,7 +84,7 @@ public:
 	virtual void populateFrame(float time);
 	
 	/// @see wyTransform::applyTo
-	virtual bool applyTo(wySkeleton* s);
+	virtual bool applyTo(wySkeletalSprite* owner);
 	
 	/// @see wyTransform::dump
 	virtual void dump();

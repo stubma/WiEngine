@@ -58,13 +58,14 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 			parent->addChild(bone);
 
 		// set other property
+		wyBone::State& state = bone->getOriginalState();
 		bone->setName(key);
 		bone->setLength(boneJO->optFloat("length") * scale);
-		bone->setX(boneJO->optFloat("x") * scale);
-		bone->setY(boneJO->optFloat("y") * scale);
-		bone->setRotation(boneJO->optFloat("rotation"));
-		bone->setScaleX(boneJO->optFloat("scale_x", 1));
-		bone->setScaleY(boneJO->optFloat("scale_y", 1));
+		state.x = boneJO->optFloat("x") * scale;
+		state.y = boneJO->optFloat("y") * scale;
+		state.rotation = boneJO->optFloat("rotation");
+		state.scaleX = boneJO->optFloat("scale_x", 1);
+		state.scaleY = boneJO->optFloat("scale_y", 1);
 
 		// add bone
 		skeleton->addBone(bone);
@@ -89,13 +90,13 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 		slot->setName(key);
 
 		// set color
-		int color = slotJO->optInt("color", 0xffffffff);
-		slot->setColor(wyc4bFromInteger(color));
+		wySlot::State& state = slot->getOriginalState();
+		state.color = slotJO->optInt("color", 0xffffffff);
 
 		// set active skin attachment name
 		const char* attName = slotJO->optString("attachment");
 		if(attName) {
-			slot->setActiveSkinAttachmentName(attName);
+			state.activeSkinAttachmentName = wyUtils::copy(attName);
 		}
 
 		// add slot

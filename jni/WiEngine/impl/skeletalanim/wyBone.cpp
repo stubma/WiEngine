@@ -28,15 +28,17 @@
  */
 #include "wyBone.h"
 #include "wyLog.h"
+#include "wySkeletalSprite.h"
 
 wyBone::wyBone() :
 		m_parent(NULL),
 		m_length(0) {
-	m_curState.x = 0;
-	m_curState.y = 0;
-	m_curState.rotation = 0;
-	m_curState.scaleX = 1;
-	m_curState.scaleY = 1;
+	m_originalState.x = 0;
+	m_originalState.y = 0;
+	m_originalState.rotation = 0;
+	m_originalState.scaleX = 1;
+	m_originalState.scaleY = 1;
+	m_originalState.node = NULL;
 }
 
 wyBone::~wyBone() {
@@ -50,54 +52,25 @@ wyBone* wyBone::make() {
 	return (wyBone*)b->autoRelease();
 }
 
-void wyBone::pushSnapshot() {
-	m_stateStack.push_back(m_curState);
-}
-
-void wyBone::popSnapshot() {
-	if(!m_stateStack.empty()) {
-		m_curState = m_stateStack.back();
-		m_stateStack.pop_back();
-	}
-}
-
 void wyBone::addChild(wyBone* bone) {
 	m_children.push_back(bone);
 	wyObjectRetain(bone);
 	bone->setParent(this);
 }
 
-void wyBone::setRotationRelativeToTop(float dr) {
-	if(!m_stateStack.empty()) {	
-		State& top = m_stateStack.back();
-		m_curState.rotation = top.rotation + dr;
+wyBone::State& wyBone::getState(wySkeletalSprite* owner) {
+	StateMap::iterator iter = m_stateMap.find(owner);
+	if(iter != m_stateMap.end()) {
+		return iter->second;
+	} else {
+		m_stateMap[owner] = m_originalState;
+		iter = m_stateMap.find(owner);
+		return iter->second;
 	}
 }
 
-void wyBone::setXRelativeToTop(float dx) {
-	if(!m_stateStack.empty()) {
-		State& top = m_stateStack.back();
-		m_curState.x = top.x + dx;
-	}
-}
-
-void wyBone::setYRelativeToTop(float dy) {
-	if(!m_stateStack.empty()) {
-		State& top = m_stateStack.back();
-		m_curState.y = top.y + dy;
-	}
-}
-
-void wyBone::setScaleXRelativeToTop(float dx) {
-	if(!m_stateStack.empty()) {
-		State& top = m_stateStack.back();
-		m_curState.scaleX = top.scaleX + dx;
-	}
-}
-
-void wyBone::setScaleYRelativeToTop(float dy) {
-	if(!m_stateStack.empty()) {
-		State& top = m_stateStack.back();
-		m_curState.scaleY = top.scaleY + dy;
-	}
+void wyBone::clearState(wySkeletalSprite* owner) {
+	StateMap::iterator iter = m_stateMap.find(owner);
+	if(iter != m_stateMap.end())
+		m_stateMap.erase(iter);
 }

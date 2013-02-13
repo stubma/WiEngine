@@ -32,7 +32,7 @@
 #include "wyObject.h"
 #include "wyTypes.h"
 
-class wySkeleton;
+class wySkeletalSprite;
 
 /**
  * transform base class
@@ -92,10 +92,10 @@ public:
 	/**
 	 * apply current frame to a skeleton
 	 *
-	 * @param s skeleton
+	 * @param owner the target to apply transform
 	 * @return true if frame is applied, or false if not applied
 	 */
-	virtual bool applyTo(wySkeleton* s) = 0;
+	virtual bool applyTo(wySkeletalSprite* owner) = 0;
 	
 	/// dump info, for debug purpose
 	virtual void dump() {}

@@ -33,11 +33,12 @@
 #include "wySpriteEx.h"
 
 wySlot::wySlot(wyBone* bone) :
-		m_bone(bone),
-		m_color(wyc4bWhite),
-		m_activeSkinAttachmentName(NULL),
-		m_sprite(NULL) {
+		m_bone(bone) {
 	wyObjectRetain(m_bone);
+			
+	m_originalState.color = 0xffffffff;
+	m_originalState.activeSkinAttachmentName = NULL;
+	m_originalState.sprite = NULL;
 }
 
 wySlot::~wySlot() {
@@ -45,8 +46,8 @@ wySlot::~wySlot() {
 	for(AttachmentPtrList::iterator iter = m_attachments.begin(); iter != m_attachments.end(); iter++) {
 		wyObjectRelease(*iter);
 	}
-	if(m_activeSkinAttachmentName) {
-		wyFree((void*)m_activeSkinAttachmentName);
+	if(m_originalState.activeSkinAttachmentName) {
+		wyFree((void*)m_originalState.activeSkinAttachmentName);
 	}
 }
 
@@ -60,20 +61,34 @@ void wySlot::addAttachment(wyAttachment* a) {
 	wyObjectRetain(a);
 }
 
-void wySlot::setActiveSkinAttachmentName(const char* name) {
-	if(m_activeSkinAttachmentName) {
-		wyFree((void*)m_activeSkinAttachmentName);
-		m_activeSkinAttachmentName = NULL;
+void wySlot::clearState(wySkeletalSprite* owner) {
+	StateMap::iterator iter = m_stateMap.find(owner);
+	if(iter != m_stateMap.end()) {
+		m_stateMap.erase(iter);
 	}
-	m_activeSkinAttachmentName = wyUtils::copy(name);
 }
 
-wySkinAttachment* wySlot::getActiveSkinAttachment() {
-	if(!m_activeSkinAttachmentName)
+wySlot::State& wySlot::getState(wySkeletalSprite* owner) {
+	StateMap::iterator iter = m_stateMap.find(owner);
+	if(iter != m_stateMap.end()) {
+		return iter->second;
+	} else {
+		m_stateMap[owner] = m_originalState;
+		iter = m_stateMap.find(owner);
+		return iter->second;
+	}
+}
+
+wySkinAttachment* wySlot::getActiveSkinAttachment(wySkeletalSprite* owner) {
+	State& state = getState(owner);
+	
+	// if skin name is NULL, return
+	if(!state.activeSkinAttachmentName)
 		return NULL;
 
+	// find attachment
 	for(AttachmentPtrList::iterator iter = m_attachments.begin(); iter != m_attachments.end(); iter++) {
-		if(!strcmp((*iter)->getName(), m_activeSkinAttachmentName))
+		if(!strcmp((*iter)->getName(), state.activeSkinAttachmentName))
 			return (wySkinAttachment*)*iter;
 	}
 
