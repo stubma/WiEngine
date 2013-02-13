@@ -88,7 +88,21 @@ void wyBoneTransform::populateFrame(float time) {
 					} else {
 						RotationKeyFrame& prevKf = *(iter - 1);
 						wyPoint t = getInterpolationTime(prevKf.time, kf.time, time, prevKf.interpolator);
-						m_currentRotation.angle = t.x * (kf.angle - prevKf.angle) + prevKf.angle;
+						
+						// simplifies rotation by rotating the shorter distance
+						float prevAngle = prevKf.angle;
+						float angle = kf.angle;
+						while (prevAngle > 180)
+							prevAngle -= 360;
+						while (prevAngle < -180)
+							prevAngle += 360;
+						while (angle > 180)
+							angle -= 360;
+						while (angle < -180)
+							angle += 360;
+						
+						// interpolate
+						m_currentRotation.angle = t.x * (angle - prevAngle) + prevAngle;
 					}
 					break;
 				} else if(time == kf.time) {

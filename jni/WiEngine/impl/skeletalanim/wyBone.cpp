@@ -68,7 +68,7 @@ void wyBone::addChild(wyBone* bone) {
 }
 
 void wyBone::setRotationRelativeToTop(float dr) {
-	if(!m_stateStack.empty()) {
+	if(!m_stateStack.empty()) {	
 		State& top = m_stateStack.back();
 		m_curState.rotation = top.rotation + dr;
 	}
