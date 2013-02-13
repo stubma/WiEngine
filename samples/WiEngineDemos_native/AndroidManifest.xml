@@ -2049,6 +2049,13 @@
 			</intent-filter>
 			<meta-data android:name="desc" android:resource="@string/RunActionTest_desc"></meta-data>
 		</activity>
+		<activity android:name=".tests.performance.RunSkeletalAnimationTest" android:label="Performance/Run Skeletal Animation">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.TEST" />
+			</intent-filter>
+			<meta-data android:name="desc" android:resource="@string/RunSkeletalAnimationTest_desc"></meta-data>
+		</activity>
 		
         <receiver android:name="com.wiyun.engine.iap.androidmarket.BillingReceiver">
             <intent-filter>

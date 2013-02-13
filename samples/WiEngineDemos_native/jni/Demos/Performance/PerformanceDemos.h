@@ -14,6 +14,7 @@ DEMO_ENTRY(performance, BatchRenderSpriteTest);
 DEMO_ENTRY(performance, BigTMXTest);
 DEMO_ENTRY(performance, RenderSpriteTest);
 DEMO_ENTRY(performance, RunActionTest);
+DEMO_ENTRY(performance, RunSkeletalAnimationTest);
 
 #ifdef __cplusplus
 }

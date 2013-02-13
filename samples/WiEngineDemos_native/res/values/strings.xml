@@ -258,4 +258,5 @@
 	<string name="ToastTest_desc">Use wyToast to show a float tip likes Android Toast component, but it is implemented by OpenGL and much customizable</string>
 	<string name="RenderTextureTest_desc">Use RenderTexture to combine some drawing operation so it can create great effect</string>
 	<string name="SpineTest_desc">Spine is a skeletal animationd design tool, WiEngine supports loading its exported file and play animation with a wySkeletalSprite node</string>
+	<string name="RunSkeletalAnimationTest_desc">Test how many skeletal animations your device can run simultaneously</string>
 </resources>

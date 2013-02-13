@@ -195,6 +195,67 @@ namespace Performance {
 	};
 
 	/////////////////////////////////////////////////////////////////////////////////
+
+	class wyRunSkeletalAnimationTestLayer : public wyLayer {
+	private:
+		wyLabel* m_countLabel;
+		vector<wySkeletalSprite*> m_sprites;
+		wySkeleton* m_skeleton;
+
+	public:
+		wyRunSkeletalAnimationTestLayer() {
+			// load skeleton
+			m_skeleton = wySpineLoader::loadSkeleton("spine/example-skeleton.json", false);
+			m_skeleton->retain();
+
+			// load animation
+			wySkeletalAnimation* anim = wySpineLoader::loadAnimation("spine/example-animation.json", false);
+			wySkeletalAnimationCache::getInstance()->addAnimation("walk", anim);
+
+			// add sprite button
+			createButton("Add 10 Sprites", this, wyDevice::winWidth / 2, wyDevice::winHeight - DP(40),
+					  wyTargetSelector::make(this, SEL(wyRunSkeletalAnimationTestLayer::onAddSprite)));
+
+			// count label
+			m_countLabel = wyLabel::make("0 Sprites", SP(16));
+			m_countLabel->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight - DP(80));
+			m_countLabel->setColor(wyc3bRed);
+			addChildLocked(m_countLabel);
+
+			// start to update
+			wyTimer* timer = wyTimer::make(wyTargetSelector::make(this, SEL(wyRunSkeletalAnimationTestLayer::onUpdateSprite)));
+			scheduleLocked(timer);
+		}
+
+		virtual ~wyRunSkeletalAnimationTestLayer() {
+			m_skeleton->release();
+		}
+
+		void onUpdateSprite(wyTargetSelector* ts) {
+			for(vector<wySkeletalSprite*>::iterator iter = m_sprites.begin(); iter != m_sprites.end(); iter++) {
+				(*iter)->tick(ts->getDelta());
+			}
+		}
+
+		void onAddSprite(wyTargetSelector* ts) {
+			for(int i = 0; i < 10; i++) {
+				// create skeletal sprite and play animation
+				wySkeletalSprite* sprite = wySkeletalSprite::make(m_skeleton);
+				sprite->setPosition(wyMath::randMax(wyDevice::winWidth), wyMath::randMax(wyDevice::winHeight));
+				addChildLocked(sprite, -1);
+				sprite->playAnimation("walk");
+				sprite->setLoopCount(-1);
+				m_sprites.push_back(sprite);
+			}
+
+			// update count label
+			char buf[32];
+			sprintf(buf, "%d Sprites", m_sprites.size());
+			m_countLabel->setText(buf);
+		}
+	};
+
+	/////////////////////////////////////////////////////////////////////////////////
 }
 
 using namespace Performance;
@@ -218,3 +279,4 @@ DEMO_ENTRY_IMPL(BatchRenderSpriteTest);
 DEMO_ENTRY_IMPL(BigTMXTest);
 DEMO_ENTRY_IMPL(RenderSpriteTest);
 DEMO_ENTRY_IMPL(RunActionTest);
+DEMO_ENTRY_IMPL(RunSkeletalAnimationTest);
