@@ -811,6 +811,12 @@ ssize_t wyUtils::lastSlashIndex(const char* path) {
 	if(path == NULL)
 		return -1;
 
+	// change slash to windows format
+#ifdef WINDOWS
+	replaceChar((char*)path, '/', WY_PATH_SEPARATOR);
+#endif
+
+	// find slash index
 	size_t len = strlen(path);
 	int end = len;
 	int slash = -1;
@@ -893,6 +899,12 @@ void wyUtils::deletePathExtensionInSameBuffer(char* path) {
 }
 
 const char* wyUtils::appendPathComponent(const char* path, const char* component) {
+#ifdef WINDOWS
+	// change slash to windows format
+	if(path)
+		replaceChar((char*)path, '/', WY_PATH_SEPARATOR);
+#endif
+
 	// validating
 	if(path == NULL) {
 		if(component == NULL)
@@ -934,6 +946,12 @@ const char* wyUtils::appendPathComponent(const char* path, const char* component
 }
 
 const char* wyUtils::lastPathComponent(const char* path) {
+#ifdef WINDOWS
+	// change slash to windows format
+	if(path)
+		replaceChar((char*)path, '/', WY_PATH_SEPARATOR);
+#endif
+
 	size_t len = strlen(path);
 	int start = 0;
 	int end = len;
