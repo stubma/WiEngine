@@ -213,7 +213,7 @@ namespace Performance {
 			wySkeletalAnimationCache::getInstance()->addAnimation("walk", anim);
 
 			// add sprite button
-			createButton("Add 10 Sprites", this, wyDevice::winWidth / 2, wyDevice::winHeight - DP(40),
+			createButton("Add 1 Sprites", this, wyDevice::winWidth / 2, wyDevice::winHeight - DP(40),
 					  wyTargetSelector::make(this, SEL(wyRunSkeletalAnimationTestLayer::onAddSprite)));
 
 			// count label
@@ -238,7 +238,7 @@ namespace Performance {
 		}
 
 		void onAddSprite(wyTargetSelector* ts) {
-			for(int i = 0; i < 10; i++) {
+			for(int i = 0; i < 1; i++) {
 				// create skeletal sprite and play animation
 				wySkeletalSprite* sprite = wySkeletalSprite::make(m_skeleton);
 				sprite->setPosition(wyMath::randMax(wyDevice::winWidth), wyMath::randMax(wyDevice::winHeight));
@@ -250,7 +250,7 @@ namespace Performance {
 
 			// update count label
 			char buf[32];
-			sprintf(buf, "%d Sprites", m_sprites.size());
+			sprintf(buf, "%ld Sprites", m_sprites.size());
 			m_countLabel->setText(buf);
 		}
 	};

@@ -301,6 +301,7 @@ static demoEntryFunc sDemoMap[16][50] = {
 		DEMO_ENTRY_NAME(performance, BigTMXTest),
 		DEMO_ENTRY_NAME(performance, RenderSpriteTest),
 		DEMO_ENTRY_NAME(performance, RunActionTest),
+		DEMO_ENTRY_NAME(performance, RunSkeletalAnimationTest),
 	},
 	{
 		DEMO_ENTRY_NAME(persistence, CreateDatabaseTest),
