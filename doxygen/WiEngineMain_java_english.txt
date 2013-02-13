@@ -27,6 +27,7 @@
   @li Memory file system
   @li Sound engine which is named "WiSound"
   @li AFC(Animation, Frame, Clip) animation format support
+  @li Skeletal Animation support
   @li texture color filter
   @li Augmented Reality framework based on OpenCV
   @li flexible screen adaptation: by density, by base size

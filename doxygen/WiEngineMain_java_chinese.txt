@@ -26,6 +26,7 @@
   @li 内存文件系统
   @li 声音引擎：WiSound
   @li AFC动画格式支持 (Motion Welder, SpriteX 3.9.4/2011, Arctic, AuroraGT)
+  @li 骨骼动画支持 (Spine)
   @li 贴图滤镜
   @li 增强现实(OpenCV)
   @li 多种屏幕适配模式: 密度适配, 基础大小适配

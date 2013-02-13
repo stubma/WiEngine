@@ -23,6 +23,7 @@
   @li 内存文件系统
   @li 声音引擎：WiSound
   @li AFC动画支持 (Motion Welder, SpriteX 3.9.4/2011, Arctic, AuroraGT)
+  @li 骨骼动画支持 (Spine)
   @li 贴图滤镜
   @li 持久化支持(preference, sqlite3)
   @li 增强现实(OpenCV)
