@@ -162,7 +162,7 @@ bool wySlotTransform::applyTo(wySkeletalSprite* owner) {
 	
 	// set skin texture
 	if(m_currentSkin.valid && !slot->hasFlag(wySlot::FIXED_ATTACHMENT)) {
-		state.activeSkinAttachmentName = m_currentSkin.skinName;
+		state.activeAttachmentName = m_currentSkin.skinName;
 		wyTexture2D* tex = createRelatedTexture(s, m_currentSkin.skinName);
 		sprite->setTexture(tex);
 	}

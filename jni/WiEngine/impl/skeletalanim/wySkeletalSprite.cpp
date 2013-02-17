@@ -29,7 +29,7 @@
 #include "wySkeletalSprite.h"
 #include "wySkeletalAnimationCache.h"
 #include "wyDirector.h"
-#include "wySkinAttachment.h"
+#include "wyAttachment.h"
 #include "wyUtils.h"
 #include "wyLog.h"
 
@@ -291,7 +291,7 @@ void wySkeletalSprite::setSkeleton(wySkeleton* s) {
 	
 	// sync states
 	syncOriginalBoneStates(m_rootBone);
-	syncSkinAttachmentStates();
+	syncAttachmentStates();
 }
 
 void wySkeletalSprite::clearBoneStates(wyBone* bone) {
@@ -343,13 +343,13 @@ void wySkeletalSprite::cleanSlotStates() {
 	}
 }
 
-void wySkeletalSprite::syncSkinAttachmentStates() {
+void wySkeletalSprite::syncAttachmentStates() {
 	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplaySlot();
 	for(wySkeleton::SlotPtrList::iterator iter = slotDisplayList.begin(); iter != slotDisplayList.end(); iter++) {
 		wySlot* slot = *iter;
 		wySlot::State& state = slot->getState(this);
 		wySpriteEx* sprite = state.sprite;
-		wySkinAttachment* skin = slot->getActiveSkinAttachment(this);
+		wyAttachment* skin = slot->getActiveAttachment(this);
 		if(skin && sprite) {
 			sprite->setPosition(skin->getX(), skin->getY());
 			sprite->setRotation(-skin->getRotation());
@@ -367,8 +367,8 @@ void wySkeletalSprite::createSlotSprites() {
 		
 		// create slot sprite
 		wySlot::State& state = slot->getState(this);
-		if(state.activeSkinAttachmentName) {
-			wySpriteEx* sprite = wySpriteEx::make(createRelatedTexture(state.activeSkinAttachmentName));
+		if(state.activeAttachmentName) {
+			wySpriteEx* sprite = wySpriteEx::make(createRelatedTexture(state.activeAttachmentName));
 			if(sprite) {
 				state.sprite = sprite;
 				wyBone::State& state = slot->getBone()->getState(this);
@@ -488,7 +488,7 @@ void wySkeletalSprite::setSlotAttachment(const char* slotName, const char* attac
     
     // set
     wySlot::State& state = slot->getState(this);
-    state.activeSkinAttachmentName = attachmentName;
+    state.activeAttachmentName = attachmentName;
     wyTexture2D* tex = createRelatedTexture(attachmentName);
     state.sprite->setTexture(tex);
     if(fixed)

@@ -29,7 +29,6 @@
 #include "wySlot.h"
 #include "wyBone.h"
 #include "wyUtils.h"
-#include "wySkinAttachment.h"
 #include "wySpriteEx.h"
 
 wySlot::wySlot(wyBone* bone) :
@@ -38,7 +37,7 @@ wySlot::wySlot(wyBone* bone) :
 	wyObjectRetain(m_bone);
 			
 	m_originalState.color = 0xffffffff;
-	m_originalState.activeSkinAttachmentName = NULL;
+	m_originalState.activeAttachmentName = NULL;
 	m_originalState.sprite = NULL;
 }
 
@@ -47,8 +46,8 @@ wySlot::~wySlot() {
 	for(AttachmentPtrList::iterator iter = m_attachments.begin(); iter != m_attachments.end(); iter++) {
 		wyObjectRelease(*iter);
 	}
-	if(m_originalState.activeSkinAttachmentName) {
-		wyFree((void*)m_originalState.activeSkinAttachmentName);
+	if(m_originalState.activeAttachmentName) {
+		wyFree((void*)m_originalState.activeAttachmentName);
 	}
 }
 
@@ -80,17 +79,17 @@ wySlot::State& wySlot::getState(wySkeletalSprite* owner) {
 	}
 }
 
-wySkinAttachment* wySlot::getActiveSkinAttachment(wySkeletalSprite* owner) {
+wyAttachment* wySlot::getActiveAttachment(wySkeletalSprite* owner) {
 	State& state = getState(owner);
 	
 	// if skin name is NULL, return
-	if(!state.activeSkinAttachmentName)
+	if(!state.activeAttachmentName)
 		return NULL;
 
 	// find attachment
 	for(AttachmentPtrList::iterator iter = m_attachments.begin(); iter != m_attachments.end(); iter++) {
-		if(!strcmp((*iter)->getName(), state.activeSkinAttachmentName))
-			return (wySkinAttachment*)*iter;
+		if(!strcmp((*iter)->getName(), state.activeAttachmentName))
+			return (wyAttachment*)*iter;
 	}
 
 	return NULL;

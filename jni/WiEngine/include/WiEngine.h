@@ -362,7 +362,6 @@
 #include "wySkeletalAnimationListener.h"
 #include "wySkeletalSprite.h"
 #include "wySkeleton.h"
-#include "wySkinAttachment.h"
 #include "wySlot.h"
 #include "wySlotTransform.h"
 #include "wySpineLoader.h"

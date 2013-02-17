@@ -581,7 +581,6 @@
 		9285652F16C7EF3700478CC9 /* wyAttachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9285652916C7EF3700478CC9 /* wyAttachment.cpp */; };
 		9285653016C7EF3700478CC9 /* wyBone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9285652A16C7EF3700478CC9 /* wyBone.cpp */; };
 		9285653116C7EF3700478CC9 /* wySkeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9285652B16C7EF3700478CC9 /* wySkeleton.cpp */; };
-		9285653216C7EF3700478CC9 /* wySkinAttachment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9285652C16C7EF3700478CC9 /* wySkinAttachment.cpp */; };
 		9285653316C7EF3700478CC9 /* wySlot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9285652D16C7EF3700478CC9 /* wySlot.cpp */; };
 		9285653416C7EF3700478CC9 /* wySpineLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9285652E16C7EF3700478CC9 /* wySpineLoader.cpp */; };
 		9287EA9C16C89E2D00C1D0A3 /* wySkeletalAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9287EA9A16C89E2D00C1D0A3 /* wySkeletalAnimation.cpp */; };
@@ -1861,13 +1860,11 @@
 		9285652316C7EF2F00478CC9 /* wyAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyAttachment.h; path = ../jni/WiEngine/include/skeletalanim/wyAttachment.h; sourceTree = "<group>"; };
 		9285652416C7EF2F00478CC9 /* wyBone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyBone.h; path = ../jni/WiEngine/include/skeletalanim/wyBone.h; sourceTree = "<group>"; };
 		9285652516C7EF2F00478CC9 /* wySkeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySkeleton.h; path = ../jni/WiEngine/include/skeletalanim/wySkeleton.h; sourceTree = "<group>"; };
-		9285652616C7EF2F00478CC9 /* wySkinAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySkinAttachment.h; path = ../jni/WiEngine/include/skeletalanim/wySkinAttachment.h; sourceTree = "<group>"; };
 		9285652716C7EF2F00478CC9 /* wySlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySlot.h; path = ../jni/WiEngine/include/skeletalanim/wySlot.h; sourceTree = "<group>"; };
 		9285652816C7EF2F00478CC9 /* wySpineLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySpineLoader.h; path = ../jni/WiEngine/include/skeletalanim/wySpineLoader.h; sourceTree = "<group>"; };
 		9285652916C7EF3700478CC9 /* wyAttachment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyAttachment.cpp; path = ../jni/WiEngine/impl/skeletalanim/wyAttachment.cpp; sourceTree = "<group>"; };
 		9285652A16C7EF3700478CC9 /* wyBone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyBone.cpp; path = ../jni/WiEngine/impl/skeletalanim/wyBone.cpp; sourceTree = "<group>"; };
 		9285652B16C7EF3700478CC9 /* wySkeleton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wySkeleton.cpp; path = ../jni/WiEngine/impl/skeletalanim/wySkeleton.cpp; sourceTree = "<group>"; };
-		9285652C16C7EF3700478CC9 /* wySkinAttachment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wySkinAttachment.cpp; path = ../jni/WiEngine/impl/skeletalanim/wySkinAttachment.cpp; sourceTree = "<group>"; };
 		9285652D16C7EF3700478CC9 /* wySlot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wySlot.cpp; path = ../jni/WiEngine/impl/skeletalanim/wySlot.cpp; sourceTree = "<group>"; };
 		9285652E16C7EF3700478CC9 /* wySpineLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wySpineLoader.cpp; path = ../jni/WiEngine/impl/skeletalanim/wySpineLoader.cpp; sourceTree = "<group>"; };
 		9287EA9816C89D0D00C1D0A3 /* wySkeletalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySkeletalAnimation.h; path = ../jni/WiEngine/include/skeletalanim/wySkeletalAnimation.h; sourceTree = "<group>"; };
@@ -3944,13 +3941,11 @@
 				9285652316C7EF2F00478CC9 /* wyAttachment.h */,
 				9285652416C7EF2F00478CC9 /* wyBone.h */,
 				9285652516C7EF2F00478CC9 /* wySkeleton.h */,
-				9285652616C7EF2F00478CC9 /* wySkinAttachment.h */,
 				9285652716C7EF2F00478CC9 /* wySlot.h */,
 				9285652816C7EF2F00478CC9 /* wySpineLoader.h */,
 				9285652916C7EF3700478CC9 /* wyAttachment.cpp */,
 				9285652A16C7EF3700478CC9 /* wyBone.cpp */,
 				9285652B16C7EF3700478CC9 /* wySkeleton.cpp */,
-				9285652C16C7EF3700478CC9 /* wySkinAttachment.cpp */,
 				9285652D16C7EF3700478CC9 /* wySlot.cpp */,
 				9285652E16C7EF3700478CC9 /* wySpineLoader.cpp */,
 				9287EA9816C89D0D00C1D0A3 /* wySkeletalAnimation.h */,
@@ -4920,7 +4915,6 @@
 				9285652F16C7EF3700478CC9 /* wyAttachment.cpp in Sources */,
 				9285653016C7EF3700478CC9 /* wyBone.cpp in Sources */,
 				9285653116C7EF3700478CC9 /* wySkeleton.cpp in Sources */,
-				9285653216C7EF3700478CC9 /* wySkinAttachment.cpp in Sources */,
 				9285653316C7EF3700478CC9 /* wySlot.cpp in Sources */,
 				9285653416C7EF3700478CC9 /* wySpineLoader.cpp in Sources */,
 				9287EA9C16C89E2D00C1D0A3 /* wySkeletalAnimation.cpp in Sources */,

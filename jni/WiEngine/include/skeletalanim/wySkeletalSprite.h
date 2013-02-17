@@ -103,7 +103,7 @@ protected:
 	void syncBoneStates(wyBone* bone);
 	
 	/// sync skin attachment state to slot sprite
-	void syncSkinAttachmentStates();
+	void syncAttachmentStates();
 	
 public:
 	virtual ~wySkeletalSprite();

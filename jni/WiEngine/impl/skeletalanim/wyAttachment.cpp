@@ -28,8 +28,18 @@
  */
 #include "wyAttachment.h"
 
-wyAttachment::wyAttachment() {
+wyAttachment::wyAttachment() :
+        m_x(0),
+        m_y(0),
+        m_rotation(0),
+        m_scaleX(1),
+        m_scaleY(1) {
 }
 
 wyAttachment::~wyAttachment() {
+}
+
+wyAttachment* wyAttachment::make() {
+	wyAttachment* a = WYNEW wyAttachment();
+	return (wyAttachment*)a->autoRelease();
 }

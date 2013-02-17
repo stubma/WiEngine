@@ -31,7 +31,7 @@
 #include "wyJSONArray.h"
 #include "wyJSONParser.h"
 #include "wyUtils.h"
-#include "wySkinAttachment.h"
+#include "wyAttachment.h"
 #include "wyBoneTransform.h"
 #include "wySlotTransform.h"
 
@@ -96,7 +96,7 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 		// set active skin attachment name
 		const char* attName = slotJO->optString("attachment");
 		if(attName) {
-			state.activeSkinAttachmentName = wyUtils::copy(attName);
+			state.activeAttachmentName = wyUtils::copy(attName);
 		}
 
 		// add slot
@@ -130,7 +130,7 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
                 const char* name = attachmentJO->optString("name");
 
 				// create skin attachment
-				wySkinAttachment* skinAtt = wySkinAttachment::make();
+				wyAttachment* skinAtt = wyAttachment::make();
 				skinAtt->setName(name ? name : attKey);
 
 				// set other property

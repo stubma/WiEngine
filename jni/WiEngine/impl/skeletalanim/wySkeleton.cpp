@@ -132,7 +132,7 @@ void wySkeleton::dump() {
 		LOGD("slot %s, bone: %s, activeskin: %s, color: 0x%x",
 			 iter->second->getName(),
 			 iter->second->getBone()->getName(),
-			 state.activeSkinAttachmentName ? state.activeSkinAttachmentName : "null",
+			 state.activeAttachmentName ? state.activeAttachmentName : "null",
 			 state.color);
 	}
 }

@@ -32,14 +32,61 @@
 #include "wyObject.h"
 
 /**
- * attachment is an item can be included in a slot.
+ * attachment is an image can be set to a slot
  */
 class WIENGINE_API wyAttachment : public wyObject {
+private:
+	/// x offset
+	float m_x;
+    
+	/// y offset
+	float m_y;
+    
+	/// rotation in degree, positive value means counter-clockwise, x axis is zero degree
+	float m_rotation;
+    
+	/// x scale
+	float m_scaleX;
+    
+	/// y scale
+	float m_scaleY;
+    
 protected:
 	wyAttachment();
-
+    
 public:
 	virtual ~wyAttachment();
+	static wyAttachment* make();
+    
+	/// set x offset
+	void setX(float x) { m_x = x; }
+    
+	/// get x offset
+	float getX() { return m_x; }
+    
+	/// set y offset
+	void setY(float y) { m_y = y; }
+    
+	/// get y offset
+	float getY() { return m_y; }
+    
+	/// set rotation
+	void setRotation(float r) { m_rotation = r; }
+    
+	/// get rotation
+	float getRotation() { return m_rotation; }
+    
+	/// set x scale
+	void setScaleX(float x) { m_scaleX = x; }
+    
+	/// get x scale
+	float getScaleX() { return m_scaleX; }
+    
+	/// set y scale
+	void setScaleY(float y) { m_scaleY = y; }
+    
+	/// get y scale
+	float getScaleY() { return m_scaleY; }
 };
 
 #endif // __wyAttachment_h__

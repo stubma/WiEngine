@@ -34,7 +34,6 @@
 #include "wyAttachment.h"
 
 class wyBone;
-class wySkinAttachment;
 class wySpriteEx;
 class wySkeletalSprite;
 
@@ -49,7 +48,7 @@ public:
 		int color;
 		
 		/// active skin attachment name, wySlot doesn't copy it, so doesn't free it
-		const char* activeSkinAttachmentName;
+		const char* activeAttachmentName;
 		
 		/// sprite, wySlot doesn't retain it
 		wySpriteEx* sprite;
@@ -73,7 +72,7 @@ private:
 	AttachmentPtrList m_attachments;
 	
 	/// original state
-	/// activeSkinAttachmentName of original state need to be releaseds
+	/// activeAttachmentName of original state need to be releaseds
 	State m_originalState;
     
     /// flags
@@ -103,7 +102,7 @@ public:
 	void addAttachment(wyAttachment* a);
 
 	/// get active skin attachment for an owner, or NULL if not set
-	wySkinAttachment* getActiveSkinAttachment(wySkeletalSprite* owner);
+	wyAttachment* getActiveAttachment(wySkeletalSprite* owner);
 	
 	/// get original state
 	State& getOriginalState() { return m_originalState; }
