@@ -39,12 +39,12 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 	wySkeleton* skeleton = wySkeleton::make();
 
 	// parse bones
-	wyJSONObject* bonesJO = jo->optJSONObject("bones");
-	int size = bonesJO->getLength();
+	wyJSONArray* bonesJA = jo->optJSONArray("bones");
+	int size = bonesJA->getLength();
 	for(int i = 0; i < size; i++) {
 		// get key and json for this bone
-		const char* key = bonesJO->keyAt(i);
-		wyJSONObject* boneJO = bonesJO->optJSONObject(i);
+		wyJSONObject* boneJO = bonesJA->optJSONObject(i);
+        const char* key = boneJO->optString("name");
 
 		// get parent bone for this bone
 		const char* parentKey = boneJO->optString("parent");
@@ -64,20 +64,20 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 		state.x = boneJO->optFloat("x") * scale;
 		state.y = boneJO->optFloat("y") * scale;
 		state.rotation = boneJO->optFloat("rotation");
-		state.scaleX = boneJO->optFloat("scale_x", 1);
-		state.scaleY = boneJO->optFloat("scale_y", 1);
+		state.scaleX = boneJO->optFloat("scaleX", 1);
+		state.scaleY = boneJO->optFloat("scaleY", 1);
 
 		// add bone
 		skeleton->addBone(bone);
 	}
 
 	// parse slots
-	wyJSONObject* slotsJO = jo->optJSONObject("slots");
-	size = slotsJO->getLength();
+	wyJSONArray* slotsJA = jo->optJSONArray("slots");
+	size = slotsJA->getLength();
 	for(int i = 0; i < size; i++) {
 		// get key and json for this slot
-		const char* key = slotsJO->keyAt(i);
-		wyJSONObject* slotJO = slotsJO->optJSONObject(i);
+		wyJSONObject* slotJO = slotsJA->optJSONObject(i);
+        const char* key = slotJO->optString("name");
 
 		// get bone for this slot
 		const char* boneKey = slotJO->optString("bone");
@@ -125,17 +125,20 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 				// get attachment name
 				const char* attKey = attachmentsJO->keyAt(k);
 				wyJSONObject* attachmentJO = attachmentsJO->optJSONObject(k);
+                
+                // name attribute, if not existent, use the key from the surrounding JSON map
+                const char* name = attachmentJO->optString("name");
 
 				// create skin attachment
 				wySkinAttachment* skinAtt = wySkinAttachment::make();
-				skinAtt->setName(attKey);
+				skinAtt->setName(name ? name : attKey);
 
 				// set other property
 				skinAtt->setX(attachmentJO->optFloat("x") * scale);
 				skinAtt->setY(attachmentJO->optFloat("y") * scale);
 				skinAtt->setRotation(attachmentJO->optFloat("rotation"));
-				skinAtt->setScaleX(attachmentJO->optFloat("scale_x", 1));
-				skinAtt->setScaleY(attachmentJO->optFloat("scale_y", 1));
+				skinAtt->setScaleX(attachmentJO->optFloat("scaleX", 1));
+				skinAtt->setScaleY(attachmentJO->optFloat("scaleY", 1));
 
 				// add attachment
 				slot->addAttachment(skinAtt);
@@ -168,14 +171,14 @@ wySkeletalAnimation* wySpineLoader::loadAnimation(wyJSONObject* jo, float scale)
 			bt->setBoneName(boneKey);
 			
 			// get rotation key frames
-			wyJSONObject* rkfListJO = btJO->optJSONObject("rotate");
-			if(rkfListJO) {
-				int kfCount = rkfListJO->getLength();
+			wyJSONArray* rkfListJA = btJO->optJSONArray("rotate");
+			if(rkfListJA) {
+				int kfCount = rkfListJA->getLength();
 				for(int j = 0; j < kfCount; j++) {
 					// get time and angle
-					wyJSONObject* rkfJO = rkfListJO->optJSONObject(j);
+					wyJSONObject* rkfJO = rkfListJA->optJSONObject(j);
 					wyBoneTransform::RotationKeyFrame kf;
-					kf.time = atof(rkfListJO->keyAt(j));
+					kf.time = rkfJO->optFloat("time");
 					kf.angle = rkfJO->optFloat("angle");
 					
 					// save max time as duration
@@ -203,14 +206,14 @@ wySkeletalAnimation* wySpineLoader::loadAnimation(wyJSONObject* jo, float scale)
 			} // end if(rkfListJO)
 			
 			// get translation key frames
-			wyJSONObject* tkfListJO = btJO->optJSONObject("translate");
-			if(tkfListJO) {
-				int kfCount = tkfListJO->getLength();
+			wyJSONArray* tkfListJA = btJO->optJSONArray("translate");
+			if(tkfListJA) {
+				int kfCount = tkfListJA->getLength();
 				for(int j = 0; j < kfCount; j++) {
 					// get time, x and y
-					wyJSONObject* tkfJO = tkfListJO->optJSONObject(j);
+					wyJSONObject* tkfJO = tkfListJA->optJSONObject(j);
 					wyBoneTransform::TranslationKeyFrame kf;
-					kf.time = atof(tkfListJO->keyAt(j));
+					kf.time = tkfJO->optFloat("time");
 					kf.x = tkfJO->optFloat("x") * scale;
 					kf.y = tkfJO->optFloat("y") * scale;
 					
@@ -239,16 +242,16 @@ wySkeletalAnimation* wySpineLoader::loadAnimation(wyJSONObject* jo, float scale)
 			} // end if(tkfListJO)
 			
 			// get scale key frames
-			wyJSONObject* skfListJO = btJO->optJSONObject("scale");
-			if(skfListJO) {
-				int kfCount = skfListJO->getLength();
+			wyJSONArray* skfListJA = btJO->optJSONArray("scale");
+			if(skfListJA) {
+				int kfCount = skfListJA->getLength();
 				for(int j = 0; j < kfCount; j++) {
 					// get time, x and y
-					wyJSONObject* skfJO = skfListJO->optJSONObject(j);
+					wyJSONObject* skfJO = skfListJA->optJSONObject(j);
 					wyBoneTransform::ScaleKeyFrame kf;
-					kf.time = atof(skfListJO->keyAt(j));
-					kf.scaleX = skfJO->optFloat("scale_x");
-					kf.scaleY = skfJO->optFloat("scale_y");
+					kf.time = skfJO->optFloat("time");
+					kf.scaleX = skfJO->optFloat("x");
+					kf.scaleY = skfJO->optFloat("y");
 					
 					// save max time as duration
 					duration = MAX(duration, kf.time);
@@ -294,16 +297,15 @@ wySkeletalAnimation* wySpineLoader::loadAnimation(wyJSONObject* jo, float scale)
 			st->setSlotName(slotKey);
 			
 			// get slot skin key frames
-			wyJSONObject* skfListJO = stJO->optJSONObject("attachment");
-			if(skfListJO) {
-				int kfCount = skfListJO->getLength();
+			wyJSONArray* skfListJA = stJO->optJSONArray("attachment");
+			if(skfListJA) {
+				int kfCount = skfListJA->getLength();
 				for(int j = 0; j < kfCount; j++) {
 					// get time and skin name
-					const char* timeKey = skfListJO->keyAt(j);
-					const char* skinName = skfListJO->optString(j);
+                    wyJSONObject* skfJO = skfListJA->optJSONObject(j);
 					wySlotTransform::SkinKeyFrame kf;
-					kf.time = atof(timeKey);
-					kf.skinName = wyUtils::copy(skinName);
+					kf.time = skfJO->optFloat("time");
+					kf.skinName = wyUtils::copy(skfJO->optString("name"));
 					
 					// save max time as duration
 					duration = MAX(duration, kf.time);
@@ -318,14 +320,14 @@ wySkeletalAnimation* wySpineLoader::loadAnimation(wyJSONObject* jo, float scale)
 			}
 			
 			// get slot color key frame
-			wyJSONObject* ckfListJO = stJO->optJSONObject("color");
-			if(ckfListJO) {
-				int kfCount = ckfListJO->getLength();
+			wyJSONArray* ckfListJA = stJO->optJSONArray("color");
+			if(ckfListJA) {
+				int kfCount = ckfListJA->getLength();
 				for(int j = 0; j < kfCount; j++) {
 					// get time and color
-					wyJSONObject* ckfJO = ckfListJO->optJSONObject(j);
+					wyJSONObject* ckfJO = ckfListJA->optJSONObject(j);
 					wySlotTransform::ColorKeyFrame kf;
-					kf.time = atof(ckfListJO->keyAt(j));
+					kf.time = ckfJO->optFloat("time");
 					kf.color = ckfJO->optInt("color", 0xffffffff);
 					
 					// save max time as duration

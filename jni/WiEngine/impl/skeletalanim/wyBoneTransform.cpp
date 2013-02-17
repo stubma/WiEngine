@@ -222,8 +222,8 @@ bool wyBoneTransform::applyTo(wySkeletalSprite* owner) {
 	
 	// set scale
 	if(m_currentScale.valid) {
-		ownerState.scaleX = originalState.scaleX + m_currentScale.scaleX;
-		ownerState.scaleY = originalState.scaleY + m_currentScale.scaleY;
+		ownerState.scaleX = originalState.scaleX * m_currentScale.scaleX;
+		ownerState.scaleY = originalState.scaleY * m_currentScale.scaleY;
 	}
 	
 	return true;
