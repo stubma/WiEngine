@@ -34,7 +34,8 @@ wyAttachment::wyAttachment() :
         m_y(0),
         m_rotation(0),
         m_scaleX(1),
-        m_scaleY(1) {
+        m_scaleY(1),
+        m_path(NULL) {
 }
 
 wyAttachment::~wyAttachment() {
