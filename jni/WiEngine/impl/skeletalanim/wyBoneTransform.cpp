@@ -210,18 +210,18 @@ bool wyBoneTransform::applyTo(wySkeletalSprite* owner) {
 	wyBone::State& originalState = bone->getOriginalState();
 	
 	// set rotation
-	if(m_currentRotation.valid) {
+	if(m_currentRotation.valid && !bone->hasFlag(wyBone::FIXED_ROTATION)) {
 		ownerState.rotation = originalState.rotation + m_currentRotation.angle;
 	}
 	
 	// set translation
-	if(m_currentTranslation.valid) {
+	if(m_currentTranslation.valid && !bone->hasFlag(wyBone::FIXED_POSITION)) {
 		ownerState.x = originalState.x + m_currentTranslation.x;
 		ownerState.y = originalState.y + m_currentTranslation.y;
 	}
 	
 	// set scale
-	if(m_currentScale.valid) {
+	if(m_currentScale.valid && !bone->hasFlag(wyBone::FIXED_SCALE)) {
 		ownerState.scaleX = originalState.scaleX * m_currentScale.scaleX;
 		ownerState.scaleY = originalState.scaleY * m_currentScale.scaleY;
 	}

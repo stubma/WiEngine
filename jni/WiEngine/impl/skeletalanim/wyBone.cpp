@@ -32,7 +32,8 @@
 
 wyBone::wyBone() :
 		m_parent(NULL),
-		m_length(0) {
+		m_length(0),
+        m_flags(0) {
 	m_originalState.x = 0;
 	m_originalState.y = 0;
 	m_originalState.rotation = 0;

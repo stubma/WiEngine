@@ -2089,7 +2089,7 @@ public:
 		
 		// create skeletal sprite and play animation
 		mSk1 = wySkeletalSprite::make(skeleton);
-		mSk1->setPosition(wyDevice::winWidth / 2, wyDevice::winHeight / 5);
+		mSk1->setPosition(wyDevice::winWidth / 5, wyDevice::winHeight / 5);
 		addChildLocked(mSk1);
 		mSk1->playAnimation("walk");
 		mSk1->setLoopCount(-1);
@@ -2106,13 +2106,25 @@ public:
 	}
 	
 	virtual bool touchesBegan(wyMotionEvent& event) {
-		mSk1->setPaused(!mSk1->isPaused());
+		updateHeadRotation(event.x[0], event.y[0]);
 		return true;
 	}
+    
+    virtual bool touchesMoved(wyMotionEvent& event) {
+        updateHeadRotation(event.x[0], event.y[0]);
+        return true;
+    }
 	
 	void onUpdateSprite(wyTargetSelector* ts) {
 		mSk1->tick(ts->getDelta());
 	}
+    
+    void updateHeadRotation(float x, float y) {
+        wyPoint bonePos = mSk1->getBonePositionRelativeToWorld("neck");
+        wyPoint dir = wypSub(wyp(x, y), bonePos);
+        float degree = wypToDegree(dir);
+        mSk1->setBoneRotation("neck", CLAMP(degree, -60, 5) + 18, true);
+    }
 };
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -164,6 +164,38 @@ public:
 	
 	/// get animation
 	wySkeletalAnimation* getAnimation() { return m_animation; }
+    
+    /**
+     * set bone position relative its parent bone
+     *
+     * @param boneName bone name
+     * @param x x position relative to parent bone
+     * @param y y position relative to parent bone
+     * @param fixed true means make position fixed so it won't be changed when playing
+     *      animation. it is optional and default value is false
+     */
+    void setBonePosition(const char* boneName, float x, float y, bool fixed = false);
+    
+    /**
+     * set bone rotation relative its parent bone
+     *
+     * @param boneName bone name
+     * @param angle rotation degree, postive value is counter-clockwise
+     * @param fixed true means make rotation fixed so it won't be changed when playing
+     *      animation. it is optional and default value is false
+     */
+    void setBoneRotation(const char* boneName, float angle, bool fixed = false);
+    
+    /**
+     * set bone scale relative its parent bone
+     *
+     * @param boneName bone name
+     * @param scaleX x scale relative to parent bone
+     * @param scaleY y scale relative to parent bone
+     * @param fixed true means make scale fixed so it won't be changed when playing
+     *      animation. it is optional and default value is false
+     */
+    void setBoneScale(const char* boneName, float scaleX, float scaleY, bool fixed = false);
 	
 	/// set loop style, -1 means infinite loop, 0 means no loop, larger than 0 means loop times
 	void setLoopCount(int loop) { m_loop = loop; }

@@ -442,3 +442,62 @@ wySpriteEx* wySkeletalSprite::createRelatedSprite(const char* name) {
 			return NULL;
 	}
 }
+
+void wySkeletalSprite::setBonePosition(const char* boneName, float x, float y, bool fixed) {
+    // basic check
+    if(!m_skeleton)
+        return;
+    
+    // get bone
+    wyBone* bone = m_skeleton->getBone(boneName);
+    if(!bone)
+        return;
+    
+    // set
+    wyBone::State& state = bone->getState(this);
+    state.x = x;
+    state.y = y;
+    if(fixed)
+        bone->addFlag(wyBone::FIXED_POSITION);
+    else
+        bone->removeFlag(wyBone::FIXED_POSITION);
+}
+
+void wySkeletalSprite::setBoneRotation(const char* boneName, float angle, bool fixed) {
+    // basic check
+    if(!m_skeleton)
+        return;
+    
+    // get bone
+    wyBone* bone = m_skeleton->getBone(boneName);
+    if(!bone)
+        return;
+    
+    // set
+    wyBone::State& state = bone->getState(this);
+    state.rotation = angle;
+    if(fixed)
+        bone->addFlag(wyBone::FIXED_ROTATION);
+    else
+        bone->removeFlag(wyBone::FIXED_ROTATION);
+}
+
+void wySkeletalSprite::setBoneScale(const char* boneName, float scaleX, float scaleY, bool fixed) {
+    // basic check
+    if(!m_skeleton)
+        return;
+    
+    // get bone
+    wyBone* bone = m_skeleton->getBone(boneName);
+    if(!bone)
+        return;
+    
+    // set
+    wyBone::State& state = bone->getState(this);
+    state.scaleX = scaleX;
+    state.scaleY = scaleY;
+    if(fixed)
+        bone->addFlag(wyBone::FIXED_SCALE);
+    else
+        bone->removeFlag(wyBone::FIXED_SCALE);
+}

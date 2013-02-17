@@ -61,6 +61,18 @@ public:
 		/// bone node
 		wyNode* node;
 	};
+    
+    /// flags of bone
+    enum Flag {
+        /// bone position is fixed
+        FIXED_POSITION = 0x1,
+        
+        /// bone rotation angle is fixed
+        FIXED_ROTATION = 0x2,
+        
+        /// bone scale is fixed
+        FIXED_SCALE = 0x4
+    };
 	
 private:
 	/// parent bone
@@ -74,6 +86,9 @@ private:
 	
 	/// child bones
 	BonePtrList m_children;
+
+    /// flags
+    int m_flags;
 	
 	/// state map
 	typedef map<wySkeletalSprite*, State> StateMap;
@@ -118,6 +133,21 @@ public:
 
 	/// get original x offset
 	State& getOriginalState() { return m_originalState; }
+
+    /// add a flag
+    void addFlag(Flag f) { m_flags |= f; }
+
+    /// remove a flag
+    void removeFlag(Flag f) { m_flags &= ~f; }
+
+    /// get flag
+    int getFlags() { return m_flags; }
+
+    /// clear flags
+    void clearFlags() { m_flags = 0; }
+
+    /// has flag?
+    bool hasFlag(Flag f) { return (m_flags & f) != 0; }
 };
 
 #endif // __wyBone_h__
