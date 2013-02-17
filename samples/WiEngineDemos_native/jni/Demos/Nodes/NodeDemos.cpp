@@ -2077,9 +2077,17 @@ public:
 class wySpineTestLayer : public wyLayer {
 private:
 	wySkeletalSprite* mSk1;
+    
+    // tick count
+    int m_tickCount;
+    
+    // tick for blink
+    int m_blinkTick;
 	
 public:
-	wySpineTestLayer() {
+	wySpineTestLayer() :
+            m_tickCount(0),
+            m_blinkTick(60) {
 		// load skeleton
 		wySkeleton* skeleton = wySpineLoader::loadSkeleton("spine/example-skeleton.json", false);
 		
@@ -2117,6 +2125,15 @@ public:
 	
 	void onUpdateSprite(wyTargetSelector* ts) {
 		mSk1->tick(ts->getDelta());
+        
+        m_tickCount++;
+        if(m_tickCount == m_blinkTick) {
+            mSk1->setSlotAttachment("eyes", "eyes-closed");
+        } else if(m_tickCount == m_blinkTick + 5) {
+            mSk1->setSlotAttachment("eyes", "eyes");
+            m_tickCount = 0;
+            m_blinkTick = wyMath::randMax(200) + 60;
+        }
 	}
     
     void updateHeadRotation(float x, float y) {

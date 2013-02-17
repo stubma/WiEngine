@@ -54,6 +54,15 @@ public:
 		/// sprite, wySlot doesn't retain it
 		wySpriteEx* sprite;
 	};
+    
+    /// flags of slot
+    enum Flag {
+        /// slot attachment is fixed
+        FIXED_ATTACHMENT = 0x1,
+        
+        /// bone color is fixed
+        FIXED_COLOR = 0x2
+    };
 	
 private:
 	/// bone
@@ -66,6 +75,9 @@ private:
 	/// original state
 	/// activeSkinAttachmentName of original state need to be releaseds
 	State m_originalState;
+    
+    /// flags
+    int m_flags;
 	
 	/// state map for owner
 	typedef map<wySkeletalSprite*, State> StateMap;
@@ -101,6 +113,21 @@ public:
 	
 	/// clear state of an owner
 	void clearState(wySkeletalSprite* owner);
+    
+    /// add a flag
+    void addFlag(Flag f) { m_flags |= f; }
+    
+    /// remove a flag
+    void removeFlag(Flag f) { m_flags &= ~f; }
+    
+    /// get flag
+    int getFlags() { return m_flags; }
+    
+    /// clear flags
+    void clearFlags() { m_flags = 0; }
+    
+    /// has flag?
+    bool hasFlag(Flag f) { return (m_flags & f) != 0; }
 };
 
 #endif // __wySlot_h__

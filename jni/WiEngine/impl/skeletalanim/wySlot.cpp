@@ -33,7 +33,8 @@
 #include "wySpriteEx.h"
 
 wySlot::wySlot(wyBone* bone) :
-		m_bone(bone) {
+		m_bone(bone),
+        m_flags(0) {
 	wyObjectRetain(m_bone);
 			
 	m_originalState.color = 0xffffffff;

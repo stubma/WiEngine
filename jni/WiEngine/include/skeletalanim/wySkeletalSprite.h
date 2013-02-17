@@ -81,14 +81,14 @@ protected:
 	 */
 	void setFrame(float time);
 	
-	/// create sprite by a name, the sprite location depends on skeleton location
-	wySpriteEx* createRelatedSprite(const char* name);
-	
 	/// create bone nodes
 	void createBoneNodes(wyBone* bone);
 	
 	/// create slot sprites
 	void createSlotSprites();
+    
+    /// create texture by a name, the texture location depends on skeletaon location
+    wyTexture2D* createRelatedTexture(const char* name);
 	
 	/// clean cached bone state of this node
 	void clearBoneStates(wyBone* bone);
@@ -196,6 +196,26 @@ public:
      *      animation. it is optional and default value is false
      */
     void setBoneScale(const char* boneName, float scaleX, float scaleY, bool fixed = false);
+    
+    /**
+     * set slot color
+     *
+     * @param slotName slot name
+     * @param color color in argb format
+     * @param fixed true means make color fixed so it won't be changed when playing
+     *      animation. it is optional and default value is false
+     */
+    void setSlotColor(const char* slotName, int color, bool fixed = false);
+    
+    /**
+     * set slot color
+     *
+     * @param slotName slot name
+     * @param attachmentName attachment name
+     * @param fixed true means make attachment fixed so it won't be changed when playing
+     *      animation. it is optional and default value is false
+     */
+    void setSlotAttachment(const char* slotName, const char* attachmentName, bool fixed = false);
 	
 	/// set loop style, -1 means infinite loop, 0 means no loop, larger than 0 means loop times
 	void setLoopCount(int loop) { m_loop = loop; }

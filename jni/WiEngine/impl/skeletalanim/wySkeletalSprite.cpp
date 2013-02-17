@@ -368,9 +368,7 @@ void wySkeletalSprite::createSlotSprites() {
 		// create slot sprite
 		wySlot::State& state = slot->getState(this);
 		if(state.activeSkinAttachmentName) {
-			char buf[512];
-			sprintf(buf, "%s.png", state.activeSkinAttachmentName);
-			wySpriteEx* sprite = createRelatedSprite(buf);
+			wySpriteEx* sprite = wySpriteEx::make(createRelatedTexture(state.activeSkinAttachmentName));
 			if(sprite) {
 				state.sprite = sprite;
 				wyBone::State& state = slot->getBone()->getState(this);
@@ -396,50 +394,6 @@ void wySkeletalSprite::createBoneNodes(wyBone* bone) {
 	wyBone::BonePtrList& children = bone->getChildren();
 	for(wyBone::BonePtrList::iterator iter = children.begin(); iter != children.end(); iter++) {
 		createBoneNodes(*iter);
-	}
-}
-
-wySpriteEx* wySkeletalSprite::createRelatedSprite(const char* name) {
-	switch(m_skeleton->getSource()) {
-		case wySkeleton::RESOURCE:
-		{
-			char buf[512];
-			sprintf(buf, "R.drawable.%s", name);
-			return wySpriteEx::make(wyTexture2D::make(RES(buf)));
-		}
-		case wySkeleton::ASSETS:
-		{
-			const char* path = m_skeleton->getPath();
-			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, name);
-			wySpriteEx* sprite = wySpriteEx::make(wyTexture2D::make(finalPath, false));
-			wyFree((void*)dirPath);
-			wyFree((void*)finalPath);
-			return sprite;
-		}
-		case wySkeleton::FILE_SYSTEM:
-		{
-			const char* path = m_skeleton->getPath();
-			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, name);
-			wySpriteEx* sprite = wySpriteEx::make(wyTexture2D::make(finalPath, true));
-			wyFree((void*)dirPath);
-			wyFree((void*)finalPath);
-			return sprite;
-		}
-		case wySkeleton::MEMORY_FILE_SYSTEM:
-		{
-			const char* path = m_skeleton->getPath();
-			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, name);
-			wySpriteEx* sprite = wySpriteEx::make(wyTexture2D::makeMemory(finalPath));
-			wyFree((void*)dirPath);
-			wyFree((void*)finalPath);
-			return sprite;
-		}
-		default:
-			LOGW("wySkeletalSprite::createRelatedSprite: unknown skeleton source");
-			return NULL;
 	}
 }
 
@@ -500,4 +454,95 @@ void wySkeletalSprite::setBoneScale(const char* boneName, float scaleX, float sc
         bone->addFlag(wyBone::FIXED_SCALE);
     else
         bone->removeFlag(wyBone::FIXED_SCALE);
+}
+
+void wySkeletalSprite::setSlotColor(const char* slotName, int color, bool fixed) {
+    // basic check
+    if(!m_skeleton)
+        return;
+    
+    // get slot
+    wySlot* slot = m_skeleton->getSlot(slotName);
+    if(!slot)
+        return;
+    
+    // set
+    wySlot::State& state = slot->getState(this);
+    state.color = color;
+    state.sprite->setColor(wyc4bFromInteger(color));
+    if(fixed)
+        slot->addFlag(wySlot::FIXED_COLOR);
+    else
+        slot->removeFlag(wySlot::FIXED_COLOR);
+}
+
+void wySkeletalSprite::setSlotAttachment(const char* slotName, const char* attachmentName, bool fixed) {
+    // basic check
+    if(!m_skeleton)
+        return;
+    
+    // get slot
+    wySlot* slot = m_skeleton->getSlot(slotName);
+    if(!slot)
+        return;
+    
+    // set
+    wySlot::State& state = slot->getState(this);
+    state.activeSkinAttachmentName = attachmentName;
+    wyTexture2D* tex = createRelatedTexture(attachmentName);
+    state.sprite->setTexture(tex);
+    if(fixed)
+        slot->addFlag(wySlot::FIXED_ATTACHMENT);
+    else
+        slot->removeFlag(wySlot::FIXED_ATTACHMENT);
+}
+
+wyTexture2D* wySkeletalSprite::createRelatedTexture(const char* name) {
+	switch(m_skeleton->getSource()) {
+		case wySkeleton::RESOURCE:
+		{
+			char buf[512];
+			sprintf(buf, "R.drawable.%s", name);
+			return wyTexture2D::make(RES(buf));
+		}
+		case wySkeleton::ASSETS:
+		{
+			char buf[512];
+			sprintf(buf, "%s.png", name);
+			const char* path = m_skeleton->getPath();
+			const char* dirPath = wyUtils::deleteLastPathComponent(path);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
+			wyTexture2D* tex = wyTexture2D::make(finalPath, false);
+			wyFree((void*)dirPath);
+			wyFree((void*)finalPath);
+			return tex;
+		}
+		case wySkeleton::FILE_SYSTEM:
+		{
+            char buf[512];
+			sprintf(buf, "%s.png", name);
+			const char* path = m_skeleton->getPath();
+			const char* dirPath = wyUtils::deleteLastPathComponent(path);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
+			wyTexture2D* tex = wyTexture2D::make(finalPath, true);
+			wyFree((void*)dirPath);
+			wyFree((void*)finalPath);
+			return tex;
+		}
+		case wySkeleton::MEMORY_FILE_SYSTEM:
+		{
+            char buf[512];
+			sprintf(buf, "%s.png", name);
+			const char* path = m_skeleton->getPath();
+			const char* dirPath = wyUtils::deleteLastPathComponent(path);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
+			wyTexture2D* tex = wyTexture2D::makeMemory(finalPath);
+			wyFree((void*)dirPath);
+			wyFree((void*)finalPath);
+			return tex;
+		}
+		default:
+			LOGW("wySkeletalSprite::createRelatedTexture: unknown skeleton source");
+			return NULL;
+	}
 }

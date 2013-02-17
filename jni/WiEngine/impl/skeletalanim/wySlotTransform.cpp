@@ -161,14 +161,14 @@ bool wySlotTransform::applyTo(wySkeletalSprite* owner) {
 		return false;
 	
 	// set skin texture
-	if(m_currentSkin.valid) {
+	if(m_currentSkin.valid && !slot->hasFlag(wySlot::FIXED_ATTACHMENT)) {
 		state.activeSkinAttachmentName = m_currentSkin.skinName;
 		wyTexture2D* tex = createRelatedTexture(s, m_currentSkin.skinName);
 		sprite->setTexture(tex);
 	}
 	
 	// set color
-	if(m_currentColor.valid) {
+	if(m_currentColor.valid && !slot->hasFlag(wySlot::FIXED_COLOR)) {
 		state.color = m_currentColor.color;
 		sprite->setColor(wyc4bFromInteger(m_currentColor.color));
 	}
@@ -200,9 +200,11 @@ wyTexture2D* wySlotTransform::createRelatedTexture(wySkeleton* s, const char* na
 		}
 		case wySkeleton::ASSETS:
 		{
+            char buf[512];
+			sprintf(buf, "%s.png", name);
 			const char* path = s->getPath();
 			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, name);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
 			wyTexture2D* tex = wyTexture2D::make(finalPath, false);
 			wyFree((void*)dirPath);
 			wyFree((void*)finalPath);
@@ -210,9 +212,11 @@ wyTexture2D* wySlotTransform::createRelatedTexture(wySkeleton* s, const char* na
 		}
 		case wySkeleton::FILE_SYSTEM:
 		{
+            char buf[512];
+			sprintf(buf, "%s.png", name);
 			const char* path = s->getPath();
 			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, name);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
 			wyTexture2D* tex = wyTexture2D::make(finalPath, true);
 			wyFree((void*)dirPath);
 			wyFree((void*)finalPath);
@@ -220,9 +224,11 @@ wyTexture2D* wySlotTransform::createRelatedTexture(wySkeleton* s, const char* na
 		}
 		case wySkeleton::MEMORY_FILE_SYSTEM:
 		{
+            char buf[512];
+			sprintf(buf, "%s.png", name);
 			const char* path = s->getPath();
 			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, name);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
 			wyTexture2D* tex = wyTexture2D::makeMemory(finalPath);
 			wyFree((void*)dirPath);
 			wyFree((void*)finalPath);
