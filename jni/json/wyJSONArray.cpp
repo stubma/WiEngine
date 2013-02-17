@@ -37,15 +37,12 @@
 static char s_buf[4096];
 
 wyJSONArray::wyJSONArray() {
-	m_array = WYNEW vector<wyJSONObject::KeyValue>();
-	m_array->reserve(5);
 }
 
 wyJSONArray::~wyJSONArray() {
-	for(vector<wyJSONObject::KeyValue>::iterator iter = m_array->begin(); iter != m_array->end(); iter++) {
+	for(vector<wyJSONObject::KeyValue>::iterator iter = m_array.begin(); iter != m_array.end(); iter++) {
 		releaseKeyValue(*iter);
 	}
-	WYDELETE(m_array);
 }
 
 wyJSONArray* wyJSONArray::make() {
@@ -113,7 +110,7 @@ void wyJSONArray::addNull() {
 			wyJSONObject::NIL,
 			v
 	};
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 void wyJSONArray::addBool(bool b) {
@@ -124,7 +121,7 @@ void wyJSONArray::addBool(bool b) {
 			wyJSONObject::BOOLEAN,
 			v
 	};
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 void wyJSONArray::addInt(int i) {
@@ -137,7 +134,7 @@ void wyJSONArray::addInt(int i) {
 			wyJSONObject::STRING,
 			v
 	};
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 void wyJSONArray::addLong(long l) {
@@ -150,7 +147,7 @@ void wyJSONArray::addLong(long l) {
 			wyJSONObject::STRING,
 			v
 	};
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 void wyJSONArray::addFloat(float f) {
@@ -163,7 +160,7 @@ void wyJSONArray::addFloat(float f) {
 			wyJSONObject::STRING,
 			v
 	};
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 void wyJSONArray::addDouble(double d) {
@@ -176,7 +173,7 @@ void wyJSONArray::addDouble(double d) {
 			wyJSONObject::STRING,
 			v
 	};
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 void wyJSONArray::addString(const char* s) {
@@ -187,7 +184,7 @@ void wyJSONArray::addString(const char* s) {
 			wyJSONObject::STRING,
 			v
 	};
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 void wyJSONArray::addObject(wyJSONObject* jo) {
@@ -199,7 +196,7 @@ void wyJSONArray::addObject(wyJSONObject* jo) {
 			v
 	};
 	wyObjectRetain(jo);
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 void wyJSONArray::addArray(wyJSONArray* ja) {
@@ -211,71 +208,71 @@ void wyJSONArray::addArray(wyJSONArray* ja) {
 			v
 	};
 	wyObjectRetain(ja);
-	m_array->push_back(kv);
+	m_array.push_back(kv);
 }
 
 bool wyJSONArray::optBool(int index, bool def) {
-	if(index < 0 || index >= m_array->size()) {
+	if(index < 0 || index >= m_array.size()) {
 		return def;
 	}
 
-	return wyJSONValue::castToBool(m_array->at(index));
+	return wyJSONValue::castToBool(m_array.at(index));
 }
 
 int wyJSONArray::optInt(int index, int def) {
-	if(index < 0 || index >= m_array->size()) {
+	if(index < 0 || index >= m_array.size()) {
 		return def;
 	}
 
-	return wyJSONValue::castToInt(m_array->at(index));
+	return wyJSONValue::castToInt(m_array.at(index));
 }
 
 long wyJSONArray::optLong(int index, long def) {
-	if(index < 0 || index >= m_array->size()) {
+	if(index < 0 || index >= m_array.size()) {
 		return def;
 	}
 
-	return wyJSONValue::castToLong(m_array->at(index));
+	return wyJSONValue::castToLong(m_array.at(index));
 }
 
 float wyJSONArray::optFloat(int index, float def) {
-	if(index < 0 || index >= m_array->size()) {
+	if(index < 0 || index >= m_array.size()) {
 		return def;
 	}
 
-	return wyJSONValue::castToFloat(m_array->at(index));
+	return wyJSONValue::castToFloat(m_array.at(index));
 }
 
 double wyJSONArray::optDouble(int index, double def) {
-	if(index < 0 || index >= m_array->size()) {
+	if(index < 0 || index >= m_array.size()) {
 		return def;
 	}
 
-	return wyJSONValue::castToDouble(m_array->at(index));
+	return wyJSONValue::castToDouble(m_array.at(index));
 }
 
 wyJSONObject* wyJSONArray::optJSONObject(int index) {
-	if(index < 0 || index >= m_array->size()) {
+	if(index < 0 || index >= m_array.size()) {
 		return NULL;
 	}
 
-	return wyJSONValue::castToObject(m_array->at(index));
+	return wyJSONValue::castToObject(m_array.at(index));
 }
 
 wyJSONArray* wyJSONArray::optJSONArray(int index) {
-	if(index < 0 || index >= m_array->size()) {
+	if(index < 0 || index >= m_array.size()) {
 		return NULL;
 	}
 
-	return wyJSONValue::castToArray(m_array->at(index));
+	return wyJSONValue::castToArray(m_array.at(index));
 }
 
 const char* wyJSONArray::optString(int index, const char* def) {
-	if(index < 0 || index >= m_array->size()) {
+	if(index < 0 || index >= m_array.size()) {
 		return wyJSONValue::copyString(def);
 	}
 
-	return wyJSONValue::castToString(m_array->at(index));
+	return wyJSONValue::castToString(m_array.at(index));
 }
 
 void wyJSONArray::output(wyAssetOutputStream* aos, int level) {
@@ -284,7 +281,7 @@ void wyJSONArray::output(wyAssetOutputStream* aos, int level) {
 	s_buf[1] = '\n';
 	aos->write(s_buf, 2);
 
-	for(vector<wyJSONObject::KeyValue>::iterator iter = m_array->begin(); iter != m_array->end(); iter++) {
+	for(vector<wyJSONObject::KeyValue>::iterator iter = m_array.begin(); iter != m_array.end(); iter++) {
 		// output key indentation
 		for(int i = 0; i < level; i++) {
 			s_buf[i] = '\t';
@@ -296,7 +293,7 @@ void wyJSONArray::output(wyAssetOutputStream* aos, int level) {
 				iter->v.jo->output(aos, level + 1);
 
 				// comma
-				if(m_array->end() - iter != 1)
+				if(m_array.end() - iter != 1)
 					aos->write(",", 1);
 
 				break;
@@ -304,13 +301,13 @@ void wyJSONArray::output(wyAssetOutputStream* aos, int level) {
 				iter->v.ja->output(aos, level + 1);
 
 				// comma
-				if(m_array->end() - iter != 1)
+				if(m_array.end() - iter != 1)
 					aos->write(",", 1);
 
 				break;
 			case wyJSONObject::BOOLEAN:
 				// output value
-				if(m_array->end() - iter == 1)
+				if(m_array.end() - iter == 1)
 					sprintf(s_buf, "%s\n", iter->v.b ? "true" : "false");
 				else
 					sprintf(s_buf, "%s,\n", iter->v.b ? "true" : "false");
@@ -318,7 +315,7 @@ void wyJSONArray::output(wyAssetOutputStream* aos, int level) {
 				break;
 			default:
 				// output value
-				if(m_array->end() - iter == 1)
+				if(m_array.end() - iter == 1)
 					sprintf(s_buf, "\"%s\"\n", wyJSONValue::castToString(*iter));
 				else
 					sprintf(s_buf, "\"%s\",\n", wyJSONValue::castToString(*iter));
