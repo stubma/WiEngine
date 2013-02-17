@@ -107,7 +107,14 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 	wyJSONObject* skinsJO = jo->optJSONObject("skins");
 	size = skinsJO->getLength();
 	for(int i = 0; i < size; i++) {
+        const char* skinKey = skinsJO->keyAt(i);
 		wyJSONObject* skinJO = skinsJO->optJSONObject(i);
+        
+        // create skin
+        wySkin* skin = wySkin::make();
+        skin->setName(skinKey);
+        
+        // parse this skin
 		int slotSize = skinJO->getLength();
 		for(int j = 0; j < slotSize; j++) {
 			// get slot
@@ -126,12 +133,13 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 				const char* attKey = attachmentsJO->keyAt(k);
 				wyJSONObject* attachmentJO = attachmentsJO->optJSONObject(k);
                 
-                // name attribute, if not existent, use the key from the surrounding JSON map
-                const char* name = attachmentJO->optString("name");
+                // name attribute, actually it is path of attachment image
+                const char* path = attachmentJO->optString("name");
 
 				// create skin attachment
 				wyAttachment* skinAtt = wyAttachment::make();
-				skinAtt->setName(name ? name : attKey);
+				skinAtt->setName(attKey);
+                skinAtt->setPath(path);
 
 				// set other property
 				skinAtt->setX(attachmentJO->optFloat("x") * scale);
@@ -143,7 +151,13 @@ wySkeleton* wySpineLoader::loadSkeleton(wyJSONObject* jo, float scale) {
 				// add attachment
 				slot->addAttachment(skinAtt);
 			}
+            
+            // add slot to skin
+            skin->addSlot(slot);
 		}
+        
+        // add skin to skeletaon
+        skeleton->addSkin(skin);
 	}
 
 	// return

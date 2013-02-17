@@ -70,6 +70,10 @@ private:
 	/// attachments
 	typedef vector<wyAttachment*> AttachmentPtrList;
 	AttachmentPtrList m_attachments;
+    
+    /// attachment map
+    typedef map<const char*, wyAttachment*, wyStrPredicate> AttachmentMap;
+    AttachmentMap m_attachmentMap;
 	
 	/// original state
 	/// activeAttachmentName of original state need to be releaseds
@@ -103,6 +107,9 @@ public:
 
 	/// get active skin attachment for an owner, or NULL if not set
 	wyAttachment* getActiveAttachment(wySkeletalSprite* owner);
+    
+    /// get attachment by its name, or NULL if not found
+    wyAttachment* getAttachment(const char* name);
 	
 	/// get original state
 	State& getOriginalState() { return m_originalState; }

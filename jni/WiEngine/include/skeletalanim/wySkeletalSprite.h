@@ -86,9 +86,6 @@ protected:
 	
 	/// create slot sprites
 	void createSlotSprites();
-    
-    /// create texture by a name, the texture location depends on skeletaon location
-    wyTexture2D* createRelatedTexture(const char* name);
 	
 	/// clean cached bone state of this node
 	void clearBoneStates(wyBone* bone);

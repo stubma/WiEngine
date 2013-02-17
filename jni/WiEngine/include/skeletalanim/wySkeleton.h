@@ -32,6 +32,8 @@
 #include "wyObject.h"
 #include "wyBone.h"
 #include "wySlot.h"
+#include "wySkin.h"
+#include "wyTexture2D.h"
 
 /**
  * general skeleton model
@@ -48,6 +50,9 @@ public:
 	
 	/// slot list type
 	typedef vector<wySlot*> SlotPtrList;
+    
+    /// default skin name
+    static const char* DEFALT_SKIN_NAME;
 	
 private:
 	/// bone map
@@ -57,6 +62,10 @@ private:
 	/// slot map
 	typedef map<const char*, wySlot*, wyStrPredicate> SlotMap;
 	SlotMap m_slotMap;
+    
+    /// skin map
+    typedef map<const char*, wySkin*, wyStrPredicate> SkinMap;
+    SkinMap m_skinMap;
 
 	/// slot display list
 	SlotPtrList m_slotDisplayList;
@@ -73,12 +82,18 @@ protected:
 public:
 	virtual ~wySkeleton();
 	static wySkeleton* make();
+    
+    /// create related texture from a relative image path
+    static wyTexture2D* createRelatedTexture(wySkeleton* s, const char* name);
 
 	/// add a bone, do nothing if bone with same name is existent
 	void addBone(wyBone* bone);
 
 	/// add a slot, do nothing if slot with same name is existent
 	void addSlot(wySlot* slot);
+    
+    /// add a skin, do nothing if skin with same name is existent
+    void addSkin(wySkin* skin);
 	
 	/// get root bone
 	wyBone* getRootBone();
@@ -88,6 +103,9 @@ public:
 
 	/// get slot by name
 	wySlot* getSlot(const char* name);
+    
+    /// get skin by name
+    wySkin* getSkin(const char* name);
 	
 	/// get slot display list
 	SlotPtrList& getSlotDisplaySlot() { return m_slotDisplayList; }

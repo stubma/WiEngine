@@ -86,6 +86,7 @@
 		922B066A16A52D8200C782E6 /* PVRTString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 922B065F16A52D8200C782E6 /* PVRTString.cpp */; };
 		922B066B16A52D8200C782E6 /* PVRTTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 922B066116A52D8200C782E6 /* PVRTTexture.cpp */; };
 		922B066C16A52E1E00C782E6 /* libpvr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 922B063616A52D6900C782E6 /* libpvr.a */; };
+		922C9F0316D0A40E001620E6 /* wySkin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 922C9F0116D0A40E001620E6 /* wySkin.cpp */; };
 		922C9F7D143C178F00224BCF /* wyBox2DInit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 922C9F7C143C178F00224BCF /* wyBox2DInit.cpp */; };
 		9230DFA414BC1F7900DB1BED /* wyDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9230DFA314BC1F7900DB1BED /* wyDialog.cpp */; };
 		9233581B14CC42CA009E2DF9 /* wyMemoryInputStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233581A14CC42CA009E2DF9 /* wyMemoryInputStream.cpp */; };
@@ -886,6 +887,8 @@
 		922B066016A52D8200C782E6 /* PVRTString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTString.h; sourceTree = "<group>"; };
 		922B066116A52D8200C782E6 /* PVRTTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTTexture.cpp; sourceTree = "<group>"; };
 		922B066216A52D8200C782E6 /* PVRTTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTTexture.h; sourceTree = "<group>"; };
+		922C9F0116D0A40E001620E6 /* wySkin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wySkin.cpp; path = ../jni/WiEngine/impl/skeletalanim/wySkin.cpp; sourceTree = "<group>"; };
+		922C9F0416D0A42D001620E6 /* wySkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wySkin.h; path = ../jni/WiEngine/include/skeletalanim/wySkin.h; sourceTree = "<group>"; };
 		922C9F7C143C178F00224BCF /* wyBox2DInit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wyBox2DInit.cpp; sourceTree = "<group>"; };
 		9230DFA114BC1F7200DB1BED /* wyDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wyDialog.h; path = ../jni/WiEngine/include/dialog/wyDialog.h; sourceTree = "<group>"; };
 		9230DFA314BC1F7900DB1BED /* wyDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wyDialog.cpp; path = ../jni/WiEngine/impl/dialog/wyDialog.cpp; sourceTree = "<group>"; };
@@ -3961,6 +3964,8 @@
 				9236F88816C8E76400FB35B0 /* wySkeletalSprite.h */,
 				9236F88416C8E75500FB35B0 /* wySkeletalSprite.cpp */,
 				92D2DE4A16CB5066006C8C84 /* wySkeletalAnimationListener.h */,
+				922C9F0416D0A42D001620E6 /* wySkin.h */,
+				922C9F0116D0A40E001620E6 /* wySkin.cpp */,
 			);
 			name = skeletalanim;
 			sourceTree = "<group>";
@@ -4923,6 +4928,7 @@
 				9236F88616C8E75500FB35B0 /* wySkeletalSprite.cpp in Sources */,
 				9253576316CA279F00B73E2A /* wySlotTransform.cpp in Sources */,
 				9253576816CA283400B73E2A /* wyTransform.cpp in Sources */,
+				922C9F0316D0A40E001620E6 /* wySkin.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

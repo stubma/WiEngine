@@ -57,8 +57,12 @@ wySlot* wySlot::make(wyBone* bone) {
 }
 
 void wySlot::addAttachment(wyAttachment* a) {
-	m_attachments.push_back(a);
-	wyObjectRetain(a);
+    AttachmentMap::iterator iter = m_attachmentMap.find(a->getName());
+    if(iter == m_attachmentMap.end()) {
+     	m_attachments.push_back(a);
+        m_attachmentMap[a->getName()] = a;
+        wyObjectRetain(a);
+    }
 }
 
 void wySlot::clearState(wySkeletalSprite* owner) {
@@ -93,4 +97,16 @@ wyAttachment* wySlot::getActiveAttachment(wySkeletalSprite* owner) {
 	}
 
 	return NULL;
+}
+
+wyAttachment* wySlot::getAttachment(const char* name) {
+    if(!name)
+        return NULL;
+    
+    AttachmentMap::iterator iter = m_attachmentMap.find(name);
+    if(iter == m_attachmentMap.end()) {
+        return NULL;
+    } else {
+        return iter->second;
+    }
 }

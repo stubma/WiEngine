@@ -163,8 +163,11 @@ bool wySlotTransform::applyTo(wySkeletalSprite* owner) {
 	// set skin texture
 	if(m_currentSkin.valid && !slot->hasFlag(wySlot::FIXED_ATTACHMENT)) {
 		state.activeAttachmentName = m_currentSkin.skinName;
-		wyTexture2D* tex = createRelatedTexture(s, m_currentSkin.skinName);
-		sprite->setTexture(tex);
+        wyAttachment* attachment = slot->getAttachment(m_currentSkin.skinName);
+        if(attachment) {
+            wyTexture2D* tex = wySkeleton::createRelatedTexture(s, attachment->getPath());
+            sprite->setTexture(tex);
+        }
 	}
 	
 	// set color
@@ -187,55 +190,5 @@ void wySlotTransform::dump() {
 	for(ColorKeyFrameList::iterator iter = m_ckfList.begin(); iter != m_ckfList.end(); iter++) {
 		ColorKeyFrame& kf = *iter;
 		LOGD("color key frame, time: %f, color: 0x%x", kf.time, kf.color);
-	}
-}
-
-wyTexture2D* wySlotTransform::createRelatedTexture(wySkeleton* s, const char* name) {
-	switch(s->getSource()) {
-		case wySkeleton::RESOURCE:
-		{
-			char buf[512];
-			sprintf(buf, "R.drawable.%s", name);
-			return wyTexture2D::make(RES(buf));
-		}
-		case wySkeleton::ASSETS:
-		{
-            char buf[512];
-			sprintf(buf, "%s.png", name);
-			const char* path = s->getPath();
-			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
-			wyTexture2D* tex = wyTexture2D::make(finalPath, false);
-			wyFree((void*)dirPath);
-			wyFree((void*)finalPath);
-			return tex;
-		}
-		case wySkeleton::FILE_SYSTEM:
-		{
-            char buf[512];
-			sprintf(buf, "%s.png", name);
-			const char* path = s->getPath();
-			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
-			wyTexture2D* tex = wyTexture2D::make(finalPath, true);
-			wyFree((void*)dirPath);
-			wyFree((void*)finalPath);
-			return tex;
-		}
-		case wySkeleton::MEMORY_FILE_SYSTEM:
-		{
-            char buf[512];
-			sprintf(buf, "%s.png", name);
-			const char* path = s->getPath();
-			const char* dirPath = wyUtils::deleteLastPathComponent(path);
-			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
-			wyTexture2D* tex = wyTexture2D::makeMemory(finalPath);
-			wyFree((void*)dirPath);
-			wyFree((void*)finalPath);
-			return tex;
-		}
-		default:
-			LOGW("wySlotTransform::createRelatedTexture: unknown skeleton source");
-			return NULL;
 	}
 }

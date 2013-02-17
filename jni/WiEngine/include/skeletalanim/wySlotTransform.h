@@ -69,10 +69,6 @@ private:
 	typedef vector<ColorKeyFrame> ColorKeyFrameList;
 	ColorKeyFrameList m_ckfList;
 	
-private:
-	/// create related texture
-	wyTexture2D* createRelatedTexture(wySkeleton* s, const char* name);
-	
 protected:
 	wySlotTransform();
 	

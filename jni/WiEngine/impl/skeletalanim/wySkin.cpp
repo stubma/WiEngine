@@ -26,77 +26,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef __wyAttachment_h__
-#define __wyAttachment_h__
+#include "wySkin.h"
+#include "wySlot.h"
 
-#include "wyObject.h"
+wySkin::wySkin() {
+    
+}
 
-/**
- * attachment is an image can be set to a slot
- */
-class WIENGINE_API wyAttachment : public wyObject {
-private:
-	/// x offset
-	float m_x;
-    
-	/// y offset
-	float m_y;
-    
-	/// rotation in degree, positive value means counter-clockwise, x axis is zero degree
-	float m_rotation;
-    
-	/// x scale
-	float m_scaleX;
-    
-	/// y scale
-	float m_scaleY;
-    
-    /// image path
-    const char* m_path;
-    
-protected:
-	wyAttachment();
-    
-public:
-	virtual ~wyAttachment();
-	static wyAttachment* make();
-    
-	/// set x offset
-	void setX(float x) { m_x = x; }
-    
-	/// get x offset
-	float getX() { return m_x; }
-    
-	/// set y offset
-	void setY(float y) { m_y = y; }
-    
-	/// get y offset
-	float getY() { return m_y; }
-    
-	/// set rotation
-	void setRotation(float r) { m_rotation = r; }
-    
-	/// get rotation
-	float getRotation() { return m_rotation; }
-    
-	/// set x scale
-	void setScaleX(float x) { m_scaleX = x; }
-    
-	/// get x scale
-	float getScaleX() { return m_scaleX; }
-    
-	/// set y scale
-	void setScaleY(float y) { m_scaleY = y; }
-    
-	/// get y scale
-	float getScaleY() { return m_scaleY; }
-    
-    /// set path
-    void setPath(const char* path);
-    
-    /// get path, caller should NOT release it
-    /// if path is not set, then path is same as name
-    const char* getPath() { return m_path ? m_path : m_name; }
-};
+wySkin::~wySkin() {
+    for(SlotPtrList::iterator iter = m_slotList.begin(); iter != m_slotList.end(); iter++) {
+        wyObjectRelease(*iter);
+    }
+}
 
-#endif // __wyAttachment_h__
+wySkin* wySkin::make() {
+    wySkin* s = WYNEW wySkin();
+    return (wySkin*)s->autoRelease();
+}
+
+void wySkin::addSlot(wySlot* slot) {
+    SlotMap::iterator iter = m_slotMap.find(slot->getName());
+    if(iter == m_slotMap.end()) {
+        m_slotList.push_back(slot);
+        m_slotMap[slot->getName()] = slot;
+        wyObjectRetain(slot);
+    }
+}

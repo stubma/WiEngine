@@ -27,6 +27,7 @@
  * THE SOFTWARE.
  */
 #include "wyAttachment.h"
+#include "wyUtils.h"
 
 wyAttachment::wyAttachment() :
         m_x(0),
@@ -37,9 +38,21 @@ wyAttachment::wyAttachment() :
 }
 
 wyAttachment::~wyAttachment() {
+    if(m_path) {
+        wyFree((void*)m_path);
+        m_path = NULL;
+    }
 }
 
 wyAttachment* wyAttachment::make() {
 	wyAttachment* a = WYNEW wyAttachment();
 	return (wyAttachment*)a->autoRelease();
+}
+
+void wyAttachment::setPath(const char* path) {
+    if(m_path) {
+        wyFree((void*)m_path);
+        m_path = NULL;
+    }
+    m_path = wyUtils::copy(path);
 }

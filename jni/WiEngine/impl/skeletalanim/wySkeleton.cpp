@@ -30,6 +30,8 @@
 #include "wyLog.h"
 #include "wyUtils.h"
 
+const char* wySkeleton::DEFALT_SKIN_NAME = "default";
+
 wySkeleton::wySkeleton() :
 		m_source(RESOURCE),
 		m_path(NULL) {
@@ -43,6 +45,9 @@ wySkeleton::~wySkeleton() {
 		wyObjectRelease(iter->second);
 	}
 	for(SlotMap::iterator iter = m_slotMap.begin(); iter != m_slotMap.end(); iter++) {
+		wyObjectRelease(iter->second);
+	}
+    for(SkinMap::iterator iter = m_skinMap.begin(); iter != m_skinMap.end(); iter++) {
 		wyObjectRelease(iter->second);
 	}
 }
@@ -66,6 +71,14 @@ void wySkeleton::addSlot(wySlot* slot) {
 		m_slotMap[slot->getName()] = slot;
 		m_slotDisplayList.push_back(slot);
 		wyObjectRetain(slot);
+	}
+}
+
+void wySkeleton::addSkin(wySkin* skin) {
+    SkinMap::iterator iter = m_skinMap.find(skin->getName());
+	if(iter == m_skinMap.end()) {
+		m_skinMap[skin->getName()] = skin;
+		wyObjectRetain(skin);
 	}
 }
 
@@ -95,6 +108,18 @@ wySlot* wySkeleton::getSlot(const char* name) {
 	
 	SlotMap::iterator iter = m_slotMap.find(name);
 	if(iter != m_slotMap.end()) {
+		return iter->second;
+	} else {
+		return NULL;
+	}
+}
+
+wySkin* wySkeleton::getSkin(const char* name) {
+    if(!name)
+		return NULL;
+	
+	SkinMap::iterator iter = m_skinMap.find(name);
+	if(iter != m_skinMap.end()) {
 		return iter->second;
 	} else {
 		return NULL;
@@ -134,5 +159,64 @@ void wySkeleton::dump() {
 			 iter->second->getBone()->getName(),
 			 state.activeAttachmentName ? state.activeAttachmentName : "null",
 			 state.color);
+	}
+}
+
+wyTexture2D* wySkeleton::createRelatedTexture(wySkeleton* s, const char* name) {
+	switch(s->getSource()) {
+		case wySkeleton::RESOURCE:
+		{
+			char buf[512];
+			sprintf(buf, "R.drawable.%s", name);
+			return wyTexture2D::make(RES(buf));
+		}
+		case wySkeleton::ASSETS:
+		{
+            char buf[512];
+            if(wyUtils::endsWith(name, ".png"))
+                sprintf(buf, "%s", name);
+            else
+                sprintf(buf, "%s.png", name);
+			const char* path = s->getPath();
+			const char* dirPath = wyUtils::deleteLastPathComponent(path);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
+			wyTexture2D* tex = wyTexture2D::make(finalPath, false);
+			wyFree((void*)dirPath);
+			wyFree((void*)finalPath);
+			return tex;
+		}
+		case wySkeleton::FILE_SYSTEM:
+		{
+            char buf[512];
+            if(wyUtils::endsWith(name, ".png"))
+                sprintf(buf, "%s", name);
+            else
+                sprintf(buf, "%s.png", name);
+			const char* path = s->getPath();
+			const char* dirPath = wyUtils::deleteLastPathComponent(path);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
+			wyTexture2D* tex = wyTexture2D::make(finalPath, true);
+			wyFree((void*)dirPath);
+			wyFree((void*)finalPath);
+			return tex;
+		}
+		case wySkeleton::MEMORY_FILE_SYSTEM:
+		{
+            char buf[512];
+            if(wyUtils::endsWith(name, ".png"))
+                sprintf(buf, "%s", name);
+            else
+                sprintf(buf, "%s.png", name);
+			const char* path = s->getPath();
+			const char* dirPath = wyUtils::deleteLastPathComponent(path);
+			const char* finalPath = wyUtils::appendPathComponent(dirPath, buf);
+			wyTexture2D* tex = wyTexture2D::makeMemory(finalPath);
+			wyFree((void*)dirPath);
+			wyFree((void*)finalPath);
+			return tex;
+		}
+		default:
+			LOGW("wySkeleton::createRelatedTexture: unknown skeleton source");
+			return NULL;
 	}
 }
