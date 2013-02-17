@@ -118,6 +118,22 @@ public:
 	
 	/// @see wyNode::visit
 	virtual void visit();
+    
+    /**
+     * get bone position relative to this node position
+     *
+     * @param boneName bone name
+     * @return bone position, or zero point if bone is not found
+     */
+    wyPoint getBonePosition(const char* boneName);
+    
+    /**
+     * get bone position relative to world origin
+     *
+     * @param boneName bone name
+     * @return bone position, or zero point if bone is not found
+     */
+    wyPoint getBonePositionRelativeToWorld(const char* boneName);
 	
 	/**
 	 * stop any animation which is ongoing

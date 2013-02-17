@@ -118,6 +118,40 @@ void wySkeletalSprite::visit() {
 	glPopMatrix();
 }
 
+wyPoint wySkeletalSprite::getBonePosition(const char* boneName) {
+    // basic check
+    if(!m_skeleton)
+        return wypZero;
+    
+    // get bone
+    wyBone* bone = m_skeleton->getBone(boneName);
+    if(!bone)
+        return wypZero;
+    
+    // get bone node
+    wyBone::State& state = bone->getState(this);
+    wyAffineTransform t = state.node->getNodeToAncestorTransform(this);
+    wyPoint pos = wyp(state.x, state.y);
+    return wyaTransformPoint(t, pos);
+}
+
+wyPoint wySkeletalSprite::getBonePositionRelativeToWorld(const char* boneName) {
+    // basic check
+    if(!m_skeleton)
+        return wypZero;
+    
+    // get bone
+    wyBone* bone = m_skeleton->getBone(boneName);
+    if(!bone)
+        return wypZero;
+    
+    // get bone node
+    wyBone::State& state = bone->getState(this);
+    wyAffineTransform t = state.node->getNodeToWorldTransform();
+    wyPoint pos = wyp(state.x, state.y);
+    return wyaTransformPoint(t, pos);
+}
+
 void wySkeletalSprite::stopAnimation(bool restore) {
 	// no animation? return
 	if(!m_animation)
