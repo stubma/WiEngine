@@ -40,7 +40,8 @@
 class WIENGINE_API wyJSONArray : public wyObject {
 private:
 	/// value array
-	vector<wyJSONObject::KeyValue>* m_array;
+    typedef vector<wyJSONObject::KeyValue> KeyValueList;
+	KeyValueList m_array;
 
 protected:
 	wyJSONArray();
@@ -106,7 +107,7 @@ public:
 	 *
 	 * @return count of elements in json array
 	 */
-	int getLength() { return m_array->size(); }
+	int getLength() { return m_array.size(); }
 
 	/**
 	 * Add a null value to an array
