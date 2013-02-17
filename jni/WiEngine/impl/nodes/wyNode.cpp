@@ -1222,6 +1222,24 @@ wyAffineTransform wyNode::getWorldToNodeTransform() {
 	return t;
 }
 
+wyAffineTransform wyNode::getNodeToAncestorTransform(wyNode* ancestor) {
+	updateNodeToParentTransform();
+	wyAffineTransform t = m_transformMatrix;
+    
+	for(wyNode* p = m_parent; p != ancestor; p = p->m_parent) {
+		p->updateNodeToParentTransform();
+		wyaConcat(&t, &(p->m_transformMatrix));
+	}
+    
+	return t;
+}
+
+wyAffineTransform wyNode::getAncestorToNodeTransform(wyNode* ancestor) {
+	wyAffineTransform t = getNodeToAncestorTransform(ancestor);
+	wyaInverse(&t);
+	return t;
+}
+
 wyAffineTransform wyNode::getTransformMatrix() {
     updateNodeToParentTransform();
     return m_transformMatrix;

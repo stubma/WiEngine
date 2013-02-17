@@ -1156,6 +1156,14 @@ public:
 	 * \endif
 	 */
 	wyAffineTransform getNodeToWorldTransform();
+    
+    /**
+     * Get transform matrix from node to ancestor
+     *
+     * @param ancestor ancestor node
+     * @return \link wyAffineTransform wyAffineTransform\endlink
+     */
+    wyAffineTransform getNodeToAncestorTransform(wyNode* ancestor);
 
 	/**
 	 * \if English
@@ -1182,6 +1190,14 @@ public:
 	 * \endif
 	 */
 	wyAffineTransform getWorldToNodeTransform();
+    
+    /**
+     * get transform matrix from an ancestor to this noe
+     *
+     * @param ancestor ancestor node
+     * @retun \link wyAffineTransform wyAffineTransform\endlink
+     */
+    wyAffineTransform getAncestorToNodeTransform(wyNode* ancestor);
 
 	/**
 	 * \if English
