@@ -108,7 +108,7 @@ public:
     wySkin* getSkin(const char* name);
 	
 	/// get slot display list
-	SlotPtrList& getSlotDisplaySlot() { return m_slotDisplayList; }
+	SlotPtrList& getSlotDisplayList() { return m_slotDisplayList; }
 	
 	/// set source
 	void setSource(Source s) { m_source = s; }

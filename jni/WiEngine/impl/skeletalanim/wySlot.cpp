@@ -110,3 +110,10 @@ wyAttachment* wySlot::getAttachment(const char* name) {
         return iter->second;
     }
 }
+
+wyAttachment* wySlot::getFirstAttachment() {
+    if(m_attachments.empty())
+        return NULL;
+    else
+        return m_attachments.at(0);
+}

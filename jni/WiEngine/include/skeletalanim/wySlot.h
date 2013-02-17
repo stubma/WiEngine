@@ -110,6 +110,9 @@ public:
     
     /// get attachment by its name, or NULL if not found
     wyAttachment* getAttachment(const char* name);
+    
+    /// get first attachment, or NULL if none
+    wyAttachment* getFirstAttachment();
 	
 	/// get original state
 	State& getOriginalState() { return m_originalState; }

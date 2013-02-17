@@ -37,9 +37,12 @@ class wySlot;
  * skin for a skeleton
  */
 class WIENGINE_API wySkin : public wyObject {
-private:
+public:
     /// slot list
     typedef vector<wySlot*> SlotPtrList;
+    
+private:
+    /// slot list
     SlotPtrList m_slotList;
     
     /// slot map
@@ -55,6 +58,9 @@ public:
     
     /// add slot
     void addSlot(wySlot* slot);
+    
+    /// get slot list
+    SlotPtrList& getSlotList() { return m_slotList; }
 };
 
 #endif // __wySkin_h__

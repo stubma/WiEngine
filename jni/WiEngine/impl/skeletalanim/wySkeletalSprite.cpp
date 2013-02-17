@@ -84,7 +84,7 @@ void wySkeletalSprite::visit() {
 		doClip();
 	
 	// visit slot sprites by display list sequence
-	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplaySlot();
+	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplayList();
 	for(wySkeleton::SlotPtrList::iterator iter = slotDisplayList.begin(); iter != slotDisplayList.end(); iter++) {
 		wySlot* slot = *iter;
 		wySlot::State& state = slot->getState(this);
@@ -337,14 +337,14 @@ void wySkeletalSprite::syncBoneStates(wyBone* bone) {
 }
 
 void wySkeletalSprite::cleanSlotStates() {
-	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplaySlot();
+	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplayList();
 	for(wySkeleton::SlotPtrList::iterator iter = slotDisplayList.begin(); iter != slotDisplayList.end(); iter++) {
 		(*iter)->clearState(this);
 	}
 }
 
 void wySkeletalSprite::syncAttachmentStates() {
-	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplaySlot();
+	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplayList();
 	for(wySkeleton::SlotPtrList::iterator iter = slotDisplayList.begin(); iter != slotDisplayList.end(); iter++) {
 		wySlot* slot = *iter;
 		wySlot::State& state = slot->getState(this);
@@ -360,7 +360,7 @@ void wySkeletalSprite::syncAttachmentStates() {
 }
 
 void wySkeletalSprite::createSlotSprites() {
-	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplaySlot();
+	wySkeleton::SlotPtrList& slotDisplayList = m_skeleton->getSlotDisplayList();
 	for(wySkeleton::SlotPtrList::iterator iter = slotDisplayList.begin(); iter != slotDisplayList.end(); iter++) {
 		// get slot active attachment image file name
 		wySlot* slot = *iter;
@@ -499,5 +499,30 @@ void wySkeletalSprite::setSlotAttachment(const char* slotName, const char* attac
             slot->addFlag(wySlot::FIXED_ATTACHMENT);
         else
             slot->removeFlag(wySlot::FIXED_ATTACHMENT);
+    }
+}
+
+void wySkeletalSprite::applySkin(const char* skinName) {
+    // basic check
+    if(!m_skeleton)
+        return;
+    
+    // get skin
+    wySkin* skin = m_skeleton->getSkin(skinName);
+    if(!skin) {
+        LOGW("wySkeletalSprite::applySkin: the skin %s is not found", skinName);
+        return;
+    }
+    
+    // change attachment of slots in this skin
+    wySkin::SlotPtrList& slotList = skin->getSlotList();
+    for(wySkin::SlotPtrList::iterator iter = slotList.begin(); iter != slotList.end(); iter++) {
+        wySlot* slot = *iter;
+        wySlot::State& state = slot->getState(this);
+        wyAttachment* first = slot->getFirstAttachment();
+        if(first) {
+            wyTexture2D* tex = wySkeleton::createRelatedTexture(m_skeleton, first->getPath());
+            state.sprite->setTexture(tex);
+        }
     }
 }

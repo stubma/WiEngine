@@ -162,6 +162,9 @@ public:
 	/// get animation
 	wySkeletalAnimation* getAnimation() { return m_animation; }
     
+    /// apply a skin to skeleton, if skin is not found, do nothing
+    void applySkin(const char* skinName);
+    
     /**
      * set bone position relative its parent bone
      *
