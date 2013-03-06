@@ -17,7 +17,7 @@ endef
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wiengineskeleton
-LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv1_CM -lwiengine -llua -lchipmunk -lwisound -lbox2d -ljson -liap -lwinetwork
+LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv1_CM -lwiengine -llua -lchipmunk -lwisound -lbox2d -liap -lwinetwork
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 	$(LOCAL_PATH)/../../../jni \
 	$(LOCAL_PATH)/../../../jni/chipmunk \
@@ -47,6 +47,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/opengl \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/particle \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/persistence \
+	$(LOCAL_PATH)/../../../jni/WiEngine/include/skeletalanim \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/spritex \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/tmx \
 	$(LOCAL_PATH)/../../../jni/WiEngine/include/transitions \
