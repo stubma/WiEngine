@@ -73,7 +73,7 @@ When you submit an issue, I hope you provide:
 
 Documentation
 -----------------------------------
-We organize all documentation in [github wiki][18]. Now it is just a beginning and we will add more.
+We organize all documentation in [github wiki][18]. 
  
 [1]: http://www.motionwelder.com/
 [2]: http://wiengine.wiyun.com/tools/spx3.rar
