@@ -382,14 +382,15 @@ void wyAudioManager_openal::resumeBackgroundMusic() {
 bool wyAudioManager_openal::isBackgroundPlaying() {
 	pthread_mutex_lock(&m_mutex);
 	
+	bool ret = false;
 	for(vector<wyAudioPlayer*>::iterator iter = m_audios->begin(); iter != m_audios->end(); iter++) {
 		if(!(*iter)->getStream()->isSingleBuffer() && (*iter)->isPlaying())
-			return true;
+			ret = true;
 	}
 	
 	pthread_mutex_unlock(&m_mutex);
 
-	return false;
+	return ret;
 }
 
 void wyAudioManager_openal::playEffect(int resId, int type) {
