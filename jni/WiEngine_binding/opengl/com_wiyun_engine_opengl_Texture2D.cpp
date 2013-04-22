@@ -141,7 +141,7 @@ JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_opengl_Texture2D_getWidth
 	return tex->getWidth();
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_loadTexture
+JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeLoadTexture
   (JNIEnv * env, jobject thiz) {
 	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	tex->load();

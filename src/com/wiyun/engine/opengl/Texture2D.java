@@ -532,11 +532,16 @@ public class Texture2D extends BaseWYObject {
 		// TODO: Implement me
 		return false;
 	}
+	
+	public Texture2D loadTexture() {
+		nativeLoadTexture();
+		return this;
+	}
 
 	/**
 	 * 确保贴图对象已经被载入，这个方法将把贴图对应的图象资源转换成OpenGL中的贴图对象
 	 */
-	public native void loadTexture();
+	private native void nativeLoadTexture();
 	
 	/**
 	 * 得到原始图片和贴图实际大小的宽度比例

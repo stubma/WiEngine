@@ -152,7 +152,7 @@ JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_opengl_Texture2D_getWidth
  * Method:    loadTexture
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_loadTexture
+JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeLoadTexture
   (JNIEnv *, jobject);
 
 /*
