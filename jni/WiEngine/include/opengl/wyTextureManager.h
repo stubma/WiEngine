@@ -90,6 +90,12 @@ private:
 			struct {
 				/// how many wyTexture2D objects refer it
 				int ref;
+                
+                /// width
+                float w;
+                
+                /// height
+                float h;
 			} gp;
 		};
 

@@ -249,6 +249,18 @@ wyGLTexture2D* wyTextureManager::createGLTexture(const char* md5, wyTexture2D* t
 					return wyGLTexture2D::makeLabel(t->m_text, t->m_fontSize, t->m_style, t->m_fontName, t->m_width, t->m_alignment);
 				}
 				break;
+            case CT_OPENGL:
+            {
+                GLint t;
+                glGenTextures(1, (GLuint*)&t);
+                glBindTexture(GL_TEXTURE_2D, t);
+                int w = wyMath::getNextPOT(texHash.gp.w);
+                int h = wyMath::getNextPOT(texHash.gp.h);
+                GLvoid* pixels = (GLvoid*)wyCalloc(w * h * 4, sizeof(GLubyte));
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+                wyFree(pixels);
+                return wyGLTexture2D::makeGL(t, texHash.gp.w, texHash.gp.h);
+            }
 		}
 	}
 
@@ -546,6 +558,8 @@ wyTexture2D* wyTextureManager::makeGL(int texture, int w, int h) {
 		texHash.md5 = hash;
 		texHash.handle = nextHandle();
 		texHash.gp.ref = 1;
+        texHash.gp.w = w;
+        texHash.gp.h = h;
 
 		// create real texture
 		wyGLTexture2D* glTex = wyGLTexture2D::makeGL(texture, w, h);
