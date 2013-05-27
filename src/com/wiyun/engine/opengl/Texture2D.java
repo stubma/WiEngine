@@ -343,7 +343,7 @@ public class Texture2D extends BaseWYObject {
 	 */
 	public static Texture2D makeFile(String path, int transparentColor, int format, float inDensity) {
 		Texture2D tex = new Texture2D();
-		tex.mPointer = tex.nativeInit(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat(), inDensity);
+		tex.mPointer = tex.nativeInitFile(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat(), inDensity);
 		return tex;
 	}
 	
