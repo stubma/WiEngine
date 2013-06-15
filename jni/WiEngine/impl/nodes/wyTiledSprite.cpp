@@ -430,6 +430,8 @@ void wyTiledSprite::updateMesh() {
 		// append quad
 		atlas->appendQuad(texCoords, vertex);
 	}
+    wyQuadList* quadList = (wyQuadList*)getMesh();
+	quadList->updateColor4B(m_color);
 }
 
 void wyTiledSprite::setTexture(wyTexture2D* tex, int index) {
