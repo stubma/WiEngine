@@ -5582,7 +5582,7 @@
 		9265F9791348774C00CBF61F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: John Coppola (X46VVFC65B)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5596,7 +5596,7 @@
 				);
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "EC97AE46-27FD-48D2-9487-C15C34F5773C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -5604,7 +5604,7 @@
 		9265F97A1348774C00CBF61F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: John Coppola (X46VVFC65B)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pch/WiEngine-Prefix.pch";
@@ -5617,7 +5617,7 @@
 				);
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "EC97AE46-27FD-48D2-9487-C15C34F5773C";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -5938,6 +5938,7 @@
 				9285672216A3E9D300082CF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		928AE85A135966C400EF9BC9 /* Build configuration list for PBXNativeTarget "libbox2d" */ = {
 			isa = XCConfigurationList;

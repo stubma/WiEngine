@@ -259,7 +259,10 @@ public:
 	 * @param frameName name of frame
 	 * @return \link wySpriteEx wySpriteEx\endlink, or NULL if frame is not found
 	 */
-	wySpriteEx* makeSpriteEx(const char* frameName);
+	wySpriteEx* makeSpriteEx(const char* frameName, int zi	 = 0, wySpriteBatchNode * batch = NULL);
+
+	wySpriteEx* makeSpriteEx(const char* zwoptexName, const char* frameName, int zi	 = 0, wySpriteBatchNode * batch = NULL);
+    
 };
 
 #endif // __wyZwoptexManager_h__

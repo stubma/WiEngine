@@ -186,7 +186,7 @@
 			<arg value="-configuration"/>
 			<arg value="Release"/>
 			<arg value="-sdk"/>
-			<arg value="iphonesimulator6.0"/>
+			<arg value="iphonesimulator6.1"/>
             <arg value="BUILD_DIR=${build.dir}"/>
 		</exec>
 		<exec dir="${ios.dir}" executable="xcodebuild">
@@ -195,7 +195,7 @@
 			<arg value="-configuration"/>
 			<arg value="Release"/>
 			<arg value="-sdk"/>
-			<arg value="iphoneos6.0"/>
+			<arg value="iphoneos6.1"/>
             <arg value="BUILD_DIR=${build.dir}"/>
 		</exec>
 	</target>

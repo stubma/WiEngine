@@ -256,7 +256,7 @@ wySpriteEx* wyZwoptexManager::makeSpriteEx(const char* zwoptexName, const char* 
 	}
 }
 
-wySpriteEx* wyZwoptexManager::makeSpriteEx(const char* frameName) {
+wySpriteEx* wyZwoptexManager::makeSpriteEx(const char* frameName, int zi, wySpriteBatchNode * batch) {
 	wyZwoptex* z = NULL;
 	char* name = NULL;
 	wyZwoptexFrame* f = findFrame(frameName, &z, &name);
@@ -265,7 +265,37 @@ wySpriteEx* wyZwoptexManager::makeSpriteEx(const char* frameName) {
 	} else if(z->getTexture() == NULL) {
 		LOGW("findSpriteEx: zwoptex %s doesn't has bound texture", name);
 		return NULL;
-	} else {
+	} else if (batch == NULL) {
 		return wySpriteEx::make(z->getTexture(), f);
+	} else {
+        return wySpriteEx::make(batch, f, zi);
+    }
+}
+
+
+wySpriteEx* wyZwoptexManager::makeSpriteEx(const char* zwoptexName, const char* frameName, int zi, wySpriteBatchNode * batch) {
+    wyZwoptex* z = getZwoptex(zwoptexName);
+	if(z == NULL) {
+		LOGW("makeSpriteEx: didn't find zwoptex whose name is %s", zwoptexName);
+		return NULL;
 	}
+    	
+    wyZwoptexFrame* f = z -> getFrame(frameName);
+	
+    if(f == NULL) {
+		return NULL;
+	}
+    
+    if(z->getTexture() == NULL) {
+        LOGW("makeSpriteEx: zwoptex %s doesn't has bound texture", zwoptexName);
+        return NULL;
+    }
+    
+    if (batch == NULL) {
+        wySpriteEx* sprite = WYNEW wySpriteEx(z->getTexture(), f);
+        return (wySpriteEx*)sprite->autoRelease();
+    }
+
+    return wySpriteEx::make(batch, f, zi);
+    
 }
