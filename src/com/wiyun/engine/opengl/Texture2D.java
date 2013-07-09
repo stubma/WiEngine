@@ -38,7 +38,6 @@ import android.graphics.Canvas;
 import android.opengl.GLUtils;
 
 import com.wiyun.engine.BaseWYObject;
-import com.wiyun.engine.filters.ColorFilter;
 import com.wiyun.engine.nodes.Director;
 import com.wiyun.engine.types.WYPoint;
 import com.wiyun.engine.utils.BitmapRawData;
@@ -86,6 +85,18 @@ public class Texture2D extends BaseWYObject {
 	 */
 	public static final int RIGHT = 2;
 	
+	/// 正常字体
+	public static final int NORMAL = 0;
+
+    /// 粗体类型
+	public static final int BOLD   = 0x01;
+
+    /// 斜体类型
+	public static final int ITALIC = 0x02;
+
+    /// 粗斜体类型
+	public static final int BOLD_ITALIC = 0x03;
+	
 	public static final int SOURCE_BMP = 1;
 	public static final int SOURCE_JPG = 2;
 	public static final int SOURCE_PNG = 3;
@@ -93,48 +104,6 @@ public class Texture2D extends BaseWYObject {
 	public static final int SOURCE_LABEL = 5;
 	public static final int SOURCE_OPENGL = 6;
 	public static final int SOURCE_RAW = 7;
-	
-	/**
-	 * Create texture from image file which is specified by resource id.
-	 * It will auto detect image file format.
-	 *
-	 * @param resId resource id
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	public static Texture2D make(int resId) {
-		return make(resId, 0);
-	}
-	
-	/**
-	 * Create texture from image file which is specified by resource id.
-	 * It will auto detect image file format.
-	 *
-	 * @param resId resource id
-	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
-	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
-	 * 		rgb value is same as it will be cleared
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	public static Texture2D make(int resId, int transparentColor) {
-		return make(resId, transparentColor, TextureManager.getInstance().getTexturePixelFormat());
-	}
-	
-	/**
-	 * Create texture from image file which is specified by resource id.
-	 * It will auto detect image file format.
-	 *
-	 * @param resId resource id
-	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
-	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
-	 * 		rgb value is same as it will be cleared
-	 * @param format destination opengl texture format
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	public static Texture2D make(int resId, int transparentColor, int format) {
-		Texture2D tex = new Texture2D();
-		tex.mPointer = tex.nativeInit(resId, transparentColor, format);
-		return tex;
-	}
 	
 	/**
 	 * Create texture from an image file which is specified by assets relative path. It
@@ -173,25 +142,8 @@ public class Texture2D extends BaseWYObject {
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
 	public static Texture2D make(String path, int transparentColor, int format) {
-		return make(path, transparentColor, format, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * Create texture from an image file which is specified by assets relative path. It
-	 * will auto detect image file format
-	 *
-	 * @param assetPath relative path of image file in assets
-	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
-	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
-	 * 		rgb value is same as it will be cleared
-	 * @param format destination opengl texture format
-	 * @param inDensity density of image file, zero means uses system default setting.
-	 * 		By default, density is 1 and can be changed by setting wyDevice::defaultInDensity value
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	public static Texture2D make(String path, int transparentColor, int format, float inDensity) {
 		Texture2D tex = new Texture2D();
-		tex.mPointer = tex.nativeInit(path, transparentColor, format, inDensity);
+		tex.mPointer = tex.nativeInit(path, transparentColor, format, Director.getDefaultInDensity());
 		return tex;
 	}
 	
@@ -325,25 +277,8 @@ public class Texture2D extends BaseWYObject {
 	 * @return \link wyTexture2D wyTexture2D\endlink
 	 */
 	public static Texture2D makeFile(String path, int transparentColor, int format) {
-		return makeFile(path, 0, format, Director.getDefaultInDensity());
-	}
-	
-	/**
-	 * Create texture from an image file and the file is saved in file system. It will
-	 * auto detect image file format
-	 *
-	 * @param fsPath image file path in file system, it should be an absolute file path
-	 * @param transparentColor transparent color, format is 0xaarrggbb but alpha component
-	 * 		is ignored. Every pixel of image will be compared with this color and pixel whose
-	 * 		rgb value is same as it will be cleared
-	 * @param format destination opengl texture format
-	 * @param inDensity density of image file, zero means uses system default setting.
-	 * 		By default, density is 1 and can be changed by setting wyDevice::defaultInDensity value
-	 * @return \link wyTexture2D wyTexture2D\endlink
-	 */
-	public static Texture2D makeFile(String path, int transparentColor, int format, float inDensity) {
 		Texture2D tex = new Texture2D();
-		tex.mPointer = tex.nativeInitFile(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat(), inDensity);
+		tex.mPointer = tex.nativeInitFile(path, transparentColor, TextureManager.getInstance().getTexturePixelFormat(), Director.getDefaultInDensity());
 		return tex;
 	}
 	
@@ -394,7 +329,7 @@ public class Texture2D extends BaseWYObject {
 	native int nativeInitLabel(String text, float fontSize, String fontPath, boolean isFile, float width, int alignment);
 	native int nativeInitLabel(String text, float fontSize, int style, String fontName, float width, int alignment);
 	native int nativeInitFile(String path, int transparentColor, int pixelFormat, float inDensity);
-
+	
 	/**
 	 * 设置贴图的反锯齿效果，缺省情况下是true
 	 * 
@@ -532,16 +467,11 @@ public class Texture2D extends BaseWYObject {
 		// TODO: Implement me
 		return false;
 	}
-	
-	public Texture2D loadTexture() {
-		nativeLoadTexture();
-		return this;
-	}
 
 	/**
 	 * 确保贴图对象已经被载入，这个方法将把贴图对应的图象资源转换成OpenGL中的贴图对象
 	 */
-	private native void nativeLoadTexture();
+	public native void loadTexture();
 	
 	/**
 	 * 得到原始图片和贴图实际大小的宽度比例
@@ -601,34 +531,6 @@ public class Texture2D extends BaseWYObject {
 	 * @param raw {@link BitmapRawData}
 	 */
 	public native void updateRaw(BitmapRawData raw);
-	
-	/**
-	 * \if English
-	 * set color filter. texture has many sources and it doesn't support label or opengl or pvr source. color filter
-	 * won't be called when set until you call \c applyFilter. However, \c applyFilter will be automatically
-	 * called when texture is loading.
-	 *
-	 * @param filter subclass of \link ColorFilter ColorFilter\endlink, or NULL if you want to
-	 * 		remove filter
-	 * \else
-	 * 设置颜色过滤器, 贴图本身有一个来源标示其类型, 对于标签或opengl或pvr来源的贴图暂时不支持颜色过滤器. 在调用\c setColorFilter
-	 * 的时候, 过滤器并不会立刻起作用. 想要过滤器发生效果需要调用\c applyFilter. 但是如果贴图正在被载入, 则\c applyFilter
-	 * 会被自动调用.
-	 *
-	 * @param filter \link ColorFilter ColorFilter\endlink的子类, 或者NULL表示删除当前的过滤器
-	 * \endif
-	 */
-	public native void setColorFilter(ColorFilter filter);
-
-	/**
-	 * \if English
-	 * if current color filter is not NULL, apply this filter to texture. that will cause
-	 * texture changed immediately.
-	 * \else
-	 * 如果当前的颜色过滤器不为空, 则应用这个过滤器, 这会导致OpenGL贴图立刻发生变化
-	 * \endif
-	 */
-	public native void applyFilter();
 	
 	/**
 	 * \if English

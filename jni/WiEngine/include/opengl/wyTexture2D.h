@@ -37,7 +37,6 @@
 class wyTextureManager;
 class wyGrabber;
 class wyGLTexture2D;
-class wyColorFilter;
 
 /**
  * texture source type
@@ -754,24 +753,6 @@ public:
 	 * 		调用者要负责释放该数据.
 	 */
 	void updateRaw(const char* raw);
-
-	/**
-	 * \if English
-	 * set color filter. texture has many sources and it doesn't support label or opengl or pvr source. color filter
-	 * won't be called when set until you call \c applyFilter. However, \c applyFilter will be automatically
-	 * called when texture is loading.
-	 *
-	 * @param filter subclass of \link wyColorFilter wyColorFilter\endlink, or NULL if you want to
-	 * 		remove filter
-	 * \else
-	 * 设置颜色过滤器, 贴图本身有一个来源标示其类型, 对于标签或opengl或pvr来源的贴图暂时不支持颜色过滤器. 在调用\c setColorFilter
-	 * 的时候, 过滤器并不会立刻起作用. 想要过滤器发生效果需要调用\c applyFilter. 但是如果贴图正在被载入, 则\c applyFilter
-	 * 会被自动调用.
-	 *
-	 * @param filter \link wyColorFilter wyColorFilter\endlink的子类, 或者NULL表示删除当前的过滤器
-	 * \endif
-	 */
-	void setColorFilter(wyColorFilter* filter);
 
 	/**
 	 * \if English

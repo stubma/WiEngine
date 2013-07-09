@@ -79,6 +79,7 @@
 #define CLASS_GRAVITY "android/view/Gravity"
 #define CLASS_RUNNABLE "java/lang/Runnable"
 
+#define CLASS_UTILITIES "com/wiyun/engine/utils/Utilities"
 #define CLASS_ACTION_CALLBACK "com/wiyun/engine/actions/Action$Callback"
 #define CLASS_WYPOINT "com/wiyun/engine/types/WYPoint"
 #define CLASS_WYPOINTLIST "com/wiyun/engine/types/WYPointList"
@@ -94,61 +95,9 @@
 #define CLASS_WYLAGRANGECONFIG "com/wiyun/engine/types/WYLagrangeConfig"
 #define CLASS_WYHYPOTROCHOIDCONFIG "com/wiyun/engine/types/WYHypotrochoidConfig"
 #define CLASS_WYAFFINETRANSFORM "com/wiyun/engine/types/WYAffineTransform"
-#define CLASS_IMAGEPICKER "com/wiyun/engine/utils/ImagePicker"
 #define CLASS_RESOURCEDECODER "com/wiyun/engine/utils/ResourceDecoder"
 #define CLASS_TARGETSELECTOR "com/wiyun/engine/utils/TargetSelector"
 #define CLASS_MAP "java/util/Map"
-
-// sal definition
-typedef char* (*scaleImageFunc)(int config, char* originData, int originWidth, int originHeight, float scaleX, float scaleY);
-typedef void (*calculateTextSizeWithFontFunc)(const char* text, float fontSize, bool bold, bool italic, const char* fontName, float width, size_t* w, size_t* h);
-typedef void (*calculateTextSizeWithCustomFontFunc)(const char* text, float fontSize, const char* fontData, int dataLength, float width, size_t* w, size_t* h);
-typedef const char* (*createLabelBitmapWithFontFunc)(const char* text, float fontSize, bool bold, bool italic, const char* fontName, float width, int alignment);
-typedef const char* (*createLabelBitmapWithCustomFontFunc)(const char* text, float fontSize, const char* fontData, int dataLength, float width, int alignment);
-typedef void (*deinitFunc)();
-typedef void (*setEnvFunc)(void* env);
-typedef void (*setContextFunc)(void* context);
-typedef void (*setDensityFunc)(float density);
-typedef void (*setScaleModeFunc)(int mode);
-typedef void* (*getAssetFunc)(const char* path);
-typedef void* (*getAssetByResIdFunc)(int id, float* scale);
-typedef void* (*getAssetBufferFunc)(void* asset);
-typedef int (*getAssetLengthFunc)(void* asset);
-typedef int (*getAssetRemainingLengthFunc)(void* asset);
-typedef int (*readAssetFunc)(void* asset, char* buffer, size_t length);
-typedef int (*seekAssetFunc)(void* asset, int offset, int mode);
-typedef void (*closeAssetFunc)(void* asset);
-typedef void (*getResFDFunc)(int resId, size_t* outFD, size_t* outOffset, size_t* outLength, float* outScale);
-typedef void (*getAssetFDFunc)(const char* path, size_t* outFD, size_t* outOffset, size_t* outLength);
-typedef const char* (*utf16toutf8Func)(const char16_t* s16);
-typedef const char16_t* (*toUTF16Func)(const char* s8);
-typedef const char* (*wctoutf8Func)(const wchar_t* ws);
-typedef struct wyAAL {
-	scaleImageFunc scaleImage;
-	calculateTextSizeWithFontFunc calculateTextSizeWithFont;
-	calculateTextSizeWithCustomFontFunc calculateTextSizeWithCustomFont;
-	createLabelBitmapWithFontFunc createLabelBitmapWithFont;
-	createLabelBitmapWithCustomFontFunc createLabelBitmapWithCustomFont;
-
-	deinitFunc deinit;
-	setEnvFunc setEnv;
-	setContextFunc setContext;
-	setDensityFunc setDensity;
-	setScaleModeFunc setScaleMode;
-	getAssetFunc getAsset;
-	getAssetByResIdFunc getAssetByResId;
-	getAssetBufferFunc getAssetBuffer;
-	getAssetLengthFunc getAssetLength;
-	getAssetRemainingLengthFunc getAssetRemainingLength;
-	readAssetFunc readAsset;
-	seekAssetFunc seekAsset;
-	closeAssetFunc closeAsset;
-	getResFDFunc getResFD;
-	getAssetFDFunc getAssetFD;
-	utf16toutf8Func utf16toutf8;
-	toUTF16Func toUTF16;
-	wctoutf8Func wctoutf8;
-} wyAAL;
 
 #endif // #if ANDROID
 

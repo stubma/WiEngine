@@ -152,7 +152,7 @@ JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_opengl_Texture2D_getWidth
  * Method:    loadTexture
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeLoadTexture
+JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_loadTexture
   (JNIEnv *, jobject);
 
 /*
@@ -226,22 +226,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_setFlipY
  */
 JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_updateRaw
   (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    setColorFilter
- * Signature: (Lcom/wiyun/engine/filters/ColorFilter;)V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_setColorFilter
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_wiyun_engine_opengl_Texture2D
- * Method:    applyFilter
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_applyFilter
-  (JNIEnv *, jobject);
 
 /*
  * Class:     com_wiyun_engine_opengl_Texture2D

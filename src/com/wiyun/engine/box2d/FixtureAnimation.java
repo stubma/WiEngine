@@ -55,50 +55,14 @@ public class FixtureAnimation extends BaseWYObject {
 		public void onAnimationAborted(int fixturePointer);
 	}
 	
-	/**
-	 * 创建一个物体动画
-	 * 
-	 * @param duration 每帧的显示时间
-	 * @param resIds 帧图片的资源id
-	 * @return {@link FixtureAnimation}
-	 */
-	public static FixtureAnimation make(float duration, int... resIds) {
-		return new FixtureAnimation(duration, resIds);
-	}
-	
 	public static FixtureAnimation from(int pointer) {
 		return pointer == 0 ? null : new FixtureAnimation(pointer);
-	}
-	
-	/**
-	 * 构造函数
-	 * 
-	 * @param duration 每帧的显示时间
-	 * @param resIds 帧图片的资源id
-	 */
-	protected FixtureAnimation(float duration, int... resIds) {
-		nativeInit();
-		
-		for(int id : resIds) {
-			addFrame(duration, id);
-		}
 	}
 	
 	private native void nativeInit();
 	
 	protected FixtureAnimation(int pointer) {
 		super(pointer);
-	}
-
-	/**
-	 * 添加一帧
-	 * 
-	 * @param duration 帧的显示时间
-	 * @param resId 帧图片资源id
-	 */
-	public void addFrame(float duration, int resId) {
-		Texture2D tex = (Texture2D)Texture2D.make(resId).autoRelease();
-		nativeAddFrame(duration, tex);
 	}
 	
 	private native void nativeAddFrame(float duration, Texture2D tex);

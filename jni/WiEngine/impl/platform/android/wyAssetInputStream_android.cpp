@@ -34,9 +34,6 @@
 #include <errno.h>
 #include "wyGlobal.h"
 
-// aal
-extern wyAAL gAAL;
-
 wyAssetInputStream* wyAssetInputStream::make(int resId) {
 	wyAssetInputStream* ais = WYNEW wyAssetInputStream_android(resId);
 	return (wyAssetInputStream*)ais->autoRelease();
@@ -51,7 +48,6 @@ wyAssetInputStream_android::wyAssetInputStream_android(int resId) :
 		wyAssetInputStream(resId),
 		m_asset(NULL),
 		m_fp(NULL) {
-	m_asset = gAAL.getAssetByResId(resId, NULL);
 }
 
 wyAssetInputStream_android::wyAssetInputStream_android(const char* path, bool isFile) :
@@ -65,14 +61,11 @@ wyAssetInputStream_android::wyAssetInputStream_android(const char* path, bool is
 			m_fp = NULL;
 		}
 	} else {
-		m_asset = gAAL.getAsset(path);
 	}
 }
 
 wyAssetInputStream_android::~wyAssetInputStream_android() {
 	if(m_asset != NULL) {
-		gAAL.closeAsset(m_asset);
-		m_asset = NULL;
 	} else if(m_fp != NULL) {
 		fclose(m_fp);
 		m_fp = NULL;
@@ -80,9 +73,7 @@ wyAssetInputStream_android::~wyAssetInputStream_android() {
 }
 
 size_t wyAssetInputStream_android::getLength() {
-	if(m_asset != NULL)
-		return gAAL.getAssetLength(m_asset);
-	else if(m_fp != NULL) {
+	if(m_fp != NULL) {
 		size_t offset = ftell(m_fp);
 		fseek(m_fp, 0, SEEK_END);
 		size_t len = ftell(m_fp);
@@ -95,7 +86,7 @@ size_t wyAssetInputStream_android::getLength() {
 
 size_t wyAssetInputStream_android::getPosition() {
 	if(m_asset != NULL)
-		return gAAL.getAssetLength(m_asset) - gAAL.getAssetRemainingLength(m_asset);
+		return 0;
 	else if(m_fp != NULL)
 		return ftell(m_fp);
 	else
@@ -104,7 +95,7 @@ size_t wyAssetInputStream_android::getPosition() {
 
 size_t wyAssetInputStream_android::available() {
 	if(m_asset != NULL)
-		return gAAL.getAssetRemainingLength(m_asset);
+		return 0;
 	else if(m_fp != NULL)
 		return getLength() - getPosition();
 	else
@@ -115,9 +106,7 @@ char* wyAssetInputStream_android::getBuffer() {
 	size_t len = getLength();
 	char* buf = (char*)wyMalloc(len * sizeof(char));
 
-	if(m_asset != NULL)
-		memcpy(buf, gAAL.getAssetBuffer(m_asset), len);
-	else if(m_fp != NULL)
+	if(m_fp != NULL)
 		fread(buf, sizeof(char), len, m_fp);
 
 	return buf;
@@ -125,8 +114,6 @@ char* wyAssetInputStream_android::getBuffer() {
 
 void wyAssetInputStream_android::close() {
 	if(m_asset != NULL) {
-		gAAL.closeAsset(m_asset);
-		m_asset = NULL;
 	} else if(m_fp != NULL) {
 		fclose(m_fp);
 		m_fp = NULL;
@@ -135,7 +122,7 @@ void wyAssetInputStream_android::close() {
 
 ssize_t wyAssetInputStream_android::read(char* buffer, size_t length) {
 	if(m_asset != NULL)
-		return gAAL.readAsset(m_asset, buffer, length);
+		return -1;
 	else if(m_fp != NULL)
 		return fread(buffer, sizeof(char), length, m_fp);
 	else
@@ -144,7 +131,7 @@ ssize_t wyAssetInputStream_android::read(char* buffer, size_t length) {
 
 size_t wyAssetInputStream_android::seek(int offset, int mode) {
 	if(m_asset != NULL) {
-		return gAAL.seekAsset(m_asset, offset, mode);
+		return -1;
 	} else if(m_fp != NULL) {
 		fseek(m_fp, offset, mode);
 		return ftell(m_fp);

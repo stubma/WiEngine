@@ -33,7 +33,6 @@
 #include "wyTextureManager.h"
 #include <stdlib.h>
 #include "wyLog.h"
-#include "wyColorFilter.h"
 
 extern wyTextureManager* gTextureManager;
 
@@ -430,18 +429,6 @@ void wyTexture2D::setTexture(int tex) {
 	wyGLTexture2D* t = gTextureManager->getTexture(this);
 	if(t)
 		t->setTexture(tex);
-}
-
-void wyTexture2D::setColorFilter(wyColorFilter* filter) {
-	wyGLTexture2D* t = gTextureManager->getTexture(this);
-	if(t)
-		t->setColorFilter(filter);
-}
-
-void wyTexture2D::applyFilter() {
-	wyGLTexture2D* t = gTextureManager->getTexture(this);
-	if(t)
-		t->applyFilter();
 }
 
 wyTexture2D* wyTexture2D::clone(int cloneId) {

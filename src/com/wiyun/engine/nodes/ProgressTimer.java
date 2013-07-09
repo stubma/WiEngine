@@ -64,16 +64,6 @@ public class ProgressTimer extends Node {
 		 * 垂直条形，从上到下
 		 */
 	public static final int VERTICAL_BAR_TB = 6;
-	
-	/**
-	 * 创建进度条对象, 通过这种方式构造的进度条将使用这个贴图的完整大小.
-	 * 
-	 * @param resId 图象资源id
-	 * @return 进度条对象
-	 */
-	public static ProgressTimer make(int resId) {
-		return new ProgressTimer(resId);
-	}
 
 	/**
 	 * 通过一个{@link Texture2D}对象构造一个
@@ -95,15 +85,6 @@ public class ProgressTimer extends Node {
 	 */
 	public static ProgressTimer make(Sprite sprite) {
 		return new ProgressTimer(sprite);
-	}
-
-	/**
-	 * 构造函数
-	 * 
-	 * @param resId 图象资源id
-	 */
-	protected ProgressTimer(int resId) {
-		this((Texture2D)Texture2D.make(resId).autoRelease());
 	}
 
 	/**

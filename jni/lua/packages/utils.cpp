@@ -1,6 +1,6 @@
 /*
 ** Lua binding: utils
-** Generated automatically by tolua++-1.0.92 on Tue Jan 15 13:57:13 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Jul  9 16:38:21 2013.
 */
 
 #ifndef __cplusplus
@@ -150,14 +150,12 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"wyAssetOutputStream");
  tolua_usertype(tolua_S,"wyScroller");
  tolua_usertype(tolua_S,"wyTargetSelector");
- tolua_usertype(tolua_S,"wyMath");
  tolua_usertype(tolua_S,"wyPoint");
- tolua_usertype(tolua_S,"wyZwoptexManager");
- tolua_usertype(tolua_S,"wyImagePickerCallback");
+ tolua_usertype(tolua_S,"wyMath");
  tolua_usertype(tolua_S,"wySpriteEx");
  tolua_usertype(tolua_S,"char16_t");
  tolua_usertype(tolua_S,"wyRect");
- tolua_usertype(tolua_S,"wyImagePicker");
+ tolua_usertype(tolua_S,"wyZwoptexManager");
  tolua_usertype(tolua_S,"wyZwoptex");
  tolua_usertype(tolua_S,"wyZwoptexFrame");
  tolua_usertype(tolua_S,"wyUtils");
@@ -7414,173 +7412,6 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: hasCamera of class  wyImagePicker */
-#ifndef TOLUA_DISABLE_tolua_utils_wyImagePicker_hasCamera00
-static int tolua_utils_wyImagePicker_hasCamera00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyImagePicker",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   bool tolua_ret = (bool)  wyImagePicker::hasCamera();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'hasCamera'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: hasFrontCamera of class  wyImagePicker */
-#ifndef TOLUA_DISABLE_tolua_utils_wyImagePicker_hasFrontCamera00
-static int tolua_utils_wyImagePicker_hasFrontCamera00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyImagePicker",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   bool tolua_ret = (bool)  wyImagePicker::hasFrontCamera();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'hasFrontCamera'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: pickFromCamera of class  wyImagePicker */
-#ifndef TOLUA_DISABLE_tolua_utils_wyImagePicker_pickFromCamera00
-static int tolua_utils_wyImagePicker_pickFromCamera00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyImagePicker",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyImagePickerCallback",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,6,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyImagePickerCallback* callback = ((wyImagePickerCallback*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
-  int w = ((int)  tolua_tonumber(tolua_S,4,0));
-  int h = ((int)  tolua_tonumber(tolua_S,5,0));
-  bool keepRatio = ((bool)  tolua_toboolean(tolua_S,6,true));
-  {
-   wyImagePicker::pickFromCamera(callback,data,w,h,keepRatio);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'pickFromCamera'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: pickFromFrontCamera of class  wyImagePicker */
-#ifndef TOLUA_DISABLE_tolua_utils_wyImagePicker_pickFromFrontCamera00
-static int tolua_utils_wyImagePicker_pickFromFrontCamera00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyImagePicker",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyImagePickerCallback",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,6,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyImagePickerCallback* callback = ((wyImagePickerCallback*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
-  int w = ((int)  tolua_tonumber(tolua_S,4,0));
-  int h = ((int)  tolua_tonumber(tolua_S,5,0));
-  bool keepRatio = ((bool)  tolua_toboolean(tolua_S,6,true));
-  {
-   wyImagePicker::pickFromFrontCamera(callback,data,w,h,keepRatio);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'pickFromFrontCamera'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: pickFromAlbum of class  wyImagePicker */
-#ifndef TOLUA_DISABLE_tolua_utils_wyImagePicker_pickFromAlbum00
-static int tolua_utils_wyImagePicker_pickFromAlbum00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"wyImagePicker",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyImagePickerCallback",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,6,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyImagePickerCallback* callback = ((wyImagePickerCallback*)  tolua_tousertype(tolua_S,2,0));
-  void* data = ((void*)  tolua_touserdata(tolua_S,3,0));
-  int w = ((int)  tolua_tonumber(tolua_S,4,0));
-  int h = ((int)  tolua_tonumber(tolua_S,5,0));
-  bool keepRatio = ((bool)  tolua_toboolean(tolua_S,6,true));
-  {
-   wyImagePicker::pickFromAlbum(callback,data,w,h,keepRatio);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'pickFromAlbum'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: getNextPOT of class  wyMath */
 #ifndef TOLUA_DISABLE_tolua_utils_wyMath_getNextPOT00
 static int tolua_utils_wyMath_getNextPOT00(lua_State* tolua_S)
@@ -8207,17 +8038,6 @@ TOLUA_API int tolua_utils_open (lua_State* tolua_S)
    tolua_function(tolua_S,"makeSprite",tolua_utils_wyZwoptexManager_makeSprite01);
    tolua_function(tolua_S,"makeSpriteEx",tolua_utils_wyZwoptexManager_makeSpriteEx00);
    tolua_function(tolua_S,"makeSpriteEx",tolua_utils_wyZwoptexManager_makeSpriteEx01);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"wyImagePickerCallback","wyImagePickerCallback","",NULL);
-  tolua_beginmodule(tolua_S,"wyImagePickerCallback");
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"wyImagePicker","wyImagePicker","",NULL);
-  tolua_beginmodule(tolua_S,"wyImagePicker");
-   tolua_function(tolua_S,"hasCamera",tolua_utils_wyImagePicker_hasCamera00);
-   tolua_function(tolua_S,"hasFrontCamera",tolua_utils_wyImagePicker_hasFrontCamera00);
-   tolua_function(tolua_S,"pickFromCamera",tolua_utils_wyImagePicker_pickFromCamera00);
-   tolua_function(tolua_S,"pickFromFrontCamera",tolua_utils_wyImagePicker_pickFromFrontCamera00);
-   tolua_function(tolua_S,"pickFromAlbum",tolua_utils_wyImagePicker_pickFromAlbum00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"wyMath","wyMath","",NULL);
   tolua_beginmodule(tolua_S,"wyMath");

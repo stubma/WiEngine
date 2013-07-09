@@ -1,6 +1,5 @@
 #include "com_wiyun_engine_opengl_Texture2D.h"
 #include "wyUtils_android.h"
-#include "wyColorFilter.h"
 #include "wyGLTexture2D.h"
 #include "wyTexture2D.h"
 #include <stdlib.h>
@@ -141,7 +140,7 @@ JNIEXPORT jfloat JNICALL Java_com_wiyun_engine_opengl_Texture2D_getWidth
 	return tex->getWidth();
 }
 
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeLoadTexture
+JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_loadTexture
   (JNIEnv * env, jobject thiz) {
 	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	tex->load();
@@ -193,19 +192,6 @@ JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_setFlipY
   (JNIEnv * env, jobject thiz, jboolean flipY) {
 	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
 	return tex->setFlipY(flipY);
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_setColorFilter
-  (JNIEnv * env, jobject thiz, jobject filter) {
-	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	wyColorFilter* f = filter == NULL ? NULL : (wyColorFilter*)env->GetIntField(filter, g_fid_BaseObject_mPointer);
-	tex->setColorFilter(f);
-}
-
-JNIEXPORT void JNICALL Java_com_wiyun_engine_opengl_Texture2D_applyFilter
-  (JNIEnv * env, jobject thiz) {
-	wyTexture2D* tex = (wyTexture2D*)env->GetIntField(thiz, g_fid_BaseObject_mPointer);
-	tex->applyFilter();
 }
 
 JNIEXPORT jint JNICALL Java_com_wiyun_engine_opengl_Texture2D_nativeClone

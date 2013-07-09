@@ -89,33 +89,6 @@ public class Animation extends BaseWYObject {
     protected Animation(int dummy, int pointer) {
     	super(pointer);
     }
-
-    /**
-     * 创建一个空的动画对象
-     * 
-     * @param id 动画id
-     */
-    public Animation(int id) {
-        this(id, 0, new int[0]);
-    }
-    
-    /**
-     * 从一系列资源图片中创建一个动画对象，每帧具有相同的时间间隔。资源都自动添加到
-     * TextureManager中，如果想释放相关贴图，可以使用TextureManager.removeTexture方法
-     * 
-     * @param id 动画id
-     * @param frameDuration 每帧的时间
-     * @param resIds 每帧的图象资源id
-     */
-    public Animation(int id, float frameDuration, int... resIds) {
-    	nativeInit(id);
-
-        if (resIds != null) {
-            for (int resId : resIds) {
-            	addFrame(frameDuration, resId);
-            }
-        }
-    }
     
     /**
      * 从一系列贴图对象中创建一个动画对象，每帧具有相同的时间间隔
@@ -139,17 +112,6 @@ public class Animation extends BaseWYObject {
     private native int getFrameCount();
     private native void nativeGetFrames(int[] pointers);
 
-    /**
-     * 添加一帧
-     * 
-     * @param frameDuration 帧显示时间
-     * @param resId 帧图片资源id
-     */
-    public void addFrame(float frameDuration, int resId) {
-    	Texture2D tex = (Texture2D)Texture2D.make(resId).autoRelease();
-    	addFrame(frameDuration, tex);
-    }
-    
     /**
      * 添加一帧或多帧
      * 

@@ -8,4 +8,4 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/libxml2/include
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/libxml2/include
 LOCAL_SRC_FILES := $(call all-c-files-under,libxml2)
 	
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)

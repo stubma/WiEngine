@@ -41,7 +41,7 @@ jclass gClass_Accelerometer;
 jclass gClass_PrefUtil;
 jclass gClass_AudioManager;
 jclass gClass_TextBox;
-jclass gClass_ImagePicker;
+jclass gClass_Utilities;
 
 // BaseObject
 jfieldID g_fid_BaseObject_mPointer;
@@ -181,12 +181,6 @@ jmethodID g_mid_Action_Callback_onStart;
 jmethodID g_mid_Action_Callback_onStop;
 jmethodID g_mid_Action_Callback_onUpdate;
 
-// ImagePicker
-jmethodID g_mid_ImagePicker_hasCamera;
-jmethodID g_mid_ImagePicker_hasFrontCamera;
-jmethodID g_mid_ImagePicker_pickFromCamera;
-jmethodID g_mid_ImagePicker_pickFromAlbum;
-
 // TargetSelector
 jmethodID g_mid_TargetSelector_setDelta;
 jmethodID g_mid_TargetSelector_invoke;
@@ -201,6 +195,14 @@ jmethodID g_mid_Accelerometer_checkAccelHandlers;
 
 // FileDescriptor class field
 jfieldID g_fid_FileDescriptor_descriptor;
+
+// Utilities
+jmethodID g_mid_Utilities_createLabelBitmap_by_fontPath;
+jmethodID g_mid_Utilities_createLabelBitmap_by_fontStyle;
+jmethodID g_mid_Utilities_calculateTextSize_by_fontPath;
+jmethodID g_mid_Utilities_calculateTextSize_by_fontStyle;
+jmethodID g_mid_Utilities_loadAsset;
+jmethodID g_mid_Utilities_scaleImage;
 
 // Director
 jmethodID g_mid_Director_getInstance;
@@ -391,8 +393,8 @@ void globalInit(JNIEnv* env) {
 	gClass_AudioManager = (jclass)env->NewGlobalRef(c);
 	c = env->FindClass(CLASS_TEXTBOX);
 	gClass_TextBox = (jclass)env->NewGlobalRef(c);
-	c = env->FindClass(CLASS_IMAGEPICKER);
-	gClass_ImagePicker = (jclass)env->NewGlobalRef(c);
+	c = env->FindClass(CLASS_UTILITIES);
+	gClass_Utilities = (jclass)env->NewGlobalRef(c);
 
 	jclass clazz = env->FindClass(CLASS_VERSION);
 	jfieldID sdkInt = env->GetStaticFieldID(clazz, "SDK_INT", "I");
@@ -457,6 +459,13 @@ void globalInit(JNIEnv* env) {
 	clazz = env->FindClass(CLASS_FILEDESCRIPTOR);
 	g_fid_FileDescriptor_descriptor = env->GetFieldID(clazz, "descriptor", "I");
 	env->DeleteLocalRef(clazz);
+
+	g_mid_Utilities_createLabelBitmap_by_fontPath = env->GetStaticMethodID(gClass_Utilities, "createLabelBitmap", "(Ljava/lang/String;FLjava/lang/String;ZFI)[B");
+	g_mid_Utilities_createLabelBitmap_by_fontStyle = env->GetStaticMethodID(gClass_Utilities, "createLabelBitmap", "(Ljava/lang/String;FILjava/lang/String;FI)[B");
+	g_mid_Utilities_calculateTextSize_by_fontPath = env->GetStaticMethodID(gClass_Utilities, "calculateTextSize", "(Ljava/lang/String;FLjava/lang/String;ZF)Lcom/wiyun/engine/types/WYSize;");
+	g_mid_Utilities_calculateTextSize_by_fontStyle = env->GetStaticMethodID(gClass_Utilities, "calculateTextSize", "(Ljava/lang/String;FILjava/lang/String;F)Lcom/wiyun/engine/types/WYSize;");
+	g_mid_Utilities_loadAsset = env->GetStaticMethodID(gClass_Utilities, "loadAsset", "(Ljava/lang/String;Z)[B");
+	g_mid_Utilities_scaleImage = env->GetStaticMethodID(gClass_Utilities, "scaleImage", "([BIIFF)[B");
 
 	g_mid_Director_getInstance = env->GetStaticMethodID(gClass_Director, "getInstance", "()Lcom/wiyun/engine/nodes/Director;");
 	g_mid_Director_internalEnd = env->GetMethodID(gClass_Director, "internalEnd", "()V");
@@ -840,11 +849,6 @@ void globalInit(JNIEnv* env) {
 		env->DeleteLocalRef(clazz);
 	}
 
-	g_mid_ImagePicker_hasCamera = env->GetStaticMethodID(gClass_ImagePicker, "hasCamera", "()Z");
-	g_mid_ImagePicker_hasFrontCamera = env->GetStaticMethodID(gClass_ImagePicker, "hasFrontCamera", "()Z");
-	g_mid_ImagePicker_pickFromCamera = env->GetStaticMethodID(gClass_ImagePicker, "pickFromCamera", "(IIIIZZ)V");
-	g_mid_ImagePicker_pickFromAlbum = env->GetStaticMethodID(gClass_ImagePicker, "pickFromAlbum", "(IIIIZ)V");
-
 	clazz = env->FindClass(CLASS_TARGETSELECTOR);
 	g_mid_TargetSelector_setDelta = env->GetMethodID(clazz, "setDelta", "(F)V");
 	g_mid_TargetSelector_invoke = env->GetMethodID(clazz, "invoke", "()V");
@@ -931,8 +935,6 @@ void globalDeInit(JNIEnv* env) {
 	gClass_AudioManager = NULL;
 	env->DeleteGlobalRef(gClass_TextBox);
 	gClass_TextBox = NULL;
-	env->DeleteGlobalRef(gClass_ImagePicker);
-	gClass_ImagePicker = NULL;
 }
 
 #ifdef __cplusplus

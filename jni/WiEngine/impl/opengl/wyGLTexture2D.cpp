@@ -36,7 +36,6 @@
 #include "wyLog.h"
 #include "wyDirector.h"
 #include "wyGlobal.h"
-#include "wyColorFilter.h"
 #include "PVRTError.h"
 #include "PVRTTextureAPI.h"
 
@@ -47,9 +46,6 @@ extern wyEventDispatcher* gEventDispatcher;
 wyGLTexture2D::~wyGLTexture2D() {
 	// delete opengl texture if surface is still there
 	deleteTexture(gDirector == NULL || !gDirector->isSurfaceCreated() || gDirector->isEnding());
-
-	// release color filter
-	wyObjectRelease(m_filter);
 
 	// release specific info
 	switch(m_source) {
@@ -249,7 +245,6 @@ wyGLTexture2D::wyGLTexture2D() :
 		m_flipY(false),
 		m_mfsName(NULL),
 		m_data(NULL),
-		m_filter(NULL),
 		m_length(0),
 		m_inDensity(wyDevice::defaultInDensity) {
 }
@@ -320,9 +315,6 @@ char* wyGLTexture2D::loadImage(char* raw, size_t len, float scale) {
 				}
 			}
 		}
-
-		// apply filter
-		applyFilter(rgba, w, h);
 
 		// scale
 		char* scaled = wyUtils::scaleImage(rgba, w, h, scale, scale);
@@ -454,17 +446,8 @@ void wyGLTexture2D::doLoad() {
 			glBindTexture(GL_TEXTURE_2D, m_texture);
 			applyParameters();
 
-			// apply filter
-			char* data = (char*)m_data;
-			if(m_filter) {
-				size_t len = sizeof(char) * m_width * m_height * 4;
-				data = (char*)wyMalloc(len);
-				memcpy(data, m_data, len);
-				applyFilter(data, m_width, m_height);
-			}
-
 			// convert data format
-			data = (char*)convertPixelFormat((const char*)data);
+			char* data = (char*)convertPixelFormat((const char*)m_data);
 
 			// generate texture
 			switch(m_pixelFormat) {
@@ -981,16 +964,6 @@ const char* wyGLTexture2D::convertPixelFormat(const char* data) {
 void wyGLTexture2D::doUpdateRaw() {
 	char* oldTmp = (char*)m_tmp;
 	char* tmp = oldTmp;
-	if(m_filter) {
-		// copy tmp data to a new buffer
-		size_t len = sizeof(char) * m_width * m_height * 4;
-		tmp = (char*)wyMalloc(len);
-		memcpy(tmp, m_tmp, len);
-
-		// apply filter
-		m_tmp = tmp;
-		applyFilter();
-	}
 
 	// bind texture and update
 	glBindTexture(GL_TEXTURE_2D, m_texture);
@@ -1023,89 +996,5 @@ void wyGLTexture2D::updateRaw(const char* raw) {
 		}
 	} else {
 		doUpdateRaw();
-	}
-}
-
-void wyGLTexture2D::setColorFilter(wyColorFilter* filter) {
-	wyObjectRetain(filter);
-	wyObjectRelease(m_filter);
-	m_filter = filter;
-}
-
-void wyGLTexture2D::applyFilter() {
-	if(m_texture != 0) {
-		// check thread, if not in gl thread, we need wait
-		if(!isGLThread()) {
-			pthread_cond_t cond;
-			if(pthread_cond_init(&cond, NULL) == 0) {
-				if(gEventDispatcher != NULL) {
-					pthread_mutex_lock(&gCondMutex);
-					gEventDispatcher->queueEventLocked(ET_APPLY_COLOR_FILTER, this, &cond);
-					pthread_cond_wait(&cond, &gCondMutex);
-					pthread_mutex_unlock(&gCondMutex);
-				}
-
-				pthread_cond_destroy(&cond);
-			}
-		} else {
-			doApplyFilter();
-		}
-	}
-}
-
-void wyGLTexture2D::applyFilter(void* data, int width, int height) {
-	if(m_filter) {
-		m_filter->apply(data, width, height);
-	}
-}
-
-void wyGLTexture2D::doApplyFilter() {
-	char* rgba = NULL;
-	switch(m_source) {
-		case SOURCE_IMG:
-		{
-			// get raw data of image
-			size_t len;
-			float scale;
-            bool needFree;
-			char* raw = loadRaw(&len, &scale, &needFree);
-			if(!raw)
-				return;
-
-			// special case for PVR
-			if(!wyUtils::isPVR(raw, len)) {
-				// decompress data in RGBA8888
-				rgba = loadImage(raw, len, scale);
-				if(rgba == NULL)
-					return;
-			}
-
-			// free raw
-            if(needFree)
-                wyFree(raw);
-
-			break;
-		}
-		case SOURCE_RAW8888:
-		{
-			size_t len = sizeof(char) * m_width * m_height * 4;
-			rgba = (char*)wyMalloc(len);
-			memcpy(rgba, m_data, len);
-			applyFilter(rgba, m_width, m_height);
-
-			break;
-		}
-		default:
-			LOGW("wyGLTexture2D::doApplyFilter: doesn't support applying color filter for source %d", m_source);
-			return;
-	}
-
-	if(rgba) {
-		// bind texture and update
-		glBindTexture(GL_TEXTURE_2D, m_texture);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_width, m_height, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
-
-		// free
-		wyFree(rgba);
 	}
 }

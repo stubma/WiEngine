@@ -17,7 +17,7 @@ endef
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := wiengineskeleton
-LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv1_CM -lwiengine -llua -lchipmunk -lwisound -lbox2d -liap -lwinetwork
+LOCAL_LDLIBS := -L$(LOCAL_PATH)/../../../libs/$(TARGET_ARCH_ABI) -llog -lGLESv1_CM -lwiengine 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 	$(LOCAL_PATH)/../../../jni \
 	$(LOCAL_PATH)/../../../jni/chipmunk \

@@ -79,15 +79,6 @@ public class SpriteEx extends TextureNode {
 	/**
 	 * 创建一个图像节点，所用贴图区域为整个贴图
 	 *
-	 * @param resId 图片的资源Id,要求为png格式
-	 */	
-    public static SpriteEx make(int resId) {
-    	return new SpriteEx((Texture2D)Texture2D.make(resId).autoRelease());
-    }
-
-	/**
-	 * 创建一个图像节点，所用贴图区域为整个贴图
-	 *
 	 * @param tex 贴图
 	 * @return {@link SpriteEx}
 	 */

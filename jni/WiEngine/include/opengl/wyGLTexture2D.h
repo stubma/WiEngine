@@ -35,7 +35,6 @@
 #include "wyTypes.h"
 #include "wyTexture2D.h"
 
-class wyColorFilter;
 class wyEventDispatcher;
 
 /**
@@ -140,15 +139,6 @@ private:
 
 	/// 源图片的density，对于通过资源id载入的图片没有意义
 	float m_inDensity;
-
-	/**
-	 * \if English
-	 * color filter
-	 * \else
-	 * 颜色过滤器, 可以为NULL
-	 * \endif
-	 */
-	wyColorFilter* m_filter;
 
 private:
 	/**
@@ -300,11 +290,6 @@ private:
 	 * 更新贴图, 这个方法一定会在OpenGL线程中调用
 	 */
 	void doUpdateRaw();
-
-	/**
-	 * 应用颜色过滤器, 这个方法一定会在OpenGL线程中调用
-	 */
-	void doApplyFilter();
 
 	/**
 	 * 删除OpenGL中的贴图对象，如果你不是通过TextureManager创建的Texture2D, 则你
@@ -615,49 +600,6 @@ private:
 	 * 		调用者要负责释放该数据.
 	 */
 	void updateRaw(const char* raw);
-
-	/**
-	 * \if English
-	 * set color filter
-	 *
-	 * @param filter subclass of \link wyColorFilter wyColorFilter\endlink, or NULL if you want to
-	 * 		remove filter
-	 * \else
-	 * 设置颜色过滤器
-	 *
-	 * @param filter \link wyColorFilter wyColorFilter\endlink的子类, 或者NULL表示删除当前的过滤器
-	 * \endif
-	 */
-	void setColorFilter(wyColorFilter* filter);
-
-	/**
-	 * \if English
-	 * if current color filter is not NULL, apply this filter to texture. that will cause
-	 * texture changed immediately if texture is created.
-	 * \else
-	 * 如果当前的颜色过滤器不为空, 则应用这个过滤器, 如果OpenGL贴图已经被创建, 这会导致OpenGL贴图立刻发生变化.
-	 * \endif
-	 */
-	void applyFilter();
-
-	/**
-	 * \if English
-	 * apply current color filter to current texture, this will cause texture in
-	 * OpenGL layer changed immediately if texture is created
-	 *
-	 * @param data raw data of image which must be RGBA8888 format
-	 * @param width image pixel width
-	 * @param height image pixel height
-	 * \else
-	 * 对一个\link wyTexture2D wyTexture2D\endlink对象应用颜色矩阵, 这会导致
-	 * 底层的opengl贴图立刻发生变化
-	 *
-	 * @param data 图像原始数据, 必须是RGBA8888格式
-	 * @param width 图像的像素宽度
-	 * @param height 图像的像素高度
-	 * \endif
-	 */
-	void applyFilter(void* data, int width, int height);
 
 public:
 	/**

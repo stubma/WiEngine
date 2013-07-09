@@ -44,17 +44,8 @@ import com.wiyun.engine.opengl.WYGLSurfaceView;
  */
 public class Skeleton extends Activity implements IDirectorLifecycleListener {
 	static {
-		/*
-		 * 这里您可以去掉你不要的库, 但是wiskia, xml2和wiengine是一定要保留的
-		 */
-		System.loadLibrary("wiskia");
-		System.loadLibrary("xml2");
 		System.loadLibrary("wiengine");
 		System.loadLibrary("wiengine_binding");
-		System.loadLibrary("lua");
-		System.loadLibrary("chipmunk");
-		System.loadLibrary("box2d");
-		System.loadLibrary("wisound");
 	}
 	
 	protected WYGLSurfaceView mGLView;

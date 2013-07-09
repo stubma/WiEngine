@@ -49,16 +49,7 @@ public class Skeleton extends Activity implements IDirectorLifecycleListener {
 		 * wiengineskeleton替换成您工程中的库名就行. 如果您在这里删掉了某个库, 务必也
 		 * 修改Android.mk把库的链接去掉
 		 */
-		System.loadLibrary("wiskia");
-		System.loadLibrary("xml2");
 		System.loadLibrary("wiengine");
-		System.loadLibrary("lua");
-		System.loadLibrary("chipmunk");
-		System.loadLibrary("box2d");
-		System.loadLibrary("wisound");
-		System.loadLibrary("json");
-		System.loadLibrary("iap");
-		System.loadLibrary("winetwork");
 		System.loadLibrary("wiengineskeleton");
 	}
 	

@@ -140,12 +140,6 @@ void wyEventDispatcher::processEvent(wyEvent* e) {
 			pthread_cond_signal(e->lte.cond);
 			pthread_mutex_unlock(&gCondMutex);
 			break;
-		case ET_APPLY_COLOR_FILTER:
-			pthread_mutex_lock(&gCondMutex);
-			e->lte.tex->doApplyFilter();
-			pthread_cond_signal(e->lte.cond);
-			pthread_mutex_unlock(&gCondMutex);
-			break;
 		case ET_RUNNABLE:
 			e->r.runnable->run();
 			break;

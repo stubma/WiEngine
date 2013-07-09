@@ -1,6 +1,6 @@
 /*
 ** Lua binding: opengl
-** Generated automatically by tolua++-1.0.92 on Tue Jan 15 13:50:51 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Jul  9 16:48:33 2013.
 */
 
 #ifndef __cplusplus
@@ -59,21 +59,20 @@ static int tolua_collect_wyTextureManager (lua_State* tolua_S)
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"wyLagrangeConfig");
- tolua_usertype(tolua_S,"wyGLTexture2D");
  tolua_usertype(tolua_S,"wyCamera");
  tolua_usertype(tolua_S,"wyFontStyle");
  tolua_usertype(tolua_S,"wyTextureAtlas");
- tolua_usertype(tolua_S,"wyTextureManager");
+ tolua_usertype(tolua_S,"wyBezierConfig");
  tolua_usertype(tolua_S,"wyTexture2D");
  tolua_usertype(tolua_S,"size_t");
  tolua_usertype(tolua_S,"wyQuad2D");
+ tolua_usertype(tolua_S,"wyTextureManager");
  tolua_usertype(tolua_S,"wyColor4B");
- tolua_usertype(tolua_S,"wyBezierConfig");
  tolua_usertype(tolua_S,"wyQuad3D");
  tolua_usertype(tolua_S,"wyEventDispatcher");
  tolua_usertype(tolua_S,"wyObject");
+ tolua_usertype(tolua_S,"wyGLTexture2D");
  tolua_usertype(tolua_S,"wyRect");
- tolua_usertype(tolua_S,"wyColorFilter");
 }
 
 /* method: getZEye of class  wyCamera */
@@ -2346,70 +2345,6 @@ static int tolua_opengl_wyTexture2D_updateRaw00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setColorFilter of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_setColorFilter00
-static int tolua_opengl_wyTexture2D_setColorFilter00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"wyColorFilter",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* self = (wyTexture2D*)  tolua_tousertype(tolua_S,1,0);
-  wyColorFilter* filter = ((wyColorFilter*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setColorFilter'", NULL);
-#endif
-  {
-   self->setColorFilter(filter);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setColorFilter'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: applyFilter of class  wyTexture2D */
-#ifndef TOLUA_DISABLE_tolua_opengl_wyTexture2D_applyFilter00
-static int tolua_opengl_wyTexture2D_applyFilter00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"wyTexture2D",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  wyTexture2D* self = (wyTexture2D*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'applyFilter'", NULL);
-#endif
-  {
-   self->applyFilter();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'applyFilter'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  wyGLTexture2D */
 #ifndef TOLUA_DISABLE_tolua_opengl_wyGLTexture2D_delete00
 static int tolua_opengl_wyGLTexture2D_delete00(lua_State* tolua_S)
@@ -4365,8 +4300,6 @@ TOLUA_API int tolua_opengl_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setFlipX",tolua_opengl_wyTexture2D_setFlipX00);
    tolua_function(tolua_S,"setFlipY",tolua_opengl_wyTexture2D_setFlipY00);
    tolua_function(tolua_S,"updateRaw",tolua_opengl_wyTexture2D_updateRaw00);
-   tolua_function(tolua_S,"setColorFilter",tolua_opengl_wyTexture2D_setColorFilter00);
-   tolua_function(tolua_S,"applyFilter",tolua_opengl_wyTexture2D_applyFilter00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"wyEventDispatcher","wyEventDispatcher","",NULL);
   tolua_beginmodule(tolua_S,"wyEventDispatcher");
