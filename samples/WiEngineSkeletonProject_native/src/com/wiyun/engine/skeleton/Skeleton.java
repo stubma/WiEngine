@@ -44,11 +44,6 @@ import com.wiyun.engine.opengl.WYGLSurfaceView;
  */
 public class Skeleton extends Activity implements IDirectorLifecycleListener {
 	static {
-		/*
-		 * 这里您可以去掉你不要的库, 但是wiskia, xml2和wiengine是一定要保留的, 
-		 * wiengineskeleton替换成您工程中的库名就行. 如果您在这里删掉了某个库, 务必也
-		 * 修改Android.mk把库的链接去掉
-		 */
 		System.loadLibrary("wiengine");
 		System.loadLibrary("wiengineskeleton");
 	}

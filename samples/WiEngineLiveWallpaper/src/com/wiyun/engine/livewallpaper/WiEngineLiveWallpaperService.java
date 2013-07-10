@@ -64,12 +64,7 @@ import com.wiyun.engine.types.WYPoint;
 import com.wiyun.engine.types.WYSize;
 
 public class WiEngineLiveWallpaperService extends GLWallpaperService {
-	/*
-	 * 3.6中必须显式载入native库 
-	 */
 	static {
-		System.loadLibrary("wiskia");
-		System.loadLibrary("xml2");
 		System.loadLibrary("wiengine");
 		System.loadLibrary("wiengine_binding");
 	}

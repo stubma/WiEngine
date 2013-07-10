@@ -80,11 +80,8 @@
 				<include name="**/*.inl"/>
 				<exclude name="**/jni_init.h"/>
 				<exclude name="android_adapter/**"/>
-				<exclude name="cutils/**"/>
-				<exclude name="utils/**"/>
 				<exclude name="expat/**"/>
 				<exclude name="freetype/**"/>
-				<exclude name="skia/**"/>
 				<exclude name="Box2D/binding/**"/>
 				<exclude name="chipmunk/binding/**"/>
 				<exclude name="libmpg123/**"/>

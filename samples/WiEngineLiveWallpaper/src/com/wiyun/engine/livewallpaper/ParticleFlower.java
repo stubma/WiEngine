@@ -72,7 +72,7 @@ public class ParticleFlower extends QuadParticleSystem {
         setStartColorVariance(0.5f, 0.5f, 0.5f, 1f, 0.5f, 0.5f, 0.5f, 0.5f);
         setEndColorVariance(0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f);
 
-        setTexture(Texture2D.make(R.drawable.stars));
+        setTexture(Texture2D.make("stars.png"));
 
         // additive
         setBlendAdditive(true);
