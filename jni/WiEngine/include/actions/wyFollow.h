@@ -65,6 +65,13 @@ private:
 
 	/// track area bottom boundary
 	float m_bottomBoundary;
+    
+    // smoothing history
+    wyPoint p;
+    
+    // smoothing factor
+    float smoothing;
+    
 
 protected:
 	/**
@@ -73,8 +80,9 @@ protected:
 	 * @param fNode node to follow
 	 * @param worldBoundary rectangle of world, if not set, \c fNode will always be center
 	 * 		in screen
+     * @param smoothing fraction of old value to use in [0.0f, 1.0f]
 	 */
-	wyFollow(wyNode* fNode, wyRect worldBoundary);
+	wyFollow(wyNode* fNode, wyRect worldBoundary, float smoothing);
 
 public:
 	/**
@@ -85,7 +93,9 @@ public:
 	 * 		in screen
 	 * @return \link wyFollow wyFollow\endlink
 	 */
-	static wyFollow* make(wyNode* fNode, wyRect worldBoundary = wyrZero);
+	static wyFollow* make(wyNode* fNode, wyRect worldBoundary = wyrZero, float smoothing = 0.0f);
+    
+	static wyFollow* make(wyNode* fNode, float smoothing = 0.0f);
 
 	virtual ~wyFollow();
 

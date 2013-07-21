@@ -31,13 +31,19 @@
 #include "wyGlobal.h"
 #include "wyLog.h"
 
-wyFollow* wyFollow::make(wyNode* fNode, wyRect worldBoundary) {
-	wyFollow* a = WYNEW wyFollow(fNode, worldBoundary);
+wyFollow* wyFollow::make(wyNode* fNode, wyRect worldBoundary, float smoothing) {
+	wyFollow* a = WYNEW wyFollow(fNode, worldBoundary, smoothing);
 	return (wyFollow*)a->autoRelease();
 }
 
-wyFollow::wyFollow(wyNode* fNode, wyRect rect) {
-	m_followedNode = fNode;
+wyFollow* wyFollow::make(wyNode* fNode, float smoothing) {
+	wyFollow* a = WYNEW wyFollow(fNode, wyrZero, smoothing);
+	return (wyFollow*)a->autoRelease();
+}
+
+wyFollow::wyFollow(wyNode* fNode, wyRect rect, float smoothing)
+    : m_followedNode(fNode)
+    , smoothing(smoothing) {
 	fNode->retain();
 
 	m_fullScreenSize = wyp(wyDevice::winWidth, wyDevice::winHeight);
@@ -76,12 +82,15 @@ wyFollow::~wyFollow() {
 }
 
 void wyFollow::step(float t) {
+    wyPoint q = wyp(m_followedNode -> getPositionX(), m_followedNode -> getPositionY());
+    q = m_target -> worldToNodeSpace(m_followedNode -> getParent() -> nodeToWorldSpace(q));
+    p = wypAdd(wypMul2(q, 1 - smoothing), wypMul2(p, smoothing));
 	if (m_boundarySet) {
 		if(m_boundaryFullyCovered)
 			return;
 
-		float tempx = m_halfScreenSize.x - m_followedNode->getPositionX();
-		float tempy = m_halfScreenSize.y - m_followedNode->getPositionY();
+		float tempx = m_halfScreenSize.x - p.x;
+		float tempy = m_halfScreenSize.y - p.y;
 
 		if (m_leftBoundary > m_rightBoundary) {
 			tempx = tempx < m_rightBoundary ? m_rightBoundary : tempx < m_leftBoundary? tempx : m_leftBoundary;
@@ -97,7 +106,7 @@ void wyFollow::step(float t) {
 
 		m_target->setPosition(tempx, tempy);
 	} else {
-		m_target->setPosition(m_halfScreenSize.x - m_followedNode->getPositionX(), m_halfScreenSize.y - m_followedNode->getPositionY());
+		m_target->setPosition(m_halfScreenSize.x - p.x, m_halfScreenSize.y - p.y);
 	}
 }
 
