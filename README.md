@@ -1,6 +1,12 @@
 !!!!NOTE!!!!
 -----------------------------------
-This project is lack of maintenance, please use cocos2d-x. Some features of WiEngine are ported to cocos2d-x, check out repositories under my name.
+This project is lack of maintenance, please use cocos2d-x. Some features of WiEngine are ported to cocos2d-x, 
+check out repositories under my name:
+<a href="https://github.com/stubma/cocos2dx-common">https://github.com/stubma/cocos2dx-common</a>
+<a href="https://github.com/stubma/cocos2dx-json">https://github.com/stubma/cocos2dx-json</a>
+<a href="https://github.com/stubma/cocos2dx-db">https://github.com/stubma/cocos2dx-db</a>
+<a href="https://github.com/stubma/cocos2dx-anim">https://github.com/stubma/cocos2dx-anim</a>
+
 
 <img src="http://blog.wiyun.com/wp-content/uploads/2012/03/02.png"/>
 
