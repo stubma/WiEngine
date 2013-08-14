@@ -317,7 +317,7 @@ char* wyGLTexture2D::loadImage(char* raw, size_t len, float scale) {
 		}
 
 		// scale
-		char* scaled = wyUtils::scaleImage(rgba, w, h, scale, scale);
+		char* scaled = (scale == 1) ? rgba : wyUtils::scaleImage(rgba, w, h, scale, scale);
 		if(rgba != scaled) {
 			wyFree(rgba);
 			rgba = scaled;
