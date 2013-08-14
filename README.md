@@ -1,3 +1,7 @@
+!!!!NOTE!!!!
+-----------------------------------
+This project is lack of maintenance, please use cocos2d-x. Some features of WiEngine are ported to cocos2d-x, check out repositories under my name.
+
 <img src="http://blog.wiyun.com/wp-content/uploads/2012/03/02.png"/>
 
 WiEngine
