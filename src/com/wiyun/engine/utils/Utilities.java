@@ -404,6 +404,10 @@ public class Utilities {
 	}
 	
 	public static byte[] createLabelBitmap(String text, float fontSize, String fontPath, boolean isFile, float w, int alignment) {
+		// avoid zero bitmap
+		if(TextUtils.isEmpty(text))
+			text = " ";
+		
 		// create paint
 		Paint paint = new TextPaint();
 		paint.setAntiAlias(true);
@@ -487,6 +491,10 @@ public class Utilities {
 	}
 	
 	public static byte[] createLabelBitmap(String text, float fontSize, int style, String fontName, float w, int alignment) {
+		// avoid zero bitmap
+		if(TextUtils.isEmpty(text))
+			text = " ";
+		
 		// create paint
 		Paint paint = new TextPaint();
 		paint.setAntiAlias(true);
