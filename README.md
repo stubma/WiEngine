@@ -1,7 +1,7 @@
 !!!!NOTE!!!!
 -----------------------------------
 This project is not in development and no more maintenance, please use cocos2d-x. Do NOT ping me if you have problem. Some features of WiEngine are ported to cocos2d-x, 
-check out repositories under my name:
+check out this repositories:
 
 <a href="https://github.com/stubma/cocos2dx-better">https://github.com/stubma/cocos2dx-better</a>
 
